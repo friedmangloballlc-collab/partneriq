@@ -253,6 +253,7 @@ export default function AIFeatures() {
           <TabsTrigger value="revenue">Revenue Optimizer</TabsTrigger>
           <TabsTrigger value="deallab">Deal Structure Lab</TabsTrigger>
           <TabsTrigger value="contentfit">Content-Brand Fit</TabsTrigger>
+          <TabsTrigger value="pitchdeck">Pitch Decks</TabsTrigger>
           <TabsTrigger value="autonomous">Autonomous Mode</TabsTrigger>
         </TabsList>
 
