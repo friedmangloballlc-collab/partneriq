@@ -367,6 +367,324 @@ export default function SystemArchitecture() {
           </Card>
         </TabsContent>
 
+        {/* Fault Tolerance tab */}
+        <TabsContent value="fault" className="mt-4 space-y-6">
+          {/* Retry Strategies */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <RotateCcw className="w-4 h-4 text-amber-500" /> Retry Strategy by Failure Type
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      {["Failure Type","Detection","Strategy","Max Retries","Backoff"].map(h => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {RETRY_STRATEGIES.map(r => (
+                      <tr key={r.type} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-2">
+                            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${r.color}`} />
+                            <span className="text-xs font-medium text-slate-800">{r.type}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{r.detection}</td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{r.strategy}</td>
+                        <td className="px-4 py-3 text-center">
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.maxRetries === 0 ? "bg-slate-100 text-slate-500" : "bg-indigo-100 text-indigo-700"}`}>{r.maxRetries}</span>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-500 font-mono">{r.backoff}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Circuit Breakers */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <Shield className="w-4 h-4 text-emerald-500" /> Circuit Breaker Configuration
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      {["Dependency","Failure Threshold","Recovery","Health Check","Fallback Behavior"].map(h => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {CIRCUIT_BREAKERS.map(cb => (
+                      <tr key={cb.dep} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3">
+                          <span className={`text-xs font-semibold ${cb.color}`}>{cb.dep}</span>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-600 font-mono">{cb.threshold}</td>
+                        <td className="px-4 py-3">
+                          <span className="text-xs font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded">{cb.recovery}</span>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-500 font-mono">{cb.check}</td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{cb.fallback}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DLQ */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <XCircle className="w-4 h-4 text-red-500" /> Dead Letter Queue Handling
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {DLQ_EVENTS.map(d => {
+                  const sev = { critical: "bg-red-100 text-red-700 border-red-200", high: "bg-orange-100 text-orange-700 border-orange-200", medium: "bg-amber-100 text-amber-700 border-amber-200", low: "bg-slate-100 text-slate-600 border-slate-200" }[d.severity];
+                  return (
+                    <div key={d.event} className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 border border-slate-200">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-slate-800 mb-1">{d.event}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                          <p className="text-[11px] text-slate-500"><span className="font-medium text-slate-600">Auto:</span> {d.auto}</p>
+                          <p className="text-[11px] text-slate-500"><span className="font-medium text-slate-600">Human:</span> {d.human}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                        <Badge variant="outline" className={`text-[10px] ${sev}`}>{d.severity}</Badge>
+                        <span className="text-[10px] text-slate-400 font-mono">{d.sla}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Concurrency tab */}
+        <TabsContent value="concurrency" className="mt-4 space-y-6">
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <GitBranch className="w-4 h-4 text-indigo-500" /> Parallel Processing Patterns
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {PARALLEL_PATTERNS.map((p, i) => {
+                  const colors = ["bg-indigo-50 border-indigo-200","bg-violet-50 border-violet-200","bg-blue-50 border-blue-200","bg-emerald-50 border-emerald-200","bg-amber-50 border-amber-200","bg-rose-50 border-rose-200"];
+                  const textColors = ["text-indigo-700","text-violet-700","text-blue-700","text-emerald-700","text-amber-700","text-rose-700"];
+                  return (
+                    <div key={p.pattern} className={`p-4 rounded-xl border ${colors[i % colors.length]}`}>
+                      <p className={`text-sm font-bold mb-1 ${textColors[i % textColors.length]}`}>{p.pattern}</p>
+                      <p className="text-xs text-slate-600 mb-2">{p.useCase}</p>
+                      <p className="text-[11px] text-slate-500 mb-1"><span className="font-medium">Impl:</span> {p.impl}</p>
+                      <p className="text-[11px] text-slate-500 italic">{p.example}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <Lock className="w-4 h-4 text-violet-500" /> Distributed Locking (Redis Redlock)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      {["Lock Pattern","TTL","Retry","Purpose"].map(h => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {REDIS_LOCKS.map(l => (
+                      <tr key={l.lock} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3"><code className="text-xs font-mono text-violet-700 bg-violet-50 px-1.5 py-0.5 rounded">{l.lock}</code></td>
+                        <td className="px-4 py-3"><span className="text-xs font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded">{l.ttl}</span></td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{l.retry}</td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{l.purpose}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Health & Alerts tab */}
+        <TabsContent value="health" className="mt-4 space-y-6">
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <Activity className="w-4 h-4 text-emerald-500" /> Health Check Protocol
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      {["Check Type","Frequency","Timeout","Failure Threshold","Action on Failure"].map(h => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {HEALTH_CHECKS.map(h => (
+                      <tr key={h.type} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-800">{h.type}</td>
+                        <td className="px-4 py-3 text-xs font-mono text-slate-600">{h.freq}</td>
+                        <td className="px-4 py-3 text-xs font-mono text-slate-600">{h.timeout}</td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{h.threshold}</td>
+                        <td className="px-4 py-3 text-xs text-slate-600">{h.action}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <Bell className="w-4 h-4 text-red-500" /> Alerting Rules
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {ALERT_RULES.map(a => {
+                  const sevColor = { Critical: "bg-red-100 text-red-700 border-red-200", High: "bg-orange-100 text-orange-700 border-orange-200", Medium: "bg-amber-100 text-amber-700 border-amber-200", Low: "bg-slate-100 text-slate-600 border-slate-200" }[a.severity];
+                  return (
+                    <div key={a.alert} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-200">
+                      <code className="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-1 rounded w-40 flex-shrink-0">{a.alert}</code>
+                      <div className="flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-3 gap-1">
+                        <p className="text-[11px] text-slate-600">{a.condition}</p>
+                        <p className="text-[11px] text-slate-500">{a.channels}</p>
+                        <p className="text-[11px] text-slate-600">{a.response}</p>
+                      </div>
+                      <Badge variant="outline" className={`text-[10px] flex-shrink-0 ${sevColor}`}>{a.severity}</Badge>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* State & Recovery tab */}
+        <TabsContent value="state" className="mt-4 space-y-6">
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <HardDrive className="w-4 h-4 text-blue-500" /> State Storage Strategy
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      {["State Type","Storage","TTL","Consistency","Backup"].map(h => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {STATE_STORAGE.map(s => {
+                      const storageColor = { Redis: "bg-red-50 text-red-700", PostgreSQL: "bg-blue-50 text-blue-700", Kafka: "bg-slate-100 text-slate-700", pgvector: "bg-indigo-50 text-indigo-700", Neo4j: "bg-emerald-50 text-emerald-700" }[s.storage] || "bg-slate-100 text-slate-600";
+                      return (
+                        <tr key={s.type} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-4 py-3 text-xs font-medium text-slate-800">{s.type}</td>
+                          <td className="px-4 py-3"><span className={`text-xs font-semibold px-2 py-0.5 rounded ${storageColor}`}>{s.storage}</span></td>
+                          <td className="px-4 py-3 text-xs font-mono text-slate-600">{s.ttl}</td>
+                          <td className="px-4 py-3 text-xs text-slate-600">{s.consistency}</td>
+                          <td className="px-4 py-3 text-xs text-slate-500">{s.backup}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <Timer className="w-4 h-4 text-violet-500" /> Disaster Recovery Scenarios
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {DR_SCENARIOS.map(d => {
+                  const sevColor = { critical: "bg-red-100 text-red-700", high: "bg-orange-100 text-orange-700", medium: "bg-amber-100 text-amber-700", low: "bg-slate-100 text-slate-500" }[d.severity];
+                  return (
+                    <div key={d.scenario} className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-xs font-semibold text-slate-800">{d.scenario}</p>
+                        <Badge variant="outline" className={`text-[10px] ${sevColor}`}>{d.severity}</Badge>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div><p className="text-[10px] text-slate-400 uppercase font-semibold">RTO</p><p className="text-xs font-mono text-emerald-700">{d.rto}</p></div>
+                        <div><p className="text-[10px] text-slate-400 uppercase font-semibold">RPO</p><p className="text-xs font-mono text-blue-700">{d.rpo}</p></div>
+                        <div><p className="text-[10px] text-slate-400 uppercase font-semibold">Detection</p><p className="text-xs text-slate-600">{d.detection}</p></div>
+                        <div><p className="text-[10px] text-slate-400 uppercase font-semibold">Recovery</p><p className="text-xs text-slate-600">{d.recovery}</p></div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Data Consistency Guarantees
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {CONSISTENCY_GUARANTEES.map(c => (
+                  <div key={c.op} className="p-3 rounded-lg border border-slate-200 bg-white">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <p className="text-xs font-semibold text-slate-800">{c.op}</p>
+                      <Badge variant="outline" className={`text-[10px] flex-shrink-0 ${c.color}`}>{c.guarantee}</Badge>
+                    </div>
+                    <p className="text-[11px] text-slate-500">{c.mechanism}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Principles tab */}
         <TabsContent value="principles" className="mt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
