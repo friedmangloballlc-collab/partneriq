@@ -66,6 +66,7 @@ import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
+import SystemArchitecture from './pages/SystemArchitecture';
 import __Layout from './Layout.jsx';
 
 
@@ -89,6 +90,7 @@ export const PAGES = {
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
     "CampaignBriefGenerator": CampaignBriefGenerator,
+    "SystemArchitecture": SystemArchitecture,
 }
 
 export const pagesConfig = {
