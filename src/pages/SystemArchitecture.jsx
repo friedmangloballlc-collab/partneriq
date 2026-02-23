@@ -75,6 +75,119 @@ const PRINCIPLES = [
   { title: "Distributed Tracing",   icon: GitBranch,   desc: "Correlation IDs track requests across agents",                  benefit: "End-to-end debugging",                 color: "text-cyan-500 bg-cyan-50" },
 ];
 
+// ── Fault Tolerance ──────────────────────────────────────────────────────────
+const RETRY_STRATEGIES = [
+  { type: "Network timeout",      detection: "Connection timeout",     strategy: "Exponential backoff",        maxRetries: 5,  backoff: "1s, 2s, 4s, 8s, 16s",           color: "bg-amber-500" },
+  { type: "HTTP 5xx",             detection: "Server error response",  strategy: "Exponential backoff",        maxRetries: 5,  backoff: "1s, 2s, 4s, 8s, 16s",           color: "bg-orange-500" },
+  { type: "Rate limited (429)",   detection: "Too many requests",      strategy: "Fixed delay",                maxRetries: 10, backoff: "Wait for Retry-After header",    color: "bg-yellow-500" },
+  { type: "Connection refused",   detection: "Service unavailable",    strategy: "Circuit breaker + retry",    maxRetries: 3,  backoff: "30s between attempts",           color: "bg-red-500" },
+  { type: "Timeout",              detection: "Processing too slow",    strategy: "Immediate retry once",       maxRetries: 2,  backoff: "No backoff",                     color: "bg-rose-500" },
+  { type: "Invalid response",     detection: "Parse error",            strategy: "No retry, log + DLQ",        maxRetries: 0,  backoff: "N/A",                            color: "bg-slate-400" },
+  { type: "Business logic error", detection: "Validation failure",     strategy: "No retry, send to DLQ",      maxRetries: 0,  backoff: "N/A",                            color: "bg-slate-400" },
+  { type: "Authentication error", detection: "401/403 response",       strategy: "Refresh token, retry once",  maxRetries: 1,  backoff: "Immediate after refresh",        color: "bg-blue-500" },
+];
+
+const CIRCUIT_BREAKERS = [
+  { dep: "YouTube API",        threshold: "5 in 60s", recovery: "120s", check: "GET /channels?part=id",  fallback: "Return cached data, queue retry",  color: "text-red-600" },
+  { dep: "Instagram API",      threshold: "5 in 60s", recovery: "120s", check: "GET /me",                fallback: "Return cached data, queue retry",  color: "text-pink-600" },
+  { dep: "TikTok API",         threshold: "5 in 60s", recovery: "120s", check: "GET /user/info",         fallback: "Return cached data, queue retry",  color: "text-slate-700" },
+  { dep: "Twitch API",         threshold: "5 in 60s", recovery: "120s", check: "GET /users",             fallback: "Return cached data, queue retry",  color: "text-violet-600" },
+  { dep: "Claude API",         threshold: "3 in 30s", recovery: "60s",  check: "Models list endpoint",   fallback: "Queue request, alert ops",         color: "text-amber-700" },
+  { dep: "OpenAI API",         threshold: "3 in 30s", recovery: "60s",  check: "Models list endpoint",   fallback: "Use Claude as fallback",           color: "text-emerald-700" },
+  { dep: "PostgreSQL Primary", threshold: "3 in 10s", recovery: "30s",  check: "SELECT 1",               fallback: "Failover to read replica",         color: "text-blue-600" },
+  { dep: "PostgreSQL Replica", threshold: "5 in 10s", recovery: "15s",  check: "SELECT 1",               fallback: "Use another replica",             color: "text-blue-500" },
+  { dep: "Redis Primary",      threshold: "5 in 10s", recovery: "15s",  check: "PING",                   fallback: "Direct DB queries (degraded)",     color: "text-red-500" },
+  { dep: "Elasticsearch",      threshold: "5 in 30s", recovery: "60s",  check: "Cluster health",         fallback: "DB queries (slower search)",       color: "text-yellow-600" },
+  { dep: "Neo4j",              threshold: "3 in 30s", recovery: "60s",  check: "RETURN 1",               fallback: "Skip graph enrichment",            color: "text-emerald-600" },
+  { dep: "S3",                 threshold: "3 in 30s", recovery: "60s",  check: "HEAD bucket",            fallback: "Queue upload, retry later",        color: "text-orange-600" },
+];
+
+const DLQ_EVENTS = [
+  { event: "Message lands in DLQ",       auto: "Alert to ops Slack channel",         human: "Investigate root cause",         sla: "4 hours",    severity: "medium" },
+  { event: "Same message_id 3x in DLQ",  auto: "Escalate to on-call engineer",       human: "Root cause analysis required",   sla: "2 hours",    severity: "high" },
+  { event: "> 100 DLQ messages/hour",    auto: "Page on-call, pause affected agent", human: "Immediate investigation",         sla: "30 minutes", severity: "critical" },
+  { event: "> 500 DLQ messages/hour",    auto: "Auto-pause all related agents",      human: "Incident declared",              sla: "Immediate",  severity: "critical" },
+  { event: "DLQ message > 24 hours old", auto: "Daily digest to team lead",          human: "Resolve or archive decision",    sla: "48 hours",   severity: "low" },
+  { event: "DLQ message > 7 days old",   auto: "Auto-archive with full context",     human: "Review archived items weekly",   sla: "Weekly",     severity: "low" },
+];
+
+// ── Concurrency ───────────────────────────────────────────────────────────────
+const PARALLEL_PATTERNS = [
+  { pattern: "Fan-Out",             useCase: "One trigger → multiple parallel tasks",  impl: "Kafka topic with multiple consumer groups", example: "New profile → scoring + embedding + graph" },
+  { pattern: "Fan-In",              useCase: "Multiple results → single aggregation",  impl: "Correlation ID joins in aggregator",         example: "Simulation + graph → combined match result" },
+  { pattern: "Scatter-Gather",      useCase: "Query multiple sources, combine",        impl: "Async calls with timeout, partial OK",       example: "Search across all social platforms" },
+  { pattern: "Pipeline",            useCase: "Sequential processing stages",           impl: "Chained topics with ordering",               example: "Scrape → parse → validate → store" },
+  { pattern: "Competing Consumers", useCase: "Load balance across instances",          impl: "Kafka consumer groups",                      example: "10 scraper instances share platform load" },
+  { pattern: "Saga",                useCase: "Distributed transaction",                impl: "Choreography with compensating actions",     example: "Deal creation across multiple services" },
+];
+
+const REDIS_LOCKS = [
+  { lock: "profile:update:{talent_id}",       ttl: "30s",    retry: "3x / 100ms delay", purpose: "Prevent concurrent profile writes" },
+  { lock: "deck:generate:{match_id}",         ttl: "5 min",  retry: "No retry",         purpose: "One deck generation per match" },
+  { lock: "outreach:send:{talent_id}:{type}", ttl: "1 hour", retry: "No retry",         purpose: "Rate limit outreach to same talent" },
+  { lock: "approval:process:{item_id}",       ttl: "60s",    retry: "3x / 500ms delay", purpose: "Single approval processing" },
+  { lock: "scrape:platform:{platform}:{id}",  ttl: "10 min", retry: "No retry",         purpose: "Prevent duplicate API calls" },
+  { lock: "embedding:generate:{talent_id}",   ttl: "15 min", retry: "No retry",         purpose: "Prevent duplicate embeddings" },
+  { lock: "simulation:run:{match_id}",        ttl: "30 min", retry: "No retry",         purpose: "Prevent duplicate simulations" },
+];
+
+// ── Health & Monitoring ───────────────────────────────────────────────────────
+const HEALTH_CHECKS = [
+  { type: "Liveness",           freq: "Every 10s",  timeout: "5s",   threshold: "3 consecutive",  action: "Restart container" },
+  { type: "Readiness",          freq: "Every 5s",   timeout: "3s",   threshold: "2 consecutive",  action: "Remove from load balancer" },
+  { type: "Startup",            freq: "Every 5s",   timeout: "60s",  threshold: "12 checks",      action: "Kill and reschedule pod" },
+  { type: "Dependency Health",  freq: "Every 30s",  timeout: "10s",  threshold: "2 consecutive",  action: "Open circuit breaker" },
+  { type: "Queue Depth",        freq: "Every 10s",  timeout: "N/A",  threshold: "> threshold",    action: "Scale up consumers" },
+  { type: "Processing Latency", freq: "Per message",timeout: "N/A",  threshold: "p99 > SLA",      action: "Alert and investigate" },
+  { type: "Memory Usage",       freq: "Every 30s",  timeout: "N/A",  threshold: "> 85% limit",    action: "Alert, prepare for OOM" },
+  { type: "Error Rate",         freq: "Every 60s",  timeout: "N/A",  threshold: "> 5%",           action: "Alert, investigate" },
+];
+
+const ALERT_RULES = [
+  { alert: "AgentDown",           condition: "No heartbeat 30s",     severity: "Critical", channels: "PagerDuty, Slack", response: "Auto-restart, page on-call" },
+  { alert: "HighErrorRate",       condition: "> 5% failing",         severity: "High",     channels: "Slack, Email",     response: "Investigate DLQ" },
+  { alert: "QueueBackup",         condition: "> 10K messages",       severity: "Medium",   channels: "Slack",            response: "Scale up consumers" },
+  { alert: "CircuitOpen",         condition: "Open > 5 min",         severity: "High",     channels: "Slack, Email",     response: "Check dependency" },
+  { alert: "SlowProcessing",      condition: "p99 > SLA",            severity: "Medium",   channels: "Slack",            response: "Profile and optimize" },
+  { alert: "DLQGrowing",          condition: "> 100 in DLQ",         severity: "High",     channels: "Slack, Email",     response: "Manual investigation" },
+  { alert: "MemoryHigh",          condition: "> 85% memory",         severity: "Medium",   channels: "Slack",            response: "Monitor for OOM" },
+  { alert: "DependencyDegraded",  condition: "Fallback active",      severity: "Low",      channels: "Slack",            response: "Monitor recovery" },
+];
+
+// ── State & Recovery ──────────────────────────────────────────────────────────
+const STATE_STORAGE = [
+  { type: "Agent task state",    storage: "Redis",      ttl: "1 hour",    consistency: "Eventual",         backup: "None (ephemeral)" },
+  { type: "Idempotency keys",    storage: "Redis",      ttl: "24 hours",  consistency: "Strong (SETNX)",   backup: "None (ephemeral)" },
+  { type: "Distributed locks",   storage: "Redis",      ttl: "Varies",    consistency: "Strong (Redlock)", backup: "None (ephemeral)" },
+  { type: "Rate limit counters", storage: "Redis",      ttl: "Per window",consistency: "Strong (INCR)",    backup: "None (ephemeral)" },
+  { type: "Session data",        storage: "Redis",      ttl: "30 min",    consistency: "Eventual",         backup: "None (ephemeral)" },
+  { type: "Processing results",  storage: "PostgreSQL", ttl: "Permanent", consistency: "Strong (ACID)",    backup: "Daily + WAL" },
+  { type: "Audit logs",          storage: "PostgreSQL", ttl: "7 years",   consistency: "Strong (ACID)",    backup: "Daily + WAL" },
+  { type: "Message history",     storage: "Kafka",      ttl: "Per topic", consistency: "Strong (ordered)", backup: "3x replication" },
+  { type: "Embeddings",          storage: "pgvector",   ttl: "Permanent", consistency: "Strong",           backup: "Daily + WAL" },
+  { type: "Graph data",          storage: "Neo4j",      ttl: "Permanent", consistency: "Causal",           backup: "Daily snapshot" },
+];
+
+const DR_SCENARIOS = [
+  { scenario: "Single agent crash",       rto: "< 30s",   rpo: "0",       detection: "Heartbeat timeout",      recovery: "K8s auto-restart, task reassigned",         severity: "low" },
+  { scenario: "Agent type all down",      rto: "< 2 min", rpo: "0",       detection: "No consumers for topic", recovery: "K8s reschedule, alert ops",                 severity: "medium" },
+  { scenario: "PostgreSQL primary down",  rto: "< 1 min", rpo: "< 1s",    detection: "Connection failures",    recovery: "Auto-promote replica, update DNS",          severity: "high" },
+  { scenario: "Redis cluster failure",    rto: "< 5 min", rpo: "N/A",     detection: "Connection timeouts",    recovery: "Failover to backup, degraded mode",         severity: "high" },
+  { scenario: "Kafka broker failure",     rto: "< 1 min", rpo: "0",       detection: "Consumer rebalance",     recovery: "Automatic rebalance to other brokers",      severity: "medium" },
+  { scenario: "Single AZ outage",         rto: "< 5 min", rpo: "< 1 min", detection: "Health check failures",  recovery: "Auto-failover to other AZs",               severity: "high" },
+  { scenario: "Full region outage",       rto: "< 30 min",rpo: "< 5 min", detection: "External monitoring",    recovery: "DNS failover to DR region",                severity: "critical" },
+];
+
+const CONSISTENCY_GUARANTEES = [
+  { op: "Profile update",          guarantee: "Exactly-once",             mechanism: "Idempotency key + optimistic locking",    color: "bg-emerald-100 text-emerald-700" },
+  { op: "Match calculation",       guarantee: "At-least-once, idempotent",mechanism: "Cached results for same inputs",          color: "bg-blue-100 text-blue-700" },
+  { op: "Pitch deck generation",   guarantee: "Exactly-once per match",   mechanism: "Distributed lock + idempotency",          color: "bg-emerald-100 text-emerald-700" },
+  { op: "Approval processing",     guarantee: "Exactly-once",             mechanism: "DB transaction with row lock",            color: "bg-emerald-100 text-emerald-700" },
+  { op: "Email sending",           guarantee: "At-most-once",             mechanism: "Deduplication before send",               color: "bg-violet-100 text-violet-700" },
+  { op: "Metrics update",          guarantee: "Eventually consistent",    mechanism: "Last-write-wins with timestamps",          color: "bg-amber-100 text-amber-700" },
+  { op: "Graph update",            guarantee: "Eventually consistent",    mechanism: "Conflict resolution by timestamp",         color: "bg-amber-100 text-amber-700" },
+];
+
 const totalInstances = AGENTS.reduce((s, a) => s + a.instances, 0);
 
 function AgentCard({ agent }) {
