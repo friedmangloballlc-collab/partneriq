@@ -252,10 +252,14 @@ export default function SystemArchitecture() {
       </div>
 
       <Tabs defaultValue="agents">
-        <TabsList className="bg-slate-100">
+        <TabsList className="bg-slate-100 flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="agents">AI Agents</TabsTrigger>
           <TabsTrigger value="topics">Kafka Topics</TabsTrigger>
           <TabsTrigger value="schema">Message Schema</TabsTrigger>
+          <TabsTrigger value="fault">Fault Tolerance</TabsTrigger>
+          <TabsTrigger value="concurrency">Concurrency</TabsTrigger>
+          <TabsTrigger value="health">Health & Alerts</TabsTrigger>
+          <TabsTrigger value="state">State & Recovery</TabsTrigger>
           <TabsTrigger value="principles">Principles</TabsTrigger>
         </TabsList>
 
