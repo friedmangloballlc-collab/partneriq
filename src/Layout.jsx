@@ -66,6 +66,7 @@ const roleNavItems = {
   ],
   agency: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
