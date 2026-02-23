@@ -305,8 +305,9 @@ export default function Onboarding() {
           })}
         </div>
 
-        {/* ── STEP 1: Account Type ── */}
-         {step === 1 && (
+        <>
+          {/* ── STEP 1: Account Type ── */}
+          {step === 1 && (
            <div className="space-y-4 animate-fade-in-up">
              <h2 className="text-2xl font-bold text-slate-900">What type of account do you need?</h2>
              <p className="text-slate-600 mb-6">Select your role to personalize your experience</p>
