@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Filter, Plus, Briefcase, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import MarketplaceFilters from "@/components/marketplace/MarketplaceFilters";
-import OpportunityCard from "@/components/marketplace/OpportunityCard";
+import MarketplaceFilters from "@/components/marketplace/MarketplaceFilters.jsx";
+import OpportunityCard from "@/components/marketplace/OpportunityCard.jsx";
 
 export default function Marketplace() {
   const [user, setUser] = useState(null);
