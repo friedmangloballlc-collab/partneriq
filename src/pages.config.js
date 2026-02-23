@@ -68,6 +68,7 @@ import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
+import Notifications from './pages/Notifications';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +94,7 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
+    "Notifications": Notifications,
 }
 
 export const pagesConfig = {
