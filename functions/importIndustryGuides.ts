@@ -15,21 +15,21 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'fileUrl is required' }, { status: 400 });
     }
 
-    // Extract data from the uploaded file
+    // Extract data from the uploaded file - using exact Excel column names
     const extractResult = await base44.integrations.Core.ExtractDataFromUploadedFile({
       file_url: fileUrl,
       json_schema: {
         type: "object",
         properties: {
-          industry: { type: "string" },
-          sector: { type: "string" },
-          priority_tier_1_events: { type: "string" },
-          tier_2_events: { type: "string" },
-          heritage_awareness_months: { type: "string" },
-          key_conferences: { type: "string" },
-          best_demographics: { type: "string" },
-          budget_allocation: { type: "string" },
-          activation_strategies: { type: "string" }
+          Industry: { type: "string" },
+          Sector: { type: "string" },
+          "Priority Tier 1 Events (Must-Attend)": { type: "string" },
+          "Tier 2 Events (High Value)": { type: "string" },
+          "Heritage/Awareness Months": { type: "string" },
+          "Key Conferences/Trade Shows": { type: "string" },
+          "Best Demographics": { type: "string" },
+          "Budget Allocation Guidance": { type: "string" },
+          "Top Activation Strategies": { type: "string" }
         }
       }
     });
