@@ -8,8 +8,9 @@ import { Label } from "@/components/ui/label";
 import {
   Zap, Building2, Users, Briefcase, ArrowRight, Loader2,
   CheckCircle2, CheckSquare, Star, Sparkles, Shield, Lock,
-  Brain, TrendingUp, Layers, Bell, ChevronDown
+  Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 const ROLES = [
   {
@@ -109,6 +110,16 @@ export default function Onboarding() {
   const [title, setTitle] = useState("");
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
+
+  const { data: rateBenchmarks = [] } = useQuery({
+    queryKey: ["rateBenchmarks"],
+    queryFn: () => base44.entities.RateBenchmark.list(),
+  });
+
+  const { data: roiBenchmarks = [] } = useQuery({
+    queryKey: ["roiBenchmarks"],
+    queryFn: () => base44.entities.ROIBenchmark.list(),
+  });
 
   useEffect(() => {
     base44.auth.me().then(u => {
@@ -223,6 +234,66 @@ export default function Onboarding() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* ── MARKET INTELLIGENCE PREVIEW ── */}
+      <div className="relative max-w-4xl mx-auto px-6 py-14">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-4">
+            <BarChart3 className="w-3.5 h-3.5 text-blue-400" />
+            <span className="text-xs font-semibold text-blue-300 uppercase tracking-wider">Market Insights</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            Industry Rate Benchmarks
+          </h2>
+          <p className="text-slate-400 text-sm max-w-xl mx-auto">
+            Real market data to power your partnership valuations and ROI projections.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          {/* Rate Benchmarks */}
+          {rateBenchmarks.slice(0, 3).map((tier) => (
+            <div key={tier.id} className="bg-white/5 border border-white/10 rounded-2xl p-4">
+              <p className="font-semibold text-white capitalize text-sm mb-3">{tier.tier} Tier</p>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">Post</span>
+                  <span className="text-emerald-400">${tier.sponsored_post_min?.toLocaleString()}-${tier.sponsored_post_max?.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">Brand Deal</span>
+                  <span className="text-blue-400">${tier.brand_deal_min?.toLocaleString()}-${tier.brand_deal_max?.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">Ambassador/yr</span>
+                  <span className="text-purple-400">${tier.ambassador_annual_min?.toLocaleString()}-${tier.ambassador_annual_max?.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* ROI Benchmarks */}
+          {roiBenchmarks.slice(0, 2).map((roi) => (
+            <div key={roi.id} className="bg-white/5 border border-white/10 rounded-2xl p-4">
+              <p className="font-semibold text-white capitalize text-sm mb-3">{roi.deal_type.replace(/_/g, " ")}</p>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">Median ROI</span>
+                  <span className="text-indigo-400 font-bold">{roi.median_roi}x</span>
+                </div>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400">Top Quartile</span>
+                  <span className="text-emerald-400">{roi.top_quartile_roi}x+</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <p className="text-slate-400 text-xs">Access complete market intelligence after signup</p>
         </div>
       </div>
 

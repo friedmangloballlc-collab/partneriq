@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
@@ -31,7 +32,6 @@ const roleNavItems = {
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
