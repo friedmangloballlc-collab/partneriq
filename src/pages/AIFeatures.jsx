@@ -119,6 +119,50 @@ const FIT_DIMENSIONS = [
   { dim: "Brand Safety",        method: "Historical content scan, controversy detection",        output: "Risk probability, incident history" },
 ];
 
+// ── Section 16: Pitch Deck Generation ────────────────────────────────────────
+const DECK_TRIGGERS = [
+  { trigger: "Match score > 80",        deckType: "Brand-to-Talent pitch",   sections: "All 12 sections",             genTime: "< 5 minutes",  autoQueue: true },
+  { trigger: "Talent requests agency",  deckType: "Agency application",      sections: "Talent-focused 10 sections",  genTime: "< 5 minutes",  autoQueue: true },
+  { trigger: "Opportunity alert",       deckType: "Quick brief",             sections: "6 key sections",              genTime: "< 3 minutes",  autoQueue: true },
+  { trigger: "Deal reaches proposal",   deckType: "Full proposal",           sections: "All 12 + custom addenda",     genTime: "< 10 minutes", autoQueue: true },
+  { trigger: "Manual request",          deckType: "Custom",                  sections: "User-selected sections",      genTime: "< 15 minutes", autoQueue: false },
+  { trigger: "Simulation complete",     deckType: "Simulation report",       sections: "Simulation-focused 8 sections",genTime: "< 5 minutes", autoQueue: false },
+];
+
+const DECK_SECTIONS = [
+  { num: 1,  title: "Cover",                content: "Logos, title, date, participants",                          sources: "Brand DB, Talent DB, templates" },
+  { num: 2,  title: "Executive Summary",    content: "Why this match works, 3 key value props",                  sources: "Match algorithm, fit scores" },
+  { num: 3,  title: "Talent Overview",      content: "Bio, trajectory prediction, career highlights",             sources: "Profile, Trajectory Engine" },
+  { num: 4,  title: "Audience Analysis",    content: "Demographics, psychographics, brand overlap %",             sources: "Social APIs, Brand targets" },
+  { num: 5,  title: "Platform Performance", content: "Metrics by platform, trends, vs benchmarks",               sources: "Social metrics, benchmarks DB" },
+  { num: 6,  title: "Content Fit Analysis", content: "Style match, tone alignment, content examples",             sources: "Content-Brand Fit Predictor" },
+  { num: 7,  title: "Campaign Simulation",  content: "ROI P10/P50/P90, risk scenarios, confidence",              sources: "Simulation Engine" },
+  { num: 8,  title: "Comparable Deals",     content: "3-5 similar partnerships with outcomes",                    sources: "Deal database, anonymized" },
+  { num: 9,  title: "Proposed Terms",       content: "Structure, pricing, deliverables, timeline",               sources: "Benchmarks, Deal Structure Lab" },
+  { num: 10, title: "Risk Assessment",      content: "Top 3 risks, probability, mitigations",                    sources: "Brand safety, simulation risks" },
+  { num: 11, title: "Relationship Path",    content: "Warm intro options if available",                          sources: "Relationship Graph" },
+  { num: 12, title: "Next Steps",           content: "Recommended timeline, actions, contacts",                  sources: "Template + context" },
+];
+
+const DECK_CUSTOMIZATION = [
+  { option: "Deck Length",       choices: "Brief (5) / Standard (10) / Comprehensive (15+)", default: "Standard (10)",   impact: "Section depth" },
+  { option: "Tone",              choices: "Formal / Professional / Casual / Creative",        default: "Professional",    impact: "Language style" },
+  { option: "Emphasis",          choices: "ROI-focused / Creative-focused / Relationship-focused", default: "ROI-focused", impact: "Content priority" },
+  { option: "Data Depth",        choices: "Summary / Detailed / Comprehensive",               default: "Detailed",        impact: "Charts and tables" },
+  { option: "Comparables",       choices: "Include / Exclude / Anonymized only",              default: "Include",         impact: "Privacy level" },
+  { option: "Simulation Detail", choices: "Summary / Full report / Exclude",                  default: "Summary",         impact: "Technical depth" },
+  { option: "Branding",          choices: "Platform default / Brand colors / Co-branded",     default: "Brand colors",    impact: "Visual identity" },
+];
+
+const DESIGN_ELEMENTS = [
+  { element: "Brand Colors",   automation: "Auto-extracted from brand guidelines or website",          customization: "Manual override available" },
+  { element: "Logo Placement", automation: "Auto-positioned based on template",                         customization: "Position adjustable" },
+  { element: "Charts/Graphs",  automation: "Auto-generated from data with brand colors",               customization: "Chart type selectable" },
+  { element: "Talent Media",   automation: "Auto-pulled top-performing content screenshots",            customization: "Manual selection option" },
+  { element: "Typography",     automation: "Brand font if available, else professional default",        customization: "Font family selectable" },
+  { element: "Layout",         automation: "Professional templates optimized for readability",          customization: "Template selection" },
+];
+
 // ── Section 15: Autonomous Mode ───────────────────────────────────────────────
 const AUTONOMOUS_ACTIONS = [
   { action: "Identify matches",        autonomous: "Always autonomous",          human: "Never requires review",                 autoColor: "text-emerald-600" },
