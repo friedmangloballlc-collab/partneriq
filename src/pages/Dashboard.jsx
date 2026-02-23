@@ -171,6 +171,18 @@ export default function Dashboard() {
               </div>
               <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 transition-colors" />
             </Link>
+            <Link to={createPageUrl("PitchDeckBuilder")} className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-rose-50 flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-rose-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-slate-700">Pitch Deck Generation System</p>
+                  <p className="text-xs text-slate-400">Auto-generate custom pitch decks</p>
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 transition-colors" />
+            </Link>
           </CardContent>
         </Card>
 
