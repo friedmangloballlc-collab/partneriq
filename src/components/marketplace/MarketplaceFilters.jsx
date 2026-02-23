@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const PLATFORMS = ["instagram", "tiktok", "youtube", "twitter", "twitch", "linkedin"];
 const NICHES = ["tech", "lifestyle", "fitness", "beauty", "gaming", "food", "travel", "fashion", "finance", "education", "entertainment", "sports", "music", "health", "business"];
-const CONTRACT_TYPES = ["sponsorship", "affiliate", "ambassador", "content_creation", "partnership", "event"];
+const CONTRACT_TYPES = ["sponsorship", "affiliate", "ambassador", "content_creation", "partnership", "event", "other"];
 
 export default function MarketplaceFilters({ onFiltersChange }) {
   const [filters, setFilters] = useState({
@@ -21,33 +27,37 @@ export default function MarketplaceFilters({ onFiltersChange }) {
   });
 
   const handleBudgetChange = (field, value) => {
-    const newFilters = { ...filters, [field]: value ? parseInt(value) : null };
-    setFilters(newFilters);
-    onFiltersChange(newFilters);
-  };
-
-  const handleContractTypeChange = (value) => {
-    const newFilters = { ...filters, contract_type: value || null };
-    setFilters(newFilters);
-    onFiltersChange(newFilters);
-  };
-
-  const toggleNiche = (niche) => {
-    const newNiches = filters.niches.includes(niche)
-      ? filters.niches.filter((n) => n !== niche)
-      : [...filters.niches, niche];
-    const newFilters = { ...filters, niches: newNiches };
-    setFilters(newFilters);
-    onFiltersChange(newFilters);
+    const updated = { ...filters, [field]: value };
+    setFilters(updated);
+    onFiltersChange(updated);
   };
 
   const togglePlatform = (platform) => {
-    const newPlatforms = filters.platforms.includes(platform)
-      ? filters.platforms.filter((p) => p !== platform)
-      : [...filters.platforms, platform];
-    const newFilters = { ...filters, platforms: newPlatforms };
-    setFilters(newFilters);
-    onFiltersChange(newFilters);
+    const updated = {
+      ...filters,
+      platforms: filters.platforms.includes(platform)
+        ? filters.platforms.filter((p) => p !== platform)
+        : [...filters.platforms, platform],
+    };
+    setFilters(updated);
+    onFiltersChange(updated);
+  };
+
+  const toggleNiche = (niche) => {
+    const updated = {
+      ...filters,
+      niches: filters.niches.includes(niche)
+        ? filters.niches.filter((n) => n !== niche)
+        : [...filters.niches, niche],
+    };
+    setFilters(updated);
+    onFiltersChange(updated);
+  };
+
+  const handleContractTypeChange = (value) => {
+    const updated = { ...filters, contract_type: value };
+    setFilters(updated);
+    onFiltersChange(updated);
   };
 
   const clearFilters = () => {
@@ -65,40 +75,55 @@ export default function MarketplaceFilters({ onFiltersChange }) {
 
   return (
     <Card>
-      <CardContent className="pt-6 space-y-6">
+      <CardHeader>
+        <CardTitle className="text-base">Filters</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
         {/* Budget Range */}
         <div className="space-y-3">
           <Label className="font-semibold">Budget Range</Label>
-          <div className="flex gap-2">
-            <Input
-              type="number"
-              placeholder="Min"
-              value={filters.budget_min}
-              onChange={(e) => handleBudgetChange("budget_min", e.target.value)}
-              className="w-1/2"
-            />
-            <Input
-              type="number"
-              placeholder="Max"
-              value={filters.budget_max}
-              onChange={(e) => handleBudgetChange("budget_max", e.target.value)}
-              className="w-1/2"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="budget_min" className="text-xs text-slate-600">
+                Min ($)
+              </Label>
+              <Input
+                id="budget_min"
+                type="number"
+                placeholder="5000"
+                value={filters.budget_min}
+                onChange={(e) => handleBudgetChange("budget_min", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="budget_max" className="text-xs text-slate-600">
+                Max ($)
+              </Label>
+              <Input
+                id="budget_max"
+                type="number"
+                placeholder="50000"
+                value={filters.budget_max}
+                onChange={(e) => handleBudgetChange("budget_max", e.target.value)}
+              />
+            </div>
           </div>
         </div>
 
         {/* Contract Type */}
         <div className="space-y-3">
-          <Label className="font-semibold">Contract Type</Label>
+          <Label htmlFor="contract_type" className="font-semibold">
+            Contract Type
+          </Label>
           <Select value={filters.contract_type} onValueChange={handleContractTypeChange}>
-            <SelectTrigger>
+            <SelectTrigger id="contract_type">
               <SelectValue placeholder="All types" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={null}>All Types</SelectItem>
+              <SelectItem value={null}>All types</SelectItem>
               {CONTRACT_TYPES.map((type) => (
                 <SelectItem key={type} value={type}>
-                  {type.replace(/_/g, " ").toUpperCase()}
+                  {type.replace(/_/g, " ").charAt(0).toUpperCase() + type.replace(/_/g, " ").slice(1)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -107,8 +132,8 @@ export default function MarketplaceFilters({ onFiltersChange }) {
 
         {/* Platforms */}
         <div className="space-y-3">
-          <Label className="font-semibold">Required Platforms</Label>
-          <div className="space-y-2">
+          <Label className="font-semibold">Platforms</Label>
+          <div className="grid grid-cols-2 gap-2">
             {PLATFORMS.map((platform) => (
               <div key={platform} className="flex items-center gap-2">
                 <Checkbox
@@ -124,7 +149,7 @@ export default function MarketplaceFilters({ onFiltersChange }) {
         {/* Niches */}
         <div className="space-y-3">
           <Label className="font-semibold">Niches</Label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
             {NICHES.map((niche) => (
               <div key={niche} className="flex items-center gap-2">
                 <Checkbox
@@ -138,23 +163,26 @@ export default function MarketplaceFilters({ onFiltersChange }) {
         </div>
 
         {/* Min Followers */}
-        <div className="space-y-3">
-          <Label className="font-semibold">Minimum Followers</Label>
+        <div className="space-y-2">
+          <Label htmlFor="minFollowers" className="font-semibold">
+            Minimum Followers
+          </Label>
           <Input
+            id="minFollowers"
             type="number"
-            placeholder="Enter minimum follower count"
+            placeholder="10000"
             value={filters.minFollowers}
-            onChange={(e) => {
-              const newFilters = { ...filters, minFollowers: e.target.value };
-              setFilters(newFilters);
-              onFiltersChange(newFilters);
-            }}
+            onChange={(e) => handleBudgetChange("minFollowers", e.target.value)}
           />
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2 pt-2">
-          <Button variant="outline" onClick={clearFilters} className="w-full">
+        <div className="flex gap-2 pt-4 border-t">
+          <Button
+            variant="outline"
+            onClick={clearFilters}
+            className="flex-1"
+          >
             Clear Filters
           </Button>
         </div>
