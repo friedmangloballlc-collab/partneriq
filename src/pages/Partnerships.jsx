@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Plus, Search, Filter, DollarSign, Calendar, ArrowRight, MoreHorizontal
+  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, MessageSquare, CheckSquare, UserCheck, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,10 +10,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { format } from "date-fns";
+import { Separator } from "@/components/ui/separator";
+import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
+import DealNotesPanel from "@/components/partnerships/DealNotesPanel";
+import TasksPanel from "@/components/tasks/TasksPanel";
 
 const stages = [
   { key: "discovered", label: "Discovered", color: "bg-slate-100 text-slate-700 border-slate-200" },
@@ -34,6 +38,8 @@ export default function Partnerships() {
   const [view, setView] = useState("pipeline");
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
+  const [selectedDeal, setSelectedDeal] = useState(null);
+  const [dealTab, setDealTab] = useState("notes");
   const [newDeal, setNewDeal] = useState({ title: "", brand_name: "", talent_name: "", partnership_type: "sponsorship", status: "discovered", priority: "p2", deal_value: 0 });
 
   const queryClient = useQueryClient();
@@ -102,7 +108,7 @@ export default function Partnerships() {
                 </div>
                 <div className="space-y-2.5">
                   {stageDeals.map(deal => (
-                    <Card key={deal.id} className="pipeline-card p-4 border-slate-200/60 cursor-pointer">
+                    <Card key={deal.id} className="pipeline-card p-4 border-slate-200/60 cursor-pointer" onClick={() => { setSelectedDeal(deal); setDealTab("notes"); }}>
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-semibold text-slate-800 truncate">{deal.title}</h4>
@@ -110,13 +116,13 @@ export default function Partnerships() {
                         </div>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <button className="text-slate-300 hover:text-slate-500 p-0.5">
+                            <button className="text-slate-300 hover:text-slate-500 p-0.5" onClick={e => e.stopPropagation()}>
                               <MoreHorizontal className="w-4 h-4" />
                             </button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             {stages.filter(s => s.key !== deal.status).map(s => (
-                              <DropdownMenuItem key={s.key} onClick={() => moveToStage(deal.id, s.key)}>
+                              <DropdownMenuItem key={s.key} onClick={(e) => { e.stopPropagation(); moveToStage(deal.id, s.key); }}>
                                 <ArrowRight className="w-3 h-3 mr-2" /> Move to {s.label}
                               </DropdownMenuItem>
                             ))}
@@ -133,6 +139,11 @@ export default function Partnerships() {
                         {deal.deal_value > 0 && (
                           <span className="text-[10px] text-slate-400 flex items-center gap-0.5">
                             <DollarSign className="w-2.5 h-2.5" />{(deal.deal_value / 1000).toFixed(0)}K
+                          </span>
+                        )}
+                        {deal.assigned_to && (
+                          <span className="text-[10px] text-slate-400 flex items-center gap-0.5">
+                            <UserCheck className="w-2.5 h-2.5" />{deal.assigned_to.split("@")[0]}
                           </span>
                         )}
                       </div>
@@ -167,6 +178,60 @@ export default function Partnerships() {
           ))}
         </div>
       )}
+
+      {/* Deal Detail Sheet */}
+      <Sheet open={!!selectedDeal} onOpenChange={() => setSelectedDeal(null)}>
+        <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
+          {selectedDeal && (
+            <>
+              <SheetHeader className="pb-4">
+                <SheetTitle className="text-base leading-snug">{selectedDeal.title}</SheetTitle>
+                <p className="text-xs text-slate-400">{selectedDeal.brand_name}{selectedDeal.talent_name ? ` × ${selectedDeal.talent_name}` : ""}</p>
+              </SheetHeader>
+
+              {/* Assignee */}
+              <div className="mb-4">
+                <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Assigned To</label>
+                <AssigneeSelector
+                  value={selectedDeal.assigned_to}
+                  onChange={v => {
+                    updateMutation.mutate({ id: selectedDeal.id, data: { assigned_to: v } });
+                    setSelectedDeal(prev => ({ ...prev, assigned_to: v }));
+                  }}
+                />
+              </div>
+
+              {/* Stage */}
+              <div className="mb-5">
+                <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Pipeline Stage</label>
+                <Select value={selectedDeal.status} onValueChange={v => { moveToStage(selectedDeal.id, v); setSelectedDeal(prev => ({ ...prev, status: v })); }}>
+                  <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+
+              <Separator className="my-4" />
+
+              {/* Tabs */}
+              <div className="flex gap-1 mb-4">
+                {[{ key: "notes", label: "Notes", icon: MessageSquare }, { key: "tasks", label: "Tasks", icon: CheckSquare }].map(tab => (
+                  <button key={tab.key} onClick={() => setDealTab(tab.key)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${dealTab === tab.key ? "bg-slate-100 text-slate-800" : "text-slate-400 hover:text-slate-600"}`}>
+                    <tab.icon className="w-3.5 h-3.5" />{tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {dealTab === "notes" && (
+                <DealNotesPanel partnershipId={selectedDeal.id} />
+              )}
+              {dealTab === "tasks" && (
+                <TasksPanel partnershipId={selectedDeal.id} contextLabel={selectedDeal.title} />
+              )}
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
 
       <Dialog open={showAdd} onOpenChange={setShowAdd}>
         <DialogContent className="max-w-md">
