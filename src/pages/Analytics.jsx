@@ -127,117 +127,134 @@ export default function Analytics() {
         })}
       </div>
 
-      {/* Top Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
-        <StatCard title="Total Partnerships" value={partnerships.length} icon={Handshake} color="indigo" />
-        <StatCard title="Pipeline Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" />
-        <StatCard title="Avg Match Score" value={`${avgMatchScore}%`} icon={TrendingUp} color="violet" />
-        <StatCard title="Email Open Rate" value={`${emailStats.openRate}%`} icon={Mail} color="sky" />
-      </div>
-
-      {/* Charts Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="border-slate-200/60">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-semibold">Partnership Pipeline</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[260px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={pipelineData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
-                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} angle={-30} textAnchor="end" height={60} />
-                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} allowDecimals={false} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
-                  <Bar dataKey="value" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={28} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-slate-200/60">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-semibold">Partnership Types</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[260px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={typeData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={55} strokeWidth={2} stroke="#fff">
-                    {typeData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
-                  <Legend wrapperStyle={{ fontSize: 11 }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts Row 2 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="border-slate-200/60">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-semibold">Talent by Niche</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[260px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={nicheData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" horizontal={false} />
-                  <XAxis type="number" tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} allowDecimals={false} />
-                  <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: "#64748B" }} axisLine={false} tickLine={false} width={80} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
-                  <Bar dataKey="value" fill="#8B5CF6" radius={[0, 6, 6, 0]} barSize={20} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-slate-200/60">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-semibold">Talent Tiers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[260px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={tierData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={55} strokeWidth={2} stroke="#fff">
-                    {tierData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
-                  <Legend wrapperStyle={{ fontSize: 11 }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Email Performance */}
-      <Card className="border-slate-200/60">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base font-semibold">Email Outreach Performance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {[
-              { label: "Total Emails", value: emailStats.total, color: "slate" },
-              { label: "Sent", value: emailStats.sent, color: "blue" },
-              { label: "Opened", value: emailStats.opened, color: "indigo" },
-              { label: "Replied", value: emailStats.replied, color: "emerald" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center p-4 bg-slate-50 rounded-xl">
-                <p className="text-3xl font-bold text-slate-800">{stat.value}</p>
-                <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">{stat.label}</p>
-              </div>
-            ))}
+      {/* TAB: Overview */}
+      {activeTab === "overview" && (
+        <div className="space-y-8">
+          {/* Top Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+            <StatCard title="Total Partnerships" value={partnerships.length} icon={Handshake} color="indigo" />
+            <StatCard title="Pipeline Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" />
+            <StatCard title="Avg Match Score" value={`${avgMatchScore}%`} icon={TrendingUp} color="violet" />
+            <StatCard title="Email Open Rate" value={`${emailStats.openRate}%`} icon={Mail} color="sky" />
           </div>
-        </CardContent>
-      </Card>
+
+          {/* Charts Row 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="border-slate-200/60">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold">Partnership Pipeline</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[260px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={pipelineData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
+                      <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} angle={-30} textAnchor="end" height={60} />
+                      <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                      <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
+                      <Bar dataKey="value" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={28} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200/60">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold">Partnership Types</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[260px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie data={typeData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={55} strokeWidth={2} stroke="#fff">
+                        {typeData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                      </Pie>
+                      <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Charts Row 2 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="border-slate-200/60">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold">Talent by Niche</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[260px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={nicheData} layout="vertical">
+                      <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" horizontal={false} />
+                      <XAxis type="number" tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                      <YAxis type="category" dataKey="name" tick={{ fontSize: 11, fill: "#64748B" }} axisLine={false} tickLine={false} width={80} />
+                      <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
+                      <Bar dataKey="value" fill="#8B5CF6" radius={[0, 6, 6, 0]} barSize={20} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200/60">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold">Talent Tiers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[260px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie data={tierData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={55} strokeWidth={2} stroke="#fff">
+                        {tierData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                      </Pie>
+                      <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0", fontSize: 12 }} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Email Performance */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold">Email Outreach Performance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                {[
+                  { label: "Total Emails", value: emailStats.total, color: "slate" },
+                  { label: "Sent", value: emailStats.sent, color: "blue" },
+                  { label: "Opened", value: emailStats.opened, color: "indigo" },
+                  { label: "Replied", value: emailStats.replied, color: "emerald" },
+                ].map((stat, i) => (
+                  <div key={i} className="text-center p-4 bg-slate-50 rounded-xl">
+                    <p className="text-3xl font-bold text-slate-800">{stat.value}</p>
+                    <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* TAB: Trends */}
+      {activeTab === "trends" && <TrendAnalysis partnerships={partnerships} />}
+
+      {/* TAB: Benchmarks */}
+      {activeTab === "benchmarks" && <CompetitorBenchmarking partnerships={partnerships} />}
+
+      {/* TAB: ROI Modeling */}
+      {activeTab === "roi" && <PredictiveROI partnerships={partnerships} />}
+
+      {/* TAB: Custom Reports */}
+      {activeTab === "reporting" && <CustomReporting partnerships={partnerships} emails={emails} />}
     </div>
   );
 }
