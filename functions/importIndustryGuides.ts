@@ -9,65 +9,30 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
     }
 
-    const { fileUrl, csvData } = await req.json();
+    const { csvRows } = await req.json();
 
-    // Use CSV data if provided, otherwise fetch from file URL
-    let dataToProcess = csvData;
-    
-    if (!dataToProcess && fileUrl) {
-      // Use LLM to extract the file content
-      const llmResult = await base44.integrations.Core.InvokeLLM({
-        prompt: `Extract ALL industries from this Excel/CSV file. Return a JSON object with an "industries" array. 
-        Each industry object should have these fields:
-        - industry: Industry name
-        - sector: Sector
-        - priority_tier_1_events: Priority Tier 1 Events
-        - tier_2_events: Tier 2 Events
-        - heritage_awareness_months: Heritage/Awareness Months
-        - key_conferences: Key Conferences
-        - best_demographics: Best Demographics
-        - budget_allocation: Budget Allocation
-        - activation_strategies: Top Activation Strategies
-        
-        Extract EVERY row from the file. Return valid JSON only.`,
-        file_urls: [fileUrl],
-        response_json_schema: {
-          type: "object",
-          properties: {
-            industries: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  industry: { type: "string" },
-                  sector: { type: "string" },
-                  priority_tier_1_events: { type: "string" },
-                  tier_2_events: { type: "string" },
-                  heritage_awareness_months: { type: "string" },
-                  key_conferences: { type: "string" },
-                  best_demographics: { type: "string" },
-                  budget_allocation: { type: "string" },
-                  activation_strategies: { type: "string" }
-                }
-              }
-            }
-          }
-        }
-      });
-      dataToProcess = llmResult;
-    }
-
-    if (!dataToProcess || !dataToProcess.industries || dataToProcess.industries.length === 0) {
+    if (!csvRows || !Array.isArray(csvRows) || csvRows.length === 0) {
       return Response.json({ 
-        error: 'No industry data provided or extracted',
-        details: 'Provide either fileUrl or csvData'
+        error: 'csvRows array is required',
+        details: 'Provide an array of industry objects'
       }, { status: 400 });
     }
 
-    // Filter out empty rows
-    const mappedIndustries = dataToProcess.industries.filter(row => 
-      row.industry && row.industry.toString().trim() && row.industry !== 'Industry'
-    );
+    // Map CSV columns to entity fields and filter out noise
+    const mappedIndustries = csvRows
+      .filter(row => row.Industry && row.Industry.trim() && row.Industry !== 'Industry')
+      .map(row => ({
+        industry: row.Industry?.trim() || '',
+        sector: row.Sector?.trim() || '',
+        priority_tier_1_events: row['Priority Tier 1 Events (Must-Attend)']?.trim() || '',
+        tier_2_events: row['Tier 2 Events (High Value)']?.trim() || '',
+        heritage_awareness_months: row['Heritage/Awareness Months']?.trim() || '',
+        key_conferences: row['Key Conferences/Trade Shows']?.trim() || '',
+        best_demographics: row['Best Demographics']?.trim() || '',
+        budget_allocation: row['Budget Allocation Guidance']?.trim() || '',
+        activation_strategies: row['Top Activation Strategies']?.trim() || ''
+      }))
+      .filter(row => row.industry);
 
     console.log(`Processing ${mappedIndustries.length} industries for import`);
 
