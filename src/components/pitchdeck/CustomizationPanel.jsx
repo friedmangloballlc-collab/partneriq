@@ -158,10 +158,10 @@ const VISUAL_OPTIONS = [
   },
 ];
 
-export const DEFAULT_OPTIONS = OPTIONS.reduce((acc, o) => {
-  acc[o.key] = o.default;
-  return acc;
-}, {});
+export const DEFAULT_OPTIONS = {
+  ...OPTIONS.reduce((acc, o) => { acc[o.key] = o.default; return acc; }, {}),
+  ...VISUAL_OPTIONS.reduce((acc, o) => { acc[o.key] = o.default; return acc; }, {}),
+};
 
 export default function CustomizationPanel({ options, onChange }) {
   return (
