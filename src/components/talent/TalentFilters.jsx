@@ -2,6 +2,7 @@ import React from "react";
 import { X, SlidersHorizontal } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
 
 const PLATFORMS = ["instagram","tiktok","youtube","twitter","twitch","linkedin"];
 const NICHES = ["tech","lifestyle","fitness","beauty","gaming","food","travel","fashion","finance","education","entertainment","sports","music","health","business"];
@@ -25,7 +26,14 @@ function Chip({ label, active, onClick }) {
   );
 }
 
-function SliderRow({ label, value, min, max, step, fmt, onChange }) {
+function SliderRow({ label, value, min, max, step, fmt, onChange, inputType = "number" }) {
+  const handleInputChange = (e) => {
+    const num = e.target.value === "" ? 0 : parseFloat(e.target.value);
+    if (!isNaN(num) && num >= min && num <= max) {
+      onChange(num);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
@@ -33,6 +41,16 @@ function SliderRow({ label, value, min, max, step, fmt, onChange }) {
         <span className="text-xs font-medium text-slate-600">{fmt(value)}</span>
       </div>
       <Slider min={min} max={max} step={step} value={[value]} onValueChange={([v]) => onChange(v)} />
+      <Input
+        type="number"
+        min={min}
+        max={max}
+        step={step}
+        value={value || ""}
+        onChange={handleInputChange}
+        placeholder="Enter value..."
+        className="mt-2 h-8 text-sm"
+      />
     </div>
   );
 }
