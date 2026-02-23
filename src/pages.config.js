@@ -70,6 +70,7 @@ import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
 import Notifications from './pages/Notifications';
 import SubscriptionManagement from './pages/SubscriptionManagement';
+import BillingHistory from './pages/BillingHistory';
 import __Layout from './Layout.jsx';
 
 
@@ -97,6 +98,7 @@ export const PAGES = {
     "Teams": Teams,
     "Notifications": Notifications,
     "SubscriptionManagement": SubscriptionManagement,
+    "BillingHistory": BillingHistory,
 }
 
 export const pagesConfig = {
