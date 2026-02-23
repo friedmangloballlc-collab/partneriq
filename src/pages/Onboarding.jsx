@@ -11,6 +11,7 @@ import {
   Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3, Globe, Network
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Badge } from "@/components/ui/badge";
 
 const ROLES = [
   {
