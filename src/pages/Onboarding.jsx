@@ -85,6 +85,22 @@ const LABEL_MAP = {
   agency: { name: "Agency Name",        namePlaceholder: "Your agency name",           title: "Your Role",               titlePlaceholder: "e.g. Talent Manager, Agency Director" },
 };
 
+const PLATFORM_STATS = [
+  { value: "10M+", label: "Profiles Indexed" },
+  { value: "94%",  label: "Match Accuracy" },
+  { value: "50+",  label: "AI Agents" },
+  { value: "32",   label: "Industries" },
+];
+
+const HIGHLIGHTS = [
+  { icon: Brain,      text: "AI-Powered Matching" },
+  { icon: TrendingUp, text: "Predictive Analytics" },
+  { icon: Layers,     text: "Auto Pitch Decks" },
+  { icon: CheckSquare,text: "Human Approval Workflow" },
+  { icon: Shield,     text: "Fault-Tolerant Architecture" },
+  { icon: Bell,       text: "Real-Time Alerts" },
+];
+
 export default function Onboarding() {
   const [step, setStep] = useState(1); // 1 = role, 2 = plan, 3 = details
   const [selectedRole, setSelectedRole] = useState("");
