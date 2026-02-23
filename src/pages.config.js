@@ -79,6 +79,7 @@ import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
+import BrandDashboard from './pages/BrandDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -115,6 +116,7 @@ export const PAGES = {
     "TalentDiscovery": TalentDiscovery,
     "TalentProfile": TalentProfile,
     "Teams": Teams,
+    "BrandDashboard": BrandDashboard,
 }
 
 export const pagesConfig = {
