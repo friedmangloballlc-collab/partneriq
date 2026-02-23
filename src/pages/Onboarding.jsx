@@ -33,6 +33,14 @@ const roles = [
     color: "from-purple-500 to-indigo-600",
     bg: "bg-purple-50 border-purple-200",
   },
+  {
+    key: "agency",
+    icon: Briefcase,
+    title: "Agency",
+    desc: "I manage a roster of talent and seek partnerships on their behalf",
+    color: "from-amber-500 to-orange-600",
+    bg: "bg-amber-50 border-amber-200",
+  },
 ];
 
 export default function Onboarding() {
