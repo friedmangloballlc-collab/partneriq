@@ -224,7 +224,7 @@ export default function Onboarding() {
       </header>
 
       {/* ── HERO SECTION ── */}
-      <div className="relative overflow-hidden pt-32 pb-20">
+      <div className="relative overflow-hidden pt-32 pb-24 bg-gradient-to-b from-white to-slate-50">
         <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle at 30% 50%, #6366f1 0%, transparent 50%)"}} />
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <div className="mb-6">
@@ -236,18 +236,28 @@ export default function Onboarding() {
           <h1 className="text-5xl sm:text-6xl font-bold text-slate-900 tracking-tight mb-6 leading-tight">
             Partnership <span className="text-indigo-600">Intelligence</span> Reimagined
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-12">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-16">
             Connect creators, athletes, and celebrities with brands. Powered by advanced AI matching, predictive analytics, and autonomous deal execution.
           </p>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-16">
+          {/* Key Stats - Aspire Inspired */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {PLATFORM_STATS.map((s, i) => (
-              <div key={i} className="text-left">
-                <p className="text-3xl font-bold text-slate-900">{s.value}</p>
-                <p className="text-sm text-slate-600 mt-1">{s.label}</p>
+              <div key={i} className="text-center">
+                <div className="mb-2">
+                  <p className="text-4xl sm:text-5xl font-bold text-indigo-600 tracking-tight">{s.value}</p>
+                </div>
+                <p className="text-sm font-medium text-slate-600">{s.label}</p>
               </div>
             ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="mt-16">
+            <Button className="h-12 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg">
+              Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+            <p className="text-sm text-slate-500 mt-3">No credit card required • 14-day free trial</p>
           </div>
         </div>
       </div>
