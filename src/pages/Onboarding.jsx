@@ -284,6 +284,108 @@ export default function Onboarding() {
         </div>
       </div>
 
+      {/* ── PLATFORM OVERVIEW SECTION ── */}
+      <div className="py-20 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-6 space-y-20">
+          
+          {/* Overview Hero */}
+          <div className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 overflow-hidden">
+            <div className="absolute inset-0 opacity-10" style={{backgroundImage:"radial-gradient(circle at 20% 50%, #6366f1 0%, transparent 60%), radial-gradient(circle at 80% 20%, #a855f7 0%, transparent 50%)"}} />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                  <Zap className="w-4 h-4 text-white" />
+                </div>
+                <Badge className="bg-white/10 text-white/80 border-white/20 text-[10px] uppercase tracking-widest">Platform Overview</Badge>
+              </div>
+              <h2 className="text-3xl font-bold text-white tracking-tight mb-3">Enterprise AI Partnership Intelligence</h2>
+              <p className="text-slate-300 text-base max-w-2xl leading-relaxed">
+                PartnerIQ is an enterprise AI-powered platform connecting talent — creators, athletes, celebrities — with brands and agencies. Featuring a fault-tolerant multi-agent architecture with 50+ AI agents operating concurrently, automatic failover, and mandatory human approval for all outbound communications.
+              </p>
+            </div>
+          </div>
+
+          {/* Key Metrics */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Key Platform Metrics</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3">
+              {KEY_METRICS.map((m, i) => (
+                <div key={i} className="bg-white rounded-2xl border border-slate-200/60 p-4 hover:shadow-sm transition-shadow">
+                  <p className="text-2xl font-bold text-indigo-600 tracking-tight">{m.value}</p>
+                  <p className="text-sm font-semibold text-slate-700 mt-1">{m.label}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{m.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* User Types */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Who PartnerIQ Serves</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {USER_TYPES.map((u, i) => {
+                const Icon = u.icon;
+                return (
+                  <div key={i} className="bg-white rounded-2xl border border-slate-200/60 p-5 hover:shadow-sm transition-shadow">
+                    <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${u.color} flex items-center justify-center mb-4 shadow`}>
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <p className="text-base font-bold text-slate-800">{u.label}</p>
+                    <p className="text-xs text-slate-400 mt-0.5 mb-3">{u.desc}</p>
+                    <ul className="space-y-1.5">
+                      {u.points.map((p, j) => (
+                        <li key={j} className="flex items-center gap-2 text-[12px] text-slate-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Core Capabilities */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Core Platform Capabilities</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {CAPABILITIES.map((c, i) => {
+                const Icon = c.icon;
+                return (
+                  <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-200/60 hover:shadow-sm transition-shadow">
+                    <div className={`w-9 h-9 rounded-xl ${c.color} flex items-center justify-center flex-shrink-0`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">{c.title}</p>
+                      <p className="text-[12px] text-slate-400 mt-0.5 leading-relaxed">{c.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Industries */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Industries Covered</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {INDUSTRIES.map((ind, i) => (
+                <div key={i} className={`bg-white rounded-xl border border-slate-200/60 border-l-4 ${ind.color} p-4 hover:shadow-sm transition-shadow`}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-lg">{ind.icon}</span>
+                    <p className="text-sm font-bold text-slate-700">{ind.name}</p>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mb-2">{ind.examples}</p>
+                  <Badge className="bg-slate-100 text-slate-600 text-[10px] font-semibold">{ind.range}</Badge>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── MARKET INTELLIGENCE SECTION ── */}
       <div className="py-20 border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-6">
