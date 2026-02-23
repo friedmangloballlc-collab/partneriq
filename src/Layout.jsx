@@ -50,6 +50,7 @@ const roleNavItems = {
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
