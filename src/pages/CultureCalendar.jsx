@@ -349,9 +349,14 @@ export default function CultureCalendar() {
         </TabsContent>
 
         <TabsContent value="industries" className="space-y-4 mt-6">
-          {!industryGuides || industryGuides.length === 0 ? (
+          {industriesLoading ? (
             <Card className="text-center py-12">
               <p className="text-slate-500">Loading industries...</p>
+            </Card>
+          ) : !industryGuides || industryGuides.length === 0 ? (
+            <Card className="text-center py-12 space-y-4">
+              <p className="text-slate-500">No industry guides found in database.</p>
+              <p className="text-xs text-slate-400">The IndustryGuide entity appears to be empty. Data needs to be imported.</p>
             </Card>
           ) : (
             <div className="space-y-4">
