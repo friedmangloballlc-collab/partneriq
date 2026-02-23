@@ -280,34 +280,26 @@ export default function Onboarding() {
       </div>
 
       {/* ── ONBOARDING FORM ── */}
-      <div className="flex items-center justify-center p-6 pb-16">
-      <div className="w-full max-w-xl">
-
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/25">
-            <Zap className="w-7 h-7 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Welcome to PartnerIQ</h1>
-          <p className="text-slate-400 mt-2 text-sm">Create your account in just a few steps</p>
-        </div>
+      <div className="py-20 border-t border-slate-200">
+      <div className="flex items-center justify-center px-6">
+      <div className="w-full max-w-2xl">
 
         {/* Progress steps */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-3 mb-12">
           {["Account Type", "Choose Plan", "Your Details"].map((label, i) => {
             const num = i + 1;
             const active = step === num;
             const done = step > num;
             return (
               <React.Fragment key={num}>
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all
-                    ${done ? "bg-indigo-500 text-white" : active ? "bg-white text-slate-900" : "bg-white/10 text-slate-500"}`}>
-                    {done ? <CheckCircle2 className="w-3.5 h-3.5" /> : num}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all
+                    ${done ? "bg-emerald-500 text-white" : active ? "bg-indigo-600 text-white" : "bg-slate-200 text-slate-600"}`}>
+                    {done ? <CheckCircle2 className="w-4 h-4" /> : num}
                   </div>
-                  <span className={`text-xs font-medium hidden sm:block ${active ? "text-white" : "text-slate-500"}`}>{label}</span>
+                  <span className={`text-sm font-medium hidden sm:block ${active ? "text-indigo-600" : done ? "text-slate-600" : "text-slate-500"}`}>{label}</span>
                 </div>
-                {i < 2 && <div className={`flex-1 h-px ${step > num ? "bg-indigo-500" : "bg-white/10"}`} />}
+                {i < 2 && <div className={`flex-1 h-px ${step > num ? "bg-emerald-500" : "bg-slate-300"}`} />}
               </React.Fragment>
             );
           })}
