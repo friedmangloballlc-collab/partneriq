@@ -188,6 +188,111 @@ const CONSISTENCY_GUARANTEES = [
   { op: "Graph update",            guarantee: "Eventually consistent",    mechanism: "Conflict resolution by timestamp",         color: "bg-amber-100 text-amber-700" },
 ];
 
+// ── Four-Phase Framework ──────────────────────────────────────────────────
+const PHASES = [
+  {
+    name: "SETUP",
+    step: "Step 1",
+    automation: "One-Time",
+    description: "API connections to 50+ platforms (Phyllo, social APIs, integrations)",
+    tasks: [
+      "Connect Phyllo for unified social API access",
+      "Configure direct platform APIs (YouTube, Twitch, LinkedIn)",
+      "Set up CRM integrations (Salesforce, HubSpot)",
+      "Configure email/calendar connections",
+      "Set approval workflow rules and guardrails",
+    ],
+    color: "bg-blue-50 border-blue-200 text-blue-900",
+    icon: Settings,
+  },
+  {
+    name: "PIPELINE",
+    step: "Steps 2-5",
+    automation: "100% Automated",
+    description: "Scrape → Parse → Validate → Enrich → Embed → Score",
+    tasks: [
+      "Data Collection: Pull metrics from all connected platforms",
+      "Processing: Parse, validate, deduplicate, enrich",
+      "AI Enhancement: Generate embeddings, run trajectory models",
+      "Graph Update: Refresh relationship connections",
+      "Opportunity Detection: Identify triggers (awards, viral, expirations)",
+    ],
+    color: "bg-violet-50 border-violet-200 text-violet-900",
+    icon: RefreshCw,
+  },
+  {
+    name: "AI ACTIONS",
+    step: "Steps 6-7",
+    automation: "Auto-Generate → Human Approve",
+    description: "AI creates content → Queued for review → Human approves/rejects",
+    tasks: [
+      "Content Generation: Pitch decks, outreach emails, follow-ups auto-created",
+      "Approval Queue: ALL generated content routed to human reviewers",
+      "Human Decision: Approve / Edit / Reject / Schedule",
+      "Enforcement: Nothing goes outbound without human approval",
+    ],
+    color: "bg-indigo-50 border-indigo-200 text-indigo-900",
+    icon: CheckCircle2,
+  },
+  {
+    name: "FEEDBACK",
+    step: "Step 8",
+    automation: "Continuous Loop",
+    description: "Track outcomes → Retrain models → Optimize performance",
+    tasks: [
+      "Track Outcomes: Open rates, replies, meetings, deals closed",
+      "Learn from Rejections: AI adjusts based on rejection reason codes",
+      "Model Retraining: Weekly trajectory updates, monthly benchmarks",
+      "A/B Testing: Continuously test subject lines, CTAs, timing",
+    ],
+    color: "bg-emerald-50 border-emerald-200 text-emerald-900",
+    icon: TrendingUp,
+  },
+];
+
+// ── Pipeline Stages ──────────────────────────────────────────────────────
+const PIPELINE_STAGES = [
+  { stage: 1, process: "Collection", automation: "100% automated", output: "Raw JSON data", desc: "API calls to 50+ platforms via Phyllo + direct" },
+  { stage: 2, process: "Parsing", automation: "100% automated", output: "Parsed records", desc: "Extract structured data from responses" },
+  { stage: 3, process: "Validation", automation: "100% automated", output: "Validated records", desc: "Data quality checks, deduplication" },
+  { stage: 4, process: "Enrichment", automation: "100% automated", output: "Enriched profiles", desc: "Add derived fields, classifications" },
+  { stage: 5, process: "Embedding", automation: "100% automated", output: "1536d/512d vectors", desc: "Generate vector embeddings" },
+  { stage: 6, process: "Trajectory", automation: "100% automated", output: "Trajectory scores", desc: "Run prediction models" },
+  { stage: 7, process: "Scoring", automation: "100% automated", output: "Match scores", desc: "Calculate match scores" },
+  { stage: 8, process: "Graph Update", automation: "100% automated", output: "Graph edges", desc: "Update relationship graph" },
+  { stage: 9, process: "Opportunity Detection", automation: "100% automated", output: "Opportunity alerts", desc: "Identify triggers and opportunities" },
+  { stage: 10, process: "Content Generation", automation: "100% automated", output: "Draft content", desc: "Generate decks, outreach" },
+  { stage: 11, process: "Approval Queue", automation: "100% automated", output: "Queue items", desc: "Queue for human review" },
+  { stage: 12, process: "Human Approval", automation: "MANUAL", output: "Approved items", desc: "Review, edit, approve/reject" },
+  { stage: 13, process: "Send", automation: "100% automated", output: "Sent confirmations", desc: "Deliver approved content" },
+  { stage: 14, process: "Track", automation: "100% automated", output: "Performance data", desc: "Monitor responses, outcomes" },
+];
+
+// ── Platform API Coverage ──────────────────────────────────────────────
+const PLATFORM_APIS = [
+  { platform: "YouTube", method: "YouTube Data API v3", rateLimit: "10,000/day", dataPoints: "Subs, views, engagement, demographics", freshness: "< 24hr" },
+  { platform: "Instagram", method: "Phyllo + Graph API", rateLimit: "200/hour", dataPoints: "Followers, engagement, stories, reels", freshness: "< 24hr" },
+  { platform: "TikTok", method: "Phyllo + Research API", rateLimit: "1,000/day", dataPoints: "Followers, views, engagement, sounds", freshness: "< 24hr" },
+  { platform: "Twitch", method: "Helix API", rateLimit: "800/minute", dataPoints: "Followers, subs, watch time, clips", freshness: "Real-time" },
+  { platform: "Twitter/X", method: "API v2", rateLimit: "500/15min", dataPoints: "Followers, engagement, impressions", freshness: "< 24hr" },
+  { platform: "LinkedIn", method: "Marketing API", rateLimit: "100/day", dataPoints: "Connections, engagement, company", freshness: "< 1 week" },
+  { platform: "Facebook", method: "Graph API", rateLimit: "200/hour", dataPoints: "Page followers, engagement", freshness: "< 24hr" },
+  { platform: "Snapchat", method: "Marketing API", rateLimit: "Limited", dataPoints: "Story views, subscribers", freshness: "< 1 week" },
+  { platform: "Pinterest", method: "API v5", rateLimit: "1,000/hour", dataPoints: "Followers, pins, engagement", freshness: "< 1 week" },
+];
+
+// ── Data Freshness Targets ──────────────────────────────────────────────
+const FRESHNESS_TARGETS = [
+  { dataType: "Follower counts", freshness: "< 24 hours", trigger: "Daily batch + on-demand", alert: "> 48 hours" },
+  { dataType: "Engagement metrics", freshness: "< 24 hours", trigger: "Daily batch", alert: "> 48 hours" },
+  { dataType: "Content posts", freshness: "< 2 hours", trigger: "Webhook + polling", alert: "> 6 hours" },
+  { dataType: "Viral moments", freshness: "< 30 minutes", trigger: "Real-time monitoring", alert: "> 2 hours" },
+  { dataType: "Deal announcements", freshness: "< 4 hours", trigger: "News monitoring + social", alert: "> 12 hours" },
+  { dataType: "Profile changes", freshness: "< 24 hours", trigger: "Daily comparison", alert: "> 48 hours" },
+  { dataType: "Rate benchmarks", freshness: "< 1 week", trigger: "Weekly aggregation", alert: "> 2 weeks" },
+  { dataType: "Trajectory predictions", freshness: "< 1 week", trigger: "Weekly model run", alert: "> 2 weeks" },
+];
+
 const totalInstances = AGENTS.reduce((s, a) => s + a.instances, 0);
 
 function AgentCard({ agent }) {
@@ -251,8 +356,12 @@ export default function SystemArchitecture() {
         })}
       </div>
 
-      <Tabs defaultValue="agents">
+      <Tabs defaultValue="phases">
         <TabsList className="bg-slate-100 flex-wrap h-auto gap-1 p-1">
+          <TabsTrigger value="phases">4-Phase Framework</TabsTrigger>
+          <TabsTrigger value="pipeline">Pipeline Stages</TabsTrigger>
+          <TabsTrigger value="platforms">Platform APIs</TabsTrigger>
+          <TabsTrigger value="freshness">Data Freshness</TabsTrigger>
           <TabsTrigger value="agents">AI Agents</TabsTrigger>
           <TabsTrigger value="topics">Kafka Topics</TabsTrigger>
           <TabsTrigger value="schema">Message Schema</TabsTrigger>
@@ -262,6 +371,115 @@ export default function SystemArchitecture() {
           <TabsTrigger value="state">State & Recovery</TabsTrigger>
           <TabsTrigger value="principles">Principles</TabsTrigger>
         </TabsList>
+
+        {/* 4-Phase Framework */}
+        <TabsContent value="phases" className="mt-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {PHASES.map((phase, idx) => {
+              const Icon = phase.icon;
+              return (
+                <Card key={phase.name} className={`border-2 ${phase.color}`}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-sm font-bold">{phase.name}</CardTitle>
+                        <p className="text-xs text-slate-500 mt-0.5">{phase.step} • {phase.automation}</p>
+                      </div>
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${phase.color}`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <p className="text-xs text-slate-600 mt-2">{phase.description}</p>
+                  </CardHeader>
+                  <CardContent className="space-y-1.5">
+                    {phase.tasks.map((task, i) => (
+                      <div key={i} className="flex gap-2 text-xs">
+                        <span className="text-slate-400 flex-shrink-0">•</span>
+                        <span className="text-slate-700">{task}</span>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </TabsContent>
+
+        {/* Pipeline Stages */}
+        <TabsContent value="pipeline" className="mt-4">
+          <div className="space-y-3">
+            {PIPELINE_STAGES.map((p, idx) => (
+              <div key={p.stage} className="flex gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-100 flex-shrink-0">
+                  <span className="text-sm font-bold text-indigo-700">{p.stage}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h4 className="text-sm font-semibold text-slate-800">{p.process}</h4>
+                    <Badge className={`${p.automation === "MANUAL" ? "bg-purple-100 text-purple-700" : "bg-emerald-100 text-emerald-700"} text-[10px]`}>
+                      {p.automation}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-slate-600 mb-1.5">{p.desc}</p>
+                  <div className="flex gap-3 flex-wrap">
+                    <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Output: {p.output}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Platform APIs */}
+        <TabsContent value="platforms" className="mt-4">
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  {["Platform", "API Method", "Rate Limit", "Data Points", "Freshness"].map(h => (
+                    <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {PLATFORM_APIS.map(p => (
+                  <tr key={p.platform} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-3 font-semibold text-slate-800 text-xs">{p.platform}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600 font-mono">{p.method}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600 font-mono">{p.rateLimit}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600">{p.dataPoints}</td>
+                    <td className="px-4 py-3"><Badge className="bg-emerald-100 text-emerald-700 text-[10px]">{p.freshness}</Badge></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </TabsContent>
+
+        {/* Data Freshness */}
+        <TabsContent value="freshness" className="mt-4">
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  {["Data Type", "Target Freshness", "Update Trigger", "Staleness Alert"].map(h => (
+                    <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {FRESHNESS_TARGETS.map(f => (
+                  <tr key={f.dataType} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-3 font-semibold text-slate-800 text-xs">{f.dataType}</td>
+                    <td className="px-4 py-3"><Badge className="bg-blue-100 text-blue-700 text-[10px]">{f.freshness}</Badge></td>
+                    <td className="px-4 py-3 text-xs text-slate-600">{f.trigger}</td>
+                    <td className="px-4 py-3"><Badge className="bg-red-100 text-red-700 text-[10px]">{f.alert}</Badge></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </TabsContent>
 
         {/* Agents tab */}
         <TabsContent value="agents" className="mt-4">

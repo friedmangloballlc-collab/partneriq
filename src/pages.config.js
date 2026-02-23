@@ -47,9 +47,11 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import AIFeatures from './pages/AIFeatures';
 import Analytics from './pages/Analytics';
 import Approvals from './pages/Approvals';
 import Brands from './pages/Brands';
+import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
 import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
@@ -62,19 +64,19 @@ import PlatformOverview from './pages/PlatformOverview';
 import SequenceBuilder from './pages/SequenceBuilder';
 import Settings from './pages/Settings';
 import SimulationEngine from './pages/SimulationEngine';
+import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
-import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
-import SystemArchitecture from './pages/SystemArchitecture';
-import AIFeatures from './pages/AIFeatures';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "AIFeatures": AIFeatures,
     "Analytics": Analytics,
     "Approvals": Approvals,
     "Brands": Brands,
+    "CampaignBriefGenerator": CampaignBriefGenerator,
     "ConnectAccounts": ConnectAccounts,
     "Dashboard": Dashboard,
     "Integrations": Integrations,
@@ -87,12 +89,10 @@ export const PAGES = {
     "SequenceBuilder": SequenceBuilder,
     "Settings": Settings,
     "SimulationEngine": SimulationEngine,
+    "SystemArchitecture": SystemArchitecture,
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
-    "CampaignBriefGenerator": CampaignBriefGenerator,
-    "SystemArchitecture": SystemArchitecture,
-    "AIFeatures": AIFeatures,
 }
 
 export const pagesConfig = {
