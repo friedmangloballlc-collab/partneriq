@@ -47,46 +47,48 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Dashboard from './pages/Dashboard';
-import TalentDiscovery from './pages/TalentDiscovery';
-import Brands from './pages/Brands';
-import Partnerships from './pages/Partnerships';
-import Outreach from './pages/Outreach';
-import Approvals from './pages/Approvals';
-import MatchEngine from './pages/MatchEngine';
 import Analytics from './pages/Analytics';
-import Settings from './pages/Settings';
-import Onboarding from './pages/Onboarding';
-import Teams from './pages/Teams';
-import SequenceBuilder from './pages/SequenceBuilder';
-import SimulationEngine from './pages/SimulationEngine';
-import PitchDeckBuilder from './pages/PitchDeckBuilder';
-import SystemHealth from './pages/SystemHealth';
+import Approvals from './pages/Approvals';
+import Brands from './pages/Brands';
 import ConnectAccounts from './pages/ConnectAccounts';
+import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
+import MatchEngine from './pages/MatchEngine';
+import Onboarding from './pages/Onboarding';
+import Outreach from './pages/Outreach';
+import Partnerships from './pages/Partnerships';
+import PitchDeckBuilder from './pages/PitchDeckBuilder';
 import PlatformOverview from './pages/PlatformOverview';
+import SequenceBuilder from './pages/SequenceBuilder';
+import Settings from './pages/Settings';
+import SimulationEngine from './pages/SimulationEngine';
+import SystemHealth from './pages/SystemHealth';
+import TalentDiscovery from './pages/TalentDiscovery';
+import Teams from './pages/Teams';
+import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "TalentDiscovery": TalentDiscovery,
-    "Brands": Brands,
-    "Partnerships": Partnerships,
-    "Outreach": Outreach,
-    "Approvals": Approvals,
-    "MatchEngine": MatchEngine,
     "Analytics": Analytics,
-    "Settings": Settings,
-    "Onboarding": Onboarding,
-    "Teams": Teams,
-    "SequenceBuilder": SequenceBuilder,
-    "SimulationEngine": SimulationEngine,
-    "PitchDeckBuilder": PitchDeckBuilder,
-    "SystemHealth": SystemHealth,
+    "Approvals": Approvals,
+    "Brands": Brands,
     "ConnectAccounts": ConnectAccounts,
+    "Dashboard": Dashboard,
     "Integrations": Integrations,
+    "MatchEngine": MatchEngine,
+    "Onboarding": Onboarding,
+    "Outreach": Outreach,
+    "Partnerships": Partnerships,
+    "PitchDeckBuilder": PitchDeckBuilder,
     "PlatformOverview": PlatformOverview,
+    "SequenceBuilder": SequenceBuilder,
+    "Settings": Settings,
+    "SimulationEngine": SimulationEngine,
+    "SystemHealth": SystemHealth,
+    "TalentDiscovery": TalentDiscovery,
+    "Teams": Teams,
+    "CampaignBriefGenerator": CampaignBriefGenerator,
 }
 
 export const pagesConfig = {
