@@ -65,6 +65,7 @@ const roleNavItems = {
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
