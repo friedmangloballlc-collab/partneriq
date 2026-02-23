@@ -67,6 +67,7 @@ import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import SystemArchitecture from './pages/SystemArchitecture';
+import AIFeatures from './pages/AIFeatures';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "Teams": Teams,
     "CampaignBriefGenerator": CampaignBriefGenerator,
     "SystemArchitecture": SystemArchitecture,
+    "AIFeatures": AIFeatures,
 }
 
 export const pagesConfig = {
