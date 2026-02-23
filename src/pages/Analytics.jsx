@@ -88,11 +88,43 @@ export default function Analytics() {
     ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.filter(p => p.match_score).length)
     : 0;
 
+  const tabs = [
+    { id: "overview", label: "Overview", icon: BarChart3 },
+    { id: "trends", label: "Trends", icon: TrendingUp },
+    { id: "benchmarks", label: "Benchmarks", icon: Zap },
+    { id: "roi", label: "ROI Modeling", icon: DollarSign },
+    { id: "reporting", label: "Custom Reports", icon: Users },
+  ];
+
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Analytics</h1>
-        <p className="text-sm text-slate-500 mt-1">Platform performance and partnership intelligence</p>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Analytics Dashboard</h1>
+          <p className="text-sm text-slate-500 mt-1">Deep insights, benchmarking, predictions & custom reporting</p>
+        </div>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="flex gap-2 border-b border-slate-200 overflow-x-auto">
+        {tabs.map(tab => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+                isActive
+                  ? "border-indigo-600 text-indigo-600"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Top Stats */}
