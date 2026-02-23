@@ -229,10 +229,10 @@ export default function SystemArchitecture() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Agent Types",      value: AGENTS.length,    icon: Cpu,       color: "text-indigo-600 bg-indigo-50" },
-          { label: "Total Instances",  value: totalInstances,   icon: Server,    color: "text-violet-600 bg-violet-50" },
-          { label: "Kafka Topics",     value: TOPICS.length,    icon: Layers,    color: "text-blue-600 bg-blue-50" },
-          { label: "Core Principles",  value: PRINCIPLES.length,icon: Shield,    color: "text-emerald-600 bg-emerald-50" },
+          { label: "Agent Types",       value: AGENTS.length,           icon: Cpu,    color: "text-indigo-600 bg-indigo-50" },
+          { label: "Total Instances",   value: totalInstances,          icon: Server, color: "text-violet-600 bg-violet-50" },
+          { label: "Kafka Topics",      value: TOPICS.length,           icon: Layers, color: "text-blue-600 bg-blue-50" },
+          { label: "Circuit Breakers",  value: CIRCUIT_BREAKERS.length, icon: Shield, color: "text-emerald-600 bg-emerald-50" },
         ].map(s => {
           const Icon = s.icon;
           return (
