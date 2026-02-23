@@ -26,7 +26,7 @@ const roles = [
     bg: "bg-indigo-50 border-indigo-200",
   },
   {
-    key: "agency",
+    key: "partnerships",
     icon: Briefcase,
     title: "Partnerships",
     desc: "I manage partnerships, deals, and talent rosters",
