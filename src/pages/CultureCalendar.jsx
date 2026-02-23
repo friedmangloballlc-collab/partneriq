@@ -18,6 +18,7 @@ export default function CultureCalendar() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState("all");
   const [selectedYear, setSelectedYear] = useState("2026");
+  const [industryPage, setIndustryPage] = useState(0);
 
   const { data: events = [] } = useQuery({
     queryKey: ["culture_events"],
