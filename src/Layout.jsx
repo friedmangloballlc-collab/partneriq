@@ -33,6 +33,7 @@ const roleNavItems = {
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
+    { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
