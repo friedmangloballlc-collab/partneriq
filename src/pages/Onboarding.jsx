@@ -10,28 +10,28 @@ import { Zap, Building2, Users, Briefcase, ArrowRight, Loader2, CheckCircle2 } f
 
 const roles = [
   {
-    key: "brand",
-    icon: Building2,
-    title: "Brand",
-    desc: "I represent a brand looking for talent partnerships",
-    color: "from-indigo-500 to-blue-600",
-    bg: "bg-indigo-50 border-indigo-200",
-  },
-  {
     key: "talent",
     icon: Users,
-    title: "Talent / Creator",
-    desc: "I'm a creator, athlete, or celebrity seeking deals",
+    title: "Talent",
+    desc: "I'm a creator, athlete, or celebrity seeking brand deals",
     color: "from-emerald-500 to-teal-600",
     bg: "bg-emerald-50 border-emerald-200",
   },
   {
+    key: "brand",
+    icon: Building2,
+    title: "Brands",
+    desc: "I represent a brand looking to partner with creators",
+    color: "from-indigo-500 to-blue-600",
+    bg: "bg-indigo-50 border-indigo-200",
+  },
+  {
     key: "agency",
     icon: Briefcase,
-    title: "Agency",
-    desc: "I manage a roster of talent and seek partnerships",
-    color: "from-amber-500 to-orange-600",
-    bg: "bg-amber-50 border-amber-200",
+    title: "Partnerships",
+    desc: "I manage partnerships, deals, and talent rosters",
+    color: "from-purple-500 to-indigo-600",
+    bg: "bg-purple-50 border-purple-200",
   },
 ];
 
