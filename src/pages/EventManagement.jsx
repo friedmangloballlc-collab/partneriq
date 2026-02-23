@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,6 +20,20 @@ export default function EventManagement() {
     selectedDemographics: [],
   });
   const queryClient = useQueryClient();
+
+  // Handle URL params for search navigation
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get("event");
+
+    if (eventId) {
+      // Set the event as selected/filter
+      setEventFilters(prev => ({
+        ...prev,
+        selectedDemographics: [eventId]
+      }));
+    }
+  }, []);
 
   const { data: cultureEvents = [], isLoading: cultureLoading } = useQuery({
     queryKey: ["cultureEvents"],
