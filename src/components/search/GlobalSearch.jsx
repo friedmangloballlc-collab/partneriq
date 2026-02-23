@@ -73,11 +73,14 @@ export default function GlobalSearch() {
     setSearchTerm("");
     
     if (resultType === "industry") {
-      navigate(createPageUrl(`DemographicTargeting?industry=${id}`));
+      navigate(createPageUrl(`DemographicTargeting?industry=${encodeURIComponent(id)}`));
+      setTimeout(() => window.history.replaceState({}, "", createPageUrl("DemographicTargeting")), 100);
     } else if (resultType === "event") {
-      navigate(createPageUrl(`EventManagement?event=${id}`));
+      navigate(createPageUrl(`EventManagement?event=${encodeURIComponent(id)}`));
+      setTimeout(() => window.history.replaceState({}, "", createPageUrl("EventManagement")), 100);
     } else if (resultType === "demographic") {
-      navigate(createPageUrl(`DemographicTargeting?demographic=${id}`));
+      navigate(createPageUrl(`DemographicTargeting?demographic=${encodeURIComponent(id)}`));
+      setTimeout(() => window.history.replaceState({}, "", createPageUrl("DemographicTargeting")), 100);
     }
   };
 
