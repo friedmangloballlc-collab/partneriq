@@ -27,13 +27,21 @@ export default function EventManagement() {
     const eventId = params.get("event");
 
     if (eventId) {
-      // Set the event as selected/filter
-      setEventFilters(prev => ({
-        ...prev,
-        selectedDemographics: [eventId]
-      }));
+      // Find and edit the event
+      const allEvents = [...cultureEvents, ...megaEvents];
+      const event = allEvents.find(e => e.id === eventId);
+      if (event) {
+        setEditingEvent(event);
+        setShowForm(true);
+        // Determine if it's culture or mega event
+        if (cultureEvents.find(e => e.id === eventId)) {
+          setEventType("culture");
+        } else {
+          setEventType("mega");
+        }
+      }
     }
-  }, []);
+  }, [cultureEvents, megaEvents]);
 
   const { data: cultureEvents = [], isLoading: cultureLoading } = useQuery({
     queryKey: ["cultureEvents"],

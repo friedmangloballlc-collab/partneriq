@@ -56,6 +56,8 @@ import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
 import CultureCalendar from './pages/CultureCalendar';
 import Dashboard from './pages/Dashboard';
+import DemographicTargeting from './pages/DemographicTargeting';
+import EventManagement from './pages/EventManagement';
 import Integrations from './pages/Integrations';
 import MarketIntelligence from './pages/MarketIntelligence';
 import MasterCalendar from './pages/MasterCalendar';
@@ -74,8 +76,6 @@ import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
-import DemographicTargeting from './pages/DemographicTargeting';
-import EventManagement from './pages/EventManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -89,6 +89,8 @@ export const PAGES = {
     "ConnectAccounts": ConnectAccounts,
     "CultureCalendar": CultureCalendar,
     "Dashboard": Dashboard,
+    "DemographicTargeting": DemographicTargeting,
+    "EventManagement": EventManagement,
     "Integrations": Integrations,
     "MarketIntelligence": MarketIntelligence,
     "MasterCalendar": MasterCalendar,
@@ -107,8 +109,6 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
-    "DemographicTargeting": DemographicTargeting,
-    "EventManagement": EventManagement,
 }
 
 export const pagesConfig = {
