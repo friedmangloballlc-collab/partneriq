@@ -48,17 +48,17 @@ Deno.serve(async (req) => {
 
     // Filter out empty rows and map field names
     const mappedIndustries = industries
-      .filter(row => row.industry && row.industry.trim())
+      .filter(row => row.Industry && row.Industry.trim())
       .map(row => ({
-        industry: row.industry?.trim(),
-        sector: row.sector?.trim() || '',
-        priority_tier_1_events: row.priority_tier_1_events?.trim() || row['Priority Tier 1 Events (Must-Attend)']?.trim() || '',
-        tier_2_events: row.tier_2_events?.trim() || row['Tier 2 Events (High Value)']?.trim() || '',
-        heritage_awareness_months: row.heritage_awareness_months?.trim() || row['Heritage/Awareness Months']?.trim() || '',
-        key_conferences: row.key_conferences?.trim() || row['Key Conferences/Trade Shows']?.trim() || '',
-        best_demographics: row.best_demographics?.trim() || row['Best Demographics']?.trim() || '',
-        budget_allocation: row.budget_allocation?.trim() || row['Budget Allocation Guidance']?.trim() || '',
-        activation_strategies: row.activation_strategies?.trim() || row['Top Activation Strategies']?.trim() || ''
+        industry: row.Industry?.trim(),
+        sector: row.Sector?.trim() || '',
+        priority_tier_1_events: row['Priority Tier 1 Events (Must-Attend)']?.trim() || '',
+        tier_2_events: row['Tier 2 Events (High Value)']?.trim() || '',
+        heritage_awareness_months: row['Heritage/Awareness Months']?.trim() || '',
+        key_conferences: row['Key Conferences/Trade Shows']?.trim() || '',
+        best_demographics: row['Best Demographics']?.trim() || '',
+        budget_allocation: row['Budget Allocation Guidance']?.trim() || '',
+        activation_strategies: row['Top Activation Strategies']?.trim() || ''
       }));
 
     console.log(`Mapped ${mappedIndustries.length} industries for import`);
