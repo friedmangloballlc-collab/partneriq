@@ -80,7 +80,7 @@ export default function DemographicTargetingPage() {
   }, [selectedIndustry, selectedEvent, industries, cultureEvents, megaEvents, demographics]);
 
   const filteredDemographics = demographics.filter(d =>
-    d.segment_name.toLowerCase().includes(searchTerm.toLowerCase())
+    d.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleToggleDemographic = (id) => {
