@@ -54,12 +54,14 @@ import BillingHistory from './pages/BillingHistory';
 import Brands from './pages/Brands';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
+import CreateOpportunity from './pages/CreateOpportunity';
 import CultureCalendar from './pages/CultureCalendar';
 import Dashboard from './pages/Dashboard';
 import DemographicTargeting from './pages/DemographicTargeting';
 import EventManagement from './pages/EventManagement';
 import Integrations from './pages/Integrations';
 import MarketIntelligence from './pages/MarketIntelligence';
+import Marketplace from './pages/Marketplace';
 import MasterCalendar from './pages/MasterCalendar';
 import MatchEngine from './pages/MatchEngine';
 import Notifications from './pages/Notifications';
@@ -75,10 +77,8 @@ import SubscriptionManagement from './pages/SubscriptionManagement';
 import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
-import Teams from './pages/Teams';
-import Marketplace from './pages/Marketplace';
-import CreateOpportunity from './pages/CreateOpportunity';
 import TalentProfile from './pages/TalentProfile';
+import Teams from './pages/Teams';
 import __Layout from './Layout.jsx';
 
 
@@ -90,12 +90,14 @@ export const PAGES = {
     "Brands": Brands,
     "CampaignBriefGenerator": CampaignBriefGenerator,
     "ConnectAccounts": ConnectAccounts,
+    "CreateOpportunity": CreateOpportunity,
     "CultureCalendar": CultureCalendar,
     "Dashboard": Dashboard,
     "DemographicTargeting": DemographicTargeting,
     "EventManagement": EventManagement,
     "Integrations": Integrations,
     "MarketIntelligence": MarketIntelligence,
+    "Marketplace": Marketplace,
     "MasterCalendar": MasterCalendar,
     "MatchEngine": MatchEngine,
     "Notifications": Notifications,
@@ -111,10 +113,8 @@ export const PAGES = {
     "SystemArchitecture": SystemArchitecture,
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
-    "Teams": Teams,
-    "Marketplace": Marketplace,
-    "CreateOpportunity": CreateOpportunity,
     "TalentProfile": TalentProfile,
+    "Teams": Teams,
 }
 
 export const pagesConfig = {
