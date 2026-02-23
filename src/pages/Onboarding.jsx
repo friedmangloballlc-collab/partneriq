@@ -132,7 +132,64 @@ export default function Onboarding() {
   const labels = LABEL_MAP[selectedRole] || LABEL_MAP.brand;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
+
+      {/* ── PLATFORM OVERVIEW HERO (pre-onboarding) ── */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage:"radial-gradient(circle at 20% 50%, #6366f1 0%, transparent 60%), radial-gradient(circle at 80% 20%, #a855f7 0%, transparent 50%)"}} />
+        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-indigo-500/30">
+            <Zap className="w-7 h-7 text-white" />
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+            Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">PartnerIQ</span>
+          </h1>
+          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+            The enterprise AI-powered Partnership Intelligence Platform connecting talent — creators, athletes, celebrities — with brands and agencies worldwide.
+          </p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto">
+            {PLATFORM_STATS.map((s, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                <p className="text-2xl font-bold text-indigo-400">{s.value}</p>
+                <p className="text-xs text-slate-400 mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Capability chips */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {HIGHLIGHTS.map((h, i) => {
+              const Icon = h.icon;
+              return (
+                <div key={i} className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-xs text-slate-300">
+                  <Icon className="w-3.5 h-3.5 text-indigo-400" />
+                  {h.text}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Industries */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 max-w-2xl mx-auto mb-10 text-left">
+            <p className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest mb-3">Industries Covered</p>
+            <div className="flex flex-wrap gap-2">
+              {["Entertainment","Sports","Digital/Creator","Fashion","Business","Gaming","Fitness","Food & Bev","Technology","Finance","Travel","Beauty","Automotive"].map(ind => (
+                <span key={ind} className="text-[11px] bg-white/10 text-slate-300 px-2.5 py-1 rounded-full">{ind}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-2 text-slate-500">
+            <p className="text-sm">Create your account below</p>
+            <ChevronDown className="w-5 h-5 animate-bounce" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── ONBOARDING FORM ── */}
+      <div className="flex items-center justify-center p-6 pb-16">
       <div className="w-full max-w-xl">
 
         {/* Logo */}
