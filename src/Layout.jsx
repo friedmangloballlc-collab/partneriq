@@ -52,7 +52,6 @@ const roleNavItems = {
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
