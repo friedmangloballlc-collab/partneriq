@@ -53,6 +53,10 @@ import Brands from './pages/Brands';
 import Partnerships from './pages/Partnerships';
 import Outreach from './pages/Outreach';
 import Approvals from './pages/Approvals';
+import MatchEngine from './pages/MatchEngine';
+import Analytics from './pages/Analytics';
+import Settings from './pages/Settings';
+import Onboarding from './pages/Onboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +67,10 @@ export const PAGES = {
     "Partnerships": Partnerships,
     "Outreach": Outreach,
     "Approvals": Approvals,
+    "MatchEngine": MatchEngine,
+    "Analytics": Analytics,
+    "Settings": Settings,
+    "Onboarding": Onboarding,
 }
 
 export const pagesConfig = {

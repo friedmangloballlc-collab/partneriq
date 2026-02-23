@@ -1,0 +1,294 @@
+import React, { useState } from "react";
+import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+export default function MatchEngine() {
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedTalent, setSelectedTalent] = useState("");
+  const [matchMode, setMatchMode] = useState("brand_to_talent");
+  const [matching, setMatching] = useState(false);
+  const [matchResults, setMatchResults] = useState(null);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const preselectedTalentId = urlParams.get("talentId");
+
+  const { data: brands = [] } = useQuery({
+    queryKey: ["brands"],
+    queryFn: () => base44.entities.Brand.list("-created_date", 100),
+  });
+
+  const { data: talents = [] } = useQuery({
+    queryKey: ["talents"],
+    queryFn: () => base44.entities.Talent.list("-created_date", 100),
+  });
+
+  React.useEffect(() => {
+    if (preselectedTalentId) {
+      setSelectedTalent(preselectedTalentId);
+      setMatchMode("talent_to_brand");
+    }
+  }, [preselectedTalentId]);
+
+  const handleRunMatch = async () => {
+    setMatching(true);
+    const source = matchMode === "brand_to_talent"
+      ? brands.find(b => b.id === selectedBrand)
+      : talents.find(t => t.id === selectedTalent);
+    const pool = matchMode === "brand_to_talent" ? talents : brands;
+
+    const prompt = matchMode === "brand_to_talent"
+      ? `You are a partnership matching AI. Analyze this brand and rank the best talent matches.
+
+Brand: ${JSON.stringify(source)}
+
+Available Talent Pool (top 10):
+${JSON.stringify(pool.slice(0, 10).map(t => ({ id: t.id, name: t.name, niche: t.niche, platform: t.primary_platform, followers: t.total_followers, engagement: t.engagement_rate, tier: t.tier })))}
+
+For each match, provide a score (0-100), reasoning, and recommended partnership type.
+Return the top 5 matches.`
+      : `You are a partnership matching AI. Analyze this talent/creator and rank the best brand matches.
+
+Talent: ${JSON.stringify(source)}
+
+Available Brand Pool (top 10):
+${JSON.stringify(pool.slice(0, 10).map(b => ({ id: b.id, name: b.name, industry: b.industry, size: b.company_size, budget: b.annual_budget, niches: b.preferred_niches })))}
+
+For each match, provide a score (0-100), reasoning, and recommended partnership type.
+Return the top 5 matches.`;
+
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: {
+        type: "object",
+        properties: {
+          matches: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "string" },
+                name: { type: "string" },
+                score: { type: "number" },
+                reasoning: { type: "string" },
+                partnership_type: { type: "string" },
+                strengths: { type: "array", items: { type: "string" } },
+              }
+            }
+          },
+          summary: { type: "string" }
+        }
+      }
+    });
+
+    setMatchResults(result);
+    setMatching(false);
+  };
+
+  const handleCreatePartnership = async (match) => {
+    const source = matchMode === "brand_to_talent"
+      ? brands.find(b => b.id === selectedBrand)
+      : talents.find(t => t.id === selectedTalent);
+
+    await base44.entities.Partnership.create({
+      title: matchMode === "brand_to_talent"
+        ? `${source?.name} × ${match.name}`
+        : `${match.name} × ${source?.name}`,
+      brand_name: matchMode === "brand_to_talent" ? source?.name : match.name,
+      talent_name: matchMode === "brand_to_talent" ? match.name : source?.name,
+      brand_id: matchMode === "brand_to_talent" ? selectedBrand : match.id,
+      talent_id: matchMode === "brand_to_talent" ? match.id : selectedTalent,
+      match_score: match.score,
+      match_reasoning: match.reasoning,
+      partnership_type: match.partnership_type || "sponsorship",
+      status: "discovered",
+      priority: match.score >= 85 ? "p1" : match.score >= 70 ? "p2" : "p3",
+    });
+
+    base44.entities.Activity.create({
+      action: "match_generated",
+      description: `AI match: ${match.name} (${match.score}% score)`,
+      resource_type: "partnership",
+    });
+  };
+
+  return (
+    <div className="space-y-8">
+      <div>
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">AI Match Engine</h1>
+          <Badge className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] px-2.5">AI-Powered</Badge>
+        </div>
+        <p className="text-sm text-slate-500 mt-1">10-factor weighted scoring with semantic understanding</p>
+      </div>
+
+      {/* Configuration */}
+      <Card className="border-slate-200/60">
+        <CardContent className="p-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-end">
+            <div className="flex-1 space-y-3">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Match Mode</label>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setMatchMode("brand_to_talent")}
+                  className={`flex-1 flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${matchMode === "brand_to_talent" ? "border-indigo-500 bg-indigo-50" : "border-slate-200 hover:border-slate-300"}`}
+                >
+                  <Building2 className={`w-5 h-5 ${matchMode === "brand_to_talent" ? "text-indigo-600" : "text-slate-400"}`} />
+                  <div className="text-left">
+                    <p className="text-sm font-medium">Brand → Talent</p>
+                    <p className="text-[11px] text-slate-400">Find talent for a brand</p>
+                  </div>
+                </button>
+                <button
+                  onClick={() => setMatchMode("talent_to_brand")}
+                  className={`flex-1 flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${matchMode === "talent_to_brand" ? "border-indigo-500 bg-indigo-50" : "border-slate-200 hover:border-slate-300"}`}
+                >
+                  <Users className={`w-5 h-5 ${matchMode === "talent_to_brand" ? "text-indigo-600" : "text-slate-400"}`} />
+                  <div className="text-left">
+                    <p className="text-sm font-medium">Talent → Brand</p>
+                    <p className="text-[11px] text-slate-400">Find brands for a creator</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex-1 space-y-3">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                {matchMode === "brand_to_talent" ? "Select Brand" : "Select Talent"}
+              </label>
+              {matchMode === "brand_to_talent" ? (
+                <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                  <SelectTrigger><SelectValue placeholder="Choose a brand..." /></SelectTrigger>
+                  <SelectContent>
+                    {brands.map(b => <SelectItem key={b.id} value={b.id}>{b.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Select value={selectedTalent} onValueChange={setSelectedTalent}>
+                  <SelectTrigger><SelectValue placeholder="Choose talent..." /></SelectTrigger>
+                  <SelectContent>
+                    {talents.map(t => <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
+
+            <Button
+              onClick={handleRunMatch}
+              disabled={matching || (matchMode === "brand_to_talent" ? !selectedBrand : !selectedTalent)}
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 h-10 px-6"
+            >
+              {matching ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
+              {matching ? "Matching..." : "Run AI Match"}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Results */}
+      {matching && (
+        <div className="text-center py-16">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Sparkles className="w-8 h-8 text-indigo-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-slate-700">Running AI Match Engine</h3>
+          <p className="text-sm text-slate-400 mt-1">Analyzing compatibility across 10 factors...</p>
+        </div>
+      )}
+
+      {matchResults && !matching && (
+        <div className="space-y-6">
+          {matchResults.summary && (
+            <Card className="border-indigo-200/60 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 p-5">
+              <div className="flex items-start gap-3">
+                <Zap className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="text-sm font-semibold text-indigo-800">AI Analysis Summary</h4>
+                  <p className="text-sm text-indigo-700/80 mt-1 leading-relaxed">{matchResults.summary}</p>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          <div className="space-y-4">
+            {matchResults.matches?.map((match, i) => (
+              <Card key={i} className="border-slate-200/60 overflow-hidden">
+                <div className="flex flex-col lg:flex-row">
+                  <div className="flex-1 p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="relative">
+                        <Avatar className="w-12 h-12">
+                          <AvatarFallback className="bg-gradient-to-br from-indigo-400 to-purple-500 text-white font-bold">
+                            {match.name?.[0]?.toUpperCase() || "?"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-sm border">
+                          <span className="text-[10px] font-bold text-indigo-600">#{i + 1}</span>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-base font-semibold text-slate-900">{match.name}</h3>
+                          {match.partnership_type && (
+                            <Badge variant="outline" className="text-[10px]">{match.partnership_type}</Badge>
+                          )}
+                        </div>
+                        <p className="text-sm text-slate-500 mt-1 leading-relaxed">{match.reasoning}</p>
+                        {match.strengths?.length > 0 && (
+                          <div className="flex gap-1.5 mt-3 flex-wrap">
+                            {match.strengths.map((s, j) => (
+                              <Badge key={j} className="bg-emerald-50 text-emerald-700 text-[10px]">{s}</Badge>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="lg:w-52 p-5 bg-slate-50/50 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-100">
+                    <div>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Match Score</p>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-bold text-indigo-600">{match.score}</span>
+                        <span className="text-sm text-slate-400">/ 100</span>
+                      </div>
+                      <Progress value={match.score} className="mt-2 h-1.5" />
+                    </div>
+                    <Button
+                      size="sm"
+                      className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-xs"
+                      onClick={() => handleCreatePartnership(match)}
+                    >
+                      <ArrowRight className="w-3 h-3 mr-1.5" /> Create Partnership
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!matchResults && !matching && (
+        <div className="text-center py-16">
+          <div className="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
+            <BarChart3 className="w-9 h-9 text-slate-300" />
+          </div>
+          <h3 className="text-lg font-semibold text-slate-700">Ready to find matches</h3>
+          <p className="text-sm text-slate-400 mt-1 max-w-md mx-auto">
+            Select a brand or talent above, then run the AI Match Engine to discover high-potential partnership opportunities.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
