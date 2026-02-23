@@ -50,12 +50,14 @@
 import AIFeatures from './pages/AIFeatures';
 import Analytics from './pages/Analytics';
 import Approvals from './pages/Approvals';
+import BillingHistory from './pages/BillingHistory';
 import Brands from './pages/Brands';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
 import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
 import MatchEngine from './pages/MatchEngine';
+import Notifications from './pages/Notifications';
 import Onboarding from './pages/Onboarding';
 import Outreach from './pages/Outreach';
 import Partnerships from './pages/Partnerships';
@@ -64,13 +66,12 @@ import PlatformOverview from './pages/PlatformOverview';
 import SequenceBuilder from './pages/SequenceBuilder';
 import Settings from './pages/Settings';
 import SimulationEngine from './pages/SimulationEngine';
+import SubscriptionManagement from './pages/SubscriptionManagement';
 import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
-import Notifications from './pages/Notifications';
-import SubscriptionManagement from './pages/SubscriptionManagement';
-import BillingHistory from './pages/BillingHistory';
+import MarketIntelligence from './pages/MarketIntelligence';
 import __Layout from './Layout.jsx';
 
 
@@ -78,12 +79,14 @@ export const PAGES = {
     "AIFeatures": AIFeatures,
     "Analytics": Analytics,
     "Approvals": Approvals,
+    "BillingHistory": BillingHistory,
     "Brands": Brands,
     "CampaignBriefGenerator": CampaignBriefGenerator,
     "ConnectAccounts": ConnectAccounts,
     "Dashboard": Dashboard,
     "Integrations": Integrations,
     "MatchEngine": MatchEngine,
+    "Notifications": Notifications,
     "Onboarding": Onboarding,
     "Outreach": Outreach,
     "Partnerships": Partnerships,
@@ -92,13 +95,12 @@ export const PAGES = {
     "SequenceBuilder": SequenceBuilder,
     "Settings": Settings,
     "SimulationEngine": SimulationEngine,
+    "SubscriptionManagement": SubscriptionManagement,
     "SystemArchitecture": SystemArchitecture,
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
-    "Notifications": Notifications,
-    "SubscriptionManagement": SubscriptionManagement,
-    "BillingHistory": BillingHistory,
+    "MarketIntelligence": MarketIntelligence,
 }
 
 export const pagesConfig = {
