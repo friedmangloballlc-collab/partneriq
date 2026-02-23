@@ -467,5 +467,7 @@ export default function Onboarding() {
              </>
              </div>
              </div>
+             </div>
+             </div>
              );
              }
