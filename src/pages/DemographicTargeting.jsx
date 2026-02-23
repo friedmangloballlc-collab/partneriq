@@ -403,7 +403,7 @@ export default function DemographicTargetingPage() {
                         htmlFor={demographic.id}
                         className="text-sm font-medium cursor-pointer block text-slate-900"
                       >
-                        {demographic.segment_name}
+                        {demographic.name}
                       </label>
                       {demographic.population_size && (
                         <p className="text-xs text-slate-500 mt-1">Pop: {demographic.population_size}</p>
