@@ -30,13 +30,13 @@ export default function DemographicTargetingPage() {
     const industryId = params.get("industry");
     const demographicId = params.get("demographic");
 
-    if (industryId) {
+    if (industryId && industries.length > 0) {
       setSelectedIndustries(new Set([industryId]));
     }
-    if (demographicId) {
+    if (demographicId && demographics.length > 0) {
       setSelectedDemographics(new Set([demographicId]));
     }
-  }, []);
+  }, [industries, demographics]);
 
   // Fetch industries, events, and demographics
   const { data: industries = [] } = useQuery({
