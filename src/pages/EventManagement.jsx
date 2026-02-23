@@ -23,27 +23,23 @@ export default function EventManagement() {
   });
   const queryClient = useQueryClient();
 
-  // Handle URL params for search navigation
+  // Handle navigation state from search
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const eventId = params.get("event");
-
-    if (eventId) {
-      // Find and edit the event
+    if (location.state?.selectedEvent) {
       const allEvents = [...cultureEvents, ...megaEvents];
-      const event = allEvents.find(e => e.id === eventId);
+      const event = allEvents.find(e => e.id === location.state.selectedEvent);
       if (event) {
         setEditingEvent(event);
         setShowForm(true);
         // Determine if it's culture or mega event
-        if (cultureEvents.find(e => e.id === eventId)) {
+        if (cultureEvents.find(e => e.id === location.state.selectedEvent)) {
           setEventType("culture");
         } else {
           setEventType("mega");
         }
       }
     }
-  }, [cultureEvents, megaEvents]);
+  }, [location.state, cultureEvents, megaEvents]);
 
   const { data: cultureEvents = [], isLoading: cultureLoading } = useQuery({
     queryKey: ["cultureEvents"],
