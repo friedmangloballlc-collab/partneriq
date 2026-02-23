@@ -95,7 +95,7 @@ export default function DemographicTargetingPage() {
     }
 
     setAutoMatched(matched);
-  }, [selectedIndustry, selectedEvent, industries, cultureEvents, megaEvents, demographics]);
+  }, [selectedIndustries, selectedEvent, industries, cultureEvents, megaEvents, demographics]);
 
   const filteredDemographics = useMemo(() => {
     return demographics.filter((d) => {
