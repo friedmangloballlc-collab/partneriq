@@ -717,7 +717,7 @@ export default function Onboarding() {
              </p>
 
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-               {PLANS.map(plan => {
+               {(PLANS_BY_ROLE[selectedRole] || []).map(plan => {
                  const isSelected = selectedPlan === plan.key;
                  return (
                    <button
@@ -758,7 +758,7 @@ export default function Onboarding() {
              </div>
 
              <div className="flex gap-3 mt-6">
-               <Button variant="outline" onClick={() => setStep(1)} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
+               <Button variant="outline" onClick={() => {setSelectedRole(""); setStep(1);}} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
                  Back
                </Button>
                <Button onClick={() => setStep(3)} disabled={!selectedPlan} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
