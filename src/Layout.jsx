@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Bell, Search, Menu, X
+  Zap, Bell, Search, Menu, X, UsersRound
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -24,6 +24,7 @@ const roleNavItems = {
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
@@ -32,6 +33,7 @@ const roleNavItems = {
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
@@ -50,6 +52,7 @@ const roleNavItems = {
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
