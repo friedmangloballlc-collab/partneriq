@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Users, Building2, Handshake, DollarSign, Mail, CheckSquare,
-  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap
+  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
