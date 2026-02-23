@@ -306,50 +306,52 @@ export default function Onboarding() {
         </div>
 
         {/* ── STEP 1: Account Type ── */}
-        {step === 1 && (
-          <div className="space-y-3 animate-fade-in-up">
-            <h2 className="text-lg font-semibold text-white">What type of account do you need?</h2>
-            <p className="text-sm text-slate-400 mb-4">This personalizes your entire dashboard experience</p>
+         {step === 1 && (
+           <div className="space-y-4 animate-fade-in-up">
+             <h2 className="text-2xl font-bold text-slate-900">What type of account do you need?</h2>
+             <p className="text-slate-600 mb-6">Select your role to personalize your experience</p>
 
-            {ROLES.map(role => {
-              const Icon = role.icon;
-              const isSelected = selectedRole === role.key;
-              return (
-                <button
-                  key={role.key}
-                  onClick={() => setSelectedRole(role.key)}
-                  className={`w-full flex items-start gap-4 p-4 rounded-xl border-2 transition-all duration-200 text-left
-                    ${isSelected ? "bg-white/10 border-indigo-500" : "border-white/10 hover:border-white/20 bg-white/5"}`}
-                >
-                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${role.color} flex items-center justify-center flex-shrink-0 shadow-lg mt-0.5`}>
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white">{role.title}</p>
-                    <p className="text-xs text-slate-400 mt-0.5 mb-2">{role.desc}</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {role.perks.map((p, i) => (
-                        <span key={i} className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full">{p}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all
-                    ${isSelected ? "border-indigo-500 bg-indigo-500" : "border-white/20"}`}>
-                    {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
-                  </div>
-                </button>
-              );
-            })}
+             <div className="space-y-3">
+               {ROLES.map(role => {
+                 const Icon = role.icon;
+                 const isSelected = selectedRole === role.key;
+                 return (
+                   <button
+                     key={role.key}
+                     onClick={() => setSelectedRole(role.key)}
+                     className={`w-full flex items-start gap-4 p-5 rounded-xl border-2 transition-all duration-200 text-left
+                       ${isSelected ? "bg-indigo-50 border-indigo-300 shadow-sm" : "border-slate-200 hover:border-slate-300 bg-white"}`}
+                   >
+                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${role.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                       <Icon className="w-6 h-6 text-white" />
+                     </div>
+                     <div className="flex-1 min-w-0">
+                       <p className="font-semibold text-slate-900">{role.title}</p>
+                       <p className="text-sm text-slate-600 mt-0.5 mb-2">{role.desc}</p>
+                       <div className="flex flex-wrap gap-1.5">
+                         {role.perks.map((p, i) => (
+                           <span key={i} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">{p}</span>
+                         ))}
+                       </div>
+                     </div>
+                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all
+                       ${isSelected ? "border-indigo-600 bg-indigo-600" : "border-slate-300"}`}>
+                       {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
+                     </div>
+                   </button>
+                 );
+               })}
+             </div>
 
-            <Button
-              onClick={() => setStep(2)}
-              disabled={!selectedRole}
-              className="w-full mt-4 h-12 bg-indigo-600 hover:bg-indigo-700 text-base"
-            >
-              Continue <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        )}
+             <Button
+               onClick={() => setStep(2)}
+               disabled={!selectedRole}
+               className="w-full mt-6 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium"
+             >
+               Continue <ArrowRight className="w-4 h-4 ml-2" />
+             </Button>
+           </div>
+         )}
 
         {/* ── STEP 2: Plan ── */}
         {step === 2 && (
