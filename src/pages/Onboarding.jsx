@@ -414,58 +414,58 @@ export default function Onboarding() {
          )}
 
         {/* ── STEP 3: Details ── */}
-        {step === 3 && (
-          <div className="space-y-5 animate-fade-in-up">
-            <h2 className="text-lg font-semibold text-white">Complete your profile</h2>
-            <p className="text-sm text-slate-400 mb-4">
-              Almost there! Just a few details to finish setting up your <span className="text-white font-semibold">{roleObj?.title}</span> account.
-            </p>
+         {step === 3 && (
+           <div className="space-y-5 animate-fade-in-up">
+             <h2 className="text-2xl font-bold text-slate-900">Complete your profile</h2>
+             <p className="text-slate-600 mb-6">
+               Almost done! Just a few details to finish setting up your <span className="font-semibold text-slate-900">{roleObj?.title}</span> account.
+             </p>
 
-            <div>
-              <Label className="text-slate-300">{labels.name}</Label>
-              <Input
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder={labels.namePlaceholder}
-                className="mt-1.5 bg-white/10 border-white/10 text-white placeholder:text-slate-500 h-11"
-              />
-            </div>
-            <div>
-              <Label className="text-slate-300">{labels.title}</Label>
-              <Input
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                placeholder={labels.titlePlaceholder}
-                className="mt-1.5 bg-white/10 border-white/10 text-white placeholder:text-slate-500 h-11"
-              />
-            </div>
+             <div>
+               <Label className="text-slate-900 font-medium">{labels.name}</Label>
+               <Input
+                 value={name}
+                 onChange={e => setName(e.target.value)}
+                 placeholder={labels.namePlaceholder}
+                 className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white"
+               />
+             </div>
+             <div>
+               <Label className="text-slate-900 font-medium">{labels.title}</Label>
+               <Input
+                 value={title}
+                 onChange={e => setTitle(e.target.value)}
+                 placeholder={labels.titlePlaceholder}
+                 className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white"
+               />
+             </div>
 
-            {/* Summary card */}
-            <div className="bg-white/5 rounded-xl border border-white/10 p-4 flex items-center gap-4">
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${roleObj?.color} flex items-center justify-center flex-shrink-0`}>
-                {roleObj && <roleObj.icon className="w-5 h-5 text-white" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white">{roleObj?.title} · {selectedPlan === "pro" ? "Pro Plan" : "Free Plan"}</p>
-                <p className="text-xs text-slate-400 mt-0.5 truncate">{name || "Your profile"}</p>
-              </div>
-              {selectedPlan === "pro" && <Sparkles className="w-4 h-4 text-indigo-400 flex-shrink-0" />}
-            </div>
+             {/* Summary card */}
+             <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 flex items-center gap-4 mt-6">
+               <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${roleObj?.color} flex items-center justify-center flex-shrink-0`}>
+                 {roleObj && <roleObj.icon className="w-5 h-5 text-white" />}
+               </div>
+               <div className="flex-1 min-w-0">
+                 <p className="text-sm font-semibold text-slate-900">{roleObj?.title} · {selectedPlan === "pro" ? "Pro Plan" : "Free Plan"}</p>
+                 <p className="text-xs text-slate-600 mt-0.5 truncate">{name || "Your profile"}</p>
+               </div>
+               {selectedPlan === "pro" && <Sparkles className="w-5 h-5 text-indigo-600 flex-shrink-0" />}
+             </div>
 
-            <div className="flex gap-3 mt-2">
-              <Button variant="outline" onClick={() => setStep(2)} className="flex-1 h-11 bg-transparent border-white/20 text-white hover:bg-white/10">
-                Back
-              </Button>
-              <Button onClick={handleComplete} disabled={saving || !name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-base">
-                {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
-                {saving ? "Setting up..." : "Launch Dashboard"}
-              </Button>
-            </div>
-          </div>
-        )}
+             <div className="flex gap-3 mt-6">
+               <Button variant="outline" onClick={() => setStep(2)} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
+                 Back
+               </Button>
+               <Button onClick={handleComplete} disabled={saving || !name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                 {saving ? "Setting up..." : "Launch Dashboard"}
+               </Button>
+             </div>
+           </div>
+         )}
 
-      </div>
-      </div>
-    </div>
-  );
-}
+        </div>
+        </div>
+        </div>
+        );
+        }
