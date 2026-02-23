@@ -252,13 +252,19 @@ export default function Onboarding() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="mt-16">
-            <Button className="h-12 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg">
-              Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+          {/* CTA Buttons - Dual Role Approach */}
+          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button onClick={() => {setSelectedRole("talent"); setStep(2);}} variant="outline" className="h-11 px-6 border-2 border-slate-300 text-slate-900 font-semibold hover:bg-slate-50">
+              I'm a Creator
             </Button>
-            <p className="text-sm text-slate-500 mt-3">No credit card required • 14-day free trial</p>
+            <Button onClick={() => {setSelectedRole("brand"); setStep(2);}} variant="outline" className="h-11 px-6 border-2 border-slate-300 text-slate-900 font-semibold hover:bg-slate-50">
+              I'm a Brand
+            </Button>
+            <Button onClick={() => {setSelectedRole("agency"); setStep(2);}} className="h-11 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
+              I'm an Agency
+            </Button>
           </div>
+          <p className="text-sm text-slate-500 mt-4">No credit card required • Start free today</p>
         </div>
       </div>
 
