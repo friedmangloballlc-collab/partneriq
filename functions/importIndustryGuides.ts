@@ -15,9 +15,6 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'fileUrl is required' }, { status: 400 });
     }
 
-    // Get the schema for IndustryGuide
-    const schema = await base44.entities.IndustryGuide.schema();
-
     // Extract data from the uploaded file
     const extractResult = await base44.integrations.Core.ExtractDataFromUploadedFile({
       file_url: fileUrl,
