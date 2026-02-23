@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
