@@ -17,18 +17,19 @@ Deno.serve(async (req) => {
 
     // Use LLM to extract and parse the Excel file
     const llmResult = await base44.integrations.Core.InvokeLLM({
-      prompt: `Extract all industries from this Excel file and return as a JSON array. For each industry, extract these fields:
-        - industry (Industry name)
-        - sector (Sector)
-        - priority_tier_1_events (Priority Tier 1 Events (Must-Attend))
-        - tier_2_events (Tier 2 Events (High Value))
-        - heritage_awareness_months (Heritage/Awareness Months)
-        - key_conferences (Key Conferences/Trade Shows)
-        - best_demographics (Best Demographics)
-        - budget_allocation (Budget Allocation Guidance)
-        - activation_strategies (Top Activation Strategies)
+      prompt: `Extract ALL industries from this Excel file. For each row, extract these exact fields:
+        - industry: Industry name (first column)
+        - sector: Sector (second column)
+        - priority_tier_1_events: Priority Tier 1 Events (Must-Attend) (third column)
+        - tier_2_events: Tier 2 Events (High Value) (fourth column)
+        - heritage_awareness_months: Heritage/Awareness Months (fifth column)
+        - key_conferences: Key Conferences/Trade Shows (sixth column)
+        - best_demographics: Best Demographics (seventh column)
+        - budget_allocation: Budget Allocation Guidance (eighth column)
+        - activation_strategies: Top Activation Strategies (ninth column)
         
-        Return ONLY a valid JSON array, no other text.`,
+        IMPORTANT: Extract EVERY single row in the spreadsheet, no filtering. Return all 146+ industries.
+        Return ONLY a valid JSON object with an "industries" array containing all extracted industries.`,
       file_urls: [fileUrl],
       response_json_schema: {
         type: "object",
@@ -47,10 +48,12 @@ Deno.serve(async (req) => {
                 best_demographics: { type: "string" },
                 budget_allocation: { type: "string" },
                 activation_strategies: { type: "string" }
-              }
+              },
+              required: ["industry"]
             }
           }
-        }
+        },
+        required: ["industries"]
       }
     });
 
