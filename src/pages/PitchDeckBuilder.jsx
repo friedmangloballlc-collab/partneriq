@@ -174,6 +174,9 @@ Use bullet points where appropriate. Under ${wordLimit} words.`,
         </CardContent>
       </Card>
 
+      {/* Customization */}
+      <CustomizationPanel options={customOptions} onChange={setCustomOptions} />
+
       {!selectedDeal ? (
         <div className="text-center py-24 border-2 border-dashed border-slate-200 rounded-2xl">
           <Layers className="w-14 h-14 text-slate-200 mx-auto mb-3" />
