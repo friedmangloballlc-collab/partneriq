@@ -24,6 +24,21 @@ export default function CultureCalendar() {
     queryFn: () => base44.entities.CultureEvent.list(),
   });
 
+  const { data: conferences = [] } = useQuery({
+    queryKey: ["conferences"],
+    queryFn: () => base44.entities.Conference.list(),
+  });
+
+  const { data: megaEvents = [] } = useQuery({
+    queryKey: ["mega_events"],
+    queryFn: () => base44.entities.MegaEvent.list(),
+  });
+
+  const { data: industryGuides = [] } = useQuery({
+    queryKey: ["industry_guides"],
+    queryFn: () => base44.entities.IndustryGuide.list(),
+  });
+
   const categories = ["Sports", "Entertainment", "Holiday/Civic", "Conferences/Trade", "Cultural", "Awareness Month"];
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const years = ["2026", "2027", "2028"];
@@ -227,14 +242,16 @@ export default function CultureCalendar() {
       </Card>
 
       {/* Events Grid */}
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="all">All Events ({filteredEvents.length})</TabsTrigger>
-          <TabsTrigger value="mega">Tier 1 Mega ({megaEvents.length})</TabsTrigger>
-          <TabsTrigger value="high">Tier 2+ ({highValueEvents.length})</TabsTrigger>
+      <Tabs defaultValue="calendar" className="w-full">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="calendar">Calendar Events ({filteredEvents.length})</TabsTrigger>
+          <TabsTrigger value="mega">Mega Events ({megaEvents.length})</TabsTrigger>
+          <TabsTrigger value="conferences">Conferences ({conferences.length})</TabsTrigger>
+          <TabsTrigger value="industries">Industries ({industryGuides.length})</TabsTrigger>
+          <TabsTrigger value="tiers">Event Tiers</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="all" className="space-y-4 mt-6">
+        <TabsContent value="calendar" className="space-y-4 mt-6">
           {filteredEvents.length === 0 ? (
             <Card className="text-center py-12">
               <p className="text-slate-500">No events match your filters.</p>
@@ -274,6 +291,115 @@ export default function CultureCalendar() {
               ))}
             </div>
           )}
+        </TabsContent>
+
+        <TabsContent value="mega" className="space-y-4 mt-6">
+          {megaEvents.length === 0 ? (
+            <Card className="text-center py-12">
+              <p className="text-slate-500">No mega events available.</p>
+            </Card>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {megaEvents.map(event => (
+                <Card key={event.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle>{event.event_name}</CardTitle>
+                    <CardDescription>{event.dates}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <p><strong>Reach:</strong> {event.global_reach}</p>
+                    <p><strong>Format:</strong> {event.format_details}</p>
+                    <p className="text-amber-600"><strong>Urgency:</strong> {event.planning_urgency}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="conferences" className="space-y-4 mt-6">
+          {conferences.length === 0 ? (
+            <Card className="text-center py-12">
+              <p className="text-slate-500">No conferences available.</p>
+            </Card>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {conferences.map(conf => (
+                <Card key={conf.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-base">{conf.conference_name}</CardTitle>
+                    <CardDescription>{conf.industry_focus}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <p><strong>Date:</strong> {conf.typical_date}</p>
+                    <p><strong>Location:</strong> {conf.location}</p>
+                    <p><strong>Attendees:</strong> {conf.attendees}</p>
+                    <p className="text-indigo-600"><strong>Investment:</strong> {conf.sponsorship_range}</p>
+                    <p className="text-xs text-slate-600 mt-2">{conf.why_attend}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="industries" className="space-y-4 mt-6">
+          {industryGuides.length === 0 ? (
+            <Card className="text-center py-12">
+              <p className="text-slate-500">No industry guides available.</p>
+            </Card>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {industryGuides.map(guide => (
+                <Card key={guide.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-base">{guide.industry}</CardTitle>
+                    <CardDescription>{guide.sector}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <p><strong>Tier 1 Events:</strong> {guide.priority_tier_1_events}</p>
+                    <p><strong>Budget Alloc:</strong> {guide.budget_allocation}</p>
+                    <p className="text-xs text-slate-600 mt-2"><strong>Activation:</strong> {guide.activation_strategies}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="tiers" className="space-y-4 mt-6">
+          <div className="grid gap-4">
+            <Card className="border-red-200 bg-red-50">
+              <CardHeader>
+                <CardTitle>Tier 1: 100M+ US Viewership</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">
+                <p><strong>Examples:</strong> Super Bowl, World Cup Final, Olympics Opening</p>
+                <p className="mt-2"><strong>Best For:</strong> Mass awareness, product launches</p>
+                <p className="mt-2"><strong>Lead Time:</strong> 12-24 months</p>
+              </CardContent>
+            </Card>
+            <Card className="border-amber-200 bg-amber-50">
+              <CardHeader>
+                <CardTitle>Tier 2: 15-50M US Viewership</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">
+                <p><strong>Examples:</strong> March Madness Final Four, Golf Majors, Emmy Awards</p>
+                <p className="mt-2"><strong>Best For:</strong> Targeted reach, prestige positioning</p>
+                <p className="mt-2"><strong>Lead Time:</strong> 6-12 months</p>
+              </CardContent>
+            </Card>
+            <Card className="border-blue-200 bg-blue-50">
+              <CardHeader>
+                <CardTitle>Tier 3: Regional/Niche Events</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">
+                <p><strong>Examples:</strong> Regional sports, local festivals, conferences</p>
+                <p className="mt-2"><strong>Best For:</strong> Hyper-targeted campaigns, community building</p>
+                <p className="mt-2"><strong>Lead Time:</strong> 3-6 months</p>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
 
