@@ -345,9 +345,9 @@ export default function CultureCalendar() {
         </TabsContent>
 
         <TabsContent value="industries" className="space-y-4 mt-6">
-          {industryGuides.length === 0 ? (
+          {!industryGuides || industryGuides.length === 0 ? (
             <Card className="text-center py-12">
-              <p className="text-slate-500">No industry guides available.</p>
+              <p className="text-slate-500">Loading industries...</p>
             </Card>
           ) : (
             <div className="space-y-4">
