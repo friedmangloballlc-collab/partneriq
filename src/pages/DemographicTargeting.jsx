@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import { Search, Zap, Users, Target, TrendingUp } from "lucide-react";
 import DemographicFilters from "@/components/demographic/DemographicFilters";
 
 export default function DemographicTargetingPage() {
+  const location = useLocation();
   const [selectedIndustries, setSelectedIndustries] = useState(new Set());
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedDemographicsFilter, setSelectedDemographicsFilter] = useState(new Set());
@@ -45,19 +47,15 @@ export default function DemographicTargetingPage() {
     queryFn: () => base44.entities.DemographicSegment.list(),
   });
 
-  // Handle URL params for search navigation
+  // Handle navigation state from search
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const industryId = params.get("industry");
-    const demographicId = params.get("demographic");
-
-    if (industryId && industries.length > 0) {
-      setSelectedIndustries(new Set([industryId]));
+    if (location.state?.selectedIndustry && industries.length > 0) {
+      setSelectedIndustries(new Set([location.state.selectedIndustry]));
     }
-    if (demographicId && demographics.length > 0) {
-      setSelectedDemographics(new Set([demographicId]));
+    if (location.state?.selectedDemographic && demographics.length > 0) {
+      setSelectedDemographics(new Set([location.state.selectedDemographic]));
     }
-  }, [industries, demographics]);
+  }, [location.state, industries, demographics]);
 
   // Auto-match demographics when industry/event changes
   useEffect(() => {
