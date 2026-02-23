@@ -143,58 +143,74 @@ export default function Onboarding() {
   const labels = LABEL_MAP[selectedRole] || LABEL_MAP.brand;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
-
-      {/* ── PLATFORM OVERVIEW HERO (pre-onboarding) ── */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{backgroundImage:"radial-gradient(circle at 20% 50%, #6366f1 0%, transparent 60%), radial-gradient(circle at 80% 20%, #a855f7 0%, transparent 50%)"}} />
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-indigo-500/30">
-            <Zap className="w-7 h-7 text-white" />
+    <div className="min-h-screen bg-white">
+      {/* ── HEADER ── */}
+      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center px-8">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-700 flex items-center justify-center flex-shrink-0">
+            <Zap className="w-5 h-5 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
-            Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">PartnerIQ</span>
+          <span className="font-bold text-slate-900 text-lg">PartnerIQ</span>
+        </div>
+      </header>
+
+      {/* ── HERO SECTION ── */}
+      <div className="relative overflow-hidden pt-32 pb-20">
+        <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle at 30% 50%, #6366f1 0%, transparent 50%)"}} />
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 rounded-full px-4 py-2">
+              <Sparkles className="w-4 h-4 text-indigo-600" />
+              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Enterprise AI Platform</span>
+            </div>
+          </div>
+          <h1 className="text-5xl sm:text-6xl font-bold text-slate-900 tracking-tight mb-6 leading-tight">
+            Partnership <span className="text-indigo-600">Intelligence</span> Reimagined
           </h1>
-          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-            The enterprise AI-powered Partnership Intelligence Platform connecting talent — creators, athletes, celebrities — with brands and agencies worldwide.
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-12">
+            Connect creators, athletes, and celebrities with brands. Powered by advanced AI matching, predictive analytics, and autonomous deal execution.
           </p>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-16">
             {PLATFORM_STATS.map((s, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <p className="text-2xl font-bold text-indigo-400">{s.value}</p>
-                <p className="text-xs text-slate-400 mt-1">{s.label}</p>
+              <div key={i} className="text-left">
+                <p className="text-3xl font-bold text-slate-900">{s.value}</p>
+                <p className="text-sm text-slate-600 mt-1">{s.label}</p>
               </div>
             ))}
           </div>
+        </div>
+      </div>
 
-          {/* Capability chips */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {HIGHLIGHTS.map((h, i) => {
-              const Icon = h.icon;
+      {/* ── FEATURES SECTION ── */}
+      <div className="bg-slate-50 py-20 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Powerful AI Capabilities</h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Every partnership intelligence you need, powered by cutting-edge AI</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: TrendingUp, color: "text-indigo-600", title: "Predictive Analytics", desc: "Forecast creator growth and ROI before campaigns launch" },
+              { icon: Brain,      color: "text-purple-600", title: "AI Match Engine", desc: "40+ signal compatibility scoring for perfect partnerships" },
+              { icon: Sparkles,   color: "text-amber-600", title: "Deal Simulation", desc: "10,000+ Monte Carlo simulations to predict outcomes" },
+              { icon: CheckSquare,color: "text-emerald-600", title: "Approval Workflows", desc: "Human review with intelligent recommendations" },
+              { icon: Layers,     color: "text-blue-600",  title: "Auto Pitch Decks", desc: "AI-generated pitch decks in seconds" },
+              { icon: Bell,       color: "text-rose-600",  title: "Smart Notifications", desc: "Real-time alerts on market opportunities" },
+            ].map((feature, i) => {
+              const Icon = feature.icon;
               return (
-                <div key={i} className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-xs text-slate-300">
-                  <Icon className="w-3.5 h-3.5 text-indigo-400" />
-                  {h.text}
+                <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                  <div className={`w-12 h-12 rounded-lg ${feature.color} bg-opacity-10 mb-4 flex items-center justify-center`}>
+                    <Icon className={`w-6 h-6 ${feature.color}`} />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm">{feature.desc}</p>
                 </div>
               );
             })}
-          </div>
-
-          {/* Industries */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 max-w-2xl mx-auto mb-10 text-left">
-            <p className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest mb-3">Industries Covered</p>
-            <div className="flex flex-wrap gap-2">
-              {["Entertainment","Sports","Digital/Creator","Fashion","Business","Gaming","Fitness","Food & Bev","Technology","Finance","Travel","Beauty","Automotive"].map(ind => (
-                <span key={ind} className="text-[11px] bg-white/10 text-slate-300 px-2.5 py-1 rounded-full">{ind}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-2 text-slate-500">
-            <p className="text-sm">Create your account below</p>
-            <ChevronDown className="w-5 h-5 animate-bounce" />
           </div>
         </div>
       </div>
