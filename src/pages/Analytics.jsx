@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -7,10 +7,15 @@ import {
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  TrendingUp, DollarSign, Handshake, Mail, Users, BarChart3
+  TrendingUp, DollarSign, Handshake, Mail, Users, BarChart3, Zap, TrendingDown
 } from "lucide-react";
 import StatCard from "@/components/dashboard/StatCard";
+import CompetitorBenchmarking from "@/components/analytics/CompetitorBenchmarking";
+import TrendAnalysis from "@/components/analytics/TrendAnalysis";
+import PredictiveROI from "@/components/analytics/PredictiveROI";
+import CustomReporting from "@/components/analytics/CustomReporting";
 
 const COLORS = ["#6366F1", "#8B5CF6", "#A78BFA", "#C4B5FD", "#818CF8", "#6D28D9", "#4F46E5", "#3730A3"];
 
