@@ -86,6 +86,78 @@ const OPTIONS = [
   },
 ];
 
+const VISUAL_OPTIONS = [
+  {
+    key: "brandColors",
+    label: "Brand Colors",
+    automation: "Auto-extracted from brand guidelines or website",
+    choices: [
+      { value: "auto", label: "Auto-extracted" },
+      { value: "manual", label: "Manual override" },
+    ],
+    default: "auto",
+  },
+  {
+    key: "logoPlacement",
+    label: "Logo Placement",
+    automation: "Auto-positioned based on template",
+    choices: [
+      { value: "auto", label: "Auto-positioned" },
+      { value: "top_left", label: "Top left" },
+      { value: "top_right", label: "Top right" },
+      { value: "centered", label: "Centered" },
+    ],
+    default: "auto",
+  },
+  {
+    key: "chartsGraphs",
+    label: "Charts / Graphs",
+    automation: "Auto-generated from data with brand colors",
+    choices: [
+      { value: "auto", label: "Auto-generated" },
+      { value: "bar", label: "Bar charts" },
+      { value: "line", label: "Line charts" },
+      { value: "pie", label: "Pie charts" },
+    ],
+    default: "auto",
+  },
+  {
+    key: "talentMedia",
+    label: "Talent Media",
+    automation: "Auto-pulled top-performing content screenshots",
+    choices: [
+      { value: "auto", label: "Auto-pulled" },
+      { value: "manual", label: "Manual selection" },
+      { value: "exclude", label: "Exclude" },
+    ],
+    default: "auto",
+  },
+  {
+    key: "typography",
+    label: "Typography",
+    automation: "Brand font if available, else professional default",
+    choices: [
+      { value: "auto", label: "Auto (brand font)" },
+      { value: "modern", label: "Modern sans-serif" },
+      { value: "classic", label: "Classic serif" },
+      { value: "minimal", label: "Minimal" },
+    ],
+    default: "auto",
+  },
+  {
+    key: "layout",
+    label: "Layout",
+    automation: "Professional templates optimized for readability",
+    choices: [
+      { value: "modern", label: "Modern" },
+      { value: "bold", label: "Bold & impactful" },
+      { value: "minimal", label: "Minimal" },
+      { value: "data_heavy", label: "Data-heavy" },
+    ],
+    default: "modern",
+  },
+];
+
 export const DEFAULT_OPTIONS = OPTIONS.reduce((acc, o) => {
   acc[o.key] = o.default;
   return acc;
