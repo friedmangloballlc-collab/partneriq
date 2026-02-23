@@ -102,6 +102,9 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Pitch Deck Metrics */}
+      <PitchDeckMetrics />
+
       {/* Quick Actions + Top Matches */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
