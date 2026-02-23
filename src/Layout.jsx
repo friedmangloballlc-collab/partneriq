@@ -47,6 +47,7 @@ const roleNavItems = {
   ],
   brand: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
