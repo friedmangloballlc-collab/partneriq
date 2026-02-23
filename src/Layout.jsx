@@ -66,6 +66,7 @@ const roleNavItems = {
   ],
   talent: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "My Deals", icon: Handshake, page: "Partnerships" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
