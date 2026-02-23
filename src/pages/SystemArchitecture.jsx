@@ -3,7 +3,7 @@ import {
   Server, Zap, Database, Cpu, MemoryStick,
   GitBranch, Network, Activity,
   Layers, Shield, RefreshCw, AlertTriangle, CheckCircle2,
-  Lock, Timer, Bell, HardDrive, RotateCcw, XCircle
+  Lock, Timer, Bell, HardDrive, RotateCcw, XCircle, Plug, TrendingUp
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -203,7 +203,7 @@ const PHASES = [
       "Set approval workflow rules and guardrails",
     ],
     color: "bg-blue-50 border-blue-200 text-blue-900",
-    icon: Settings,
+    icon: Plug,
   },
   {
     name: "PIPELINE",
