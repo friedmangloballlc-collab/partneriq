@@ -69,6 +69,13 @@ export default function PitchDeckBuilder() {
     if (!selectedDeal) return;
     setGeneratingSlide(sectionId);
     const section = DECK_SECTIONS.find(s => s.id === sectionId);
+    const toneMap = { formal: "formal and authoritative", professional: "professional and polished", casual: "conversational and approachable", creative: "creative and bold" };
+    const emphasisMap = { roi: "ROI and business value", creative: "creativity and content quality", relationship: "relationship-building and trust" };
+    const dataMap = { summary: "high-level summaries only, no detailed tables", detailed: "detailed data with supporting charts and tables", comprehensive: "comprehensive data analysis with full charts, tables, and breakdowns" };
+    const comparablesMap = { include: "include real comparable case studies", exclude: "omit comparables", anonymized: "include anonymized comparables only" };
+    const simMap = { summary: "a brief simulation summary", full: "a full simulation report with technical depth", exclude: "no simulation data" };
+    const wordLimit = customOptions.deckLength === "brief" ? 100 : customOptions.deckLength === "comprehensive" ? 350 : 200;
+
     const result = await base44.integrations.Core.InvokeLLM({
       prompt: `Generate the "${section.title}" slide content for a partnership pitch deck.
 
@@ -80,9 +87,16 @@ Deal Value: ${selectedDeal.deal_value ? `$${selectedDeal.deal_value}` : "TBD"}
 Match Score: ${selectedDeal.match_score || "N/A"}%
 Notes: ${selectedDeal.notes || "N/A"}
 
-Write compelling, specific slide content for the "${section.title}" section. 
-Be concise, data-driven, and persuasive. Use bullet points where appropriate.
-Under 200 words.`,
+CUSTOMIZATION SETTINGS:
+- Tone: ${toneMap[customOptions.tone]}
+- Emphasis: Focus on ${emphasisMap[customOptions.emphasis]}
+- Data Depth: Use ${dataMap[customOptions.dataDepth]}
+- Comparables: ${comparablesMap[customOptions.comparables]}
+- Simulation: Include ${simMap[customOptions.simulationDetail]}
+- Branding: ${customOptions.branding === "co_branded" ? "Use co-branded framing for both parties" : customOptions.branding === "brand_colors" ? "Frame around the brand identity" : "Use neutral platform framing"}
+
+Write compelling, specific slide content for the "${section.title}" section following the customization settings above.
+Use bullet points where appropriate. Under ${wordLimit} words.`,
       response_json_schema: {
         type: "object",
         properties: {
