@@ -70,6 +70,7 @@ const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
+    { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
