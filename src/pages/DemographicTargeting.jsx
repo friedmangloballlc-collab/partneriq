@@ -112,34 +112,64 @@ export default function DemographicTargetingPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Select Industry</CardTitle>
+            <CardTitle className="text-base">Search Industry</CardTitle>
+            <CardDescription>Find an industry to get auto-matched demographics</CardDescription>
           </CardHeader>
-          <CardContent>
-            <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose industry..." />
-              </SelectTrigger>
-              <SelectContent className="max-h-60">
-                {industries.map(industry => (
-                  <SelectItem key={industry.id} value={industry.id}>
-                    {industry.industry}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <CardContent className="space-y-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+              <Input
+                placeholder="Type industry name..."
+                value={industrySearch}
+                onChange={(e) => {
+                  setIndustrySearch(e.target.value);
+                  setShowIndustryDropdown(true);
+                }}
+                onFocus={() => setShowIndustryDropdown(true)}
+                className="pl-10"
+              />
+            </div>
+            {showIndustryDropdown && industrySearch && (
+              <div className="absolute z-50 w-full md:w-[calc(50%-8px)] bg-white border border-slate-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+                {industries
+                  .filter(i => i.industry.toLowerCase().includes(industrySearch.toLowerCase()))
+                  .slice(0, 10)
+                  .map(industry => (
+                    <button
+                      key={industry.id}
+                      onClick={() => {
+                        setSelectedIndustry(industry.id);
+                        setIndustrySearch(industry.industry);
+                        setShowIndustryDropdown(false);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-indigo-50 border-b last:border-b-0"
+                    >
+                      <div className="font-medium text-slate-900">{industry.industry}</div>
+                      <div className="text-xs text-slate-500">{industry.sector}</div>
+                    </button>
+                  ))}
+              </div>
+            )}
+            {selectedIndustry && (
+              <Badge variant="outline" className="mt-2">
+                {industrySearch}
+              </Badge>
+            )}
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Select Event</CardTitle>
+            <CardTitle className="text-base">Event (Optional)</CardTitle>
+            <CardDescription>Add an event to refine matches further</CardDescription>
           </CardHeader>
           <CardContent>
             <Select value={selectedEvent} onValueChange={setSelectedEvent}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose event..." />
+                <SelectValue placeholder="Choose event (optional)..." />
               </SelectTrigger>
               <SelectContent className="max-h-60">
+                <SelectItem value={null}>None</SelectItem>
                 {[...cultureEvents, ...megaEvents].map(event => (
                   <SelectItem key={event.id} value={event.id}>
                     {event.name || event.event_name}
