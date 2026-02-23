@@ -57,6 +57,7 @@ import MatchEngine from './pages/MatchEngine';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Onboarding from './pages/Onboarding';
+import Teams from './pages/Teams';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +72,7 @@ export const PAGES = {
     "Analytics": Analytics,
     "Settings": Settings,
     "Onboarding": Onboarding,
+    "Teams": Teams,
 }
 
 export const pagesConfig = {
