@@ -15,6 +15,7 @@ export default function DemographicTargetingPage() {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [industrySearch, setIndustrySearch] = useState("");
   const [showIndustryDropdown, setShowIndustryDropdown] = useState(false);
+  const [selectedDemographicsFilter, setSelectedDemographicsFilter] = useState(new Set());
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDemographics, setSelectedDemographics] = useState(new Set());
   const [autoMatched, setAutoMatched] = useState(new Set());
