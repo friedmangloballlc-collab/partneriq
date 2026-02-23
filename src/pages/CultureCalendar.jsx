@@ -35,9 +35,13 @@ export default function CultureCalendar() {
     queryFn: () => base44.entities.MegaEvent.list(),
   });
 
-  const { data: industryGuides = [] } = useQuery({
+  const { data: industryGuides = [], isLoading: industriesLoading } = useQuery({
     queryKey: ["industry_guides"],
-    queryFn: () => base44.entities.IndustryGuide.list(),
+    queryFn: async () => {
+      const result = await base44.entities.IndustryGuide.list();
+      console.log("Industry guides fetched:", result);
+      return result;
+    },
   });
 
   const categories = ["Sports", "Entertainment", "Holiday/Civic", "Conferences/Trade", "Cultural", "Awareness Month"];
