@@ -20,6 +20,8 @@ import CustomReporting from "@/components/analytics/CustomReporting";
 const COLORS = ["#6366F1", "#8B5CF6", "#A78BFA", "#C4B5FD", "#818CF8", "#6D28D9", "#4F46E5", "#3730A3"];
 
 export default function Analytics() {
+  const [activeTab, setActiveTab] = useState("overview");
+
   const { data: partnerships = [] } = useQuery({
     queryKey: ["partnerships"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 200),
