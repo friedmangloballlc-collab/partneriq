@@ -24,20 +24,6 @@ export default function DemographicTargetingPage() {
     selectedBuyingPower: [],
   });
 
-  // Handle URL params for search navigation
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const industryId = params.get("industry");
-    const demographicId = params.get("demographic");
-
-    if (industryId && industries.length > 0) {
-      setSelectedIndustries(new Set([industryId]));
-    }
-    if (demographicId && demographics.length > 0) {
-      setSelectedDemographics(new Set([demographicId]));
-    }
-  }, [industries, demographics]);
-
   // Fetch industries, events, and demographics
   const { data: industries = [] } = useQuery({
     queryKey: ["industries"],
@@ -58,6 +44,20 @@ export default function DemographicTargetingPage() {
     queryKey: ["demographics"],
     queryFn: () => base44.entities.DemographicSegment.list(),
   });
+
+  // Handle URL params for search navigation
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const industryId = params.get("industry");
+    const demographicId = params.get("demographic");
+
+    if (industryId && industries.length > 0) {
+      setSelectedIndustries(new Set([industryId]));
+    }
+    if (demographicId && demographics.length > 0) {
+      setSelectedDemographics(new Set([demographicId]));
+    }
+  }, [industries, demographics]);
 
   // Auto-match demographics when industry/event changes
   useEffect(() => {
