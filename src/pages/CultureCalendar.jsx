@@ -29,7 +29,7 @@ export default function CultureCalendar() {
     queryFn: () => base44.entities.Conference.list(),
   });
 
-  const { data: megaEvents = [] } = useQuery({
+  const { data: megaEventsData = [] } = useQuery({
     queryKey: ["mega_events"],
     queryFn: () => base44.entities.MegaEvent.list(),
   });
@@ -245,7 +245,7 @@ export default function CultureCalendar() {
       <Tabs defaultValue="calendar" className="w-full">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="calendar">Calendar Events ({filteredEvents.length})</TabsTrigger>
-          <TabsTrigger value="mega">Mega Events ({megaEvents.length})</TabsTrigger>
+          <TabsTrigger value="mega">Mega Events ({megaEventsData.length})</TabsTrigger>
           <TabsTrigger value="conferences">Conferences ({conferences.length})</TabsTrigger>
           <TabsTrigger value="industries">Industries ({industryGuides.length})</TabsTrigger>
           <TabsTrigger value="tiers">Event Tiers</TabsTrigger>
@@ -294,13 +294,13 @@ export default function CultureCalendar() {
         </TabsContent>
 
         <TabsContent value="mega" className="space-y-4 mt-6">
-          {megaEvents.length === 0 ? (
+          {megaEventsData.length === 0 ? (
             <Card className="text-center py-12">
               <p className="text-slate-500">No mega events available.</p>
             </Card>
           ) : (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {megaEvents.map(event => (
+              {megaEventsData.map(event => (
                 <Card key={event.id} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <CardTitle>{event.event_name}</CardTitle>
