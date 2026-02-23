@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Zap, Users, Target, TrendingUp } from "lucide-react";
+import DemographicFilters from "@/components/demographic/DemographicFilters";
 
 export default function DemographicTargetingPage() {
   const [selectedIndustry, setSelectedIndustry] = useState("");
@@ -19,6 +20,11 @@ export default function DemographicTargetingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDemographics, setSelectedDemographics] = useState(new Set());
   const [autoMatched, setAutoMatched] = useState(new Set());
+  const [demographicFilters, setDemographicFilters] = useState({
+    populationMin: "",
+    populationMax: "",
+    selectedBuyingPower: [],
+  });
 
   // Fetch industries, events, and demographics
   const { data: industries = [] } = useQuery({
@@ -79,9 +85,42 @@ export default function DemographicTargetingPage() {
     setAutoMatched(matched);
   }, [selectedIndustry, selectedEvent, industries, cultureEvents, megaEvents, demographics]);
 
-  const filteredDemographics = demographics.filter(d =>
-    d.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredDemographics = useMemo(() => {
+    return demographics.filter((d) => {
+      const matchesSearch = d.name?.toLowerCase().includes(searchTerm.toLowerCase());
+
+      if (!matchesSearch) return false;
+
+      if (
+        demographicFilters.populationMin ||
+        demographicFilters.populationMax ||
+        demographicFilters.selectedBuyingPower.length > 0
+      ) {
+        const population = parseInt(d.population_size?.replace(/[^0-9]/g, "") || "0");
+        if (
+          demographicFilters.populationMin &&
+          population < parseInt(demographicFilters.populationMin)
+        ) {
+          return false;
+        }
+        if (
+          demographicFilters.populationMax &&
+          population > parseInt(demographicFilters.populationMax)
+        ) {
+          return false;
+        }
+
+        if (demographicFilters.selectedBuyingPower.length > 0) {
+          const matchesBuyingPower = demographicFilters.selectedBuyingPower.some(
+            (bp) => d.buying_power?.toLowerCase().includes(bp.toLowerCase())
+          );
+          if (!matchesBuyingPower) return false;
+        }
+      }
+
+      return true;
+    });
+  }, [demographics, searchTerm, demographicFilters]);
 
   const handleToggleDemographic = (id) => {
     const newSelected = new Set(selectedDemographics);
@@ -370,24 +409,29 @@ export default function DemographicTargetingPage() {
         </TabsContent>
 
         {/* Manual Selection Tab */}
-        <TabsContent value="manual" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <Users className="w-4 h-4 text-purple-600" />
-                Manual Selection ({selectedDemographics.size})
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
-                <Input
-                  placeholder="Search demographics..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+         <TabsContent value="manual" className="space-y-4">
+           <DemographicFilters
+             demographics={demographics}
+             onFilter={setDemographicFilters}
+           />
+
+           <Card>
+             <CardHeader>
+               <CardTitle className="text-base flex items-center gap-2">
+                 <Users className="w-4 h-4 text-purple-600" />
+                 Manual Selection ({selectedDemographics.size})
+               </CardTitle>
+             </CardHeader>
+             <CardContent className="space-y-4">
+               <div className="relative">
+                 <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                 <Input
+                   placeholder="Search demographics..."
+                   value={searchTerm}
+                   onChange={(e) => setSearchTerm(e.target.value)}
+                   className="pl-10"
+                 />
+               </div>
 
               <div className="space-y-2 max-h-96 overflow-y-auto">
                 {filteredDemographics.map(demographic => (
