@@ -13,6 +13,8 @@ import { Search, Zap, Users, Target, TrendingUp } from "lucide-react";
 export default function DemographicTargetingPage() {
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedEvent, setSelectedEvent] = useState("");
+  const [industrySearch, setIndustrySearch] = useState("");
+  const [showIndustryDropdown, setShowIndustryDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDemographics, setSelectedDemographics] = useState(new Set());
   const [autoMatched, setAutoMatched] = useState(new Set());
