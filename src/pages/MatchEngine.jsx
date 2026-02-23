@@ -14,16 +14,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Scoring algorithm constants
 const BRAND_TO_TALENT_FACTORS = [
-  { name: "Audience Demographics Match", weight: 18, desc: "Cosine similarity of demographic vectors" },
-  { name: "Content Niche Alignment", weight: 15, desc: "Category overlap + semantic similarity" },
-  { name: "Content-Brand Aesthetic Fit", weight: 12, desc: "CLIP embedding similarity" },
-  { name: "Trajectory Prediction", weight: 12, desc: "Alpha score × trajectory confidence" },
-  { name: "Engagement Quality", weight: 10, desc: "Weighted engagement rate vs tier benchmark" },
-  { name: "Brand Safety", weight: 10, desc: "Historical content scan, controversy score" },
-  { name: "Relationship Path Exists", weight: 8, desc: "Path strength from graph" },
-  { name: "Budget Fit", weight: 8, desc: "Rate estimate vs budget range overlap" },
-  { name: "Past Performance", weight: 5, desc: "Historical deal success rate" },
-  { name: "Geographic Relevance", weight: 2, desc: "Location overlap scoring" },
+  { name: "Audience Demographics Match", weight: 18, method: "Cosine similarity of demographic vectors", sources: "Social APIs, brand targets" },
+  { name: "Content Niche Alignment", weight: 15, method: "Category overlap + semantic similarity", sources: "Content analysis, brand prefs" },
+  { name: "Content-Brand Aesthetic Fit", weight: 12, method: "CLIP embedding similarity", sources: "Content images, brand guidelines" },
+  { name: "Trajectory Prediction", weight: 12, method: "Alpha score × trajectory confidence", sources: "Trajectory Engine" },
+  { name: "Engagement Quality", weight: 10, method: "Weighted engagement rate vs tier benchmark", sources: "Social metrics, benchmarks" },
+  { name: "Brand Safety", weight: 10, method: "Historical content scan, controversy score", sources: "Content analysis, news" },
+  { name: "Relationship Path Exists", weight: 8, method: "Path strength from graph", sources: "Neo4j relationship graph" },
+  { name: "Budget Fit", weight: 8, method: "Rate estimate vs budget range overlap", sources: "Benchmarks, brand budget" },
+  { name: "Past Performance", weight: 5, method: "Historical deal success rate", sources: "Deal outcomes database" },
+  { name: "Geographic Relevance", weight: 2, method: "Location overlap scoring", sources: "Audience location, brand markets" },
 ];
 
 const TALENT_TO_AGENCY_FACTORS = [
@@ -198,20 +198,31 @@ Return the top 5 matches.`;
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4" /> Brand-to-Talent Factors
+                  <TrendingUp className="w-4 h-4" /> Brand-to-Talent Match Factors
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  {BRAND_TO_TALENT_FACTORS.map((f, i) => (
-                    <div key={i} className="flex items-center justify-between p-2 rounded-lg border border-slate-100 hover:bg-slate-50">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-800">{f.name}</p>
-                        <p className="text-xs text-slate-500 mt-0.5">{f.desc}</p>
-                      </div>
-                      <Badge className="ml-2 flex-shrink-0 bg-indigo-100 text-indigo-700 font-bold">{f.weight}%</Badge>
-                    </div>
-                  ))}
+                <div className="overflow-x-auto rounded-lg border border-slate-200">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-slate-50 border-b">
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Factor</th>
+                        <th className="text-center px-4 py-2 text-xs font-semibold text-slate-600">Weight</th>
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Calculation Method</th>
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Data Sources</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {BRAND_TO_TALENT_FACTORS.map((f, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="px-4 py-3 font-medium text-slate-800">{f.name}</td>
+                          <td className="px-4 py-3 text-center"><Badge className="bg-indigo-100 text-indigo-700 font-bold">{f.weight}%</Badge></td>
+                          <td className="px-4 py-3 text-slate-600 text-xs">{f.method}</td>
+                          <td className="px-4 py-3 text-slate-600 text-xs">{f.sources}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>
@@ -219,20 +230,29 @@ Return the top 5 matches.`;
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4" /> Talent-to-Agency Factors
+                  <TrendingUp className="w-4 h-4" /> Talent-to-Agency Match Factors
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  {TALENT_TO_AGENCY_FACTORS.map((f, i) => (
-                    <div key={i} className="flex items-center justify-between p-2 rounded-lg border border-slate-100 hover:bg-slate-50">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-800">{f.name}</p>
-                        <p className="text-xs text-slate-500 mt-0.5">{f.desc}</p>
-                      </div>
-                      <Badge className="ml-2 flex-shrink-0 bg-violet-100 text-violet-700 font-bold">{f.weight}%</Badge>
-                    </div>
-                  ))}
+                <div className="overflow-x-auto rounded-lg border border-slate-200">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-slate-50 border-b">
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Factor</th>
+                        <th className="text-center px-4 py-2 text-xs font-semibold text-slate-600">Weight</th>
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {TALENT_TO_AGENCY_FACTORS.map((f, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="px-4 py-3 font-medium text-slate-800">{f.name}</td>
+                          <td className="px-4 py-3 text-center"><Badge className="bg-violet-100 text-violet-700 font-bold">{f.weight}%</Badge></td>
+                          <td className="px-4 py-3 text-slate-600 text-xs">{f.desc}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>
