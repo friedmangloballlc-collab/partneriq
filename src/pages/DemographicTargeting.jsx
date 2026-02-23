@@ -110,7 +110,7 @@ export default function DemographicTargetingPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Search Industry</CardTitle>
@@ -131,7 +131,7 @@ export default function DemographicTargetingPage() {
               />
             </div>
             {showIndustryDropdown && industrySearch && (
-              <div className="absolute z-50 w-full md:w-[calc(50%-8px)] bg-white border border-slate-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+              <div className="absolute z-50 w-full md:w-[calc(33%-8px)] bg-white border border-slate-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
                 {industries
                   .filter(i => i.industry.toLowerCase().includes(industrySearch.toLowerCase()))
                   .slice(0, 10)
@@ -178,6 +178,58 @@ export default function DemographicTargetingPage() {
                 ))}
               </SelectContent>
             </Select>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Browse Demographics</CardTitle>
+            <CardDescription>Select from all available segments</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Select 
+              value={Array.from(selectedDemographicsFilter)[0] || ""} 
+              onValueChange={(value) => {
+                if (value) {
+                  setSelectedDemographicsFilter(prev => {
+                    const next = new Set(prev);
+                    next.add(value);
+                    return next;
+                  });
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choose demographics..." />
+              </SelectTrigger>
+              <SelectContent className="max-h-60">
+                {demographics.map(demo => (
+                  <SelectItem key={demo.id} value={demo.id}>
+                    {demo.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {selectedDemographicsFilter.size > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {demographics
+                  .filter(d => selectedDemographicsFilter.has(d.id))
+                  .map(demo => (
+                    <Badge 
+                      key={demo.id} 
+                      variant="outline" 
+                      className="cursor-pointer"
+                      onClick={() => {
+                        const next = new Set(selectedDemographicsFilter);
+                        next.delete(demo.id);
+                        setSelectedDemographicsFilter(next);
+                      }}
+                    >
+                      {demo.name} ✕
+                    </Badge>
+                  ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
