@@ -22,6 +22,7 @@ const roleNavItems = {
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
