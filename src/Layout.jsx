@@ -20,6 +20,7 @@ const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
+    { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
