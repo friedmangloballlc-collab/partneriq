@@ -24,6 +24,20 @@ export default function DemographicTargetingPage() {
     selectedBuyingPower: [],
   });
 
+  // Handle URL params for search navigation
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const industryId = params.get("industry");
+    const demographicId = params.get("demographic");
+
+    if (industryId) {
+      setSelectedIndustries(new Set([industryId]));
+    }
+    if (demographicId) {
+      setSelectedDemographics(new Set([demographicId]));
+    }
+  }, []);
+
   // Fetch industries, events, and demographics
   const { data: industries = [] } = useQuery({
     queryKey: ["industries"],
