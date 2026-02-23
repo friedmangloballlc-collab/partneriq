@@ -67,6 +67,9 @@ export default function TalentProfile() {
             availability_status: talent.availability_status || "open_for_offers",
             portfolio: talent.portfolio ? JSON.parse(talent.portfolio) : [],
           });
+        } else {
+          // Create a placeholder talent record if none exists
+          setTalentData({ id: "new", email: authUser.email });
         }
       }
     };
@@ -87,14 +90,31 @@ export default function TalentProfile() {
 
     setIsSaving(true);
     try {
-      await base44.entities.Talent.update(talentData.id, {
-        expertise_areas: formData.expertise_areas,
-        preferred_collaboration_types: JSON.stringify(
-          formData.preferred_collaboration_types
-        ),
-        availability_status: formData.availability_status,
-        portfolio: JSON.stringify(formData.portfolio),
-      });
+      if (talentData.id === "new") {
+        // Create new talent record
+        const newTalent = await base44.entities.Talent.create({
+          email: user.email,
+          name: user.full_name,
+          expertise_areas: formData.expertise_areas,
+          preferred_collaboration_types: JSON.stringify(
+            formData.preferred_collaboration_types
+          ),
+          availability_status: formData.availability_status,
+          portfolio: JSON.stringify(formData.portfolio),
+          primary_platform: "instagram",
+        });
+        setTalentData(newTalent);
+      } else {
+        // Update existing talent record
+        await base44.entities.Talent.update(talentData.id, {
+          expertise_areas: formData.expertise_areas,
+          preferred_collaboration_types: JSON.stringify(
+            formData.preferred_collaboration_types
+          ),
+          availability_status: formData.availability_status,
+          portfolio: JSON.stringify(formData.portfolio),
+        });
+      }
     } finally {
       setIsSaving(false);
     }
