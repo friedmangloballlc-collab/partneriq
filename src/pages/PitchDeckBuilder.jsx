@@ -3,15 +3,15 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import {
   Layers, Sparkles, Loader2, Download, ChevronLeft, ChevronRight,
-  CheckCircle2, Edit3, Eye
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
+import CustomizationPanel, { DEFAULT_OPTIONS } from "@/components/pitchdeck/CustomizationPanel";
 
 const DECK_SECTIONS = [
   { id: "executive_summary", title: "Executive Summary", icon: "📋" },
