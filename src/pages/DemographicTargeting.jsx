@@ -70,15 +70,27 @@ export default function DemographicTargetingPage() {
       const allEvents = [...cultureEvents, ...megaEvents];
       const event = allEvents.find(e => e.id === selectedEvent);
       if (event?.audience_demographics) {
-        // Parse demographics from event
-        const demosFromEvent = event.audience_demographics
-          .split(",")
-          .map(d => d.trim().toLowerCase());
-        demographics.forEach(demo => {
-          if (demosFromEvent.some(d => demo.segment_name.toLowerCase().includes(d))) {
-            matched.add(demo.id);
+        // Parse demographics from event (JSON array format)
+        try {
+          const demosFromEvent = JSON.parse(event.audience_demographics);
+          if (Array.isArray(demosFromEvent)) {
+            demosFromEvent.forEach(demoId => {
+              if (demographics.some(d => d.id === demoId)) {
+                matched.add(demoId);
+              }
+            });
           }
-        });
+        } catch (e) {
+          // Fallback for comma-separated format
+          const demosFromEvent = event.audience_demographics
+            .split(",")
+            .map(d => d.trim().toLowerCase());
+          demographics.forEach(demo => {
+            if (demosFromEvent.some(d => demo.name?.toLowerCase().includes(d))) {
+              matched.add(demo.id);
+            }
+          });
+        }
       }
     }
 
