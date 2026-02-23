@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -31,6 +31,7 @@ const roleNavItems = {
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
+    { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
   brand: [
@@ -41,6 +42,7 @@ const roleNavItems = {
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
+    { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
@@ -63,6 +65,7 @@ const roleNavItems = {
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
+    { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
