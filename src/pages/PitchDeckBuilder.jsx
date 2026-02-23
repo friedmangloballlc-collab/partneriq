@@ -114,8 +114,8 @@ Under 200 words.`,
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Pitch Deck Builder</h1>
-          <p className="text-sm text-slate-500 mt-1">AI-generated 12-section partnership pitch decks</p>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Pitch Deck Generation System</h1>
+          <p className="text-sm text-slate-500 mt-1">Automatically generates custom pitch decks for every qualified match. Always routes to approval queue — never sent without human review.</p>
         </div>
         {generatedCount > 0 && (
           <Button variant="outline" className="gap-2">
