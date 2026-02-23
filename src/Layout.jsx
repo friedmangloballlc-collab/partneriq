@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -48,6 +48,7 @@ const roleNavItems = {
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "My Deals", icon: Handshake, page: "Partnerships" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],

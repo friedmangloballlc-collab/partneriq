@@ -15,7 +15,7 @@ import TalentProfileModal from "@/components/talent/TalentProfileModal";
 
 const DEFAULT_FILTERS = {
   platform: "all", niche: "all", tier: "all", trajectory: "all",
-  minFollowers: 0, minEngagement: 0,
+  minFollowers: 0, minEngagement: 0, minBrandSafety: 0, minAlpha: 0,
 };
 
 export default function TalentDiscovery() {
@@ -41,6 +41,8 @@ export default function TalentDiscovery() {
     if (filters.trajectory !== "all" && t.trajectory !== filters.trajectory) return false;
     if (filters.minFollowers > 0 && (t.total_followers || 0) < filters.minFollowers) return false;
     if (filters.minEngagement > 0 && (t.engagement_rate || 0) < filters.minEngagement) return false;
+    if (filters.minBrandSafety > 0 && (t.brand_safety_score || 0) < filters.minBrandSafety) return false;
+    if (filters.minAlpha > 0 && (t.discovery_alpha_score || 0) < filters.minAlpha) return false;
     return true;
   });
 
