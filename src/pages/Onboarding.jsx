@@ -462,10 +462,10 @@ export default function Onboarding() {
                </Button>
              </div>
            </div>
-         )}
+           )}
 
-        </div>
-        </div>
-        </div>
-        );
-        }
+           </div>
+           </div>
+           </div>
+           );
+           }
