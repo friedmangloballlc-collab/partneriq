@@ -454,7 +454,7 @@ export default function DemographicTargetingPage() {
                 .filter(d => selectedDemographics.has(d.id))
                 .map(demographic => (
                   <div key={demographic.id} className="bg-white p-4 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-slate-900 mb-2">{demographic.segment_name}</h4>
+                    <h4 className="font-semibold text-slate-900 mb-2">{demographic.name}</h4>
                     <div className="space-y-1 text-sm text-slate-600">
                       {demographic.population_size && <p>📊 {demographic.population_size}</p>}
                       {demographic.buying_power && <p>💰 {demographic.buying_power}</p>}
