@@ -30,7 +30,7 @@ const roleNavItems = {
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
-    { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
