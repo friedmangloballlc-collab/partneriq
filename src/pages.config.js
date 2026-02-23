@@ -54,9 +54,11 @@ import BillingHistory from './pages/BillingHistory';
 import Brands from './pages/Brands';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
+import CultureCalendar from './pages/CultureCalendar';
 import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
 import MarketIntelligence from './pages/MarketIntelligence';
+import MasterCalendar from './pages/MasterCalendar';
 import MatchEngine from './pages/MatchEngine';
 import Notifications from './pages/Notifications';
 import Onboarding from './pages/Onboarding';
@@ -72,8 +74,7 @@ import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
-import CultureCalendar from './pages/CultureCalendar';
-import MasterCalendar from './pages/MasterCalendar';
+import DemographicTargeting from './pages/DemographicTargeting';
 import __Layout from './Layout.jsx';
 
 
@@ -85,9 +86,11 @@ export const PAGES = {
     "Brands": Brands,
     "CampaignBriefGenerator": CampaignBriefGenerator,
     "ConnectAccounts": ConnectAccounts,
+    "CultureCalendar": CultureCalendar,
     "Dashboard": Dashboard,
     "Integrations": Integrations,
     "MarketIntelligence": MarketIntelligence,
+    "MasterCalendar": MasterCalendar,
     "MatchEngine": MatchEngine,
     "Notifications": Notifications,
     "Onboarding": Onboarding,
@@ -103,8 +106,7 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
-    "CultureCalendar": CultureCalendar,
-    "MasterCalendar": MasterCalendar,
+    "DemographicTargeting": DemographicTargeting,
 }
 
 export const pagesConfig = {

@@ -1,0 +1,319 @@
+import React, { useState, useEffect } from "react";
+import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Search, Zap, Users, Target, TrendingUp } from "lucide-react";
+
+export default function DemographicTargetingPage() {
+  const [selectedIndustry, setSelectedIndustry] = useState("");
+  const [selectedEvent, setSelectedEvent] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDemographics, setSelectedDemographics] = useState(new Set());
+  const [autoMatched, setAutoMatched] = useState(new Set());
+
+  // Fetch industries, events, and demographics
+  const { data: industries = [] } = useQuery({
+    queryKey: ["industries"],
+    queryFn: () => base44.entities.IndustryGuide.list(),
+  });
+
+  const { data: cultureEvents = [] } = useQuery({
+    queryKey: ["cultureEvents"],
+    queryFn: () => base44.entities.CultureEvent.list(),
+  });
+
+  const { data: megaEvents = [] } = useQuery({
+    queryKey: ["megaEvents"],
+    queryFn: () => base44.entities.MegaEvent.list(),
+  });
+
+  const { data: demographics = [] } = useQuery({
+    queryKey: ["demographics"],
+    queryFn: () => base44.entities.DemographicSegment.list(),
+  });
+
+  // Auto-match demographics when industry/event changes
+  useEffect(() => {
+    const matched = new Set();
+
+    if (selectedIndustry) {
+      const industry = industries.find(i => i.id === selectedIndustry);
+      if (industry?.best_demographics) {
+        // Parse demographics from industry
+        const demosFromIndustry = industry.best_demographics
+          .split(",")
+          .map(d => d.trim().toLowerCase());
+        demographics.forEach(demo => {
+          if (demosFromIndustry.some(d => demo.segment_name.toLowerCase().includes(d))) {
+            matched.add(demo.id);
+          }
+        });
+      }
+    }
+
+    if (selectedEvent) {
+      const allEvents = [...cultureEvents, ...megaEvents];
+      const event = allEvents.find(e => e.id === selectedEvent);
+      if (event?.audience_demographics) {
+        // Parse demographics from event
+        const demosFromEvent = event.audience_demographics
+          .split(",")
+          .map(d => d.trim().toLowerCase());
+        demographics.forEach(demo => {
+          if (demosFromEvent.some(d => demo.segment_name.toLowerCase().includes(d))) {
+            matched.add(demo.id);
+          }
+        });
+      }
+    }
+
+    setAutoMatched(matched);
+  }, [selectedIndustry, selectedEvent, industries, cultureEvents, megaEvents, demographics]);
+
+  const filteredDemographics = demographics.filter(d =>
+    d.segment_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleToggleDemographic = (id) => {
+    const newSelected = new Set(selectedDemographics);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
+    }
+    setSelectedDemographics(newSelected);
+  };
+
+  const handleAutoSelect = () => {
+    setSelectedDemographics(new Set(autoMatched));
+  };
+
+  const handleClearSelection = () => {
+    setSelectedDemographics(new Set());
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-slate-900">Demographic Targeting</h1>
+        <p className="text-slate-600 mt-2">
+          Auto-match or manually select target demographics based on industries and events
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Select Industry</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose industry..." />
+              </SelectTrigger>
+              <SelectContent className="max-h-60">
+                {industries.map(industry => (
+                  <SelectItem key={industry.id} value={industry.id}>
+                    {industry.industry}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Select Event</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Select value={selectedEvent} onValueChange={setSelectedEvent}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose event..." />
+              </SelectTrigger>
+              <SelectContent className="max-h-60">
+                {[...cultureEvents, ...megaEvents].map(event => (
+                  <SelectItem key={event.id} value={event.id}>
+                    {event.name || event.event_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Tabs defaultValue="auto" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="auto">
+            <Zap className="w-4 h-4 mr-2" /> Auto-Matched
+          </TabsTrigger>
+          <TabsTrigger value="manual">
+            <Users className="w-4 h-4 mr-2" /> Manual Selection
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Auto-Matched Tab */}
+        <TabsContent value="auto" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Target className="w-4 h-4 text-indigo-600" />
+                Auto-Matched Demographics ({autoMatched.size})
+              </CardTitle>
+              <CardDescription>
+                Based on selected industry and event data
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {autoMatched.size === 0 ? (
+                <div className="text-center py-8 text-slate-500">
+                  <Users className="w-12 h-12 mx-auto mb-3 opacity-30" />
+                  <p>Select an industry or event to auto-match demographics</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {demographics
+                    .filter(d => autoMatched.has(d.id))
+                    .map(demographic => (
+                      <div key={demographic.id} className="p-3 border border-indigo-200 bg-indigo-50 rounded-lg">
+                        <h4 className="font-semibold text-slate-900">{demographic.segment_name}</h4>
+                        {demographic.population_size && (
+                          <p className="text-sm text-slate-600 mt-1">Population: {demographic.population_size}</p>
+                        )}
+                        {demographic.buying_power && (
+                          <p className="text-sm text-slate-600">Buying Power: {demographic.buying_power}</p>
+                        )}
+                        {demographic.media_preferences && (
+                          <p className="text-sm text-slate-600 mt-2">
+                            Media: {demographic.media_preferences}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              )}
+              {autoMatched.size > 0 && (
+                <Button onClick={handleAutoSelect} className="w-full bg-indigo-600 hover:bg-indigo-700">
+                  <Zap className="w-4 h-4 mr-2" />
+                  Apply Auto-Matched ({autoMatched.size})
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Manual Selection Tab */}
+        <TabsContent value="manual" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Users className="w-4 h-4 text-purple-600" />
+                Manual Selection ({selectedDemographics.size})
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                <Input
+                  placeholder="Search demographics..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+
+              <div className="space-y-2 max-h-96 overflow-y-auto">
+                {filteredDemographics.map(demographic => (
+                  <div key={demographic.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-slate-50">
+                    <Checkbox
+                      id={demographic.id}
+                      checked={selectedDemographics.has(demographic.id)}
+                      onCheckedChange={() => handleToggleDemographic(demographic.id)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <label
+                        htmlFor={demographic.id}
+                        className="text-sm font-medium cursor-pointer block text-slate-900"
+                      >
+                        {demographic.segment_name}
+                      </label>
+                      {demographic.population_size && (
+                        <p className="text-xs text-slate-500 mt-1">Pop: {demographic.population_size}</p>
+                      )}
+                      {demographic.buying_power && (
+                        <p className="text-xs text-slate-500">Power: {demographic.buying_power}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleAutoSelect}
+                  variant="outline"
+                  className="flex-1"
+                  disabled={autoMatched.size === 0}
+                >
+                  Use Auto-Match
+                </Button>
+                <Button
+                  onClick={handleClearSelection}
+                  variant="outline"
+                  className="flex-1"
+                  disabled={selectedDemographics.size === 0}
+                >
+                  Clear
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+
+      {/* Selected Demographics Summary */}
+      {selectedDemographics.size > 0 && (
+        <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <TrendingUp className="w-4 h-4 text-purple-600" />
+              Selected Demographics Summary
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {demographics
+                .filter(d => selectedDemographics.has(d.id))
+                .map(demographic => (
+                  <div key={demographic.id} className="bg-white p-4 rounded-lg border border-purple-200">
+                    <h4 className="font-semibold text-slate-900 mb-2">{demographic.segment_name}</h4>
+                    <div className="space-y-1 text-sm text-slate-600">
+                      {demographic.population_size && <p>📊 {demographic.population_size}</p>}
+                      {demographic.buying_power && <p>💰 {demographic.buying_power}</p>}
+                      {demographic.media_preferences && (
+                        <p>📱 Media: {demographic.media_preferences}</p>
+                      )}
+                      {demographic.key_cultural_moments && (
+                        <p>🎉 {demographic.key_cultural_moments}</p>
+                      )}
+                      {demographic.activation_tips && (
+                        <p className="text-slate-700 italic mt-2">💡 {demographic.activation_tips}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
