@@ -173,34 +173,74 @@ export default function CustomizationPanel({ options, onChange }) {
           <Badge variant="outline" className="ml-auto text-[10px] text-slate-500">Optional</Badge>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {OPTIONS.map((opt) => (
-            <div key={opt.key}>
-              <Label className="text-[11px] text-slate-500 mb-0.5 block font-medium">
-                {opt.label}
-                <span className="ml-1 text-slate-300 font-normal">· {opt.description}</span>
-              </Label>
-              <Select
-                value={options[opt.key]}
-                onValueChange={(val) => onChange({ ...options, [opt.key]: val })}
-              >
-                <SelectTrigger className="h-8 text-xs">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {opt.choices.map((c) => (
-                    <SelectItem key={c.value} value={c.value} className="text-xs">
-                      {c.label}
-                      {c.value === opt.default && (
-                        <span className="ml-1 text-slate-400">(default)</span>
-                      )}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          ))}
+      <CardContent className="pt-0 space-y-5">
+        {/* Content Options */}
+        <div>
+          <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-3">Content Options</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {OPTIONS.map((opt) => (
+              <div key={opt.key}>
+                <Label className="text-[11px] text-slate-500 mb-0.5 block font-medium">
+                  {opt.label}
+                  <span className="ml-1 text-slate-300 font-normal">· {opt.description}</span>
+                </Label>
+                <Select
+                  value={options[opt.key]}
+                  onValueChange={(val) => onChange({ ...options, [opt.key]: val })}
+                >
+                  <SelectTrigger className="h-8 text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {opt.choices.map((c) => (
+                      <SelectItem key={c.value} value={c.value} className="text-xs">
+                        {c.label}
+                        {c.value === opt.default && (
+                          <span className="ml-1 text-slate-400">(default)</span>
+                        )}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Visual Design System */}
+        <div className="border-t border-slate-100 pt-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Palette className="w-3.5 h-3.5 text-slate-400" />
+            <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Visual Design System</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {VISUAL_OPTIONS.map((opt) => (
+              <div key={opt.key} className="bg-slate-50 rounded-lg p-3">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <Label className="text-[11px] text-slate-600 font-semibold leading-tight">{opt.label}</Label>
+                </div>
+                <p className="text-[10px] text-slate-400 mb-2 leading-snug">{opt.automation}</p>
+                <Select
+                  value={options[opt.key]}
+                  onValueChange={(val) => onChange({ ...options, [opt.key]: val })}
+                >
+                  <SelectTrigger className="h-7 text-[11px] bg-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {opt.choices.map((c) => (
+                      <SelectItem key={c.value} value={c.value} className="text-xs">
+                        {c.label}
+                        {c.value === opt.default && (
+                          <span className="ml-1 text-slate-400">(default)</span>
+                        )}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>
