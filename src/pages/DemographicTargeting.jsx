@@ -9,9 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Zap, Users, Target, TrendingUp, BarChart3 } from "lucide-react";
+import { Search, Zap, Users, Target, TrendingUp, BarChart3, Sparkles } from "lucide-react";
 import DemographicFilters from "@/components/demographic/DemographicFilters";
 import DemographicInsights from "@/components/visualization/DemographicInsights";
+import CampaignGeneratorForm from "@/components/campaign/CampaignGeneratorForm";
+import AIMarketingBrief from "@/components/campaign/AIMarketingBrief";
 
 export default function DemographicTargetingPage() {
   const location = useLocation();
@@ -284,7 +286,7 @@ export default function DemographicTargetingPage() {
       </div>
 
       <Tabs defaultValue="auto" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="auto">
             <Zap className="w-4 h-4 mr-2" /> Auto-Matched
           </TabsTrigger>
@@ -296,6 +298,9 @@ export default function DemographicTargetingPage() {
           </TabsTrigger>
           <TabsTrigger value="insights">
             <BarChart3 className="w-4 h-4 mr-2" /> Insights
+          </TabsTrigger>
+          <TabsTrigger value="ai-campaign">
+            <Sparkles className="w-4 h-4 mr-2" /> AI Campaign
           </TabsTrigger>
         </TabsList>
 
@@ -496,10 +501,40 @@ export default function DemographicTargetingPage() {
         </TabsContent>
 
         <TabsContent value="insights" className="space-y-6">
-         <DemographicInsights
-           demographics={demographics}
-           selectedDemographics={selectedDemographics}
-         />
+          <DemographicInsights
+            demographics={demographics}
+            selectedDemographics={selectedDemographics}
+          />
+        </TabsContent>
+
+        <TabsContent value="ai-campaign" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1">
+              <CampaignGeneratorForm
+                demographics={demographics}
+                selectedDemographics={selectedDemographics}
+                isLoading={campaignLoading}
+                onGenerate={async (formData) => {
+                  setCampaignLoading(true);
+                  try {
+                    const response = await base44.functions.invoke("generateAICampaign", formData);
+                    setCampaignBrief(response.data);
+                  } catch (error) {
+                    console.error("Campaign generation failed:", error);
+                    alert("Failed to generate campaign");
+                  } finally {
+                    setCampaignLoading(false);
+                  }
+                }}
+              />
+            </div>
+            <div className="lg:col-span-2">
+              <AIMarketingBrief
+                campaign={campaignBrief}
+                isLoading={campaignLoading}
+              />
+            </div>
+          </div>
         </TabsContent>
         </Tabs>
 
