@@ -354,64 +354,64 @@ export default function Onboarding() {
          )}
 
         {/* ── STEP 2: Plan ── */}
-        {step === 2 && (
-          <div className="space-y-4 animate-fade-in-up">
-            <h2 className="text-lg font-semibold text-white">Choose your plan</h2>
-            <p className="text-sm text-slate-400 mb-4">
-              You selected <span className={`font-semibold text-white`}>{roleObj?.title}</span>. Pick a plan that fits your needs.
-            </p>
+         {step === 2 && (
+           <div className="space-y-4 animate-fade-in-up">
+             <h2 className="text-2xl font-bold text-slate-900">Choose your plan</h2>
+             <p className="text-slate-600 mb-6">
+               You selected <span className={`font-semibold text-slate-900`}>{roleObj?.title}</span>. Pick the plan that fits your needs.
+             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {PLANS.map(plan => {
-                const isSelected = selectedPlan === plan.key;
-                return (
-                  <button
-                    key={plan.key}
-                    onClick={() => setSelectedPlan(plan.key)}
-                    className={`relative flex flex-col p-5 rounded-2xl border-2 text-left transition-all duration-200
-                      ${isSelected ? "border-indigo-500 bg-white/10" : "border-white/10 bg-white/5 hover:border-white/20"}`}
-                  >
-                    {plan.badge && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                        <Star className="w-2.5 h-2.5" /> {plan.badge}
-                      </div>
-                    )}
-                    <div className="flex items-end gap-1 mb-1">
-                      <span className="text-3xl font-bold text-white">{plan.price}</span>
-                      <span className="text-slate-400 text-sm mb-1">{plan.period}</span>
-                    </div>
-                    <p className="text-sm font-semibold text-white mb-3">{plan.title}</p>
-                    <ul className="space-y-1.5 flex-1">
-                      {plan.features.map((f, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs text-slate-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className={`mt-4 w-full py-2.5 rounded-lg text-sm font-semibold text-center transition-all ${isSelected ? "bg-indigo-600 text-white" : "bg-white/10 text-slate-300"}`}>
-                      {isSelected ? <span className="flex items-center justify-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Selected</span> : plan.cta}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+               {PLANS.map(plan => {
+                 const isSelected = selectedPlan === plan.key;
+                 return (
+                   <button
+                     key={plan.key}
+                     onClick={() => setSelectedPlan(plan.key)}
+                     className={`relative flex flex-col p-6 rounded-xl border-2 text-left transition-all duration-200
+                       ${isSelected ? "border-indigo-600 bg-indigo-50 shadow-sm" : "border-slate-200 bg-white hover:border-slate-300"}`}
+                   >
+                     {plan.badge && (
+                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                         <Star className="w-3 h-3" /> {plan.badge}
+                       </div>
+                     )}
+                     <div className="flex items-end gap-1 mb-2">
+                       <span className="text-3xl font-bold text-slate-900">{plan.price}</span>
+                       <span className={`text-sm mb-1 ${isSelected ? "text-slate-700" : "text-slate-600"}`}>{plan.period}</span>
+                     </div>
+                     <p className="text-sm font-semibold text-slate-900 mb-4">{plan.title}</p>
+                     <ul className="space-y-2 flex-1">
+                       {plan.features.map((f, i) => (
+                         <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
+                           <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                           {f}
+                         </li>
+                       ))}
+                     </ul>
+                     <div className={`mt-5 w-full py-2.5 rounded-lg text-sm font-semibold text-center transition-all ${isSelected ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-900"}`}>
+                       {isSelected ? <span className="flex items-center justify-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Selected</span> : plan.cta}
+                     </div>
+                   </button>
+                 );
+               })}
+             </div>
 
-            <div className="flex items-center gap-2 text-[11px] text-slate-500 mt-1">
-              <Lock className="w-3 h-3" />
-              <span>Secure checkout · Cancel anytime · No hidden fees</span>
-            </div>
+             <div className="flex items-center gap-2 text-xs text-slate-600 mt-2">
+               <Lock className="w-3.5 h-3.5" />
+               <span>Secure checkout · Cancel anytime · No hidden fees</span>
+             </div>
 
-            <div className="flex gap-3 mt-2">
-              <Button variant="outline" onClick={() => setStep(1)} className="flex-1 h-11 bg-transparent border-white/20 text-white hover:bg-white/10">
-                Back
-              </Button>
-              <Button onClick={() => setStep(3)} disabled={!selectedPlan} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700">
-                Continue <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
-        )}
+             <div className="flex gap-3 mt-6">
+               <Button variant="outline" onClick={() => setStep(1)} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
+                 Back
+               </Button>
+               <Button onClick={() => setStep(3)} disabled={!selectedPlan} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 Continue <ArrowRight className="w-4 h-4 ml-2" />
+               </Button>
+             </div>
+           </div>
+         )}
 
         {/* ── STEP 3: Details ── */}
         {step === 3 && (
