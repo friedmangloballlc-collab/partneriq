@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2
+  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, CheckSquare, ChevronDown, ChevronUp
 } from "lucide-react";
+import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
+import TasksPanel from "@/components/tasks/TasksPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -96,6 +98,8 @@ Write a compelling, concise email that:
     });
   };
 
+  const [expandedEmail, setExpandedEmail] = useState(null);
+
   const filteredEmails = tab === "all" ? emails : emails.filter(e => e.status === tab);
 
   return (
@@ -134,28 +138,55 @@ Write a compelling, concise email that:
           {filteredEmails.map(email => {
             const config = statusConfig[email.status] || statusConfig.draft;
             const StatusIcon = config.icon;
+            const isExpanded = expandedEmail === email.id;
             return (
-              <Card key={email.id} className="border-slate-200/60 p-4">
-                <div className="flex items-center gap-4">
-                  <div className={`w-9 h-9 rounded-lg ${config.color} flex items-center justify-center flex-shrink-0`}>
-                    <StatusIcon className="w-4 h-4" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-semibold text-slate-800 truncate">{email.subject}</h4>
-                      {email.ai_generated && <Badge className="bg-purple-50 text-purple-700 text-[10px]">AI</Badge>}
+              <Card key={email.id} className="border-slate-200/60 overflow-hidden">
+                <div className="p-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-9 h-9 rounded-lg ${config.color} flex items-center justify-center flex-shrink-0`}>
+                      <StatusIcon className="w-4 h-4" />
                     </div>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      To: {email.to_name || email.to_email} · {email.created_date ? format(new Date(email.created_date), "MMM d, h:mm a") : ""}
-                    </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm font-semibold text-slate-800 truncate">{email.subject}</h4>
+                        {email.ai_generated && <Badge className="bg-purple-50 text-purple-700 text-[10px]">AI</Badge>}
+                      </div>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        To: {email.to_name || email.to_email} · {email.created_date ? format(new Date(email.created_date), "MMM d, h:mm a") : ""}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {/* Assignee */}
+                      <div className="w-40 hidden sm:block" onClick={e => e.stopPropagation()}>
+                        <AssigneeSelector
+                          value={email.assigned_to}
+                          onChange={v => updateMutation.mutate({ id: email.id, data: { assigned_to: v } })}
+                          placeholder="Assign..."
+                        />
+                      </div>
+                      <Badge className={`${config.color} text-[10px]`}>{config.label}</Badge>
+                      {email.status === "draft" && (
+                        <Button size="sm" variant="outline" className="text-xs h-8" onClick={() => handleSubmitForApproval(email.id)}>
+                          Submit
+                        </Button>
+                      )}
+                      <button
+                        onClick={() => setExpandedEmail(isExpanded ? null : email.id)}
+                        className="text-slate-300 hover:text-slate-500 p-1"
+                      >
+                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </button>
+                    </div>
                   </div>
-                  <Badge className={`${config.color} text-[10px]`}>{config.label}</Badge>
-                  {email.status === "draft" && (
-                    <Button size="sm" variant="outline" className="text-xs" onClick={() => handleSubmitForApproval(email.id)}>
-                      Submit for Approval
-                    </Button>
-                  )}
                 </div>
+                {isExpanded && (
+                  <div className="border-t border-slate-100 p-4 bg-slate-50/50">
+                    <TasksPanel
+                      outreachEmailId={email.id}
+                      contextLabel={email.subject}
+                    />
+                  </div>
+                )}
               </Card>
             );
           })}
