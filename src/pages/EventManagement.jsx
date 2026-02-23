@@ -23,14 +23,14 @@ export default function EventManagement() {
   });
   const queryClient = useQueryClient();
 
-  // Handle navigation state from search
+  // Handle navigation state from search - add to existing selections
   useEffect(() => {
     if (location.state?.selectedEvent) {
       const allEvents = [...cultureEvents, ...megaEvents];
       const event = allEvents.find(e => e.id === location.state.selectedEvent);
       if (event) {
-        setEditingEvent(event);
-        setShowForm(true);
+        // Add to existing selections instead of replacing
+        setSelectedEvents(prev => new Set([...prev, location.state.selectedEvent]));
         // Determine if it's culture or mega event
         if (cultureEvents.find(e => e.id === location.state.selectedEvent)) {
           setEventType("culture");

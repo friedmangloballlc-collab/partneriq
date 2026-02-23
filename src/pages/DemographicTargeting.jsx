@@ -47,13 +47,13 @@ export default function DemographicTargetingPage() {
     queryFn: () => base44.entities.DemographicSegment.list(),
   });
 
-  // Handle navigation state from search
+  // Handle navigation state from search - add to existing selections
   useEffect(() => {
     if (location.state?.selectedIndustry && industries.length > 0) {
-      setSelectedIndustries(new Set([location.state.selectedIndustry]));
+      setSelectedIndustries(prev => new Set([...prev, location.state.selectedIndustry]));
     }
     if (location.state?.selectedDemographic && demographics.length > 0) {
-      setSelectedDemographics(new Set([location.state.selectedDemographic]));
+      setSelectedDemographics(prev => new Set([...prev, location.state.selectedDemographic]));
     }
   }, [location.state, industries, demographics]);
 
