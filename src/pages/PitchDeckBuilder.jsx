@@ -56,6 +56,7 @@ export default function PitchDeckBuilder() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [editingContent, setEditingContent] = useState({});
   const [progress, setProgress] = useState(0);
+  const [customOptions, setCustomOptions] = useState(DEFAULT_OPTIONS);
 
   const { data: partnerships = [] } = useQuery({
     queryKey: ["partnerships"],
