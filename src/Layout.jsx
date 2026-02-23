@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
@@ -43,6 +44,7 @@ const roleNavItems = {
   ],
   brand: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
@@ -67,6 +69,7 @@ const roleNavItems = {
   ],
   agency: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
     { name: "Brands", icon: Building2, page: "Brands" },
