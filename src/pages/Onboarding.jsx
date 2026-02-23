@@ -461,10 +461,10 @@ export default function Onboarding() {
                  {saving ? "Setting up..." : "Launch Dashboard"}
                </Button>
              </div>
-           </div>
-           )}
-           </div>
-           </div>
-           </div>
-           );
-           }
+             </div>
+             )}
+             </div>
+             </div>
+             </div>
+             );
+             }
