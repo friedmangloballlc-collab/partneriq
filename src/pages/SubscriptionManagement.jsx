@@ -13,7 +13,7 @@ import BillingHistory from "@/components/subscription/BillingHistory";
 import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS } from "@/components/subscription/SubscriptionPlans";
 import { useSearchParams } from "react-router-dom";
 
-const stripePromise = loadStripe(Deno.env.get("STRIPE_PUBLISHABLE_KEY") || "");
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || "");
 
 export default function SubscriptionManagement() {
   const [searchParams] = useSearchParams();
