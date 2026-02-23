@@ -398,7 +398,7 @@ export default function Onboarding() {
             We're the ultimate partnership intelligence platform
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            We help <span className="text-orange-400 font-semibold">brand managers</span>, <span className="text-orange-400 font-semibold">CMOs</span>, and <span className="text-orange-400 font-semibold">marketing agencies</span> build their influencer marketing strategy through cutting-edge AI technology.
+            We help <span className="text-orange-400 font-semibold">Talent, Brands, Brand Managers</span>, <span className="text-orange-400 font-semibold">CMOs</span>, and <span className="text-orange-400 font-semibold">marketing agencies</span> build their influencer marketing strategy through cutting-edge AI technology.
           </p>
 
           {/* Dual Role CTA Buttons */}
