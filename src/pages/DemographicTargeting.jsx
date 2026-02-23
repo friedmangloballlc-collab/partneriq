@@ -271,7 +271,7 @@ export default function DemographicTargetingPage() {
                     .filter(d => autoMatched.has(d.id))
                     .map(demographic => (
                       <div key={demographic.id} className="p-3 border border-indigo-200 bg-indigo-50 rounded-lg">
-                        <h4 className="font-semibold text-slate-900">{demographic.segment_name}</h4>
+                        <h4 className="font-semibold text-slate-900">{demographic.name}</h4>
                         {demographic.population_size && (
                           <p className="text-sm text-slate-600 mt-1">Population: {demographic.population_size}</p>
                         )}
