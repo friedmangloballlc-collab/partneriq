@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Zap, Building2, Users, Briefcase, ArrowRight, Loader2,
-  CheckCircle2, Star, Sparkles, Shield, BarChart3, Mail, Globe, Lock
+  CheckCircle2, Star, Sparkles, Shield, BarChart3, Mail, Globe, Lock,
+  Brain, TrendingUp, Network, Layers, Bell, ChevronDown
 } from "lucide-react";
 
 const ROLES = [
