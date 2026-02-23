@@ -349,17 +349,51 @@ export default function CultureCalendar() {
               <p className="text-slate-500">No industry guides available.</p>
             </Card>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="space-y-4">
               {industryGuides.map(guide => (
-                <Card key={guide.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="text-base">{guide.industry}</CardTitle>
-                    <CardDescription>{guide.sector}</CardDescription>
+                <Card key={guide.id} className="hover:shadow-md transition-shadow">
+                  <CardHeader className="pb-3 bg-gradient-to-r from-slate-50 to-indigo-50">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <CardTitle>{guide.industry}</CardTitle>
+                        <CardDescription className="mt-1">{guide.sector}</CardDescription>
+                      </div>
+                      <Badge variant="outline" className="whitespace-nowrap">{guide.budget_allocation}</Badge>
+                    </div>
                   </CardHeader>
-                  <CardContent className="space-y-2 text-sm">
-                    <p><strong>Tier 1 Events:</strong> {guide.priority_tier_1_events}</p>
-                    <p><strong>Budget Alloc:</strong> {guide.budget_allocation}</p>
-                    <p className="text-xs text-slate-600 mt-2"><strong>Activation:</strong> {guide.activation_strategies}</p>
+                  <CardContent className="pt-6 space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🏆 Must-Attend Tier 1</p>
+                        <p className="text-sm text-slate-700">{guide.priority_tier_1_events}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">⭐ High-Value Tier 2</p>
+                        <p className="text-sm text-slate-700">{guide.tier_2_events}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🗓️ Heritage Moments</p>
+                        <p className="text-sm text-slate-700">{guide.heritage_awareness_months}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🎯 Key Conferences</p>
+                        <p className="text-sm text-slate-700">{guide.key_conferences}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">👥 Best Demographics</p>
+                        <p className="text-sm text-slate-700">{guide.best_demographics}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">💡 Top Activation Strategies</p>
+                        <p className="text-sm text-slate-700">{guide.activation_strategies}</p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
