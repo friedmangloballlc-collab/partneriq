@@ -34,7 +34,6 @@ const roleNavItems = {
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
     { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
