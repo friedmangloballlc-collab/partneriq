@@ -73,6 +73,7 @@ import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
 import CultureCalendar from './pages/CultureCalendar';
+import MasterCalendar from './pages/MasterCalendar';
 import __Layout from './Layout.jsx';
 
 
@@ -103,6 +104,7 @@ export const PAGES = {
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
     "CultureCalendar": CultureCalendar,
+    "MasterCalendar": MasterCalendar,
 }
 
 export const pagesConfig = {
