@@ -9,8 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Zap, Users, Target, TrendingUp } from "lucide-react";
+import { Search, Zap, Users, Target, TrendingUp, BarChart3 } from "lucide-react";
 import DemographicFilters from "@/components/demographic/DemographicFilters";
+import DemographicInsights from "@/components/visualization/DemographicInsights";
 
 export default function DemographicTargetingPage() {
   const location = useLocation();
