@@ -188,6 +188,44 @@ export default function Onboarding() {
         </div>
       </div>
 
+      {/* ── AI FEATURES OVERVIEW ── */}
+      <div className="relative max-w-4xl mx-auto px-6 pb-14">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-1.5 mb-4">
+            <Brain className="w-3.5 h-3.5 text-purple-400" />
+            <span className="text-xs font-semibold text-purple-300 uppercase tracking-wider">AI-Powered Features</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            Intelligence at Every Step
+          </h2>
+          <p className="text-slate-400 text-sm max-w-xl mx-auto">
+            PartnerIQ's AI engine works continuously in the background — predicting outcomes, automating workflows, and surfacing insights you'd never find manually.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { icon: TrendingUp, color: "from-indigo-500 to-blue-600", title: "Predictive Talent Trajectory", desc: "ML models forecast which creators will break out before they go mainstream." },
+            { icon: Brain,      color: "from-purple-500 to-violet-600", title: "Live Negotiation Co-Pilot", desc: "Real-time AI assistance during deal calls with suggested responses and risk flags." },
+            { icon: Layers,     color: "from-amber-500 to-orange-600", title: "Partnership Simulation", desc: "Monte Carlo modeling runs 10,000+ simulations to predict campaign ROI and risk." },
+            { icon: Sparkles,   color: "from-emerald-500 to-teal-600", title: "AI Match Engine", desc: "Deep compatibility scoring across 40+ signals including audience overlap and brand safety." },
+            { icon: CheckSquare,color: "from-rose-500 to-pink-600",   title: "Content-Brand Fit Predictor", desc: "Analyzes past content to score brand alignment before a single email is sent." },
+            { icon: Zap,        color: "from-sky-500 to-cyan-600",    title: "Autonomous Deal Execution", desc: "Automates outreach, follow-ups, and contract steps within your defined guardrails." },
+          ].map((feature, i) => {
+            const Icon = feature.icon;
+            return (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 transition-colors">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-3 shadow-lg`}>
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <p className="font-semibold text-white text-sm mb-1.5">{feature.title}</p>
+                <p className="text-xs text-slate-400 leading-relaxed">{feature.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* ── ONBOARDING FORM ── */}
       <div className="flex items-center justify-center p-6 pb-16">
       <div className="w-full max-w-xl">
