@@ -235,12 +235,15 @@ export default function DemographicTargetingPage() {
       </div>
 
       <Tabs defaultValue="auto" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="auto">
             <Zap className="w-4 h-4 mr-2" /> Auto-Matched
           </TabsTrigger>
           <TabsTrigger value="manual">
             <Users className="w-4 h-4 mr-2" /> Manual Selection
+          </TabsTrigger>
+          <TabsTrigger value="all">
+            <Users className="w-4 h-4 mr-2" /> All Demographics
           </TabsTrigger>
         </TabsList>
 
