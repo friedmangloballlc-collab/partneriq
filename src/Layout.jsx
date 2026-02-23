@@ -60,7 +60,6 @@ const roleNavItems = {
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "My Deals", icon: Handshake, page: "Partnerships" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
