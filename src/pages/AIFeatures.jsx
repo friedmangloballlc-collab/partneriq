@@ -225,6 +225,7 @@ export default function AIFeatures() {
           { label: "Negotiation Co-Pilot",icon: Mic,         color: "text-violet-600 bg-violet-50",  desc: "Real-time deal assistance" },
           { label: "Simulation Engine",   icon: BarChart3,   color: "text-blue-600 bg-blue-50",      desc: "10,000 Monte Carlo runs" },
           { label: "Graph Intelligence",  icon: Network,     color: "text-emerald-600 bg-emerald-50",desc: "14M+ nodes mapped" },
+          { label: "Pitch Deck Generator",icon: FileText,    color: "text-rose-600 bg-rose-50",      desc: "12 sections in < 5 min" },
         ].map(c => {
           const Icon = c.icon;
           return (
