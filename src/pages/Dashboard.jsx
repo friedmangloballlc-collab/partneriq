@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import StatCard from "@/components/dashboard/StatCard";
 import ActivityFeed from "@/components/dashboard/ActivityFeed";
 import PipelineChart from "@/components/dashboard/PipelineChart";
+import PitchDeckMetrics from "@/components/dashboard/PitchDeckMetrics";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
