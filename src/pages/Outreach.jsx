@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, CheckSquare, ChevronDown, ChevronUp
+  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, CheckSquare, ChevronDown, ChevronUp, BookOpen
 } from "lucide-react";
 import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import TasksPanel from "@/components/tasks/TasksPanel";
+import OutreachFramework from "@/components/outreach/OutreachFramework";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +31,7 @@ const statusConfig = {
 };
 
 export default function Outreach() {
-  const [tab, setTab] = useState("all");
+  const [tab, setTab] = useState("emails");
   const [showCompose, setShowCompose] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [newEmail, setNewEmail] = useState({
@@ -100,7 +101,7 @@ Write a compelling, concise email that:
 
   const [expandedEmail, setExpandedEmail] = useState(null);
 
-  const filteredEmails = tab === "all" ? emails : emails.filter(e => e.status === tab);
+  const filteredEmails = tab === "emails" ? emails : emails.filter(e => e.status === tab);
 
   return (
     <div className="space-y-6">
@@ -116,16 +117,21 @@ Write a compelling, concise email that:
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
-          <TabsTrigger value="all">All ({emails.length})</TabsTrigger>
+          <TabsTrigger value="emails">Emails ({emails.length})</TabsTrigger>
           <TabsTrigger value="draft">Drafts</TabsTrigger>
           <TabsTrigger value="pending_approval">Pending</TabsTrigger>
           <TabsTrigger value="sent">Sent</TabsTrigger>
           <TabsTrigger value="opened">Opened</TabsTrigger>
           <TabsTrigger value="replied">Replied</TabsTrigger>
+          <TabsTrigger value="framework" className="ml-4 flex items-center gap-1">
+            <BookOpen className="w-4 h-4" /> Framework
+          </TabsTrigger>
         </TabsList>
       </Tabs>
 
-      {isLoading ? (
+      {tab === "framework" ? (
+        <OutreachFramework />
+      ) : isLoading ? (
         <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="bg-white rounded-xl border p-4 animate-pulse"><div className="h-4 bg-slate-100 rounded w-1/3 mb-2" /><div className="h-3 bg-slate-100 rounded w-2/3" /></div>)}</div>
       ) : filteredEmails.length === 0 ? (
         <div className="text-center py-20">
