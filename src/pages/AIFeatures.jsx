@@ -648,6 +648,126 @@ export default function AIFeatures() {
           </Card>
         </TabsContent>
 
+        {/* ── Pitch Deck Generation ── */}
+        <TabsContent value="pitchdeck" className="mt-4 space-y-5">
+          <SectionHeader icon={FileText} color="bg-rose-50 border-rose-200 text-rose-700" title="Pitch Deck Generation System" subtitle="Automatically generates custom pitch decks for every qualified match. Always routes to approval queue — never sent without human review." />
+
+          {/* Generation Triggers */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-slate-700">16.1 Generation Triggers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <DataTable
+                headers={["Trigger","Deck Type","Sections Included","Generation Time","Auto-Queue"]}
+                rows={DECK_TRIGGERS}
+                renderRow={(r, i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-3 text-xs font-semibold text-slate-800">{r.trigger}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600">{r.deckType}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{r.sections}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-indigo-500" />
+                        <code className="text-xs font-mono text-indigo-700">{r.genTime}</code>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <Badge variant="outline" className={`text-[10px] ${r.autoQueue ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-slate-50 text-slate-500 border-slate-200"}`}>
+                        {r.autoQueue ? "Yes" : "Optional"}
+                      </Badge>
+                    </td>
+                  </tr>
+                )}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Auto-Populated Sections */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-slate-700">16.2 Auto-Populated Sections (12 Total)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {DECK_SECTIONS.map(s => (
+                  <div key={s.num} className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div className="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center flex-shrink-0 text-xs font-bold">
+                      {s.num}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold text-slate-800">{s.title}</p>
+                      <p className="text-[11px] text-slate-500 mt-0.5">{s.content}</p>
+                      <p className="text-[10px] text-indigo-600 mt-1 font-medium">Sources: {s.sources}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Customization Options */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-slate-700">16.3 Customization Options</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <DataTable
+                headers={["Option","Choices","Default","Impact"]}
+                rows={DECK_CUSTOMIZATION}
+                renderRow={(r, i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-3 text-xs font-semibold text-slate-800">{r.option}</td>
+                    <td className="px-4 py-3 text-xs text-slate-600">{r.choices}</td>
+                    <td className="px-4 py-3">
+                      <Badge variant="outline" className="text-[10px] bg-indigo-50 text-indigo-700 border-indigo-200">{r.default}</Badge>
+                    </td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{r.impact}</td>
+                  </tr>
+                )}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Visual Design System */}
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-2">
+                <Palette className="w-4 h-4 text-rose-500" />
+                <CardTitle className="text-sm text-slate-700">16.4 Visual Design System</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {DESIGN_ELEMENTS.map(d => (
+                  <div key={d.element} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p className="text-xs font-bold text-slate-800 mb-2">{d.element}</p>
+                    <div className="space-y-1.5">
+                      <div>
+                        <p className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wider mb-0.5">Automation</p>
+                        <p className="text-[11px] text-slate-600">{d.automation}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-semibold text-emerald-600 uppercase tracking-wider mb-0.5">Customization</p>
+                        <p className="text-[11px] text-slate-500">{d.customization}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Approval Note */}
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200">
+            <Shield className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-amber-800">Always Human-Reviewed</p>
+              <p className="text-xs text-amber-700 mt-0.5">Every generated pitch deck is automatically routed to the approval queue before any sharing or sending. No deck ever reaches a partner without explicit human sign-off — enforced at the architecture level.</p>
+            </div>
+          </div>
+        </TabsContent>
+
         {/* ── Autonomous Mode ── */}
         <TabsContent value="autonomous" className="mt-4 space-y-5">
           <SectionHeader icon={Zap} color="bg-rose-50 border-rose-200 text-rose-700" title="Autonomous Deal Execution Mode" subtitle="For pre-approved parameters, system operates autonomously within guardrails. Human reviews only exceptions and high-value deals." />
