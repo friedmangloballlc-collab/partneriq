@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import EventForm from "@/components/eventmanagement/EventForm";
 import EventCard from "@/components/eventmanagement/EventCard";
+import EventFilters from "@/components/eventmanagement/EventFilters";
 
 export default function EventManagement() {
   const [showForm, setShowForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [eventType, setEventType] = useState("culture"); // "culture" or "mega"
+  const [eventFilters, setEventFilters] = useState({
+    dateFrom: "",
+    dateTo: "",
+    category: "",
+    tier: "",
+    selectedDemographics: [],
+  });
   const queryClient = useQueryClient();
 
   const { data: cultureEvents = [], isLoading: cultureLoading } = useQuery({
@@ -119,6 +127,42 @@ export default function EventManagement() {
   const currentEvents = eventType === "culture" ? cultureEvents : megaEvents;
   const isLoading = eventType === "culture" ? cultureLoading : megaLoading;
 
+  const filteredEvents = useMemo(() => {
+    return currentEvents.filter((event) => {
+      if (eventFilters.dateFrom && event.dates) {
+        const eventDate = new Date(event.dates);
+        const filterDate = new Date(eventFilters.dateFrom);
+        if (eventDate < filterDate) return false;
+      }
+
+      if (eventFilters.dateTo && event.dates) {
+        const eventDate = new Date(event.dates);
+        const filterDate = new Date(eventFilters.dateTo);
+        if (eventDate > filterDate) return false;
+      }
+
+      if (eventFilters.category && event.category !== eventFilters.category) {
+        return false;
+      }
+
+      if (eventFilters.tier && event.tier !== eventFilters.tier) {
+        return false;
+      }
+
+      if (eventFilters.selectedDemographics.length > 0) {
+        const eventDemos = event.audience_demographics
+          ? JSON.parse(event.audience_demographics)
+          : [];
+        const hasMatch = eventFilters.selectedDemographics.some((demoId) =>
+          eventDemos.includes(demoId)
+        );
+        if (!hasMatch) return false;
+      }
+
+      return true;
+    });
+  }, [currentEvents, eventFilters]);
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -145,6 +189,12 @@ export default function EventManagement() {
         </TabsList>
 
         <TabsContent value="culture" className="space-y-4">
+          <EventFilters
+            eventType="culture"
+            demographics={demographics}
+            onFilter={setEventFilters}
+          />
+
           {showForm && (
             <EventForm
               event={editingEvent}
@@ -172,7 +222,7 @@ export default function EventManagement() {
             </div>
           ) : (
             <div className="grid gap-4">
-              {currentEvents.map((event) => (
+              {filteredEvents.map((event) => (
                 <EventCard
                   key={event.id}
                   event={event}
@@ -187,6 +237,12 @@ export default function EventManagement() {
         </TabsContent>
 
         <TabsContent value="mega" className="space-y-4">
+          <EventFilters
+            eventType="mega"
+            demographics={demographics}
+            onFilter={setEventFilters}
+          />
+
           {showForm && (
             <EventForm
               event={editingEvent}
@@ -214,7 +270,7 @@ export default function EventManagement() {
             </div>
           ) : (
             <div className="grid gap-4">
-              {currentEvents.map((event) => (
+              {filteredEvents.map((event) => (
                 <EventCard
                   key={event.id}
                   event={event}
