@@ -58,6 +58,10 @@ import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Onboarding from './pages/Onboarding';
 import Teams from './pages/Teams';
+import SequenceBuilder from './pages/SequenceBuilder';
+import SimulationEngine from './pages/SimulationEngine';
+import PitchDeckBuilder from './pages/PitchDeckBuilder';
+import SystemHealth from './pages/SystemHealth';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +77,10 @@ export const PAGES = {
     "Settings": Settings,
     "Onboarding": Onboarding,
     "Teams": Teams,
+    "SequenceBuilder": SequenceBuilder,
+    "SimulationEngine": SimulationEngine,
+    "PitchDeckBuilder": PitchDeckBuilder,
+    "SystemHealth": SystemHealth,
 }
 
 export const pagesConfig = {
