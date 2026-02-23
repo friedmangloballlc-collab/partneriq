@@ -73,11 +73,11 @@ export default function GlobalSearch() {
     setSearchTerm("");
     
     if (resultType === "industry") {
-      navigate(createPageUrl("DemographicTargeting"));
+      navigate(createPageUrl(`DemographicTargeting?industry=${id}`));
     } else if (resultType === "event") {
-      navigate(createPageUrl("EventManagement"));
+      navigate(createPageUrl(`EventManagement?event=${id}`));
     } else if (resultType === "demographic") {
-      navigate(createPageUrl("DemographicTargeting"));
+      navigate(createPageUrl(`DemographicTargeting?demographic=${id}`));
     }
   };
 
