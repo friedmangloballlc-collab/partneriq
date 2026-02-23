@@ -410,7 +410,7 @@ export default function Onboarding() {
               I'm a Creator
             </Button>
             <Button onClick={() => {setSelectedRole("agency");setStep(2);}} className="h-11 px-8 bg-orange-500 hover:bg-orange-600 text-white font-semibold">
-              Book a Demo
+              I'm an Agency
             </Button>
           </div>
           <p className="text-sm text-slate-400 mt-4">No credit card required • Start free today</p>
