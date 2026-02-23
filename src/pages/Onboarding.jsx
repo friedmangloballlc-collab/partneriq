@@ -390,48 +390,51 @@ export default function Onboarding() {
         </div>
       </header>
 
-      {/* ── HERO SECTION ── */}
-      <div className="relative overflow-hidden pt-32 pb-24 bg-gradient-to-b from-white to-slate-50">
-        <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle at 30% 50%, #6366f1 0%, transparent 50%)"}} />
+      {/* ── HERO SECTION (Influur Inspired) ── */}
+      <div className="relative overflow-hidden pt-32 pb-24 bg-gradient-to-br from-slate-950 via-slate-900 to-orange-950">
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage:"radial-gradient(circle at 80% 50%, #f97316 0%, transparent 60%)"}} />
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <div className="mb-6">
-            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 rounded-full px-4 py-2">
-              <Sparkles className="w-4 h-4 text-indigo-600" />
-              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Enterprise AI Platform</span>
-            </div>
-          </div>
-          <h1 className="text-5xl sm:text-6xl font-bold text-slate-900 tracking-tight mb-6 leading-tight">
-            Partnership <span className="text-indigo-600">Intelligence</span> Reimagined
+          <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
+            We're the ultimate partnership intelligence platform
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-16">
-            Connect creators, athletes, and celebrities with brands. Powered by advanced AI matching, predictive analytics, and autonomous deal execution.
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+            We help <span className="text-orange-400 font-semibold">brand managers</span>, <span className="text-orange-400 font-semibold">CMOs</span>, and <span className="text-orange-400 font-semibold">marketing agencies</span> build their influencer marketing strategy through cutting-edge AI technology.
           </p>
 
-          {/* Key Stats - Aspire Inspired */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {PLATFORM_STATS.map((s, i) => (
+          {/* Dual Role CTA Buttons */}
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button onClick={() => {setSelectedRole("brand"); setStep(2);}} className="h-11 px-6 border-2 border-white bg-transparent text-white font-semibold hover:bg-white/10">
+              I'm a Brand
+            </Button>
+            <Button onClick={() => {setSelectedRole("talent"); setStep(2);}} className="h-11 px-6 border-2 border-white bg-transparent text-white font-semibold hover:bg-white/10">
+              I'm a Creator
+            </Button>
+            <Button onClick={() => {setSelectedRole("agency"); setStep(2);}} className="h-11 px-8 bg-orange-500 hover:bg-orange-600 text-white font-semibold">
+              Book a Demo
+            </Button>
+          </div>
+          <p className="text-sm text-slate-400 mt-4">No credit card required • Start free today</p>
+        </div>
+      </div>
+
+      {/* ── TRUSTED BRANDS SECTION ── */}
+      <div className="bg-slate-50 py-16 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="text-center text-sm font-semibold text-slate-600 uppercase tracking-wider mb-12">Trusted by leading brands & creators</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-items-center opacity-60">
+            {[
+              { name: "Coca-Cola", emoji: "🥤" },
+              { name: "Corona", emoji: "🍺" },
+              { name: "Heineken", emoji: "🍻" },
+              { name: "JBL", emoji: "🎵" },
+              { name: "L'Oreal", emoji: "💄" },
+            ].map((brand, i) => (
               <div key={i} className="text-center">
-                <div className="mb-2">
-                  <p className="text-4xl sm:text-5xl font-bold text-indigo-600 tracking-tight">{s.value}</p>
-                </div>
-                <p className="text-sm font-medium text-slate-600">{s.label}</p>
+                <div className="text-4xl mb-2">{brand.emoji}</div>
+                <p className="text-xs font-semibold text-slate-600">{brand.name}</p>
               </div>
             ))}
           </div>
-
-          {/* CTA Buttons - Dual Role Approach */}
-          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button onClick={() => {setSelectedRole("talent"); setStep(2);}} variant="outline" className="h-11 px-6 border-2 border-slate-300 text-slate-900 font-semibold hover:bg-slate-50">
-              I'm a Creator
-            </Button>
-            <Button onClick={() => {setSelectedRole("brand"); setStep(2);}} variant="outline" className="h-11 px-6 border-2 border-slate-300 text-slate-900 font-semibold hover:bg-slate-50">
-              I'm a Brand
-            </Button>
-            <Button onClick={() => {setSelectedRole("agency"); setStep(2);}} className="h-11 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
-              I'm an Agency
-            </Button>
-          </div>
-          <p className="text-sm text-slate-500 mt-4">No credit card required • Start free today</p>
         </div>
       </div>
 

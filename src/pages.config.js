@@ -56,6 +56,7 @@ import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
 import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
+import MarketIntelligence from './pages/MarketIntelligence';
 import MatchEngine from './pages/MatchEngine';
 import Notifications from './pages/Notifications';
 import Onboarding from './pages/Onboarding';
@@ -71,7 +72,6 @@ import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
 import TalentDiscovery from './pages/TalentDiscovery';
 import Teams from './pages/Teams';
-import MarketIntelligence from './pages/MarketIntelligence';
 import __Layout from './Layout.jsx';
 
 
@@ -85,6 +85,7 @@ export const PAGES = {
     "ConnectAccounts": ConnectAccounts,
     "Dashboard": Dashboard,
     "Integrations": Integrations,
+    "MarketIntelligence": MarketIntelligence,
     "MatchEngine": MatchEngine,
     "Notifications": Notifications,
     "Onboarding": Onboarding,
@@ -100,7 +101,6 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "TalentDiscovery": TalentDiscovery,
     "Teams": Teams,
-    "MarketIntelligence": MarketIntelligence,
 }
 
 export const pagesConfig = {
