@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import {
   Zap, Building2, Users, Briefcase, ArrowRight, Loader2,
   CheckCircle2, CheckSquare, Star, Sparkles, Shield, Lock,
-  Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3
+  Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3, Globe, Network
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
