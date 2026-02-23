@@ -64,6 +64,7 @@ import PitchDeckBuilder from './pages/PitchDeckBuilder';
 import SystemHealth from './pages/SystemHealth';
 import ConnectAccounts from './pages/ConnectAccounts';
 import Integrations from './pages/Integrations';
+import PlatformOverview from './pages/PlatformOverview';
 import __Layout from './Layout.jsx';
 
 
@@ -85,6 +86,7 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "ConnectAccounts": ConnectAccounts,
     "Integrations": Integrations,
+    "PlatformOverview": PlatformOverview,
 }
 
 export const pagesConfig = {
