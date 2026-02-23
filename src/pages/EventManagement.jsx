@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +10,7 @@ import EventCard from "@/components/eventmanagement/EventCard";
 import EventFilters from "@/components/eventmanagement/EventFilters";
 
 export default function EventManagement() {
+  const location = useLocation();
   const [showForm, setShowForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [eventType, setEventType] = useState("culture"); // "culture" or "mega"
