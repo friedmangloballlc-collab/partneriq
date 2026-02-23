@@ -297,6 +297,78 @@ export default function DemographicTargetingPage() {
           </Card>
         </TabsContent>
 
+        {/* All Demographics Tab */}
+        <TabsContent value="all" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Users className="w-4 h-4 text-blue-600" />
+                All Available Demographics
+              </CardTitle>
+              <CardDescription>
+                Complete reference of all demographic segments with detailed insights
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 gap-4">
+                {demographics.map(demographic => (
+                  <div key={demographic.id} className="p-4 border border-slate-200 rounded-lg hover:border-indigo-300 hover:bg-indigo-50/30 transition-colors">
+                    <h4 className="font-semibold text-slate-900 mb-3">{demographic.name}</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      {demographic.population_size && (
+                        <div>
+                          <span className="text-slate-500">Population:</span>
+                          <p className="text-slate-900 font-medium">{demographic.population_size}</p>
+                        </div>
+                      )}
+                      {demographic.buying_power && (
+                        <div>
+                          <span className="text-slate-500">Buying Power:</span>
+                          <p className="text-slate-900 font-medium">{demographic.buying_power}</p>
+                        </div>
+                      )}
+                      {demographic.top_events && (
+                        <div className="md:col-span-2">
+                          <span className="text-slate-500">Top Events:</span>
+                          <p className="text-slate-900 font-medium">{demographic.top_events}</p>
+                        </div>
+                      )}
+                      {demographic.key_cultural_moments && (
+                        <div className="md:col-span-2">
+                          <span className="text-slate-500">Key Cultural Moments:</span>
+                          <p className="text-slate-900 font-medium">{demographic.key_cultural_moments}</p>
+                        </div>
+                      )}
+                      {demographic.media_preferences && (
+                        <div className="md:col-span-2">
+                          <span className="text-slate-500">Media Preferences:</span>
+                          <p className="text-slate-900 font-medium">{demographic.media_preferences}</p>
+                        </div>
+                      )}
+                      {demographic.brand_activation_tips && (
+                        <div className="md:col-span-2">
+                          <span className="text-slate-500">Brand Activation Tips:</span>
+                          <p className="text-slate-900 font-medium italic">{demographic.brand_activation_tips}</p>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleToggleDemographic(demographic.id)}
+                      className={`mt-3 px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+                        selectedDemographics.has(demographic.id)
+                          ? "bg-indigo-600 text-white"
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      }`}
+                    >
+                      {selectedDemographics.has(demographic.id) ? "✓ Selected" : "Select"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Manual Selection Tab */}
         <TabsContent value="manual" className="space-y-4">
           <Card>
