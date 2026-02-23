@@ -284,7 +284,7 @@ export default function DemographicTargetingPage() {
       </div>
 
       <Tabs defaultValue="auto" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="auto">
             <Zap className="w-4 h-4 mr-2" /> Auto-Matched
           </TabsTrigger>
@@ -293,6 +293,9 @@ export default function DemographicTargetingPage() {
           </TabsTrigger>
           <TabsTrigger value="all">
             <Users className="w-4 h-4 mr-2" /> All Demographics
+          </TabsTrigger>
+          <TabsTrigger value="insights">
+            <BarChart3 className="w-4 h-4 mr-2" /> Insights
           </TabsTrigger>
         </TabsList>
 
@@ -491,9 +494,16 @@ export default function DemographicTargetingPage() {
             </CardContent>
           </Card>
         </TabsContent>
-      </Tabs>
 
-      {/* Selected Demographics Summary */}
+        <TabsContent value="insights" className="space-y-6">
+         <DemographicInsights
+           demographics={demographics}
+           selectedDemographics={selectedDemographics}
+         />
+        </TabsContent>
+        </Tabs>
+
+        {/* Selected Demographics Summary */}
       {selectedDemographics.size > 0 && (
         <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardHeader>
