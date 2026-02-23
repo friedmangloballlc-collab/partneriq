@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import {
-  Server, Zap, ArrowRight, Database, Cpu, MemoryStick,
-  GitBranch, Network, Activity, ChevronDown, ChevronUp,
-  Layers, Shield, RefreshCw, AlertTriangle, CheckCircle2
+  Server, Zap, Database, Cpu, MemoryStick,
+  GitBranch, Network, Activity,
+  Layers, Shield, RefreshCw, AlertTriangle, CheckCircle2,
+  Lock, Timer, Bell, HardDrive, RotateCcw, XCircle
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
