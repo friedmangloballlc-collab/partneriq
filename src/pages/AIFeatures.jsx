@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Zap, TrendingUp, Mic, BarChart3, Network, DollarSign,
   Lightbulb, Eye, Shield, CheckCircle2, AlertTriangle,
-  Brain, Target, Layers, GitBranch, Activity
+  Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
