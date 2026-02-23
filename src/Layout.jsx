@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -31,6 +31,7 @@ const roleNavItems = {
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
