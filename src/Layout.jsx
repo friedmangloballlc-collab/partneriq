@@ -37,6 +37,7 @@ const roleNavItems = {
     { name: "System Health", icon: Activity, page: "SystemHealth" },
     { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
+    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
   brand: [
@@ -51,6 +52,7 @@ const roleNavItems = {
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
   talent: [
@@ -59,6 +61,7 @@ const roleNavItems = {
     { name: "My Deals", icon: Handshake, page: "Partnerships" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
   agency: [
@@ -76,6 +79,7 @@ const roleNavItems = {
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
 };
