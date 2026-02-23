@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3
+  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -10,6 +10,47 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// Scoring algorithm constants
+const BRAND_TO_TALENT_FACTORS = [
+  { name: "Audience Demographics Match", weight: 18, desc: "Cosine similarity of demographic vectors" },
+  { name: "Content Niche Alignment", weight: 15, desc: "Category overlap + semantic similarity" },
+  { name: "Content-Brand Aesthetic Fit", weight: 12, desc: "CLIP embedding similarity" },
+  { name: "Trajectory Prediction", weight: 12, desc: "Alpha score × trajectory confidence" },
+  { name: "Engagement Quality", weight: 10, desc: "Weighted engagement rate vs tier benchmark" },
+  { name: "Brand Safety", weight: 10, desc: "Historical content scan, controversy score" },
+  { name: "Relationship Path Exists", weight: 8, desc: "Path strength from graph" },
+  { name: "Budget Fit", weight: 8, desc: "Rate estimate vs budget range overlap" },
+  { name: "Past Performance", weight: 5, desc: "Historical deal success rate" },
+  { name: "Geographic Relevance", weight: 2, desc: "Location overlap scoring" },
+];
+
+const TALENT_TO_AGENCY_FACTORS = [
+  { name: "Category Specialization", weight: 25, desc: "Agency expertise in talent's category" },
+  { name: "Tier Alignment", weight: 20, desc: "Agency typically represents similar-tier talent" },
+  { name: "Roster Composition", weight: 15, desc: "Complementary vs competitive roster" },
+  { name: "Commission Alignment", weight: 15, desc: "Commission expectations match" },
+  { name: "Geographic Focus", weight: 10, desc: "Agency markets align with talent goals" },
+  { name: "Growth Support", weight: 10, desc: "Agency track record growing talent" },
+  { name: "Response Rate", weight: 5, desc: "Historical responsiveness to inquiries" },
+];
+
+const VECTOR_EMBEDDINGS = [
+  { type: "Talent Content", dims: 1536, model: "text-embedding-3-large", index: "IVFFlat" },
+  { type: "Talent Visual", dims: 512, model: "CLIP ViT-L/14", index: "IVFFlat" },
+  { type: "Talent Audience", dims: 512, model: "Custom trained", index: "IVFFlat" },
+  { type: "Brand Identity", dims: 1536, model: "text-embedding-3-large", index: "IVFFlat" },
+  { type: "Brand Visual", dims: 512, model: "CLIP ViT-L/14", index: "IVFFlat" },
+];
+
+const SCORE_INTERPRETATION = [
+  { range: "90-100", quality: "Excellent", confidence: "Very High", action: "Auto-generate pitch deck, priority queue", color: "bg-emerald-100 text-emerald-700" },
+  { range: "80-89", quality: "Strong", confidence: "High", action: "Generate deck, standard queue", color: "bg-blue-100 text-blue-700" },
+  { range: "70-79", quality: "Moderate", confidence: "Medium", action: "Include in shortlist, manual review", color: "bg-amber-100 text-amber-700" },
+  { range: "60-69", quality: "Weak", confidence: "Low", action: "Include only if few alternatives", color: "bg-orange-100 text-orange-700" },
+  { range: "< 60", quality: "Poor", confidence: "Very Low", action: "Exclude from recommendations", color: "bg-red-100 text-red-700" },
+];
 
 export default function MatchEngine() {
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -17,6 +58,7 @@ export default function MatchEngine() {
   const [matchMode, setMatchMode] = useState("brand_to_talent");
   const [matching, setMatching] = useState(false);
   const [matchResults, setMatchResults] = useState(null);
+  const [showAlgorithm, setShowAlgorithm] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
   const preselectedTalentId = urlParams.get("talentId");
@@ -123,12 +165,139 @@ Return the top 5 matches.`;
   return (
     <div className="space-y-8">
       <div>
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">AI Match Engine</h1>
-          <Badge className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] px-2.5">AI-Powered</Badge>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">AI Match Engine</h1>
+              <Badge className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] px-2.5">AI-Powered</Badge>
+            </div>
+            <p className="text-sm text-slate-500 mt-1">10-factor weighted scoring with semantic understanding</p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowAlgorithm(!showAlgorithm)}
+            className="gap-1.5"
+          >
+            <Lightbulb className="w-4 h-4" /> Algorithm Details
+          </Button>
         </div>
-        <p className="text-sm text-slate-500 mt-1">10-factor weighted scoring with semantic understanding</p>
       </div>
+
+      {/* Algorithm Details */}
+      {showAlgorithm && (
+        <Tabs defaultValue="factors" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="factors">Scoring Factors</TabsTrigger>
+            <TabsTrigger value="vectors">Vector Search</TabsTrigger>
+            <TabsTrigger value="interpretation">Score Ranges</TabsTrigger>
+          </TabsList>
+
+          {/* Scoring Factors */}
+          <TabsContent value="factors" className="mt-4 space-y-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" /> Brand-to-Talent Factors
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {BRAND_TO_TALENT_FACTORS.map((f, i) => (
+                    <div key={i} className="flex items-center justify-between p-2 rounded-lg border border-slate-100 hover:bg-slate-50">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-800">{f.name}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{f.desc}</p>
+                      </div>
+                      <Badge className="ml-2 flex-shrink-0 bg-indigo-100 text-indigo-700 font-bold">{f.weight}%</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" /> Talent-to-Agency Factors
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {TALENT_TO_AGENCY_FACTORS.map((f, i) => (
+                    <div key={i} className="flex items-center justify-between p-2 rounded-lg border border-slate-100 hover:bg-slate-50">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-800">{f.name}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{f.desc}</p>
+                      </div>
+                      <Badge className="ml-2 flex-shrink-0 bg-violet-100 text-violet-700 font-bold">{f.weight}%</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Vector Search */}
+          <TabsContent value="vectors" className="mt-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Database className="w-4 h-4" /> Vector Embedding Configuration
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto rounded-lg border border-slate-200">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-slate-50 border-b">
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Type</th>
+                        <th className="text-center px-4 py-2 text-xs font-semibold text-slate-600">Dimensions</th>
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Model</th>
+                        <th className="text-left px-4 py-2 text-xs font-semibold text-slate-600">Index</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {VECTOR_EMBEDDINGS.map((v, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="px-4 py-2 font-medium text-slate-700">{v.type}</td>
+                          <td className="px-4 py-2 text-center"><Badge className="bg-blue-100 text-blue-700 text-[10px]">{v.dims}d</Badge></td>
+                          <td className="px-4 py-2 text-slate-600 font-mono text-xs">{v.model}</td>
+                          <td className="px-4 py-2"><Badge variant="outline" className="text-[10px]">{v.index}</Badge></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Score Interpretation */}
+          <TabsContent value="interpretation" className="mt-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm">Match Score Interpretation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {SCORE_INTERPRETATION.map((s, i) => (
+                    <div key={i} className={`p-3 rounded-lg border border-slate-200 ${s.color}`}>
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className="font-semibold text-sm">{s.range}</p>
+                          <p className="text-xs mt-1">Quality: <span className="font-medium">{s.quality}</span> • Confidence: <span className="font-medium">{s.confidence}</span></p>
+                        </div>
+                      </div>
+                      <p className="text-xs">→ {s.action}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      )}
 
       {/* Configuration */}
       <Card className="border-slate-200/60">
