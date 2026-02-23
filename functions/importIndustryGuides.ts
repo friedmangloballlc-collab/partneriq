@@ -63,20 +63,8 @@ Deno.serve(async (req) => {
 
     const industries = llmResult.industries;
 
-    // Filter out empty rows and map field names
-    const mappedIndustries = industries
-      .filter(row => row.Industry && row.Industry.trim())
-      .map(row => ({
-        industry: row.Industry?.trim(),
-        sector: row.Sector?.trim() || '',
-        priority_tier_1_events: row['Priority Tier 1 Events (Must-Attend)']?.trim() || '',
-        tier_2_events: row['Tier 2 Events (High Value)']?.trim() || '',
-        heritage_awareness_months: row['Heritage/Awareness Months']?.trim() || '',
-        key_conferences: row['Key Conferences/Trade Shows']?.trim() || '',
-        best_demographics: row['Best Demographics']?.trim() || '',
-        budget_allocation: row['Budget Allocation Guidance']?.trim() || '',
-        activation_strategies: row['Top Activation Strategies']?.trim() || ''
-      }));
+    // Filter out empty rows
+    const mappedIndustries = industries.filter(row => row.industry && row.industry.trim());
 
     console.log(`Mapped ${mappedIndustries.length} industries for import`);
 
