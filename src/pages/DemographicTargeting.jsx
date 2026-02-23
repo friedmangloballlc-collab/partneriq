@@ -28,6 +28,8 @@ export default function DemographicTargetingPage() {
     populationMax: "",
     selectedBuyingPower: [],
   });
+  const [campaignBrief, setCampaignBrief] = useState(null);
+  const [campaignLoading, setCampaignLoading] = useState(false);
 
   // Fetch industries, events, and demographics
   const { data: industries = [] } = useQuery({
