@@ -11,6 +11,7 @@ import {
   Search, Calendar, TrendingUp, DollarSign, Zap, Target, AlertCircle, ChevronRight,
   Users, MapPin, Clock
 } from "lucide-react";
+import IndustryGuideCard from "@/components/industries/IndustryGuideCard";
 
 export default function CultureCalendar() {
   const [searchTerm, setSearchTerm] = useState("");
