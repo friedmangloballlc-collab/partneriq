@@ -351,53 +351,101 @@ export default function CultureCalendar() {
             </Card>
           ) : (
             <div className="space-y-4">
-              {industryGuides.map(guide => (
-                <Card key={guide.id} className="hover:shadow-md transition-shadow">
-                  <CardHeader className="pb-3 bg-gradient-to-r from-slate-50 to-indigo-50">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <CardTitle>{guide.industry}</CardTitle>
-                        <CardDescription className="mt-1">{guide.sector}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="whitespace-nowrap">{guide.budget_allocation}</Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6 space-y-4">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🏆 Must-Attend Tier 1</p>
-                        <p className="text-sm text-slate-700">{guide.priority_tier_1_events}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">⭐ High-Value Tier 2</p>
-                        <p className="text-sm text-slate-700">{guide.tier_2_events}</p>
-                      </div>
-                    </div>
+              <div className="flex items-center justify-between bg-slate-100 p-3 rounded-lg">
+                <p className="text-sm font-medium text-slate-700">
+                  Showing {industryPage * 10 + 1}-{Math.min((industryPage + 1) * 10, industryGuides.length)} of {industryGuides.length} industries
+                </p>
+                <div className="flex gap-2">
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => setIndustryPage(Math.max(0, industryPage - 1))}
+                    disabled={industryPage === 0}
+                  >
+                    ← Prev
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => setIndustryPage(industryPage + 1)}
+                    disabled={(industryPage + 1) * 10 >= industryGuides.length}
+                  >
+                    Next →
+                  </Button>
+                </div>
+              </div>
 
-                    <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🗓️ Heritage Moments</p>
-                        <p className="text-sm text-slate-700">{guide.heritage_awareness_months}</p>
+              <div className="space-y-4">
+                {industryGuides.slice(industryPage * 10, (industryPage + 1) * 10).map(guide => (
+                  <Card key={guide.id} className="hover:shadow-md transition-shadow">
+                    <CardHeader className="pb-3 bg-gradient-to-r from-slate-50 to-indigo-50">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <CardTitle>{guide.industry}</CardTitle>
+                          <CardDescription className="mt-1">{guide.sector}</CardDescription>
+                        </div>
+                        <Badge variant="outline" className="whitespace-nowrap">{guide.budget_allocation}</Badge>
                       </div>
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🎯 Key Conferences</p>
-                        <p className="text-sm text-slate-700">{guide.key_conferences}</p>
+                    </CardHeader>
+                    <CardContent className="pt-6 space-y-4">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🏆 Must-Attend Tier 1</p>
+                          <p className="text-sm text-slate-700">{guide.priority_tier_1_events}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">⭐ High-Value Tier 2</p>
+                          <p className="text-sm text-slate-700">{guide.tier_2_events}</p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">👥 Best Demographics</p>
-                        <p className="text-sm text-slate-700">{guide.best_demographics}</p>
+                      <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🗓️ Heritage Moments</p>
+                          <p className="text-sm text-slate-700">{guide.heritage_awareness_months}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">🎯 Key Conferences</p>
+                          <p className="text-sm text-slate-700">{guide.key_conferences}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">💡 Top Activation Strategies</p>
-                        <p className="text-sm text-slate-700">{guide.activation_strategies}</p>
+
+                      <div className="grid md:grid-cols-2 gap-4 border-t pt-4">
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">👥 Best Demographics</p>
+                          <p className="text-sm text-slate-700">{guide.best_demographics}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">💡 Top Activation Strategies</p>
+                          <p className="text-sm text-slate-700">{guide.activation_strategies}</p>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => setIndustryPage(Math.max(0, industryPage - 1))}
+                  disabled={industryPage === 0}
+                >
+                  ← Previous
+                </Button>
+                <span className="text-sm text-slate-600">
+                  Page {industryPage + 1} of {Math.ceil(industryGuides.length / 10)}
+                </span>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => setIndustryPage(industryPage + 1)}
+                  disabled={(industryPage + 1) * 10 >= industryGuides.length}
+                >
+                  Next →
+                </Button>
+              </div>
             </div>
           )}
         </TabsContent>
