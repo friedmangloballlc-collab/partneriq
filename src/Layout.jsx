@@ -5,9 +5,10 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Bell, Search, Menu, X, UsersRound
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import NotificationDropdown from "@/components/notifications/NotificationDropdown";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem,
@@ -22,10 +23,14 @@ const roleNavItems = {
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
+    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
+    { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "System Health", icon: Activity, page: "SystemHealth" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
   brand: [
@@ -33,6 +38,8 @@ const roleNavItems = {
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
+    { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
@@ -50,8 +57,10 @@ const roleNavItems = {
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
+    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Pitch Decks", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Analytics", icon: BarChart3, page: "Analytics" },
     { name: "Settings", icon: Settings, page: "Settings" },
@@ -217,14 +226,7 @@ export default function Layout({ children, currentPageName }) {
             <h1 className="text-lg font-semibold text-slate-900 hidden sm:block">{currentPageName}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-600 relative">
-              <Bell className="w-[18px] h-[18px]" />
-              {pendingApprovals > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                  {pendingApprovals > 9 ? "9+" : pendingApprovals}
-                </span>
-              )}
-            </Button>
+            <NotificationDropdown />
           </div>
         </header>
 
