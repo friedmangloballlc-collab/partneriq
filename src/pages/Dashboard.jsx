@@ -60,7 +60,6 @@ function DashboardContent({ user }) {
     queryFn: () => base44.entities.MarketplaceOpportunity.filter({ status: "published" }, "-created_date", 10),
   });
 
-  const role = user?.role || "brand";
   const totalDealValue = partnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
   const activeDeals = partnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
 
