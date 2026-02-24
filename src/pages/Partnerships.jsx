@@ -16,6 +16,7 @@ import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import DealNotesPanel from "@/components/partnerships/DealNotesPanel";
 import TasksPanel from "@/components/tasks/TasksPanel";
 import NewDealWizard from "@/components/partnerships/NewDealWizard";
+import OptimalPricingPanel from "@/components/partnerships/OptimalPricingPanel";
 
 const stages = [
   { key: "discovered", label: "Discovered", color: "bg-slate-100 text-slate-700 border-slate-200" },
@@ -198,6 +199,13 @@ export default function Partnerships() {
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
                 </Select>
+              </div>
+
+              <Separator className="my-4" />
+
+              {/* Pricing */}
+              <div className="mb-4">
+                <OptimalPricingPanel partnershipId={selectedDeal.id} />
               </div>
 
               <Separator className="my-4" />
