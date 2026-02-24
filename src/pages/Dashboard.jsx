@@ -266,3 +266,25 @@ function DashboardContent({ user }) {
     </div>
   );
 }
+
+export default function Dashboard() {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    base44.auth.me()
+      .then(u => {
+        if (!u) navigate(createPageUrl("Onboarding"));
+        else setUser(u);
+      })
+      .catch(() => navigate(createPageUrl("Onboarding")));
+  }, [navigate]);
+
+  if (!user) return null;
+
+  return (
+    <TourProvider user={user}>
+      <DashboardContent user={user} />
+    </TourProvider>
+  );
+}
