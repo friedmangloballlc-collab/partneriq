@@ -559,6 +559,16 @@ export default function Integrations() {
         </div>
       </CollapsibleSection>
 
+      {/* Connect Modal */}
+      {modalIntegration && (
+        <ConnectModal
+          integration={modalIntegration}
+          onClose={closeModal}
+          onConnect={handleConnect}
+          isConnected={!!connected[modalIntegration.name]}
+        />
+      )}
+
       {/* 31.5 GrowMeOrganic — ADMIN ONLY */}
       {isAdmin ? (
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 overflow-hidden">
