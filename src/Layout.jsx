@@ -73,6 +73,8 @@ const roleNavItems = {
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "My Deals", icon: Handshake, page: "Partnerships" },
+    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
