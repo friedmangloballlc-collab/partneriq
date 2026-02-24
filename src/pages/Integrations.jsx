@@ -420,7 +420,7 @@ export default function Integrations() {
                 <p className="text-sm font-semibold text-slate-700">{p.name}</p>
                 <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-2">{p.data}</p>
                 <div className="mt-2">
-                  <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
+                  <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} onOpenModal={() => openModal({ ...p, type: "API Key" })} />
                 </div>
               </div>
               <StatusBadge status={p.status} />
