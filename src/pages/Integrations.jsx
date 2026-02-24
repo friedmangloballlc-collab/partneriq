@@ -335,11 +335,16 @@ export default function Integrations() {
   const [search, setSearch] = useState("");
   const [user, setUser] = useState(null);
   const [connected, toggleConnected] = useConnectedPlatforms();
+  const [modalIntegration, setModalIntegration] = useState(null);
   const q = search.toLowerCase();
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
   }, []);
+
+  const openModal = (integration) => setModalIntegration(integration);
+  const closeModal = () => setModalIntegration(null);
+  const handleConnect = (name) => toggleConnected(name);
 
   const isAdmin = user?.role === "admin";
 
