@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb
+  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb, Target, BrainCircuit, CheckCircle2, AlertCircle, Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
