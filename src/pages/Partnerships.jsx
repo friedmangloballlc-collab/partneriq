@@ -41,7 +41,6 @@ export default function Partnerships() {
   const [showAdd, setShowAdd] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
   const [dealTab, setDealTab] = useState("notes");
-  const [newDeal, setNewDeal] = useState({ title: "", brand_name: "", talent_name: "", partnership_type: "sponsorship", status: "discovered", priority: "p2", deal_value: 0 });
 
   const queryClient = useQueryClient();
   const { data: partnerships = [], isLoading, refetch } = useQuery({
