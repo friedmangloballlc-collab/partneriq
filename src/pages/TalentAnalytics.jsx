@@ -14,6 +14,7 @@ import {
   TrendingUp, TrendingDown, Users, Heart, Eye, DollarSign,
   Award, BarChart3, Zap, Target, Star, ArrowUpRight, ArrowDownRight
 } from "lucide-react";
+import TalentValueTrajectoryPanel from "@/components/talent/TalentValueTrajectoryPanel";
 
 const PLATFORM_COLORS = {
   instagram: "#E1306C",
