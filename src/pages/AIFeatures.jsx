@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Zap, TrendingUp, Mic, BarChart3, Network, DollarSign,
   Lightbulb, Eye, Shield, CheckCircle2, AlertTriangle,
-  Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock
+  Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock, Trophy
 } from "lucide-react";
 import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
 import SuccessFactorAnalysis from "@/components/campaigns/SuccessFactorAnalysis";
