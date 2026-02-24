@@ -459,7 +459,7 @@ export default function Integrations() {
               <div className="flex items-center gap-3 flex-shrink-0">
                 <Badge variant="outline" className="text-[10px] hidden sm:inline-flex">{t.type}</Badge>
                 <StatusBadge status={t.status} />
-                <ConnectButton name={t.category} status={t.status} connected={!!connected[t.category]} onToggle={toggleConnected} />
+                <ConnectButton name={t.category} status={t.status} connected={!!connected[t.category]} onToggle={toggleConnected} onOpenModal={() => openModal({ name: t.category, description: `Connect ${t.category} tools: ${t.platforms}`, type: t.type })} />
               </div>
             </div>
           ))}
