@@ -289,6 +289,11 @@ Requirements:
         </div>
       )}
 
+      {/* Conversion Forecast Panel */}
+      {sequences.length > 0 && (
+        <ConversionForecastPanel sequences={sequences} />
+      )}
+
       {/* Create / Edit Dialog */}
       <Dialog open={showCreate} onOpenChange={v => { if (!v) { setShowCreate(false); setEditSeq(null); } }}>
         <DialogContent className="max-w-3xl max-h-[92vh] overflow-y-auto">
