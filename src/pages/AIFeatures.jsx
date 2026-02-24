@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
 import SuccessFactorAnalysis from "@/components/campaigns/SuccessFactorAnalysis";
+import PerformanceBenchmarking from "@/components/campaigns/PerformanceBenchmarking";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -261,6 +262,7 @@ export default function AIFeatures() {
           <TabsTrigger value="autonomous">Autonomous Mode</TabsTrigger>
           <TabsTrigger value="postcampaign">Post-Campaign Analysis</TabsTrigger>
           <TabsTrigger value="successfactors">Success Factors</TabsTrigger>
+          <TabsTrigger value="benchmarking">Benchmarking</TabsTrigger>
         </TabsList>
 
         {/* ── Trajectory Engine ── */}
@@ -836,6 +838,11 @@ export default function AIFeatures() {
         {/* ── Success Factor Identification ── */}
         <TabsContent value="successfactors" className="mt-4">
           <SuccessFactorAnalysis />
+        </TabsContent>
+
+        {/* ── Performance Benchmarking ── */}
+        <TabsContent value="benchmarking" className="mt-4">
+          <PerformanceBenchmarking />
         </TabsContent>
       </Tabs>
     </div>
