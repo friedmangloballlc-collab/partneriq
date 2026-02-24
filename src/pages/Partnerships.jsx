@@ -58,13 +58,6 @@ export default function Partnerships() {
     return true;
   });
 
-  const handleAdd = async () => {
-    await base44.entities.Partnership.create(newDeal);
-    setShowAdd(false);
-    setNewDeal({ title: "", brand_name: "", talent_name: "", partnership_type: "sponsorship", status: "discovered", priority: "p2", deal_value: 0 });
-    refetch();
-  };
-
   const moveToStage = (partnershipId, newStatus) => {
     updateMutation.mutate({ id: partnershipId, data: { status: newStatus } });
   };
