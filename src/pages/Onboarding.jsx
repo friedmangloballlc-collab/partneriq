@@ -338,14 +338,73 @@ const HIGHLIGHTS = [
 { icon: Bell, text: "Real-Time Alerts" }];
 
 
+const BRAND_CULTURES = [
+  { key: "innovative", label: "Innovative", emoji: "🚀", desc: "Forward-thinking, tech-first, disruptive" },
+  { key: "authentic", label: "Authentic", emoji: "🌿", desc: "Real, transparent, community-driven" },
+  { key: "premium", label: "Premium", emoji: "💎", desc: "Luxury, quality-first, aspirational" },
+  { key: "playful", label: "Playful", emoji: "🎉", desc: "Fun, bold, energetic, youth-focused" },
+  { key: "purpose_driven", label: "Purpose-Driven", emoji: "❤️", desc: "Mission-led, social impact, values-first" },
+  { key: "professional", label: "Professional", emoji: "🏢", desc: "B2B, corporate, authority-focused" },
+];
+
+const AUDIENCE_AGES = ["13–17", "18–24", "25–34", "35–44", "45–54", "55+"];
+const AUDIENCE_GENDERS = ["Female", "Male", "Non-binary", "All"];
+const AUDIENCE_INTERESTS = [
+  "Fashion & Beauty", "Fitness & Health", "Tech & Gaming", "Food & Cooking",
+  "Travel & Lifestyle", "Finance & Business", "Music & Entertainment", "Sports",
+  "Parenting & Family", "Education & Learning", "Sustainability", "Luxury"
+];
+const AUDIENCE_LOCATIONS = ["United States", "United Kingdom", "Canada", "Australia", "Europe", "Latin America", "Global"];
+
+const CAMPAIGN_OBJECTIVES = [
+  { key: "brand_awareness", label: "Brand Awareness", emoji: "📢", desc: "Reach new audiences and build recognition" },
+  { key: "product_launch", label: "Product Launch", emoji: "🚀", desc: "Drive excitement for a new product or service" },
+  { key: "sales_conversion", label: "Sales & Conversions", emoji: "💰", desc: "Drive direct purchases or sign-ups" },
+  { key: "community_building", label: "Community Building", emoji: "👥", desc: "Grow an engaged loyal audience" },
+  { key: "content_creation", label: "Content Creation", emoji: "🎬", desc: "Generate high-quality content assets" },
+  { key: "thought_leadership", label: "Thought Leadership", emoji: "🧠", desc: "Establish authority in your industry" },
+];
+
+const PARTNERSHIP_TYPES = [
+  { key: "sponsorship", label: "Sponsorship", emoji: "🤝" },
+  { key: "affiliate", label: "Affiliate", emoji: "🔗" },
+  { key: "ambassador", label: "Brand Ambassador", emoji: "⭐" },
+  { key: "content_creation", label: "Content Creation", emoji: "🎥" },
+  { key: "event", label: "Event Collaboration", emoji: "🎪" },
+];
+
+const Tooltip = ({ text }) => (
+  <span className="group relative inline-flex items-center ml-1.5 cursor-pointer">
+    <span className="w-4 h-4 rounded-full bg-slate-200 text-slate-500 text-[10px] font-bold flex items-center justify-center">?</span>
+    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-xl leading-relaxed">
+      {text}
+    </span>
+  </span>
+);
+
 export default function Onboarding() {
-  const [step, setStep] = useState(1); // 1 = role, 2 = plan, 3 = details
+  const [step, setStep] = useState(1); // 1 = role, 2 = plan, 3 = details, 4 = brand wizard
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [saving, setSaving] = useState(false);
+
+  // Brand wizard state
+  const [brandWizardStep, setBrandWizardStep] = useState(1); // 1=culture, 2=audience, 3=objectives
+  const [selectedCultures, setSelectedCultures] = useState([]);
+  const [audienceAges, setAudienceAges] = useState([]);
+  const [audienceGenders, setAudienceGenders] = useState([]);
+  const [audienceInterests, setAudienceInterests] = useState([]);
+  const [audienceLocations, setAudienceLocations] = useState([]);
+  const [campaignObjectives, setCampaignObjectives] = useState([]);
+  const [preferredPartnerships, setPreferredPartnerships] = useState([]);
+  const [annualBudget, setAnnualBudget] = useState("");
+
   const navigate = useNavigate();
+
+  const toggleItem = (arr, setArr, val) =>
+    setArr(arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val]);
 
   const { data: rateBenchmarks = [] } = useQuery({
     queryKey: ["rateBenchmarks"],
