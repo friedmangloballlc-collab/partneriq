@@ -5,6 +5,7 @@ import {
   Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock
 } from "lucide-react";
 import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
+import SuccessFactorAnalysis from "@/components/campaigns/SuccessFactorAnalysis";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -228,6 +229,7 @@ export default function AIFeatures() {
           { label: "Graph Intelligence",  icon: Network,     color: "text-emerald-600 bg-emerald-50",desc: "14M+ nodes mapped" },
           { label: "Pitch Deck Generator",icon: FileText,    color: "text-rose-600 bg-rose-50",      desc: "12 sections in < 5 min" },
           { label: "Post-Campaign Analysis", icon: BarChart3, color: "text-purple-600 bg-purple-50", desc: "AI-powered campaign review" },
+          { label: "Success Factors",       icon: Trophy,    color: "text-amber-600 bg-amber-50",   desc: "Replicate winning patterns" },
         ].map(c => {
           const Icon = c.icon;
           return (
@@ -258,6 +260,7 @@ export default function AIFeatures() {
           <TabsTrigger value="pitchdeck">Pitch Decks</TabsTrigger>
           <TabsTrigger value="autonomous">Autonomous Mode</TabsTrigger>
           <TabsTrigger value="postcampaign">Post-Campaign Analysis</TabsTrigger>
+          <TabsTrigger value="successfactors">Success Factors</TabsTrigger>
         </TabsList>
 
         {/* ── Trajectory Engine ── */}
@@ -828,6 +831,11 @@ export default function AIFeatures() {
         {/* ── Post-Campaign Analysis ── */}
         <TabsContent value="postcampaign" className="mt-4">
           <PostCampaignAnalysis />
+        </TabsContent>
+
+        {/* ── Success Factor Identification ── */}
+        <TabsContent value="successfactors" className="mt-4">
+          <SuccessFactorAnalysis />
         </TabsContent>
       </Tabs>
     </div>
