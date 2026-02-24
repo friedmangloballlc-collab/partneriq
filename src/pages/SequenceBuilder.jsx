@@ -289,6 +289,17 @@ Requirements:
                   </div>
                 </div>
               </Card>
+
+              {/* Collaboration panel for this sequence */}
+              {collabSeq?.id === seq.id && (
+                <div className="border border-indigo-200 bg-indigo-50/30 rounded-xl p-4 mx-1">
+                  <CollaborationPanel
+                    partnershipId={seq.partnership_id || undefined}
+                    resourceLabel={seq.name}
+                  />
+                </div>
+              )}
+            </React.Fragment>
             );
           })}
         </div>
