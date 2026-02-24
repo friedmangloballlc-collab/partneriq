@@ -80,6 +80,7 @@ import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
 import BrandDashboard from './pages/BrandDashboard';
+import TalentAnalytics from './pages/TalentAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -117,6 +118,7 @@ export const PAGES = {
     "TalentProfile": TalentProfile,
     "Teams": Teams,
     "BrandDashboard": BrandDashboard,
+    "TalentAnalytics": TalentAnalytics,
 }
 
 export const pagesConfig = {
