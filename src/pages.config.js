@@ -59,6 +59,7 @@ import CreateOpportunity from './pages/CreateOpportunity';
 import CultureCalendar from './pages/CultureCalendar';
 import CustomReports from './pages/CustomReports';
 import Dashboard from './pages/Dashboard';
+import DataImportExport from './pages/DataImportExport';
 import DealAnalytics from './pages/DealAnalytics';
 import DemographicTargeting from './pages/DemographicTargeting';
 import EventManagement from './pages/EventManagement';
@@ -83,7 +84,6 @@ import TalentAnalytics from './pages/TalentAnalytics';
 import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
-import DataImportExport from './pages/DataImportExport';
 import __Layout from './Layout.jsx';
 
 
@@ -100,6 +100,7 @@ export const PAGES = {
     "CultureCalendar": CultureCalendar,
     "CustomReports": CustomReports,
     "Dashboard": Dashboard,
+    "DataImportExport": DataImportExport,
     "DealAnalytics": DealAnalytics,
     "DemographicTargeting": DemographicTargeting,
     "EventManagement": EventManagement,
@@ -124,7 +125,6 @@ export const PAGES = {
     "TalentDiscovery": TalentDiscovery,
     "TalentProfile": TalentProfile,
     "Teams": Teams,
-    "DataImportExport": DataImportExport,
 }
 
 export const pagesConfig = {
