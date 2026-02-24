@@ -55,10 +55,13 @@ const SCORE_INTERPRETATION = [
 export default function MatchEngine() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedTalent, setSelectedTalent] = useState("");
+  const [selectedOpportunity, setSelectedOpportunity] = useState("");
   const [matchMode, setMatchMode] = useState("brand_to_talent");
   const [matching, setMatching] = useState(false);
   const [matchResults, setMatchResults] = useState(null);
   const [showAlgorithm, setShowAlgorithm] = useState(false);
+  const [proactiveSuggestions, setProactiveSuggestions] = useState(null);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
   const preselectedTalentId = urlParams.get("talentId");
@@ -73,12 +76,76 @@ export default function MatchEngine() {
     queryFn: () => base44.entities.Talent.list("-created_date", 100),
   });
 
+  const { data: opportunities = [] } = useQuery({
+    queryKey: ["opportunities"],
+    queryFn: () => base44.entities.MarketplaceOpportunity.filter({ status: "published" }, "-created_date", 20),
+  });
+
   React.useEffect(() => {
     if (preselectedTalentId) {
       setSelectedTalent(preselectedTalentId);
       setMatchMode("talent_to_brand");
     }
   }, [preselectedTalentId]);
+
+  // Proactive AI suggestions for a brand opportunity
+  const handleProactiveSuggestions = async () => {
+    const opportunity = opportunities.find(o => o.id === selectedOpportunity);
+    if (!opportunity) return;
+    setLoadingSuggestions(true);
+    setProactiveSuggestions(null);
+
+    const prompt = `You are an expert talent partnership AI. Analyze this brand opportunity and proactively suggest the ideal talent profiles.
+
+Opportunity: ${JSON.stringify(opportunity)}
+
+Available Talent Pool:
+${JSON.stringify(talents.slice(0, 20).map(t => ({
+  id: t.id, name: t.name, niche: t.niche, platform: t.primary_platform,
+  followers: t.total_followers, engagement: t.engagement_rate, tier: t.tier,
+  location: t.location, rate: t.rate_per_post, brand_safety: t.brand_safety_score,
+  trajectory: t.trajectory, bio: t.bio
+})))}
+
+Perform a deep analysis:
+1. Identify which talent profiles best align with the opportunity's campaign goals, budget, required niches, and audience.
+2. Score each candidate (0-100) using audience fit, niche alignment, engagement quality, budget fit, brand safety, and trajectory.
+3. For each top match, explain WHY they are ideal, what makes them unique, and any risks.
+4. Suggest an outreach strategy for each.
+Return top 5 suggestions with detailed reasoning.`;
+
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: {
+        type: "object",
+        properties: {
+          opportunity_summary: { type: "string" },
+          ideal_talent_profile: { type: "string" },
+          suggestions: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "string" },
+                name: { type: "string" },
+                score: { type: "number" },
+                why_ideal: { type: "string" },
+                unique_strengths: { type: "array", items: { type: "string" } },
+                potential_risks: { type: "string" },
+                outreach_strategy: { type: "string" },
+                partnership_type: { type: "string" },
+                estimated_roi: { type: "string" },
+              }
+            }
+          },
+          market_insight: { type: "string" }
+        }
+      }
+    });
+
+    setProactiveSuggestions(result);
+    setLoadingSuggestions(false);
+  };
 
   const handleRunMatch = async () => {
     setMatching(true);
