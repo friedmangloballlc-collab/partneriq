@@ -386,6 +386,173 @@ Return the top 5 matches.`;
         </Tabs>
       )}
 
+      {/* Proactive AI Suggestions for Opportunities */}
+      <Card className="border-purple-200/60 bg-gradient-to-br from-purple-50/40 to-indigo-50/40">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <BrainCircuit className="w-4 h-4 text-purple-600" />
+            Proactive AI Talent Suggestions
+            <Badge className="bg-purple-100 text-purple-700 text-[10px] ml-1">New</Badge>
+          </CardTitle>
+          <p className="text-xs text-slate-500">Select a brand opportunity and let AI proactively identify the most ideal talent matches with deep reasoning.</p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-col sm:flex-row gap-3 items-end">
+            <div className="flex-1 space-y-1.5">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Select Brand Opportunity</label>
+              <Select value={selectedOpportunity} onValueChange={setSelectedOpportunity}>
+                <SelectTrigger><SelectValue placeholder="Choose a published opportunity..." /></SelectTrigger>
+                <SelectContent>
+                  {opportunities.map(o => (
+                    <SelectItem key={o.id} value={o.id}>
+                      {o.title} {o.brand_name ? `— ${o.brand_name}` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              onClick={handleProactiveSuggestions}
+              disabled={!selectedOpportunity || loadingSuggestions}
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 h-10 px-5 shrink-0"
+            >
+              {loadingSuggestions ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Target className="w-4 h-4 mr-2" />}
+              {loadingSuggestions ? "Analyzing..." : "Get AI Suggestions"}
+            </Button>
+          </div>
+
+          {loadingSuggestions && (
+            <div className="text-center py-8">
+              <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mx-auto mb-3 animate-pulse">
+                <BrainCircuit className="w-6 h-6 text-purple-600" />
+              </div>
+              <p className="text-sm font-medium text-slate-700">AI is analyzing opportunity requirements...</p>
+              <p className="text-xs text-slate-400 mt-1">Matching campaign goals, budget, audience, and talent profiles</p>
+            </div>
+          )}
+
+          {proactiveSuggestions && !loadingSuggestions && (
+            <div className="space-y-4">
+              {/* Opportunity summary */}
+              <div className="bg-white rounded-xl border border-purple-100 p-4 space-y-2">
+                <p className="text-xs font-semibold text-purple-700 uppercase tracking-wider">Opportunity Analysis</p>
+                <p className="text-sm text-slate-700 leading-relaxed">{proactiveSuggestions.opportunity_summary}</p>
+                {proactiveSuggestions.ideal_talent_profile && (
+                  <div className="mt-2 pt-2 border-t border-purple-50">
+                    <p className="text-xs font-semibold text-slate-500 mb-1">Ideal Talent Profile</p>
+                    <p className="text-sm text-slate-600">{proactiveSuggestions.ideal_talent_profile}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Suggestions */}
+              <div className="space-y-3">
+                {proactiveSuggestions.suggestions?.map((s, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div className="flex flex-col lg:flex-row">
+                      <div className="flex-1 p-4 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-9 h-9">
+                            <AvatarFallback className="bg-gradient-to-br from-purple-400 to-indigo-500 text-white text-sm font-bold">
+                              {s.name?.[0]?.toUpperCase() || "?"}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h4 className="text-sm font-semibold text-slate-900">{s.name}</h4>
+                              <span className="text-[10px] bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium">#{i + 1} Pick</span>
+                              {s.partnership_type && <Badge variant="outline" className="text-[10px]">{s.partnership_type}</Badge>}
+                            </div>
+                          </div>
+                        </div>
+
+                        <p className="text-sm text-slate-600 leading-relaxed">{s.why_ideal}</p>
+
+                        {s.unique_strengths?.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5">
+                            {s.unique_strengths.map((str, j) => (
+                              <span key={j} className="inline-flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">
+                                <CheckCircle2 className="w-2.5 h-2.5" /> {str}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                          {s.outreach_strategy && (
+                            <div className="bg-blue-50 rounded-lg p-2.5">
+                              <p className="text-[10px] font-semibold text-blue-600 mb-1 uppercase tracking-wide">Outreach Strategy</p>
+                              <p className="text-xs text-blue-700">{s.outreach_strategy}</p>
+                            </div>
+                          )}
+                          {s.potential_risks && (
+                            <div className="bg-amber-50 rounded-lg p-2.5">
+                              <p className="text-[10px] font-semibold text-amber-600 mb-1 uppercase tracking-wide flex items-center gap-1"><AlertCircle className="w-2.5 h-2.5" /> Risks</p>
+                              <p className="text-xs text-amber-700">{s.potential_risks}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="lg:w-44 p-4 bg-slate-50/60 border-t lg:border-t-0 lg:border-l border-slate-100 flex flex-col justify-between">
+                        <div>
+                          <p className="text-[10px] text-slate-400 uppercase tracking-wider mb-1">AI Score</p>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-2xl font-bold text-purple-600">{s.score}</span>
+                            <span className="text-xs text-slate-400">/ 100</span>
+                          </div>
+                          <Progress value={s.score} className="mt-1.5 h-1.5" />
+                          {s.estimated_roi && (
+                            <div className="mt-2">
+                              <p className="text-[10px] text-slate-400 uppercase tracking-wider">Est. ROI</p>
+                              <p className="text-xs font-semibold text-emerald-600 mt-0.5">{s.estimated_roi}</p>
+                            </div>
+                          )}
+                        </div>
+                        <Button
+                          size="sm"
+                          className="mt-3 w-full bg-purple-600 hover:bg-purple-700 text-xs"
+                          onClick={() => {
+                            const talent = talents.find(t => t.id === s.id || t.name === s.name);
+                            const opp = opportunities.find(o => o.id === selectedOpportunity);
+                            if (talent && opp) {
+                              base44.entities.Partnership.create({
+                                title: `${opp.brand_name || "Brand"} × ${s.name}`,
+                                brand_name: opp.brand_name,
+                                brand_id: opp.brand_id,
+                                talent_id: talent?.id || s.id,
+                                talent_name: s.name,
+                                match_score: s.score,
+                                match_reasoning: s.why_ideal,
+                                partnership_type: s.partnership_type || "sponsorship",
+                                status: "discovered",
+                                priority: s.score >= 85 ? "p1" : s.score >= 70 ? "p2" : "p3",
+                              });
+                            }
+                          }}
+                        >
+                          <ArrowRight className="w-3 h-3 mr-1" /> Add to Pipeline
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {proactiveSuggestions.market_insight && (
+                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 flex items-start gap-3">
+                  <Lightbulb className="w-4 h-4 text-indigo-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-xs font-semibold text-indigo-700 mb-1">Market Insight</p>
+                    <p className="text-sm text-indigo-700/80">{proactiveSuggestions.market_insight}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Configuration */}
       <Card className="border-slate-200/60">
         <CardContent className="p-6">
