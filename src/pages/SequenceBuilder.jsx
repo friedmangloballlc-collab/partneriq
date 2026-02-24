@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Plus, Trash2, Sparkles, Play, Pause, Mail, Save, Loader2,
-  Eye, Reply, Calendar, Info, Zap, Users, TrendingUp
+  Eye, Reply, Calendar, Info, Zap, Users, TrendingUp, MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +36,7 @@ function MetricPill({ icon: Icon, label, value, color }) {
 
 export default function SequenceBuilder() {
   const [showCreate, setShowCreate] = useState(false);
+  const [collabSeq, setCollabSeq] = useState(null);
   const [editSeq, setEditSeq] = useState(null);
   const [generating, setGenerating] = useState(null);
   const [form, setForm] = useState({
@@ -266,6 +267,9 @@ Requirements:
                     </div>
 
                     <div className="flex items-center gap-2 flex-shrink-0">
+                      <Button size="sm" variant="outline" className="text-xs h-8" onClick={() => setCollabSeq(collabSeq?.id === seq.id ? null : seq)}>
+                        <MessageSquare className="w-3 h-3 mr-1" /> Team
+                      </Button>
                       <Button size="sm" variant="outline" className="text-xs h-8" onClick={() => openEdit(seq)}>Edit</Button>
                       {seq.status === "active" ? (
                         <Button size="sm" variant="outline" className="text-xs h-8 text-amber-600 border-amber-200"
