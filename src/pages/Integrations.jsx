@@ -490,7 +490,7 @@ export default function Integrations() {
                 ))}
               </div>
               <div className="pt-1">
-                <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
+                <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} onOpenModal={() => openModal(p)} />
               </div>
             </div>
           ))}
