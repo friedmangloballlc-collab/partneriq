@@ -901,13 +901,244 @@ export default function Onboarding() {
                <Button variant="outline" onClick={() => setStep(2)} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
                  Back
                </Button>
-               <Button onClick={handleComplete} disabled={saving || !name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
-                 {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
-                 {saving ? "Setting up..." : "Launch Dashboard"}
-               </Button>
+               {selectedRole === "brand" ? (
+                 <Button onClick={() => setStep(4)} disabled={!name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                   Continue <ArrowRight className="w-4 h-4 ml-2" />
+                 </Button>
+               ) : (
+                 <Button onClick={handleComplete} disabled={saving || !name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                   {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                   {saving ? "Setting up..." : "Launch Dashboard"}
+                 </Button>
+               )}
              </div>
              </div>
               }
+
+        {/* ── STEP 4: Brand Wizard ── */}
+        {step === 4 && (
+          <div className="space-y-6 animate-fade-in-up">
+            {/* Sub-step progress */}
+            <div className="flex items-center gap-2 mb-2">
+              {["Company Culture", "Target Audience", "Campaign Goals"].map((label, i) => {
+                const num = i + 1;
+                const active = brandWizardStep === num;
+                const done = brandWizardStep > num;
+                return (
+                  <React.Fragment key={num}>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all
+                        ${done ? "bg-emerald-500 text-white" : active ? "bg-indigo-600 text-white" : "bg-slate-200 text-slate-500"}`}>
+                        {done ? "✓" : num}
+                      </div>
+                      <span className={`text-xs font-medium hidden sm:block ${active ? "text-indigo-600" : done ? "text-slate-500" : "text-slate-400"}`}>{label}</span>
+                    </div>
+                    {i < 2 && <div className={`flex-1 h-px ${brandWizardStep > num ? "bg-emerald-400" : "bg-slate-200"}`} />}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+
+            {/* Wizard Step 1: Company Culture */}
+            {brandWizardStep === 1 && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    Define Your Brand Culture
+                    <Tooltip text="Your brand culture helps us match you with talent whose content style and audience values align with yours." />
+                  </h2>
+                  <p className="text-sm text-slate-500 mt-1">Select up to 3 traits that best describe your brand's personality. <span className="text-indigo-600 font-medium">Example: Nike = Innovative + Purpose-Driven + Playful</span></p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {BRAND_CULTURES.map(c => {
+                    const sel = selectedCultures.includes(c.key);
+                    return (
+                      <button key={c.key} onClick={() => toggleItem(selectedCultures, setSelectedCultures, c.key)}
+                        disabled={!sel && selectedCultures.length >= 3}
+                        className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all
+                          ${sel ? "border-indigo-500 bg-indigo-50" : "border-slate-200 bg-white hover:border-slate-300"}
+                          ${!sel && selectedCultures.length >= 3 ? "opacity-40 cursor-not-allowed" : ""}`}>
+                        <span className="text-2xl">{c.emoji}</span>
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900">{c.label}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">{c.desc}</p>
+                        </div>
+                        {sel && <CheckCircle2 className="w-4 h-4 text-indigo-600 ml-auto flex-shrink-0 mt-0.5" />}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 text-xs text-indigo-700">
+                  💡 <strong>Tip:</strong> Brands with clearly defined cultures get 3x better talent match scores. Think of this like your brand's personality type.
+                </div>
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={() => setStep(3)} className="flex-1 h-11 border-slate-300">Back</Button>
+                  <Button onClick={() => setBrandWizardStep(2)} disabled={selectedCultures.length === 0} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white">
+                    Next <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Wizard Step 2: Target Audience */}
+            {brandWizardStep === 2 && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    Define Your Target Audience
+                    <Tooltip text="Precise audience targeting means we match you with talent whose followers match your ideal customer profile." />
+                  </h2>
+                  <p className="text-sm text-slate-500 mt-1">Help us understand who you're trying to reach. <span className="text-indigo-600 font-medium">Example: Sephora targets 18–34 Female beauty & lifestyle audiences.</span></p>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center">
+                    Age Groups <Tooltip text="Select all age ranges your primary customers fall into." />
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {AUDIENCE_AGES.map(age => (
+                      <button key={age} onClick={() => toggleItem(audienceAges, setAudienceAges, age)}
+                        className={`px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${audienceAges.includes(age) ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {age}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center">
+                    Gender Focus <Tooltip text="Which genders make up your primary audience?" />
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {AUDIENCE_GENDERS.map(g => (
+                      <button key={g} onClick={() => toggleItem(audienceGenders, setAudienceGenders, g)}
+                        className={`px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${audienceGenders.includes(g) ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {g}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center">
+                    Key Interests <Tooltip text="What topics are your customers passionate about? This helps us find talent with matching audience interests." />
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {AUDIENCE_INTERESTS.map(interest => (
+                      <button key={interest} onClick={() => toggleItem(audienceInterests, setAudienceInterests, interest)}
+                        className={`px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${audienceInterests.includes(interest) ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {interest}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center">
+                    Primary Markets <Tooltip text="Where are most of your customers located?" />
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {AUDIENCE_LOCATIONS.map(loc => (
+                      <button key={loc} onClick={() => toggleItem(audienceLocations, setAudienceLocations, loc)}
+                        className={`px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${audienceLocations.includes(loc) ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {loc}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={() => setBrandWizardStep(1)} className="flex-1 h-11 border-slate-300">Back</Button>
+                  <Button onClick={() => setBrandWizardStep(3)} disabled={audienceAges.length === 0 || audienceInterests.length === 0} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white">
+                    Next <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Wizard Step 3: Campaign Objectives */}
+            {brandWizardStep === 3 && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    Set Your Campaign Goals
+                    <Tooltip text="Your campaign objectives shape how we score and prioritize talent matches for your campaigns." />
+                  </h2>
+                  <p className="text-sm text-slate-500 mt-1">What are you trying to achieve? Select all that apply. <span className="text-indigo-600 font-medium">Example: Red Bull focuses on Brand Awareness + Community Building.</span></p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {CAMPAIGN_OBJECTIVES.map(obj => {
+                    const sel = campaignObjectives.includes(obj.key);
+                    return (
+                      <button key={obj.key} onClick={() => toggleItem(campaignObjectives, setCampaignObjectives, obj.key)}
+                        className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all
+                          ${sel ? "border-indigo-500 bg-indigo-50" : "border-slate-200 bg-white hover:border-slate-300"}`}>
+                        <span className="text-xl">{obj.emoji}</span>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-slate-900">{obj.label}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">{obj.desc}</p>
+                        </div>
+                        {sel && <CheckCircle2 className="w-4 h-4 text-indigo-600 flex-shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center">
+                    Preferred Partnership Types <Tooltip text="What type of collaborations does your brand typically run?" />
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {PARTNERSHIP_TYPES.map(pt => (
+                      <button key={pt.key} onClick={() => toggleItem(preferredPartnerships, setPreferredPartnerships, pt.key)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${preferredPartnerships.includes(pt.key) ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {pt.emoji} {pt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider flex items-center mb-2">
+                    Estimated Annual Partnership Budget (USD) <Tooltip text="This helps us show you talent within your budget range. You can always update this later." />
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {["Under $10K", "$10K–$50K", "$50K–$250K", "$250K–$1M", "$1M+"].map(b => (
+                      <button key={b} onClick={() => setAnnualBudget(b)}
+                        className={`px-3 py-1.5 rounded-full text-sm border-2 font-medium transition-all
+                          ${annualBudget === b ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                        {b}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-emerald-800">Your brand profile is ready!</p>
+                    <p className="text-xs text-emerald-700 mt-0.5">AI will use this to proactively recommend talent, generate campaign briefs, and score matches specifically for your goals.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={() => setBrandWizardStep(2)} className="flex-1 h-11 border-slate-300">Back</Button>
+                  <Button onClick={handleComplete} disabled={saving || campaignObjectives.length === 0} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                    {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
+                    {saving ? "Setting up..." : "Launch Dashboard"}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
              </>
              </div>
              </div>
