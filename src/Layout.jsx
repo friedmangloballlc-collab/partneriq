@@ -34,6 +34,7 @@ const roleNavItems = {
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
+    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
