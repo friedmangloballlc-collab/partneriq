@@ -51,6 +51,7 @@ import AIFeatures from './pages/AIFeatures';
 import Analytics from './pages/Analytics';
 import Approvals from './pages/Approvals';
 import BillingHistory from './pages/BillingHistory';
+import BrandDashboard from './pages/BrandDashboard';
 import Brands from './pages/Brands';
 import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
@@ -76,11 +77,10 @@ import SimulationEngine from './pages/SimulationEngine';
 import SubscriptionManagement from './pages/SubscriptionManagement';
 import SystemArchitecture from './pages/SystemArchitecture';
 import SystemHealth from './pages/SystemHealth';
+import TalentAnalytics from './pages/TalentAnalytics';
 import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
-import BrandDashboard from './pages/BrandDashboard';
-import TalentAnalytics from './pages/TalentAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -89,6 +89,7 @@ export const PAGES = {
     "Analytics": Analytics,
     "Approvals": Approvals,
     "BillingHistory": BillingHistory,
+    "BrandDashboard": BrandDashboard,
     "Brands": Brands,
     "CampaignBriefGenerator": CampaignBriefGenerator,
     "ConnectAccounts": ConnectAccounts,
@@ -114,11 +115,10 @@ export const PAGES = {
     "SubscriptionManagement": SubscriptionManagement,
     "SystemArchitecture": SystemArchitecture,
     "SystemHealth": SystemHealth,
+    "TalentAnalytics": TalentAnalytics,
     "TalentDiscovery": TalentDiscovery,
     "TalentProfile": TalentProfile,
     "Teams": Teams,
-    "BrandDashboard": BrandDashboard,
-    "TalentAnalytics": TalentAnalytics,
 }
 
 export const pagesConfig = {
