@@ -231,6 +231,15 @@ export default function Approvals() {
                       />
                     </div>
                   )}
+
+                  {/* Collaboration */}
+                  <div className="px-3 pt-3 border-t border-slate-100">
+                    <CollaborationPanel
+                      approvalItemId={item.id}
+                      partnershipId={item.brand_id ? undefined : undefined}
+                      resourceLabel={item.title}
+                    />
+                  </div>
                 </div>
               </Card>
             );
