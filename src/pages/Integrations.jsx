@@ -263,7 +263,7 @@ function StatusBadge({ status }) {
   return <Badge className="bg-slate-100 text-slate-500 text-[10px]">Coming Soon</Badge>;
 }
 
-// Simulates connected state per platform (stored in localStorage for demo)
+// Simulates connected state per platform (stored in localStorage)
 function useConnectedPlatforms() {
   const [connected, setConnected] = useState(() => {
     try { return JSON.parse(localStorage.getItem("piq_connected") || "{}"); } catch { return {}; }
@@ -277,23 +277,31 @@ function useConnectedPlatforms() {
     });
   };
 
-  return [connected, toggle];
+  const setConnectedFor = (name) => {
+    setConnected(prev => {
+      const next = { ...prev, [name]: true };
+      localStorage.setItem("piq_connected", JSON.stringify(next));
+      return next;
+    });
+  };
+
+  return [connected, toggle, setConnectedFor];
 }
 
-function ConnectButton({ name, status, connected, onToggle }) {
+function ConnectButton({ name, status, connected, onToggle, onOpenModal }) {
   if (status === "coming_soon") {
     return <Button size="sm" variant="outline" disabled className="text-[11px] h-7 opacity-50">Coming Soon</Button>;
   }
   if (connected) {
     return (
-      <Button size="sm" variant="outline" onClick={() => onToggle(name)}
+      <Button size="sm" variant="outline" onClick={() => onOpenModal && onOpenModal()}
         className="text-[11px] h-7 border-emerald-200 text-emerald-700 hover:bg-emerald-50 gap-1">
         <CheckCircle2 className="w-3 h-3" /> Connected
       </Button>
     );
   }
   return (
-    <Button size="sm" onClick={() => onToggle(name)}
+    <Button size="sm" onClick={() => onOpenModal && onOpenModal()}
       className="text-[11px] h-7 bg-indigo-600 hover:bg-indigo-700 gap-1">
       <Link2 className="w-3 h-3" /> Connect
     </Button>
