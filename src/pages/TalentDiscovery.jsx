@@ -64,6 +64,12 @@ export default function TalentDiscovery() {
 
   return (
     <div className="space-y-5">
+      <ContextualTip
+        tipId="talent_discovery_tip"
+        title="Search 10M+ creator profiles"
+        description="Use the filters panel to narrow by niche, platform, follower tier, engagement rate, and brand safety score. Click any creator card to see full analytics, then hit 'Match' to run the AI engine."
+        color="indigo"
+      />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
