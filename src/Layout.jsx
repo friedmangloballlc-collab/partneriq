@@ -101,6 +101,7 @@ const roleNavItems = {
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
+    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
