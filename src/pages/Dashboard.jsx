@@ -20,8 +20,9 @@ import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPane
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 
-export default function Dashboard() {
-  const [user, setUser] = useState(null);
+function DashboardContent({ user }) {
+  const { startTour } = useTour() || {};
+  const role = user?.role || "brand";
   const navigate = useNavigate();
 
   useEffect(() => {
