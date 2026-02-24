@@ -4,6 +4,7 @@ import {
   Lightbulb, Eye, Shield, CheckCircle2, AlertTriangle,
   Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock
 } from "lucide-react";
+import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -226,6 +227,7 @@ export default function AIFeatures() {
           { label: "Simulation Engine",   icon: BarChart3,   color: "text-blue-600 bg-blue-50",      desc: "10,000 Monte Carlo runs" },
           { label: "Graph Intelligence",  icon: Network,     color: "text-emerald-600 bg-emerald-50",desc: "14M+ nodes mapped" },
           { label: "Pitch Deck Generator",icon: FileText,    color: "text-rose-600 bg-rose-50",      desc: "12 sections in < 5 min" },
+          { label: "Post-Campaign Analysis", icon: BarChart3, color: "text-purple-600 bg-purple-50", desc: "AI-powered campaign review" },
         ].map(c => {
           const Icon = c.icon;
           return (
@@ -255,6 +257,7 @@ export default function AIFeatures() {
           <TabsTrigger value="contentfit">Content-Brand Fit</TabsTrigger>
           <TabsTrigger value="pitchdeck">Pitch Decks</TabsTrigger>
           <TabsTrigger value="autonomous">Autonomous Mode</TabsTrigger>
+          <TabsTrigger value="postcampaign">Post-Campaign Analysis</TabsTrigger>
         </TabsList>
 
         {/* ── Trajectory Engine ── */}
@@ -821,6 +824,10 @@ export default function AIFeatures() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+        {/* ── Post-Campaign Analysis ── */}
+        <TabsContent value="postcampaign" className="mt-4">
+          <PostCampaignAnalysis />
         </TabsContent>
       </Tabs>
     </div>
