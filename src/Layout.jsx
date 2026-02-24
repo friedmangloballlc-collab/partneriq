@@ -30,6 +30,7 @@ const roleNavItems = {
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
+    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
