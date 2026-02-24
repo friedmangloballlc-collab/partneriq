@@ -321,6 +321,9 @@ export default function DealAnalytics() {
         </Card>
       </div>
 
+      {/* Performance Visualizations */}
+      <DealPerformanceCharts partnerships={partnerships} />
+
       {/* AI Pattern Analysis */}
       <DealAIInsights />
 
