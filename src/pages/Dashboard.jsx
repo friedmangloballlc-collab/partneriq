@@ -123,6 +123,14 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Role-specific panels */}
+      {role === "talent" && (
+        <TalentDashboardPanel partnerships={partnerships} opportunities={opportunities} user={user} />
+      )}
+      {(role === "brand" || role === "agency") && (
+        <BrandDashboardPanel partnerships={partnerships} sequences={sequences} approvals={approvals} />
+      )}
+
       {/* Pitch Deck Metrics */}
       <PitchDeckMetrics />
 
