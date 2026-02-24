@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Search, BarChart3, Briefcase, Building2, Users,
-  Zap, ChevronDown, ChevronUp, Link2, CheckCircle2, Lock
+  Zap, ChevronDown, ChevronUp, Link2, CheckCircle2, Lock, MessageSquare, Mail, Database
 } from "lucide-react";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
