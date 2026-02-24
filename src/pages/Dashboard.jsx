@@ -14,6 +14,8 @@ import StatCard from "@/components/dashboard/StatCard";
 import ActivityFeed from "@/components/dashboard/ActivityFeed";
 import PipelineChart from "@/components/dashboard/PipelineChart";
 import PitchDeckMetrics from "@/components/dashboard/PitchDeckMetrics";
+import TalentDashboardPanel from "@/components/dashboard/TalentDashboardPanel";
+import BrandDashboardPanel from "@/components/dashboard/BrandDashboardPanel";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
