@@ -99,7 +99,7 @@ function DashboardContent({ user }) {
       />
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+      <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
         {(role === "admin" || role === "agency") && (
           <StatCard title="Total Talent" value={talents.length} icon={Users} color="violet" trend="+12%" trendUp />
         )}
