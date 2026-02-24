@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, MessageSquare, CheckSquare, UserCheck, X
+  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, UserCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,8 +13,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
-import DealNotesPanel from "@/components/partnerships/DealNotesPanel";
-import TasksPanel from "@/components/tasks/TasksPanel";
 import NewDealWizard from "@/components/partnerships/NewDealWizard";
 import OptimalPricingPanel from "@/components/partnerships/OptimalPricingPanel";
 import CollaborationPanel from "@/components/collaboration/CollaborationPanel";
@@ -39,8 +37,6 @@ export default function Partnerships() {
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
-  const [dealTab, setDealTab] = useState("notes");
-
   const queryClient = useQueryClient();
   const { data: partnerships = [], isLoading, refetch } = useQuery({
     queryKey: ["partnerships"],
