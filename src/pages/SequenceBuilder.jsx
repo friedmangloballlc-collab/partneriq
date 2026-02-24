@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import StepCard from "@/components/sequences/StepCard";
+import ConversionForecastPanel from "@/components/sequences/ConversionForecastPanel";
 
 const STATUS_CONFIG = {
   draft: { cls: "bg-slate-100 text-slate-600", label: "Draft" },
