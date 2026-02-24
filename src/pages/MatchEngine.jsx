@@ -232,6 +232,12 @@ Return the top 5 matches.`;
 
   return (
     <div className="space-y-8">
+      <ContextualTip
+        tipId="match_engine_tip"
+        title="How the Match Engine works"
+        description="Choose Brand → Talent to find ideal creators for a brand, or Talent → Brand to find the right brand partners for a creator. AI uses 10 weighted signals to score every match."
+        color="indigo"
+      />
       <div>
         <div className="flex items-center justify-between">
           <div>
