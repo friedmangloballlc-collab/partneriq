@@ -408,6 +408,9 @@ export default function TalentAnalytics() {
               </Card>
             </div>
 
+            {/* Value Trajectory Prediction */}
+            <TalentValueTrajectoryPanel talent={selectedTalent} />
+
             {/* Partnership history */}
             <Card className="border-slate-200/60">
               <CardHeader className="pb-3">
