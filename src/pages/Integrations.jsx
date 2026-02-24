@@ -355,7 +355,7 @@ export default function Integrations() {
             <p className="text-[10px] text-emerald-500 uppercase tracking-wider">Connected</p>
           </div>
           <div className="bg-slate-50 rounded-xl px-3 py-2 text-center">
-            <p className="text-xl font-bold text-slate-700">{SOCIAL_PLATFORMS.length + INFLUENCER_PLATFORMS.length + ANALYTICS_PLATFORMS.length + BUSINESS_TOOLS.length}</p>
+            <p className="text-xl font-bold text-slate-700">{SOCIAL_PLATFORMS.length + INFLUENCER_PLATFORMS.length + ANALYTICS_PLATFORMS.length + BUSINESS_TOOLS.length + CRM_INTEGRATIONS.length + MARKETING_AUTOMATION.length + COMMUNICATION_TOOLS.length}</p>
             <p className="text-[10px] text-slate-400 uppercase tracking-wider">Total</p>
           </div>
         </div>
