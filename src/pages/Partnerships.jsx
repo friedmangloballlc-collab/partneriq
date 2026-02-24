@@ -211,22 +211,10 @@ export default function Partnerships() {
 
               <Separator className="my-4" />
 
-              {/* Tabs */}
-              <div className="flex gap-1 mb-4">
-                {[{ key: "notes", label: "Notes", icon: MessageSquare }, { key: "tasks", label: "Tasks", icon: CheckSquare }].map(tab => (
-                  <button key={tab.key} onClick={() => setDealTab(tab.key)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${dealTab === tab.key ? "bg-slate-100 text-slate-800" : "text-slate-400 hover:text-slate-600"}`}>
-                    <tab.icon className="w-3.5 h-3.5" />{tab.label}
-                  </button>
-                ))}
-              </div>
-
-              {dealTab === "notes" && (
-                <DealNotesPanel partnershipId={selectedDeal.id} />
-              )}
-              {dealTab === "tasks" && (
-                <TasksPanel partnershipId={selectedDeal.id} contextLabel={selectedDeal.title} />
-              )}
+              <CollaborationPanel
+                partnershipId={selectedDeal.id}
+                resourceLabel={selectedDeal.title}
+              />
             </>
           )}
         </SheetContent>
