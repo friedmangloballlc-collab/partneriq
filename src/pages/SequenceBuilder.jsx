@@ -16,29 +16,6 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import StepCard from "@/components/sequences/StepCard";
 
-const EMAIL_TYPES = ["initial_outreach", "follow_up", "proposal", "negotiation", "thank_you"];
-
-const PERSONALIZATION_TOKENS = [
-  { token: "{{first_name}}", label: "First Name", example: "Alex" },
-  { token: "{{full_name}}", label: "Full Name", example: "Alex Johnson" },
-  { token: "{{company}}", label: "Company", example: "Nike" },
-  { token: "{{role}}", label: "Their Role", example: "VP Marketing" },
-  { token: "{{my_name}}", label: "Your Name", example: "Jordan" },
-  { token: "{{my_company}}", label: "Your Brand/Agency", example: "CreatorIQ" },
-  { token: "{{platform}}", label: "Platform", example: "Instagram" },
-  { token: "{{niche}}", label: "Niche", example: "fitness & wellness" },
-  { token: "{{followers}}", label: "Follower Count", example: "250K" },
-  { token: "{{engagement}}", label: "Engagement Rate", example: "4.2%" },
-];
-
-const SEND_TIME_OPTIONS = [
-  { value: "immediate", label: "Immediately" },
-  { value: "morning", label: "Morning (9–10am)" },
-  { value: "midday", label: "Midday (12–1pm)" },
-  { value: "afternoon", label: "Afternoon (2–3pm)" },
-  { value: "custom", label: "Custom time" },
-];
-
 const STATUS_CONFIG = {
   draft: { cls: "bg-slate-100 text-slate-600", label: "Draft" },
   active: { cls: "bg-emerald-100 text-emerald-700", label: "Active" },
