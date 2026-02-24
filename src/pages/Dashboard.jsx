@@ -58,6 +58,16 @@ export default function Dashboard() {
     queryFn: () => base44.entities.ApprovalItem.filter({ status: "pending" }),
   });
 
+  const { data: sequences = [] } = useQuery({
+    queryKey: ["sequences"],
+    queryFn: () => base44.entities.OutreachSequence.list("-created_date", 20),
+  });
+
+  const { data: opportunities = [] } = useQuery({
+    queryKey: ["opportunities-published"],
+    queryFn: () => base44.entities.MarketplaceOpportunity.filter({ status: "published" }, "-created_date", 10),
+  });
+
   const role = user?.role || "brand";
   const totalDealValue = partnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
   const activeDeals = partnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
