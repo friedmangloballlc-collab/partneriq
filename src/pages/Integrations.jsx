@@ -396,15 +396,15 @@ export default function Integrations() {
             </thead>
             <tbody className="divide-y divide-slate-50">
               {filterName(SOCIAL_PLATFORMS).map((p, i) => (
-                <tr key={i} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-2.5 pr-4 font-semibold text-slate-800">{p.name}</td>
-                  <td className="py-2.5 pr-4 text-slate-500 text-xs hidden md:table-cell">{p.method}</td>
-                  <td className="py-2.5 pr-4 text-slate-400 text-xs hidden lg:table-cell max-w-xs truncate">{p.data}</td>
-                  <td className="py-2.5 pr-4"><StatusBadge status={p.status} /></td>
-                  <td className="py-2.5">
-                    <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
-                  </td>
-                </tr>
+                 <tr key={i} className="hover:bg-slate-50 transition-colors">
+                   <td className="py-2.5 pr-4 font-semibold text-slate-800">{p.name}</td>
+                   <td className="py-2.5 pr-4 text-slate-500 text-xs hidden md:table-cell">{p.method}</td>
+                   <td className="py-2.5 pr-4 text-slate-400 text-xs hidden lg:table-cell max-w-xs truncate">{p.data}</td>
+                   <td className="py-2.5 pr-4"><StatusBadge status={p.status} /></td>
+                   <td className="py-2.5">
+                     <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} onOpenModal={() => openModal({ ...p, type: p.method })} />
+                   </td>
+                 </tr>
               ))}
             </tbody>
           </table>
