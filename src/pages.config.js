@@ -82,6 +82,7 @@ import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
 import DealAnalytics from './pages/DealAnalytics';
+import CustomReports from './pages/CustomReports';
 import __Layout from './Layout.jsx';
 
 
@@ -121,6 +122,7 @@ export const PAGES = {
     "TalentProfile": TalentProfile,
     "Teams": Teams,
     "DealAnalytics": DealAnalytics,
+    "CustomReports": CustomReports,
 }
 
 export const pagesConfig = {
