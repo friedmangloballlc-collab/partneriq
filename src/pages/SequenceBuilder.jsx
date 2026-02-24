@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Plus, Trash2, Sparkles, Play, Pause, Mail, Clock, ChevronDown, ChevronUp,
-  ArrowDown, Save, Loader2, Copy, CheckCircle2, BarChart3, Eye, Reply,
-  Calendar, Tag, Info, Zap, Users, TrendingUp
+  Plus, Trash2, Sparkles, Play, Pause, Mail, Save, Loader2,
+  Eye, MessageSquare, Calendar, Info, Zap, Users, TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import StepCard from "@/components/sequences/StepCard";
 
 const EMAIL_TYPES = ["initial_outreach", "follow_up", "proposal", "negotiation", "thank_you"];
 
