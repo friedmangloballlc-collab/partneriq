@@ -10,6 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, Check, AlertCircle } from "lucide-react";
 import PlanCard from "@/components/subscription/PlanCard";
 import BillingHistory from "@/components/subscription/BillingHistory";
+import PaymentMethodManager from "@/components/subscription/PaymentMethodManager";
+import InvoiceList from "@/components/subscription/InvoiceList";
 import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS } from "@/components/subscription/SubscriptionPlans";
 import { useSearchParams } from "react-router-dom";
 
@@ -51,6 +53,16 @@ export default function SubscriptionManagement() {
       }, "-created_date", 50);
       return history;
     }
+  });
+
+  const { data: invoices = [], isLoading: invoicesLoading } = useQuery({
+    queryKey: ["invoices", subscription?.stripe_customer_id],
+    queryFn: async () => {
+      if (!subscription?.stripe_customer_id) return [];
+      const result = await base44.functions.invoke("getInvoices", { customerId: subscription.stripe_customer_id });
+      return result.data.invoices || [];
+    },
+    enabled: !!subscription?.stripe_customer_id,
   });
 
   const handleSelectPlan = async (planTier) => {
@@ -132,6 +144,8 @@ export default function SubscriptionManagement() {
       <Tabs defaultValue="plans">
         <TabsList>
           <TabsTrigger value="plans">Select Plan</TabsTrigger>
+          <TabsTrigger value="payment">Payment Methods</TabsTrigger>
+          <TabsTrigger value="invoices">Invoices</TabsTrigger>
           <TabsTrigger value="billing">Billing History</TabsTrigger>
         </TabsList>
 
@@ -163,6 +177,19 @@ export default function SubscriptionManagement() {
               />
             ))}
           </div>
+        </TabsContent>
+
+        <TabsContent value="payment" className="mt-6 bg-white border border-slate-200 rounded-xl p-6">
+          <PaymentMethodManager customerId={subscription?.stripe_customer_id} />
+        </TabsContent>
+
+        <TabsContent value="invoices" className="mt-6 bg-white border border-slate-200 rounded-xl p-6 space-y-4">
+          <h3 className="font-semibold text-slate-900">Your Invoices</h3>
+          <InvoiceList 
+            invoices={invoices} 
+            isLoading={invoicesLoading}
+            onDownload={(url) => window.open(url, '_blank')}
+          />
         </TabsContent>
 
         <TabsContent value="billing" className="mt-6">
