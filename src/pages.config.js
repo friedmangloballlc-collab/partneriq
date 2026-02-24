@@ -57,7 +57,9 @@ import CampaignBriefGenerator from './pages/CampaignBriefGenerator';
 import ConnectAccounts from './pages/ConnectAccounts';
 import CreateOpportunity from './pages/CreateOpportunity';
 import CultureCalendar from './pages/CultureCalendar';
+import CustomReports from './pages/CustomReports';
 import Dashboard from './pages/Dashboard';
+import DealAnalytics from './pages/DealAnalytics';
 import DemographicTargeting from './pages/DemographicTargeting';
 import EventManagement from './pages/EventManagement';
 import Integrations from './pages/Integrations';
@@ -81,8 +83,6 @@ import TalentAnalytics from './pages/TalentAnalytics';
 import TalentDiscovery from './pages/TalentDiscovery';
 import TalentProfile from './pages/TalentProfile';
 import Teams from './pages/Teams';
-import DealAnalytics from './pages/DealAnalytics';
-import CustomReports from './pages/CustomReports';
 import __Layout from './Layout.jsx';
 
 
@@ -97,7 +97,9 @@ export const PAGES = {
     "ConnectAccounts": ConnectAccounts,
     "CreateOpportunity": CreateOpportunity,
     "CultureCalendar": CultureCalendar,
+    "CustomReports": CustomReports,
     "Dashboard": Dashboard,
+    "DealAnalytics": DealAnalytics,
     "DemographicTargeting": DemographicTargeting,
     "EventManagement": EventManagement,
     "Integrations": Integrations,
@@ -121,8 +123,6 @@ export const PAGES = {
     "TalentDiscovery": TalentDiscovery,
     "TalentProfile": TalentProfile,
     "Teams": Teams,
-    "DealAnalytics": DealAnalytics,
-    "CustomReports": CustomReports,
 }
 
 export const pagesConfig = {

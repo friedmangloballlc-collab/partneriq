@@ -7,6 +7,7 @@ import {
   Search, BarChart3, Briefcase, Building2, Users,
   Zap, ChevronDown, ChevronUp, Link2, CheckCircle2, Lock, MessageSquare, Mail, Database
 } from "lucide-react";
+import ConnectModal from "@/components/integrations/ConnectModal";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
