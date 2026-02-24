@@ -60,6 +60,7 @@ const roleNavItems = {
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
+    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
