@@ -452,6 +452,99 @@ export default function Integrations() {
         </div>
       </CollapsibleSection>
 
+      {/* CRM Integrations */}
+      <CollapsibleSection title="CRM Integrations" icon={Database} color="bg-blue-50 text-blue-600" count={CRM_INTEGRATIONS.length}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {filterName(CRM_INTEGRATIONS).map((p, i) => (
+            <div key={i} className="flex flex-col p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors gap-3">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center flex-shrink-0`}>
+                    <span className="text-white font-bold text-[11px]">{p.logo}</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">{p.name}</p>
+                    <Badge variant="outline" className="text-[9px] mt-0.5">{p.type}</Badge>
+                  </div>
+                </div>
+                <StatusBadge status={p.status} />
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">{p.description}</p>
+              <div className="flex flex-wrap gap-1">
+                {p.features.map((f, j) => (
+                  <span key={j} className="text-[10px] bg-white border border-slate-200 text-slate-500 rounded-full px-2 py-0.5">{f}</span>
+                ))}
+              </div>
+              <div className="pt-1">
+                <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </CollapsibleSection>
+
+      {/* Marketing Automation */}
+      <CollapsibleSection title="Marketing Automation" icon={Mail} color="bg-orange-50 text-orange-600" count={MARKETING_AUTOMATION.length}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {filterName(MARKETING_AUTOMATION).map((p, i) => (
+            <div key={i} className="flex flex-col p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors gap-3">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center flex-shrink-0`}>
+                    <span className="text-white font-bold text-[11px]">{p.logo}</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">{p.name}</p>
+                    <Badge variant="outline" className="text-[9px] mt-0.5">{p.type}</Badge>
+                  </div>
+                </div>
+                <StatusBadge status={p.status} />
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">{p.description}</p>
+              <div className="flex flex-wrap gap-1">
+                {p.features.map((f, j) => (
+                  <span key={j} className="text-[10px] bg-white border border-slate-200 text-slate-500 rounded-full px-2 py-0.5">{f}</span>
+                ))}
+              </div>
+              <div className="pt-1">
+                <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </CollapsibleSection>
+
+      {/* Communication Tools */}
+      <CollapsibleSection title="Communication Tools" icon={MessageSquare} color="bg-violet-50 text-violet-600" count={COMMUNICATION_TOOLS.length}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {filterName(COMMUNICATION_TOOLS).map((p, i) => (
+            <div key={i} className="flex flex-col p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors gap-3">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center flex-shrink-0`}>
+                    <span className="text-white font-bold text-[11px]">{p.logo}</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">{p.name}</p>
+                    <Badge variant="outline" className="text-[9px] mt-0.5">{p.type}</Badge>
+                  </div>
+                </div>
+                <StatusBadge status={p.status} />
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">{p.description}</p>
+              <div className="flex flex-wrap gap-1">
+                {p.features.map((f, j) => (
+                  <span key={j} className="text-[10px] bg-white border border-slate-200 text-slate-500 rounded-full px-2 py-0.5">{f}</span>
+                ))}
+              </div>
+              <div className="pt-1">
+                <ConnectButton name={p.name} status={p.status} connected={!!connected[p.name]} onToggle={toggleConnected} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </CollapsibleSection>
+
       {/* 31.5 GrowMeOrganic — ADMIN ONLY */}
       {isAdmin ? (
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 overflow-hidden">
