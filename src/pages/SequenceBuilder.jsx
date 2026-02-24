@@ -233,6 +233,7 @@ Requirements:
             return (
               <React.Fragment key={seq.id}>
               <Card className="border-slate-200/60 hover:shadow-md transition-shadow">
+
                 <div className="p-4">
                   <div className="flex items-start gap-4">
                     <div className="flex-1 min-w-0">
