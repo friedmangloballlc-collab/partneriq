@@ -7,6 +7,7 @@ import {
 import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
 import SuccessFactorAnalysis from "@/components/campaigns/SuccessFactorAnalysis";
 import PerformanceBenchmarking from "@/components/campaigns/PerformanceBenchmarking";
+import ContentEffectivenessInsights from "@/components/campaigns/ContentEffectivenessInsights";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -263,6 +264,7 @@ export default function AIFeatures() {
           <TabsTrigger value="postcampaign">Post-Campaign Analysis</TabsTrigger>
           <TabsTrigger value="successfactors">Success Factors</TabsTrigger>
           <TabsTrigger value="benchmarking">Benchmarking</TabsTrigger>
+          <TabsTrigger value="content">Content Insights</TabsTrigger>
         </TabsList>
 
         {/* ── Trajectory Engine ── */}
@@ -843,6 +845,11 @@ export default function AIFeatures() {
         {/* ── Performance Benchmarking ── */}
         <TabsContent value="benchmarking" className="mt-4">
           <PerformanceBenchmarking />
+        </TabsContent>
+
+        {/* ── Content Effectiveness Insights ── */}
+        <TabsContent value="content" className="mt-4">
+          <ContentEffectivenessInsights />
         </TabsContent>
       </Tabs>
     </div>
