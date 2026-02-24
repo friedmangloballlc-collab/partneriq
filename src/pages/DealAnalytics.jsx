@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import DealAIInsights from "@/components/analytics/DealAIInsights";
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
@@ -318,6 +319,9 @@ export default function DealAnalytics() {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Pattern Analysis */}
+      <DealAIInsights />
 
       {/* Top Deals Table */}
       {topDeals.length > 0 && (
