@@ -71,17 +71,32 @@ function DashboardContent({ user }) {
   return (
     <div className="space-y-8">
       {/* Welcome */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Welcome back{user?.full_name ? `, ${user.full_name.split(" ")[0]}` : ""}
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          {role === "brand" && "Discover talent and manage your partnerships."}
-          {role === "talent" && "Track your deals and brand opportunities."}
-          {role === "agency" && "Manage your talent roster and partnership pipeline."}
-          {role === "admin" && "Full platform overview and management."}
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Welcome back{user?.full_name ? `, ${user.full_name.split(" ")[0]}` : ""}
+          </h1>
+          <p className="text-sm text-slate-500 mt-1">
+            {role === "brand" && "Discover talent and manage your partnerships."}
+            {role === "talent" && "Track your deals and brand opportunities."}
+            {role === "agency" && "Manage your talent roster and partnership pipeline."}
+            {role === "admin" && "Full platform overview and management."}
+          </p>
+        </div>
+        {startTour && (
+          <Button variant="outline" size="sm" onClick={startTour} className="gap-2 text-indigo-600 border-indigo-200 hover:bg-indigo-50 hidden sm:flex">
+            <PlayCircle className="w-4 h-4" /> Platform Tour
+          </Button>
+        )}
       </div>
+
+      {/* Contextual tip for new users */}
+      <ContextualTip
+        tipId="dashboard_getting_started"
+        title="💡 Getting started tip"
+        description="Complete your profile and run the AI Match Engine to get your first partnership recommendations in under 2 minutes."
+        color="indigo"
+      />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
