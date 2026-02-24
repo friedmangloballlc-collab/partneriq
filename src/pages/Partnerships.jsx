@@ -226,42 +226,7 @@ export default function Partnerships() {
         </SheetContent>
       </Sheet>
 
-      <Dialog open={showAdd} onOpenChange={setShowAdd}>
-        <DialogContent className="max-w-md">
-          <DialogHeader><DialogTitle>New Partnership Deal</DialogTitle></DialogHeader>
-          <div className="space-y-4 pt-2">
-            <div><Label>Deal Title *</Label><Input value={newDeal.title} onChange={e => setNewDeal({...newDeal, title: e.target.value})} placeholder="e.g. Nike × Creator X Sponsorship" /></div>
-            <div className="grid grid-cols-2 gap-3">
-              <div><Label>Brand Name</Label><Input value={newDeal.brand_name} onChange={e => setNewDeal({...newDeal, brand_name: e.target.value})} placeholder="Brand" /></div>
-              <div><Label>Talent Name</Label><Input value={newDeal.talent_name} onChange={e => setNewDeal({...newDeal, talent_name: e.target.value})} placeholder="Creator" /></div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label>Type</Label>
-                <Select value={newDeal.partnership_type} onValueChange={v => setNewDeal({...newDeal, partnership_type: v})}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {["sponsorship","affiliate","ambassador","content_creation","event","product_seeding","licensing"].map(t => (
-                      <SelectItem key={t} value={t}>{t.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>Priority</Label>
-                <Select value={newDeal.priority} onValueChange={v => setNewDeal({...newDeal, priority: v})}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {["p0","p1","p2","p3"].map(p => <SelectItem key={p} value={p}>{p.toUpperCase()}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div><Label>Deal Value ($)</Label><Input type="number" value={newDeal.deal_value} onChange={e => setNewDeal({...newDeal, deal_value: parseFloat(e.target.value) || 0})} /></div>
-            <Button onClick={handleAdd} disabled={!newDeal.title} className="w-full bg-indigo-600 hover:bg-indigo-700">Create Deal</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <NewDealWizard open={showAdd} onOpenChange={setShowAdd} onCreated={() => refetch()} />
     </div>
   );
 }
