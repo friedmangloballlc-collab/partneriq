@@ -135,6 +135,9 @@ export default function Dashboard() {
       {/* Pitch Deck Metrics */}
       <PitchDeckMetrics />
 
+      {/* Success Predictor */}
+      <SuccessPredictionPanel partnerships={partnerships} />
+
       {/* Quick Actions + Top Matches */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
