@@ -17,6 +17,7 @@ import DealNotesPanel from "@/components/partnerships/DealNotesPanel";
 import TasksPanel from "@/components/tasks/TasksPanel";
 import NewDealWizard from "@/components/partnerships/NewDealWizard";
 import OptimalPricingPanel from "@/components/partnerships/OptimalPricingPanel";
+import CollaborationPanel from "@/components/collaboration/CollaborationPanel";
 
 const stages = [
   { key: "discovered", label: "Discovered", color: "bg-slate-100 text-slate-700 border-slate-200" },

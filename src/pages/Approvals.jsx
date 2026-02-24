@@ -15,6 +15,7 @@ import { format, formatDistance } from "date-fns";
 import ApprovalActions from "@/components/approvals/ApprovalActions";
 import QueueViewSelector from "@/components/approvals/QueueViewSelector";
 import ApprovalWorkflowSettings from "@/components/approvals/ApprovalWorkflowSettings";
+import CollaborationPanel from "@/components/collaboration/CollaborationPanel";
 
 const priorityConfig = {
   p1_critical: { label: "P1 Critical", color: "bg-red-50 text-red-700 border-red-200", sla: "4h" },
