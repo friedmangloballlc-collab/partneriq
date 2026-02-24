@@ -424,13 +424,37 @@ export default function Onboarding() {
 
   const handleComplete = async () => {
     setSaving(true);
+    const brandData = selectedRole === "brand" ? {
+      brand_culture: selectedCultures.join(","),
+      audience_ages: audienceAges.join(","),
+      audience_genders: audienceGenders.join(","),
+      audience_interests: audienceInterests.join(","),
+      audience_locations: audienceLocations.join(","),
+      campaign_objectives: campaignObjectives.join(","),
+      preferred_partnership_types: preferredPartnerships.join(","),
+      annual_budget: annualBudget,
+    } : {};
+
     await base44.auth.updateMe({
       role: selectedRole,
       plan: selectedPlan,
       company_name: name,
       job_title: title,
-      onboarded: true
+      onboarded: true,
+      ...brandData,
     });
+
+    // Auto-create brand record for brand users
+    if (selectedRole === "brand" && name) {
+      await base44.entities.Brand.create({
+        name,
+        preferred_niches: audienceInterests.slice(0, 3).join(","),
+        target_audience: `${audienceAges.join(", ")} | ${audienceGenders.join(", ")}`,
+        annual_budget: parseFloat(annualBudget) || 0,
+        status: "active",
+      });
+    }
+
     navigate(createPageUrl("Dashboard"));
   };
 
