@@ -725,13 +725,17 @@ export default function Onboarding() {
       <div className="w-full max-w-2xl">
 
         {/* Progress steps */}
-        <div className="flex items-center gap-3 mb-12">
-          {["Account Type", "Choose Plan", "Your Details"].map((label, i) => {
-                const num = i + 1;
-                const active = step === num;
-                const done = step > num;
-                return (
-                  <React.Fragment key={num}>
+        <div className="flex items-center gap-2 mb-12">
+          {(selectedRole === "brand"
+            ? ["Account Type", "Choose Plan", "Your Details", "Brand Setup"]
+            : ["Account Type", "Choose Plan", "Your Details"]
+          ).map((label, i) => {
+            const num = i + 1;
+            const active = step === num;
+            const done = step > num;
+            const total = selectedRole === "brand" ? 3 : 2;
+            return (
+              <React.Fragment key={num}>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all
                     ${done ? "bg-emerald-500 text-white" : active ? "bg-indigo-600 text-white" : "bg-slate-200 text-slate-600"}`}>
@@ -739,10 +743,10 @@ export default function Onboarding() {
                   </div>
                   <span className={`text-sm font-medium hidden sm:block ${active ? "text-indigo-600" : done ? "text-slate-600" : "text-slate-500"}`}>{label}</span>
                 </div>
-                {i < 2 && <div className={`flex-1 h-px ${step > num ? "bg-emerald-500" : "bg-slate-300"}`} />}
-              </React.Fragment>);
-
-              })}
+                {i < (selectedRole === "brand" ? 3 : 2) && <div className={`flex-1 h-px ${step > num ? "bg-emerald-500" : "bg-slate-300"}`} />}
+              </React.Fragment>
+            );
+          })}
         </div>
 
         <>
