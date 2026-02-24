@@ -224,13 +224,15 @@ Requirements:
         <div className="space-y-3">
           {sequences.map(seq => {
             const stepsArr = parsedSteps(seq);
+            
             const sc = STATUS_CONFIG[seq.status] || STATUS_CONFIG.draft;
             const seqSent = outreachEmails.filter(e => e.to_email === seq.target_email).length;
             const mockOpen = Math.round(35 + ((seq.id?.charCodeAt(0) || 0) % 30));
             const mockReply = Math.round(8 + ((seq.id?.charCodeAt(1) || 0) % 15));
 
             return (
-              <Card key={seq.id} className="border-slate-200/60 hover:shadow-md transition-shadow">
+              <React.Fragment key={seq.id}>
+              <Card className="border-slate-200/60 hover:shadow-md transition-shadow">
                 <div className="p-4">
                   <div className="flex items-start gap-4">
                     <div className="flex-1 min-w-0">
