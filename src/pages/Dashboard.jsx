@@ -25,18 +25,6 @@ function DashboardContent({ user }) {
   const role = user?.role || "brand";
   const navigate = useNavigate();
 
-  useEffect(() => {
-    base44.auth.me()
-      .then(u => {
-        if (!u) {
-          navigate(createPageUrl("Onboarding"));
-        } else {
-          setUser(u);
-        }
-      })
-      .catch(() => navigate(createPageUrl("Onboarding")));
-  }, [navigate]);
-
   const { data: partnerships = [], isLoading: loadingP } = useQuery({
     queryKey: ["partnerships"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 100),
