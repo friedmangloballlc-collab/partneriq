@@ -3,14 +3,13 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Plus, Trash2, Sparkles, Play, Pause, Mail, Save, Loader2,
-  Eye, MessageSquare, Calendar, Info, Zap, Users, TrendingUp, Reply
+  Eye, Reply, Calendar, Info, Zap, Users, TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -37,17 +36,17 @@ export default function SequenceBuilder() {
   const [showCreate, setShowCreate] = useState(false);
   const [editSeq, setEditSeq] = useState(null);
   const [generating, setGenerating] = useState(null);
-  const [activeTab, setActiveTab] = useState("sequences");
   const [form, setForm] = useState({
     name: "", description: "", target_name: "", target_email: "",
     my_name: "", my_company: "", target_role: "", target_platform: "",
     target_niche: "", target_followers: "",
   });
   const [steps, setSteps] = useState([
-    { email_type: "initial_outreach", delay_days: 0, send_time: "morning", subject: "", body: "" }
+    { email_type: "initial_outreach", delay_days: 0, send_time: "09:00", subject: "", body: "" }
   ]);
 
   const queryClient = useQueryClient();
+
   const { data: sequences = [], isLoading } = useQuery({
     queryKey: ["sequences"],
     queryFn: () => base44.entities.OutreachSequence.list("-created_date", 50),
@@ -82,33 +81,30 @@ export default function SequenceBuilder() {
 
   const resetForm = () => {
     setForm({ name: "", description: "", target_name: "", target_email: "", my_name: "", my_company: "", target_role: "", target_platform: "", target_niche: "", target_followers: "" });
-    setSteps([{ email_type: "initial_outreach", delay_days: 0, send_time: "morning", subject: "", body: "" }]);
+    setSteps([{ email_type: "initial_outreach", delay_days: 0, send_time: "09:00", subject: "", body: "" }]);
   };
 
   const openEdit = (seq) => {
     setEditSeq(seq);
-    try {
-      const meta = JSON.parse(seq.description || "{}");
-      setForm({
-        name: seq.name,
-        description: meta.description || seq.description || "",
-        target_name: seq.target_name || "",
-        target_email: seq.target_email || "",
-        my_name: meta.my_name || "",
-        my_company: meta.my_company || "",
-        target_role: meta.target_role || "",
-        target_platform: meta.target_platform || "",
-        target_niche: meta.target_niche || "",
-        target_followers: meta.target_followers || "",
-      });
-    } catch {
-      setForm(f => ({ ...f, name: seq.name, target_name: seq.target_name || "", target_email: seq.target_email || "" }));
-    }
+    let meta = {};
+    try { meta = JSON.parse(seq.description || "{}"); } catch {}
+    setForm({
+      name: seq.name,
+      description: meta.description || "",
+      target_name: seq.target_name || "",
+      target_email: seq.target_email || "",
+      my_name: meta.my_name || "",
+      my_company: meta.my_company || "",
+      target_role: meta.target_role || "",
+      target_platform: meta.target_platform || "",
+      target_niche: meta.target_niche || "",
+      target_followers: meta.target_followers || "",
+    });
     try { setSteps(JSON.parse(seq.steps || "[]")); } catch { setSteps([]); }
     setShowCreate(true);
   };
 
-  const addStep = () => setSteps(s => [...s, { email_type: "follow_up", delay_days: 3, send_time: "afternoon", subject: "", body: "" }]);
+  const addStep = () => setSteps(s => [...s, { email_type: "follow_up", delay_days: 3, send_time: "14:00", subject: "", body: "" }]);
   const updateStep = (i, val) => setSteps(s => s.map((st, idx) => idx === i ? val : st));
   const deleteStep = (i) => setSteps(s => s.filter((_, idx) => idx !== i));
 
@@ -126,7 +122,7 @@ Context:
 - Delay: ${step.delay_days} days after previous step
 
 Requirements:
-- Use personalization tokens like {{first_name}}, {{company}}, {{my_name}}, {{platform}}, {{niche}}, {{followers}} wherever natural
+- Use personalization tokens like {{first_name}}, {{company}}, {{your_name}}, {{platform}}, {{niche}}, {{followers}} wherever natural
 - Keep body under 150 words, professional but warm
 - End with a clear, low-friction CTA
 - Subject should be specific, not generic`,
@@ -137,12 +133,6 @@ Requirements:
     });
     updateStep(i, { ...step, subject: result.subject, body: result.body });
     setGenerating(null);
-  };
-
-  const generateAllSteps = async () => {
-    for (let i = 0; i < steps.length; i++) {
-      await generateStep(i);
-    }
   };
 
   const handleSave = (status = "draft") => {
@@ -168,13 +158,11 @@ Requirements:
 
   const parsedSteps = (seq) => { try { return JSON.parse(seq.steps || "[]"); } catch { return []; } };
 
-  // Aggregate metrics from OutreachEmail records
   const totalSent = outreachEmails.filter(e => ["sent", "delivered", "opened", "clicked", "replied"].includes(e.status)).length;
   const totalOpened = outreachEmails.filter(e => ["opened", "clicked", "replied"].includes(e.status)).length;
   const totalReplied = outreachEmails.filter(e => e.status === "replied").length;
   const openRate = totalSent > 0 ? Math.round((totalOpened / totalSent) * 100) : 0;
   const replyRate = totalSent > 0 ? Math.round((totalReplied / totalSent) * 100) : 0;
-
   const activeSeqs = sequences.filter(s => s.status === "active").length;
 
   return (
@@ -219,7 +207,7 @@ Requirements:
 
       {/* Sequences list */}
       {isLoading ? (
-        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="bg-white rounded-xl border p-4 animate-pulse h-20" />)}</div>
+        <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="bg-white rounded-xl border p-4 animate-pulse h-20" />)}</div>
       ) : sequences.length === 0 ? (
         <div className="text-center py-24 border-2 border-dashed border-slate-200 rounded-2xl">
           <Mail className="w-12 h-12 text-slate-200 mx-auto mb-3" />
@@ -234,8 +222,7 @@ Requirements:
           {sequences.map(seq => {
             const stepsArr = parsedSteps(seq);
             const sc = STATUS_CONFIG[seq.status] || STATUS_CONFIG.draft;
-            // Simulated per-sequence metrics based on sequence id
-            const seqSent = outreachEmails.filter(e => e.partnership_id === seq.partnership_id || e.to_email === seq.target_email).length;
+            const seqSent = outreachEmails.filter(e => e.to_email === seq.target_email).length;
             const mockOpen = Math.round(35 + ((seq.id?.charCodeAt(0) || 0) % 30));
             const mockReply = Math.round(8 + ((seq.id?.charCodeAt(1) || 0) % 15));
 
@@ -256,7 +243,6 @@ Requirements:
                         </p>
                       )}
 
-                      {/* Step timeline pills */}
                       {stepsArr.length > 0 && (
                         <div className="flex items-center gap-1 mt-2 flex-wrap">
                           {stepsArr.map((s, i) => (
@@ -270,7 +256,6 @@ Requirements:
                         </div>
                       )}
 
-                      {/* Metrics row */}
                       <div className="flex items-center gap-4 mt-2.5">
                         <MetricPill icon={Mail} label="sent" value={seqSent || 0} color="text-indigo-500" />
                         <MetricPill icon={Eye} label="open rate" value={`${mockOpen}%`} color="text-amber-500" />
@@ -321,11 +306,11 @@ Requirements:
             <TabsContent value="setup" className="space-y-4">
               <div>
                 <Label>Sequence Name *</Label>
-                <Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="e.g. Nike Partnership Outreach Q1" className="mt-1" />
+                <Input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="e.g. Nike Partnership Outreach Q1" className="mt-1" />
               </div>
               <div>
                 <Label>Description</Label>
-                <Input value={form.description} onChange={e => setForm({...form, description: e.target.value})} placeholder="Brief description of this campaign's goal" className="mt-1" />
+                <Input value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Brief description of this campaign's goal" className="mt-1" />
               </div>
 
               <Separator />
@@ -333,19 +318,19 @@ Requirements:
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label className="text-xs">Contact Name</Label>
-                  <Input value={form.target_name} onChange={e => setForm({...form, target_name: e.target.value})} placeholder="Alex Johnson" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_name} onChange={e => setForm({ ...form, target_name: e.target.value })} placeholder="Alex Johnson" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
                   <Label className="text-xs">Contact Email</Label>
-                  <Input value={form.target_email} onChange={e => setForm({...form, target_email: e.target.value})} placeholder="alex@brand.com" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_email} onChange={e => setForm({ ...form, target_email: e.target.value })} placeholder="alex@brand.com" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
                   <Label className="text-xs">Their Role</Label>
-                  <Input value={form.target_role} onChange={e => setForm({...form, target_role: e.target.value})} placeholder="VP Marketing" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_role} onChange={e => setForm({ ...form, target_role: e.target.value })} placeholder="VP Marketing" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
-                  <Label className="text-xs">Company Name</Label>
-                  <Input value={form.my_company} onChange={e => setForm({...form, my_company: e.target.value})} placeholder="Your brand/agency name" className="mt-1 h-9 text-sm" />
+                  <Label className="text-xs">Your Company</Label>
+                  <Input value={form.my_company} onChange={e => setForm({ ...form, my_company: e.target.value })} placeholder="Your brand/agency name" className="mt-1 h-9 text-sm" />
                 </div>
               </div>
 
@@ -354,15 +339,15 @@ Requirements:
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <Label className="text-xs">Platform</Label>
-                  <Input value={form.target_platform} onChange={e => setForm({...form, target_platform: e.target.value})} placeholder="Instagram" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_platform} onChange={e => setForm({ ...form, target_platform: e.target.value })} placeholder="Instagram" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
                   <Label className="text-xs">Niche</Label>
-                  <Input value={form.target_niche} onChange={e => setForm({...form, target_niche: e.target.value})} placeholder="fitness & wellness" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_niche} onChange={e => setForm({ ...form, target_niche: e.target.value })} placeholder="fitness & wellness" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
                   <Label className="text-xs">Follower Count</Label>
-                  <Input value={form.target_followers} onChange={e => setForm({...form, target_followers: e.target.value})} placeholder="250K" className="mt-1 h-9 text-sm" />
+                  <Input value={form.target_followers} onChange={e => setForm({ ...form, target_followers: e.target.value })} placeholder="250K" className="mt-1 h-9 text-sm" />
                 </div>
               </div>
 
@@ -377,7 +362,9 @@ Requirements:
               <div className="flex items-center justify-between">
                 <p className="text-xs text-slate-500">{steps.length} step{steps.length !== 1 ? "s" : ""} in this sequence</p>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="h-8 text-xs gap-1" onClick={async () => { for (let i = 0; i < steps.length; i++) await generateStep(i); }} disabled={generating !== null}>
+                  <Button size="sm" variant="outline" className="h-8 text-xs gap-1"
+                    onClick={async () => { for (let i = 0; i < steps.length; i++) await generateStep(i); }}
+                    disabled={generating !== null}>
                     <Sparkles className="w-3 h-3 text-purple-500" /> AI Fill All
                   </Button>
                   <Button size="sm" variant="outline" className="h-8 text-xs" onClick={addStep}>
@@ -416,7 +403,10 @@ Requirements:
                       <div className="w-6 h-6 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">{i + 1}</div>
                       <div className="flex-1">
                         <span className="font-medium text-slate-700 capitalize">{s.email_type?.replace(/_/g, " ")}</span>
-                        <span className="text-slate-400 text-xs ml-2">{i === 0 ? "Day 0 — sends immediately" : `Day ${steps.slice(1, i + 1).reduce((acc, st) => acc + (st.delay_days || 0), 0)} — ${s.send_time || "morning"}`}</span>
+                        <span className="text-slate-400 text-xs ml-2">
+                          {i === 0 ? "Day 0" : `Day ${steps.slice(1, i + 1).reduce((acc, st) => acc + (st.delay_days || 0), 0)}`}
+                          {s.scheduled_time ? ` at ${s.scheduled_time}` : ""}
+                        </span>
                       </div>
                       {s.subject && <span className="text-xs text-slate-400 truncate max-w-[180px]">{s.subject}</span>}
                     </div>
