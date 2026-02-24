@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import DealNotesPanel from "@/components/partnerships/DealNotesPanel";
 import TasksPanel from "@/components/tasks/TasksPanel";
+import NewDealWizard from "@/components/partnerships/NewDealWizard";
 
 const stages = [
   { key: "discovered", label: "Discovered", color: "bg-slate-100 text-slate-700 border-slate-200" },
