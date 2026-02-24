@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import DealAIInsights from "@/components/analytics/DealAIInsights";
+import DealPerformanceCharts from "@/components/analytics/DealPerformanceCharts";
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
