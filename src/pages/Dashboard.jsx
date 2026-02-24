@@ -146,7 +146,7 @@ function DashboardContent({ user }) {
       {/* Quick Actions + Top Matches */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
-        <Card className="border-slate-200/60">
+        <Card id="quick-actions" className="border-slate-200/60">
           <CardHeader className="pb-3">
             <CardTitle className="text-base font-semibold">Quick Actions</CardTitle>
           </CardHeader>
