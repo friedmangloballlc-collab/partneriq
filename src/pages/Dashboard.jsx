@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Users, Building2, Handshake, DollarSign, Mail, CheckSquare,
-  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText
+  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText, PlayCircle
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import PitchDeckMetrics from "@/components/dashboard/PitchDeckMetrics";
 import TalentDashboardPanel from "@/components/dashboard/TalentDashboardPanel";
 import BrandDashboardPanel from "@/components/dashboard/BrandDashboardPanel";
 import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPanel";
+import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
+import ContextualTip from "@/components/onboarding/ContextualTip";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
