@@ -37,6 +37,7 @@ export default function Partnerships() {
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
+  const [dealTab, setDealTab] = useState("notes");
   const queryClient = useQueryClient();
   const { data: partnerships = [], isLoading, refetch } = useQuery({
     queryKey: ["partnerships"],

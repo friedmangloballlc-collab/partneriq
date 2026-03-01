@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Filter, Plus, Briefcase, TrendingUp } from "lucide-react";
+import { Search, Filter, Plus, Briefcase, TrendingUp, Calendar, DollarSign } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import MarketplaceFilters from "@/components/marketplace/MarketplaceFilters.jsx";
 import OpportunityCard from "@/components/marketplace/OpportunityCard.jsx";
@@ -46,8 +46,29 @@ export default function Marketplace() {
 
   const { data: myApplications } = useQuery({
     queryKey: ["myApplications"],
-    queryFn: () => user?.email ? base44.entities.OpportunityApplication.filter({ talent_email: user.email }) : Promise.resolve([]),
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const apps = await base44.entities.OpportunityApplication.filter({ talent_email: user.email });
+      // Enrich applications with opportunity titles
+      const oppIds = [...new Set(apps.map(a => a.opportunity_id).filter(Boolean))];
+      if (oppIds.length > 0) {
+        try {
+          const opps = await base44.entities.MarketplaceOpportunity.filter({ id: { $in: oppIds } });
+          const oppMap = Object.fromEntries(opps.map(o => [o.id, o]));
+          return apps.map(a => ({ ...a, _opportunity: oppMap[a.opportunity_id] || null }));
+        } catch {
+          return apps;
+        }
+      }
+      return apps;
+    },
     enabled: !!user && user.role !== "admin" && user.role !== "brand",
+  });
+
+  const { data: myPostedOpps, isLoading: postedLoading } = useQuery({
+    queryKey: ["myPostedOpportunities", user?.email],
+    queryFn: () => base44.entities.MarketplaceOpportunity.filter({ created_by: user.email }, "-created_date", 50),
+    enabled: !!user && (user.role === "brand" || user.role === "admin"),
   });
 
   if (!user) return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -143,7 +164,7 @@ export default function Marketplace() {
                 {myApplications?.map((app) => (
                   <Card key={app.id}>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">{app.opportunity_id}</CardTitle>
+                      <CardTitle className="text-lg">{app._opportunity?.title || app.opportunity_id}</CardTitle>
                       <Badge variant="outline" className="w-fit">{app.status}</Badge>
                     </CardHeader>
                     <CardContent>
@@ -159,10 +180,57 @@ export default function Marketplace() {
 
         {/* My Posted Opportunities Tab */}
         {isBrand && (
-          <TabsContent value="posted">
-            <div className="text-center py-8">
-              <p className="text-slate-600">Manage your posted opportunities here</p>
-            </div>
+          <TabsContent value="posted" className="space-y-4">
+            {postedLoading ? (
+              <div className="text-center py-8">Loading your opportunities...</div>
+            ) : !myPostedOpps?.length ? (
+              <Card className="text-center py-8">
+                <CardContent>
+                  <Briefcase className="w-12 h-12 mx-auto text-slate-400 mb-2" />
+                  <p className="text-slate-600 font-medium">No opportunities posted yet</p>
+                  <p className="text-sm text-slate-400 mt-1">Create your first opportunity to start attracting talent.</p>
+                  <Link to={createPageUrl("CreateOpportunity")}>
+                    <Button className="mt-4 gap-2"><Plus className="w-4 h-4" /> Post Opportunity</Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-4">
+                {myPostedOpps.map((opp) => (
+                  <Card key={opp.id}>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg">{opp.title}</CardTitle>
+                        <Badge variant="outline" className={
+                          opp.status === "published" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+                          opp.status === "draft" ? "bg-slate-50 text-slate-600 border-slate-200" :
+                          "bg-amber-50 text-amber-700 border-amber-200"
+                        }>
+                          {opp.status}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-slate-600 mb-3 line-clamp-2">{opp.description}</p>
+                      <div className="flex items-center gap-4 text-xs text-slate-500">
+                        {opp.budget_min && opp.budget_max && (
+                          <span className="flex items-center gap-1">
+                            <DollarSign className="w-3.5 h-3.5" />
+                            ${opp.budget_min.toLocaleString()} - ${opp.budget_max.toLocaleString()}
+                          </span>
+                        )}
+                        {opp.created_date && (
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {new Date(opp.created_date).toLocaleDateString()}
+                          </span>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </TabsContent>
         )}
       </Tabs>

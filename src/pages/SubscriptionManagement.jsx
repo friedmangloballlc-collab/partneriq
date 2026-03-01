@@ -15,7 +15,7 @@ import InvoiceList from "@/components/subscription/InvoiceList";
 import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS } from "@/components/subscription/SubscriptionPlans";
 import { useSearchParams } from "react-router-dom";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || "");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "");
 
 export default function SubscriptionManagement() {
   const [searchParams] = useSearchParams();
@@ -83,7 +83,13 @@ export default function SubscriptionManagement() {
       });
 
       const stripe = await stripePromise;
-      await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
+      if (!stripe) {
+        throw new Error("Payment system failed to load. Please refresh and try again.");
+      }
+      const { error: stripeError } = await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
+      if (stripeError) {
+        throw new Error(stripeError.message);
+      }
 
     } catch (err) {
       setError(err.message);

@@ -30,10 +30,19 @@ export default function Settings() {
     }).catch(() => {});
   }, []);
 
+  const [saveStatus, setSaveStatus] = useState(null); // "success" | "error"
+
   const handleSave = async () => {
     setSaving(true);
-    await base44.auth.updateMe(formData);
-    setSaving(false);
+    setSaveStatus(null);
+    try {
+      await base44.auth.updateMe(formData);
+      setSaveStatus("success");
+    } catch {
+      setSaveStatus("error");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const roleInfo = {
@@ -91,10 +100,14 @@ export default function Settings() {
             <Label>Phone</Label>
             <Input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+1 (555) 000-0000" />
           </div>
-          <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
-            {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-            Save Changes
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+              Save Changes
+            </Button>
+            {saveStatus === "success" && <span className="text-sm text-emerald-600 font-medium">Saved successfully!</span>}
+            {saveStatus === "error" && <span className="text-sm text-red-600 font-medium">Failed to save. Please try again.</span>}
+          </div>
         </CardContent>
       </Card>
 

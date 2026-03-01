@@ -643,7 +643,7 @@ export default function Onboarding() {
               {INDUSTRIES.map((ind, i) =>
               <div key={i} className={`bg-white rounded-xl border border-slate-200/60 border-l-4 ${ind.color} p-4 hover:shadow-sm transition-shadow`}>
                   <div className="flex items-center gap-2 mb-1">
-                    
+                    <span className="text-lg">{ind.icon}</span>
                     <p className="text-sm font-bold text-slate-700">{ind.name}</p>
                   </div>
                   <p className="text-[11px] text-slate-400 mb-2">{ind.examples}</p>
@@ -696,7 +696,7 @@ export default function Onboarding() {
               <div className="space-y-5">
                 {roiBenchmarks.slice(0, 3).map((roi) =>
                 <div key={roi.id} className="border-l-4 border-emerald-200 pl-4">
-                    <p className="font-medium text-slate-900 capitalize text-sm mb-2">{roi.deal_type.replace(/_/g, " ")}</p>
+                    <p className="font-medium text-slate-900 capitalize text-sm mb-2">{(roi.deal_type || "Unknown").replace(/_/g, " ")}</p>
                     <div className="space-y-1.5 text-sm">
                       <div className="flex justify-between">
                         <span className="text-slate-600">Median ROI</span>
