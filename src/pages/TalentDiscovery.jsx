@@ -47,11 +47,22 @@ export default function TalentDiscovery() {
     return true;
   });
 
+  const [addError, setAddError] = useState(null);
+  const [addSaving, setAddSaving] = useState(false);
+
   const handleAddTalent = async () => {
-    await base44.entities.Talent.create(newTalent);
-    setShowAddForm(false);
-    setNewTalent({ name: "", email: "", primary_platform: "instagram", niche: "tech", tier: "micro" });
-    refetch();
+    setAddError(null);
+    setAddSaving(true);
+    try {
+      await base44.entities.Talent.create(newTalent);
+      setShowAddForm(false);
+      setNewTalent({ name: "", email: "", primary_platform: "instagram", niche: "tech", tier: "micro" });
+      refetch();
+    } catch (err) {
+      setAddError(err?.message || "Failed to add talent. Please try again.");
+    } finally {
+      setAddSaving(false);
+    }
   };
 
   const handleMatch = (talent) => {
@@ -193,7 +204,12 @@ export default function TalentDiscovery() {
                 </SelectContent>
               </Select>
             </div>
-            <Button onClick={handleAddTalent} disabled={!newTalent.name} className="w-full bg-indigo-600 hover:bg-indigo-700">Add Talent</Button>
+            {addError && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{addError}</p>
+            )}
+            <Button onClick={handleAddTalent} disabled={!newTalent.name || addSaving} className="w-full bg-indigo-600 hover:bg-indigo-700">
+              {addSaving ? "Adding..." : "Add Talent"}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
