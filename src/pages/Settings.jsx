@@ -13,6 +13,7 @@ import { Switch } from "@/components/ui/switch";
 export default function Settings() {
   const [user, setUser] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState(null); // 'success' | 'error' | null
   const [formData, setFormData] = useState({
     company_name: "",
     job_title: "",
@@ -32,8 +33,17 @@ export default function Settings() {
 
   const handleSave = async () => {
     setSaving(true);
-    await base44.auth.updateMe(formData);
-    setSaving(false);
+    setSaveStatus(null);
+    try {
+      await base44.auth.updateMe(formData);
+      setSaveStatus('success');
+      setTimeout(() => setSaveStatus(null), 3000);
+    } catch {
+      setSaveStatus('error');
+      setTimeout(() => setSaveStatus(null), 4000);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const roleInfo = {
@@ -91,10 +101,23 @@ export default function Settings() {
             <Label>Phone</Label>
             <Input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+1 (555) 000-0000" />
           </div>
-          <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
-            {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-            Save Changes
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+              Save Changes
+            </Button>
+            {saveStatus === 'success' && (
+              <span className="text-sm font-medium text-emerald-600 flex items-center gap-1">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                Saved
+              </span>
+            )}
+            {saveStatus === 'error' && (
+              <span className="text-sm font-medium text-red-600">Failed to save. Please try again.</span>
+            )}
+          </div>
         </CardContent>
       </Card>
 

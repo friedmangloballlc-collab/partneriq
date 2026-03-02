@@ -46,12 +46,8 @@ export default function SubscriptionManagement() {
   const { data: billingHistory = [], isLoading: historyLoading } = useQuery({
     queryKey: ["billing-history", userType],
     queryFn: async () => {
-      const user = await base44.auth.me();
-      const history = await base44.asServiceRole.entities.BillingHistory.filter({
-        user_email: user.email,
-        user_type: userType
-      }, "-created_date", 50);
-      return history;
+      const result = await base44.functions.invoke("getBillingHistory", { userType });
+      return result.data || [];
     }
   });
 
