@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -388,7 +389,10 @@ export default function Onboarding() {
   const [selectedPlan, setSelectedPlan] = useState("");
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [saving, setSaving] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   // Brand wizard state
   const [brandWizardStep, setBrandWizardStep] = useState(1); // 1=culture, 2=audience, 3=objectives
@@ -424,38 +428,75 @@ export default function Onboarding() {
 
   const handleComplete = async () => {
     setSaving(true);
-    const brandData = selectedRole === "brand" ? {
-      brand_culture: selectedCultures.join(","),
-      audience_ages: audienceAges.join(","),
-      audience_genders: audienceGenders.join(","),
-      audience_interests: audienceInterests.join(","),
-      audience_locations: audienceLocations.join(","),
-      campaign_objectives: campaignObjectives.join(","),
-      preferred_partnership_types: preferredPartnerships.join(","),
-      annual_budget: annualBudget,
-    } : {};
-
-    await base44.auth.updateMe({
-      role: selectedRole,
-      plan: selectedPlan,
-      company_name: name,
-      job_title: title,
-      onboarded: true,
-      ...brandData,
-    });
-
-    // Auto-create brand record for brand users
-    if (selectedRole === "brand" && name) {
-      await base44.entities.Brand.create({
-        name,
-        preferred_niches: audienceInterests.slice(0, 3).join(","),
-        target_audience: `${audienceAges.join(", ")} | ${audienceGenders.join(", ")}`,
-        annual_budget: parseFloat(annualBudget) || 0,
-        status: "active",
+    setAuthError("");
+    try {
+      // Sign up the user with Supabase
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
+            role: selectedRole,
+          }
+        }
       });
-    }
 
-    navigate(createPageUrl("Dashboard"));
+      if (signUpError) {
+        setAuthError(signUpError.message);
+        setSaving(false);
+        return;
+      }
+
+      // Wait briefly for the auth state to propagate
+      await new Promise(r => setTimeout(r, 1000));
+
+      // Update profile with onboarding data
+      const brandData = selectedRole === "brand" ? {
+        brand_culture: selectedCultures.join(","),
+        audience_ages: audienceAges.join(","),
+        audience_genders: audienceGenders.join(","),
+        audience_interests: audienceInterests.join(","),
+        audience_locations: audienceLocations.join(","),
+        campaign_objectives: campaignObjectives.join(","),
+        preferred_partnership_types: preferredPartnerships.join(","),
+        annual_budget: annualBudget,
+      } : {};
+
+      try {
+        await base44.auth.updateMe({
+          role: selectedRole,
+          plan: selectedPlan,
+          company_name: name,
+          job_title: title,
+          onboarded: true,
+          ...brandData,
+        });
+      } catch (e) {
+        // Profile update may fail if trigger hasn't fired yet, continue anyway
+        console.warn("Profile update during onboarding:", e);
+      }
+
+      // Auto-create brand record for brand users
+      if (selectedRole === "brand" && name) {
+        try {
+          await base44.entities.Brand.create({
+            name,
+            preferred_niches: audienceInterests.slice(0, 3).join(","),
+            target_audience: `${audienceAges.join(", ")} | ${audienceGenders.join(", ")}`,
+            annual_budget: parseFloat(annualBudget) || 0,
+            status: "active",
+          });
+        } catch (e) {
+          console.warn("Brand creation during onboarding:", e);
+        }
+      }
+
+      navigate(createPageUrl("Dashboard"));
+    } catch (err) {
+      setAuthError(err.message || "Something went wrong. Please try again.");
+      setSaving(false);
+    }
   };
 
   const roleObj = ROLES.find((r) => r.key === selectedRole);
@@ -464,13 +505,16 @@ export default function Onboarding() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── HEADER ── */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center px-8">
+      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center justify-between px-8">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-700 flex items-center justify-center flex-shrink-0">
             <Zap className="w-5 h-5 text-white" />
           </div>
           <span className="font-bold text-slate-900 text-lg">PartnerIQ</span>
         </div>
+        <Button variant="ghost" onClick={() => navigate("/login")} className="text-slate-600 hover:text-slate-900 font-medium">
+          Already have an account? <span className="text-indigo-600 ml-1">Sign in</span>
+        </Button>
       </header>
 
       {/* ── HERO SECTION (Influur Inspired) ── */}
@@ -867,6 +911,24 @@ export default function Onboarding() {
              </p>
 
              <div>
+               <Label className="text-slate-900 font-medium">Email</Label>
+               <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
+             </div>
+             <div>
+               <Label className="text-slate-900 font-medium">Password</Label>
+               <Input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Min 6 characters"
+                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
+             </div>
+             <div>
                <Label className="text-slate-900 font-medium">{labels.name}</Label>
                <Input
                     value={name}
@@ -885,6 +947,12 @@ export default function Onboarding() {
 
              </div>
 
+             {authError && (
+               <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+                 {authError}
+               </div>
+             )}
+
              {/* Summary card */}
              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 flex items-center gap-4 mt-6">
                <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${roleObj?.color} flex items-center justify-center flex-shrink-0`}>
@@ -902,11 +970,11 @@ export default function Onboarding() {
                  Back
                </Button>
                {selectedRole === "brand" ? (
-                 <Button onClick={() => setStep(4)} disabled={!name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 <Button onClick={() => setStep(4)} disabled={!name || !email || !password} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
                    Continue <ArrowRight className="w-4 h-4 ml-2" />
                  </Button>
                ) : (
-                 <Button onClick={handleComplete} disabled={saving || !name} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 <Button onClick={handleComplete} disabled={saving || !name || !email || !password} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
                    {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                    {saving ? "Setting up..." : "Launch Dashboard"}
                  </Button>
