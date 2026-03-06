@@ -124,6 +124,7 @@ ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS base_cpm_max numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS rate_multiplier numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_min numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_max numeric;
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS created_at timestamptz DEFAULT now();
 
 -- Category Premiums: add ALL columns referenced in INSERTs and UI pages
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS title text;
@@ -133,6 +134,7 @@ ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS demand_level text;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS notes text;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS premium_multiplier numeric;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS rationale text;
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS created_at timestamptz DEFAULT now();
 
 -- ROI Benchmarks: add ALL columns referenced in INSERTs and UI pages
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS title text;
