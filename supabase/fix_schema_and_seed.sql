@@ -164,6 +164,29 @@ ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS typical_rate_max numeric;
 ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS description text;
 
 -- ============================================================
+-- 1b. FORCE CORRECT COLUMN TYPES (in case columns already exist with wrong types)
+-- ============================================================
+-- These ALTER COLUMN TYPE statements ensure columns match what our INSERTs expect,
+-- even if a previous migration created them with a different type.
+
+-- culture_events: text columns that might exist as numeric
+ALTER TABLE culture_events ALTER COLUMN audience_reach TYPE text USING audience_reach::text;
+ALTER TABLE culture_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb;
+
+-- mega_events: text columns that might exist as numeric
+ALTER TABLE mega_events ALTER COLUMN global_reach TYPE text USING global_reach::text;
+ALTER TABLE mega_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb;
+
+-- conferences: ensure text columns are text
+ALTER TABLE conferences ALTER COLUMN attendees TYPE text USING attendees::text;
+ALTER TABLE conferences ALTER COLUMN sponsorship_range TYPE text USING sponsorship_range::text;
+
+-- demographic_segments: buying_power might exist as numeric, we need text
+ALTER TABLE demographic_segments ALTER COLUMN buying_power TYPE text USING buying_power::text;
+ALTER TABLE demographic_segments ALTER COLUMN population_size TYPE text USING population_size::text;
+ALTER TABLE demographic_segments ALTER COLUMN brand_affinity TYPE text USING brand_affinity::text;
+
+-- ============================================================
 -- 2. FIX RLS POLICIES - Make all tables readable by any authenticated user
 -- ============================================================
 
