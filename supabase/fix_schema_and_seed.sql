@@ -228,181 +228,181 @@ END $$;
 
 -- Partnerships: change from owner-only to all authenticated
 DROP POLICY IF EXISTS "partnerships_select" ON partnerships;
-CREATE POLICY "partnerships_select" ON partnerships FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "partnerships_select" ON partnerships FOR SELECT USING (true);
 
 -- Also allow any authenticated user to insert/update partnerships (for demo)
 DROP POLICY IF EXISTS "partnerships_insert" ON partnerships;
-CREATE POLICY "partnerships_insert" ON partnerships FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "partnerships_insert" ON partnerships FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "partnerships_update" ON partnerships;
-CREATE POLICY "partnerships_update" ON partnerships FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "partnerships_update" ON partnerships FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "partnerships_delete" ON partnerships;
-CREATE POLICY "partnerships_delete" ON partnerships FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "partnerships_delete" ON partnerships FOR DELETE USING (true);
 
 -- Outreach emails
 DROP POLICY IF EXISTS "outreach_emails_select" ON outreach_emails;
-CREATE POLICY "outreach_emails_select" ON outreach_emails FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "outreach_emails_select" ON outreach_emails FOR SELECT USING (true);
 DROP POLICY IF EXISTS "outreach_emails_insert" ON outreach_emails;
-CREATE POLICY "outreach_emails_insert" ON outreach_emails FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "outreach_emails_insert" ON outreach_emails FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "outreach_emails_update" ON outreach_emails;
-CREATE POLICY "outreach_emails_update" ON outreach_emails FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "outreach_emails_update" ON outreach_emails FOR UPDATE USING (true);
 
 -- Outreach sequences
 DROP POLICY IF EXISTS "outreach_sequences_select" ON outreach_sequences;
-CREATE POLICY "outreach_sequences_select" ON outreach_sequences FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "outreach_sequences_select" ON outreach_sequences FOR SELECT USING (true);
 DROP POLICY IF EXISTS "outreach_sequences_insert" ON outreach_sequences;
-CREATE POLICY "outreach_sequences_insert" ON outreach_sequences FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "outreach_sequences_insert" ON outreach_sequences FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "outreach_sequences_update" ON outreach_sequences;
-CREATE POLICY "outreach_sequences_update" ON outreach_sequences FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "outreach_sequences_update" ON outreach_sequences FOR UPDATE USING (true);
 
 -- Marketplace opportunities: allow all authenticated to read all (not just published)
 DROP POLICY IF EXISTS "opportunities_select_published" ON marketplace_opportunities;
 DROP POLICY IF EXISTS "opportunities_select" ON marketplace_opportunities;
-CREATE POLICY "opportunities_select" ON marketplace_opportunities FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "opportunities_select" ON marketplace_opportunities FOR SELECT USING (true);
 DROP POLICY IF EXISTS "opportunities_insert" ON marketplace_opportunities;
-CREATE POLICY "opportunities_insert" ON marketplace_opportunities FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "opportunities_insert" ON marketplace_opportunities FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "opportunities_update" ON marketplace_opportunities;
-CREATE POLICY "opportunities_update" ON marketplace_opportunities FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "opportunities_update" ON marketplace_opportunities FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "opportunities_delete" ON marketplace_opportunities;
-CREATE POLICY "opportunities_delete" ON marketplace_opportunities FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "opportunities_delete" ON marketplace_opportunities FOR DELETE USING (true);
 
 -- Profiles: allow reading all profiles (not just own)
 DROP POLICY IF EXISTS "profiles_select" ON profiles;
-CREATE POLICY "profiles_select" ON profiles FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "profiles_select" ON profiles FOR SELECT USING (true);
 DROP POLICY IF EXISTS "profiles_update" ON profiles;
-CREATE POLICY "profiles_update" ON profiles FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "profiles_update" ON profiles FOR UPDATE USING (true);
 -- Allow insert for profile creation during signup
 DROP POLICY IF EXISTS "profiles_insert" ON profiles;
-CREATE POLICY "profiles_insert" ON profiles FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "profiles_insert" ON profiles FOR INSERT WITH CHECK (true);
 
 -- Notifications
 DROP POLICY IF EXISTS "notifications_select" ON notifications;
-CREATE POLICY "notifications_select" ON notifications FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "notifications_select" ON notifications FOR SELECT USING (true);
 DROP POLICY IF EXISTS "notifications_update" ON notifications;
-CREATE POLICY "notifications_update" ON notifications FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "notifications_update" ON notifications FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "notifications_insert" ON notifications;
-CREATE POLICY "notifications_insert" ON notifications FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "notifications_insert" ON notifications FOR INSERT WITH CHECK (true);
 
 -- User subscriptions
 DROP POLICY IF EXISTS "user_subscriptions_select" ON user_subscriptions;
-CREATE POLICY "user_subscriptions_select" ON user_subscriptions FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "user_subscriptions_select" ON user_subscriptions FOR SELECT USING (true);
 DROP POLICY IF EXISTS "user_subscriptions_update" ON user_subscriptions;
-CREATE POLICY "user_subscriptions_update" ON user_subscriptions FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "user_subscriptions_update" ON user_subscriptions FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "user_subscriptions_insert" ON user_subscriptions;
-CREATE POLICY "user_subscriptions_insert" ON user_subscriptions FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "user_subscriptions_insert" ON user_subscriptions FOR INSERT WITH CHECK (true);
 
 -- Billing history
 DROP POLICY IF EXISTS "billing_history_select" ON billing_history;
-CREATE POLICY "billing_history_select" ON billing_history FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "billing_history_select" ON billing_history FOR SELECT USING (true);
 
 -- Partnership proposals
 DROP POLICY IF EXISTS "partnership_proposals_select" ON partnership_proposals;
-CREATE POLICY "partnership_proposals_select" ON partnership_proposals FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "partnership_proposals_select" ON partnership_proposals FOR SELECT USING (true);
 DROP POLICY IF EXISTS "partnership_proposals_insert" ON partnership_proposals;
-CREATE POLICY "partnership_proposals_insert" ON partnership_proposals FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "partnership_proposals_insert" ON partnership_proposals FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "partnership_proposals_update" ON partnership_proposals;
-CREATE POLICY "partnership_proposals_update" ON partnership_proposals FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "partnership_proposals_update" ON partnership_proposals FOR UPDATE USING (true);
 
 -- Brands: ensure insert is open for demo
 DROP POLICY IF EXISTS "brands_insert" ON brands;
-CREATE POLICY "brands_insert" ON brands FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "brands_insert" ON brands FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "brands_update" ON brands;
-CREATE POLICY "brands_update" ON brands FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "brands_update" ON brands FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "brands_delete" ON brands;
-CREATE POLICY "brands_delete" ON brands FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "brands_delete" ON brands FOR DELETE USING (true);
 
 -- Talents: ensure insert/update open for demo
 DROP POLICY IF EXISTS "talents_update" ON talents;
-CREATE POLICY "talents_update" ON talents FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "talents_update" ON talents FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "talents_delete" ON talents;
-CREATE POLICY "talents_delete" ON talents FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "talents_delete" ON talents FOR DELETE USING (true);
 
 -- Reference data tables: add SELECT policies (critical for data visibility!)
 DROP POLICY IF EXISTS "culture_events_select" ON culture_events;
-CREATE POLICY "culture_events_select" ON culture_events FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "culture_events_select" ON culture_events FOR SELECT USING (true);
 DROP POLICY IF EXISTS "mega_events_select" ON mega_events;
-CREATE POLICY "mega_events_select" ON mega_events FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "mega_events_select" ON mega_events FOR SELECT USING (true);
 DROP POLICY IF EXISTS "conferences_select" ON conferences;
-CREATE POLICY "conferences_select" ON conferences FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "conferences_select" ON conferences FOR SELECT USING (true);
 DROP POLICY IF EXISTS "demographic_segments_select" ON demographic_segments;
-CREATE POLICY "demographic_segments_select" ON demographic_segments FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "demographic_segments_select" ON demographic_segments FOR SELECT USING (true);
 DROP POLICY IF EXISTS "industry_guides_select" ON industry_guides;
-CREATE POLICY "industry_guides_select" ON industry_guides FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "industry_guides_select" ON industry_guides FOR SELECT USING (true);
 DROP POLICY IF EXISTS "roi_benchmarks_select" ON roi_benchmarks;
-CREATE POLICY "roi_benchmarks_select" ON roi_benchmarks FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "roi_benchmarks_select" ON roi_benchmarks FOR SELECT USING (true);
 DROP POLICY IF EXISTS "rate_benchmarks_select" ON rate_benchmarks;
-CREATE POLICY "rate_benchmarks_select" ON rate_benchmarks FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "rate_benchmarks_select" ON rate_benchmarks FOR SELECT USING (true);
 DROP POLICY IF EXISTS "platform_multipliers_select" ON platform_multipliers;
-CREATE POLICY "platform_multipliers_select" ON platform_multipliers FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "platform_multipliers_select" ON platform_multipliers FOR SELECT USING (true);
 DROP POLICY IF EXISTS "category_premiums_select" ON category_premiums;
-CREATE POLICY "category_premiums_select" ON category_premiums FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "category_premiums_select" ON category_premiums FOR SELECT USING (true);
 DROP POLICY IF EXISTS "viewership_tiers_select" ON viewership_tiers;
-CREATE POLICY "viewership_tiers_select" ON viewership_tiers FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "viewership_tiers_select" ON viewership_tiers FOR SELECT USING (true);
 DROP POLICY IF EXISTS "brands_select" ON brands;
-CREATE POLICY "brands_select" ON brands FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "brands_select" ON brands FOR SELECT USING (true);
 DROP POLICY IF EXISTS "talents_select" ON talents;
-CREATE POLICY "talents_select" ON talents FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "talents_select" ON talents FOR SELECT USING (true);
 DROP POLICY IF EXISTS "subscription_plans_select" ON subscription_plans;
-CREATE POLICY "subscription_plans_select" ON subscription_plans FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "subscription_plans_select" ON subscription_plans FOR SELECT USING (true);
 
 -- Culture events: add write policies
 DROP POLICY IF EXISTS "culture_events_insert" ON culture_events;
-CREATE POLICY "culture_events_insert" ON culture_events FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "culture_events_insert" ON culture_events FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "culture_events_update" ON culture_events;
-CREATE POLICY "culture_events_update" ON culture_events FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "culture_events_update" ON culture_events FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "culture_events_delete" ON culture_events;
-CREATE POLICY "culture_events_delete" ON culture_events FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "culture_events_delete" ON culture_events FOR DELETE USING (true);
 
 -- Mega events: add write policies
 DROP POLICY IF EXISTS "mega_events_insert" ON mega_events;
-CREATE POLICY "mega_events_insert" ON mega_events FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "mega_events_insert" ON mega_events FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "mega_events_update" ON mega_events;
-CREATE POLICY "mega_events_update" ON mega_events FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "mega_events_update" ON mega_events FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "mega_events_delete" ON mega_events;
-CREATE POLICY "mega_events_delete" ON mega_events FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "mega_events_delete" ON mega_events FOR DELETE USING (true);
 
 -- Conferences: add write policies
 DROP POLICY IF EXISTS "conferences_insert" ON conferences;
-CREATE POLICY "conferences_insert" ON conferences FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "conferences_insert" ON conferences FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "conferences_update" ON conferences;
-CREATE POLICY "conferences_update" ON conferences FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "conferences_update" ON conferences FOR UPDATE USING (true);
 DROP POLICY IF EXISTS "conferences_delete" ON conferences;
-CREATE POLICY "conferences_delete" ON conferences FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "conferences_delete" ON conferences FOR DELETE USING (true);
 
 -- Demographic segments: add write policies
 DROP POLICY IF EXISTS "demographic_segments_insert" ON demographic_segments;
-CREATE POLICY "demographic_segments_insert" ON demographic_segments FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "demographic_segments_insert" ON demographic_segments FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "demographic_segments_update" ON demographic_segments;
-CREATE POLICY "demographic_segments_update" ON demographic_segments FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "demographic_segments_update" ON demographic_segments FOR UPDATE USING (true);
 
 -- Industry guides: add write policies
 DROP POLICY IF EXISTS "industry_guides_insert" ON industry_guides;
-CREATE POLICY "industry_guides_insert" ON industry_guides FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "industry_guides_insert" ON industry_guides FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "industry_guides_update" ON industry_guides;
-CREATE POLICY "industry_guides_update" ON industry_guides FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "industry_guides_update" ON industry_guides FOR UPDATE USING (true);
 
 -- ROI Benchmarks: add write policies
 DROP POLICY IF EXISTS "roi_benchmarks_insert" ON roi_benchmarks;
-CREATE POLICY "roi_benchmarks_insert" ON roi_benchmarks FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "roi_benchmarks_insert" ON roi_benchmarks FOR INSERT WITH CHECK (true);
 
 -- Rate Benchmarks: add write policies
 DROP POLICY IF EXISTS "rate_benchmarks_insert" ON rate_benchmarks;
-CREATE POLICY "rate_benchmarks_insert" ON rate_benchmarks FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "rate_benchmarks_insert" ON rate_benchmarks FOR INSERT WITH CHECK (true);
 
 -- Platform Multipliers: add write policies
 DROP POLICY IF EXISTS "platform_multipliers_insert" ON platform_multipliers;
-CREATE POLICY "platform_multipliers_insert" ON platform_multipliers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "platform_multipliers_insert" ON platform_multipliers FOR INSERT WITH CHECK (true);
 
 -- Category Premiums: add write policies
 DROP POLICY IF EXISTS "category_premiums_insert" ON category_premiums;
-CREATE POLICY "category_premiums_insert" ON category_premiums FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "category_premiums_insert" ON category_premiums FOR INSERT WITH CHECK (true);
 
 -- Viewership Tiers: add write policies
 DROP POLICY IF EXISTS "viewership_tiers_insert" ON viewership_tiers;
-CREATE POLICY "viewership_tiers_insert" ON viewership_tiers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "viewership_tiers_insert" ON viewership_tiers FOR INSERT WITH CHECK (true);
 
 -- Subscription Plans: add write policies
 DROP POLICY IF EXISTS "subscription_plans_insert" ON subscription_plans;
-CREATE POLICY "subscription_plans_insert" ON subscription_plans FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "subscription_plans_insert" ON subscription_plans FOR INSERT WITH CHECK (true);
 
 -- ============================================================
 -- 2b. DROP NOT-NULL CONSTRAINTS that block inserts
