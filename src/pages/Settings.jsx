@@ -7,13 +7,18 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Save, User, Shield, Bell, Loader2 } from "lucide-react";
+import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { seedDemoData } from "@/utils/seedDemoData";
+import { Progress } from "@/components/ui/progress";
 
 export default function Settings() {
   const [user, setUser] = useState(null);
   const [saving, setSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState(null); // 'success' | 'error' | null
+  const [seeding, setSeeding] = useState(false);
+  const [seedProgress, setSeedProgress] = useState(null);
+  const [seedDone, setSeedDone] = useState(false);
   const [formData, setFormData] = useState({
     company_name: "",
     job_title: "",
@@ -140,6 +145,62 @@ export default function Settings() {
             <p className="text-sm text-slate-500">{currentRole.desc}</p>
           </div>
           <p className="text-xs text-slate-400 mt-3">Contact an admin to change your role.</p>
+        </CardContent>
+      </Card>
+
+      {/* Demo Data */}
+      <Card className="border-slate-200/60">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+              <Database className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div>
+              <CardTitle className="text-base">Demo Data</CardTitle>
+              <CardDescription>Load sample data to explore all platform features</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-slate-500">
+            Populate the database with demo brands, talents, partnerships, marketplace opportunities, outreach sequences, approval items, tasks, activities, rate benchmarks, events, and more.
+          </p>
+          {seedProgress && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>{seedProgress.label}</span>
+                <span>{seedProgress.step}/{seedProgress.total}</span>
+              </div>
+              <Progress value={(seedProgress.step / seedProgress.total) * 100} className="h-2" />
+            </div>
+          )}
+          {seedDone ? (
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-600">
+              <CheckCircle2 className="w-4 h-4" />
+              Demo data loaded successfully! Refresh the page to see it.
+            </div>
+          ) : (
+            <Button
+              onClick={async () => {
+                setSeeding(true);
+                setSeedDone(false);
+                try {
+                  await seedDemoData((p) => setSeedProgress(p));
+                  setSeedDone(true);
+                } catch (err) {
+                  console.error('Seed error:', err);
+                  alert('Failed to seed data: ' + err.message);
+                } finally {
+                  setSeeding(false);
+                }
+              }}
+              disabled={seeding}
+              className="bg-emerald-600 hover:bg-emerald-700"
+            >
+              {seeding ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
+              {seeding ? 'Loading Demo Data...' : 'Load Demo Data'}
+            </Button>
+          )}
         </CardContent>
       </Card>
 
