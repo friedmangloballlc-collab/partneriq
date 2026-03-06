@@ -6,7 +6,15 @@
 -- 1. ADD MISSING COLUMNS TO EXISTING TABLES
 -- ============================================================
 
--- Culture Events: pages expect event_name, tier, category, month, year, dates, best_industries, etc.
+-- Culture Events: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS name text;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS description text;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS date date;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS type text;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS region text;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS significance text;
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS target_demographics text[];
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS partnership_opportunities text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS event_name text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS tier text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS category text;
@@ -23,7 +31,15 @@ ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS notes text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS audience_demographics jsonb;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS location text;
 
--- Mega Events: pages expect event_name, dates, global_reach, format_details, planning_urgency, year, key_facts
+-- Mega Events: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS name text;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS description text;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS start_date date;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS end_date date;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS location text;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS expected_attendance bigint;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS category text;
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS sponsorship_tiers jsonb;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS event_name text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS dates text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS global_reach text;
@@ -34,7 +50,15 @@ ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS key_facts text[];
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS tier text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS audience_demographics jsonb;
 
--- Conferences: pages expect conference_name, industry_focus, typical_date, attendees, sponsorship_range, why_attend, key_audience, best_for_industries
+-- Conferences: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS name text;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS description text;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS date date;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS location text;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS industry text;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS expected_attendees integer;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS sponsorship_available boolean;
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS sponsorship_cost numeric;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS conference_name text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS industry_focus text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS typical_date text;
@@ -44,7 +68,17 @@ ALTER TABLE conferences ADD COLUMN IF NOT EXISTS why_attend text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS key_audience text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS best_for_industries text[];
 
--- Demographic Segments: pages expect population_size, buying_power, media_preferences, top_events, key_cultural_moments, brand_activation_tips, activation_tips
+-- Demographic Segments: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS name text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS description text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS age_range text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS gender text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS income_range text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS interests text[];
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS platforms text[];
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS purchase_behavior text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS brand_affinity text;
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS size_estimate bigint;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS population_size text;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS buying_power text;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS media_preferences text[];
@@ -54,7 +88,16 @@ ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS brand_activation_tips 
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS activation_tips text[];
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS best_demographics text[];
 
--- Rate Benchmarks: pages expect followers_min, followers_max, sponsored_post_min/max, brand_deal_min/max, ambassador_annual_min/max
+-- Rate Benchmarks: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS platform text;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS niche text;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS tier text;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS content_type text;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS rate_min numeric;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS rate_max numeric;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS rate_median numeric;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS currency text;
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS source text;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS followers_min bigint;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS followers_max bigint;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS sponsored_post_min numeric;
@@ -64,25 +107,57 @@ ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS brand_deal_max numeric;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS ambassador_annual_min numeric;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS ambassador_annual_max numeric;
 
--- Platform Multipliers: pages expect base_cpm_min, base_cpm_max, rate_multiplier, engagement_benchmark_min/max
+-- Platform Multipliers: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS platform text;
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS base_multiplier numeric;
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_weight numeric;
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS reach_weight numeric;
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS notes text;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS base_cpm_min numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS base_cpm_max numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS rate_multiplier numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_min numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_max numeric;
 
--- Category Premiums: pages expect premium_multiplier, rationale
+-- Category Premiums: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS category text;
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS premium_percent numeric;
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS demand_level text;
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS notes text;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS premium_multiplier numeric;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS rationale text;
 
--- ROI Benchmarks: pages expect deal_type, bottom_quartile_roi, measurement_period
+-- ROI Benchmarks: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS industry text;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS channel text;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS avg_roi numeric;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS median_roi numeric;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS top_quartile_roi numeric;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS time_to_roi_days integer;
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS sample_size integer;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS deal_type text;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS bottom_quartile_roi numeric;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS measurement_period text;
 
--- Industry Guides: pages expect sector, best_demographics
+-- Industry Guides: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS title text;
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS industry text;
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS summary text;
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS content text;
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS best_practices text[];
+ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS published boolean;
 ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS sector text;
 ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS best_demographics text[];
+
+-- Viewership Tiers: add ALL columns referenced in INSERTs
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS name text;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS platform text;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS min_followers bigint;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS max_followers bigint;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS avg_engagement_rate numeric;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS typical_rate_min numeric;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS typical_rate_max numeric;
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS description text;
 
 -- ============================================================
 -- 2. FIX RLS POLICIES - Make all tables readable by any authenticated user
