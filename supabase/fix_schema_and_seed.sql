@@ -214,6 +214,16 @@ DO $$ BEGIN ALTER TABLE demographic_segments ADD COLUMN title text; EXCEPTION WH
 -- 2. FIX RLS POLICIES - Make all tables readable by any authenticated user
 -- ============================================================
 
+-- First: drop ALL existing policies on ALL tables to avoid "already exists" errors
+DO $$
+DECLARE
+  r RECORD;
+BEGIN
+  FOR r IN SELECT policyname, tablename FROM pg_policies WHERE schemaname = 'public' LOOP
+    EXECUTE format('DROP POLICY IF EXISTS %I ON public.%I', r.policyname, r.tablename);
+  END LOOP;
+END $$;
+
 -- Partnerships: change from owner-only to all authenticated
 DROP POLICY IF EXISTS "partnerships_select" ON partnerships;
 CREATE POLICY "partnerships_select" ON partnerships FOR SELECT USING (auth.role() = 'authenticated');
