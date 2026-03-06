@@ -38,17 +38,43 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      loadUserProfile(session?.user ?? null).finally(() => setIsLoadingAuth(false));
-    });
+    let subscription;
 
-    // Subscribe to auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      loadUserProfile(session?.user ?? null);
-    });
+    const init = async () => {
+      try {
+        // Race getSession against a timeout so the app doesn't hang
+        // when Supabase is unreachable
+        const sessionResult = await Promise.race([
+          supabase.auth.getSession(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Supabase connection timeout')), 5000)
+          ),
+        ]);
 
-    return () => subscription.unsubscribe();
+        await loadUserProfile(sessionResult?.data?.session?.user ?? null);
+      } catch (err) {
+        console.warn('Auth init failed (Supabase may be unreachable):', err.message);
+        setUser(null);
+        setIsAuthenticated(false);
+      } finally {
+        setIsLoadingAuth(false);
+      }
+
+      try {
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+          loadUserProfile(session?.user ?? null);
+        });
+        subscription = data?.subscription;
+      } catch {
+        // Ignore if onAuthStateChange fails
+      }
+    };
+
+    init();
+
+    return () => {
+      if (subscription) subscription.unsubscribe();
+    };
   }, []);
 
   const logout = async (shouldRedirect = true) => {
