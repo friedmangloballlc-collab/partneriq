@@ -93,6 +93,7 @@ ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS activation_tips text[]
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS best_demographics text[];
 
 -- Rate Benchmarks: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS platform text;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS niche text;
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS tier text;
@@ -112,6 +113,7 @@ ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS ambassador_annual_min numer
 ALTER TABLE rate_benchmarks ADD COLUMN IF NOT EXISTS ambassador_annual_max numeric;
 
 -- Platform Multipliers: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS platform text;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS base_multiplier numeric;
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_weight numeric;
@@ -124,6 +126,7 @@ ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_m
 ALTER TABLE platform_multipliers ADD COLUMN IF NOT EXISTS engagement_benchmark_max numeric;
 
 -- Category Premiums: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS category text;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS premium_percent numeric;
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS demand_level text;
@@ -132,6 +135,7 @@ ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS premium_multiplier numeri
 ALTER TABLE category_premiums ADD COLUMN IF NOT EXISTS rationale text;
 
 -- ROI Benchmarks: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS industry text;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS channel text;
 ALTER TABLE roi_benchmarks ADD COLUMN IF NOT EXISTS avg_roi numeric;
@@ -154,6 +158,7 @@ ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS sector text;
 ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS best_demographics text[];
 
 -- Viewership Tiers: add ALL columns referenced in INSERTs
+ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS name text;
 ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS platform text;
 ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS min_followers bigint;
