@@ -7,11 +7,24 @@ import {
   Sparkles, Loader2, Brain, TrendingUp, AlertTriangle, CheckCircle2,
   Zap, ArrowRight, Shield, FileText, Eye, Users, Target, MessageSquare,
   Flame, BarChart3, PieChart, DollarSign, Scale, Palette, Search,
-  ChevronDown, ChevronUp, Play, Clock, Link2, GitMerge, Database
+  ChevronDown, ChevronUp, Play, Clock, Link2, GitMerge, Database,
+  Trophy, Mail, Bell, Briefcase, LineChart, Globe, FlaskConical,
+  Layers2, Activity, Webhook
 } from "lucide-react";
 import AgentScheduler from "@/components/agents/AgentScheduler";
 import AgentChains from "@/components/agents/AgentChains";
 import SocialMediaIntegrations from "@/components/agents/SocialMediaIntegrations";
+import PitchDeckPersonalizer from "@/components/agents/PitchDeckPersonalizer";
+import DealLeaderboard from "@/components/agents/DealLeaderboard";
+import AIOutreachBuilder from "@/components/agents/AIOutreachBuilder";
+import SmartNotifications from "@/components/agents/SmartNotifications";
+import ExecutiveBriefing from "@/components/agents/ExecutiveBriefing";
+import RevenueForecaster from "@/components/agents/RevenueForecaster";
+import ContentLocalizer from "@/components/agents/ContentLocalizer";
+import SimulationSandbox from "@/components/agents/SimulationSandbox";
+import BulkAgentOps from "@/components/agents/BulkAgentOps";
+import AgentAnalytics from "@/components/agents/AgentAnalytics";
+import WebhookManager from "@/components/agents/WebhookManager";
 
 const IMPACT_CONFIG = {
   high:     { badge: "bg-emerald-100 text-emerald-700", dot: "bg-emerald-500" },
@@ -450,10 +463,21 @@ function AgentPanel({ agent }) {
 }
 
 const MAIN_TABS = [
-  { key: "agents", label: "AI Agents", icon: Brain, desc: "Run individual agents" },
-  { key: "workflows", label: "Workflows", icon: GitMerge, desc: "Chain agents together" },
-  { key: "scheduler", label: "Scheduler", icon: Clock, desc: "Automate agent runs" },
-  { key: "datasources", label: "Data Sources", icon: Database, desc: "Social media integrations" },
+  { key: "agents", label: "AI Agents", icon: Brain },
+  { key: "workflows", label: "Workflows", icon: GitMerge },
+  { key: "leaderboard", label: "Leaderboard", icon: Trophy },
+  { key: "outreach", label: "Outreach", icon: Mail },
+  { key: "pitchdeck", label: "Pitch Deck", icon: Briefcase },
+  { key: "briefing", label: "Briefing", icon: FileText },
+  { key: "alerts", label: "Alerts", icon: Bell },
+  { key: "forecast", label: "Forecast", icon: LineChart },
+  { key: "localize", label: "Localize", icon: Globe },
+  { key: "simulate", label: "Simulate", icon: FlaskConical },
+  { key: "bulk", label: "Bulk Ops", icon: Layers2 },
+  { key: "analytics", label: "Analytics", icon: Activity },
+  { key: "scheduler", label: "Scheduler", icon: Clock },
+  { key: "datasources", label: "Data Sources", icon: Database },
+  { key: "webhooks", label: "Webhooks", icon: Webhook },
 ];
 
 export default function AIAgentsHub() {
@@ -472,25 +496,25 @@ export default function AIAgentsHub() {
           </div>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">AI Agents Hub</h1>
-            <p className="text-sm text-slate-500">12 specialized AI agents with workflows, scheduling, and live data integrations</p>
+            <p className="text-sm text-slate-500">Complete AI platform with 12 agents, workflows, forecasting, outreach, and more</p>
           </div>
         </div>
 
         {/* Main navigation tabs */}
-        <div className="flex gap-1 mt-5 bg-slate-100 rounded-xl p-1">
+        <div className="flex flex-wrap gap-1 mt-5 bg-slate-100 rounded-xl p-1.5">
           {MAIN_TABS.map(tab => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all flex-1 justify-center
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all
                   ${activeTab === tab.key
                     ? "bg-white text-indigo-700 shadow-sm shadow-slate-200/50"
                     : "text-slate-500 hover:text-slate-700 hover:bg-white/50"}`}
               >
-                <Icon className="w-4 h-4" />
-                <span className="hidden sm:inline">{tab.label}</span>
+                <Icon className="w-3.5 h-3.5" />
+                <span>{tab.label}</span>
               </button>
             );
           })}
@@ -566,8 +590,19 @@ export default function AIAgentsHub() {
       )}
 
       {activeTab === "workflows" && <AgentChains />}
+      {activeTab === "leaderboard" && <DealLeaderboard />}
+      {activeTab === "outreach" && <AIOutreachBuilder />}
+      {activeTab === "pitchdeck" && <PitchDeckPersonalizer />}
+      {activeTab === "briefing" && <ExecutiveBriefing />}
+      {activeTab === "alerts" && <SmartNotifications />}
+      {activeTab === "forecast" && <RevenueForecaster />}
+      {activeTab === "localize" && <ContentLocalizer />}
+      {activeTab === "simulate" && <SimulationSandbox />}
+      {activeTab === "bulk" && <BulkAgentOps />}
+      {activeTab === "analytics" && <AgentAnalytics />}
       {activeTab === "scheduler" && <AgentScheduler />}
       {activeTab === "datasources" && <SocialMediaIntegrations />}
+      {activeTab === "webhooks" && <WebhookManager />}
     </div>
   );
 }
