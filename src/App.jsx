@@ -9,6 +9,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Login from '@/pages/Login';
+import Onboarding from '@/pages/Onboarding';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -68,15 +69,23 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Always allow access to login page
+  // Public routes: onboarding (landing) and login
   if (location.pathname === '/login') {
-    if (isAuthenticated) return <Navigate to="/" replace />;
+    if (isAuthenticated) return <Navigate to="/Dashboard" replace />;
     return <Routes><Route path="/login" element={<Login />} /></Routes>;
   }
 
-  // Redirect to login if not authenticated
+  if (location.pathname === '/' || location.pathname === '/Onboarding') {
+    if (isAuthenticated) return <Navigate to="/Dashboard" replace />;
+    return <Routes>
+      <Route path="/" element={<Onboarding />} />
+      <Route path="/Onboarding" element={<Onboarding />} />
+    </Routes>;
+  }
+
+  // Redirect to onboarding (landing) if not authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (authError) {
@@ -87,11 +96,7 @@ const AuthenticatedApp = () => {
 
   return (
     <Routes>
-      <Route path="/" element={
-        <LayoutWrapper currentPageName={mainPageKey}>
-          <MainPage />
-        </LayoutWrapper>
-      } />
+      <Route path="/" element={<Navigate to="/Dashboard" replace />} />
       {Object.entries(Pages).map(([path, Page]) => (
         <Route
           key={path}
