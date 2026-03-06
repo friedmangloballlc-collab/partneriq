@@ -7,6 +7,7 @@
 -- ============================================================
 
 -- Culture Events: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS name text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS description text;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS date date;
@@ -32,6 +33,7 @@ ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS audience_demographics jsonb;
 ALTER TABLE culture_events ADD COLUMN IF NOT EXISTS location text;
 
 -- Mega Events: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS name text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS description text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS start_date date;
@@ -51,6 +53,7 @@ ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS tier text;
 ALTER TABLE mega_events ADD COLUMN IF NOT EXISTS audience_demographics jsonb;
 
 -- Conferences: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE conferences ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS name text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS description text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS date date;
@@ -69,6 +72,7 @@ ALTER TABLE conferences ADD COLUMN IF NOT EXISTS key_audience text;
 ALTER TABLE conferences ADD COLUMN IF NOT EXISTS best_for_industries text[];
 
 -- Demographic Segments: add ALL columns referenced in INSERTs and UI pages
+ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS title text;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS name text;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS description text;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS age_range text;
@@ -311,6 +315,108 @@ CREATE POLICY "viewership_tiers_insert" ON viewership_tiers FOR INSERT WITH CHEC
 -- Subscription Plans: add write policies
 DROP POLICY IF EXISTS "subscription_plans_insert" ON subscription_plans;
 CREATE POLICY "subscription_plans_insert" ON subscription_plans FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+
+-- ============================================================
+-- 2b. DROP NOT-NULL CONSTRAINTS that block inserts
+-- The deployed DB may have different NOT NULL columns than schema.sql
+-- ============================================================
+DO $$ BEGIN
+  -- culture_events
+  ALTER TABLE culture_events ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE culture_events ALTER COLUMN name DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE mega_events ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE mega_events ALTER COLUMN name DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE conferences ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE conferences ALTER COLUMN name DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE demographic_segments ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE demographic_segments ALTER COLUMN name DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE rate_benchmarks ALTER COLUMN platform DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE rate_benchmarks ALTER COLUMN niche DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE rate_benchmarks ALTER COLUMN tier DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE rate_benchmarks ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE platform_multipliers ALTER COLUMN platform DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE platform_multipliers ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE category_premiums ALTER COLUMN category DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE category_premiums ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE roi_benchmarks ALTER COLUMN industry DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE roi_benchmarks ALTER COLUMN channel DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE roi_benchmarks ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE industry_guides ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE industry_guides ALTER COLUMN industry DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE viewership_tiers ALTER COLUMN name DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE viewership_tiers ALTER COLUMN platform DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE viewership_tiers ALTER COLUMN title DROP NOT NULL;
+  EXCEPTION WHEN others THEN NULL;
+END $$;
 
 -- ============================================================
 -- 3. CLEAR OLD SEED DATA (safe to re-run)
