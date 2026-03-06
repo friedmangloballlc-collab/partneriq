@@ -244,6 +244,7 @@ CREATE POLICY "outreach_sequences_update" ON outreach_sequences FOR UPDATE USING
 
 -- Marketplace opportunities: allow all authenticated to read all (not just published)
 DROP POLICY IF EXISTS "opportunities_select_published" ON marketplace_opportunities;
+DROP POLICY IF EXISTS "opportunities_select" ON marketplace_opportunities;
 CREATE POLICY "opportunities_select" ON marketplace_opportunities FOR SELECT USING (auth.role() = 'authenticated');
 DROP POLICY IF EXISTS "opportunities_insert" ON marketplace_opportunities;
 CREATE POLICY "opportunities_insert" ON marketplace_opportunities FOR INSERT WITH CHECK (auth.role() = 'authenticated');
