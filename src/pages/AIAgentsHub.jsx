@@ -7,8 +7,11 @@ import {
   Sparkles, Loader2, Brain, TrendingUp, AlertTriangle, CheckCircle2,
   Zap, ArrowRight, Shield, FileText, Eye, Users, Target, MessageSquare,
   Flame, BarChart3, PieChart, DollarSign, Scale, Palette, Search,
-  ChevronDown, ChevronUp, Play
+  ChevronDown, ChevronUp, Play, Clock, Link2, GitMerge, Database
 } from "lucide-react";
+import AgentScheduler from "@/components/agents/AgentScheduler";
+import AgentChains from "@/components/agents/AgentChains";
+import SocialMediaIntegrations from "@/components/agents/SocialMediaIntegrations";
 
 const IMPACT_CONFIG = {
   high:     { badge: "bg-emerald-100 text-emerald-700", dot: "bg-emerald-500" },
@@ -446,7 +449,15 @@ function AgentPanel({ agent }) {
   );
 }
 
+const MAIN_TABS = [
+  { key: "agents", label: "AI Agents", icon: Brain, desc: "Run individual agents" },
+  { key: "workflows", label: "Workflows", icon: GitMerge, desc: "Chain agents together" },
+  { key: "scheduler", label: "Scheduler", icon: Clock, desc: "Automate agent runs" },
+  { key: "datasources", label: "Data Sources", icon: Database, desc: "Social media integrations" },
+];
+
 export default function AIAgentsHub() {
+  const [activeTab, setActiveTab] = useState("agents");
   const [filter, setFilter] = useState("all");
   const tiers = ["all", "Revenue", "Engagement", "Differentiation", "Operations"];
   const filteredAgents = filter === "all" ? AGENTS : AGENTS.filter(a => a.tier === filter);
@@ -461,73 +472,102 @@ export default function AIAgentsHub() {
           </div>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">AI Agents Hub</h1>
-            <p className="text-sm text-slate-500">12 specialized AI agents to supercharge your partnership intelligence</p>
+            <p className="text-sm text-slate-500">12 specialized AI agents with workflows, scheduling, and live data integrations</p>
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div className="flex items-center gap-6 mt-4 mb-6">
-          {[
-            { label: "Total Agents", value: "12", color: "text-indigo-600" },
-            { label: "Revenue Agents", value: "3", color: "text-emerald-600" },
-            { label: "Engagement Agents", value: "3", color: "text-blue-600" },
-            { label: "Differentiation Agents", value: "4", color: "text-purple-600" },
-            { label: "Operations Agents", value: "2", color: "text-slate-600" },
-          ].map(s => (
-            <div key={s.label} className="flex items-baseline gap-1.5">
-              <span className={`text-xl font-extrabold ${s.color}`}>{s.value}</span>
-              <span className="text-xs text-slate-400 font-medium">{s.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Filter tabs */}
-        <div className="flex gap-2 flex-wrap">
-          {tiers.map(t => (
-            <button
-              key={t}
-              onClick={() => setFilter(t)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all
-                ${filter === t
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
-            >
-              {t === "all" ? "All Agents" : TIER_INFO[t]?.label || t}
-            </button>
-          ))}
+        {/* Main navigation tabs */}
+        <div className="flex gap-1 mt-5 bg-slate-100 rounded-xl p-1">
+          {MAIN_TABS.map(tab => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all flex-1 justify-center
+                  ${activeTab === tab.key
+                    ? "bg-white text-indigo-700 shadow-sm shadow-slate-200/50"
+                    : "text-slate-500 hover:text-slate-700 hover:bg-white/50"}`}
+              >
+                <Icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Agent Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {filteredAgents.map(agent => (
-          <AgentPanel key={agent.key} agent={agent} />
-        ))}
-      </div>
-
-      {/* Architecture Note */}
-      <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        <div className="relative z-10">
-          <div className="flex items-center gap-2 mb-3">
-            <Zap className="w-5 h-5 text-indigo-400" />
-            <h3 className="text-sm font-bold text-white">Agent Architecture</h3>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {/* Tab Content */}
+      {activeTab === "agents" && (
+        <>
+          {/* Stats bar */}
+          <div className="flex items-center gap-6">
             {[
-              { label: "LLM-Powered", value: "All 12 agents use advanced language models for deep analysis" },
-              { label: "Data-Driven", value: "Agents pull from partnerships, talents, benchmarks, and more" },
-              { label: "Human Approval", value: "All outbound actions require human review before execution" },
-              { label: "Real-Time", value: "Analyses run on your latest data for up-to-date intelligence" },
-            ].map(item => (
-              <div key={item.label} className="bg-white/5 rounded-xl p-3 border border-white/10">
-                <p className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider mb-1">{item.label}</p>
-                <p className="text-[11px] text-slate-400 leading-relaxed">{item.value}</p>
+              { label: "Total Agents", value: "12", color: "text-indigo-600" },
+              { label: "Revenue", value: "3", color: "text-emerald-600" },
+              { label: "Engagement", value: "3", color: "text-blue-600" },
+              { label: "Differentiation", value: "4", color: "text-purple-600" },
+              { label: "Operations", value: "2", color: "text-slate-600" },
+            ].map(s => (
+              <div key={s.label} className="flex items-baseline gap-1.5">
+                <span className={`text-xl font-extrabold ${s.color}`}>{s.value}</span>
+                <span className="text-xs text-slate-400 font-medium">{s.label}</span>
               </div>
             ))}
           </div>
-        </div>
-      </div>
+
+          {/* Filter tabs */}
+          <div className="flex gap-2 flex-wrap">
+            {tiers.map(t => (
+              <button
+                key={t}
+                onClick={() => setFilter(t)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all
+                  ${filter === t
+                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+              >
+                {t === "all" ? "All Agents" : TIER_INFO[t]?.label || t}
+              </button>
+            ))}
+          </div>
+
+          {/* Agent Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {filteredAgents.map(agent => (
+              <AgentPanel key={agent.key} agent={agent} />
+            ))}
+          </div>
+
+          {/* Architecture Note */}
+          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-3">
+                <Zap className="w-5 h-5 text-indigo-400" />
+                <h3 className="text-sm font-bold text-white">Agent Architecture</h3>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { label: "LLM-Powered", value: "All 12 agents use advanced language models for deep analysis" },
+                  { label: "Data-Driven", value: "Agents pull from partnerships, talents, benchmarks, and more" },
+                  { label: "Human Approval", value: "All outbound actions require human review before execution" },
+                  { label: "Real-Time", value: "Analyses run on your latest data for up-to-date intelligence" },
+                ].map(item => (
+                  <div key={item.label} className="bg-white/5 rounded-xl p-3 border border-white/10">
+                    <p className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider mb-1">{item.label}</p>
+                    <p className="text-[11px] text-slate-400 leading-relaxed">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {activeTab === "workflows" && <AgentChains />}
+      {activeTab === "scheduler" && <AgentScheduler />}
+      {activeTab === "datasources" && <SocialMediaIntegrations />}
     </div>
   );
 }

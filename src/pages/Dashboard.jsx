@@ -17,6 +17,7 @@ import PitchDeckMetrics from "@/components/dashboard/PitchDeckMetrics";
 import TalentDashboardPanel from "@/components/dashboard/TalentDashboardPanel";
 import BrandDashboardPanel from "@/components/dashboard/BrandDashboardPanel";
 import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPanel";
+import AIAgentWidgets from "@/components/dashboard/AIAgentWidgets";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 
@@ -142,6 +143,9 @@ function DashboardContent({ user }) {
 
       {/* Success Predictor */}
       <SuccessPredictionPanel partnerships={partnerships} />
+
+      {/* AI Intelligence Feed */}
+      <AIAgentWidgets />
 
       {/* Quick Actions + Top Matches */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
