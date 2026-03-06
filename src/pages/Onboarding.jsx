@@ -503,52 +503,65 @@ export default function Onboarding() {
   const labels = LABEL_MAP[selectedRole] || LABEL_MAP.brand;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white antialiased">
       {/* ── HEADER ── */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center justify-between px-8">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-700 flex items-center justify-center flex-shrink-0">
+      <header className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 z-50 flex items-center justify-between px-6 sm:px-10">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
             <Zap className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-slate-900 text-lg">PartnerIQ</span>
+          <span className="font-bold text-slate-900 text-lg tracking-tight">PartnerIQ</span>
         </div>
-        <Button variant="ghost" onClick={() => navigate("/login")} className="text-slate-600 hover:text-slate-900 font-medium">
-          Already have an account? <span className="text-indigo-600 ml-1">Sign in</span>
-        </Button>
+        <button onClick={() => navigate("/login")} className="text-sm text-slate-500 hover:text-slate-800 transition-colors font-medium">
+          Already have an account? <span className="text-indigo-600 hover:text-indigo-700 ml-0.5 font-semibold">Sign in</span>
+        </button>
       </header>
 
-      {/* ── HERO SECTION (Influur Inspired) ── */}
-      <div className="relative overflow-hidden pt-32 pb-24 bg-gradient-to-br from-slate-950 via-slate-900 to-orange-950">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 80% 50%, #f97316 0%, transparent 60%)" }} />
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
-            We're the ultimate partnership intelligence platform
+      {/* ── HERO SECTION ── */}
+      <div className="relative overflow-hidden pt-36 pb-28 bg-gradient-to-b from-slate-950 via-[#0f1629] to-indigo-950">
+        {/* Animated gradient orbs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-600/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+        </div>
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-8">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs font-medium text-slate-300 tracking-wide">AI-Powered Partnership Intelligence</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6 leading-[1.1]">
+            The smartest way to build
+            <span className="block bg-gradient-to-r from-indigo-400 via-violet-400 to-orange-400 bg-clip-text text-transparent">creator partnerships</span>
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            We help <span className="text-orange-400 font-semibold">Talent, Brands, Brand Managers</span>, <span className="text-orange-400 font-semibold">CMOs</span>, and <span className="text-orange-400 font-semibold">marketing agencies</span> build their influencer marketing strategy through cutting-edge AI technology.
+          <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            Connecting <span className="text-white font-medium">Talent</span>, <span className="text-white font-medium">Brands</span>, and <span className="text-white font-medium">Agencies</span> with AI-powered matching, deal simulation, and real-time market intelligence.
           </p>
 
           {/* Dual Role CTA Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button onClick={() => {setSelectedRole("brand");setStep(2);}} className="h-11 px-6 border-2 border-white bg-transparent text-white font-semibold hover:bg-white/10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button onClick={() => {setSelectedRole("brand");setStep(2);}} className="h-12 px-7 rounded-xl border-2 border-white/20 bg-white/5 backdrop-blur-sm text-white font-semibold hover:bg-white/10 hover:border-white/30 transition-all">
               I'm a Brand
             </Button>
-            <Button onClick={() => {setSelectedRole("talent");setStep(2);}} className="h-11 px-6 border-2 border-white bg-transparent text-white font-semibold hover:bg-white/10">
+            <Button onClick={() => {setSelectedRole("talent");setStep(2);}} className="h-12 px-7 rounded-xl border-2 border-white/20 bg-white/5 backdrop-blur-sm text-white font-semibold hover:bg-white/10 hover:border-white/30 transition-all">
               I'm a Creator
             </Button>
-            <Button onClick={() => {setSelectedRole("agency");setStep(2);}} className="h-11 px-8 bg-orange-500 hover:bg-orange-600 text-white font-semibold">
+            <Button onClick={() => {setSelectedRole("agency");setStep(2);}} className="h-12 px-8 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all">
               I'm an Agency
             </Button>
           </div>
-          <p className="text-sm text-slate-400 mt-4">No credit card required • Start free today</p>
+          <p className="text-sm text-slate-500 mt-5">No credit card required &middot; Start free today</p>
         </div>
       </div>
 
       {/* ── TRUSTED BRANDS SECTION ── */}
-      <div className="bg-slate-50 py-16 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-center text-sm font-semibold text-slate-600 uppercase tracking-wider mb-12">Trusted by leading brands & creators</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-items-center opacity-60">
+      <div className="bg-white py-12 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-center text-[11px] font-semibold text-slate-400 uppercase tracking-[0.2em] mb-8">Trusted by leading brands & creators</p>
+          <div className="flex items-center justify-center gap-10 sm:gap-16 flex-wrap opacity-50 hover:opacity-70 transition-opacity">
             {[
             { name: "Coca-Cola", emoji: "🥤" },
             { name: "Corona", emoji: "🍺" },
@@ -556,9 +569,9 @@ export default function Onboarding() {
             { name: "JBL", emoji: "🎵" },
             { name: "L'Oreal", emoji: "💄" }].
             map((brand, i) =>
-            <div key={i} className="text-center">
-                <div className="text-4xl mb-2">{brand.emoji}</div>
-                <p className="text-xs font-semibold text-slate-600">{brand.name}</p>
+            <div key={i} className="text-center flex flex-col items-center">
+                <div className="text-3xl mb-1.5">{brand.emoji}</div>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{brand.name}</p>
               </div>
             )}
           </div>
@@ -566,30 +579,34 @@ export default function Onboarding() {
       </div>
 
       {/* ── FEATURES SECTION ── */}
-      <div className="bg-slate-50 py-20 border-t border-slate-200">
+      <div className="bg-gradient-to-b from-slate-50 to-white py-24 border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Powerful AI Capabilities</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Every partnership intelligence you need, powered by cutting-edge AI</p>
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Features</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">Powerful AI Capabilities</h2>
+            <p className="text-base text-slate-500 max-w-lg mx-auto">Everything you need to find, evaluate, and close partnerships</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-            { icon: TrendingUp, color: "text-indigo-600", title: "Predictive Analytics", desc: "Forecast creator growth and ROI before campaigns launch" },
-            { icon: Brain, color: "text-purple-600", title: "AI Match Engine", desc: "40+ signal compatibility scoring for perfect partnerships" },
-            { icon: Sparkles, color: "text-amber-600", title: "Deal Simulation", desc: "10,000+ Monte Carlo simulations to predict outcomes" },
-            { icon: CheckSquare, color: "text-emerald-600", title: "Approval Workflows", desc: "Human review with intelligent recommendations" },
-            { icon: Layers, color: "text-blue-600", title: "Auto Pitch Decks", desc: "AI-generated pitch decks in seconds" },
-            { icon: Bell, color: "text-rose-600", title: "Smart Notifications", desc: "Real-time alerts on market opportunities" }].
+            { icon: TrendingUp, bg: "bg-indigo-50", color: "text-indigo-600", title: "Predictive Analytics", desc: "Forecast creator growth and ROI before campaigns launch" },
+            { icon: Brain, bg: "bg-purple-50", color: "text-purple-600", title: "AI Match Engine", desc: "40+ signal compatibility scoring for perfect partnerships" },
+            { icon: Sparkles, bg: "bg-amber-50", color: "text-amber-600", title: "Deal Simulation", desc: "10,000+ Monte Carlo simulations to predict outcomes" },
+            { icon: CheckSquare, bg: "bg-emerald-50", color: "text-emerald-600", title: "Approval Workflows", desc: "Human review with intelligent recommendations" },
+            { icon: Layers, bg: "bg-blue-50", color: "text-blue-600", title: "Auto Pitch Decks", desc: "AI-generated pitch decks in seconds" },
+            { icon: Bell, bg: "bg-rose-50", color: "text-rose-600", title: "Smart Notifications", desc: "Real-time alerts on market opportunities" }].
             map((feature, i) => {
               const Icon = feature.icon;
               return (
-                <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
-                  <div className={`w-12 h-12 rounded-lg ${feature.color} bg-opacity-10 mb-4 flex items-center justify-center`}>
-                    <Icon className={`w-6 h-6 ${feature.color}`} />
+                <div key={i} className="group bg-white border border-slate-200/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-0.5 transition-all duration-300">
+                  <div className={`w-11 h-11 rounded-xl ${feature.bg} mb-4 flex items-center justify-center`}>
+                    <Icon className={`w-5 h-5 ${feature.color}`} />
                   </div>
-                  <h3 className="font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                  <p className="text-slate-600 text-sm">{feature.desc}</p>
+                  <h3 className="font-bold text-slate-900 mb-1.5">{feature.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
                 </div>);
 
             })}
@@ -598,34 +615,38 @@ export default function Onboarding() {
       </div>
 
       {/* ── PLATFORM OVERVIEW SECTION ── */}
-      <div className="py-20 border-t border-slate-200">
+      <div className="py-24 border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-6 space-y-20">
-          
+
           {/* Overview Hero */}
-          <div className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 overflow-hidden">
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #6366f1 0%, transparent 60%), radial-gradient(circle at 80% 20%, #a855f7 0%, transparent 50%)" }} />
+          <div className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-10 overflow-hidden">
+            <div className="absolute inset-0">
+              <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-56 h-56 bg-violet-500/10 rounded-full blur-3xl" />
+            </div>
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
             <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="flex items-center gap-2.5 mb-5">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                   <Zap className="w-4 h-4 text-white" />
                 </div>
-                <Badge className="bg-white/10 text-white/80 border-white/20 text-[10px] uppercase tracking-widest">Platform Overview</Badge>
+                <span className="text-[10px] font-bold text-indigo-300/80 uppercase tracking-[0.2em]">Platform Overview</span>
               </div>
-              <h2 className="text-3xl font-bold text-white tracking-tight mb-3">Enterprise AI Partnership Intelligence</h2>
-              <p className="text-slate-300 text-base max-w-2xl leading-relaxed">
-                PartnerIQ is an enterprise AI-powered platform connecting talent — creators, athletes, celebrities — with brands and agencies. Featuring a fault-tolerant multi-agent architecture with 50+ AI agents operating concurrently, automatic failover, and mandatory human approval for all outbound communications.
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">Enterprise AI Partnership Intelligence</h2>
+              <p className="text-slate-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+                PartnerIQ connects talent — creators, athletes, celebrities — with brands and agencies. Featuring 50+ AI agents, automatic failover, and mandatory human approval for all outbound communications.
               </p>
             </div>
           </div>
 
           {/* Key Metrics */}
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Key Platform Metrics</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3">
+            <h3 className="text-2xl font-extrabold text-slate-900 mb-6 tracking-tight">Key Platform Metrics</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {KEY_METRICS.map((m, i) =>
-              <div key={i} className="bg-white rounded-2xl border border-slate-200/60 p-4 hover:shadow-sm transition-shadow">
-                  <p className="text-2xl font-bold text-indigo-600 tracking-tight">{m.value}</p>
-                  <p className="text-sm font-semibold text-slate-700 mt-1">{m.label}</p>
+              <div key={i} className="bg-gradient-to-br from-white to-slate-50/50 rounded-2xl border border-slate-200/60 p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                  <p className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent tracking-tight">{m.value}</p>
+                  <p className="text-sm font-bold text-slate-700 mt-1.5">{m.label}</p>
                   <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{m.desc}</p>
                 </div>
               )}
@@ -700,21 +721,21 @@ export default function Onboarding() {
       </div>
 
       {/* ── MARKET INTELLIGENCE SECTION ── */}
-      <div className="py-20 border-t border-slate-200">
+      <div className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-2 mb-4">
-              <BarChart3 className="w-4 h-4 text-blue-600" />
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-4">
+              <BarChart3 className="w-3.5 h-3.5 text-blue-600" />
               <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Market Intelligence</span>
             </div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Real-Time Industry Benchmarks</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Data-driven insights to make smarter partnership decisions</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">Real-Time Industry Benchmarks</h2>
+            <p className="text-base text-slate-500 max-w-lg mx-auto">Data-driven insights to make smarter partnership decisions</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {/* Rate Benchmarks */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-8">
-              <h3 className="font-semibold text-slate-900 mb-6 text-lg">Creator Pricing Tiers</h3>
+            <div className="bg-white border border-slate-200/70 rounded-2xl p-7 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-300">
+              <h3 className="font-bold text-slate-900 mb-6 text-lg">Creator Pricing Tiers</h3>
               <div className="space-y-5">
                 {rateBenchmarks.slice(0, 3).map((tier) =>
                 <div key={tier.id} className="border-l-4 border-indigo-200 pl-4">
@@ -735,8 +756,8 @@ export default function Onboarding() {
             </div>
 
             {/* ROI Benchmarks */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-8">
-              <h3 className="font-semibold text-slate-900 mb-6 text-lg">Campaign ROI Benchmarks</h3>
+            <div className="bg-white border border-slate-200/70 rounded-2xl p-7 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-300">
+              <h3 className="font-bold text-slate-900 mb-6 text-lg">Campaign ROI Benchmarks</h3>
               <div className="space-y-5">
                 {roiBenchmarks.slice(0, 3).map((roi) =>
                 <div key={roi.id} className="border-l-4 border-emerald-200 pl-4">
@@ -757,19 +778,25 @@ export default function Onboarding() {
             </div>
           </div>
 
-          <div className="text-center text-sm text-slate-600">
-            Full market intelligence and advanced filters available to all users
+          <div className="text-center">
+            <p className="text-sm text-slate-400">Full market intelligence and advanced filters available to all users</p>
           </div>
         </div>
       </div>
 
       {/* ── ONBOARDING FORM ── */}
-      <div className="py-20 border-t border-slate-200">
+      <div className="py-24 bg-gradient-to-b from-slate-50 to-white border-t border-slate-100">
       <div className="flex items-center justify-center px-6">
       <div className="w-full max-w-2xl">
 
+        {/* Section header */}
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Get started in minutes</h2>
+          <p className="text-sm text-slate-500 mt-2">Set up your account and start discovering partnerships</p>
+        </div>
+
         {/* Progress steps */}
-        <div className="flex items-center gap-2 mb-12">
+        <div className="flex items-center gap-2 mb-10 bg-white rounded-2xl border border-slate-200/70 p-4 shadow-sm">
           {(selectedRole === "brand"
             ? ["Account Type", "Choose Plan", "Your Details", "Brand Setup"]
             : ["Account Type", "Choose Plan", "Your Details"]
@@ -777,17 +804,16 @@ export default function Onboarding() {
             const num = i + 1;
             const active = step === num;
             const done = step > num;
-            const total = selectedRole === "brand" ? 3 : 2;
             return (
               <React.Fragment key={num}>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all
-                    ${done ? "bg-emerald-500 text-white" : active ? "bg-indigo-600 text-white" : "bg-slate-200 text-slate-600"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300
+                    ${done ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/30" : active ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/30" : "bg-slate-100 text-slate-400"}`}>
                     {done ? <CheckCircle2 className="w-4 h-4" /> : num}
                   </div>
-                  <span className={`text-sm font-medium hidden sm:block ${active ? "text-indigo-600" : done ? "text-slate-600" : "text-slate-500"}`}>{label}</span>
+                  <span className={`text-sm font-medium hidden sm:block transition-colors ${active ? "text-indigo-600" : done ? "text-emerald-600" : "text-slate-400"}`}>{label}</span>
                 </div>
-                {i < (selectedRole === "brand" ? 3 : 2) && <div className={`flex-1 h-px ${step > num ? "bg-emerald-500" : "bg-slate-300"}`} />}
+                {i < (selectedRole === "brand" ? 3 : 2) && <div className={`flex-1 h-0.5 rounded-full transition-colors duration-300 ${step > num ? "bg-emerald-400" : "bg-slate-100"}`} />}
               </React.Fragment>
             );
           })}
@@ -796,9 +822,11 @@ export default function Onboarding() {
         <>
           {/* ── STEP 1: Account Type ── */}
           {step === 1 &&
-              <div className="space-y-4 animate-fade-in-up">
-             <h2 className="text-2xl font-bold text-slate-900">What type of account do you need?</h2>
-             <p className="text-slate-600 mb-6">Select your role to personalize your experience</p>
+              <div className="space-y-5 animate-fade-in-up">
+             <div>
+               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">What type of account do you need?</h2>
+               <p className="text-sm text-slate-500 mt-1">Select your role to personalize your experience</p>
+             </div>
 
              <div className="space-y-3">
                {ROLES.map((role) => {
@@ -808,23 +836,23 @@ export default function Onboarding() {
                       <button
                         key={role.key}
                         onClick={() => setSelectedRole(role.key)}
-                        className={`w-full flex items-start gap-4 p-5 rounded-xl border-2 transition-all duration-200 text-left
-                       ${isSelected ? "bg-indigo-50 border-indigo-300 shadow-sm" : "border-slate-200 hover:border-slate-300 bg-white"}`}>
+                        className={`w-full flex items-start gap-4 p-5 rounded-2xl border-2 transition-all duration-300 text-left
+                       ${isSelected ? "bg-indigo-50/80 border-indigo-400 shadow-lg shadow-indigo-500/10" : "border-slate-200 hover:border-slate-300 hover:shadow-sm bg-white"}`}>
 
-                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${role.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${role.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
                        <Icon className="w-6 h-6 text-white" />
                      </div>
                      <div className="flex-1 min-w-0">
-                       <p className="font-semibold text-slate-900">{role.title}</p>
-                       <p className="text-sm text-slate-600 mt-0.5 mb-2">{role.desc}</p>
+                       <p className="font-bold text-slate-900">{role.title}</p>
+                       <p className="text-sm text-slate-500 mt-0.5 mb-2.5">{role.desc}</p>
                        <div className="flex flex-wrap gap-1.5">
                          {role.perks.map((p, i) =>
-                            <span key={i} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">{p}</span>
+                            <span key={i} className="text-[11px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-lg font-medium">{p}</span>
                             )}
                        </div>
                      </div>
-                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all
-                       ${isSelected ? "border-indigo-600 bg-indigo-600" : "border-slate-300"}`}>
+                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all duration-300
+                       ${isSelected ? "border-indigo-600 bg-indigo-600 shadow-md shadow-indigo-500/30" : "border-slate-300"}`}>
                        {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
                      </div>
                    </button>);
@@ -835,7 +863,7 @@ export default function Onboarding() {
              <Button
                   onClick={() => setStep(2)}
                   disabled={!selectedRole}
-                  className="w-full mt-6 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                  className="w-full mt-4 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-40 disabled:shadow-none">
 
                Continue <ArrowRight className="w-4 h-4 ml-2" />
              </Button>
@@ -844,11 +872,13 @@ export default function Onboarding() {
 
         {/* ── STEP 2: Plan ── */}
          {step === 2 &&
-              <div className="space-y-4 animate-fade-in-up">
-             <h2 className="text-2xl font-bold text-slate-900">Choose your plan</h2>
-             <p className="text-slate-600 mb-6">
-               You selected <span className={`font-semibold text-slate-900`}>{roleObj?.title}</span>. Pick the plan that fits your needs.
-             </p>
+              <div className="space-y-5 animate-fade-in-up">
+             <div>
+               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Choose your plan</h2>
+               <p className="text-sm text-slate-500 mt-1">
+                 You selected <span className="font-semibold text-slate-800">{roleObj?.title}</span>. Pick the plan that fits your needs.
+               </p>
+             </div>
 
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => {
@@ -857,28 +887,28 @@ export default function Onboarding() {
                       <button
                         key={plan.key}
                         onClick={() => setSelectedPlan(plan.key)}
-                        className={`relative flex flex-col p-6 rounded-xl border-2 text-left transition-all duration-200
-                       ${isSelected ? "border-indigo-600 bg-indigo-50 shadow-sm" : "border-slate-200 bg-white hover:border-slate-300"}`}>
+                        className={`relative flex flex-col p-6 rounded-2xl border-2 text-left transition-all duration-300
+                       ${isSelected ? "border-indigo-500 bg-indigo-50/70 shadow-xl shadow-indigo-500/10" : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"}`}>
 
                      {plan.badge &&
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-[11px] font-bold px-3.5 py-1 rounded-full flex items-center gap-1 shadow-lg shadow-indigo-500/25">
                          <Star className="w-3 h-3" /> {plan.badge}
                        </div>
                         }
                      <div className="flex items-end gap-1 mb-2">
-                       <span className="text-3xl font-bold text-slate-900">{plan.price}</span>
-                       <span className={`text-sm mb-1 ${isSelected ? "text-slate-700" : "text-slate-600"}`}>{plan.period}</span>
+                       <span className="text-3xl font-extrabold text-slate-900">{plan.price}</span>
+                       <span className="text-sm mb-1 text-slate-500">{plan.period}</span>
                      </div>
-                     <p className="text-sm font-semibold text-slate-900 mb-4">{plan.title}</p>
-                     <ul className="space-y-2 flex-1">
+                     <p className="text-sm font-bold text-slate-800 mb-4">{plan.title}</p>
+                     <ul className="space-y-2.5 flex-1">
                        {plan.features.map((f, i) =>
-                          <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
-                           <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                          <li key={i} className="flex items-center gap-2.5 text-sm text-slate-600">
+                           <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                            {f}
                          </li>
                           )}
                      </ul>
-                     <div className={`mt-5 w-full py-2.5 rounded-lg text-sm font-semibold text-center transition-all ${isSelected ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-900"}`}>
+                     <div className={`mt-5 w-full py-2.5 rounded-xl text-sm font-bold text-center transition-all duration-300 ${isSelected ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-500/20" : "bg-slate-100 text-slate-700"}`}>
                        {isSelected ? <span className="flex items-center justify-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Selected</span> : plan.cta}
                      </div>
                    </button>);
@@ -886,16 +916,16 @@ export default function Onboarding() {
                   })}
              </div>
 
-             <div className="flex items-center gap-2 text-xs text-slate-600 mt-2">
-               <Lock className="w-3.5 h-3.5" />
-               <span>Secure checkout · Cancel anytime · No hidden fees</span>
+             <div className="flex items-center justify-center gap-2 text-xs text-slate-400 mt-1">
+               <Lock className="w-3 h-3" />
+               <span>Secure checkout &middot; Cancel anytime &middot; No hidden fees</span>
              </div>
 
-             <div className="flex gap-3 mt-6">
-               <Button variant="outline" onClick={() => {setSelectedRole("");setStep(1);}} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
+             <div className="flex gap-3 mt-4">
+               <Button variant="outline" onClick={() => {setSelectedRole("");setStep(1);}} className="flex-1 h-12 rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 font-medium">
                  Back
                </Button>
-               <Button onClick={() => setStep(3)} disabled={!selectedPlan} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+               <Button onClick={() => setStep(3)} disabled={!selectedPlan} className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-40 disabled:shadow-none">
                  Continue <ArrowRight className="w-4 h-4 ml-2" />
                </Button>
              </div>
@@ -905,76 +935,88 @@ export default function Onboarding() {
         {/* ── STEP 3: Details ── */}
          {step === 3 &&
               <div className="space-y-5 animate-fade-in-up">
-             <h2 className="text-2xl font-bold text-slate-900">Complete your profile</h2>
-             <p className="text-slate-600 mb-6">
-               Almost done! Just a few details to finish setting up your <span className="font-semibold text-slate-900">{roleObj?.title}</span> account.
-             </p>
-
              <div>
-               <Label className="text-slate-900 font-medium">Email</Label>
-               <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
+               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Create your account</h2>
+               <p className="text-sm text-slate-500 mt-1">
+                 Almost done! Set up your <span className="font-semibold text-slate-800">{roleObj?.title}</span> account.
+               </p>
              </div>
-             <div>
-               <Label className="text-slate-900 font-medium">Password</Label>
-               <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Min 6 characters"
-                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
-             </div>
-             <div>
-               <Label className="text-slate-900 font-medium">{labels.name}</Label>
-               <Input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder={labels.namePlaceholder}
-                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
 
+             {/* Account credentials group */}
+             <div className="bg-white rounded-2xl border border-slate-200/70 p-5 space-y-4">
+               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Account Credentials</p>
+               <div>
+                 <Label className="text-slate-700 font-semibold text-sm">Email</Label>
+                 <Input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="mt-1.5 border-slate-200 text-slate-900 placeholder:text-slate-400 h-11 bg-slate-50/50 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all" />
+               </div>
+               <div>
+                 <Label className="text-slate-700 font-semibold text-sm">Password</Label>
+                 <Input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Min 6 characters"
+                      className="mt-1.5 border-slate-200 text-slate-900 placeholder:text-slate-400 h-11 bg-slate-50/50 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all" />
+               </div>
              </div>
-             <div>
-               <Label className="text-slate-900 font-medium">{labels.title}</Label>
-               <Input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder={labels.titlePlaceholder}
-                    className="mt-2 border-slate-300 text-slate-900 placeholder:text-slate-500 h-11 bg-white" />
 
+             {/* Profile details group */}
+             <div className="bg-white rounded-2xl border border-slate-200/70 p-5 space-y-4">
+               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Profile Details</p>
+               <div>
+                 <Label className="text-slate-700 font-semibold text-sm">{labels.name}</Label>
+                 <Input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder={labels.namePlaceholder}
+                      className="mt-1.5 border-slate-200 text-slate-900 placeholder:text-slate-400 h-11 bg-slate-50/50 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all" />
+               </div>
+               <div>
+                 <Label className="text-slate-700 font-semibold text-sm">{labels.title}</Label>
+                 <Input
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder={labels.titlePlaceholder}
+                      className="mt-1.5 border-slate-200 text-slate-900 placeholder:text-slate-400 h-11 bg-slate-50/50 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all" />
+               </div>
              </div>
 
              {authError && (
-               <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+               <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 flex items-center gap-2">
+                 <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                   <span className="text-red-500 text-xs font-bold">!</span>
+                 </div>
                  {authError}
                </div>
              )}
 
              {/* Summary card */}
-             <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 flex items-center gap-4 mt-6">
-               <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${roleObj?.color} flex items-center justify-center flex-shrink-0`}>
+             <div className="bg-gradient-to-r from-slate-50 to-indigo-50/30 rounded-2xl border border-slate-200/70 p-5 flex items-center gap-4">
+               <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${roleObj?.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
                  {roleObj && <roleObj.icon className="w-5 h-5 text-white" />}
                </div>
                <div className="flex-1 min-w-0">
-                 <p className="text-sm font-semibold text-slate-900">{roleObj?.title} · {selectedPlan === "pro" ? "Pro Plan" : "Free Plan"}</p>
-                 <p className="text-xs text-slate-600 mt-0.5 truncate">{name || "Your profile"}</p>
+                 <p className="text-sm font-bold text-slate-900">{roleObj?.title} &middot; {selectedPlan === "pro" ? "Pro Plan" : "Free Plan"}</p>
+                 <p className="text-xs text-slate-500 mt-0.5 truncate">{name || "Your profile"}</p>
                </div>
-               {selectedPlan === "pro" && <Sparkles className="w-5 h-5 text-indigo-600 flex-shrink-0" />}
+               {selectedPlan === "pro" && <Sparkles className="w-5 h-5 text-indigo-500 flex-shrink-0" />}
              </div>
 
-             <div className="flex gap-3 mt-6">
-               <Button variant="outline" onClick={() => setStep(2)} className="flex-1 h-11 border-slate-300 text-slate-900 hover:bg-slate-50">
+             <div className="flex gap-3 mt-4">
+               <Button variant="outline" onClick={() => setStep(2)} className="flex-1 h-12 rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 font-medium">
                  Back
                </Button>
                {selectedRole === "brand" ? (
-                 <Button onClick={() => setStep(4)} disabled={!name || !email || !password} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 <Button onClick={() => setStep(4)} disabled={!name || !email || !password} className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-40 disabled:shadow-none">
                    Continue <ArrowRight className="w-4 h-4 ml-2" />
                  </Button>
                ) : (
-                 <Button onClick={handleComplete} disabled={saving || !name || !email || !password} className="flex-1 h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                 <Button onClick={handleComplete} disabled={saving || !name || !email || !password} className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-40 disabled:shadow-none">
                    {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                    {saving ? "Setting up..." : "Launch Dashboard"}
                  </Button>
