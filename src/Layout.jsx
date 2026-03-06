@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -29,6 +29,7 @@ const roleNavItems = {
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Brands", icon: Building2, page: "Brands" },
@@ -55,6 +56,7 @@ const roleNavItems = {
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
@@ -83,6 +85,7 @@ const roleNavItems = {
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
@@ -124,6 +127,7 @@ const roleNavItems = {
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "AI Features", icon: Brain, page: "AIFeatures" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
