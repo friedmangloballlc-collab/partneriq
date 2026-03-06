@@ -171,25 +171,28 @@ ALTER TABLE viewership_tiers ADD COLUMN IF NOT EXISTS description text;
 -- ============================================================
 -- 1b. FORCE CORRECT COLUMN TYPES (in case columns already exist with wrong types)
 -- ============================================================
--- These ALTER COLUMN TYPE statements ensure columns match what our INSERTs expect,
--- even if a previous migration created them with a different type.
+-- Each ALTER is wrapped in its own DO block so failures don't abort the transaction.
 
--- culture_events: text columns that might exist as numeric
-ALTER TABLE culture_events ALTER COLUMN audience_reach TYPE text USING audience_reach::text;
-ALTER TABLE culture_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb;
+DO $$ BEGIN ALTER TABLE culture_events ALTER COLUMN audience_reach TYPE text USING audience_reach::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE culture_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE mega_events ALTER COLUMN global_reach TYPE text USING global_reach::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE mega_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE conferences ALTER COLUMN attendees TYPE text USING attendees::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE conferences ALTER COLUMN sponsorship_range TYPE text USING sponsorship_range::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE demographic_segments ALTER COLUMN buying_power TYPE text USING buying_power::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE demographic_segments ALTER COLUMN population_size TYPE text USING population_size::text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE demographic_segments ALTER COLUMN brand_affinity TYPE text USING brand_affinity::text; EXCEPTION WHEN others THEN NULL; END $$;
 
--- mega_events: text columns that might exist as numeric
-ALTER TABLE mega_events ALTER COLUMN global_reach TYPE text USING global_reach::text;
-ALTER TABLE mega_events ALTER COLUMN audience_demographics TYPE jsonb USING audience_demographics::jsonb;
-
--- conferences: ensure text columns are text
-ALTER TABLE conferences ALTER COLUMN attendees TYPE text USING attendees::text;
-ALTER TABLE conferences ALTER COLUMN sponsorship_range TYPE text USING sponsorship_range::text;
-
--- demographic_segments: buying_power might exist as numeric, we need text
-ALTER TABLE demographic_segments ALTER COLUMN buying_power TYPE text USING buying_power::text;
-ALTER TABLE demographic_segments ALTER COLUMN population_size TYPE text USING population_size::text;
-ALTER TABLE demographic_segments ALTER COLUMN brand_affinity TYPE text USING brand_affinity::text;
+-- Ensure title column exists on ALL tables (wrapped safely)
+DO $$ BEGIN ALTER TABLE rate_benchmarks ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE platform_multipliers ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE category_premiums ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE roi_benchmarks ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE viewership_tiers ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE culture_events ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE mega_events ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE conferences ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
+DO $$ BEGIN ALTER TABLE demographic_segments ADD COLUMN title text; EXCEPTION WHEN others THEN NULL; END $$;
 
 -- ============================================================
 -- 2. FIX RLS POLICIES - Make all tables readable by any authenticated user
