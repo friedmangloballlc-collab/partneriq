@@ -4,10 +4,11 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import NavigationTracker from '@/lib/NavigationTracker'
 import { pagesConfig } from './pages.config'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import Login from '@/pages/Login';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -56,7 +57,8 @@ class ErrorBoundary extends React.Component {
 }
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isAuthenticated, isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
+  const location = useLocation();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -66,12 +68,20 @@ const AuthenticatedApp = () => {
     );
   }
 
+  // Always allow access to login page
+  if (location.pathname === '/login') {
+    if (isAuthenticated) return <Navigate to="/" replace />;
+    return <Routes><Route path="/login" element={<Login />} /></Routes>;
+  }
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      navigateToLogin();
-      return null;
     }
   }
 
