@@ -981,3 +981,18 @@ create policy "activation_checklists_update" on activation_checklists for update
 create policy "planning_timelines_select" on planning_timelines for select using (true);
 create policy "planning_timelines_insert" on planning_timelines for insert with check (true);
 create policy "planning_timelines_update" on planning_timelines for update using (true);
+
+-- ============================================================
+-- ROLE GRANTS (required for anon / authenticated access)
+-- ============================================================
+-- Without these grants the anon and authenticated roles cannot
+-- read or write any tables, even when RLS policies allow it.
+
+grant usage on schema public to anon, authenticated;
+
+grant select, insert, update, delete on all tables in schema public to anon, authenticated;
+grant select, insert, update, delete on all tables in schema public to service_role;
+
+-- Ensure future tables are also accessible
+alter default privileges in schema public grant select, insert, update, delete on tables to anon, authenticated;
+alter default privileges in schema public grant select, insert, update, delete on tables to service_role;
