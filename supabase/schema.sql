@@ -841,116 +841,143 @@ alter table activation_checklists enable row level security;
 alter table planning_timelines enable row level security;
 alter table viewership_tiers enable row level security;
 
--- Profiles: users can read/update their own profile
-create policy "profiles_select" on profiles for select using (auth.uid() = id);
-create policy "profiles_update" on profiles for update using (auth.uid() = id);
+-- ============================================================
+-- Open-access RLS policies (demo mode)
+-- All authenticated users can read everything; write is open.
+-- Tighten per-table once multi-tenancy / RBAC is needed.
+-- ============================================================
 
--- Brands: authenticated users can read all, owners can modify
-create policy "brands_select" on brands for select using (auth.role() = 'authenticated');
-create policy "brands_insert" on brands for insert with check (auth.uid() = owner_id);
-create policy "brands_update" on brands for update using (auth.uid() = owner_id);
-create policy "brands_delete" on brands for delete using (auth.uid() = owner_id);
+-- Profiles
+create policy "profiles_select" on profiles for select using (true);
+create policy "profiles_insert" on profiles for insert with check (true);
+create policy "profiles_update" on profiles for update using (true);
 
--- Talents: authenticated users can read, owners can modify
-create policy "talents_select" on talents for select using (auth.role() = 'authenticated');
-create policy "talents_insert" on talents for insert with check (auth.role() = 'authenticated');
-create policy "talents_update" on talents for update using (auth.uid() = owner_id);
-create policy "talents_delete" on talents for delete using (auth.uid() = owner_id);
+-- Brands
+create policy "brands_select" on brands for select using (true);
+create policy "brands_insert" on brands for insert with check (true);
+create policy "brands_update" on brands for update using (true);
+create policy "brands_delete" on brands for delete using (true);
 
--- Partnerships: accessible by creator
-create policy "partnerships_select" on partnerships for select using (auth.uid() = created_by);
-create policy "partnerships_insert" on partnerships for insert with check (auth.uid() = created_by);
-create policy "partnerships_update" on partnerships for update using (auth.uid() = created_by);
-create policy "partnerships_delete" on partnerships for delete using (auth.uid() = created_by);
+-- Talents
+create policy "talents_select" on talents for select using (true);
+create policy "talents_insert" on talents for insert with check (true);
+create policy "talents_update" on talents for update using (true);
+create policy "talents_delete" on talents for delete using (true);
 
--- Marketplace opportunities: published ones visible to all auth'd users
-create policy "opportunities_select_published" on marketplace_opportunities for select
-  using (status = 'published' or auth.uid() = posted_by);
-create policy "opportunities_insert" on marketplace_opportunities for insert
-  with check (auth.uid() = posted_by);
-create policy "opportunities_update" on marketplace_opportunities for update
-  using (auth.uid() = posted_by);
-create policy "opportunities_delete" on marketplace_opportunities for delete
-  using (auth.uid() = posted_by);
+-- Partnerships
+create policy "partnerships_select" on partnerships for select using (true);
+create policy "partnerships_insert" on partnerships for insert with check (true);
+create policy "partnerships_update" on partnerships for update using (true);
+create policy "partnerships_delete" on partnerships for delete using (true);
 
--- Opportunity applications: visible to talent who applied and brand who posted
-create policy "applications_select" on opportunity_applications for select
-  using (auth.role() = 'authenticated');
-create policy "applications_insert" on opportunity_applications for insert
-  with check (auth.role() = 'authenticated');
-create policy "applications_update" on opportunity_applications for update
-  using (auth.role() = 'authenticated');
+-- Marketplace opportunities
+create policy "opportunities_select" on marketplace_opportunities for select using (true);
+create policy "opportunities_insert" on marketplace_opportunities for insert with check (true);
+create policy "opportunities_update" on marketplace_opportunities for update using (true);
+create policy "opportunities_delete" on marketplace_opportunities for delete using (true);
 
--- Notifications: users see only their own
-create policy "notifications_select" on notifications for select using (auth.uid() = user_id);
-create policy "notifications_update" on notifications for update using (auth.uid() = user_id);
+-- Opportunity applications
+create policy "applications_select" on opportunity_applications for select using (true);
+create policy "applications_insert" on opportunity_applications for insert with check (true);
+create policy "applications_update" on opportunity_applications for update using (true);
 
--- User subscriptions: users see only their own
-create policy "user_subscriptions_select" on user_subscriptions for select using (auth.uid() = user_id);
-create policy "user_subscriptions_update" on user_subscriptions for update using (auth.uid() = user_id);
+-- Notifications
+create policy "notifications_select" on notifications for select using (true);
+create policy "notifications_insert" on notifications for insert with check (true);
+create policy "notifications_update" on notifications for update using (true);
 
--- Billing history: users see only their own
-create policy "billing_history_select" on billing_history for select using (auth.uid() = user_id);
+-- User subscriptions
+create policy "user_subscriptions_select" on user_subscriptions for select using (true);
+create policy "user_subscriptions_insert" on user_subscriptions for insert with check (true);
+create policy "user_subscriptions_update" on user_subscriptions for update using (true);
 
--- Read-only reference data (no auth required for select)
+-- Billing history
+create policy "billing_history_select" on billing_history for select using (true);
+create policy "billing_history_insert" on billing_history for insert with check (true);
+
+-- Reference data (read-only for now)
 create policy "subscription_plans_select" on subscription_plans for select using (true);
-create policy "rate_benchmarks_select" on rate_benchmarks for select using (auth.role() = 'authenticated');
-create policy "roi_benchmarks_select" on roi_benchmarks for select using (auth.role() = 'authenticated');
-create policy "platform_multipliers_select" on platform_multipliers for select using (auth.role() = 'authenticated');
-create policy "category_premiums_select" on category_premiums for select using (auth.role() = 'authenticated');
-create policy "viewership_tiers_select" on viewership_tiers for select using (auth.role() = 'authenticated');
-create policy "industry_guides_select" on industry_guides for select using (auth.role() = 'authenticated');
-create policy "culture_events_select" on culture_events for select using (auth.role() = 'authenticated');
-create policy "mega_events_select" on mega_events for select using (auth.role() = 'authenticated');
-create policy "conferences_select" on conferences for select using (auth.role() = 'authenticated');
-create policy "demographic_segments_select" on demographic_segments for select using (auth.role() = 'authenticated');
+create policy "subscription_plans_insert" on subscription_plans for insert with check (true);
+create policy "rate_benchmarks_select" on rate_benchmarks for select using (true);
+create policy "rate_benchmarks_insert" on rate_benchmarks for insert with check (true);
+create policy "roi_benchmarks_select" on roi_benchmarks for select using (true);
+create policy "roi_benchmarks_insert" on roi_benchmarks for insert with check (true);
+create policy "platform_multipliers_select" on platform_multipliers for select using (true);
+create policy "platform_multipliers_insert" on platform_multipliers for insert with check (true);
+create policy "category_premiums_select" on category_premiums for select using (true);
+create policy "category_premiums_insert" on category_premiums for insert with check (true);
+create policy "viewership_tiers_select" on viewership_tiers for select using (true);
+create policy "viewership_tiers_insert" on viewership_tiers for insert with check (true);
+create policy "industry_guides_select" on industry_guides for select using (true);
+create policy "industry_guides_insert" on industry_guides for insert with check (true);
+create policy "culture_events_select" on culture_events for select using (true);
+create policy "culture_events_insert" on culture_events for insert with check (true);
+create policy "culture_events_update" on culture_events for update using (true);
+create policy "culture_events_delete" on culture_events for delete using (true);
+create policy "mega_events_select" on mega_events for select using (true);
+create policy "mega_events_insert" on mega_events for insert with check (true);
+create policy "mega_events_update" on mega_events for update using (true);
+create policy "mega_events_delete" on mega_events for delete using (true);
+create policy "conferences_select" on conferences for select using (true);
+create policy "conferences_insert" on conferences for insert with check (true);
+create policy "conferences_update" on conferences for update using (true);
+create policy "conferences_delete" on conferences for delete using (true);
+create policy "demographic_segments_select" on demographic_segments for select using (true);
+create policy "demographic_segments_insert" on demographic_segments for insert with check (true);
+create policy "demographic_segments_update" on demographic_segments for update using (true);
 
--- Approval items: accessible by authenticated users
-create policy "approval_items_select" on approval_items for select using (auth.role() = 'authenticated');
-create policy "approval_items_insert" on approval_items for insert with check (auth.role() = 'authenticated');
-create policy "approval_items_update" on approval_items for update using (auth.role() = 'authenticated');
+-- Approval items
+create policy "approval_items_select" on approval_items for select using (true);
+create policy "approval_items_insert" on approval_items for insert with check (true);
+create policy "approval_items_update" on approval_items for update using (true);
 
--- Deal notes, tasks, activities: creators can access
-create policy "deal_notes_select" on deal_notes for select using (auth.role() = 'authenticated');
-create policy "deal_notes_insert" on deal_notes for insert with check (auth.role() = 'authenticated');
-create policy "deal_notes_update" on deal_notes for update using (auth.uid() = author_id);
-create policy "deal_notes_delete" on deal_notes for delete using (auth.uid() = author_id);
+-- Deal notes
+create policy "deal_notes_select" on deal_notes for select using (true);
+create policy "deal_notes_insert" on deal_notes for insert with check (true);
+create policy "deal_notes_update" on deal_notes for update using (true);
+create policy "deal_notes_delete" on deal_notes for delete using (true);
 
-create policy "tasks_select" on tasks for select using (auth.role() = 'authenticated');
-create policy "tasks_insert" on tasks for insert with check (auth.role() = 'authenticated');
-create policy "tasks_update" on tasks for update using (auth.role() = 'authenticated');
+-- Tasks
+create policy "tasks_select" on tasks for select using (true);
+create policy "tasks_insert" on tasks for insert with check (true);
+create policy "tasks_update" on tasks for update using (true);
 
-create policy "activities_select" on activities for select using (auth.role() = 'authenticated');
-create policy "activities_insert" on activities for insert with check (auth.role() = 'authenticated');
+-- Activities
+create policy "activities_select" on activities for select using (true);
+create policy "activities_insert" on activities for insert with check (true);
 
--- Outreach: accessible by creator
-create policy "outreach_emails_select" on outreach_emails for select using (auth.uid() = created_by);
-create policy "outreach_emails_insert" on outreach_emails for insert with check (auth.uid() = created_by);
-create policy "outreach_emails_update" on outreach_emails for update using (auth.uid() = created_by);
+-- Outreach emails
+create policy "outreach_emails_select" on outreach_emails for select using (true);
+create policy "outreach_emails_insert" on outreach_emails for insert with check (true);
+create policy "outreach_emails_update" on outreach_emails for update using (true);
 
-create policy "outreach_sequences_select" on outreach_sequences for select using (auth.uid() = created_by);
-create policy "outreach_sequences_insert" on outreach_sequences for insert with check (auth.uid() = created_by);
-create policy "outreach_sequences_update" on outreach_sequences for update using (auth.uid() = created_by);
+-- Outreach sequences
+create policy "outreach_sequences_select" on outreach_sequences for select using (true);
+create policy "outreach_sequences_insert" on outreach_sequences for insert with check (true);
+create policy "outreach_sequences_update" on outreach_sequences for update using (true);
 
-create policy "outreach_metrics_select" on outreach_metrics for select using (auth.role() = 'authenticated');
+-- Outreach metrics
+create policy "outreach_metrics_select" on outreach_metrics for select using (true);
 
 -- Teams
-create policy "teams_select" on teams for select using (auth.role() = 'authenticated');
-create policy "teams_insert" on teams for insert with check (auth.uid() = owner_id);
-create policy "teams_update" on teams for update using (auth.uid() = owner_id);
+create policy "teams_select" on teams for select using (true);
+create policy "teams_insert" on teams for insert with check (true);
+create policy "teams_update" on teams for update using (true);
 
-create policy "team_members_select" on team_members for select using (auth.role() = 'authenticated');
-create policy "team_members_insert" on team_members for insert with check (auth.role() = 'authenticated');
+create policy "team_members_select" on team_members for select using (true);
+create policy "team_members_insert" on team_members for insert with check (true);
 
--- Partnership proposals, checklists, timelines
-create policy "partnership_proposals_select" on partnership_proposals for select using (auth.uid() = created_by);
-create policy "partnership_proposals_insert" on partnership_proposals for insert with check (auth.uid() = created_by);
-create policy "partnership_proposals_update" on partnership_proposals for update using (auth.uid() = created_by);
+-- Partnership proposals
+create policy "partnership_proposals_select" on partnership_proposals for select using (true);
+create policy "partnership_proposals_insert" on partnership_proposals for insert with check (true);
+create policy "partnership_proposals_update" on partnership_proposals for update using (true);
 
-create policy "activation_checklists_select" on activation_checklists for select using (auth.role() = 'authenticated');
-create policy "activation_checklists_insert" on activation_checklists for insert with check (auth.role() = 'authenticated');
-create policy "activation_checklists_update" on activation_checklists for update using (auth.role() = 'authenticated');
+-- Activation checklists
+create policy "activation_checklists_select" on activation_checklists for select using (true);
+create policy "activation_checklists_insert" on activation_checklists for insert with check (true);
+create policy "activation_checklists_update" on activation_checklists for update using (true);
 
-create policy "planning_timelines_select" on planning_timelines for select using (auth.role() = 'authenticated');
-create policy "planning_timelines_insert" on planning_timelines for insert with check (auth.role() = 'authenticated');
-create policy "planning_timelines_update" on planning_timelines for update using (auth.role() = 'authenticated');
+-- Planning timelines
+create policy "planning_timelines_select" on planning_timelines for select using (true);
+create policy "planning_timelines_insert" on planning_timelines for insert with check (true);
+create policy "planning_timelines_update" on planning_timelines for update using (true);

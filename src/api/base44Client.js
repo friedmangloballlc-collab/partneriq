@@ -77,11 +77,14 @@ function applyFilters(query, filters) {
   return query;
 }
 
-// Parse sort string: "-created_date" → { column: 'created_date', ascending: false }
+// Parse sort string: "-created_date" → { column: 'created_at', ascending: false }
+// Map legacy column names to actual DB columns
+const COLUMN_ALIAS = { created_date: 'created_at', updated_date: 'updated_at' };
 function parseSort(sortStr) {
   if (!sortStr) return { column: 'created_at', ascending: false };
   const desc = sortStr.startsWith('-');
-  const column = desc ? sortStr.slice(1) : sortStr;
+  const raw = desc ? sortStr.slice(1) : sortStr;
+  const column = COLUMN_ALIAS[raw] || raw;
   return { column, ascending: !desc };
 }
 
