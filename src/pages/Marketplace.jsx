@@ -237,16 +237,10 @@ export default function Marketplace() {
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {app.cover_letter && (
-                        <p className="text-sm text-slate-600 line-clamp-2">{app.cover_letter}</p>
+                      {app.message && (
+                        <p className="text-sm text-slate-600 line-clamp-2">{app.message}</p>
                       )}
                       <div className="flex items-center gap-4 text-xs text-slate-500">
-                        {app.proposed_rate && (
-                          <span className="flex items-center gap-1">
-                            <DollarSign className="w-3 h-3" />
-                            ${app.proposed_rate.toLocaleString()} proposed
-                          </span>
-                        )}
                         <span className="flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {new Date(app.created_at).toLocaleDateString()}
@@ -328,10 +322,10 @@ export default function Marketplace() {
                                   {opp.budget_max ? `$${opp.budget_max.toLocaleString()}` : ""}
                                 </span>
                               )}
-                              {opp.deadline && (
+                              {opp.timeline_end && (
                                 <span className="flex items-center gap-1">
                                   <Clock className="w-3 h-3" />
-                                  Deadline: {new Date(opp.deadline).toLocaleDateString()}
+                                  Deadline: {new Date(opp.timeline_end).toLocaleDateString()}
                                 </span>
                               )}
                             </div>

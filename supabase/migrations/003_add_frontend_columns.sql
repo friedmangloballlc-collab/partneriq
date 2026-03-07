@@ -70,6 +70,12 @@ ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS key_cultural_moments T
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS brand_activation_tips TEXT;
 ALTER TABLE demographic_segments ADD COLUMN IF NOT EXISTS activation_tips TEXT;
 
+-- OUTREACH_SEQUENCES: add analytics columns used by sequence components
+ALTER TABLE outreach_sequences ADD COLUMN IF NOT EXISTS target_count INTEGER DEFAULT 0;
+ALTER TABLE outreach_sequences ADD COLUMN IF NOT EXISTS sent_count INTEGER DEFAULT 0;
+ALTER TABLE outreach_sequences ADD COLUMN IF NOT EXISTS open_rate NUMERIC DEFAULT 0;
+ALTER TABLE outreach_sequences ADD COLUMN IF NOT EXISTS reply_rate NUMERIC DEFAULT 0;
+
 -- INDUSTRY_GUIDES: add structured display columns
 ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS sector TEXT;
 ALTER TABLE industry_guides ADD COLUMN IF NOT EXISTS budget_allocation TEXT;
