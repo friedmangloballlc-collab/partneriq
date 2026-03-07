@@ -23,13 +23,34 @@ export default function Login() {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
-      navigate("/Dashboard");
+      return;
     }
+
+    // Ensure a profile row exists (handles users who signed up before this fix)
+    if (loginData?.user) {
+      const { data: existing } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", loginData.user.id)
+        .single();
+
+      if (!existing) {
+        await supabase.from("profiles").upsert({
+          id: loginData.user.id,
+          email: loginData.user.email,
+          full_name: loginData.user.user_metadata?.full_name || "",
+          role: loginData.user.user_metadata?.role || "brand",
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        });
+      }
+    }
+
+    navigate("/Dashboard");
   };
 
   const handleSignup = async (e) => {
@@ -37,7 +58,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signUp({
+    const { data: signupData, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -48,11 +69,24 @@ export default function Login() {
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
-      setMessage("Check your email for a confirmation link, then sign in.");
-      setMode("login");
-      setLoading(false);
+      return;
     }
+
+    // Create a profile row so the app can load user data
+    if (signupData?.user) {
+      await supabase.from("profiles").upsert({
+        id: signupData.user.id,
+        email,
+        full_name: fullName,
+        role,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      });
+    }
+
+    setMessage("Check your email for a confirmation link, then sign in.");
+    setMode("login");
+    setLoading(false);
   };
 
   const roles = [

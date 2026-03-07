@@ -170,10 +170,25 @@ const auth = {
       .eq('id', user.id)
       .single();
 
+    // If no profile exists yet, create one from auth metadata
+    if (!profile) {
+      const meta = user.user_metadata || {};
+      const newProfile = {
+        id: user.id,
+        email: user.email,
+        full_name: meta.full_name || '',
+        role: meta.role || 'brand',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      await supabase.from('profiles').upsert(newProfile);
+      return newProfile;
+    }
+
     return {
       id: user.id,
       email: user.email,
-      ...(profile || {}),
+      ...profile,
     };
   },
 
