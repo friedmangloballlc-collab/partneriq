@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Login from '@/pages/Login';
 import Onboarding from '@/pages/Onboarding';
+import { useAutoSeed } from '@/hooks/useAutoSeed';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -87,6 +88,9 @@ const AuthenticatedApp = () => {
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
+
+  // Auto-seed database if tables are empty (runs once per session)
+  useAutoSeed();
 
   if (authError) {
     if (authError.type === 'user_not_registered') {
