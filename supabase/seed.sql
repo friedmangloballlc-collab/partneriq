@@ -17,100 +17,100 @@ on conflict (id) do nothing;
 -- TALENTS (8 rows)
 -- ============================================================
 insert into talents (id, name, email, primary_platform, niche, tier, location, bio, total_followers, engagement_rate, brand_safety_score, discovery_alpha_score, trajectory, avg_views, rate_per_post) values
-  ('t1000000-0000-0000-0000-000000000001', 'Mia Chen', 'mia@creator.example.com', 'instagram', 'lifestyle', 'macro', 'Los Angeles, CA', 'Lifestyle creator sharing authentic daily content', 850000, 4.2, 92, 87, 'rising', 120000, 8500),
-  ('t1000000-0000-0000-0000-000000000002', 'Jake Torres', 'jake@creator.example.com', 'youtube', 'tech', 'mid', 'Seattle, WA', 'Tech reviewer and early adopter', 420000, 6.8, 96, 91, 'rising', 85000, 5000),
-  ('t1000000-0000-0000-0000-000000000003', 'Aisha Patel', 'aisha@creator.example.com', 'tiktok', 'fitness', 'macro', 'Chicago, IL', 'Certified personal trainer and motivational creator', 1200000, 8.1, 98, 94, 'rising', 350000, 12000),
-  ('t1000000-0000-0000-0000-000000000004', 'Sam Rivers', 'sam@creator.example.com', 'instagram', 'beauty', 'mid', 'Miami, FL', 'Beauty educator and product reviewer', 380000, 5.6, 95, 82, 'stable', 65000, 4000),
-  ('t1000000-0000-0000-0000-000000000005', 'Leo Martinez', 'leo@creator.example.com', 'youtube', 'gaming', 'macro', 'Austin, TX', 'Gaming content creator and streamer', 920000, 7.2, 88, 85, 'rising', 280000, 9000),
-  ('t1000000-0000-0000-0000-000000000006', 'Priya Sharma', 'priya@creator.example.com', 'instagram', 'food', 'micro', 'Portland, OR', 'Food blogger and recipe developer', 95000, 9.4, 99, 88, 'rising', 18000, 1500),
-  ('t1000000-0000-0000-0000-000000000007', 'Ryan Walsh', 'ryan@creator.example.com', 'tiktok', 'education', 'mid', 'Boston, MA', 'EdTech creator making learning fun', 310000, 11.2, 97, 93, 'rising', 95000, 3500),
-  ('t1000000-0000-0000-0000-000000000008', 'Zoe Campbell', 'zoe@creator.example.com', 'instagram', 'travel', 'micro', 'Nashville, TN', 'Travel photographer and adventure seeker', 78000, 7.8, 94, 79, 'stable', 12000, 1200)
+  ('01000000-0000-0000-0000-000000000001', 'Mia Chen', 'mia@creator.example.com', 'instagram', 'lifestyle', 'macro', 'Los Angeles, CA', 'Lifestyle creator sharing authentic daily content', 850000, 4.2, 92, 87, 'rising', 120000, 8500),
+  ('01000000-0000-0000-0000-000000000002', 'Jake Torres', 'jake@creator.example.com', 'youtube', 'tech', 'mid', 'Seattle, WA', 'Tech reviewer and early adopter', 420000, 6.8, 96, 91, 'rising', 85000, 5000),
+  ('01000000-0000-0000-0000-000000000003', 'Aisha Patel', 'aisha@creator.example.com', 'tiktok', 'fitness', 'macro', 'Chicago, IL', 'Certified personal trainer and motivational creator', 1200000, 8.1, 98, 94, 'rising', 350000, 12000),
+  ('01000000-0000-0000-0000-000000000004', 'Sam Rivers', 'sam@creator.example.com', 'instagram', 'beauty', 'mid', 'Miami, FL', 'Beauty educator and product reviewer', 380000, 5.6, 95, 82, 'stable', 65000, 4000),
+  ('01000000-0000-0000-0000-000000000005', 'Leo Martinez', 'leo@creator.example.com', 'youtube', 'gaming', 'macro', 'Austin, TX', 'Gaming content creator and streamer', 920000, 7.2, 88, 85, 'rising', 280000, 9000),
+  ('01000000-0000-0000-0000-000000000006', 'Priya Sharma', 'priya@creator.example.com', 'instagram', 'food', 'micro', 'Portland, OR', 'Food blogger and recipe developer', 95000, 9.4, 99, 88, 'rising', 18000, 1500),
+  ('01000000-0000-0000-0000-000000000007', 'Ryan Walsh', 'ryan@creator.example.com', 'tiktok', 'education', 'mid', 'Boston, MA', 'EdTech creator making learning fun', 310000, 11.2, 97, 93, 'rising', 95000, 3500),
+  ('01000000-0000-0000-0000-000000000008', 'Zoe Campbell', 'zoe@creator.example.com', 'instagram', 'travel', 'micro', 'Nashville, TN', 'Travel photographer and adventure seeker', 78000, 7.8, 94, 79, 'stable', 12000, 1200)
 on conflict (id) do nothing;
 
 -- ============================================================
 -- PARTNERSHIPS (8 rows)
 -- ============================================================
 insert into partnerships (id, title, brand_id, talent_id, brand_name, talent_name, status, deal_value, match_score, priority, assigned_to, notes) values
-  ('p1000000-0000-0000-0000-000000000001', 'NovaTech x Mia Chen – Lifestyle Tech Series', 'b1000000-0000-0000-0000-000000000001', 't1000000-0000-0000-0000-000000000001', 'NovaTech', 'Mia Chen', 'active', 45000, 92, 'high', 'sales@partneriq.example.com', '6-part sponsored series launching Q2'),
-  ('p1000000-0000-0000-0000-000000000002', 'FreshBite x Aisha Patel – Nutrition Campaign', 'b1000000-0000-0000-0000-000000000002', 't1000000-0000-0000-0000-000000000003', 'FreshBite Foods', 'Aisha Patel', 'contracted', 38000, 95, 'high', 'sales@partneriq.example.com', 'Meal plan content integration'),
-  ('p1000000-0000-0000-0000-000000000003', 'StyleForward x Mia Chen – Fall Collection Drop', 'b1000000-0000-0000-0000-000000000003', 't1000000-0000-0000-0000-000000000001', 'StyleForward', 'Mia Chen', 'negotiating', 28000, 88, 'medium', NULL, 'Negotiations ongoing on usage rights'),
-  ('p1000000-0000-0000-0000-000000000004', 'GlowSkin x Sam Rivers – Skincare Routine', 'b1000000-0000-0000-0000-000000000004', 't1000000-0000-0000-0000-000000000004', 'GlowSkin', 'Sam Rivers', 'outreach_sent', 18000, 84, 'medium', NULL, 'First outreach sent, awaiting reply'),
-  ('p1000000-0000-0000-0000-000000000005', 'PeakFit x Jake Torres – Tech & Fitness Crossover', 'b1000000-0000-0000-0000-000000000005', 't1000000-0000-0000-0000-000000000002', 'PeakFit', 'Jake Torres', 'researching', 22000, 79, 'medium', NULL, 'Reviewing tech fitness content fit'),
-  ('p1000000-0000-0000-0000-000000000006', 'NovaTech x Leo Martinez – Gaming Peripherals', 'b1000000-0000-0000-0000-000000000001', 't1000000-0000-0000-0000-000000000005', 'NovaTech', 'Leo Martinez', 'discovered', 55000, 91, 'high', NULL, 'High priority gaming segment opportunity'),
-  ('p1000000-0000-0000-0000-000000000007', 'FreshBite x Priya Sharma – Recipe Collaboration', 'b1000000-0000-0000-0000-000000000002', 't1000000-0000-0000-0000-000000000006', 'FreshBite Foods', 'Priya Sharma', 'responded', 12000, 96, 'high', NULL, 'Creator very enthusiastic, hot lead'),
-  ('p1000000-0000-0000-0000-000000000008', 'StyleForward x Zoe Campbell – Travel Fashion', 'b1000000-0000-0000-0000-000000000003', 't1000000-0000-0000-0000-000000000008', 'StyleForward', 'Zoe Campbell', 'outreach_pending', 9500, 77, 'low', NULL, 'Draft outreach ready')
+  ('c1000000-0000-0000-0000-000000000001', 'NovaTech x Mia Chen – Lifestyle Tech Series', 'b1000000-0000-0000-0000-000000000001', '01000000-0000-0000-0000-000000000001', 'NovaTech', 'Mia Chen', 'active', 45000, 92, 'high', 'sales@partneriq.example.com', '6-part sponsored series launching Q2'),
+  ('c1000000-0000-0000-0000-000000000002', 'FreshBite x Aisha Patel – Nutrition Campaign', 'b1000000-0000-0000-0000-000000000002', '01000000-0000-0000-0000-000000000003', 'FreshBite Foods', 'Aisha Patel', 'contracted', 38000, 95, 'high', 'sales@partneriq.example.com', 'Meal plan content integration'),
+  ('c1000000-0000-0000-0000-000000000003', 'StyleForward x Mia Chen – Fall Collection Drop', 'b1000000-0000-0000-0000-000000000003', '01000000-0000-0000-0000-000000000001', 'StyleForward', 'Mia Chen', 'negotiating', 28000, 88, 'medium', NULL, 'Negotiations ongoing on usage rights'),
+  ('c1000000-0000-0000-0000-000000000004', 'GlowSkin x Sam Rivers – Skincare Routine', 'b1000000-0000-0000-0000-000000000004', '01000000-0000-0000-0000-000000000004', 'GlowSkin', 'Sam Rivers', 'outreach_sent', 18000, 84, 'medium', NULL, 'First outreach sent, awaiting reply'),
+  ('c1000000-0000-0000-0000-000000000005', 'PeakFit x Jake Torres – Tech & Fitness Crossover', 'b1000000-0000-0000-0000-000000000005', '01000000-0000-0000-0000-000000000002', 'PeakFit', 'Jake Torres', 'researching', 22000, 79, 'medium', NULL, 'Reviewing tech fitness content fit'),
+  ('c1000000-0000-0000-0000-000000000006', 'NovaTech x Leo Martinez – Gaming Peripherals', 'b1000000-0000-0000-0000-000000000001', '01000000-0000-0000-0000-000000000005', 'NovaTech', 'Leo Martinez', 'discovered', 55000, 91, 'high', NULL, 'High priority gaming segment opportunity'),
+  ('c1000000-0000-0000-0000-000000000007', 'FreshBite x Priya Sharma – Recipe Collaboration', 'b1000000-0000-0000-0000-000000000002', '01000000-0000-0000-0000-000000000006', 'FreshBite Foods', 'Priya Sharma', 'responded', 12000, 96, 'high', NULL, 'Creator very enthusiastic, hot lead'),
+  ('c1000000-0000-0000-0000-000000000008', 'StyleForward x Zoe Campbell – Travel Fashion', 'b1000000-0000-0000-0000-000000000003', '01000000-0000-0000-0000-000000000008', 'StyleForward', 'Zoe Campbell', 'outreach_pending', 9500, 77, 'low', NULL, 'Draft outreach ready')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- MARKETPLACE OPPORTUNITIES (5 rows)
 -- ============================================================
 insert into marketplace_opportunities (id, title, brand_name, brand_id, description, status, contract_type, budget_min, budget_max, required_niches, required_platforms, target_audience_size_min, deliverables, timeline_end) values
-  ('o1000000-0000-0000-0000-000000000001', 'Tech Product Launch – Q2 2026', 'NovaTech', 'b1000000-0000-0000-0000-000000000001', 'Looking for tech-savvy creators to launch our new smart home device line', 'published', 'sponsored_post', 5000, 15000, '["tech","lifestyle"]', '["youtube","instagram"]', 100000, '["2 YouTube videos","4 Instagram posts","8 Stories"]', '2026-05-31'),
-  ('o1000000-0000-0000-0000-000000000002', 'Healthy Eating Month Campaign', 'FreshBite Foods', 'b1000000-0000-0000-0000-000000000002', 'Partner with us to promote clean, nutritious eating habits', 'published', 'ambassador', 2000, 8000, '["fitness","food","lifestyle"]', '["instagram","tiktok"]', 50000, '["8 TikTok videos","12 Instagram posts"]', '2026-04-30'),
-  ('o1000000-0000-0000-0000-000000000003', 'Summer Streetwear Collection', 'StyleForward', 'b1000000-0000-0000-0000-000000000003', 'Feature our new summer collection in your content', 'published', 'gifting_plus_fee', 1500, 6000, '["fashion","lifestyle"]', '["instagram","tiktok"]', 30000, '["6 Instagram posts","10 Stories","3 Reels"]', '2026-06-15'),
-  ('o1000000-0000-0000-0000-000000000004', 'Clean Beauty Skincare Routine Series', 'GlowSkin', 'b1000000-0000-0000-0000-000000000004', 'Show your audience your skincare routine with our products', 'published', 'sponsored_post', 3000, 10000, '["beauty","wellness","lifestyle"]', '["instagram","youtube"]', 75000, '["3 YouTube videos","6 Instagram posts"]', '2026-05-01'),
-  ('o1000000-0000-0000-0000-000000000005', 'Fitness Challenge Series', 'PeakFit', 'b1000000-0000-0000-0000-000000000005', '30-day fitness challenge featuring our equipment', 'published', 'ambassador', 4000, 12000, '["fitness","sports","health"]', '["instagram","tiktok","youtube"]', 80000, '["30-day daily Stories","4 long-form videos"]', '2026-07-01')
+  ('d1000000-0000-0000-0000-000000000001', 'Tech Product Launch – Q2 2026', 'NovaTech', 'b1000000-0000-0000-0000-000000000001', 'Looking for tech-savvy creators to launch our new smart home device line', 'published', 'sponsored_post', 5000, 15000, '["tech","lifestyle"]', '["youtube","instagram"]', 100000, '["2 YouTube videos","4 Instagram posts","8 Stories"]', '2026-05-31'),
+  ('d1000000-0000-0000-0000-000000000002', 'Healthy Eating Month Campaign', 'FreshBite Foods', 'b1000000-0000-0000-0000-000000000002', 'Partner with us to promote clean, nutritious eating habits', 'published', 'ambassador', 2000, 8000, '["fitness","food","lifestyle"]', '["instagram","tiktok"]', 50000, '["8 TikTok videos","12 Instagram posts"]', '2026-04-30'),
+  ('d1000000-0000-0000-0000-000000000003', 'Summer Streetwear Collection', 'StyleForward', 'b1000000-0000-0000-0000-000000000003', 'Feature our new summer collection in your content', 'published', 'gifting_plus_fee', 1500, 6000, '["fashion","lifestyle"]', '["instagram","tiktok"]', 30000, '["6 Instagram posts","10 Stories","3 Reels"]', '2026-06-15'),
+  ('d1000000-0000-0000-0000-000000000004', 'Clean Beauty Skincare Routine Series', 'GlowSkin', 'b1000000-0000-0000-0000-000000000004', 'Show your audience your skincare routine with our products', 'published', 'sponsored_post', 3000, 10000, '["beauty","wellness","lifestyle"]', '["instagram","youtube"]', 75000, '["3 YouTube videos","6 Instagram posts"]', '2026-05-01'),
+  ('d1000000-0000-0000-0000-000000000005', 'Fitness Challenge Series', 'PeakFit', 'b1000000-0000-0000-0000-000000000005', '30-day fitness challenge featuring our equipment', 'published', 'ambassador', 4000, 12000, '["fitness","sports","health"]', '["instagram","tiktok","youtube"]', 80000, '["30-day daily Stories","4 long-form videos"]', '2026-07-01')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- OPPORTUNITY APPLICATIONS (5 rows)
 -- ============================================================
 insert into opportunity_applications (id, opportunity_id, talent_email, talent_name, status, message) values
-  ('a1000000-0000-0000-0000-000000000001', 'o1000000-0000-0000-0000-000000000002', 'aisha@creator.example.com', 'Aisha Patel', 'accepted', 'I am deeply passionate about nutrition and your products align perfectly with my content pillars.'),
-  ('a1000000-0000-0000-0000-000000000002', 'o1000000-0000-0000-0000-000000000003', 'mia@creator.example.com', 'Mia Chen', 'reviewing', 'Fashion and lifestyle are at the core of my content. My audience would love your summer collection!'),
-  ('a1000000-0000-0000-0000-000000000003', 'o1000000-0000-0000-0000-000000000004', 'sam@creator.example.com', 'Sam Rivers', 'pending', 'Clean beauty is my specialty and I would love to feature GlowSkin in my next skincare series.'),
-  ('a1000000-0000-0000-0000-000000000004', 'o1000000-0000-0000-0000-000000000002', 'priya@creator.example.com', 'Priya Sharma', 'pending', 'As a food creator focused on healthy eating, FreshBite is a natural fit for my audience.'),
-  ('a1000000-0000-0000-0000-000000000005', 'o1000000-0000-0000-0000-000000000005', 'aisha@creator.example.com', 'Aisha Patel', 'reviewing', 'Fitness challenges are my specialty. My community has completed 12 challenges with me already.')
+  ('a1000000-0000-0000-0000-000000000001', 'd1000000-0000-0000-0000-000000000002', 'aisha@creator.example.com', 'Aisha Patel', 'accepted', 'I am deeply passionate about nutrition and your products align perfectly with my content pillars.'),
+  ('a1000000-0000-0000-0000-000000000002', 'd1000000-0000-0000-0000-000000000003', 'mia@creator.example.com', 'Mia Chen', 'reviewing', 'Fashion and lifestyle are at the core of my content. My audience would love your summer collection!'),
+  ('a1000000-0000-0000-0000-000000000003', 'd1000000-0000-0000-0000-000000000004', 'sam@creator.example.com', 'Sam Rivers', 'pending', 'Clean beauty is my specialty and I would love to feature GlowSkin in my next skincare series.'),
+  ('a1000000-0000-0000-0000-000000000004', 'd1000000-0000-0000-0000-000000000002', 'priya@creator.example.com', 'Priya Sharma', 'pending', 'As a food creator focused on healthy eating, FreshBite is a natural fit for my audience.'),
+  ('a1000000-0000-0000-0000-000000000005', 'd1000000-0000-0000-0000-000000000005', 'aisha@creator.example.com', 'Aisha Patel', 'reviewing', 'Fitness challenges are my specialty. My community has completed 12 challenges with me already.')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- OUTREACH SEQUENCES (3 rows)
 -- ============================================================
 insert into outreach_sequences (id, name, description, status, partnership_id, target_name, target_email, steps) values
-  ('s1000000-0000-0000-0000-000000000001', 'Tech Creator Cold Outreach', 'Multi-step sequence for approaching tech creators', 'active', 'p1000000-0000-0000-0000-000000000001', 'Mia Chen', 'mia@creator.example.com', '[{"step":1,"type":"email","subject":"Partnership opportunity with NovaTech","status":"sent"},{"step":2,"type":"follow_up","subject":"Following up on NovaTech collab","status":"sent"}]'),
-  ('s1000000-0000-0000-0000-000000000002', 'Fitness Brand Partnership Intro', 'Introduction sequence for fitness brand partnerships', 'active', 'p1000000-0000-0000-0000-000000000002', 'Aisha Patel', 'aisha@creator.example.com', '[{"step":1,"type":"email","subject":"FreshBite x Aisha – lets talk nutrition content","status":"sent"}]'),
-  ('s1000000-0000-0000-0000-000000000003', 'Beauty Creator Campaign', 'Outreach for beauty campaign recruitment', 'draft', 'p1000000-0000-0000-0000-000000000004', 'Sam Rivers', 'sam@creator.example.com', '[{"step":1,"type":"email","subject":"GlowSkin partnership opportunity","status":"draft"}]')
+  ('e1000000-0000-0000-0000-000000000001', 'Tech Creator Cold Outreach', 'Multi-step sequence for approaching tech creators', 'active', 'c1000000-0000-0000-0000-000000000001', 'Mia Chen', 'mia@creator.example.com', '[{"step":1,"type":"email","subject":"Partnership opportunity with NovaTech","status":"sent"},{"step":2,"type":"follow_up","subject":"Following up on NovaTech collab","status":"sent"}]'),
+  ('e1000000-0000-0000-0000-000000000002', 'Fitness Brand Partnership Intro', 'Introduction sequence for fitness brand partnerships', 'active', 'c1000000-0000-0000-0000-000000000002', 'Aisha Patel', 'aisha@creator.example.com', '[{"step":1,"type":"email","subject":"FreshBite x Aisha – lets talk nutrition content","status":"sent"}]'),
+  ('e1000000-0000-0000-0000-000000000003', 'Beauty Creator Campaign', 'Outreach for beauty campaign recruitment', 'draft', 'c1000000-0000-0000-0000-000000000004', 'Sam Rivers', 'sam@creator.example.com', '[{"step":1,"type":"email","subject":"GlowSkin partnership opportunity","status":"draft"}]')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- APPROVAL ITEMS (4 rows)
 -- ============================================================
 insert into approval_items (id, title, description, item_type, status, reference_id, brand_name, talent_name, deal_value) values
-  ('ai000000-0000-0000-0000-000000000001', 'Contract Review – NovaTech x Mia Chen', 'Please review and approve the partnership contract', 'contract', 'approved', 'p1000000-0000-0000-0000-000000000001', 'NovaTech', 'Mia Chen', 45000),
-  ('ai000000-0000-0000-0000-000000000002', 'Content Brief – FreshBite x Aisha Patel', 'Review content brief before sending to creator', 'content_brief', 'pending', 'p1000000-0000-0000-0000-000000000002', 'FreshBite Foods', 'Aisha Patel', 38000),
-  ('ai000000-0000-0000-0000-000000000003', 'Payment Approval – $38,000', 'Approve payment release for contracted deal', 'payment', 'pending', 'p1000000-0000-0000-0000-000000000002', 'FreshBite Foods', 'Aisha Patel', 38000),
-  ('ai000000-0000-0000-0000-000000000004', 'Creative Assets Review – StyleForward', 'Review submitted brand assets for usage rights', 'creative', 'revision_requested', 'p1000000-0000-0000-0000-000000000003', 'StyleForward', 'Mia Chen', 28000)
+  ('af000000-0000-0000-0000-000000000001', 'Contract Review – NovaTech x Mia Chen', 'Please review and approve the partnership contract', 'contract', 'approved', 'c1000000-0000-0000-0000-000000000001', 'NovaTech', 'Mia Chen', 45000),
+  ('af000000-0000-0000-0000-000000000002', 'Content Brief – FreshBite x Aisha Patel', 'Review content brief before sending to creator', 'content_brief', 'pending', 'c1000000-0000-0000-0000-000000000002', 'FreshBite Foods', 'Aisha Patel', 38000),
+  ('af000000-0000-0000-0000-000000000003', 'Payment Approval – $38,000', 'Approve payment release for contracted deal', 'payment', 'pending', 'c1000000-0000-0000-0000-000000000002', 'FreshBite Foods', 'Aisha Patel', 38000),
+  ('af000000-0000-0000-0000-000000000004', 'Creative Assets Review – StyleForward', 'Review submitted brand assets for usage rights', 'creative', 'revision_requested', 'c1000000-0000-0000-0000-000000000003', 'StyleForward', 'Mia Chen', 28000)
 on conflict (id) do nothing;
 
 -- ============================================================
 -- DEAL NOTES (4 rows)
 -- ============================================================
 insert into deal_notes (id, partnership_id, content, note_type, author_name) values
-  ('dn000000-0000-0000-0000-000000000001', 'p1000000-0000-0000-0000-000000000001', 'Had a great kickoff call with Mia. She is very enthusiastic about the tech angle. Content calendar locked in.', 'call', 'Alex Rivera'),
-  ('dn000000-0000-0000-0000-000000000002', 'p1000000-0000-0000-0000-000000000002', 'Contract signed. Shooting starts next week. Deliverables agreed: 8 TikToks + 6 IG posts.', 'note', 'Jordan Lee'),
-  ('dn000000-0000-0000-0000-000000000003', 'p1000000-0000-0000-0000-000000000003', 'StyleForward requested exclusivity clause. Need legal review before we can proceed.', 'note', 'Morgan Chen'),
-  ('dn000000-0000-0000-0000-000000000004', 'p1000000-0000-0000-0000-000000000007', 'Priya responded within 2 hours! Very interested. Scheduling discovery call for Monday.', 'email', 'Jordan Lee')
+  ('de000000-0000-0000-0000-000000000001', 'c1000000-0000-0000-0000-000000000001', 'Had a great kickoff call with Mia. She is very enthusiastic about the tech angle. Content calendar locked in.', 'call', 'Alex Rivera'),
+  ('de000000-0000-0000-0000-000000000002', 'c1000000-0000-0000-0000-000000000002', 'Contract signed. Shooting starts next week. Deliverables agreed: 8 TikToks + 6 IG posts.', 'note', 'Jordan Lee'),
+  ('de000000-0000-0000-0000-000000000003', 'c1000000-0000-0000-0000-000000000003', 'StyleForward requested exclusivity clause. Need legal review before we can proceed.', 'note', 'Morgan Chen'),
+  ('de000000-0000-0000-0000-000000000004', 'c1000000-0000-0000-0000-000000000007', 'Priya responded within 2 hours! Very interested. Scheduling discovery call for Monday.', 'email', 'Jordan Lee')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- TASKS (4 rows)
 -- ============================================================
 insert into tasks (id, title, status, priority, partnership_id, assigned_to_email, due_date) values
-  ('tk000000-0000-0000-0000-000000000001', 'Send content brief to Mia Chen', 'done', 'high', 'p1000000-0000-0000-0000-000000000001', 'alex@partneriq.example.com', '2026-03-15'),
-  ('tk000000-0000-0000-0000-000000000002', 'Review contract for FreshBite deal', 'in_progress', 'urgent', 'p1000000-0000-0000-0000-000000000002', 'legal@partneriq.example.com', '2026-03-10'),
-  ('tk000000-0000-0000-0000-000000000003', 'Follow up with StyleForward on usage rights', 'todo', 'high', 'p1000000-0000-0000-0000-000000000003', 'morgan@partneriq.example.com', '2026-03-12'),
-  ('tk000000-0000-0000-0000-000000000004', 'Schedule discovery call with Priya Sharma', 'todo', 'medium', 'p1000000-0000-0000-0000-000000000007', 'jordan@partneriq.example.com', '2026-03-11')
+  ('f0000000-0000-0000-0000-000000000001', 'Send content brief to Mia Chen', 'done', 'high', 'c1000000-0000-0000-0000-000000000001', 'alex@partneriq.example.com', '2026-03-15'),
+  ('f0000000-0000-0000-0000-000000000002', 'Review contract for FreshBite deal', 'in_progress', 'urgent', 'c1000000-0000-0000-0000-000000000002', 'legal@partneriq.example.com', '2026-03-10'),
+  ('f0000000-0000-0000-0000-000000000003', 'Follow up with StyleForward on usage rights', 'todo', 'high', 'c1000000-0000-0000-0000-000000000003', 'morgan@partneriq.example.com', '2026-03-12'),
+  ('f0000000-0000-0000-0000-000000000004', 'Schedule discovery call with Priya Sharma', 'todo', 'medium', 'c1000000-0000-0000-0000-000000000007', 'jordan@partneriq.example.com', '2026-03-11')
 on conflict (id) do nothing;
 
 -- ============================================================
 -- ACTIVITIES (5 rows)
 -- ============================================================
 insert into activities (id, action, description, resource_type, resource_id, actor_name) values
-  ('ac000000-0000-0000-0000-000000000001', 'deal_created', 'New deal created: NovaTech x Mia Chen', 'partnership', 'p1000000-0000-0000-0000-000000000001', 'Alex Rivera'),
-  ('ac000000-0000-0000-0000-000000000002', 'stage_change', 'Deal moved to Active: FreshBite x Aisha Patel', 'partnership', 'p1000000-0000-0000-0000-000000000002', 'Jordan Lee'),
-  ('ac000000-0000-0000-0000-000000000003', 'note_added', 'New note added on StyleForward negotiation', 'partnership', 'p1000000-0000-0000-0000-000000000003', 'Morgan Chen'),
-  ('ac000000-0000-0000-0000-000000000004', 'email_sent', 'Outreach email sent to GlowSkin', 'partnership', 'p1000000-0000-0000-0000-000000000004', 'Taylor Kim'),
-  ('ac000000-0000-0000-0000-000000000005', 'creator_replied', 'Priya Sharma replied to outreach!', 'partnership', 'p1000000-0000-0000-0000-000000000007', 'Jordan Lee')
+  ('ac000000-0000-0000-0000-000000000001', 'deal_created', 'New deal created: NovaTech x Mia Chen', 'partnership', 'c1000000-0000-0000-0000-000000000001', 'Alex Rivera'),
+  ('ac000000-0000-0000-0000-000000000002', 'stage_change', 'Deal moved to Active: FreshBite x Aisha Patel', 'partnership', 'c1000000-0000-0000-0000-000000000002', 'Jordan Lee'),
+  ('ac000000-0000-0000-0000-000000000003', 'note_added', 'New note added on StyleForward negotiation', 'partnership', 'c1000000-0000-0000-0000-000000000003', 'Morgan Chen'),
+  ('ac000000-0000-0000-0000-000000000004', 'email_sent', 'Outreach email sent to GlowSkin', 'partnership', 'c1000000-0000-0000-0000-000000000004', 'Taylor Kim'),
+  ('ac000000-0000-0000-0000-000000000005', 'creator_replied', 'Priya Sharma replied to outreach!', 'partnership', 'c1000000-0000-0000-0000-000000000007', 'Jordan Lee')
 on conflict (id) do nothing;
 
 -- ============================================================
