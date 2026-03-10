@@ -64,7 +64,7 @@ export default function Settings() {
     <div className="max-w-3xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Settings</h1>
-        <p className="text-sm text-slate-500 mt-1">Manage your account and preferences</p>
+        <p className="text-sm text-slate-500 mt-1">Manage your account and preferences (v2 - local)</p>
       </div>
 
       {/* Profile */}
