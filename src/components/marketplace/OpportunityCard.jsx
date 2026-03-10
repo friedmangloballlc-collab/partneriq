@@ -22,8 +22,16 @@ const formatBudget = (min, max) => {
 };
 
 export default function OpportunityCard({ opportunity, userRole, onApply }) {
-  const platforms = opportunity.required_platforms?.split(",").filter(Boolean) || [];
-  const niches = opportunity.required_niches?.split(",").filter(Boolean) || [];
+  const platforms = Array.isArray(opportunity.required_platforms)
+    ? opportunity.required_platforms
+    : typeof opportunity.required_platforms === 'string'
+      ? opportunity.required_platforms.split(",").filter(Boolean)
+      : [];
+  const niches = Array.isArray(opportunity.required_niches)
+    ? opportunity.required_niches
+    : typeof opportunity.required_niches === 'string'
+      ? opportunity.required_niches.split(",").filter(Boolean)
+      : [];
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
