@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Users, Building2, Handshake, DollarSign, Mail, CheckSquare,
-  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText, PlayCircle
+  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText, PlayCircle,
+  Database, Loader2, AlertCircle
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,80 @@ import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPane
 import AIAgentWidgets from "@/components/dashboard/AIAgentWidgets";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
+import { seedDemoData } from "@/utils/seedDemoData";
+import { queryClientInstance } from "@/lib/query-client";
+import { Progress } from "@/components/ui/progress";
+
+function EmptyStateSeedBanner() {
+  const [seeding, setSeeding] = useState(false);
+  const [progress, setProgress] = useState(null);
+  const [errors, setErrors] = useState([]);
+  const [done, setDone] = useState(false);
+
+  const handleSeed = async () => {
+    setSeeding(true);
+    setErrors([]);
+    setDone(false);
+    sessionStorage.removeItem('partneriq_auto_seed_done');
+    const errs = [];
+    try {
+      await seedDemoData((p) => {
+        setProgress(p);
+        if (p.error) errs.push(p.error);
+      });
+      setErrors(errs);
+      await queryClientInstance.invalidateQueries();
+      setDone(true);
+    } catch (err) {
+      setErrors([...errs, err.message]);
+    } finally {
+      setSeeding(false);
+    }
+  };
+
+  if (done) return null; // banner disappears after successful seed + query refresh
+
+  return (
+    <Card className="border-amber-200 bg-amber-50">
+      <CardContent className="py-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+            <Database className="w-5 h-5 text-amber-600" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-amber-900">No data found</h3>
+            <p className="text-sm text-amber-700 mt-0.5">
+              Your database is empty. Load demo data to explore all platform features — brands, talents, partnerships, marketplace, and more.
+            </p>
+            {progress && seeding && (
+              <div className="mt-3 space-y-1.5">
+                <div className="flex items-center justify-between text-xs text-amber-700">
+                  <span>{progress.label}</span>
+                  <span>{progress.step}/{progress.total}</span>
+                </div>
+                <Progress value={(progress.step / progress.total) * 100} className="h-2" />
+              </div>
+            )}
+            {errors.length > 0 && (
+              <div className="mt-3 rounded border border-red-200 bg-red-50 p-2 space-y-1">
+                <p className="text-xs font-medium text-red-700 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> Errors:</p>
+                {errors.map((e, i) => <p key={i} className="text-xs text-red-600 font-mono">{e}</p>)}
+              </div>
+            )}
+          </div>
+          <Button
+            onClick={handleSeed}
+            disabled={seeding}
+            className="bg-amber-600 hover:bg-amber-700 text-white shrink-0"
+          >
+            {seeding ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
+            {seeding ? 'Loading...' : 'Load Demo Data'}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 function DashboardContent({ user }) {
   const { startTour } = useTour() || {};
@@ -90,6 +165,11 @@ function DashboardContent({ user }) {
           </Button>
         )}
       </div>
+
+      {/* Empty state — show seed button when no data */}
+      {!loadingP && partnerships.length === 0 && brands.length === 0 && talents.length === 0 && (
+        <EmptyStateSeedBanner />
+      )}
 
       {/* Contextual tip for new users */}
       <ContextualTip

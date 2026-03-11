@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
+import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
 
 export default function Settings() {
@@ -19,6 +20,7 @@ export default function Settings() {
   const [seeding, setSeeding] = useState(false);
   const [seedProgress, setSeedProgress] = useState(null);
   const [seedDone, setSeedDone] = useState(false);
+  const [seedErrors, setSeedErrors] = useState([]);
   const [formData, setFormData] = useState({
     company_name: "",
     job_title: "",
@@ -174,22 +176,54 @@ export default function Settings() {
               <Progress value={(seedProgress.step / seedProgress.total) * 100} className="h-2" />
             </div>
           )}
+          {seedErrors.length > 0 && (
+            <div className="rounded-lg border border-red-200 bg-red-50 p-3 space-y-1">
+              <p className="text-sm font-medium text-red-700">Errors during seeding:</p>
+              {seedErrors.map((e, i) => (
+                <p key={i} className="text-xs text-red-600 font-mono">{e}</p>
+              ))}
+            </div>
+          )}
           {seedDone ? (
-            <div className="flex items-center gap-2 text-sm font-medium text-emerald-600">
-              <CheckCircle2 className="w-4 h-4" />
-              Demo data loaded successfully! Refresh the page to see it.
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-sm font-medium text-emerald-600">
+                <CheckCircle2 className="w-4 h-4" />
+                Demo data loaded! All pages have been refreshed.
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={async () => {
+                  setSeedDone(false);
+                  setSeedErrors([]);
+                  setSeedProgress(null);
+                  sessionStorage.removeItem('partneriq_auto_seed_done');
+                }}
+              >
+                Seed Again
+              </Button>
             </div>
           ) : (
             <Button
               onClick={async () => {
                 setSeeding(true);
                 setSeedDone(false);
+                setSeedErrors([]);
+                // Clear the auto-seed flag so it can re-run
+                sessionStorage.removeItem('partneriq_auto_seed_done');
+                const errors = [];
                 try {
-                  await seedDemoData((p) => setSeedProgress(p));
+                  await seedDemoData((p) => {
+                    setSeedProgress(p);
+                    if (p.error) errors.push(p.error);
+                  });
+                  setSeedErrors(errors);
+                  // Invalidate all React Query caches so pages show new data immediately
+                  await queryClientInstance.invalidateQueries();
                   setSeedDone(true);
                 } catch (err) {
                   console.error('Seed error:', err);
-                  alert('Failed to seed data: ' + err.message);
+                  setSeedErrors([...errors, err.message]);
                 } finally {
                   setSeeding(false);
                 }
