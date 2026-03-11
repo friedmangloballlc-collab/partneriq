@@ -58,6 +58,34 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// Separate component for authenticated content so useAutoSeed is never called conditionally
+const AuthenticatedRoutes = ({ authError }) => {
+  // Hook is always called when this component mounts (only rendered for authenticated users)
+  useAutoSeed();
+
+  if (authError?.type === 'user_not_registered') {
+    return <UserNotRegisteredError />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/Dashboard" replace />} />
+      {Object.entries(Pages).map(([path, Page]) => (
+        <Route
+          key={path}
+          path={`/${path}`}
+          element={
+            <LayoutWrapper currentPageName={path}>
+              <Page />
+            </LayoutWrapper>
+          }
+        />
+      ))}
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  );
+};
+
 const AuthenticatedApp = () => {
   const { isAuthenticated, isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
   const location = useLocation();
@@ -89,32 +117,7 @@ const AuthenticatedApp = () => {
     return <Navigate to="/" replace />;
   }
 
-  // Auto-seed database if tables are empty (runs once per session)
-  useAutoSeed();
-
-  if (authError) {
-    if (authError.type === 'user_not_registered') {
-      return <UserNotRegisteredError />;
-    }
-  }
-
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/Dashboard" replace />} />
-      {Object.entries(Pages).map(([path, Page]) => (
-        <Route
-          key={path}
-          path={`/${path}`}
-          element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
-          }
-        />
-      ))}
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
-  );
+  return <AuthenticatedRoutes authError={authError} />;
 };
 
 function App() {

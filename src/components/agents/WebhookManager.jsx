@@ -12,7 +12,7 @@ import {
   AlertCircle,
   Loader2,
   Link,
-  LinkOff,
+  Unlink,
   Bell,
   BellOff,
   Code2,
@@ -327,7 +327,7 @@ export default function WebhookManager() {
                       {wh.enabled ? (
                         <Link className="h-4 w-4 text-green-500 shrink-0" />
                       ) : (
-                        <LinkOff className="h-4 w-4 text-gray-400 shrink-0" />
+                        <Unlink className="h-4 w-4 text-gray-400 shrink-0" />
                       )}
                       <span className="font-medium text-sm truncate">{wh.name}</span>
                     </div>

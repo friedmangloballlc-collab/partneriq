@@ -7,7 +7,7 @@ import {
   Music2,
   RefreshCw,
   Link,
-  LinkOff,
+  Unlink,
   Eye,
   EyeOff,
   Save,
@@ -349,7 +349,7 @@ export default function SocialMediaIntegrations() {
                           </Badge>
                         ) : (
                           <Badge variant="outline" className="text-[10px] text-gray-400 px-2 py-0">
-                            <LinkOff className="w-2.5 h-2.5 mr-1" />
+                            <Unlink className="w-2.5 h-2.5 mr-1" />
                             Not Connected
                           </Badge>
                         )}
