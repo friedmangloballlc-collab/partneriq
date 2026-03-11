@@ -61,7 +61,7 @@ class ErrorBoundary extends React.Component {
 // Separate component for authenticated content so useAutoSeed is never called conditionally
 const AuthenticatedRoutes = ({ authError }) => {
   // Hook is always called when this component mounts (only rendered for authenticated users)
-  const { seeding, seeded } = useAutoSeed();
+  const { seeding, seeded, error: seedError } = useAutoSeed();
 
   if (authError?.type === 'user_not_registered') {
     return <UserNotRegisteredError />;

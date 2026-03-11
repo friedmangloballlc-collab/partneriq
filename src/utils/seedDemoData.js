@@ -15,13 +15,16 @@ export async function seedDemoData(onProgress) {
   if (!user) throw new Error('Must be logged in to seed data');
   const uid = user.id;
 
-  const report = (step, total, label) => onProgress?.({ step, total, label });
+  const report = (step, total, label, error) => onProgress?.({ step, total, label, error });
   const totalSteps = 23;
   let step = 0;
 
   async function safeInsert(table, rows) {
     const { error } = await supabase.from(table).upsert(rows, { onConflict: 'id', ignoreDuplicates: true });
-    if (error) console.warn(`seed ${table}:`, error.message);
+    if (error) {
+      console.error(`[seed] ${table} FAILED:`, error.message);
+      report(step, totalSteps, `ERROR seeding ${table}: ${error.message}`, error.message);
+    }
   }
 
   // 1. Brands
@@ -153,70 +156,70 @@ export async function seedDemoData(onProgress) {
   ], { onConflict: 'id', ignoreDuplicates: true });
   if (nErr) console.warn('seed notifications:', nErr.message);
 
-  // 13. Rate Benchmarks
+  // 13. Rate Benchmarks (stable IDs prevent duplicates on re-seed)
   report(++step, totalSteps, 'Seeding rate benchmarks...');
   await safeInsert('rate_benchmarks', [
-    { tier: 'nano', followers_min: 1000, followers_max: 10000, sponsored_post_min: 100, sponsored_post_max: 500, brand_deal_min: 250, brand_deal_max: 1000, ambassador_annual_min: 1200, ambassador_annual_max: 6000, platform: 'instagram', niche: 'all', avg_rate: 250, min_rate: 100, max_rate: 500 },
-    { tier: 'micro', followers_min: 10000, followers_max: 50000, sponsored_post_min: 500, sponsored_post_max: 2000, brand_deal_min: 1000, brand_deal_max: 5000, ambassador_annual_min: 6000, ambassador_annual_max: 24000, platform: 'instagram', niche: 'all', avg_rate: 1100, min_rate: 500, max_rate: 2000 },
-    { tier: 'mid-micro', followers_min: 50000, followers_max: 100000, sponsored_post_min: 2000, sponsored_post_max: 5000, brand_deal_min: 3000, brand_deal_max: 10000, ambassador_annual_min: 12000, ambassador_annual_max: 48000, platform: 'instagram', niche: 'all', avg_rate: 3500, min_rate: 2000, max_rate: 5000 },
-    { tier: 'mid', followers_min: 100000, followers_max: 250000, sponsored_post_min: 5000, sponsored_post_max: 10000, brand_deal_min: 8000, brand_deal_max: 25000, ambassador_annual_min: 36000, ambassador_annual_max: 96000, platform: 'instagram', niche: 'all', avg_rate: 7500, min_rate: 5000, max_rate: 10000 },
-    { tier: 'mid-macro', followers_min: 250000, followers_max: 500000, sponsored_post_min: 10000, sponsored_post_max: 20000, brand_deal_min: 15000, brand_deal_max: 50000, ambassador_annual_min: 60000, ambassador_annual_max: 180000, platform: 'instagram', niche: 'all', avg_rate: 15000, min_rate: 10000, max_rate: 20000 },
-    { tier: 'macro', followers_min: 500000, followers_max: 1000000, sponsored_post_min: 20000, sponsored_post_max: 50000, brand_deal_min: 30000, brand_deal_max: 100000, ambassador_annual_min: 120000, ambassador_annual_max: 360000, platform: 'instagram', niche: 'all', avg_rate: 35000, min_rate: 20000, max_rate: 50000 },
-    { tier: 'mega', followers_min: 1000000, followers_max: 5000000, sponsored_post_min: 50000, sponsored_post_max: 150000, brand_deal_min: 75000, brand_deal_max: 250000, ambassador_annual_min: 300000, ambassador_annual_max: 900000, platform: 'instagram', niche: 'all', avg_rate: 85000, min_rate: 50000, max_rate: 150000 },
-    { tier: 'celebrity', followers_min: 5000000, followers_max: null, sponsored_post_min: 150000, sponsored_post_max: 500000, brand_deal_min: 250000, brand_deal_max: 1000000, ambassador_annual_min: 600000, ambassador_annual_max: 3000000, platform: 'instagram', niche: 'all', avg_rate: 250000, min_rate: 150000, max_rate: 500000 },
-    { tier: 'micro', followers_min: 10000, followers_max: 100000, sponsored_post_min: 800, sponsored_post_max: 4000, brand_deal_min: 1500, brand_deal_max: 8000, ambassador_annual_min: 9600, ambassador_annual_max: 36000, platform: 'tiktok', niche: 'fitness', avg_rate: 2200, min_rate: 800, max_rate: 4000 },
-    { tier: 'mid', followers_min: 100000, followers_max: 500000, sponsored_post_min: 3000, sponsored_post_max: 9000, brand_deal_min: 5000, brand_deal_max: 20000, ambassador_annual_min: 30000, ambassador_annual_max: 84000, platform: 'youtube', niche: 'tech', avg_rate: 5500, min_rate: 3000, max_rate: 9000 },
-    { tier: 'macro', followers_min: 500000, followers_max: 2000000, sponsored_post_min: 7000, sponsored_post_max: 25000, brand_deal_min: 12000, brand_deal_max: 60000, ambassador_annual_min: 72000, ambassador_annual_max: 240000, platform: 'youtube', niche: 'gaming', avg_rate: 14000, min_rate: 7000, max_rate: 25000 },
+    { id: 'rb000000-0000-0000-0000-000000000001', tier: 'nano', followers_min: 1000, followers_max: 10000, sponsored_post_min: 100, sponsored_post_max: 500, brand_deal_min: 250, brand_deal_max: 1000, ambassador_annual_min: 1200, ambassador_annual_max: 6000, platform: 'instagram', niche: 'all', avg_rate: 250, min_rate: 100, max_rate: 500 },
+    { id: 'rb000000-0000-0000-0000-000000000002', tier: 'micro', followers_min: 10000, followers_max: 50000, sponsored_post_min: 500, sponsored_post_max: 2000, brand_deal_min: 1000, brand_deal_max: 5000, ambassador_annual_min: 6000, ambassador_annual_max: 24000, platform: 'instagram', niche: 'all', avg_rate: 1100, min_rate: 500, max_rate: 2000 },
+    { id: 'rb000000-0000-0000-0000-000000000003', tier: 'mid-micro', followers_min: 50000, followers_max: 100000, sponsored_post_min: 2000, sponsored_post_max: 5000, brand_deal_min: 3000, brand_deal_max: 10000, ambassador_annual_min: 12000, ambassador_annual_max: 48000, platform: 'instagram', niche: 'all', avg_rate: 3500, min_rate: 2000, max_rate: 5000 },
+    { id: 'rb000000-0000-0000-0000-000000000004', tier: 'mid', followers_min: 100000, followers_max: 250000, sponsored_post_min: 5000, sponsored_post_max: 10000, brand_deal_min: 8000, brand_deal_max: 25000, ambassador_annual_min: 36000, ambassador_annual_max: 96000, platform: 'instagram', niche: 'all', avg_rate: 7500, min_rate: 5000, max_rate: 10000 },
+    { id: 'rb000000-0000-0000-0000-000000000005', tier: 'mid-macro', followers_min: 250000, followers_max: 500000, sponsored_post_min: 10000, sponsored_post_max: 20000, brand_deal_min: 15000, brand_deal_max: 50000, ambassador_annual_min: 60000, ambassador_annual_max: 180000, platform: 'instagram', niche: 'all', avg_rate: 15000, min_rate: 10000, max_rate: 20000 },
+    { id: 'rb000000-0000-0000-0000-000000000006', tier: 'macro', followers_min: 500000, followers_max: 1000000, sponsored_post_min: 20000, sponsored_post_max: 50000, brand_deal_min: 30000, brand_deal_max: 100000, ambassador_annual_min: 120000, ambassador_annual_max: 360000, platform: 'instagram', niche: 'all', avg_rate: 35000, min_rate: 20000, max_rate: 50000 },
+    { id: 'rb000000-0000-0000-0000-000000000007', tier: 'mega', followers_min: 1000000, followers_max: 5000000, sponsored_post_min: 50000, sponsored_post_max: 150000, brand_deal_min: 75000, brand_deal_max: 250000, ambassador_annual_min: 300000, ambassador_annual_max: 900000, platform: 'instagram', niche: 'all', avg_rate: 85000, min_rate: 50000, max_rate: 150000 },
+    { id: 'rb000000-0000-0000-0000-000000000008', tier: 'celebrity', followers_min: 5000000, followers_max: null, sponsored_post_min: 150000, sponsored_post_max: 500000, brand_deal_min: 250000, brand_deal_max: 1000000, ambassador_annual_min: 600000, ambassador_annual_max: 3000000, platform: 'instagram', niche: 'all', avg_rate: 250000, min_rate: 150000, max_rate: 500000 },
+    { id: 'rb000000-0000-0000-0000-000000000009', tier: 'micro', followers_min: 10000, followers_max: 100000, sponsored_post_min: 800, sponsored_post_max: 4000, brand_deal_min: 1500, brand_deal_max: 8000, ambassador_annual_min: 9600, ambassador_annual_max: 36000, platform: 'tiktok', niche: 'fitness', avg_rate: 2200, min_rate: 800, max_rate: 4000 },
+    { id: 'rb000000-0000-0000-0000-000000000010', tier: 'mid', followers_min: 100000, followers_max: 500000, sponsored_post_min: 3000, sponsored_post_max: 9000, brand_deal_min: 5000, brand_deal_max: 20000, ambassador_annual_min: 30000, ambassador_annual_max: 84000, platform: 'youtube', niche: 'tech', avg_rate: 5500, min_rate: 3000, max_rate: 9000 },
+    { id: 'rb000000-0000-0000-0000-000000000011', tier: 'macro', followers_min: 500000, followers_max: 2000000, sponsored_post_min: 7000, sponsored_post_max: 25000, brand_deal_min: 12000, brand_deal_max: 60000, ambassador_annual_min: 72000, ambassador_annual_max: 240000, platform: 'youtube', niche: 'gaming', avg_rate: 14000, min_rate: 7000, max_rate: 25000 },
   ]);
 
   // 14. Platform Multipliers
   report(++step, totalSteps, 'Seeding platform multipliers...');
   await safeInsert('platform_multipliers', [
-    { platform: 'instagram', multiplier: 1.00, base_cpm_min: 5.00, base_cpm_max: 12.00, rate_multiplier: 1.00, engagement_benchmark_min: 3.0, engagement_benchmark_max: 6.0, notes: 'Baseline platform - strong visual content, Stories + Reels driving engagement' },
-    { platform: 'tiktok', multiplier: 1.15, base_cpm_min: 3.00, base_cpm_max: 8.00, rate_multiplier: 1.15, engagement_benchmark_min: 6.0, engagement_benchmark_max: 12.0, notes: 'Viral potential - lower CPM but highest organic reach and engagement rates' },
-    { platform: 'youtube', multiplier: 1.30, base_cpm_min: 8.00, base_cpm_max: 20.00, rate_multiplier: 1.30, engagement_benchmark_min: 2.0, engagement_benchmark_max: 5.0, notes: 'Long-form premium - highest CPM, evergreen content with long-tail views' },
-    { platform: 'twitter', multiplier: 0.70, base_cpm_min: 2.00, base_cpm_max: 6.00, rate_multiplier: 0.70, engagement_benchmark_min: 1.0, engagement_benchmark_max: 3.0, notes: 'Conversation-driven - lower CPM, best for thought leadership' },
-    { platform: 'linkedin', multiplier: 1.20, base_cpm_min: 12.00, base_cpm_max: 30.00, rate_multiplier: 1.20, engagement_benchmark_min: 2.0, engagement_benchmark_max: 4.0, notes: 'B2B premium - highest CPM, professional audience, high intent' },
-    { platform: 'twitch', multiplier: 1.10, base_cpm_min: 4.00, base_cpm_max: 10.00, rate_multiplier: 1.10, engagement_benchmark_min: 8.0, engagement_benchmark_max: 15.0, notes: 'Live engagement - real-time interaction, strong community loyalty' },
-    { platform: 'facebook', multiplier: 0.80, base_cpm_min: 3.00, base_cpm_max: 9.00, rate_multiplier: 0.80, engagement_benchmark_min: 1.0, engagement_benchmark_max: 3.0, notes: 'Broad reach, declining organic - still largest total user base' },
-    { platform: 'snapchat', multiplier: 0.90, base_cpm_min: 4.00, base_cpm_max: 9.00, rate_multiplier: 0.90, engagement_benchmark_min: 4.0, engagement_benchmark_max: 8.0, notes: 'Gen Z ephemeral - strong AR features, Spotlight for creator discovery' },
+    { id: 'pm000000-0000-0000-0000-000000000001', platform: 'instagram', multiplier: 1.00, base_cpm_min: 5.00, base_cpm_max: 12.00, rate_multiplier: 1.00, engagement_benchmark_min: 3.0, engagement_benchmark_max: 6.0, notes: 'Baseline platform - strong visual content, Stories + Reels driving engagement' },
+    { id: 'pm000000-0000-0000-0000-000000000002', platform: 'tiktok', multiplier: 1.15, base_cpm_min: 3.00, base_cpm_max: 8.00, rate_multiplier: 1.15, engagement_benchmark_min: 6.0, engagement_benchmark_max: 12.0, notes: 'Viral potential - lower CPM but highest organic reach and engagement rates' },
+    { id: 'pm000000-0000-0000-0000-000000000003', platform: 'youtube', multiplier: 1.30, base_cpm_min: 8.00, base_cpm_max: 20.00, rate_multiplier: 1.30, engagement_benchmark_min: 2.0, engagement_benchmark_max: 5.0, notes: 'Long-form premium - highest CPM, evergreen content with long-tail views' },
+    { id: 'pm000000-0000-0000-0000-000000000004', platform: 'twitter', multiplier: 0.70, base_cpm_min: 2.00, base_cpm_max: 6.00, rate_multiplier: 0.70, engagement_benchmark_min: 1.0, engagement_benchmark_max: 3.0, notes: 'Conversation-driven - lower CPM, best for thought leadership' },
+    { id: 'pm000000-0000-0000-0000-000000000005', platform: 'linkedin', multiplier: 1.20, base_cpm_min: 12.00, base_cpm_max: 30.00, rate_multiplier: 1.20, engagement_benchmark_min: 2.0, engagement_benchmark_max: 4.0, notes: 'B2B premium - highest CPM, professional audience, high intent' },
+    { id: 'pm000000-0000-0000-0000-000000000006', platform: 'twitch', multiplier: 1.10, base_cpm_min: 4.00, base_cpm_max: 10.00, rate_multiplier: 1.10, engagement_benchmark_min: 8.0, engagement_benchmark_max: 15.0, notes: 'Live engagement - real-time interaction, strong community loyalty' },
+    { id: 'pm000000-0000-0000-0000-000000000007', platform: 'facebook', multiplier: 0.80, base_cpm_min: 3.00, base_cpm_max: 9.00, rate_multiplier: 0.80, engagement_benchmark_min: 1.0, engagement_benchmark_max: 3.0, notes: 'Broad reach, declining organic - still largest total user base' },
+    { id: 'pm000000-0000-0000-0000-000000000008', platform: 'snapchat', multiplier: 0.90, base_cpm_min: 4.00, base_cpm_max: 9.00, rate_multiplier: 0.90, engagement_benchmark_min: 4.0, engagement_benchmark_max: 8.0, notes: 'Gen Z ephemeral - strong AR features, Spotlight for creator discovery' },
   ]);
 
   // 15. Category Premiums
   report(++step, totalSteps, 'Seeding category premiums...');
   await safeInsert('category_premiums', [
-    { category: 'tech', premium: 20, premium_multiplier: 1.20, rationale: 'Strong brand demand; product launch cycles drive premium rates.' },
-    { category: 'beauty', premium: 15, premium_multiplier: 1.15, rationale: 'Beauty brands compete heavily for creator slots; visual-first content commands premium.' },
-    { category: 'fitness', premium: 18, premium_multiplier: 1.18, rationale: 'Peak demand for fitness creators; wellness economy drives sustained investment.' },
-    { category: 'gaming', premium: 12, premium_multiplier: 1.12, rationale: 'Growing segment; endemic + non-endemic brands increasingly activate in gaming.' },
-    { category: 'food', premium: 10, premium_multiplier: 1.10, rationale: 'Steady demand; CPG brands rely on recipe and taste-test content.' },
-    { category: 'lifestyle', premium: 8, premium_multiplier: 1.08, rationale: 'Broad category; lower premium due to high supply but massive volume of deals.' },
-    { category: 'travel', premium: 5, premium_multiplier: 1.05, rationale: 'Post-pandemic recovery strong; tourism boards returning to creator budgets.' },
-    { category: 'finance', premium: 25, premium_multiplier: 1.25, rationale: 'Regulated space; compliance requirements and high CLV justify top premiums.' },
-    { category: 'education', premium: 15, premium_multiplier: 1.15, rationale: 'EdTech brands willing to pay premium for trust-based creator recommendations.' },
-    { category: 'health', premium: 22, premium_multiplier: 1.22, rationale: 'Telehealth and wellness brands face compliance overhead, pay premium for credibility.' },
-    { category: 'automotive', premium: 18, premium_multiplier: 1.18, rationale: 'High ticket items; brands invest in long-form reviews and experiential content.' },
-    { category: 'entertainment', premium: 10, premium_multiplier: 1.10, rationale: 'Studios and streaming services drive high volume seasonal campaigns.' },
+    { id: 'cp000000-0000-0000-0000-000000000001', category: 'tech', premium: 20, premium_multiplier: 1.20, rationale: 'Strong brand demand; product launch cycles drive premium rates.' },
+    { id: 'cp000000-0000-0000-0000-000000000002', category: 'beauty', premium: 15, premium_multiplier: 1.15, rationale: 'Beauty brands compete heavily for creator slots; visual-first content commands premium.' },
+    { id: 'cp000000-0000-0000-0000-000000000003', category: 'fitness', premium: 18, premium_multiplier: 1.18, rationale: 'Peak demand for fitness creators; wellness economy drives sustained investment.' },
+    { id: 'cp000000-0000-0000-0000-000000000004', category: 'gaming', premium: 12, premium_multiplier: 1.12, rationale: 'Growing segment; endemic + non-endemic brands increasingly activate in gaming.' },
+    { id: 'cp000000-0000-0000-0000-000000000005', category: 'food', premium: 10, premium_multiplier: 1.10, rationale: 'Steady demand; CPG brands rely on recipe and taste-test content.' },
+    { id: 'cp000000-0000-0000-0000-000000000006', category: 'lifestyle', premium: 8, premium_multiplier: 1.08, rationale: 'Broad category; lower premium due to high supply but massive volume of deals.' },
+    { id: 'cp000000-0000-0000-0000-000000000007', category: 'travel', premium: 5, premium_multiplier: 1.05, rationale: 'Post-pandemic recovery strong; tourism boards returning to creator budgets.' },
+    { id: 'cp000000-0000-0000-0000-000000000008', category: 'finance', premium: 25, premium_multiplier: 1.25, rationale: 'Regulated space; compliance requirements and high CLV justify top premiums.' },
+    { id: 'cp000000-0000-0000-0000-000000000009', category: 'education', premium: 15, premium_multiplier: 1.15, rationale: 'EdTech brands willing to pay premium for trust-based creator recommendations.' },
+    { id: 'cp000000-0000-0000-0000-000000000010', category: 'health', premium: 22, premium_multiplier: 1.22, rationale: 'Telehealth and wellness brands face compliance overhead, pay premium for credibility.' },
+    { id: 'cp000000-0000-0000-0000-000000000011', category: 'automotive', premium: 18, premium_multiplier: 1.18, rationale: 'High ticket items; brands invest in long-form reviews and experiential content.' },
+    { id: 'cp000000-0000-0000-0000-000000000012', category: 'entertainment', premium: 10, premium_multiplier: 1.10, rationale: 'Studios and streaming services drive high volume seasonal campaigns.' },
   ]);
 
   // 16. Viewership Tiers
   report(++step, totalSteps, 'Seeding viewership tiers...');
   await safeInsert('viewership_tiers', [
-    { name: 'Nano', min_viewers: 1000, max_viewers: 9999, multiplier: 0.5 },
-    { name: 'Micro', min_viewers: 10000, max_viewers: 99999, multiplier: 0.8 },
-    { name: 'Mid', min_viewers: 100000, max_viewers: 499999, multiplier: 1.0 },
-    { name: 'Macro', min_viewers: 500000, max_viewers: 999999, multiplier: 1.3 },
-    { name: 'Mega', min_viewers: 1000000, max_viewers: 4999999, multiplier: 1.6 },
-    { name: 'Celebrity', min_viewers: 5000000, max_viewers: null, multiplier: 2.0 },
+    { id: 'vt000000-0000-0000-0000-000000000001', name: 'Nano', min_viewers: 1000, max_viewers: 9999, multiplier: 0.5 },
+    { id: 'vt000000-0000-0000-0000-000000000002', name: 'Micro', min_viewers: 10000, max_viewers: 99999, multiplier: 0.8 },
+    { id: 'vt000000-0000-0000-0000-000000000003', name: 'Mid', min_viewers: 100000, max_viewers: 499999, multiplier: 1.0 },
+    { id: 'vt000000-0000-0000-0000-000000000004', name: 'Macro', min_viewers: 500000, max_viewers: 999999, multiplier: 1.3 },
+    { id: 'vt000000-0000-0000-0000-000000000005', name: 'Mega', min_viewers: 1000000, max_viewers: 4999999, multiplier: 1.6 },
+    { id: 'vt000000-0000-0000-0000-000000000006', name: 'Celebrity', min_viewers: 5000000, max_viewers: null, multiplier: 2.0 },
   ]);
 
   // 17. Subscription Plans
   report(++step, totalSteps, 'Seeding subscription plans...');
   await safeInsert('subscription_plans', [
-    { name: 'Free', price: 0, interval: 'monthly', features: ['5 talent searches/month','1 active partnership','Basic analytics'], max_partnerships: 1, max_team_members: 1 },
-    { name: 'Starter', price: 49, interval: 'monthly', features: ['50 talent searches/month','10 active partnerships','AI match engine','Email outreach'], max_partnerships: 10, max_team_members: 3 },
-    { name: 'Pro', price: 149, interval: 'monthly', features: ['Unlimited searches','50 partnerships','Advanced AI','Custom sequences','Analytics dashboard'], max_partnerships: 50, max_team_members: 10 },
-    { name: 'Enterprise', price: 399, interval: 'monthly', features: ['Everything in Pro','Unlimited partnerships','Dedicated success manager','API access','Custom reporting'], max_partnerships: 999999, max_team_members: 999999 },
+    { id: 'sp000000-0000-0000-0000-000000000001', name: 'Free', price: 0, interval: 'monthly', features: ['5 talent searches/month','1 active partnership','Basic analytics'], max_partnerships: 1, max_team_members: 1 },
+    { id: 'sp000000-0000-0000-0000-000000000002', name: 'Starter', price: 49, interval: 'monthly', features: ['50 talent searches/month','10 active partnerships','AI match engine','Email outreach'], max_partnerships: 10, max_team_members: 3 },
+    { id: 'sp000000-0000-0000-0000-000000000003', name: 'Pro', price: 149, interval: 'monthly', features: ['Unlimited searches','50 partnerships','Advanced AI','Custom sequences','Analytics dashboard'], max_partnerships: 50, max_team_members: 10 },
+    { id: 'sp000000-0000-0000-0000-000000000004', name: 'Enterprise', price: 399, interval: 'monthly', features: ['Everything in Pro','Unlimited partnerships','Dedicated success manager','API access','Custom reporting'], max_partnerships: 999999, max_team_members: 999999 },
   ]);
 
   // 18. Culture Events (27 rows)
