@@ -19,6 +19,7 @@ import TalentDashboardPanel from "@/components/dashboard/TalentDashboardPanel";
 import BrandDashboardPanel from "@/components/dashboard/BrandDashboardPanel";
 import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPanel";
 import AIAgentWidgets from "@/components/dashboard/AIAgentWidgets";
+import SmartNextSteps from "@/components/dashboard/SmartNextSteps";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
@@ -155,11 +156,13 @@ function DashboardContent({ user }) {
     <div className="space-y-8">
       {/* Onboarding wizard — shown until user completes all 4 steps */}
       {showWizard && (
-        <OnboardingWizard
-          user={user}
-          onboardingStep={onboardingStep}
-          onComplete={() => setWizardDismissed(true)}
-        />
+        <div id="onboarding-wizard">
+          <OnboardingWizard
+            user={user}
+            onboardingStep={onboardingStep}
+            onComplete={() => setWizardDismissed(true)}
+          />
+        </div>
       )}
 
       {/* Welcome */}
@@ -212,6 +215,9 @@ function DashboardContent({ user }) {
           <StatCard title="Match Score Avg" value={partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0}`} />
         )}
       </div>
+
+      {/* Smart Next Steps — contextual guidance based on user progress */}
+      <SmartNextSteps user={user} onboardingStep={onboardingStep} />
 
       {/* Main content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

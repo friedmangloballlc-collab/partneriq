@@ -789,18 +789,25 @@ Return the top 5 matches.`;
                       <Progress value={match.score} className="mt-2 h-1.5" />
                     </div>
                     <div className="mt-4 flex flex-col gap-2">
-                      <Button
-                        size="sm"
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold"
-                        disabled={creatingDeal === (match.id || match.name)}
-                        onClick={() => handleCreateDeal(match)}
-                      >
-                        {creatingDeal === (match.id || match.name)
-                          ? <Loader2 className="w-3 h-3 mr-1.5 animate-spin" />
-                          : <PlusCircle className="w-3 h-3 mr-1.5" />
-                        }
-                        Create Deal
-                      </Button>
+                      <div className="space-y-1.5">
+                        <Button
+                          size="sm"
+                          className="w-full bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold"
+                          disabled={creatingDeal === (match.id || match.name)}
+                          onClick={() => handleCreateDeal(match)}
+                        >
+                          {creatingDeal === (match.id || match.name)
+                            ? <Loader2 className="w-3 h-3 mr-1.5 animate-spin" />
+                            : <PlusCircle className="w-3 h-3 mr-1.5" />
+                          }
+                          Create Deal
+                        </Button>
+                        {/* Tooltip: what "Create Deal" generates */}
+                        <p className="text-[10px] text-slate-400 leading-relaxed text-center px-1">
+                          Generates Campaign Brief, ROI Projection, Pitch Deck &amp; Outreach Draft — all ready for your review in{" "}
+                          <span className="font-medium text-indigo-500">Approvals</span>
+                        </p>
+                      </div>
                       <Button
                         size="sm"
                         variant="outline"
