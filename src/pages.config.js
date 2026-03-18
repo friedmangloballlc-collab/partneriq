@@ -58,6 +58,7 @@ const PAGES = {
     "WarmIntroNetwork": lazy(() => import('./pages/WarmIntroNetwork')),
     "PitchCompetition": lazy(() => import('./pages/PitchCompetition')),
     "BundleDeals": lazy(() => import('./pages/BundleDeals')),
+    "DealComparison": lazy(() => import('./pages/DealComparison')),
 };
 
 export { PAGES };

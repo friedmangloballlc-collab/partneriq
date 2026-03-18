@@ -9,7 +9,7 @@ const rolePages = {
     'Dashboard', 'Marketplace', 'TalentProfile', 'BrandDashboard', 'MasterCalendar',
     'CultureCalendar', 'MarketIntelligence', 'BrandSpendPrediction', 'DemographicTargeting', 'PlatformOverview',
     'AIFeatures', 'AIAgentsHub', 'AICommandCenter', 'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue',
-    'Brands', 'Partnerships', 'DealAnalytics', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach',
+    'Brands', 'Partnerships', 'DealAnalytics', 'DealComparison', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach',
     'SequenceBuilder', 'Approvals', 'MatchEngine', 'CampaignBriefGenerator',
     'DataImportExport', 'SimulationEngine', 'PitchDeckBuilder', 'Notifications',
     'Teams', 'SystemHealth', 'AIAnalytics', 'SystemArchitecture', 'Integrations', 'BillingHistory',
@@ -20,7 +20,7 @@ const rolePages = {
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
     'BrandDashboard', 'Marketplace', 'MasterCalendar', 'CultureCalendar',
-    'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Partnerships', 'DealAnalytics',
+    'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Partnerships', 'DealAnalytics', 'DealComparison',
     'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'DemographicTargeting', 'CampaignBriefGenerator', 'DataImportExport',
     'SimulationEngine', 'PitchDeckBuilder', 'MarketIntelligence', 'BrandSpendPrediction', 'Teams',
@@ -31,7 +31,7 @@ const rolePages = {
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
     'Marketplace', 'TalentProfile', 'MasterCalendar', 'CultureCalendar',
-    'MarketIntelligence', 'BrandSpendPrediction', 'Brands', 'Partnerships', 'DealAnalytics', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail',
+    'MarketIntelligence', 'BrandSpendPrediction', 'Brands', 'Partnerships', 'DealAnalytics', 'DealComparison', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail',
     'CustomReports', 'TalentAnalytics', 'TalentRevenue', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'CampaignBriefGenerator', 'PitchDeckBuilder', 'Notifications', 'Teams',
     'DemographicTargeting', 'ConnectAccounts', 'Integrations', 'BillingHistory',
@@ -40,7 +40,7 @@ const rolePages = {
   ]),
   agency: new Set([
     'Dashboard', 'Marketplace', 'MasterCalendar', 'CultureCalendar',
-    'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Brands', 'Partnerships', 'DealAnalytics',
+    'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Brands', 'Partnerships', 'DealAnalytics', 'DealComparison',
     'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'CampaignBriefGenerator', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
     'PitchDeckBuilder', 'MarketIntelligence', 'BrandSpendPrediction', 'Teams', 'Integrations',

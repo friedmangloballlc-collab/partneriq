@@ -22,9 +22,13 @@ import {
 import {
   DollarSign, TrendingUp, Users, Award, Plus, BarChart3,
   Sparkles, ArrowUpRight, ArrowDownRight, Minus, Target, Star,
-  RefreshCw, UserX, BookMarked, Repeat,
+  RefreshCw, UserX, BookMarked, Repeat, Share2, Download,
 } from "lucide-react";
 import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
+import NDAGate from "@/components/dataroom/NDAGate";
+import { useAuth } from "@/lib/AuthContext";
+import { exportDataRoomPDF } from "@/lib/watermarkedPdf";
+import { useToast } from "@/components/ui/use-toast";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -132,10 +136,34 @@ const EMPTY_FORM = {
 
 export default function BrandDataRoom() {
   const qc = useQueryClient();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [tab, setTab]           = useState("overview");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm]         = useState(EMPTY_FORM);
   const [rosterTags, setRosterTags] = useState({});
+
+  const ownerEmail  = user?.email || "";
+  const viewerEmail = user?.email || "";
+  const isOwner     = !!user;
+
+  const handleShareLink = () => {
+    const url = `${window.location.origin}/BrandDataRoom?owner=${encodeURIComponent(ownerEmail)}`;
+    navigator.clipboard.writeText(url).then(() => {
+      toast({ title: "Link copied", description: "Share this link to let others view your data room (NDA required)." });
+    });
+  };
+
+  const handleExportPDF = () => {
+    exportDataRoomPDF({
+      roomTitle: "Brand Campaign Intelligence Room",
+      entries,
+      viewerName: user?.full_name || user?.email || "Viewer",
+      viewerEmail: user?.email || "",
+      roomType: "brand_campaigns",
+    });
+    toast({ title: "PDF exported", description: "Your watermarked data room PDF has been downloaded." });
+  };
 
   // ── data fetching ──────────────────────────────────────────────────────────
   const { data: entries = [], isLoading } = useQuery({
@@ -257,7 +285,7 @@ export default function BrandDataRoom() {
     setRosterTags((prev) => ({ ...prev, [talentName]: next }));
   };
 
-  return (
+  const pageContent = (
     <div className="min-h-screen bg-slate-50 p-6">
       {/* header */}
       <div className="flex items-center justify-between mb-8">
@@ -271,6 +299,24 @@ export default function BrandDataRoom() {
           <p className="text-sm text-slate-500 ml-10">Your private campaign history, scored and analyzed</p>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 text-slate-600 hover:text-violet-700 hover:border-violet-300"
+            onClick={handleShareLink}
+          >
+            <Share2 className="w-4 h-4" />
+            Share Data Room
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 text-slate-600 hover:text-violet-700 hover:border-violet-300"
+            onClick={handleExportPDF}
+          >
+            <Download className="w-4 h-4" />
+            Export PDF
+          </Button>
           <DataRoomImporter roomType="brand_campaigns" />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -692,5 +738,11 @@ export default function BrandDataRoom() {
         </TabsContent>
       </Tabs>
     </div>
+  );
+
+  return (
+    <NDAGate ownerEmail={ownerEmail} viewerEmail={viewerEmail} isOwner={isOwner}>
+      {pageContent}
+    </NDAGate>
   );
 }

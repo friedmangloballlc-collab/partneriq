@@ -7,6 +7,8 @@ import { useAuth } from "@/lib/AuthContext";
 import InternationalDealSupport from "@/components/deals/InternationalDealSupport";
 import EscrowPanel from "@/components/deals/EscrowPanel";
 import DisputePanel from "@/components/deals/DisputePanel";
+import ContractScanner from "@/components/deals/ContractScanner";
+import ProofOfPerformance from "@/components/deals/ProofOfPerformance";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -946,6 +948,7 @@ export default function DealDetail() {
             onUpdateMilestone={handleMilestone}
             isUpdating={isUpdating}
           />
+          <ContractScanner />
           <ContentSubmissionPanel
             deal={deal}
             onUpdate={handleUpdate}
@@ -962,6 +965,10 @@ export default function DealDetail() {
             partnershipId={dealId}
             userRole={currentUser?.role}
           />
+          {/* Proof of Performance — shown only when final payment is released */}
+          {deal.final_payment_released && (
+            <ProofOfPerformance deal={deal} />
+          )}
         </div>
 
         {/* RIGHT: 1/3 width */}
