@@ -9,12 +9,11 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import {
   TrendingUp, TrendingDown, Minus, Sparkles, ExternalLink,
-  Mail, Users, Shield, Star, BarChart3, Link2, X, CheckCircle2,
-  RefreshCw, Globe, Heart, Eye, MessageCircle
+  Mail, BarChart3, Link2, X, Globe, Heart, Eye, MessageCircle
 } from "lucide-react";
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer,
-  Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, AreaChart, Area, PieChart, Pie, Cell
+  Tooltip, XAxis, YAxis, CartesianGrid, AreaChart, Area, PieChart, Pie, Cell
 } from "recharts";
 
 function fmt(num) {
@@ -169,7 +168,7 @@ export default function TalentProfileModal({ talent, onClose, onMatch }) {
           </button>
           <div className="flex items-end gap-4">
             <Avatar className="w-20 h-20 ring-4 ring-white/30 shadow-xl flex-shrink-0">
-              {talent.avatar_url && <AvatarImage src={talent.avatar_url} />}
+              {talent.avatar_url && <AvatarImage src={talent.avatar_url} loading="lazy" decoding="async" />}
               <AvatarFallback className="bg-white/20 text-white font-bold text-2xl">{initials}</AvatarFallback>
             </Avatar>
             <div className="flex-1 text-white min-w-0">

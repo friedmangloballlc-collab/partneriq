@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2 } from "lucide-react";
+import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2, Download, Trash2, AlertTriangle } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
 import EmailConnectionManager from "@/components/email/EmailConnectionManager";
@@ -56,6 +56,13 @@ export default function Settings() {
   const [seedDone, setSeedDone] = useState(false);
   const [seedErrors, setSeedErrors] = useState([]);
 
+  // GDPR state
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState(null);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -96,6 +103,52 @@ export default function Settings() {
       setSaving(false);
     }
   });
+
+  // ── GDPR: Export user data ──────────────────────────────────────────────────
+  const handleExportData = async () => {
+    setExporting(true);
+    setExportError(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("exportUserData", { body: {} });
+      if (error) throw error;
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `partneriq-data-export-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Export error:", err);
+      setExportError(err?.message || "Failed to export data. Please try again.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  // ── GDPR: Delete account ──────────────────────────────────────────────────
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmText !== "DELETE MY ACCOUNT") return;
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("deleteUserAccount", {
+        body: { confirm: "DELETE MY ACCOUNT" },
+      });
+      if (error) throw error;
+
+      // Sign out and redirect after successful deletion
+      await supabase.auth.signOut();
+      window.location.href = "/login";
+    } catch (err) {
+      console.error("Delete error:", err);
+      setDeleteError(err?.message || "Failed to delete account. Please try again.");
+      setDeleting(false);
+    }
+  };
 
   const roleInfo = {
     admin: { label: "Administrator", desc: "Full access to all platform features", color: "bg-red-50 text-red-700" },
@@ -332,6 +385,107 @@ export default function Settings() {
               <Switch defaultChecked />
             </div>
           ))}
+        </CardContent>
+      </Card>
+
+      {/* ── GDPR: Export Your Data ─────────────────────────────────── */}
+      <Card className="border-slate-200/60">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center">
+              <Download className="w-5 h-5 text-sky-600" />
+            </div>
+            <div>
+              <CardTitle className="text-base">Export Your Data</CardTitle>
+              <CardDescription>
+                Download a complete copy of all your data stored on this platform (GDPR Article 20)
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-slate-500">
+            This will generate a JSON file containing your profile, partnerships, outreach
+            sequences, emails, tasks, activities, notifications, billing history, and all other
+            records associated with your account.
+          </p>
+          {exportError && (
+            <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+              <p className="text-sm text-red-700">{exportError}</p>
+            </div>
+          )}
+          <Button
+            onClick={handleExportData}
+            disabled={exporting}
+            className="bg-sky-600 hover:bg-sky-700"
+          >
+            {exporting ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Download className="w-4 h-4 mr-2" />
+            )}
+            {exporting ? "Preparing Export..." : "Export My Data"}
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* ── GDPR: Delete Account ───────────────────────────────────── */}
+      <Card className="border-red-300 bg-red-50/30">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
+              <Trash2 className="w-5 h-5 text-red-600" />
+            </div>
+            <div>
+              <CardTitle className="text-base text-red-900">Delete Account</CardTitle>
+              <CardDescription className="text-red-600">
+                Permanently delete your account and all associated data
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3">
+            <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
+            <div className="text-sm text-red-700 space-y-1">
+              <p className="font-medium">This action is irreversible.</p>
+              <p>
+                All of your data will be permanently removed including your profile,
+                partnerships, outreach history, tasks, billing records, and authentication
+                credentials. You will not be able to recover any of this information.
+              </p>
+            </div>
+          </div>
+          <div>
+            <Label htmlFor="delete-confirm" className="text-sm text-red-800">
+              Type <span className="font-mono font-bold">DELETE MY ACCOUNT</span> to confirm
+            </Label>
+            <Input
+              id="delete-confirm"
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              placeholder="DELETE MY ACCOUNT"
+              className="mt-1 border-red-300 focus-visible:ring-red-400"
+            />
+          </div>
+          {deleteError && (
+            <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+              <p className="text-sm text-red-700">{deleteError}</p>
+            </div>
+          )}
+          <Button
+            onClick={handleDeleteAccount}
+            disabled={deleting || deleteConfirmText !== "DELETE MY ACCOUNT"}
+            variant="destructive"
+            className="bg-red-600 hover:bg-red-700 disabled:opacity-50"
+          >
+            {deleting ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Trash2 className="w-4 h-4 mr-2" />
+            )}
+            {deleting ? "Deleting Account..." : "Permanently Delete My Account"}
+          </Button>
         </CardContent>
       </Card>
     </div>

@@ -24,11 +24,14 @@ async function callAnthropic(prompt: string, systemPrompt: string | undefined, m
   for (const m of [...new Set(models)]) {
     const messages: any[] = [{ role: 'user', content: prompt }];
     const body: any = { model: m, max_tokens: maxTokens, temperature, messages };
-    if (systemPrompt) body.system = systemPrompt;
+    // Enable prompt caching for system prompts — 90% cheaper on repeated calls
+    if (systemPrompt) {
+      body.system = [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }];
+    }
 
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-beta': 'prompt-caching-2024-07-31', 'content-type': 'application/json' },
       body: JSON.stringify(body),
     });
 

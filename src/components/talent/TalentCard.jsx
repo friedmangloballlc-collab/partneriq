@@ -48,7 +48,7 @@ export default function TalentCard({ talent, onView, onMatch }) {
       <div className="p-5">
         <div className="flex items-start gap-4">
           <Avatar className={`w-12 h-12 shadow-sm flex-shrink-0 ${talent.is_verified ? 'ring-2 ring-indigo-500 ring-offset-2' : 'ring-2 ring-white'}`}>
-            {talent.avatar_url ? <AvatarImage src={talent.avatar_url} alt={`${talent.name} avatar`} /> : null}
+            {talent.avatar_url ? <AvatarImage src={talent.avatar_url} alt={`${talent.name} avatar`} loading="lazy" decoding="async" /> : null}
             <AvatarFallback className="bg-gradient-to-br from-indigo-400 to-purple-500 text-white font-bold text-sm" aria-label={`${talent.name} initials`}>
               {initials}
             </AvatarFallback>

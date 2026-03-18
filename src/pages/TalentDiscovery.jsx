@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +23,19 @@ const DEFAULT_FILTERS = {
   minFollowers: 0, minEngagement: 0, minBrandSafety: 0, minAlpha: 0,
 };
 
+// Custom hook: debounce a value by the given delay (ms)
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+
 export default function TalentDiscovery() {
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 300);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [viewMode, setViewMode] = useState("grid");
   const [showFilters, setShowFilters] = useState(true);
@@ -33,17 +45,43 @@ export default function TalentDiscovery() {
   const [newTalent, setNewTalent] = useState({ name: "", email: "", primary_platform: "instagram", niche: "tech", tier: "micro" });
   const navigate = useNavigate();
 
+  // Build a server-side query with full-text search + chip filters
+  const fetchTalents = useCallback(async () => {
+    let query = supabase
+      .from("talents")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(200);
+
+    // Full-text search: convert the search string into tsquery-compatible terms
+    if (debouncedSearch.trim()) {
+      const terms = debouncedSearch
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(t => `'${t}'`)
+        .join(" & ");
+      query = query.textSearch("fts", terms);
+    }
+
+    // Chip / select filters applied server-side
+    if (filters.platform !== "all") query = query.eq("primary_platform", filters.platform);
+    if (filters.niche !== "all") query = query.eq("niche", filters.niche);
+    if (filters.tier !== "all") query = query.eq("tier", filters.tier);
+    if (filters.trajectory !== "all") query = query.eq("trajectory", filters.trajectory);
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data || [];
+  }, [debouncedSearch, filters.platform, filters.niche, filters.tier, filters.trajectory]);
+
   const { data: talents = [], isLoading, refetch } = useQuery({
-    queryKey: ["talents"],
-    queryFn: () => base44.entities.Talent.list("-created_date", 200),
+    queryKey: ["talents", debouncedSearch, filters.platform, filters.niche, filters.tier, filters.trajectory],
+    queryFn: fetchTalents,
   });
 
+  // Numeric range filters are still applied client-side for simplicity
   const filtered = talents.filter(t => {
-    if (search && !t.name?.toLowerCase().includes(search.toLowerCase()) && !t.niche?.toLowerCase().includes(search.toLowerCase()) && !t.location?.toLowerCase().includes(search.toLowerCase())) return false;
-    if (filters.platform !== "all" && t.primary_platform !== filters.platform) return false;
-    if (filters.niche !== "all" && t.niche !== filters.niche) return false;
-    if (filters.tier !== "all" && t.tier !== filters.tier) return false;
-    if (filters.trajectory !== "all" && t.trajectory !== filters.trajectory) return false;
     if (filters.minFollowers > 0 && (t.total_followers || 0) < filters.minFollowers) return false;
     if (filters.minEngagement > 0 && (t.engagement_rate || 0) < filters.minEngagement) return false;
     if (filters.minBrandSafety > 0 && (t.brand_safety_score || 0) < filters.minBrandSafety) return false;
