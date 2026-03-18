@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, BarChart, Bar, Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,11 +21,14 @@ import {
 } from "@/components/ui/select";
 import {
   DollarSign, TrendingUp, Users, Award, Plus, BarChart3,
-  Sparkles, ArrowUpRight, ArrowDownRight, Minus, Target, Star,
-  RefreshCw, UserX, BookMarked, Repeat, Share2, Download,
+  Sparkles, ArrowUpRight, ArrowDownRight, Minus, Target,
+  Share2, Download,
 } from "lucide-react";
 import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
 import NDAGate from "@/components/dataroom/NDAGate";
+import BriefParser from "@/components/brand/BriefParser";
+import TalentDataRoomRequest from "@/components/brand/TalentDataRoomRequest";
+import AuditLog from "@/components/dataroom/AuditLog";
 import { useAuth } from "@/lib/AuthContext";
 import { exportDataRoomPDF } from "@/lib/watermarkedPdf";
 import { useToast } from "@/components/ui/use-toast";
@@ -76,6 +79,46 @@ function buildROITrajectory(entries) {
     }));
 }
 
+// ── RBAC config ───────────────────────────────────────────────────────────────
+
+const ROLES = [
+  { value: "cmo",               label: "CMO" },
+  { value: "marketing_manager", label: "Marketing Manager" },
+  { value: "coordinator",       label: "Coordinator" },
+  { value: "agency_partner",    label: "Agency Partner" },
+];
+
+/**
+ * Apply role-based filtering to entries (UI-level MVP).
+ *
+ * CMO             — sees everything
+ * Marketing Mgr   — campaigns only (no AI predictions / score shown externally)
+ * Coordinator     — active campaigns only
+ * Agency Partner  — campaigns where talent_name or notes contain their email tag
+ *                   (MVP: just show all since no tagging yet, same as coordinator)
+ */
+function applyRoleFilter(entries, role, userEmail) {
+  switch (role) {
+    case "cmo":
+      return entries;
+    case "marketing_manager":
+      // Show all campaigns but hide the brief entries
+      return entries.filter((e) => e.entry_type !== "brief");
+    case "coordinator":
+      return entries.filter((e) => e.status === "active");
+    case "agency_partner":
+      // Show entries where the agency is tagged (notes/deliverables contain user email)
+      return entries.filter(
+        (e) =>
+          (e.notes && e.notes.includes(userEmail)) ||
+          (e.deliverables && e.deliverables.includes(userEmail)) ||
+          e.status === "active"
+      );
+    default:
+      return entries;
+  }
+}
+
 // ── sub-components ────────────────────────────────────────────────────────────
 
 function ScoreGauge({ score }) {
@@ -115,7 +158,7 @@ const ROSTER_LABELS = {
   blacklisted: { label: "Blacklisted", color: "bg-rose-100 text-rose-700" },
 };
 
-// ── main component ────────────────────────────────────────────────────────────
+// ── constants ─────────────────────────────────────────────────────────────────
 
 const CAMPAIGN_TYPES = ["Sponsored Content", "Product Launch", "Brand Awareness", "Performance", "Event", "UGC", "Affiliate", "Other"];
 const PLATFORMS      = ["Instagram", "TikTok", "YouTube", "Twitter/X", "LinkedIn", "Twitch", "Podcast", "Multi-Platform", "Other"];
@@ -134,18 +177,40 @@ const EMPTY_FORM = {
   status: "completed",
 };
 
+// ── main component ────────────────────────────────────────────────────────────
+
 export default function BrandDataRoom() {
   const qc = useQueryClient();
   const { user } = useAuth();
   const { toast } = useToast();
-  const [tab, setTab]           = useState("overview");
+
+  const [tab, setTab]               = useState("overview");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [form, setForm]         = useState(EMPTY_FORM);
+  const [form, setForm]             = useState(EMPTY_FORM);
   const [rosterTags, setRosterTags] = useState({});
+  const [viewingRole, setViewingRole] = useState("cmo");
 
   const ownerEmail  = user?.email || "";
   const viewerEmail = user?.email || "";
   const isOwner     = !!user;
+
+  // ── page-load audit log ────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!user?.email) return;
+    supabase
+      .from("activities")
+      .insert({
+        action: "data_room_viewed",
+        resource_type: "brand_data_room",
+        actor_email: user.email,
+        actor_name: user.full_name || user.email,
+        details: "Brand Campaign Intelligence Room opened",
+        metadata: { actor_email: user.email, actor_name: user.full_name || user.email },
+      })
+      .then(({ error }) => {
+        if (error) console.warn("Audit log insert failed:", error.message);
+      });
+  }, [user?.email]); // run once per mount / user change
 
   const handleShareLink = () => {
     const url = `${window.location.origin}/BrandDataRoom?owner=${encodeURIComponent(ownerEmail)}`;
@@ -166,7 +231,7 @@ export default function BrandDataRoom() {
   };
 
   // ── data fetching ──────────────────────────────────────────────────────────
-  const { data: entries = [], isLoading } = useQuery({
+  const { data: rawEntries = [], isLoading } = useQuery({
     queryKey: ["data-room-brand"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -179,6 +244,16 @@ export default function BrandDataRoom() {
       return data || [];
     },
   });
+
+  // Apply role filter
+  const entries = useMemo(
+    () => applyRoleFilter(rawEntries, viewingRole, viewerEmail),
+    [rawEntries, viewingRole, viewerEmail]
+  );
+
+  // Roles that should see AI predictions and score breakdown
+  const showAIPredictions  = viewingRole === "cmo";
+  const showScoreBreakdown = viewingRole === "cmo";
 
   // ── mutations ──────────────────────────────────────────────────────────────
   const addEntry = useMutation({
@@ -288,7 +363,7 @@ export default function BrandDataRoom() {
   const pageContent = (
     <div className="min-h-screen bg-slate-50 p-6">
       {/* header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <div className="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center">
@@ -298,7 +373,7 @@ export default function BrandDataRoom() {
           </div>
           <p className="text-sm text-slate-500 ml-10">Your private campaign history, scored and analyzed</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap justify-end">
           <Button
             variant="outline"
             size="sm"
@@ -318,135 +393,167 @@ export default function BrandDataRoom() {
             Export PDF
           </Button>
           <DataRoomImporter roomType="brand_campaigns" />
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-violet-600 hover:bg-violet-700 text-white gap-2">
-              <Plus className="w-4 h-4" /> Add Campaign
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Log a New Campaign</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4 mt-2">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2">
-                  <Label>Campaign Title</Label>
-                  <Input
-                    placeholder="e.g. Spring Launch with @influencer"
-                    value={form.title}
-                    onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  />
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-violet-600 hover:bg-violet-700 text-white gap-2">
+                <Plus className="w-4 h-4" /> Add Campaign
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Log a New Campaign</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="col-span-2">
+                    <Label>Campaign Title</Label>
+                    <Input
+                      placeholder="e.g. Spring Launch with @influencer"
+                      value={form.title}
+                      onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Talent / Creator Name *</Label>
+                    <Input
+                      required
+                      placeholder="Creator name or handle"
+                      value={form.talent_name}
+                      onChange={(e) => setForm({ ...form, talent_name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Campaign Budget (USD)</Label>
+                    <Input
+                      type="number"
+                      placeholder="0"
+                      value={form.deal_value}
+                      onChange={(e) => setForm({ ...form, deal_value: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Campaign Type</Label>
+                    <Select value={form.deal_type} onValueChange={(v) => setForm({ ...form, deal_type: v })}>
+                      <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
+                      <SelectContent>
+                        {CAMPAIGN_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Platform</Label>
+                    <Select value={form.platform} onValueChange={(v) => setForm({ ...form, platform: v })}>
+                      <SelectTrigger><SelectValue placeholder="Select platform" /></SelectTrigger>
+                      <SelectContent>
+                        {PLATFORMS.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>ROAS (Return on Ad Spend)</Label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      placeholder="e.g. 3.5"
+                      value={form.roas}
+                      onChange={(e) => setForm({ ...form, roas: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Status</Label>
+                    <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        {["completed", "active", "planned", "cancelled"].map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Start Date</Label>
+                    <Input
+                      type="date"
+                      value={form.start_date}
+                      onChange={(e) => setForm({ ...form, start_date: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>End Date</Label>
+                    <Input
+                      type="date"
+                      value={form.end_date}
+                      onChange={(e) => setForm({ ...form, end_date: e.target.value })}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <Label>Deliverables</Label>
+                    <Input
+                      placeholder="e.g. 2 IG reels, 4 stories, 1 YouTube integration"
+                      value={form.deliverables}
+                      onChange={(e) => setForm({ ...form, deliverables: e.target.value })}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <Label>Notes / Results</Label>
+                    <Textarea
+                      placeholder="Campaign results, lessons, or context..."
+                      rows={3}
+                      value={form.notes}
+                      onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label>Talent / Creator Name *</Label>
-                  <Input
-                    required
-                    placeholder="Creator name or handle"
-                    value={form.talent_name}
-                    onChange={(e) => setForm({ ...form, talent_name: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label>Campaign Budget (USD)</Label>
-                  <Input
-                    type="number"
-                    placeholder="0"
-                    value={form.deal_value}
-                    onChange={(e) => setForm({ ...form, deal_value: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label>Campaign Type</Label>
-                  <Select value={form.deal_type} onValueChange={(v) => setForm({ ...form, deal_type: v })}>
-                    <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
-                    <SelectContent>
-                      {CAMPAIGN_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>Platform</Label>
-                  <Select value={form.platform} onValueChange={(v) => setForm({ ...form, platform: v })}>
-                    <SelectTrigger><SelectValue placeholder="Select platform" /></SelectTrigger>
-                    <SelectContent>
-                      {PLATFORMS.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>ROAS (Return on Ad Spend)</Label>
-                  <Input
-                    type="number"
-                    step="0.1"
-                    placeholder="e.g. 3.5"
-                    value={form.roas}
-                    onChange={(e) => setForm({ ...form, roas: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label>Status</Label>
-                  <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {["completed", "active", "planned", "cancelled"].map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>Start Date</Label>
-                  <Input
-                    type="date"
-                    value={form.start_date}
-                    onChange={(e) => setForm({ ...form, start_date: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label>End Date</Label>
-                  <Input
-                    type="date"
-                    value={form.end_date}
-                    onChange={(e) => setForm({ ...form, end_date: e.target.value })}
-                  />
-                </div>
-                <div className="col-span-2">
-                  <Label>Deliverables</Label>
-                  <Input
-                    placeholder="e.g. 2 IG reels, 4 stories, 1 YouTube integration"
-                    value={form.deliverables}
-                    onChange={(e) => setForm({ ...form, deliverables: e.target.value })}
-                  />
-                </div>
-                <div className="col-span-2">
-                  <Label>Notes / Results</Label>
-                  <Textarea
-                    placeholder="Campaign results, lessons, or context..."
-                    rows={3}
-                    value={form.notes}
-                    onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                  />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-                <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white" disabled={addEntry.isPending}>
-                  {addEntry.isPending ? "Saving..." : "Log Campaign"}
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+                <DialogFooter>
+                  <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+                  <Button type="submit" className="bg-violet-600 hover:bg-violet-700 text-white" disabled={addEntry.isPending}>
+                    {addEntry.isPending ? "Saving..." : "Log Campaign"}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
+      {/* ── Role Selector ── */}
+      <div className="mb-6 flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl shadow-sm">
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">
+          Viewing as:
+        </span>
+        <div className="flex gap-2 flex-wrap">
+          {ROLES.map((role) => (
+            <button
+              key={role.value}
+              onClick={() => setViewingRole(role.value)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                viewingRole === role.value
+                  ? "bg-violet-600 text-white border-violet-600 shadow-sm"
+                  : "bg-white text-slate-600 border-slate-200 hover:border-violet-300 hover:text-violet-600"
+              }`}
+            >
+              {role.label}
+            </button>
+          ))}
+        </div>
+        {viewingRole !== "cmo" && (
+          <span className="text-xs text-slate-400 ml-auto">
+            {viewingRole === "marketing_manager" && "Showing campaigns only — AI predictions and score details hidden"}
+            {viewingRole === "coordinator" && "Showing active campaigns only"}
+            {viewingRole === "agency_partner" && "Showing campaigns you are tagged on"}
+          </span>
+        )}
+      </div>
+
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="mb-6 bg-white border border-slate-200">
+        <TabsList className="mb-6 bg-white border border-slate-200 flex-wrap h-auto">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="history">Campaign History</TabsTrigger>
           <TabsTrigger value="roster">Talent Roster</TabsTrigger>
           <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          <TabsTrigger value="brief-parser">Brief Parser</TabsTrigger>
+          <TabsTrigger value="access">Talent Access</TabsTrigger>
+          <TabsTrigger value="audit">Audit Log</TabsTrigger>
         </TabsList>
 
         {/* ── OVERVIEW ── */}
@@ -487,41 +594,43 @@ export default function BrandDataRoom() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Brand Score */}
-            <Card className="border-slate-200/60">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
-                  <Award className="w-4 h-4 text-violet-500" /> Brand Credibility Score
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col items-center gap-4">
-                  <ScoreGauge score={score} />
-                  <div className="w-full space-y-2">
-                    {Object.entries(breakdown).map(([k, v]) => (
-                      <div key={k} className="flex items-center justify-between text-xs">
-                        <span className="capitalize text-slate-500">{k}</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-violet-500 rounded-full"
-                              style={{ width: `${Math.min((v / 30) * 100, 100)}%` }}
-                            />
+            {/* Brand Score — only shown to CMO and marketing_manager */}
+            {showScoreBreakdown && (
+              <Card className="border-slate-200/60">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                    <Award className="w-4 h-4 text-violet-500" /> Brand Credibility Score
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col items-center gap-4">
+                    <ScoreGauge score={score} />
+                    <div className="w-full space-y-2">
+                      {Object.entries(breakdown).map(([k, v]) => (
+                        <div key={k} className="flex items-center justify-between text-xs">
+                          <span className="capitalize text-slate-500">{k}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-violet-500 rounded-full"
+                                style={{ width: `${Math.min((v / 30) * 100, 100)}%` }}
+                              />
+                            </div>
+                            <span className="text-slate-700 font-semibold w-4 text-right">{v}</span>
                           </div>
-                          <span className="text-slate-700 font-semibold w-4 text-right">{v}</span>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    <Badge className="bg-violet-100 text-violet-700 text-xs">
+                      {score >= 70 ? "Premium Brand" : score >= 50 ? "Established" : score >= 30 ? "Growing" : "Getting Started"}
+                    </Badge>
                   </div>
-                  <Badge className="bg-violet-100 text-violet-700 text-xs">
-                    {score >= 70 ? "Premium Brand" : score >= 50 ? "Established" : score >= 30 ? "Growing" : "Getting Started"}
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
 
             {/* ROI Trajectory */}
-            <Card className="col-span-1 lg:col-span-2 border-slate-200/60">
+            <Card className={`border-slate-200/60 ${showScoreBreakdown ? "col-span-1 lg:col-span-2" : "col-span-1 lg:col-span-3"}`}>
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
@@ -575,7 +684,9 @@ export default function BrandDataRoom() {
                 <div className="py-16 text-center text-slate-400 text-sm">Loading campaigns...</div>
               ) : entries.length === 0 ? (
                 <div className="py-16 text-center text-slate-400 text-sm">
-                  No campaigns logged yet. Click "Add Campaign" to get started.
+                  {viewingRole === "coordinator"
+                    ? "No active campaigns found."
+                    : "No campaigns logged yet. Click \"Add Campaign\" to get started."}
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -688,53 +799,80 @@ export default function BrandDataRoom() {
 
         {/* ── AI INSIGHTS ── */}
         <TabsContent value="insights">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {!showAIPredictions ? (
             <Card className="border-slate-200/60">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-violet-500" /> AI Campaign Recommendations
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {aiInsights.map((insight, i) => (
-                  <div key={i} className="flex gap-3 p-3 bg-violet-50/60 rounded-lg border border-violet-100">
-                    <div className="w-5 h-5 rounded-full bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-white text-xs font-bold">{i + 1}</span>
-                    </div>
-                    <p className="text-sm text-slate-700 leading-relaxed">{insight}</p>
-                  </div>
-                ))}
+              <CardContent className="py-16 text-center">
+                <Sparkles className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                <p className="text-slate-500 font-semibold">AI Predictions Restricted</p>
+                <p className="text-sm text-slate-400 mt-1">
+                  Switch to the CMO view to access AI predictions and score details.
+                </p>
               </CardContent>
             </Card>
-
-            <Card className="border-slate-200/60">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-violet-500" /> Campaign Portfolio Summary
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { label: "Total Campaigns", value: stats.count },
-                    { label: "Total Spend", value: fmt(stats.totalSpend) },
-                    { label: "Avg Budget", value: fmt(stats.avgBudget) },
-                    { label: "Avg ROAS", value: `${stats.avgROAS.toFixed(1)}x` },
-                    { label: "Top Campaign Type", value: stats.topType },
-                    { label: "Brand Score", value: `${score}/100` },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="p-3 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 font-medium">{label}</p>
-                      <p className="text-sm font-bold text-slate-800 mt-0.5 truncate">{value}</p>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="border-slate-200/60">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-violet-500" /> AI Campaign Recommendations
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {aiInsights.map((insight, i) => (
+                    <div key={i} className="flex gap-3 p-3 bg-violet-50/60 rounded-lg border border-violet-100">
+                      <div className="w-5 h-5 rounded-full bg-violet-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-white text-xs font-bold">{i + 1}</span>
+                      </div>
+                      <p className="text-sm text-slate-700 leading-relaxed">{insight}</p>
                     </div>
                   ))}
-                </div>
-                <div className="p-3 bg-violet-50 rounded-lg border border-violet-100 text-xs text-violet-700 leading-relaxed">
-                  Advanced ROI modeling and predictive spend optimization available with the Pro plan.
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-slate-200/60">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4 text-violet-500" /> Campaign Portfolio Summary
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { label: "Total Campaigns", value: stats.count },
+                      { label: "Total Spend", value: fmt(stats.totalSpend) },
+                      { label: "Avg Budget", value: fmt(stats.avgBudget) },
+                      { label: "Avg ROAS", value: `${stats.avgROAS.toFixed(1)}x` },
+                      { label: "Top Campaign Type", value: stats.topType },
+                      { label: "Brand Score", value: `${score}/100` },
+                    ].map(({ label, value }) => (
+                      <div key={label} className="p-3 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 font-medium">{label}</p>
+                        <p className="text-sm font-bold text-slate-800 mt-0.5 truncate">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-3 bg-violet-50 rounded-lg border border-violet-100 text-xs text-violet-700 leading-relaxed">
+                    Advanced ROI modeling and predictive spend optimization available with the Pro plan.
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* ── BRIEF PARSER ── */}
+        <TabsContent value="brief-parser" className="space-y-4">
+          <BriefParser onSaved={() => setTab("history")} />
+        </TabsContent>
+
+        {/* ── TALENT ACCESS ── */}
+        <TabsContent value="access" className="space-y-4">
+          <TalentDataRoomRequest />
+        </TabsContent>
+
+        {/* ── AUDIT LOG ── */}
+        <TabsContent value="audit">
+          <AuditLog />
         </TabsContent>
       </Tabs>
     </div>

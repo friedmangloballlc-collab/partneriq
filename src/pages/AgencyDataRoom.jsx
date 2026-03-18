@@ -29,6 +29,11 @@ import NDAGate from "@/components/dataroom/NDAGate";
 import { useAuth } from "@/lib/AuthContext";
 import { exportDataRoomPDF } from "@/lib/watermarkedPdf";
 import { useToast } from "@/components/ui/use-toast";
+import TalentRosterManager from "@/components/agency/TalentRosterManager";
+import ClientCRM from "@/components/agency/ClientCRM";
+import ConflictChecker from "@/components/agency/ConflictChecker";
+import CaseStudyGenerator from "@/components/agency/CaseStudyGenerator";
+import ROIMarginCalculator from "@/components/agency/ROIMarginCalculator";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -439,10 +444,15 @@ export default function AgencyDataRoom() {
       </div>
 
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="mb-6 bg-white border border-slate-200">
+        <TabsList className="mb-6 bg-white border border-slate-200 flex-wrap h-auto gap-y-1">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="clients">Client Engagements</TabsTrigger>
           <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          <TabsTrigger value="roster">Talent Roster</TabsTrigger>
+          <TabsTrigger value="crm">Client CRM</TabsTrigger>
+          <TabsTrigger value="conflicts">Conflict Checker</TabsTrigger>
+          <TabsTrigger value="casestudy">Case Studies</TabsTrigger>
+          <TabsTrigger value="roi">ROI Calculator</TabsTrigger>
         </TabsList>
 
         {/* ── OVERVIEW ── */}
@@ -706,6 +716,32 @@ export default function AgencyDataRoom() {
             </Card>
           </div>
         </TabsContent>
+
+        {/* ── TALENT ROSTER ── */}
+        <TabsContent value="roster">
+          <TalentRosterManager />
+        </TabsContent>
+
+        {/* ── CLIENT CRM ── */}
+        <TabsContent value="crm">
+          <ClientCRM />
+        </TabsContent>
+
+        {/* ── CONFLICT CHECKER ── */}
+        <TabsContent value="conflicts">
+          <ConflictChecker />
+        </TabsContent>
+
+        {/* ── CASE STUDY GENERATOR ── */}
+        <TabsContent value="casestudy">
+          <CaseStudyGenerator />
+        </TabsContent>
+
+        {/* ── ROI MARGIN CALCULATOR ── */}
+        <TabsContent value="roi">
+          <ROIMarginCalculator />
+        </TabsContent>
+
       </Tabs>
     </div>
   );
