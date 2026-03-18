@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import MarketplaceFilters from "@/components/marketplace/MarketplaceFilters.jsx"
 import OpportunityCard from "@/components/marketplace/OpportunityCard.jsx";
 import { EmptyState } from "@/components/ui/empty-state";
 import { CardGridSkeleton, ListSkeleton } from "@/components/ui/loading-skeleton";
+import { calculateFitPercent } from "@/lib/qualityScore";
 
 const STATUS_COLORS = {
   pending: "bg-amber-50 text-amber-700 border-amber-200",
@@ -88,6 +90,23 @@ export default function Marketplace() {
     queryKey: ["allOpportunitiesLookup"],
     queryFn: () => base44.entities.MarketplaceOpportunity.list("-created_date", 500),
     enabled: !!user && user.role !== "admin" && user.role !== "brand",
+  });
+
+  // Talent: load own talent profile to compute Fit % against each opportunity
+  const isTalentRole = !!user && user.role !== "admin" && user.role !== "brand";
+  const { data: talentProfile } = useQuery({
+    queryKey: ["myTalentProfile", user?.email],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("talents")
+        .select("*")
+        .eq("email", user.email)
+        .limit(1)
+        .maybeSingle();
+      if (error) return null;
+      return data;
+    },
+    enabled: isTalentRole && !!user?.email,
   });
 
   // Build a lookup map: opportunity_id → title
@@ -191,6 +210,7 @@ export default function Marketplace() {
                   opportunity={opp}
                   userRole={user.role}
                   onApply={() => navigate(createPageUrl(`OpportunityDetail?id=${opp.id}`))}
+                  fitPercent={isTalentRole && talentProfile ? calculateFitPercent(talentProfile, opp) : undefined}
                 />
               ))}
             </div>

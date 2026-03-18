@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, TrendingDown, Minus, Eye, Sparkles, ShieldCheck } from "lucide-react";
+import { calculateAQS, aqsColorClass } from "@/lib/qualityScore";
 
 const platformColors = {
   instagram: "bg-pink-50 text-pink-700 border-pink-200",
@@ -42,6 +43,8 @@ export default function TalentCard({ talent, onView, onMatch }) {
   const initials = talent.name?.split(" ").map(n => n[0]).join("").toUpperCase() || "?";
   const trajectory = trajectoryIcons[talent.trajectory];
   const TrajectoryIcon = trajectory?.icon || Minus;
+  const aqs = calculateAQS(talent);
+  const aqsColor = aqsColorClass(aqs);
 
   return (
     <Card className="border-slate-200/60 hover:shadow-lg hover:border-slate-300/80 transition-all duration-300 overflow-hidden group">
@@ -93,7 +96,9 @@ export default function TalentCard({ talent, onView, onMatch }) {
           </div>
           <div>
             <p className="text-[10px] text-slate-400 uppercase tracking-wider">Quality</p>
-            <p className="text-sm font-bold text-slate-800 mt-0.5">{talent.audience_quality_score || "—"}</p>
+            <p className={`text-sm font-bold mt-0.5 ${aqs !== null ? aqsColor : "text-slate-400"}`}>
+              {aqs !== null ? aqs : "—"}
+            </p>
           </div>
         </div>
 

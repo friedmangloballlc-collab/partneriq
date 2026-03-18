@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -40,6 +41,7 @@ export default function Partnerships() {
   const [showAdd, setShowAdd] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { data: partnerships = [], isLoading, refetch } = useQuery({
     queryKey: ["partnerships"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 200),
@@ -104,7 +106,7 @@ export default function Partnerships() {
                 </div>
                 <div className="space-y-2.5">
                   {stageDeals.map(deal => (
-                    <Card key={deal.id} className="pipeline-card p-4 border-slate-200/60 cursor-pointer" onClick={() => { setSelectedDeal(deal); setDealTab("notes"); }}>
+                    <Card key={deal.id} className="pipeline-card p-4 border-slate-200/60 cursor-pointer" onClick={() => navigate(`/DealDetail?id=${deal.id}`)}>
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-semibold text-slate-800 truncate">{deal.title}</h4>
@@ -168,7 +170,7 @@ export default function Partnerships() {
       ) : (
         <div className="space-y-2">
           {filtered.map(deal => (
-            <Card key={deal.id} className="p-4 border-slate-200/60">
+            <Card key={deal.id} className="p-4 border-slate-200/60 cursor-pointer hover:border-indigo-200 transition-colors" onClick={() => navigate(`/DealDetail?id=${deal.id}`)}>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-semibold text-slate-800">{deal.title}</h4>
@@ -178,10 +180,12 @@ export default function Partnerships() {
                   <Badge className={`${getStageColor(deal.status)} text-[10px]`}>{stages.find(s => s.key === deal.status)?.label}</Badge>
                   {deal.match_score && <Badge className="bg-indigo-50 text-indigo-700 text-[10px]">{deal.match_score}%</Badge>}
                   {deal.deal_value > 0 && <span className="text-xs font-medium text-slate-600">${(deal.deal_value / 1000).toFixed(0)}K</span>}
-                  <Select value={deal.status} onValueChange={v => moveToStage(deal.id, v)}>
-                    <SelectTrigger className="w-[130px] h-8 text-xs"><SelectValue /></SelectTrigger>
-                    <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
-                  </Select>
+                  <div onClick={e => e.stopPropagation()}>
+                    <Select value={deal.status} onValueChange={v => moveToStage(deal.id, v)}>
+                      <SelectTrigger className="w-[130px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </Card>

@@ -21,6 +21,7 @@ import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPane
 import AIAgentWidgets from "@/components/dashboard/AIAgentWidgets";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
+import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
 import { seedDemoData } from "@/utils/seedDemoData";
 import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
@@ -101,6 +102,12 @@ function DashboardContent({ user }) {
   const role = user?.role || "brand";
   const navigate = useNavigate();
 
+  // Track whether the wizard has been dismissed this session so the
+  // user isn't blocked from the dashboard if they skip all steps.
+  const [wizardDismissed, setWizardDismissed] = useState(false);
+  const onboardingStep = user?.onboarding_step ?? 0;
+  const showWizard = !wizardDismissed && onboardingStep < 4;
+
   const { data: partnerships = [], isLoading: loadingP } = useQuery({
     queryKey: ["partnerships"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 100),
@@ -146,6 +153,15 @@ function DashboardContent({ user }) {
 
   return (
     <div className="space-y-8">
+      {/* Onboarding wizard — shown until user completes all 4 steps */}
+      {showWizard && (
+        <OnboardingWizard
+          user={user}
+          onboardingStep={onboardingStep}
+          onComplete={() => setWizardDismissed(true)}
+        />
+      )}
+
       {/* Welcome */}
       <div className="flex items-start justify-between">
         <div>

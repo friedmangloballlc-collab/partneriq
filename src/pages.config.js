@@ -17,12 +17,15 @@ const PAGES = {
     "Brands": lazy(() => import('./pages/Brands')),
     "CampaignBriefGenerator": lazy(() => import('./pages/CampaignBriefGenerator')),
     "ConnectAccounts": lazy(() => import('./pages/ConnectAccounts')),
+    "ContactFinder": lazy(() => import('./pages/ContactFinder')),
     "CreateOpportunity": lazy(() => import('./pages/CreateOpportunity')),
     "CultureCalendar": lazy(() => import('./pages/CultureCalendar')),
     "CustomReports": lazy(() => import('./pages/CustomReports')),
     "Dashboard": lazy(() => import('./pages/Dashboard')),
     "DataImportExport": lazy(() => import('./pages/DataImportExport')),
     "DealAnalytics": lazy(() => import('./pages/DealAnalytics')),
+    "DealDetail": lazy(() => import('./pages/DealDetail')),
+    "DealScoreLeaderboard": lazy(() => import('./pages/DealScoreLeaderboard')),
     "DemographicTargeting": lazy(() => import('./pages/DemographicTargeting')),
     "EventManagement": lazy(() => import('./pages/EventManagement')),
     "Integrations": lazy(() => import('./pages/Integrations')),
@@ -47,6 +50,9 @@ const PAGES = {
     "TalentProfile": lazy(() => import('./pages/TalentProfile')),
     "TalentRevenue": lazy(() => import('./pages/TalentRevenue')),
     "Teams": lazy(() => import('./pages/Teams')),
+    "TalentDataRoom": lazy(() => import('./pages/TalentDataRoom')),
+    "BrandDataRoom": lazy(() => import('./pages/BrandDataRoom')),
+    "AgencyDataRoom": lazy(() => import('./pages/AgencyDataRoom')),
 };
 
 export { PAGES };

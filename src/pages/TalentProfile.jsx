@@ -20,6 +20,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import PortfolioManager from "@/components/talent/PortfolioManager";
+import MediaKitGenerator from "@/components/talent/MediaKitGenerator";
 
 const COLLABORATION_TYPES = [
   "sponsorship",
@@ -249,6 +250,9 @@ export default function TalentProfile() {
         portfolio={formData.portfolio}
         onChange={(portfolio) => setFormData({ ...formData, portfolio })}
       />
+
+      {/* Media Kit Generator */}
+      <MediaKitGenerator talentData={talentData?.id !== "new" ? talentData : null} />
 
       {/* Actions */}
       <div className="flex gap-2 pt-4 border-t">

@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import DealAIInsights from "@/components/analytics/DealAIInsights";
 import DealPerformanceCharts from "@/components/analytics/DealPerformanceCharts";
@@ -11,10 +12,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   TrendingUp, DollarSign, Handshake, CheckCircle2, XCircle,
-  BarChart3, Target, Clock, Award, ArrowUpRight
+  BarChart3, Target, Clock, Award, ArrowUpRight, Mail, Send, MessageSquare
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import {
+  getOutreachConversionMetrics,
+  getDealValueOverTime,
+} from "@/lib/dealFlowConnectors";
 
 const STAGE_COLORS = {
   discovered:      "#94a3b8",
@@ -58,9 +63,51 @@ function StatCard({ label, value, sub, icon: Icon, color, trend }) {
 }
 
 export default function DealAnalytics() {
+  // ── Partnerships: full set for all existing charts ───────────────────────────
   const { data: partnerships = [], isLoading } = useQuery({
     queryKey: ["partnerships-analytics-page"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 500),
+  });
+
+  // ── Real pipeline summary from Supabase directly ────────────────────────────
+  // Queries partnerships table for active + negotiating deals to compute
+  // live pipeline value, closed revenue, and win rate from real DB rows.
+  const { data: pipelineSummary } = useQuery({
+    queryKey: ["pipeline-summary-supabase"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("partnerships")
+        .select("status, deal_value")
+        .limit(1000);
+      if (!data || data.length === 0) return null;
+
+      const ACTIVE_STATUSES = ["active", "negotiating"];
+      const total = data.length;
+      const completed = data.filter(p => p.status === "completed");
+      const activePipeline = data.filter(p => ACTIVE_STATUSES.includes(p.status));
+
+      return {
+        activePipelineValue: activePipeline.reduce((s, p) => s + (p.deal_value || 0), 0),
+        closedRevenue: completed.reduce((s, p) => s + (p.deal_value || 0), 0),
+        winRate: total > 0 ? Math.round((completed.length / total) * 100) : 0,
+        activeNegotiatingCount: activePipeline.length,
+        totalDeals: total,
+      };
+    },
+  });
+
+  // ── Outreach conversion rates from outreach_emails ───────────────────────────
+  // Derives sent → replied → contracted funnel from actual email status values.
+  const { data: outreachConversion } = useQuery({
+    queryKey: ["outreach-conversion-metrics"],
+    queryFn: () => getOutreachConversionMetrics(supabase),
+  });
+
+  // ── Deal value over time from partnerships.created_at ───────────────────────
+  // Uses Recharts LineChart to render authentic time-series from DB timestamps.
+  const { data: dealValueTimeline = [] } = useQuery({
+    queryKey: ["deal-value-over-time"],
+    queryFn: () => getDealValueOverTime(supabase, 12),
   });
 
   // ── Derived stats ────────────────────────────────────────────────────────────
@@ -181,11 +228,30 @@ export default function DealAnalytics() {
         </Link>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards — top row uses real Supabase pipeline data when available */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total Pipeline Value" value={fmt(stats.pipelineValue)} sub="Active deals" icon={DollarSign} color="bg-indigo-50 text-indigo-600" />
-        <StatCard label="Closed Revenue" value={fmt(stats.completedValue)} sub="Completed deals" icon={CheckCircle2} color="bg-emerald-50 text-emerald-600" />
-        <StatCard label="Win Rate" value={`${stats.winRate}%`} sub={`${stats.completed} of ${stats.total} deals`} icon={Target} color="bg-blue-50 text-blue-600" />
+        <StatCard
+          label="Active Pipeline Value"
+          value={fmt(pipelineSummary?.activePipelineValue ?? stats.pipelineValue)}
+          sub={`${pipelineSummary?.activeNegotiatingCount ?? stats.active} active/negotiating`}
+          icon={DollarSign}
+          color="bg-indigo-50 text-indigo-600"
+          trend={pipelineSummary ? "Live from DB" : undefined}
+        />
+        <StatCard
+          label="Closed Revenue"
+          value={fmt(pipelineSummary?.closedRevenue ?? stats.completedValue)}
+          sub="Completed deals"
+          icon={CheckCircle2}
+          color="bg-emerald-50 text-emerald-600"
+        />
+        <StatCard
+          label="Win Rate"
+          value={`${pipelineSummary?.winRate ?? stats.winRate}%`}
+          sub={`${stats.completed} of ${pipelineSummary?.totalDeals ?? stats.total} deals`}
+          icon={Target}
+          color="bg-blue-50 text-blue-600"
+        />
         <StatCard label="Avg Deal Value" value={fmt(stats.avgDealValue)} sub="Across all deals" icon={TrendingUp} color="bg-amber-50 text-amber-600" />
         <StatCard label="Active Deals" value={stats.active} sub="In-flight" icon={Handshake} color="bg-violet-50 text-violet-600" />
         <StatCard label="Churn Rate" value={`${stats.churnRate}%`} sub={`${stats.churned} churned`} icon={XCircle} color="bg-red-50 text-red-500" />
@@ -193,23 +259,86 @@ export default function DealAnalytics() {
         <StatCard label="In Pipeline" value={stats.pipeline} sub="Not yet closed" icon={Clock} color="bg-slate-100 text-slate-600" />
       </div>
 
-      {/* Monthly Trend */}
-      {monthlyTrend.length > 1 && (
+      {/* Outreach Conversion Funnel — real data from outreach_emails */}
+      {outreachConversion && outreachConversion.sent > 0 && (
         <Card className="border-slate-200/60">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-700">Deal Volume & Value Over Time</CardTitle>
+            <CardTitle className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
+              <Mail className="w-4 h-4 text-blue-500" /> Outreach Conversion Funnel
+            </CardTitle>
+            <p className="text-[11px] text-slate-400">Real email progression: sent → replied → contracted</p>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={220}>
-              <LineChart data={monthlyTrend}>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 rounded-xl bg-blue-50 border border-blue-100">
+                <Send className="w-5 h-5 text-blue-500 mx-auto mb-2" />
+                <p className="text-2xl font-bold text-blue-700">{outreachConversion.sent}</p>
+                <p className="text-xs text-blue-600 mt-1 font-medium">Emails Sent</p>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-amber-50 border border-amber-100">
+                <MessageSquare className="w-5 h-5 text-amber-500 mx-auto mb-2" />
+                <p className="text-2xl font-bold text-amber-700">{outreachConversion.replied}</p>
+                <p className="text-xs text-amber-600 mt-1 font-medium">
+                  Replied
+                  {outreachConversion.replyRate > 0 && (
+                    <span className="ml-1 text-[10px] bg-amber-100 px-1.5 py-0.5 rounded-full">
+                      {outreachConversion.replyRate}%
+                    </span>
+                  )}
+                </p>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto mb-2" />
+                <p className="text-2xl font-bold text-emerald-700">{outreachConversion.contracted}</p>
+                <p className="text-xs text-emerald-600 mt-1 font-medium">
+                  Contracted
+                  {outreachConversion.contractRate > 0 && (
+                    <span className="ml-1 text-[10px] bg-emerald-100 px-1.5 py-0.5 rounded-full">
+                      {outreachConversion.contractRate}%
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Deal Value Over Time — uses real created_at timestamps via getDealValueOverTime */}
+      {(dealValueTimeline.length > 1 || monthlyTrend.length > 1) && (
+        <Card className="border-slate-200/60">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-sm font-semibold text-slate-700">Deal Value Over Time</CardTitle>
+              {dealValueTimeline.length > 1 && (
+                <Badge variant="outline" className="text-[10px] text-emerald-700 border-emerald-200 bg-emerald-50">
+                  Live DB data
+                </Badge>
+              )}
+            </div>
+            <p className="text-[11px] text-slate-400">Cumulative deal value and volume from partnerships.created_at</p>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={240}>
+              <LineChart data={dealValueTimeline.length > 1 ? dealValueTimeline : monthlyTrend}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
                 <YAxis yAxisId="left" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
                 <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} tickFormatter={v => `$${(v / 1000).toFixed(0)}K`} />
-                <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 12 }} formatter={(val, name) => name === "value" ? [fmt(val), "Value"] : [val, name]} />
+                <Tooltip
+                  contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 12 }}
+                  formatter={(val, name) =>
+                    name === "value" ? [fmt(val), "Deal Value"] :
+                    name === "deals" ? [val, "New Deals"] :
+                    name === "completed" ? [val, "Completed"] :
+                    [val, name]
+                  }
+                />
                 <Legend iconSize={10} wrapperStyle={{ fontSize: 11 }} />
-                <Line yAxisId="left" type="monotone" dataKey="deals" stroke="#6366F1" strokeWidth={2.5} dot={{ r: 3 }} name="Deals" />
-                <Line yAxisId="left" type="monotone" dataKey="completed" stroke="#10B981" strokeWidth={2} dot={{ r: 3 }} strokeDasharray="4 3" name="Completed" />
+                <Line yAxisId="left" type="monotone" dataKey="deals" stroke="#6366F1" strokeWidth={2.5} dot={{ r: 3 }} name="deals" />
+                {!dealValueTimeline.length && (
+                  <Line yAxisId="left" type="monotone" dataKey="completed" stroke="#10B981" strokeWidth={2} dot={{ r: 3 }} strokeDasharray="4 3" name="completed" />
+                )}
                 <Line yAxisId="right" type="monotone" dataKey="value" stroke="#F59E0B" strokeWidth={2} dot={{ r: 3 }} name="value" />
               </LineChart>
             </ResponsiveContainer>

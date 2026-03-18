@@ -47,6 +47,9 @@ const ENTITY_TABLE_MAP = {
   ConnectedPlatform: 'connected_platforms',
   PlatformCatalog: 'platform_catalog',
   EmailConnection: 'email_connections',
+  DecisionMaker: 'decision_makers',
+  DataRoomEntry: 'data_room_entries',
+  DealScore: 'deal_scores',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder

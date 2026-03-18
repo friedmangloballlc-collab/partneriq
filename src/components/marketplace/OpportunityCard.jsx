@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, DollarSign, Users, Zap } from "lucide-react";
+import { fitColorClass } from "@/lib/qualityScore";
 
 const contractTypeColors = {
   sponsorship: "bg-blue-100 text-blue-800",
@@ -21,7 +22,7 @@ const formatBudget = (min, max) => {
   return `Up to $${parseInt(max).toLocaleString()}`;
 };
 
-export default function OpportunityCard({ opportunity, userRole, onApply }) {
+export default function OpportunityCard({ opportunity, userRole, onApply, fitPercent }) {
   const platforms = Array.isArray(opportunity.required_platforms)
     ? opportunity.required_platforms
     : typeof opportunity.required_platforms === 'string'
@@ -41,9 +42,25 @@ export default function OpportunityCard({ opportunity, userRole, onApply }) {
             <CardTitle className="text-lg truncate">{opportunity.title}</CardTitle>
             <p className="text-sm text-slate-600 mt-1">{opportunity.brand_name}</p>
           </div>
-          <Badge className={contractTypeColors[opportunity.contract_type]}>
-            {opportunity.contract_type?.replace(/_/g, " ")}
-          </Badge>
+          <div className="flex flex-col items-end gap-1.5 shrink-0">
+            <Badge className={contractTypeColors[opportunity.contract_type]}>
+              {opportunity.contract_type?.replace(/_/g, " ")}
+            </Badge>
+            {fitPercent !== null && fitPercent !== undefined && (
+              <span
+                className={`inline-flex items-center gap-0.5 text-[11px] font-bold px-2 py-0.5 rounded-full border ${
+                  fitPercent >= 75
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                    : fitPercent >= 50
+                    ? "bg-amber-50 text-amber-700 border-amber-200"
+                    : "bg-slate-50 text-slate-500 border-slate-200"
+                }`}
+                title="Fit score: how well your profile matches this opportunity"
+              >
+                {fitPercent}% fit
+              </span>
+            )}
+          </div>
         </div>
       </CardHeader>
 

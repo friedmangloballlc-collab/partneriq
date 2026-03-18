@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import {
-  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb, Target, BrainCircuit, CheckCircle2, AlertCircle, Clock
+  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb, Target, BrainCircuit, CheckCircle2, AlertCircle, Clock, PlusCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -12,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "@/components/ui/use-toast";
 
 // Scoring algorithm constants
 const BRAND_TO_TALENT_FACTORS = [
@@ -63,6 +66,8 @@ export default function MatchEngine() {
   const [showAlgorithm, setShowAlgorithm] = useState(false);
   const [proactiveSuggestions, setProactiveSuggestions] = useState(null);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+  const [creatingDeal, setCreatingDeal] = useState(null);
+  const navigate = useNavigate();
 
   const urlParams = new URLSearchParams(window.location.search);
   const preselectedTalentId = urlParams.get("talentId");
@@ -228,6 +233,54 @@ Return the top 5 matches.`;
       description: `AI match: ${match.name} (${match.score}% score)`,
       resource_type: "partnership",
     });
+  };
+
+  const handleCreateDeal = async (match) => {
+    setCreatingDeal(match.id || match.name);
+    try {
+      const source = matchMode === "brand_to_talent"
+        ? brands.find(b => b.id === selectedBrand)
+        : talents.find(t => t.id === selectedTalent);
+
+      const brandId = matchMode === "brand_to_talent" ? selectedBrand : match.id;
+      const talentId = matchMode === "brand_to_talent" ? match.id : selectedTalent;
+
+      const newDeal = await base44.entities.Partnership.create({
+        title: matchMode === "brand_to_talent"
+          ? `${source?.name} × ${match.name}`
+          : `${match.name} × ${source?.name}`,
+        brand_name: matchMode === "brand_to_talent" ? source?.name : match.name,
+        talent_name: matchMode === "brand_to_talent" ? match.name : source?.name,
+        brand_id: brandId,
+        talent_id: talentId,
+        match_score: match.score,
+        match_reasoning: match.reasoning,
+        partnership_type: match.partnership_type || "sponsorship",
+        status: "pending",
+        priority: match.score >= 85 ? "p1" : match.score >= 70 ? "p2" : "p3",
+      });
+
+      base44.entities.Activity.create({
+        action: "deal_created",
+        description: `Deal created from AI match: ${match.name} (${match.score}% score)`,
+        resource_type: "partnership",
+      });
+
+      toast({
+        title: "Deal created!",
+        description: `Partnership with ${match.name} has been created.`,
+      });
+
+      navigate(createPageUrl("Partnerships") + `?dealId=${newDeal.id}`);
+    } catch (err) {
+      toast({
+        title: "Error creating deal",
+        description: err?.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setCreatingDeal(null);
+    }
   };
 
   return (
@@ -692,13 +745,28 @@ Return the top 5 matches.`;
                       </div>
                       <Progress value={match.score} className="mt-2 h-1.5" />
                     </div>
-                    <Button
-                      size="sm"
-                      className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-xs"
-                      onClick={() => handleCreatePartnership(match)}
-                    >
-                      <ArrowRight className="w-3 h-3 mr-1.5" /> Create Partnership
-                    </Button>
+                    <div className="mt-4 flex flex-col gap-2">
+                      <Button
+                        size="sm"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold"
+                        disabled={creatingDeal === (match.id || match.name)}
+                        onClick={() => handleCreateDeal(match)}
+                      >
+                        {creatingDeal === (match.id || match.name)
+                          ? <Loader2 className="w-3 h-3 mr-1.5 animate-spin" />
+                          : <PlusCircle className="w-3 h-3 mr-1.5" />
+                        }
+                        Create Deal
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full text-xs"
+                        onClick={() => handleCreatePartnership(match)}
+                      >
+                        <ArrowRight className="w-3 h-3 mr-1.5" /> Add to Pipeline
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Card>
