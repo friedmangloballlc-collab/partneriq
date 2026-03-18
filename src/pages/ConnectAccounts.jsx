@@ -153,9 +153,9 @@ export default function ConnectAccounts() {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Connect Your Accounts</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Connect Your Accounts</h1>
         <p className="text-sm text-slate-500 mt-1">
           Link your social platforms to boost your discovery score and earn verified status. Connect multiple accounts per platform.
         </p>
@@ -213,7 +213,7 @@ export default function ConnectAccounts() {
                     <div className="flex items-center gap-2 shrink-0">
                       {conn.verified && <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />}
                       {conn.followers > 0 && <span className="text-xs text-slate-500">{conn.followers.toLocaleString()}</span>}
-                      <button onClick={() => disconnectMutation.mutate(conn.id)} className="text-slate-400 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button>
+                      <button onClick={() => disconnectMutation.mutate(conn.id)} aria-label={`Disconnect ${conn.platform} account @${conn.username || "connected"}`} className="text-slate-400 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" aria-hidden="true" /></button>
                     </div>
                   </div>
                 );
@@ -226,8 +226,8 @@ export default function ConnectAccounts() {
       {/* Category Tabs + Search */}
       <div className="flex flex-col gap-3">
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input placeholder="Search platforms..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
+          <Input placeholder="Search platforms..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" aria-label="Search platforms" />
         </div>
         <Tabs value={category} onValueChange={setCategory}>
           <TabsList className="flex-wrap h-auto gap-1">
@@ -272,7 +272,7 @@ export default function ConnectAccounts() {
                         <span className="text-slate-700 truncate">@{c.username}</span>
                         <div className="flex items-center gap-1 shrink-0">
                           {c.followers > 0 && <span className="text-slate-400">{c.followers.toLocaleString()}</span>}
-                          <button onClick={() => disconnectMutation.mutate(c.id)} className="text-slate-300 hover:text-red-500"><XCircle className="w-3 h-3" /></button>
+                          <button onClick={() => disconnectMutation.mutate(c.id)} aria-label={`Disconnect @${c.username} from ${platform.name}`} className="text-slate-300 hover:text-red-500"><XCircle className="w-3 h-3" aria-hidden="true" /></button>
                         </div>
                       </div>
                     ))}
@@ -280,8 +280,9 @@ export default function ConnectAccounts() {
                 )}
                 {platform.notes && <p className="text-xs text-slate-500 mb-3 line-clamp-1">{platform.notes}</p>}
                 <Button size="sm" variant={isConnected ? "outline" : "default"} className="w-full text-xs"
+                  aria-label={isConnected ? `Add another ${platform.name} account` : `Connect ${platform.name}`}
                   onClick={() => { setConnectModal(platform); setConnectMode(null); setOauthStep("idle"); setConnectForm({ username: "", apiKey: "", followers: "", engagementRate: "" }); }}>
-                  <Plus className="w-3 h-3 mr-1" />{isConnected ? "Add Another Account" : "Connect"}
+                  <Plus className="w-3 h-3 mr-1" aria-hidden="true" />{isConnected ? "Add Another Account" : "Connect"}
                 </Button>
               </CardContent>
             </Card>

@@ -49,6 +49,7 @@ const roleNavItems = {
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
+    { name: "AI Analytics", icon: Activity, page: "AIAnalytics" },
     { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
@@ -190,8 +191,8 @@ export default function Layout({ children, currentPageName }) {
           </div>
         )}
         {mobile && (
-          <button onClick={() => setMobileOpen(false)} className="ml-auto text-slate-400 hover:text-white">
-            <X className="w-5 h-5" />
+          <button onClick={() => setMobileOpen(false)} className="ml-auto text-slate-400 hover:text-white" aria-label="Close navigation menu">
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         )}
       </div>
@@ -240,7 +241,7 @@ export default function Layout({ children, currentPageName }) {
       <div className={`p-3 border-t border-white/5 ${collapsed && !mobile ? "flex justify-center" : ""}`}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${collapsed && !mobile ? "justify-center px-0" : ""}`}>
+            <button aria-label="User menu" className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${collapsed && !mobile ? "justify-center px-0" : ""}`}>
               <Avatar className="w-8 h-8 flex-shrink-0">
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold">
                   {initials}
@@ -259,8 +260,8 @@ export default function Layout({ children, currentPageName }) {
               <Settings className="w-4 h-4 mr-2" /> Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-red-500">
-              <LogOut className="w-4 h-4 mr-2" /> Sign Out
+            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-red-500" aria-label="Sign out of your account">
+              <LogOut className="w-4 h-4 mr-2" aria-hidden="true" /> Sign Out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -270,9 +271,10 @@ export default function Layout({ children, currentPageName }) {
       {!mobile && (
         <button
           onClick={() => setCollapsed(!collapsed)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-50"
         >
-          {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
+          {collapsed ? <ChevronRight className="w-3 h-3" aria-hidden="true" /> : <ChevronLeft className="w-3 h-3" aria-hidden="true" />}
         </button>
       )}
     </div>
@@ -300,8 +302,8 @@ export default function Layout({ children, currentPageName }) {
         {/* Top bar */}
         <header className="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700">
-              <Menu className="w-5 h-5" />
+            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700" aria-label="Open navigation menu">
+              <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
             <h1 className="text-lg font-semibold text-slate-900 hidden sm:block">{currentPageName}</h1>
           </div>

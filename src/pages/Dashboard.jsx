@@ -160,8 +160,8 @@ function DashboardContent({ user }) {
           </p>
         </div>
         {startTour && (
-          <Button variant="outline" size="sm" onClick={startTour} className="gap-2 text-indigo-600 border-indigo-200 hover:bg-indigo-50 hidden sm:flex">
-            <PlayCircle className="w-4 h-4" /> Platform Tour
+          <Button variant="outline" size="sm" onClick={startTour} aria-label="Start platform tour" className="gap-2 text-indigo-600 border-indigo-200 hover:bg-indigo-50 hidden sm:flex">
+            <PlayCircle className="w-4 h-4" aria-hidden="true" /> Platform Tour
           </Button>
         )}
       </div>
@@ -180,20 +180,20 @@ function DashboardContent({ user }) {
       />
 
       {/* Stats */}
-      <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+      <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children" role="region" aria-label="Key metrics">
         {(role === "admin" || role === "agency") && (
-          <StatCard title="Total Talent" value={talents.length} icon={Users} color="violet" trend="+12%" trendUp />
+          <StatCard title="Total Talent" value={talents.length} icon={Users} color="violet" trend="+12%" trendUp aria-label={`Total Talent: ${talents.length}`} />
         )}
         {(role === "admin" || role === "brand" || role === "agency") && (
-          <StatCard title="Brands" value={brands.length} icon={Building2} color="amber" trend="+8%" trendUp />
+          <StatCard title="Brands" value={brands.length} icon={Building2} color="amber" trend="+8%" trendUp aria-label={`Brands: ${brands.length}`} />
         )}
-        <StatCard title="Active Deals" value={activeDeals} subtitle="In pipeline" icon={Handshake} color="indigo" />
-        <StatCard title="Deal Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" trend="+23%" trendUp />
+        <StatCard title="Active Deals" value={activeDeals} subtitle="In pipeline" icon={Handshake} color="indigo" aria-label={`Active Deals: ${activeDeals} in pipeline`} />
+        <StatCard title="Deal Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" trend="+23%" trendUp aria-label={`Deal Value: $${(totalDealValue / 1000).toFixed(0)}K`} />
         {(role === "admin" || role === "agency") && (
-          <StatCard title="Pending Approvals" value={approvals.length} icon={CheckSquare} color="rose" />
+          <StatCard title="Pending Approvals" value={approvals.length} icon={CheckSquare} color="rose" aria-label={`Pending Approvals: ${approvals.length}`} />
         )}
         {role === "talent" && (
-          <StatCard title="Match Score Avg" value={partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0} icon={Sparkles} color="violet" />
+          <StatCard title="Match Score Avg" value={partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0}`} />
         )}
       </div>
 

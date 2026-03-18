@@ -48,8 +48,8 @@ export default function TalentCard({ talent, onView, onMatch }) {
       <div className="p-5">
         <div className="flex items-start gap-4">
           <Avatar className={`w-12 h-12 shadow-sm flex-shrink-0 ${talent.is_verified ? 'ring-2 ring-indigo-500 ring-offset-2' : 'ring-2 ring-white'}`}>
-            {talent.avatar_url ? <AvatarImage src={talent.avatar_url} /> : null}
-            <AvatarFallback className="bg-gradient-to-br from-indigo-400 to-purple-500 text-white font-bold text-sm">
+            {talent.avatar_url ? <AvatarImage src={talent.avatar_url} alt={`${talent.name} avatar`} /> : null}
+            <AvatarFallback className="bg-gradient-to-br from-indigo-400 to-purple-500 text-white font-bold text-sm" aria-label={`${talent.name} initials`}>
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -108,11 +108,11 @@ export default function TalentCard({ talent, onView, onMatch }) {
 
         {/* Actions */}
         <div className="flex gap-2 mt-4">
-          <Button size="sm" variant="outline" className="flex-1 text-xs h-8" onClick={() => onView?.(talent)}>
-            <Eye className="w-3 h-3 mr-1.5" /> View
+          <Button size="sm" variant="outline" className="flex-1 text-xs h-8" aria-label={`View ${talent.name}'s profile`} onClick={() => onView?.(talent)}>
+            <Eye className="w-3 h-3 mr-1.5" aria-hidden="true" /> View
           </Button>
-          <Button size="sm" className="flex-1 text-xs h-8 bg-indigo-600 hover:bg-indigo-700" onClick={() => onMatch?.(talent)}>
-            <Sparkles className="w-3 h-3 mr-1.5" /> Match
+          <Button size="sm" className="flex-1 text-xs h-8 bg-indigo-600 hover:bg-indigo-700" aria-label={`Match with ${talent.name}`} onClick={() => onMatch?.(talent)}>
+            <Sparkles className="w-3 h-3 mr-1.5" aria-hidden="true" /> Match
           </Button>
         </div>
       </div>

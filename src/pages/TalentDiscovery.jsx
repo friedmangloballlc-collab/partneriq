@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import TalentCard from "@/components/talent/TalentCard";
 import TalentFilters from "@/components/talent/TalentFilters";
 import TalentProfileModal from "@/components/talent/TalentProfileModal";
@@ -28,6 +29,7 @@ export default function TalentDiscovery() {
   const [showFilters, setShowFilters] = useState(true);
   const [selectedTalent, setSelectedTalent] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [newTalent, setNewTalent] = useState({ name: "", email: "", primary_platform: "instagram", niche: "tech", tier: "micro" });
   const navigate = useNavigate();
 
@@ -90,7 +92,15 @@ export default function TalentDiscovery() {
           <p className="text-sm text-slate-500 mt-1">{filtered.length} of {talents.length} creators</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setShowFilters(f => !f)} className="gap-2">
+          {/* Mobile: opens a sheet overlay; Desktop: toggles inline sidebar */}
+          <Button
+            variant="outline"
+            onClick={() => {
+              if (window.innerWidth < 1024) setShowMobileFilters(true);
+              else setShowFilters(f => !f);
+            }}
+            className="gap-2"
+          >
             <SlidersHorizontal className="w-4 h-4" />
             Filters
             {activeFilterCount > 0 && <span className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">{activeFilterCount}</span>}
@@ -162,6 +172,20 @@ export default function TalentDiscovery() {
           )}
         </div>
       </div>
+
+      {/* Mobile filter sheet (shown on < lg screens) */}
+      <Sheet open={showMobileFilters} onOpenChange={setShowMobileFilters}>
+        <SheetContent side="left" className="w-80 overflow-y-auto">
+          <SheetHeader className="mb-4">
+            <SheetTitle>Filters</SheetTitle>
+          </SheetHeader>
+          <TalentFilters
+            filters={filters}
+            onChange={setFilters}
+            onReset={() => { setFilters(DEFAULT_FILTERS); setShowMobileFilters(false); }}
+          />
+        </SheetContent>
+      </Sheet>
 
       {/* Talent Profile Modal */}
       <TalentProfileModal

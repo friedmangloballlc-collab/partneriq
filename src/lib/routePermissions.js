@@ -12,7 +12,7 @@ const rolePages = {
     'Brands', 'Partnerships', 'DealAnalytics', 'CustomReports', 'Outreach',
     'SequenceBuilder', 'Approvals', 'MatchEngine', 'CampaignBriefGenerator',
     'DataImportExport', 'SimulationEngine', 'PitchDeckBuilder', 'Notifications',
-    'Teams', 'SystemHealth', 'SystemArchitecture', 'Integrations', 'BillingHistory',
+    'Teams', 'SystemHealth', 'AIAnalytics', 'SystemArchitecture', 'Integrations', 'BillingHistory',
     'Settings', 'ConnectAccounts', 'EventManagement', 'Analytics',
     'SubscriptionManagement', 'CreateOpportunity',
   ]),

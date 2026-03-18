@@ -91,11 +91,11 @@ export default function Partnerships() {
           <ListSkeleton count={6} />
         )
       ) : view === "pipeline" ? (
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 lg:-mx-8 lg:px-8">
+        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 lg:-mx-8 lg:px-8 snap-x snap-mandatory scroll-smooth">
           {pipelineStages.map(stage => {
             const stageDeals = filtered.filter(p => p.status === stage.key);
             return (
-              <div key={stage.key} className="min-w-[280px] max-w-[300px] flex-shrink-0">
+              <div key={stage.key} className="min-w-[260px] sm:min-w-[280px] max-w-[300px] flex-shrink-0 snap-start">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{stage.label}</h3>
@@ -168,18 +168,22 @@ export default function Partnerships() {
       ) : (
         <div className="space-y-2">
           {filtered.map(deal => (
-            <Card key={deal.id} className="p-4 border-slate-200/60 flex items-center gap-4">
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-slate-800">{deal.title}</h4>
-                <p className="text-xs text-slate-400 mt-0.5">{deal.brand_name} {deal.talent_name ? `× ${deal.talent_name}` : ""}</p>
+            <Card key={deal.id} className="p-4 border-slate-200/60">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-semibold text-slate-800">{deal.title}</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">{deal.brand_name} {deal.talent_name ? `× ${deal.talent_name}` : ""}</p>
+                </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge className={`${getStageColor(deal.status)} text-[10px]`}>{stages.find(s => s.key === deal.status)?.label}</Badge>
+                  {deal.match_score && <Badge className="bg-indigo-50 text-indigo-700 text-[10px]">{deal.match_score}%</Badge>}
+                  {deal.deal_value > 0 && <span className="text-xs font-medium text-slate-600">${(deal.deal_value / 1000).toFixed(0)}K</span>}
+                  <Select value={deal.status} onValueChange={v => moveToStage(deal.id, v)}>
+                    <SelectTrigger className="w-[130px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                    <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
+                  </Select>
+                </div>
               </div>
-              <Badge className={`${getStageColor(deal.status)} text-[10px]`}>{stages.find(s => s.key === deal.status)?.label}</Badge>
-              {deal.match_score && <Badge className="bg-indigo-50 text-indigo-700 text-[10px]">{deal.match_score}%</Badge>}
-              {deal.deal_value > 0 && <span className="text-xs font-medium text-slate-600">${(deal.deal_value / 1000).toFixed(0)}K</span>}
-              <Select value={deal.status} onValueChange={v => moveToStage(deal.id, v)}>
-                <SelectTrigger className="w-[140px] h-8 text-xs"><SelectValue /></SelectTrigger>
-                <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
-              </Select>
             </Card>
           ))}
         </div>

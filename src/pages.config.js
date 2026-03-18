@@ -7,6 +7,7 @@ import __Layout from './Layout.jsx';
 
 const PAGES = {
     "AIAgentsHub": lazy(() => import('./pages/AIAgentsHub')),
+    "AIAnalytics": lazy(() => import('./pages/AIAnalytics')),
     "AICommandCenter": lazy(() => import('./pages/AICommandCenter')),
     "AIFeatures": lazy(() => import('./pages/AIFeatures')),
     "Analytics": lazy(() => import('./pages/Analytics')),

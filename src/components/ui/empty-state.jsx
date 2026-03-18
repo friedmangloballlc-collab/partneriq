@@ -31,6 +31,8 @@ export function EmptyState({
     >
       {icon && (
         <div
+          role="img"
+          aria-label={title ? `${title} icon` : "Empty state icon"}
           className={cn(
             "rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4",
             compact ? "w-12 h-12" : "w-16 h-16",
@@ -38,7 +40,9 @@ export function EmptyState({
             compact ? "[&_svg]:w-5 [&_svg]:h-5" : "[&_svg]:w-7 [&_svg]:h-7"
           )}
         >
-          {icon}
+          {React.isValidElement(icon)
+            ? React.cloneElement(icon, { "aria-hidden": true })
+            : icon}
         </div>
       )}
 
@@ -69,9 +73,12 @@ export function EmptyState({
           variant={action.variant ?? "outline"}
           size={compact ? "sm" : "default"}
           onClick={action.onClick}
+          aria-label={action.label}
           className="mt-4 gap-1.5"
         >
-          {action.icon && action.icon}
+          {action.icon && React.isValidElement(action.icon)
+            ? React.cloneElement(action.icon, { "aria-hidden": true })
+            : action.icon}
           {action.label}
         </Button>
       )}

@@ -127,7 +127,7 @@ export default function MasterCalendar() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900">Master Calendar 2026-2028</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Master Calendar 2026-2028</h1>
         <p className="text-slate-600 mt-2">486+ brand activation opportunities | Complete event database</p>
       </div>
 
@@ -276,7 +276,7 @@ export default function MasterCalendar() {
       </Card>
 
       {/* Stats Footer */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card>
           <CardContent className="pt-6">
             <div className="text-2xl font-bold text-slate-900">{filteredEvents.filter(e => e.tier === "1").length}</div>
