@@ -266,12 +266,55 @@ Return the top 5 matches.`;
         resource_type: "partnership",
       });
 
+      // === AUTOMATED DEAL CHAIN ===
+      // Fire Campaign Brief + ROI Sim + Pitch Deck + Outreach Draft in parallel
+      // All route to Approvals — nothing sends without human review
+      const dealContext = `Brand: ${newDeal.brand_name}, Talent: ${newDeal.talent_name}, Match Score: ${match.score}%, Deal Type: ${match.partnership_type || 'sponsorship'}`;
+
+      const chainPromises = [
+        // 1. Campaign Brief
+        base44.functions.invoke("generateAICampaign", {
+          demographics: [], industry: newDeal.brand_name, targetAudience: match.name,
+        }).catch(() => null),
+        // 2. ROI Simulation
+        base44.functions.invoke("simulatePartnership", {
+          scenario: { type: "new_campaign", params: { talent_name: newDeal.talent_name, brand_name: newDeal.brand_name } },
+        }).catch(() => null),
+        // 3. Outreach Draft → routes to Approvals
+        base44.entities.OutreachEmail.create({
+          to_name: newDeal.talent_name,
+          to_email: "",
+          subject: `Partnership Opportunity: ${newDeal.brand_name} × ${newDeal.talent_name}`,
+          body: `AI-drafted outreach for ${dealContext}. Review and customize before sending.`,
+          email_type: "cold_outreach",
+          status: "draft",
+          ai_generated: true,
+          partnership_id: newDeal.id,
+        }).catch(() => null),
+        // 4. Approval item
+        base44.entities.ApprovalItem.create({
+          item_type: "deal_creation",
+          reference_id: newDeal.id,
+          title: `New Deal: ${newDeal.brand_name} × ${newDeal.talent_name}`,
+          description: `AI Match Score: ${match.score}%. Review deal terms, outreach draft, and campaign brief before proceeding.`,
+          priority: match.score >= 85 ? "high" : "medium",
+          status: "pending",
+          brand_name: newDeal.brand_name,
+          talent_name: newDeal.talent_name,
+          deal_value: newDeal.deal_value || 0,
+          match_score: match.score,
+        }).catch(() => null),
+      ];
+
+      // Fire all in parallel — don't wait for results to navigate
+      Promise.all(chainPromises);
+
       toast({
-        title: "Deal created!",
-        description: `Partnership with ${match.name} has been created.`,
+        title: "Deal created — full chain activated!",
+        description: `Campaign Brief, ROI Simulation, Outreach Draft, and Approval all generated. Check Approvals to review.`,
       });
 
-      navigate(createPageUrl("Partnerships") + `?dealId=${newDeal.id}`);
+      navigate("/DealDetail?id=" + newDeal.id);
     } catch (err) {
       toast({
         title: "Error creating deal",

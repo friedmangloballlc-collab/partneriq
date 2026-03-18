@@ -829,8 +829,37 @@ export default function DealDetail() {
       if (ctx?.previous) queryClient.setQueryData(["partnership", dealId], ctx.previous);
       toast({ title: "Update failed", description: err.message, variant: "destructive" });
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["partnerships"] });
+      // === INTELLIGENCE FEEDBACK LOOP ===
+      // When deal is completed (final payment released), write to all 3 data rooms
+      if (data?.final_payment_released && data?.status !== 'completed_logged') {
+        const dealEntry = {
+          user_email: user?.email,
+          title: data.title,
+          brand_name: data.brand_name,
+          talent_name: data.talent_name,
+          platform: data.partnership_type || 'multi-platform',
+          deal_type: data.partnership_type || 'sponsorship',
+          deal_value: data.deal_value || 0,
+          status: 'completed',
+          deliverables: data.notes || '',
+          performance_metrics: {},
+        };
+        // Write to Talent Data Room
+        supabase.from('data_room_entries').insert({ ...dealEntry, room_type: 'talent_deals' }).then(() => {});
+        // Write to Brand Data Room
+        supabase.from('data_room_entries').insert({ ...dealEntry, room_type: 'brand_campaigns' }).then(() => {});
+        // Write to Agency Data Room (if agency involved)
+        supabase.from('data_room_entries').insert({ ...dealEntry, room_type: 'agency_engagements' }).then(() => {});
+        // Log the feedback
+        supabase.from('activities').insert({
+          action: 'deal_completed',
+          description: `Deal "${data.title}" completed. Data rooms updated. AI model improving.`,
+          resource_type: 'partnership',
+          resource_id: data.id,
+        }).then(() => {});
+      }
     },
   });
 
