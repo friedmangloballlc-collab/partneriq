@@ -25,7 +25,7 @@ const rolePages = {
     'DemographicTargeting', 'CampaignBriefGenerator', 'DataImportExport',
     'SimulationEngine', 'PitchDeckBuilder', 'MarketIntelligence', 'BrandSpendPrediction', 'Teams',
     'Integrations', 'BillingHistory', 'Settings', 'Notifications',
-    'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts',
+    'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts', 'Analytics', 'EventManagement', 'SimulationEngine', 'DataImportExport', 'Notifications', 'BundleDeals', 'PitchCompetition', 'WarmIntroNetwork', 'BrandSpendPrediction',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
   ]),
   talent: new Set([
