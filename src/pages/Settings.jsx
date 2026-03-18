@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
+import EmailConnectionManager from "@/components/email/EmailConnectionManager";
 import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
 import { useForm } from "react-hook-form";
@@ -213,6 +214,9 @@ export default function Settings() {
           <p className="text-xs text-slate-400 mt-3">Contact an admin to change your role.</p>
         </CardContent>
       </Card>
+
+      {/* Email Connection */}
+      <EmailConnectionManager />
 
       {/* Demo Data */}
       <Card className="border-slate-200/60">

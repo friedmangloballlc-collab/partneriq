@@ -46,6 +46,7 @@ const ENTITY_TABLE_MAP = {
   TalentRevenueMatrix: 'talent_revenue_matrix',
   ConnectedPlatform: 'connected_platforms',
   PlatformCatalog: 'platform_catalog',
+  EmailConnection: 'email_connections',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder
