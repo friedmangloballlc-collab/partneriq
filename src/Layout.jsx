@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -36,6 +36,9 @@ const roleNavItems = {
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
+    { name: "Data Room (Talent)", icon: Database, page: "TalentDataRoom" },
+    { name: "Data Room (Brand)", icon: Database, page: "BrandDataRoom" },
+    { name: "Data Room (Agency)", icon: Database, page: "AgencyDataRoom" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
@@ -71,6 +74,9 @@ const roleNavItems = {
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
+    { name: "Data Room (Talent)", icon: Database, page: "TalentDataRoom" },
+    { name: "Data Room (Brand)", icon: Database, page: "BrandDataRoom" },
+    { name: "Data Room (Agency)", icon: Database, page: "AgencyDataRoom" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
@@ -134,6 +140,9 @@ const roleNavItems = {
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
+    { name: "Data Room (Talent)", icon: Database, page: "TalentDataRoom" },
+    { name: "Data Room (Brand)", icon: Database, page: "BrandDataRoom" },
+    { name: "Data Room (Agency)", icon: Database, page: "AgencyDataRoom" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
