@@ -141,8 +141,8 @@ const TOUR_STEPS = {
   ],
 };
 
-const TOUR_KEY = "partneriq_tour_completed";
-const TOUR_SEEN_KEY = "partneriq_tour_seen";
+const TOUR_KEY = "dealstage_tour_completed";
+const TOUR_SEEN_KEY = "dealstage_tour_seen";
 
 export function TourProvider({ children, user }) {
   const [active, setActive] = useState(false);

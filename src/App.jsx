@@ -11,6 +11,8 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Login from '@/pages/Login';
 import Onboarding from '@/pages/Onboarding';
+import Terms from '@/pages/Terms';
+import Privacy from '@/pages/Privacy';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
@@ -131,6 +133,14 @@ const AuthenticatedApp = () => {
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
       </div>
     );
+  }
+
+  // Public routes: legal pages (no auth needed)
+  if (location.pathname === '/terms') {
+    return <Routes><Route path="/terms" element={<Terms />} /></Routes>;
+  }
+  if (location.pathname === '/privacy') {
+    return <Routes><Route path="/privacy" element={<Privacy />} /></Routes>;
   }
 
   // Public routes: onboarding (landing) and login
