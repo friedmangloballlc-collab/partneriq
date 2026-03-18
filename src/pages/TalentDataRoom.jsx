@@ -24,6 +24,7 @@ import {
   Globe, Lock, BarChart3, Sparkles, ArrowUpRight, ArrowDownRight,
   Minus, CalendarDays, Tag,
 } from "lucide-react";
+import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -255,6 +256,8 @@ export default function TalentDataRoom() {
           </div>
           <p className="text-sm text-slate-500 ml-10">Your private deal history, scored and analyzed</p>
         </div>
+        <div className="flex items-center gap-2">
+          <DataRoomImporter roomType="talent_deals" />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2">
@@ -376,6 +379,7 @@ export default function TalentDataRoom() {
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <Tabs value={tab} onValueChange={setTab}>

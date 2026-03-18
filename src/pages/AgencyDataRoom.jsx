@@ -24,6 +24,7 @@ import {
   Sparkles, ArrowUpRight, ArrowDownRight, Minus, Building2,
   Briefcase, Percent, UserCheck,
 } from "lucide-react";
+import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -249,6 +250,8 @@ export default function AgencyDataRoom() {
           </div>
           <p className="text-sm text-slate-500 ml-10">Your private client portfolio, scored and analyzed</p>
         </div>
+        <div className="flex items-center gap-2">
+          <DataRoomImporter roomType="agency_engagements" />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-teal-600 hover:bg-teal-700 text-white gap-2">
@@ -386,6 +389,7 @@ export default function AgencyDataRoom() {
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <Tabs value={tab} onValueChange={setTab}>

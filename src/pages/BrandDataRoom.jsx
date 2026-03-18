@@ -24,6 +24,7 @@ import {
   Sparkles, ArrowUpRight, ArrowDownRight, Minus, Target, Star,
   RefreshCw, UserX, BookMarked, Repeat,
 } from "lucide-react";
+import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -269,6 +270,8 @@ export default function BrandDataRoom() {
           </div>
           <p className="text-sm text-slate-500 ml-10">Your private campaign history, scored and analyzed</p>
         </div>
+        <div className="flex items-center gap-2">
+          <DataRoomImporter roomType="brand_campaigns" />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-violet-600 hover:bg-violet-700 text-white gap-2">
@@ -389,6 +392,7 @@ export default function BrandDataRoom() {
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <Tabs value={tab} onValueChange={setTab}>
