@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { base44 } from "@/api/base44Client";
+import React, { useState } from "react";
+import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,53 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle
 } from "@/components/ui/dialog";
+
+// ─── DATA FETCHERS ────────────────────────────────────────────────────────────
+
+async function fetchPartnerships() {
+  const { data, error } = await supabase
+    .from("partnerships")
+    .select("id, title, brand_name, talent_name, status, deal_value, partnership_type, match_score, created_at, created_date")
+    .order("created_at", { ascending: false })
+    .limit(500);
+  if (error) throw error;
+  return data || [];
+}
+
+async function fetchTalents() {
+  const { data, error } = await supabase
+    .from("talents")
+    .select("id, name, status, tier, niche, total_followers, engagement_rate")
+    .order("created_at", { ascending: false })
+    .limit(300);
+  if (error) throw error;
+  return data || [];
+}
+
+async function fetchOutreachSequences() {
+  const { data, error } = await supabase
+    .from("outreach_sequences")
+    .select("id, name, status, sent_count, open_rate, reply_rate")
+    .order("created_at", { ascending: false })
+    .limit(200);
+  if (error) throw error;
+  return data || [];
+}
+
+/**
+ * Fetches outreach_emails and derives per-sequence aggregates
+ * (sent count, open count, reply count) so widgets that group by
+ * email_type or sequence can work with real data.
+ */
+async function fetchOutreachEmails() {
+  const { data, error } = await supabase
+    .from("outreach_emails")
+    .select("id, email_type, status, sequence_id, created_at")
+    .order("created_at", { ascending: false })
+    .limit(2000);
+  if (error) throw error;
+  return data || [];
+}
 
 // ─── WIDGET DEFINITIONS ───────────────────────────────────────────────────────
 const WIDGET_CATALOG = [
@@ -52,15 +99,81 @@ const CHART_COLORS = ["#6366F1","#10B981","#F59E0B","#EC4899","#3B82F6","#8B5CF6
 
 const fmt = v => v >= 1e6 ? `$${(v/1e6).toFixed(1)}M` : v >= 1e3 ? `$${(v/1e3).toFixed(0)}K` : `$${v}`;
 
+// ─── OUTREACH EMAIL AGGREGATION HELPERS ───────────────────────────────────────
+
+/**
+ * Returns { sent, opened, replied, openRate, replyRate } for a given
+ * array of outreach_email rows. A row is counted as:
+ *   sent    → status in (sent, opened, replied)
+ *   opened  → status in (opened, replied)  [replied implies opened]
+ *   replied → status === replied
+ */
+function aggregateEmailStats(emailRows) {
+  let sent = 0, opened = 0, replied = 0;
+  emailRows.forEach(e => {
+    const s = e.status?.toLowerCase();
+    if (["sent", "opened", "replied"].includes(s)) sent++;
+    if (["opened", "replied"].includes(s)) opened++;
+    if (s === "replied") replied++;
+  });
+  const openRate  = sent > 0 ? Math.round((opened  / sent) * 100) : 0;
+  const replyRate = sent > 0 ? Math.round((replied / sent) * 100) : 0;
+  return { sent, opened, replied, openRate, replyRate };
+}
+
+/**
+ * Groups outreach_emails by email_type and computes open/reply rates per group.
+ * Returns an array sorted by sent count descending.
+ */
+function groupEmailsByType(emailRows) {
+  const groups = {};
+  emailRows.forEach(e => {
+    const type = e.email_type || "unknown";
+    if (!groups[type]) groups[type] = [];
+    groups[type].push(e);
+  });
+  return Object.entries(groups).map(([type, rows]) => {
+    const stats = aggregateEmailStats(rows);
+    return { type: type.replace(/_/g, " "), ...stats };
+  }).sort((a, b) => b.sent - a.sent);
+}
+
+/**
+ * Groups outreach_emails by sequence_id, returning a map of
+ * sequenceId → { sent, openRate, replyRate }.
+ * Used to enrich sequence rows that may have zero counters.
+ */
+function groupEmailsBySequence(emailRows) {
+  const groups = {};
+  emailRows.forEach(e => {
+    if (!e.sequence_id) return;
+    if (!groups[e.sequence_id]) groups[e.sequence_id] = [];
+    groups[e.sequence_id].push(e);
+  });
+  const result = {};
+  Object.entries(groups).forEach(([seqId, rows]) => {
+    result[seqId] = aggregateEmailStats(rows);
+  });
+  return result;
+}
+
 // ─── CHART RENDERERS ──────────────────────────────────────────────────────────
-function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, onDrilldown }) {
+function WidgetChart({ widgetId, partnerships, sequences, talents, emails, drilldown, onDrilldown }) {
   const p = partnerships;
   const t = talents;
+
+  // Pre-compute email aggregates once per render of any outreach widget
+  const emailByType     = widgetId.startsWith("outreach") ? groupEmailsByType(emails)     : null;
+  const emailBySequence = widgetId.startsWith("outreach") ? groupEmailsBySequence(emails) : null;
+
+  // ── Partnership widgets ───────────────────────────────────────────────────
 
   if (widgetId === "partnership_funnel") {
     const counts = {};
     p.forEach(d => { counts[d.status] = (counts[d.status] || 0) + 1; });
-    const data = Object.entries(counts).map(([s, c]) => ({ stage: s.replace(/_/g, " "), count: c })).sort((a,b) => b.count - a.count);
+    const data = Object.entries(counts)
+      .map(([s, c]) => ({ stage: s.replace(/_/g, " "), count: c }))
+      .sort((a, b) => b.count - a.count);
     return (
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={data} layout="vertical" onClick={e => e?.activePayload && onDrilldown && onDrilldown("stage", e.activePayload[0]?.payload?.stage)}>
@@ -77,8 +190,10 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   if (widgetId === "deal_value_trend") {
     const byMonth = {};
     p.forEach(d => {
-      if (!d.created_date) return;
-      const key = new Date(d.created_date).toISOString().slice(0, 7);
+      // prefer created_date; fall back to created_at
+      const raw = d.created_date || d.created_at;
+      if (!raw) return;
+      const key = new Date(raw).toISOString().slice(0, 7);
       if (!byMonth[key]) byMonth[key] = { month: key, value: 0, count: 0 };
       byMonth[key].value += d.deal_value || 0;
       byMonth[key].count++;
@@ -131,7 +246,7 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   }
 
   if (widgetId === "top_deals_table") {
-    const top = [...p].filter(d => d.deal_value > 0).sort((a,b) => b.deal_value - a.deal_value).slice(0, 6);
+    const top = [...p].filter(d => d.deal_value > 0).sort((a, b) => b.deal_value - a.deal_value).slice(0, 6);
     return (
       <div className="overflow-x-auto">
         <table className="w-full text-xs">
@@ -187,7 +302,9 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   }
 
   if (widgetId === "pipeline_value_kpi") {
-    const total = p.filter(d => !["completed","churned"].includes(d.status)).reduce((s,d) => s+(d.deal_value||0), 0);
+    const total = p
+      .filter(d => !["completed","churned"].includes(d.status))
+      .reduce((s, d) => s + (d.deal_value || 0), 0);
     return (
       <div className="flex flex-col items-center justify-center h-32 gap-2">
         <p className="text-4xl font-extrabold text-indigo-600">{fmt(total)}</p>
@@ -199,18 +316,20 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
     );
   }
 
+  // ── Outreach widgets ──────────────────────────────────────────────────────
+
   if (widgetId === "outreach_open_rate") {
-    const types = ["initial_outreach","follow_up","proposal","negotiation"];
-    const data = types.map(type => {
-      const seq = sequences.filter(s => s.name.toLowerCase().includes(type.split("_")[0]));
-      return { type: type.replace(/_/g," "), rate: Math.round(30 + Math.random() * 35) };
-    });
+    // Group real outreach_emails by email_type; fall back to sequences if no emails
+    const data = emailByType.length > 0
+      ? emailByType.slice(0, 8).map(g => ({ type: g.type, rate: g.openRate }))
+      : sequences.slice(0, 6).map(s => ({ type: s.name?.slice(0, 14) || "Sequence", rate: s.open_rate || 0 }));
+
     return (
       <ResponsiveContainer width="100%" height={180}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
           <XAxis dataKey="type" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} unit="%" />
+          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} unit="%" domain={[0, 100]} />
           <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} formatter={v => [`${v}%`, "Open Rate"]} />
           <Bar dataKey="rate" radius={[6,6,0,0]} fill="#F59E0B" />
         </BarChart>
@@ -219,17 +338,22 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   }
 
   if (widgetId === "outreach_reply_trend") {
-    const data = sequences.slice(0, 8).map((s, i) => ({
-      name: s.name?.slice(0, 12) || `Seq ${i+1}`,
-      rate: s.reply_rate || Math.round(5 + Math.random() * 20),
-      open: s.open_rate || Math.round(25 + Math.random() * 30),
-    }));
+    // Enrich sequences with email-derived stats where sequence_id is present
+    const data = sequences.slice(0, 8).map((s, i) => {
+      const emailStats = emailBySequence[s.id];
+      return {
+        name: s.name?.slice(0, 12) || `Seq ${i + 1}`,
+        // prefer DB columns; override from emails if available
+        open:  emailStats ? emailStats.openRate  : (s.open_rate  || 0),
+        rate:  emailStats ? emailStats.replyRate  : (s.reply_rate || 0),
+      };
+    });
     return (
       <ResponsiveContainer width="100%" height={180}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="name" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} unit="%" />
+          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} unit="%" domain={[0, 100]} />
           <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
           <Legend iconSize={8} wrapperStyle={{ fontSize: 10 }} />
           <Line type="monotone" dataKey="open" stroke="#F59E0B" strokeWidth={2} dot={{ r: 2 }} name="Open %" />
@@ -247,15 +371,22 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
             {["Sequence","Status","Sent","Open%","Reply%"].map(h => <th key={h} className="text-left py-1.5 px-2 text-[10px] font-semibold text-slate-400 uppercase">{h}</th>)}
           </tr></thead>
           <tbody className="divide-y divide-slate-50">
-            {sequences.slice(0, 6).map(s => (
-              <tr key={s.id} className="hover:bg-slate-50">
-                <td className="py-2 px-2 font-medium text-slate-800 max-w-[120px] truncate">{s.name}</td>
-                <td className="py-2 px-2"><Badge className="text-[9px]" variant="outline">{s.status}</Badge></td>
-                <td className="py-2 px-2 text-slate-600">{s.total_sent || 0}</td>
-                <td className="py-2 px-2 text-amber-600 font-semibold">{s.open_rate ? `${s.open_rate}%` : "—"}</td>
-                <td className="py-2 px-2 text-emerald-600 font-semibold">{s.reply_rate ? `${s.reply_rate}%` : "—"}</td>
-              </tr>
-            ))}
+            {sequences.slice(0, 6).map(s => {
+              // Enrich with email-level stats where available
+              const emailStats = emailBySequence[s.id];
+              const sentDisplay  = emailStats ? emailStats.sent        : (s.sent_count || 0);
+              const openDisplay  = emailStats ? emailStats.openRate    : (s.open_rate  || 0);
+              const replyDisplay = emailStats ? emailStats.replyRate   : (s.reply_rate || 0);
+              return (
+                <tr key={s.id} className="hover:bg-slate-50">
+                  <td className="py-2 px-2 font-medium text-slate-800 max-w-[120px] truncate">{s.name}</td>
+                  <td className="py-2 px-2"><Badge className="text-[9px]" variant="outline">{s.status}</Badge></td>
+                  <td className="py-2 px-2 text-slate-600">{sentDisplay}</td>
+                  <td className="py-2 px-2 text-amber-600 font-semibold">{openDisplay > 0 ? `${openDisplay}%` : "—"}</td>
+                  <td className="py-2 px-2 text-emerald-600 font-semibold">{replyDisplay > 0 ? `${replyDisplay}%` : "—"}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -263,35 +394,39 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   }
 
   if (widgetId === "outreach_sent_kpi") {
-    const total = sequences.reduce((s, seq) => s + (seq.total_sent || 0), 0);
-    const replied = sequences.reduce((s, seq) => s + (seq.total_replied || 0), 0);
+    // Derive totals from real outreach_emails rows; fall back to sequences
+    const globalStats = aggregateEmailStats(emails);
+    const totalSent    = globalStats.sent    > 0 ? globalStats.sent    : sequences.reduce((s, seq) => s + (seq.sent_count || 0), 0);
+    const totalReplied = globalStats.replied > 0 ? globalStats.replied : 0;
     return (
       <div className="flex flex-col items-center justify-center h-32 gap-2">
-        <p className="text-5xl font-extrabold text-blue-600">{total.toLocaleString()}</p>
+        <p className="text-5xl font-extrabold text-blue-600">{totalSent.toLocaleString()}</p>
         <p className="text-sm text-slate-500">Total emails sent</p>
-        <p className="text-xs text-emerald-600 font-semibold">{replied} replies received</p>
+        <p className="text-xs text-emerald-600 font-semibold">{totalReplied.toLocaleString()} replies received</p>
       </div>
     );
   }
 
+  // ── Talent widgets ────────────────────────────────────────────────────────
+
   if (widgetId === "talent_tier_dist") {
     const counts = {};
-    t.forEach(x => { if (x.tier) counts[x.tier] = (counts[x.tier]||0)+1; });
-    const data = Object.entries(counts).map(([n,v]) => ({ name: n, value: v }));
+    t.forEach(x => { if (x.tier) counts[x.tier] = (counts[x.tier] || 0) + 1; });
+    const data = Object.entries(counts).map(([n, v]) => ({ name: n, value: v }));
     return (
       <div className="flex items-center gap-4">
         <ResponsiveContainer width="55%" height={180}>
           <PieChart>
             <Pie data={data} dataKey="value" cx="50%" cy="50%" innerRadius={45} outerRadius={72} paddingAngle={3}>
-              {data.map((_,i) => <Cell key={i} fill={CHART_COLORS[i%CHART_COLORS.length]} />)}
+              {data.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
             </Pie>
             <Tooltip contentStyle={{ borderRadius: 8, fontSize: 11 }} />
           </PieChart>
         </ResponsiveContainer>
         <div className="flex-1 space-y-1.5">
-          {data.map((d,i) => (
+          {data.map((d, i) => (
             <div key={d.name} className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full" style={{ background: CHART_COLORS[i%CHART_COLORS.length] }} />
+              <div className="w-2 h-2 rounded-full" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
               <span className="text-[11px] text-slate-600 flex-1 capitalize">{d.name}</span>
               <span className="text-[11px] font-bold text-slate-800">{d.value}</span>
             </div>
@@ -302,11 +437,14 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
   }
 
   if (widgetId === "talent_engagement") {
-    const data = t.filter(x => x.total_followers && x.engagement_rate).slice(0, 50).map(x => ({
-      followers: Math.round((x.total_followers||0)/1000),
-      engagement: x.engagement_rate,
-      name: x.name,
-    }));
+    const data = t
+      .filter(x => x.total_followers && x.engagement_rate)
+      .slice(0, 50)
+      .map(x => ({
+        followers: Math.round((x.total_followers || 0) / 1000),
+        engagement: x.engagement_rate,
+        name: x.name,
+      }));
     return (
       <ResponsiveContainer width="100%" height={180}>
         <ScatterChart>
@@ -323,8 +461,8 @@ function WidgetChart({ widgetId, partnerships, sequences, talents, drilldown, on
 
   if (widgetId === "talent_niche_breakdown") {
     const counts = {};
-    t.forEach(x => { if (x.niche) counts[x.niche] = (counts[x.niche]||0)+1; });
-    const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([n,v]) => ({ niche: n, count: v }));
+    t.forEach(x => { if (x.niche) counts[x.niche] = (counts[x.niche] || 0) + 1; });
+    const data = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([n, v]) => ({ niche: n, count: v }));
     return (
       <ResponsiveContainer width="100%" height={180}>
         <BarChart data={data}>
@@ -361,17 +499,15 @@ function DrilldownModal({ drilldown, partnerships, onClose }) {
   let title = "Drill-down";
 
   if (type === "stage") {
-    filtered = partnerships.filter(p => p.status?.replace(/_/g," ") === value);
+    filtered = partnerships.filter(p => p.status?.replace(/_/g, " ") === value);
     title = `Deals: ${value}`;
   } else if (type === "type") {
-    filtered = partnerships.filter(p => p.partnership_type?.replace(/_/g," ") === value);
+    filtered = partnerships.filter(p => p.partnership_type?.replace(/_/g, " ") === value);
     title = `Deals: ${value}`;
   } else if (type === "deal") {
     filtered = partnerships.filter(p => p.id === value);
     title = filtered[0]?.title || "Deal Detail";
   }
-
-  const fmt = v => v >= 1e6 ? `$${(v/1e6).toFixed(1)}M` : v >= 1e3 ? `$${(v/1e3).toFixed(0)}K` : `$${v}`;
 
   return (
     <Dialog open onOpenChange={onClose}>
@@ -388,10 +524,10 @@ function DrilldownModal({ drilldown, partnerships, onClose }) {
                 <span className="text-sm font-bold text-emerald-700">{d.deal_value ? fmt(d.deal_value) : "—"}</span>
               </div>
               <div className="flex flex-wrap gap-2 text-[11px] text-slate-500">
-                <Badge variant="outline" className="text-[10px] capitalize">{d.status?.replace(/_/g," ")}</Badge>
-                {d.partnership_type && <Badge variant="outline" className="text-[10px] capitalize">{d.partnership_type.replace(/_/g," ")}</Badge>}
+                <Badge variant="outline" className="text-[10px] capitalize">{d.status?.replace(/_/g, " ")}</Badge>
+                {d.partnership_type && <Badge variant="outline" className="text-[10px] capitalize">{d.partnership_type.replace(/_/g, " ")}</Badge>}
                 {d.match_score > 0 && <Badge className="bg-indigo-50 text-indigo-700 text-[10px]">Match {d.match_score}%</Badge>}
-                {d.brand_name && <span>Brand: {d.brand_name}</span>}
+                {d.brand_name  && <span>Brand: {d.brand_name}</span>}
                 {d.talent_name && <span>Talent: {d.talent_name}</span>}
               </div>
             </div>
@@ -404,7 +540,7 @@ function DrilldownModal({ drilldown, partnerships, onClose }) {
 }
 
 // ─── WIDGET CARD ──────────────────────────────────────────────────────────────
-function WidgetCard({ widget, partnerships, sequences, talents, onRemove, onDrilldown }) {
+function WidgetCard({ widget, partnerships, sequences, talents, emails, onRemove, onDrilldown }) {
   const [expanded, setExpanded] = useState(false);
   const def = WIDGET_CATALOG.find(w => w.id === widget.id);
   if (!def) return null;
@@ -437,6 +573,7 @@ function WidgetCard({ widget, partnerships, sequences, talents, onRemove, onDril
           partnerships={partnerships}
           sequences={sequences}
           talents={talents}
+          emails={emails}
           onDrilldown={onDrilldown}
         />
       </CardContent>
@@ -454,41 +591,68 @@ const PRESET_DASHBOARDS = {
 
 export default function CustomReports() {
   const [activeWidgets, setActiveWidgets] = useState(PRESET_DASHBOARDS.partnerships.map(id => ({ id })));
-  const [drilldown, setDrilldown] = useState(null);
+  const [drilldown, setDrilldown]         = useState(null);
   const [filterCategory, setFilterCategory] = useState("all");
-  const [reportName, setReportName] = useState("My Dashboard");
+  const [reportName, setReportName]       = useState("My Dashboard");
 
-  const { data: partnerships = [] } = useQuery({ queryKey: ["cr-partnerships"], queryFn: () => base44.entities.Partnership.list("-created_date", 500) });
-  const { data: sequences = [] }    = useQuery({ queryKey: ["cr-sequences"],    queryFn: () => base44.entities.OutreachSequence.list("-created_date", 200) });
-  const { data: talents = [] }      = useQuery({ queryKey: ["cr-talents"],      queryFn: () => base44.entities.Talent.list("-created_date", 300) });
+  // ── Supabase queries via TanStack React Query ─────────────────────────────
 
-  const addWidget = (id) => {
-    if (!activeWidgets.find(w => w.id === id)) {
-      setActiveWidgets(prev => [...prev, { id }]);
-    }
-  };
+  const { data: partnerships = [], isLoading: loadingPartnerships } = useQuery({
+    queryKey: ["cr-partnerships"],
+    queryFn: fetchPartnerships,
+    staleTime: 60_000,
+  });
 
+  const { data: sequences = [], isLoading: loadingSequences } = useQuery({
+    queryKey: ["cr-sequences"],
+    queryFn: fetchOutreachSequences,
+    staleTime: 60_000,
+  });
+
+  const { data: talents = [], isLoading: loadingTalents } = useQuery({
+    queryKey: ["cr-talents"],
+    queryFn: fetchTalents,
+    staleTime: 60_000,
+  });
+
+  const { data: emails = [], isLoading: loadingEmails } = useQuery({
+    queryKey: ["cr-outreach-emails"],
+    queryFn: fetchOutreachEmails,
+    staleTime: 60_000,
+  });
+
+  const isLoading = loadingPartnerships || loadingSequences || loadingTalents || loadingEmails;
+
+  // ── Widget management ─────────────────────────────────────────────────────
+
+  const addWidget    = (id) => { if (!activeWidgets.find(w => w.id === id)) setActiveWidgets(prev => [...prev, { id }]); };
   const removeWidget = (id) => setActiveWidgets(prev => prev.filter(w => w.id !== id));
+  const loadPreset   = (key) => setActiveWidgets(PRESET_DASHBOARDS[key].map(id => ({ id })));
 
-  const loadPreset = (key) => setActiveWidgets(PRESET_DASHBOARDS[key].map(id => ({ id })));
+  // ── Export summary ────────────────────────────────────────────────────────
 
   const handleExport = () => {
+    const emailStats = aggregateEmailStats(emails);
     const report = {
       name: reportName,
       generatedAt: new Date().toISOString(),
       widgets: activeWidgets.map(w => w.id),
       summary: {
-        partnerships: partnerships.length,
-        pipelineValue: partnerships.filter(p => !["completed","churned"].includes(p.status)).reduce((s,p) => s+(p.deal_value||0),0),
-        winRate: partnerships.length > 0 ? Math.round((partnerships.filter(p=>p.status==="completed").length/partnerships.length)*100) : 0,
-        sequences: sequences.length,
-        talent: talents.length,
-      }
+        partnerships:   partnerships.length,
+        pipelineValue:  partnerships.filter(p => !["completed","churned"].includes(p.status)).reduce((s, p) => s + (p.deal_value || 0), 0),
+        winRate:        partnerships.length > 0 ? Math.round((partnerships.filter(p => p.status === "completed").length / partnerships.length) * 100) : 0,
+        sequences:      sequences.length,
+        emailsSent:     emailStats.sent,
+        emailOpenRate:  emailStats.openRate,
+        emailReplyRate: emailStats.replyRate,
+        talent:         talents.length,
+      },
     };
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = `${reportName.toLowerCase().replace(/\s+/g,"-")}-${new Date().toISOString().slice(0,10)}.json`;
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href = url;
+    a.download = `${reportName.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   };
 
@@ -512,7 +676,12 @@ export default function CustomReports() {
               onChange={e => setReportName(e.target.value)}
               className="text-xl font-bold text-slate-900 border-0 p-0 h-auto focus-visible:ring-0 bg-transparent w-64"
             />
-            <p className="text-xs text-slate-500">{activeWidgets.length} widgets · {partnerships.length} deals · {sequences.length} sequences · {talents.length} talent</p>
+            <p className="text-xs text-slate-500">
+              {activeWidgets.length} widgets
+              {isLoading
+                ? " · loading data…"
+                : ` · ${partnerships.length} deals · ${sequences.length} sequences · ${talents.length} talent · ${emails.length} emails`}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -537,7 +706,9 @@ export default function CustomReports() {
       {/* Widget Catalog Bar */}
       <div className="bg-white border border-slate-200/60 rounded-2xl p-4">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-semibold text-slate-700 flex items-center gap-2"><Plus className="w-4 h-4 text-indigo-500" /> Add Widgets</p>
+          <p className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+            <Plus className="w-4 h-4 text-indigo-500" /> Add Widgets
+          </p>
           <div className="flex gap-1">
             {["all","partnerships","outreach","talent"].map(cat => (
               <button key={cat} onClick={() => setFilterCategory(cat)}
@@ -550,11 +721,13 @@ export default function CustomReports() {
         <div className="flex flex-wrap gap-2">
           {filteredCatalog.map(w => {
             const added = addedIds.has(w.id);
-            const Icon = w.icon;
+            const Icon  = w.icon;
             return (
               <button key={w.id} onClick={() => !added && addWidget(w.id)} disabled={added}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-[11px] font-medium transition-all ${
-                  added ? "bg-slate-50 border-slate-100 text-slate-300 cursor-default" : "bg-white border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-slate-700 cursor-pointer"
+                  added
+                    ? "bg-slate-50 border-slate-100 text-slate-300 cursor-default"
+                    : "bg-white border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-slate-700 cursor-pointer"
                 }`}>
                 <Icon className="w-3 h-3" />
                 {w.label}
@@ -581,6 +754,7 @@ export default function CustomReports() {
               partnerships={partnerships}
               sequences={sequences}
               talents={talents}
+              emails={emails}
               onRemove={removeWidget}
               onDrilldown={(type, value) => setDrilldown({ type, value })}
             />
@@ -590,7 +764,11 @@ export default function CustomReports() {
 
       {/* Drill-down modal */}
       {drilldown && (
-        <DrilldownModal drilldown={drilldown} partnerships={partnerships} onClose={() => setDrilldown(null)} />
+        <DrilldownModal
+          drilldown={drilldown}
+          partnerships={partnerships}
+          onClose={() => setDrilldown(null)}
+        />
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -33,6 +33,7 @@ const roleNavItems = {
     { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
@@ -65,6 +66,7 @@ const roleNavItems = {
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
@@ -79,6 +81,7 @@ const roleNavItems = {
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
@@ -99,6 +102,7 @@ const roleNavItems = {
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
@@ -120,6 +124,7 @@ const roleNavItems = {
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Partnerships", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
@@ -135,6 +140,7 @@ const roleNavItems = {
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
@@ -179,7 +185,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
         {(!collapsed || mobile) && (
           <div className="flex flex-col">
-            <span className="text-white font-bold text-base tracking-tight">PartnerIQ</span>
+            <span className="text-white font-bold text-base tracking-tight">Deal Stage</span>
             <span className="text-[10px] text-slate-500 uppercase tracking-widest">Intelligence Platform</span>
           </div>
         )}

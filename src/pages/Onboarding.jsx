@@ -504,7 +504,6 @@ export default function Onboarding() {
         });
       } catch (e) {
         // Profile update may fail if trigger hasn't fired yet, continue anyway
-        console.warn("Profile update during onboarding:", e);
       }
 
       // Auto-create brand record for brand users
@@ -518,7 +517,6 @@ export default function Onboarding() {
             status: "active",
           });
         } catch (e) {
-          console.warn("Brand creation during onboarding:", e);
         }
       }
 
@@ -540,7 +538,7 @@ export default function Onboarding() {
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
             <Zap className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-slate-900 text-lg tracking-tight">PartnerIQ</span>
+          <span className="font-bold text-slate-900 text-lg tracking-tight">Deal Stage</span>
         </div>
         <button onClick={() => navigate("/login")} className="text-sm text-slate-500 hover:text-slate-800 transition-colors font-medium">
           Already have an account? <span className="text-indigo-600 hover:text-indigo-700 ml-0.5 font-semibold">Sign in</span>
@@ -664,7 +662,7 @@ export default function Onboarding() {
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">Enterprise AI Partnership Intelligence</h2>
               <p className="text-slate-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-                PartnerIQ connects talent — creators, athletes, celebrities — with brands and agencies. Featuring 50+ AI agents, automatic failover, and mandatory human approval for all outbound communications.
+                Deal Stage connects talent — creators, athletes, celebrities — with brands and agencies. Featuring 50+ AI agents, automatic failover, and mandatory human approval for all outbound communications.
               </p>
             </div>
           </div>
@@ -685,7 +683,7 @@ export default function Onboarding() {
 
           {/* User Types */}
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Who PartnerIQ Serves</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Who Deal Stage Serves</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {USER_TYPES.map((u, i) => {
                 const Icon = u.icon;

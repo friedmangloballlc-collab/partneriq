@@ -13,6 +13,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { EmptyState } from "@/components/ui/empty-state";
+import { CardGridSkeleton } from "@/components/ui/loading-skeleton";
 
 function formatBudget(num) {
   if (!num) return "—";
@@ -88,15 +90,24 @@ export default function Brands() {
       </div>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[1,2,3,4,5,6].map(i => <div key={i} className="bg-white rounded-xl border p-5 animate-pulse"><div className="flex gap-3"><div className="w-10 h-10 rounded-lg bg-slate-100" /><div className="flex-1 space-y-2"><div className="h-4 bg-slate-100 rounded w-2/3" /><div className="h-3 bg-slate-100 rounded w-1/2" /></div></div></div>)}
-        </div>
+        <CardGridSkeleton count={6} columns="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20">
-          <Building2 className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold text-slate-700">No brands found</h3>
-          <p className="text-sm text-slate-400 mt-1">Add brands to start building partnerships</p>
-        </div>
+        <EmptyState
+          icon={<Building2 />}
+          title={brands.length === 0 ? "No brands in your directory yet" : "No brands match your search"}
+          description={
+            brands.length === 0
+              ? "Add your first brand to start tracking and building partnerships."
+              : "Try a different search term or change the industry filter."
+          }
+          action={
+            brands.length === 0
+              ? { label: "Add Brand", onClick: () => setShowAdd(true), icon: <Plus className="w-4 h-4" /> }
+              : search || industryFilter !== "all"
+              ? { label: "Clear filters", onClick: () => { setSearch(""); setIndustryFilter("all"); }, variant: "outline" }
+              : undefined
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
           {filtered.map(brand => {

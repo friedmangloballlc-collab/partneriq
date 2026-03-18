@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, UserCheck
+  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, UserCheck, Handshake
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,8 @@ import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import NewDealWizard from "@/components/partnerships/NewDealWizard";
 import OptimalPricingPanel from "@/components/partnerships/OptimalPricingPanel";
 import CollaborationPanel from "@/components/collaboration/CollaborationPanel";
+import { EmptyState } from "@/components/ui/empty-state";
+import { KanbanSkeleton, ListSkeleton } from "@/components/ui/loading-skeleton";
 
 const stages = [
   { key: "discovered", label: "Discovered", color: "bg-slate-100 text-slate-700 border-slate-200" },
@@ -82,7 +84,13 @@ export default function Partnerships() {
         <Input placeholder="Search deals..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
       </div>
 
-      {view === "pipeline" ? (
+      {isLoading ? (
+        view === "pipeline" ? (
+          <KanbanSkeleton cols={pipelineStages.length} cardsPerCol={2} className="-mx-4 px-4 lg:-mx-8 lg:px-8" />
+        ) : (
+          <ListSkeleton count={6} />
+        )
+      ) : view === "pipeline" ? (
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 lg:-mx-8 lg:px-8">
           {pipelineStages.map(stage => {
             const stageDeals = filtered.filter(p => p.status === stage.key);
@@ -147,6 +155,16 @@ export default function Partnerships() {
             );
           })}
         </div>
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={<Handshake />}
+          title={search ? "No deals match your search" : "No deals yet"}
+          description={search ? "Try a different search term or clear the field." : "Create your first deal to start tracking partnerships."}
+          action={search
+            ? { label: "Clear search", onClick: () => setSearch(""), variant: "outline" }
+            : { label: "New Deal", onClick: () => setShowAdd(true), icon: <Plus className="w-4 h-4" /> }
+          }
+        />
       ) : (
         <div className="space-y-2">
           {filtered.map(deal => (

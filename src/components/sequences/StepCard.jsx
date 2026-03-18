@@ -25,7 +25,7 @@ const PREVIEW_VARS = {
   "{{niche}}": "fitness",
   "{{followers}}": "250K",
   "{{your_name}}": "Your Name",
-  "{{your_company}}": "PartnerIQ",
+  "{{your_company}}": "Deal Stage",
   "{{campaign_name}}": "Summer 2025",
   "{{date}}": "Feb 24, 2026",
 };

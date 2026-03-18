@@ -41,6 +41,11 @@ const ENTITY_TABLE_MAP = {
   PlanningTimeline: 'planning_timelines',
   ViewershipTier: 'viewership_tiers',
   Profile: 'profiles',
+  TalentType: 'talent_types',
+  TalentRevenueStream: 'talent_revenue_streams',
+  TalentRevenueMatrix: 'talent_revenue_matrix',
+  ConnectedPlatform: 'connected_platforms',
+  PlatformCatalog: 'platform_catalog',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder
@@ -67,7 +72,6 @@ function applyFilters(query, filters) {
             query = query.neq(key, opValue);
             break;
           default:
-            console.warn(`Unsupported query operator: ${op}`);
         }
       }
     } else {
@@ -151,7 +155,6 @@ const entities = new Proxy({}, {
   get(_, entityName) {
     const tableName = ENTITY_TABLE_MAP[entityName];
     if (!tableName) {
-      console.warn(`base44Client: unknown entity "${entityName}", falling back to "${entityName.toLowerCase()}s"`);
       return createEntityProxy(entityName.toLowerCase() + 's');
     }
     return createEntityProxy(tableName);

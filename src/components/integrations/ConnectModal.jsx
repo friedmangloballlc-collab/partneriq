@@ -14,48 +14,48 @@ const CREDENTIAL_CONFIGS = {
     { key: "webhook_url", label: "Webhook URL (optional)", type: "text", placeholder: "https://hooks.example.com/..." },
   ],
   "Bot Token / Webhook": [
-    { key: "bot_token", label: "Bot Token", type: "password", placeholder: "Bot.XXXXXXXXXXXX" },
+    { key: "bot_token", label: "Bot Token", type: "password", placeholder: "Enter your Discord bot token" },
     { key: "webhook_url", label: "Webhook URL (optional)", type: "text", placeholder: "https://discord.com/api/webhooks/..." },
   ],
   "Meta Cloud API": [
-    { key: "access_token", label: "Meta Access Token", type: "password", placeholder: "EAA..." },
-    { key: "phone_number_id", label: "Phone Number ID", type: "text", placeholder: "1234567890" },
+    { key: "access_token", label: "Meta Access Token", type: "password", placeholder: "Enter your Meta access token" },
+    { key: "phone_number_id", label: "Phone Number ID", type: "text", placeholder: "Enter your phone number ID" },
   ],
   "API Key": [
-    { key: "api_key", label: "API Key", type: "password", placeholder: "sk-..." },
+    { key: "api_key", label: "API Key", type: "password", placeholder: "Enter your API key" },
   ],
   "API + SDK": [
-    { key: "api_key", label: "API Key / Measurement ID", type: "password", placeholder: "G-XXXXXXXXXX or key..." },
+    { key: "api_key", label: "API Key / Measurement ID", type: "password", placeholder: "Enter your Measurement ID or API key" },
   ],
   "OAuth + API": [
     { key: "client_id", label: "Client ID", type: "text", placeholder: "Your OAuth Client ID" },
     { key: "client_secret", label: "Client Secret", type: "password", placeholder: "Your OAuth Client Secret" },
   ],
   "Data API v3 + Phyllo": [
-    { key: "api_key", label: "API Key", type: "password", placeholder: "AIza..." },
-    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "phyllo_..." },
+    { key: "api_key", label: "API Key", type: "password", placeholder: "Enter your YouTube Data API key" },
+    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "Enter your Phyllo client ID" },
   ],
   "Graph API + Phyllo": [
-    { key: "access_token", label: "Graph API Access Token", type: "password", placeholder: "EAA..." },
-    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "phyllo_..." },
+    { key: "access_token", label: "Graph API Access Token", type: "password", placeholder: "Enter your Graph API access token" },
+    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "Enter your Phyllo client ID" },
   ],
   "Research API + Phyllo": [
-    { key: "api_key", label: "TikTok Research API Key", type: "password", placeholder: "tk_..." },
-    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "phyllo_..." },
+    { key: "api_key", label: "TikTok Research API Key", type: "password", placeholder: "Enter your TikTok Research API key" },
+    { key: "phyllo_client_id", label: "Phyllo Client ID (optional)", type: "text", placeholder: "Enter your Phyllo client ID" },
   ],
   "Helix API": [
     { key: "client_id", label: "Client ID", type: "text", placeholder: "Your Twitch Client ID" },
     { key: "client_secret", label: "Client Secret", type: "password", placeholder: "Your Client Secret" },
   ],
   "API v2": [
-    { key: "bearer_token", label: "Bearer Token", type: "password", placeholder: "AAAAAAAAAA..." },
+    { key: "bearer_token", label: "Bearer Token", type: "password", placeholder: "Enter your bearer token" },
   ],
   "Marketing API": [
-    { key: "access_token", label: "Access Token", type: "password", placeholder: "EAA..." },
-    { key: "account_id", label: "Ad Account ID", type: "text", placeholder: "act_XXXXXXXXX" },
+    { key: "access_token", label: "Access Token", type: "password", placeholder: "Enter your Marketing API access token" },
+    { key: "account_id", label: "Ad Account ID", type: "text", placeholder: "Enter your Ad Account ID (e.g. act_...)" },
   ],
   "API v5": [
-    { key: "access_token", label: "Access Token", type: "password", placeholder: "pina_..." },
+    { key: "access_token", label: "Access Token", type: "password", placeholder: "Enter your Pinterest access token" },
   ],
   "API": [
     { key: "api_key", label: "API Key / Token", type: "password", placeholder: "Your API Key" },
@@ -154,16 +154,22 @@ export default function ConnectModal({ integration, onClose, onConnect, isConnec
           </div>
         ) : (
           <div className="space-y-4 mt-2">
-            {isOAuth ? (
-              <div className="space-y-3">
-                <p className="text-xs text-slate-500">Click below to authorize via {integration.name}'s OAuth flow. You'll be redirected to their login page.</p>
-                <Button className="w-full bg-indigo-600 hover:bg-indigo-700" onClick={handleOAuth}>
+            {/* Always show OAuth login option first */}
+            <div className="space-y-3">
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                <p className="text-xs text-emerald-700 font-medium mb-2">Option 1: Log in directly (Recommended)</p>
+                <Button className="w-full bg-emerald-600 hover:bg-emerald-700" onClick={handleOAuth}>
+                  <ExternalLink className="w-4 h-4 mr-2" />
                   Authorize with {integration.name}
                 </Button>
               </div>
-            ) : (
-              <>
-                {fieldConfig.map(f => (
+            </div>
+
+            {/* Always show API key option second */}
+            {!isOAuth && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg space-y-3">
+                <p className="text-xs text-amber-700 font-medium">Option 2: Connect with API credentials</p>
+                {fieldConfig.filter(f => f.type !== "oauth").map(f => (
                   <div key={f.key} className="space-y-1.5">
                     <Label className="text-xs font-semibold text-slate-600">{f.label}</Label>
                     <div className="relative">
@@ -194,21 +200,49 @@ export default function ConnectModal({ integration, onClose, onConnect, isConnec
                   </a>
                 )}
 
-                <div className="flex gap-2 pt-1">
-                  {isConnected && (
-                    <Button variant="outline" className="flex-1 text-red-500 border-red-200 hover:bg-red-50" onClick={handleDisconnect}>
-                      Disconnect
-                    </Button>
-                  )}
-                  <Button className="flex-1 bg-indigo-600 hover:bg-indigo-700" onClick={handleSave}
-                    disabled={!isOAuth && Object.keys(fields).length === 0}>
-                    {isConnected ? "Update Credentials" : "Save & Connect"}
-                  </Button>
-                </div>
-              </>
+                <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white" onClick={handleSave}
+                  disabled={Object.values(fields).every(v => !v)}>
+                  Verify & Connect
+                </Button>
+              </div>
             )}
 
-            {isConnected && !isOAuth && (
+            {isOAuth && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg space-y-3">
+                <p className="text-xs text-amber-700 font-medium">Option 2: Connect with API Key</p>
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-semibold text-slate-600">API Key / Access Token</Label>
+                  <div className="relative">
+                    <Input
+                      type={showPassword["api_key"] ? "text" : "password"}
+                      placeholder={`Your ${integration.name} API key`}
+                      value={fields["api_key"] || ""}
+                      onChange={e => setFields(prev => ({ ...prev, api_key: e.target.value }))}
+                      className="text-sm pr-10"
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      onClick={() => setShowPassword(prev => ({ ...prev, api_key: !prev.api_key }))}
+                    >
+                      {showPassword["api_key"] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+                {docsUrl && (
+                  <a href={docsUrl} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:underline">
+                    <ExternalLink className="w-3 h-3" /> View API documentation
+                  </a>
+                )}
+                <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white" onClick={handleSave}
+                  disabled={!fields["api_key"]}>
+                  Verify & Connect
+                </Button>
+              </div>
+            )}
+
+            {isConnected && (
               <Button variant="outline" className="w-full text-red-500 border-red-200 hover:bg-red-50 text-xs" onClick={handleDisconnect}>
                 Disconnect {integration.name}
               </Button>

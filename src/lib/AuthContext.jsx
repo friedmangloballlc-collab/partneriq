@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }) => {
 
         await loadUserProfile(sessionResult?.data?.session?.user ?? null);
       } catch (err) {
-        console.warn('Auth init failed (Supabase may be unreachable):', err.message);
         setUser(null);
         setIsAuthenticated(false);
       } finally {

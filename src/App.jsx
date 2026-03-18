@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -11,6 +11,8 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Login from '@/pages/Login';
 import Onboarding from '@/pages/Onboarding';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
+import { useRealtimeSync } from '@/hooks/useRealtimeSync';
+import { canAccessPage } from '@/lib/routePermissions';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -58,10 +60,21 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// Route guard component — redirects if user's role can't access the page
+const RoleGuard = ({ pageName, children }) => {
+  const { user } = useAuth();
+  if (!canAccessPage(user?.role, pageName)) {
+    return <Navigate to="/Dashboard" replace />;
+  }
+  return children;
+};
+
 // Separate component for authenticated content so useAutoSeed is never called conditionally
 const AuthenticatedRoutes = ({ authError }) => {
   // Hook is always called when this component mounts (only rendered for authenticated users)
   const { seeding, seeded, error: seedError } = useAutoSeed();
+  // Subscribe to Supabase Realtime and keep React Query caches live
+  useRealtimeSync();
 
   if (authError?.type === 'user_not_registered') {
     return <UserNotRegisteredError />;
@@ -78,6 +91,12 @@ const AuthenticatedRoutes = ({ authError }) => {
     );
   }
 
+  const pageFallback = (
+    <div className="flex items-center justify-center h-64">
+      <div className="w-6 h-6 border-2 border-slate-200 border-t-indigo-600 rounded-full animate-spin" />
+    </div>
+  );
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/Dashboard" replace />} />
@@ -86,9 +105,13 @@ const AuthenticatedRoutes = ({ authError }) => {
           key={path}
           path={`/${path}`}
           element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
+            <RoleGuard pageName={path}>
+              <LayoutWrapper currentPageName={path}>
+                <Suspense fallback={pageFallback}>
+                  <Page />
+                </Suspense>
+              </LayoutWrapper>
+            </RoleGuard>
           }
         />
       ))}

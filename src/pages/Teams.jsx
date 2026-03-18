@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Users, Plus, Crown, Shield, Eye, Trash2, Mail, MoreHorizontal,
-  UserPlus, Settings, ChevronRight, CheckCircle2
+  UserPlus, Settings, ChevronRight, CheckCircle2, UserX
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import TeamAnalytics from "@/components/teams/TeamAnalytics";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const roleConfig = {
   admin: { label: "Admin", icon: Shield, color: "bg-red-50 text-red-700 border-red-200" },
@@ -123,12 +125,26 @@ export default function Teams() {
         <div className="space-y-3">
           <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Your Teams</h2>
           {loadingTeams ? (
-            <div className="space-y-2">{[1,2].map(i => <div key={i} className="bg-white border rounded-xl p-4 animate-pulse h-16" />)}</div>
+            <div className="space-y-2">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center justify-between">
+                  <div className="space-y-2 flex-1">
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-3 w-1/2" />
+                  </div>
+                  <Skeleton className="w-4 h-4 rounded" />
+                </div>
+              ))}
+            </div>
           ) : teams.length === 0 ? (
-            <Card className="border-dashed border-slate-200 p-6 text-center">
-              <Users className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-              <p className="text-sm text-slate-400">No teams yet</p>
-              <Button size="sm" variant="outline" className="mt-3" onClick={() => setShowCreateTeam(true)}>Create your first team</Button>
+            <Card className="border-dashed border-slate-200">
+              <EmptyState
+                icon={<Users />}
+                title="No teams yet"
+                description="Create a team to start collaborating on deals with colleagues."
+                action={{ label: "Create your first team", onClick: () => setShowCreateTeam(true) }}
+                compact
+              />
             </Card>
           ) : (
             teams.map(team => (
@@ -152,11 +168,13 @@ export default function Teams() {
         {/* Team detail */}
         <div className="lg:col-span-2">
           {!selectedTeam ? (
-            <Card className="border-slate-200/60 h-full flex items-center justify-center min-h-[300px]">
-              <div className="text-center">
-                <Users className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-                <p className="text-sm text-slate-400">Select a team to manage</p>
-              </div>
+            <Card className="border-slate-200/60 min-h-[300px] flex items-center justify-center">
+              <EmptyState
+                icon={<Users />}
+                title="Select a team"
+                description="Choose a team from the list on the left to view members, permissions, and analytics."
+                compact
+              />
             </Card>
           ) : (
             <Card className="border-slate-200/60">
@@ -188,7 +206,13 @@ export default function Teams() {
                 {activeTab === "members" && (
                   <div className="space-y-3">
                     {members.length === 0 ? (
-                      <p className="text-sm text-slate-400 text-center py-8">No members yet. Invite someone!</p>
+                      <EmptyState
+                        icon={<UserX />}
+                        title="No members yet"
+                        description="Invite colleagues to collaborate on deals and track partnerships together."
+                        action={{ label: "Invite someone", onClick: () => setShowInvite(true), icon: <UserPlus className="w-4 h-4" /> }}
+                        compact
+                      />
                     ) : (
                       members.map(member => {
                         const rc = roleConfig[member.role] || roleConfig.member;

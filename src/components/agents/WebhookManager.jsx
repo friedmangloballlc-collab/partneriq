@@ -228,7 +228,7 @@ export default function WebhookManager() {
 
   // ── Slack preview block ─────────────────────────────────────────────
   const slackPreview = {
-    text: ":white_check_mark: PartnerIQ Alert: Deal Closed",
+    text: ":white_check_mark: Deal Stage Alert: Deal Closed",
     blocks: [
       { type: "header", text: { type: "plain_text", text: ":white_check_mark: Deal Closed" } },
       {
@@ -414,7 +414,7 @@ export default function WebhookManager() {
             Slack Integration
           </CardTitle>
           <p className="text-sm text-gray-500">
-            Route PartnerIQ alerts directly to your Slack workspace via incoming webhooks.
+            Route Deal Stage alerts directly to your Slack workspace via incoming webhooks.
           </p>
         </CardHeader>
         <CardContent className="space-y-5">

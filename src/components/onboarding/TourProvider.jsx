@@ -12,7 +12,7 @@ export const useTour = () => useContext(TourContext);
 const TOUR_STEPS = {
   brand: [
     {
-      title: "Welcome to PartnerIQ! 🎉",
+      title: "Welcome to Deal Stage! 🎉",
       description: "You're all set! Let's take a 60-second tour so you can hit the ground running. We'll show you the most powerful features for your brand.",
       target: null,
       position: "center",
@@ -53,7 +53,7 @@ const TOUR_STEPS = {
   talent: [
     {
       title: "Welcome, Creator! 🌟",
-      description: "Let's show you how to find brand deals, track partnerships, and grow your career on PartnerIQ.",
+      description: "Let's show you how to find brand deals, track partnerships, and grow your career on Deal Stage.",
       target: null,
       position: "center",
     },
@@ -86,7 +86,7 @@ const TOUR_STEPS = {
   ],
   agency: [
     {
-      title: "Welcome to PartnerIQ Agency! 🏢",
+      title: "Welcome to Deal Stage Agency! 🏢",
       description: "Manage your entire talent roster, multiple brand partnerships, and team collaboration — all in one place.",
       target: null,
       position: "center",

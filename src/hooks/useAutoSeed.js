@@ -10,7 +10,7 @@ import { supabase } from '@/api/supabaseClient';
 import { seedDemoData } from '@/utils/seedDemoData';
 import { queryClientInstance } from '@/lib/query-client';
 
-const SESSION_KEY = 'partneriq_auto_seed_done';
+const SESSION_KEY = 'dealstage_auto_seed_done';
 
 /** Returns true only if ALL core tables have at least one row. */
 async function allTablesPopulated() {
@@ -42,7 +42,6 @@ export function useAutoSeed() {
 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
-          console.warn('[AutoSeed] No authenticated user — skipping seed.');
           setSeeded(true);
           return;
         }
@@ -50,7 +49,6 @@ export function useAutoSeed() {
         // Check if ALL key tables are populated
         const populated = await allTablesPopulated();
         if (populated) {
-          console.log('[AutoSeed] All tables already populated — skipping seed.');
           sessionStorage.setItem(SESSION_KEY, '1');
           setSeeded(true);
           return;
@@ -58,19 +56,15 @@ export function useAutoSeed() {
 
         // --- Run the seed ---
         setSeeding(true);
-        console.log('[AutoSeed] Empty tables detected — seeding database...');
 
         const errors = [];
         await seedDemoData((p) => {
-          console.log(`[AutoSeed] ${p.step}/${p.total}: ${p.label}`);
           if (p.error) errors.push(p.error);
         });
 
         if (errors.length > 0) {
-          console.warn('[AutoSeed] Completed with warnings:', errors);
         }
 
-        console.log('[AutoSeed] Seed complete — invalidating all query caches...');
 
         // Force every React-Query cache entry to refetch
         await queryClientInstance.invalidateQueries();

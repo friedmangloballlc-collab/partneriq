@@ -12,6 +12,39 @@ import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
 import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+// ─── Zod schema ──────────────────────────────────────────────────────────────
+
+const profileSchema = z.object({
+  company_name: z
+    .string()
+    .max(100, "Company name must be 100 characters or fewer")
+    .optional()
+    .or(z.literal("")),
+  job_title: z
+    .string()
+    .max(80, "Job title must be 80 characters or fewer")
+    .optional()
+    .or(z.literal("")),
+  phone: z
+    .string()
+    .regex(
+      /^(\+?[\d\s\-().]{7,20})?$/,
+      "Enter a valid phone number (e.g. +1 555 000 0000)"
+    )
+    .optional()
+    .or(z.literal("")),
+});
+
+// ─── Inline field error ───────────────────────────────────────────────────────
+
+function FieldError({ message }) {
+  if (!message) return null;
+  return <p className="mt-1 text-xs text-red-500">{message}</p>;
+}
 
 export default function Settings() {
   const [user, setUser] = useState(null);
@@ -21,37 +54,47 @@ export default function Settings() {
   const [seedProgress, setSeedProgress] = useState(null);
   const [seedDone, setSeedDone] = useState(false);
   const [seedErrors, setSeedErrors] = useState([]);
-  const [formData, setFormData] = useState({
-    company_name: "",
-    job_title: "",
-    phone: "",
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      company_name: "",
+      job_title: "",
+      phone: "",
+    },
   });
 
   useEffect(() => {
     base44.auth.me().then(u => {
       setUser(u);
-      setFormData({
+      // Populate form with persisted values once the user loads
+      reset({
         company_name: u?.company_name || "",
         job_title: u?.job_title || "",
         phone: u?.phone || "",
       });
     }).catch(() => {});
-  }, []);
+  }, [reset]);
 
-  const handleSave = async () => {
+  const handleSave = handleSubmit(async (data) => {
     setSaving(true);
     setSaveStatus(null);
     try {
-      await base44.auth.updateMe(formData);
-      setSaveStatus('success');
+      await base44.auth.updateMe(data);
+      setSaveStatus("success");
       setTimeout(() => setSaveStatus(null), 3000);
     } catch {
-      setSaveStatus('error');
+      setSaveStatus("error");
       setTimeout(() => setSaveStatus(null), 4000);
     } finally {
       setSaving(false);
     }
-  };
+  });
 
   const roleInfo = {
     admin: { label: "Administrator", desc: "Full access to all platform features", color: "bg-red-50 text-red-700" },
@@ -94,26 +137,47 @@ export default function Settings() {
             </div>
           </div>
           <Separator />
+
+          {/* Validated fields */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Company / Agency Name</Label>
-              <Input value={formData.company_name} onChange={e => setFormData({...formData, company_name: e.target.value})} placeholder="Your company" />
+              <Label htmlFor="company_name">Company / Agency Name</Label>
+              <Input
+                id="company_name"
+                placeholder="Your company"
+                className={errors.company_name ? "border-red-400 focus-visible:ring-red-400" : ""}
+                {...register("company_name")}
+              />
+              <FieldError message={errors.company_name?.message} />
             </div>
             <div>
-              <Label>Job Title</Label>
-              <Input value={formData.job_title} onChange={e => setFormData({...formData, job_title: e.target.value})} placeholder="Your role" />
+              <Label htmlFor="job_title">Job Title</Label>
+              <Input
+                id="job_title"
+                placeholder="Your role"
+                className={errors.job_title ? "border-red-400 focus-visible:ring-red-400" : ""}
+                {...register("job_title")}
+              />
+              <FieldError message={errors.job_title?.message} />
             </div>
           </div>
           <div>
-            <Label>Phone</Label>
-            <Input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+1 (555) 000-0000" />
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              id="phone"
+              placeholder="+1 (555) 000-0000"
+              className={errors.phone ? "border-red-400 focus-visible:ring-red-400" : ""}
+              {...register("phone")}
+            />
+            <FieldError message={errors.phone?.message} />
           </div>
+
           <div className="flex items-center gap-3">
             <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
               {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
               Save Changes
             </Button>
-            {saveStatus === 'success' && (
+            {saveStatus === "success" && (
               <span className="text-sm font-medium text-emerald-600 flex items-center gap-1">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -121,7 +185,7 @@ export default function Settings() {
                 Saved
               </span>
             )}
-            {saveStatus === 'error' && (
+            {saveStatus === "error" && (
               <span className="text-sm font-medium text-red-600">Failed to save. Please try again.</span>
             )}
           </div>
@@ -197,7 +261,7 @@ export default function Settings() {
                   setSeedDone(false);
                   setSeedErrors([]);
                   setSeedProgress(null);
-                  sessionStorage.removeItem('partneriq_auto_seed_done');
+                  sessionStorage.removeItem("partneriq_auto_seed_done");
                 }}
               >
                 Seed Again
@@ -209,8 +273,7 @@ export default function Settings() {
                 setSeeding(true);
                 setSeedDone(false);
                 setSeedErrors([]);
-                // Clear the auto-seed flag so it can re-run
-                sessionStorage.removeItem('partneriq_auto_seed_done');
+                sessionStorage.removeItem("partneriq_auto_seed_done");
                 const errors = [];
                 try {
                   await seedDemoData((p) => {
@@ -218,11 +281,10 @@ export default function Settings() {
                     if (p.error) errors.push(p.error);
                   });
                   setSeedErrors(errors);
-                  // Invalidate all React Query caches so pages show new data immediately
                   await queryClientInstance.invalidateQueries();
                   setSeedDone(true);
                 } catch (err) {
-                  console.error('Seed error:', err);
+                  console.error("Seed error:", err);
                   setSeedErrors([...errors, err.message]);
                 } finally {
                   setSeeding(false);
@@ -232,7 +294,7 @@ export default function Settings() {
               className="bg-emerald-600 hover:bg-emerald-700"
             >
               {seeding ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
-              {seeding ? 'Loading Demo Data...' : 'Load Demo Data'}
+              {seeding ? "Loading Demo Data..." : "Load Demo Data"}
             </Button>
           )}
         </CardContent>

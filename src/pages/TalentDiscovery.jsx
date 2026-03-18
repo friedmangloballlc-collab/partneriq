@@ -13,6 +13,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import TalentCard from "@/components/talent/TalentCard";
 import TalentFilters from "@/components/talent/TalentFilters";
 import TalentProfileModal from "@/components/talent/TalentProfileModal";
+import { EmptyState } from "@/components/ui/empty-state";
+import { CardGridSkeleton } from "@/components/ui/loading-skeleton";
 
 const DEFAULT_FILTERS = {
   platform: "all", niche: "all", tier: "all", trajectory: "all",
@@ -127,27 +129,27 @@ export default function TalentDiscovery() {
         {/* Cards */}
         <div className="flex-1 min-w-0">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {[1,2,3,4,5,6].map(i => (
-                <div key={i} className="bg-white rounded-xl border p-5 animate-pulse">
-                  <div className="flex gap-4"><div className="w-12 h-12 rounded-full bg-slate-100" /><div className="flex-1 space-y-2"><div className="h-4 bg-slate-100 rounded w-2/3" /><div className="h-3 bg-slate-100 rounded w-1/2" /></div></div>
-                  <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t">{[1,2,3].map(j => <div key={j}><div className="h-2 bg-slate-100 rounded mb-1" /><div className="h-4 bg-slate-100 rounded w-2/3" /></div>)}</div>
-                </div>
-              ))}
-            </div>
+            <CardGridSkeleton
+              count={6}
+              columns={`grid-cols-1 sm:grid-cols-2 ${showFilters ? "xl:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"}`}
+            />
           ) : filtered.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-                <Search className="w-7 h-7 text-slate-300" />
-              </div>
-              <h3 className="text-lg font-semibold text-slate-700">No talent found</h3>
-              <p className="text-sm text-slate-400 mt-1">Try adjusting your filters or search term</p>
-              {activeFilterCount > 0 && (
-                <Button variant="outline" className="mt-4" onClick={() => setFilters(DEFAULT_FILTERS)}>
-                  <X className="w-3.5 h-3.5 mr-1.5" /> Clear filters
-                </Button>
-              )}
-            </div>
+            <EmptyState
+              icon={<Search />}
+              title={talents.length === 0 ? "No talent in your roster yet" : "No talent found"}
+              description={
+                talents.length === 0
+                  ? "Add your first creator to start discovering and matching talent."
+                  : "Try adjusting your filters or search term to find matching creators."
+              }
+              action={
+                talents.length === 0
+                  ? { label: "Add Talent", onClick: () => setShowAddForm(true), icon: <Plus className="w-4 h-4" /> }
+                  : activeFilterCount > 0
+                  ? { label: "Clear filters", onClick: () => setFilters(DEFAULT_FILTERS), variant: "outline", icon: <X className="w-3.5 h-3.5" /> }
+                  : undefined
+              }
+            />
           ) : (
             <div className={viewMode === "grid"
               ? `grid grid-cols-1 sm:grid-cols-2 ${showFilters ? "xl:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"} gap-4 stagger-children`

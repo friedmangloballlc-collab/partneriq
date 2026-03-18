@@ -32,8 +32,15 @@ export default function NavigationTracker() {
         }
 
         if (isAuthenticated && pageName && base44.appLogs?.logUserInApp) {
-            base44.appLogs.logUserInApp(pageName).catch(() => {
-                // Silently fail - logging shouldn't break the app
+            base44.appLogs.logUserInApp(pageName).catch(() => {});
+        }
+
+        // Google Analytics 4 page view tracking
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'page_view', {
+                page_title: pageName || pathname,
+                page_location: window.location.href,
+                page_path: pathname,
             });
         }
     }, [location, isAuthenticated, Pages, mainPageKey]);

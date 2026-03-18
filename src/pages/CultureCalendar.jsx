@@ -40,7 +40,6 @@ export default function CultureCalendar() {
     queryKey: ["industry_guides"],
     queryFn: async () => {
       const result = await base44.entities.IndustryGuide.list();
-      console.log("Industry guides fetched:", result);
       return result;
     },
   });

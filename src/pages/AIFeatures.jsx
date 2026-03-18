@@ -219,7 +219,7 @@ export default function AIFeatures() {
           <Brain className="w-6 h-6 text-indigo-500" />
           Advanced AI Features
         </h1>
-        <p className="text-sm text-slate-500 mt-1">ML systems, real-time intelligence, and autonomous deal execution powering PartnerIQ</p>
+        <p className="text-sm text-slate-500 mt-1">ML systems, real-time intelligence, and autonomous deal execution powering Deal Stage</p>
       </div>
 
       {/* Quick nav cards */}

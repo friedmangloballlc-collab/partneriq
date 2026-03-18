@@ -3,13 +3,15 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
-  Bell, Filter, Archive, Check, Trash2, AlertTriangle
+  Bell, Filter, Archive, Check, Trash2, AlertTriangle, SlidersHorizontal
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import NotificationCard from "@/components/notifications/NotificationCard";
 import NotificationFilters from "@/components/notifications/NotificationFilters";
+import { EmptyState } from "@/components/ui/empty-state";
+import { NotificationSkeleton } from "@/components/ui/loading-skeleton";
 
 export default function NotificationsPage() {
   const [selectedPriorities, setSelectedPriorities] = useState([]);
@@ -92,9 +94,22 @@ export default function NotificationsPage() {
 
   if (isLoading) {
     return (
-      <div className="text-center py-12">
-        <div className="inline-block w-12 h-12 rounded-full bg-indigo-100 animate-pulse mb-4" />
-        <p className="text-slate-500">Loading notifications...</p>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <Bell className="w-6 h-6 text-indigo-600" /> Notifications
+          </h1>
+          <p className="text-sm text-slate-500 mt-1">Real-time alerts for partnerships, opportunities, and events</p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="lg:col-span-1 space-y-4">
+            <div className="bg-white rounded-xl border border-slate-200/60 h-40 animate-pulse" />
+            <div className="bg-white rounded-xl border border-slate-200/60 h-32 animate-pulse" />
+          </div>
+          <div className="lg:col-span-3">
+            <NotificationSkeleton count={5} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -228,15 +243,24 @@ export default function NotificationsPage() {
         <div className="lg:col-span-3 space-y-3">
           {filteredNotifications.length === 0 ? (
             <Card className="border-slate-200/60">
-              <CardContent className="p-12 text-center">
-                <Bell className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-                <p className="text-slate-500 font-medium">No notifications</p>
-                <p className="text-xs text-slate-400 mt-1">
-                  {selectedPriorities.length > 0 || selectedStatuses.length > 0
-                    ? "Try adjusting your filters"
-                    : "New alerts will appear here in real-time"}
-                </p>
-              </CardContent>
+              {notifications.length === 0 ? (
+                <EmptyState
+                  icon={<Bell />}
+                  title="All caught up"
+                  description="You have no notifications right now. New alerts will appear here in real-time."
+                />
+              ) : (
+                <EmptyState
+                  icon={<SlidersHorizontal />}
+                  title="No notifications match your filters"
+                  description="Try adjusting the priority or status filters to see more results."
+                  action={{
+                    label: "Clear filters",
+                    onClick: () => { setSelectedPriorities([]); setSelectedStatuses(["unread"]); },
+                    variant: "outline",
+                  }}
+                />
+              )}
             </Card>
           ) : (
             filteredNotifications.map((notification) => (

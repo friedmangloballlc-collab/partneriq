@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, TrendingDown, Minus, Eye, Sparkles } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Eye, Sparkles, ShieldCheck } from "lucide-react";
 
 const platformColors = {
   instagram: "bg-pink-50 text-pink-700 border-pink-200",
@@ -47,7 +47,7 @@ export default function TalentCard({ talent, onView, onMatch }) {
     <Card className="border-slate-200/60 hover:shadow-lg hover:border-slate-300/80 transition-all duration-300 overflow-hidden group">
       <div className="p-5">
         <div className="flex items-start gap-4">
-          <Avatar className="w-12 h-12 ring-2 ring-white shadow-sm flex-shrink-0">
+          <Avatar className={`w-12 h-12 shadow-sm flex-shrink-0 ${talent.is_verified ? 'ring-2 ring-indigo-500 ring-offset-2' : 'ring-2 ring-white'}`}>
             {talent.avatar_url ? <AvatarImage src={talent.avatar_url} /> : null}
             <AvatarFallback className="bg-gradient-to-br from-indigo-400 to-purple-500 text-white font-bold text-sm">
               {initials}
@@ -56,6 +56,11 @@ export default function TalentCard({ talent, onView, onMatch }) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-slate-900 truncate">{talent.name}</h3>
+              {talent.is_verified && (
+                <span title={`${talent.verified_platforms_count || 1} platform${(talent.verified_platforms_count || 1) > 1 ? 's' : ''} verified`}>
+                  <ShieldCheck className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                </span>
+              )}
               {talent.trajectory && (
                 <TrajectoryIcon className={`w-3.5 h-3.5 ${trajectory?.color || "text-slate-400"}`} />
               )}

@@ -56,7 +56,7 @@ export async function seedDemoData(onProgress) {
   // Schema: id, title, brand_name, talent_name, brand_id, talent_id, status, deal_value, priority, partnership_type, match_score, assigned_to, notes
   report(++step, totalSteps, 'Seeding partnerships...');
   await safeInsert('partnerships', [
-    { id: 'c1000000-0000-0000-0000-000000000001', title: 'NovaTech x Mia Chen – Lifestyle Tech Series', brand_id: 'b1000000-0000-0000-0000-000000000001', talent_id: '01000000-0000-0000-0000-000000000001', brand_name: 'NovaTech', talent_name: 'Mia Chen', status: 'active', deal_value: 45000, match_score: 92, priority: 'high', assigned_to: 'sales@partneriq.example.com', notes: '6-part sponsored series launching Q2' },
+    { id: 'c1000000-0000-0000-0000-000000000001', title: 'NovaTech x Mia Chen – Lifestyle Tech Series', brand_id: 'b1000000-0000-0000-0000-000000000001', talent_id: '01000000-0000-0000-0000-000000000001', brand_name: 'NovaTech', talent_name: 'Mia Chen', status: 'active', deal_value: 45000, match_score: 92, priority: 'high', assigned_to: 'sales@thedealstage.com', notes: '6-part sponsored series launching Q2' },
     { id: 'c1000000-0000-0000-0000-000000000002', title: 'FreshBite x Aisha Patel – Nutrition Campaign', brand_id: 'b1000000-0000-0000-0000-000000000002', talent_id: '01000000-0000-0000-0000-000000000003', brand_name: 'FreshBite Foods', talent_name: 'Aisha Patel', status: 'contracted', deal_value: 38000, match_score: 95, priority: 'high', notes: 'Meal plan content integration' },
     { id: 'c1000000-0000-0000-0000-000000000003', title: 'StyleForward x Mia Chen – Fall Collection Drop', brand_id: 'b1000000-0000-0000-0000-000000000003', talent_id: '01000000-0000-0000-0000-000000000001', brand_name: 'StyleForward', talent_name: 'Mia Chen', status: 'negotiating', deal_value: 28000, match_score: 88, priority: 'medium', notes: 'Negotiations ongoing on usage rights' },
     { id: 'c1000000-0000-0000-0000-000000000004', title: 'GlowSkin x Sam Rivers – Skincare Routine', brand_id: 'b1000000-0000-0000-0000-000000000004', talent_id: '01000000-0000-0000-0000-000000000004', brand_name: 'GlowSkin', talent_name: 'Sam Rivers', status: 'outreach_sent', deal_value: 18000, match_score: 84, priority: 'medium', notes: 'First outreach sent, awaiting reply' },
@@ -128,10 +128,10 @@ export async function seedDemoData(onProgress) {
   // Schema: id, title, status, priority, assigned_to_email, assigned_to_name, assigned_by_email, due_date, partnership_id, context_label
   report(++step, totalSteps, 'Seeding tasks & activities...');
   await safeInsert('tasks', [
-    { id: 'f0000000-0000-0000-0000-000000000001', title: 'Send content brief to Mia Chen', status: 'done', priority: 'high', partnership_id: 'c1000000-0000-0000-0000-000000000001', assigned_to_email: 'alex@partneriq.example.com', due_date: '2026-03-15' },
-    { id: 'f0000000-0000-0000-0000-000000000002', title: 'Review contract for FreshBite deal', status: 'in_progress', priority: 'urgent', partnership_id: 'c1000000-0000-0000-0000-000000000002', assigned_to_email: 'legal@partneriq.example.com', due_date: '2026-03-10' },
-    { id: 'f0000000-0000-0000-0000-000000000003', title: 'Follow up with StyleForward on usage rights', status: 'todo', priority: 'high', partnership_id: 'c1000000-0000-0000-0000-000000000003', assigned_to_email: 'morgan@partneriq.example.com', due_date: '2026-03-12' },
-    { id: 'f0000000-0000-0000-0000-000000000004', title: 'Schedule discovery call with Priya Sharma', status: 'todo', priority: 'medium', partnership_id: 'c1000000-0000-0000-0000-000000000007', assigned_to_email: 'jordan@partneriq.example.com', due_date: '2026-03-11' },
+    { id: 'f0000000-0000-0000-0000-000000000001', title: 'Send content brief to Mia Chen', status: 'done', priority: 'high', partnership_id: 'c1000000-0000-0000-0000-000000000001', assigned_to_email: 'alex@thedealstage.com', due_date: '2026-03-15' },
+    { id: 'f0000000-0000-0000-0000-000000000002', title: 'Review contract for FreshBite deal', status: 'in_progress', priority: 'urgent', partnership_id: 'c1000000-0000-0000-0000-000000000002', assigned_to_email: 'legal@thedealstage.com', due_date: '2026-03-10' },
+    { id: 'f0000000-0000-0000-0000-000000000003', title: 'Follow up with StyleForward on usage rights', status: 'todo', priority: 'high', partnership_id: 'c1000000-0000-0000-0000-000000000003', assigned_to_email: 'morgan@thedealstage.com', due_date: '2026-03-12' },
+    { id: 'f0000000-0000-0000-0000-000000000004', title: 'Schedule discovery call with Priya Sharma', status: 'todo', priority: 'medium', partnership_id: 'c1000000-0000-0000-0000-000000000007', assigned_to_email: 'jordan@thedealstage.com', due_date: '2026-03-11' },
   ]);
 
   // 11. Activities
@@ -154,7 +154,6 @@ export async function seedDemoData(onProgress) {
     { id: '00000000-0000-0000-0000-000000000003', user_email: userEmail, title: 'Creator replied to outreach', message: 'Priya Sharma responded to your outreach email', type: 'info', status: 'unread', resource_type: 'outreach', resource_id: 'e1000000-0000-0000-0000-000000000002' },
     { id: '00000000-0000-0000-0000-000000000004', user_email: userEmail, title: 'Deal value milestone', message: 'Your pipeline has reached $227,500 in total deal value', type: 'success', status: 'read', resource_type: 'partnership' },
   ], { onConflict: 'id', ignoreDuplicates: true });
-  if (nErr) console.warn('seed notifications:', nErr.message);
 
   // 13. Rate Benchmarks (stable IDs prevent duplicates on re-seed)
   report(++step, totalSteps, 'Seeding rate benchmarks...');

@@ -90,7 +90,7 @@ export default function PlatformOverview() {
           </div>
           <h1 className="text-3xl font-bold text-white tracking-tight mb-3">Platform Overview</h1>
           <p className="text-slate-300 text-base max-w-2xl leading-relaxed">
-            PartnerIQ is an enterprise AI-powered Partnership Intelligence Platform connecting talent — creators, athletes, celebrities — with brands and agencies. Featuring a fault-tolerant multi-agent architecture with 50+ AI agents operating concurrently, automatic failover, and mandatory human approval for all outbound communications.
+            Deal Stage is an enterprise AI-powered Partnership Intelligence Platform connecting talent — creators, athletes, celebrities — with brands and agencies. Featuring a fault-tolerant multi-agent architecture with 50+ AI agents operating concurrently, automatic failover, and mandatory human approval for all outbound communications.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {["Brands", "Talent", "Agencies"].map(t => (
@@ -121,7 +121,7 @@ export default function PlatformOverview() {
       <div>
         <div className="flex items-center gap-2 mb-5">
           <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">1.0</span>
-          <h2 className="text-lg font-bold text-slate-800">Who PartnerIQ Serves</h2>
+          <h2 className="text-lg font-bold text-slate-800">Who Deal Stage Serves</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {USER_TYPES.map((u, i) => {

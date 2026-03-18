@@ -19,7 +19,7 @@ export default function BillingHistory() {
     queryKey: ["billing-history", "talent"],
     enabled: !!userEmail,
     queryFn: async () => {
-      const history = await base44.asServiceRole.entities.BillingHistory.filter({
+      const history = await base44.entities.BillingHistory.filter({
         user_email: userEmail,
         user_type: "talent"
       }, "-created_date", 100);
@@ -31,7 +31,7 @@ export default function BillingHistory() {
     queryKey: ["billing-history", "brand"],
     enabled: !!userEmail,
     queryFn: async () => {
-      const history = await base44.asServiceRole.entities.BillingHistory.filter({
+      const history = await base44.entities.BillingHistory.filter({
         user_email: userEmail,
         user_type: "brand"
       }, "-created_date", 100);
@@ -43,7 +43,7 @@ export default function BillingHistory() {
     queryKey: ["billing-history", "agency"],
     enabled: !!userEmail,
     queryFn: async () => {
-      const history = await base44.asServiceRole.entities.BillingHistory.filter({
+      const history = await base44.entities.BillingHistory.filter({
         user_email: userEmail,
         user_type: "agency"
       }, "-created_date", 100);

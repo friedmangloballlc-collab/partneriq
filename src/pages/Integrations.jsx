@@ -81,7 +81,7 @@ const CRM_INTEGRATIONS = [
     name: "HubSpot",
     logo: "HS",
     color: "bg-orange-500",
-    description: "Push partnership deals to HubSpot CRM pipeline, sync contacts, and trigger HubSpot workflows from PartnerIQ deal stage changes.",
+    description: "Push partnership deals to HubSpot CRM pipeline, sync contacts, and trigger HubSpot workflows from Deal Stage deal stage changes.",
     features: ["CRM pipeline sync", "Contact sync", "Workflow triggers", "Email tracking"],
     type: "OAuth 2.0",
     status: "live",
@@ -90,7 +90,7 @@ const CRM_INTEGRATIONS = [
     name: "Pipedrive",
     logo: "PD",
     color: "bg-green-600",
-    description: "Map PartnerIQ pipeline stages to Pipedrive deals. Get a unified view of all partnership revenue in your sales CRM.",
+    description: "Map Deal Stage pipeline stages to Pipedrive deals. Get a unified view of all partnership revenue in your sales CRM.",
     features: ["Pipeline stage mapping", "Deal revenue tracking", "Activity logging", "Person sync"],
     type: "API Key",
     status: "live",
@@ -138,7 +138,7 @@ const MARKETING_AUTOMATION = [
     name: "ActiveCampaign",
     logo: "AC",
     color: "bg-blue-500",
-    description: "Advanced marketing automation triggered by PartnerIQ deal events. Build complex partner nurture sequences with full CRM data.",
+    description: "Advanced marketing automation triggered by Deal Stage deal events. Build complex partner nurture sequences with full CRM data.",
     features: ["Deal event triggers", "Nurture sequences", "CRM sync", "Lead scoring"],
     type: "API Key",
     status: "live",
@@ -195,7 +195,7 @@ const COMMUNICATION_TOOLS = [
     name: "Microsoft Teams",
     logo: "MT",
     color: "bg-blue-600",
-    description: "Bring PartnerIQ deal intelligence directly into Teams channels. Get approval workflows and deal summaries without leaving Teams.",
+    description: "Bring Deal Stage deal intelligence directly into Teams channels. Get approval workflows and deal summaries without leaving Teams.",
     features: ["Teams notifications", "Adaptive cards", "Approval workflow", "Meeting scheduling"],
     type: "OAuth 2.0 / Webhook",
     status: "live",
@@ -213,7 +213,7 @@ const COMMUNICATION_TOOLS = [
     name: "Intercom",
     logo: "IC",
     color: "bg-blue-400",
-    description: "Enhance partner communication with Intercom's messaging platform. Log all partner conversations as PartnerIQ notes.",
+    description: "Enhance partner communication with Intercom's messaging platform. Log all partner conversations as Deal Stage notes.",
     features: ["Conversation logging", "Contact enrichment", "Automated messages", "Help desk sync"],
     type: "OAuth 2.0",
     status: "beta",
@@ -361,7 +361,7 @@ export default function Integrations() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Integrations</h1>
-          <p className="text-sm text-slate-500 mt-1">Connect your accounts to unlock the full power of PartnerIQ</p>
+          <p className="text-sm text-slate-500 mt-1">Connect your accounts to unlock the full power of Deal Stage</p>
         </div>
         <div className="flex gap-3">
           <div className="bg-emerald-50 rounded-xl px-3 py-2 text-center">
@@ -584,7 +584,7 @@ export default function Integrations() {
                   <Badge className="bg-red-100 text-red-700 text-[10px] gap-1"><Lock className="w-2.5 h-2.5" />Admin Only</Badge>
                   <StatusBadge status="live" />
                 </div>
-                <p className="text-sm text-slate-600 mt-1">Verified B2B contact data from LinkedIn and Google Maps — enables PartnerIQ to identify and reach exact decision-makers for partnership services.</p>
+                <p className="text-sm text-slate-600 mt-1">Verified B2B contact data from LinkedIn and Google Maps — enables Deal Stage to identify and reach exact decision-makers for partnership services.</p>
               </div>
             </div>
 

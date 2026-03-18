@@ -13,7 +13,7 @@ const TOKENS = [
   { token: "{{niche}}", label: "Niche", example: "fitness" },
   { token: "{{followers}}", label: "Followers", example: "250K" },
   { token: "{{your_name}}", label: "Your Name", example: "Jane Smith" },
-  { token: "{{your_company}}", label: "Your Company", example: "PartnerIQ" },
+  { token: "{{your_company}}", label: "Your Company", example: "Deal Stage" },
   { token: "{{campaign_name}}", label: "Campaign Name", example: "Summer 2025" },
   { token: "{{date}}", label: "Today's Date", example: "Feb 24, 2026" },
 ];
