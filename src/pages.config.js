@@ -53,6 +53,11 @@ const PAGES = {
     "TalentDataRoom": lazy(() => import('./pages/TalentDataRoom')),
     "BrandDataRoom": lazy(() => import('./pages/BrandDataRoom')),
     "AgencyDataRoom": lazy(() => import('./pages/AgencyDataRoom')),
+    "BrandSpendPrediction": lazy(() => import('./pages/BrandSpendPrediction')),
+    "CreatorCalculator": lazy(() => import('./pages/CreatorCalculator')),
+    "WarmIntroNetwork": lazy(() => import('./pages/WarmIntroNetwork')),
+    "PitchCompetition": lazy(() => import('./pages/PitchCompetition')),
+    "BundleDeals": lazy(() => import('./pages/BundleDeals')),
 };
 
 export { PAGES };

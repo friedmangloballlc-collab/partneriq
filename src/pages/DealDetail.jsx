@@ -4,6 +4,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
+import InternationalDealSupport from "@/components/deals/InternationalDealSupport";
+import EscrowPanel from "@/components/deals/EscrowPanel";
+import DisputePanel from "@/components/deals/DisputePanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -955,11 +958,20 @@ export default function DealDetail() {
             isUpdating={isUpdating}
             currentUser={currentUser}
           />
+          <EscrowPanel
+            partnershipId={dealId}
+            userRole={currentUser?.role}
+          />
         </div>
 
         {/* RIGHT: 1/3 width */}
         <div className="space-y-4">
           <DealInfoCard deal={deal} />
+          <DisputePanel
+            partnershipId={dealId}
+            currentUser={currentUser}
+          />
+          <InternationalDealSupport deal={deal} />
           <AIAgentButtons deal={deal} />
           <RateBenchmarkWidget deal={deal} />
           <CultureCalendarWidget deal={deal} />

@@ -7,7 +7,7 @@
 const rolePages = {
   admin: new Set([
     'Dashboard', 'Marketplace', 'TalentProfile', 'BrandDashboard', 'MasterCalendar',
-    'CultureCalendar', 'MarketIntelligence', 'DemographicTargeting', 'PlatformOverview',
+    'CultureCalendar', 'MarketIntelligence', 'BrandSpendPrediction', 'DemographicTargeting', 'PlatformOverview',
     'AIFeatures', 'AIAgentsHub', 'AICommandCenter', 'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue',
     'Brands', 'Partnerships', 'DealAnalytics', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach',
     'SequenceBuilder', 'Approvals', 'MatchEngine', 'CampaignBriefGenerator',
@@ -15,6 +15,7 @@ const rolePages = {
     'Teams', 'SystemHealth', 'AIAnalytics', 'SystemArchitecture', 'Integrations', 'BillingHistory',
     'Settings', 'ConnectAccounts', 'EventManagement', 'Analytics',
     'SubscriptionManagement', 'CreateOpportunity', 'ContactFinder',
+    'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
   ]),
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -22,29 +23,30 @@ const rolePages = {
     'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Partnerships', 'DealAnalytics',
     'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'DemographicTargeting', 'CampaignBriefGenerator', 'DataImportExport',
-    'SimulationEngine', 'PitchDeckBuilder', 'MarketIntelligence', 'Teams',
+    'SimulationEngine', 'PitchDeckBuilder', 'MarketIntelligence', 'BrandSpendPrediction', 'Teams',
     'Integrations', 'BillingHistory', 'Settings', 'Notifications',
     'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts',
-    'ContactFinder',
+    'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
   ]),
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
     'Marketplace', 'TalentProfile', 'MasterCalendar', 'CultureCalendar',
-    'MarketIntelligence', 'Brands', 'Partnerships', 'DealAnalytics', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail',
+    'MarketIntelligence', 'BrandSpendPrediction', 'Brands', 'Partnerships', 'DealAnalytics', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail',
     'CustomReports', 'TalentAnalytics', 'TalentRevenue', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'CampaignBriefGenerator', 'PitchDeckBuilder', 'Notifications', 'Teams',
     'DemographicTargeting', 'ConnectAccounts', 'Integrations', 'BillingHistory',
     'Settings', 'Analytics', 'SubscriptionManagement', 'ContactFinder',
+    'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
   ]),
   agency: new Set([
     'Dashboard', 'Marketplace', 'MasterCalendar', 'CultureCalendar',
     'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue', 'Brands', 'Partnerships', 'DealAnalytics',
     'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail', 'CustomReports', 'Outreach', 'SequenceBuilder', 'Approvals', 'MatchEngine',
     'CampaignBriefGenerator', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
-    'PitchDeckBuilder', 'MarketIntelligence', 'Teams', 'Integrations',
+    'PitchDeckBuilder', 'MarketIntelligence', 'BrandSpendPrediction', 'Teams', 'Integrations',
     'BillingHistory', 'Settings', 'Notifications', 'DemographicTargeting',
     'Analytics', 'SubscriptionManagement', 'CreateOpportunity', 'ConnectAccounts',
-    'ContactFinder',
+    'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
   ]),
 };
 

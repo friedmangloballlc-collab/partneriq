@@ -16,11 +16,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Video } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import PortfolioManager from "@/components/talent/PortfolioManager";
 import MediaKitGenerator from "@/components/talent/MediaKitGenerator";
+import VideoPitchStudio from "@/components/talent/VideoPitchStudio";
 
 const COLLABORATION_TYPES = [
   "sponsorship",
@@ -138,10 +139,30 @@ export default function TalentProfile() {
       {/* Profile Header */}
       <Card>
         <CardHeader>
-          <CardTitle>Talent Profile</CardTitle>
-          <CardDescription>
-            Showcase your expertise, availability, and past collaborations
-          </CardDescription>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <CardTitle>Talent Profile</CardTitle>
+              <CardDescription>
+                Showcase your expertise, availability, and past collaborations
+              </CardDescription>
+            </div>
+            {talentData?.video_pitch_url && (
+              <Badge className="bg-indigo-100 text-indigo-700 border-indigo-200 gap-1 shrink-0">
+                <Video className="w-3 h-3" />
+                Pitch Video Live
+              </Badge>
+            )}
+          </div>
+          {talentData?.video_pitch_url && (
+            <div className="mt-3 rounded-lg overflow-hidden border border-slate-200 bg-black">
+              <video
+                src={talentData.video_pitch_url}
+                controls
+                className="w-full max-h-64 object-contain"
+                aria-label="Your video pitch"
+              />
+            </div>
+          )}
         </CardHeader>
       </Card>
 
@@ -249,6 +270,13 @@ export default function TalentProfile() {
       <PortfolioManager
         portfolio={formData.portfolio}
         onChange={(portfolio) => setFormData({ ...formData, portfolio })}
+      />
+
+      {/* Video Pitch Studio */}
+      <VideoPitchStudio
+        talentId={talentData?.id !== "new" ? talentData?.id : null}
+        existingUrl={talentData?.video_pitch_url || null}
+        onSaved={(url) => setTalentData((prev) => ({ ...prev, video_pitch_url: url }))}
       />
 
       {/* Media Kit Generator */}

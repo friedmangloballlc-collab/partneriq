@@ -13,6 +13,7 @@ import Login from '@/pages/Login';
 import Onboarding from '@/pages/Onboarding';
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
+import CreatorCalculator from '@/pages/CreatorCalculator';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
@@ -135,12 +136,15 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Public routes: legal pages (no auth needed)
+  // Public routes: legal pages and tools (no auth needed)
   if (location.pathname === '/terms') {
     return <Routes><Route path="/terms" element={<Terms />} /></Routes>;
   }
   if (location.pathname === '/privacy') {
     return <Routes><Route path="/privacy" element={<Privacy />} /></Routes>;
+  }
+  if (location.pathname === '/calculator') {
+    return <Routes><Route path="/calculator" element={<CreatorCalculator />} /></Routes>;
   }
 
   // Public routes: onboarding (landing) and login

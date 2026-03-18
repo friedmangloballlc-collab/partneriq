@@ -50,6 +50,9 @@ const ENTITY_TABLE_MAP = {
   DecisionMaker: 'decision_makers',
   DataRoomEntry: 'data_room_entries',
   DealScore: 'deal_scores',
+  EscrowPayment: 'escrow_payments',
+  BundleDeal: 'bundle_deals',
+  DealDispute: 'deal_disputes',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder

@@ -20,6 +20,8 @@ import BrandDashboardPanel from "@/components/dashboard/BrandDashboardPanel";
 import SuccessPredictionPanel from "@/components/dashboard/SuccessPredictionPanel";
 import AIAgentWidgets from "@/components/dashboard/AIAgentWidgets";
 import SmartNextSteps from "@/components/dashboard/SmartNextSteps";
+import OpportunityAlerts from "@/components/dashboard/OpportunityAlerts";
+import DealExpiryTracker from "@/components/dashboard/DealExpiryTracker";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
@@ -185,6 +187,9 @@ function DashboardContent({ user }) {
         )}
       </div>
 
+      {/* Opportunity match alerts — shown when talent has 85%+ fit opportunities */}
+      <OpportunityAlerts />
+
       {/* Empty state — show seed button when no data */}
       {!loadingP && partnerships.length === 0 && brands.length === 0 && talents.length === 0 && (
         <EmptyStateSeedBanner />
@@ -218,6 +223,9 @@ function DashboardContent({ user }) {
 
       {/* Smart Next Steps — contextual guidance based on user progress */}
       <SmartNextSteps user={user} onboardingStep={onboardingStep} />
+
+      {/* Deal Expiry & Renewal Tracker */}
+      <DealExpiryTracker />
 
       {/* Main content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

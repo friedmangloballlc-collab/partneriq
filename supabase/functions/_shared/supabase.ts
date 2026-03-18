@@ -40,6 +40,9 @@ const TABLE_MAP: Record<string, string> = {
   PlanningTimeline: 'planning_timelines',
   ViewershipTier: 'viewership_tiers',
   EmailConnection: 'email_connections',
+  EscrowPayment: 'escrow_payments',
+  BundleDeal: 'bundle_deals',
+  DealDispute: 'deal_disputes',
 };
 
 function getTable(name: string): string {
