@@ -79,7 +79,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-lg font-semibold text-slate-900">12. Contact</h2>
             <p>For privacy-related questions, contact us at <a href="mailto:privacy@thedealstage.com" className="text-indigo-600 hover:underline">privacy@thedealstage.com</a>.</p>
-            <p>Get Reach Media LLC<br />www.thedealstage.com</p>
+            <p>DealStage LLC<br />www.thedealstage.com</p>
           </section>
         </div>
       </div>

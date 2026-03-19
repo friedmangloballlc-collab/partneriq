@@ -1797,7 +1797,7 @@ export default function Onboarding() {
 
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-slate-600">© 2026 Get Reach Media LLC. All rights reserved.</p>
+            <p className="text-xs text-slate-600">© 2026 DealStage LLC. All rights reserved.</p>
             <div className="flex items-center gap-6">
               {/* Social placeholders */}
               {["Twitter", "LinkedIn", "Instagram"].map(social => (

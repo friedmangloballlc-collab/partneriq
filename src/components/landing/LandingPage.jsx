@@ -294,6 +294,19 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           background: none; border: none; cursor: pointer; font-family: var(--ds-sans);
         }
         .ds-nav-link:hover { color: var(--ds-cream); }
+        .ds-nav-link svg { opacity: 0.5; transition: transform 0.2s; }
+        .ds-nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+        .ds-nav-item:hover .ds-nav-link svg { transform: rotate(180deg); opacity: 1; }
+        .ds-dropdown { position: absolute; top: 100%; left: 0; background: var(--ds-bg2); border: 0.5px solid rgba(255,248,220,0.13); border-radius: 10px; padding: 0.75rem; min-width: 240px; opacity: 0; pointer-events: none; transform: translateY(6px); transition: all 0.18s; z-index: 300; }
+        .ds-nav-item:hover .ds-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+        .ds-drop-item { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.65rem 0.75rem; border-radius: 6px; text-decoration: none; transition: background 0.15s; cursor: pointer; color: inherit; }
+        .ds-drop-item:hover { background: rgba(255,248,220,0.04); }
+        .ds-drop-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
+        .ds-drop-title { font-size: 0.82rem; font-weight: 500; color: var(--ds-cream); margin-bottom: 0.1rem; }
+        .ds-drop-desc { font-size: 0.7rem; color: rgba(245,240,230,0.4); line-height: 1.4; }
+        .ds-nav-badge { font-size: 0.58rem; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); color: #080807; border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 500; margin-left: 0.5rem; }
+        .ds-btn-demo { font-size: 0.82rem; font-weight: 400; color: var(--ds-cream); border: 0.5px solid rgba(255,248,220,0.13); border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
+        .ds-btn-demo:hover { border-color: rgba(255,248,220,0.22); background: rgba(245,240,230,0.04); }
         .ds-nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
         .ds-btn-ghost {
           font-family: var(--ds-sans); font-size: 0.82rem; color: var(--ds-cream3);
@@ -643,13 +656,39 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`}>
           <a href="/" className="ds-nav-logo">Deal<span>stage</span></a>
           <ul className="ds-nav-links">
-            <li><a href="#how-it-works" className="ds-nav-link">How It Works</a></li>
-            <li><a href="#features" className="ds-nav-link">Features</a></li>
+            {/* For Brands dropdown */}
+            <li className="ds-nav-item">
+              <button className="ds-nav-link">For Brands <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+              <div className="ds-dropdown">
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
+              </div>
+            </li>
+            {/* For Talent dropdown */}
+            <li className="ds-nav-item">
+              <button className="ds-nav-link">For Talent <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+              <div className="ds-dropdown">
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🎯</div><div><div className="ds-drop-title">Talent Discovery</div><div className="ds-drop-desc">Find any talent type instantly</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📋</div><div><div className="ds-drop-title">Deal Pipeline</div><div className="ds-drop-desc">Track deals from pitch to close</div></div><span className="ds-nav-badge">New</span></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📄</div><div><div className="ds-drop-title">Media Kits</div><div className="ds-drop-desc">Auto-updating talent profiles</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💰</div><div><div className="ds-drop-title">Payments</div><div className="ds-drop-desc">Invoicing and commission splits</div></div></a>
+              </div>
+            </li>
+            {/* For Talent (discovery) dropdown */}
+            <li className="ds-nav-item">
+              <button className="ds-nav-link">For Creators <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+              <div className="ds-dropdown">
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">⭐</div><div><div className="ds-drop-title">Get Discovered</div><div className="ds-drop-desc">Brands come to you</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💼</div><div><div className="ds-drop-title">Manage Deals</div><div className="ds-drop-desc">Your pipeline in one place</div></div></a>
+                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💲</div><div><div className="ds-drop-title">Get Paid Fast</div><div className="ds-drop-desc">Secure, on-time payments</div></div></a>
+              </div>
+            </li>
             <li><a href="#pricing" className="ds-nav-link">Pricing</a></li>
-            <li><a href="#faq" className="ds-nav-link">FAQ</a></li>
           </ul>
           <div className="ds-nav-right">
             <a href="/login" className="ds-btn-ghost">Log in</a>
+            <a href="/login" className="ds-btn-demo">Book a demo</a>
             <button className="ds-btn-trial" onClick={handleGetStarted}>Start free trial</button>
           </div>
         </nav>
@@ -1058,7 +1097,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <div>
             <a href="/" className="ds-footer-logo">Deal<span>stage</span></a>
             <p className="ds-footer-tagline">The platform where talent meets brands and deals get done.</p>
-            <p style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-cream3)", marginTop: "1.5rem" }}>&copy; 2026 Get Reach Media LLC</p>
+            <p style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-cream3)", marginTop: "1.5rem" }}>&copy; 2026 DealStage LLC</p>
           </div>
           <div>
             <div className="ds-footer-col-title">Product</div>
@@ -1091,7 +1130,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           </div>
         </footer>
         <div className="ds-footer-bottom">
-          <span className="ds-footer-copy">&copy; 2026 Get Reach Media LLC. All rights reserved.</span>
+          <span className="ds-footer-copy">&copy; 2026 DealStage LLC. All rights reserved.</span>
           <span className="ds-footer-copy">Made with Dealstage</span>
         </div>
 

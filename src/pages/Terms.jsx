@@ -15,7 +15,7 @@ export default function Terms() {
         <div className="prose prose-slate max-w-none space-y-6 text-sm leading-relaxed text-slate-700">
           <section>
             <h2 className="text-lg font-semibold text-slate-900">1. Acceptance of Terms</h2>
-            <p>By accessing or using Deal Stage ("the Platform"), operated by Get Reach Media LLC, you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.</p>
+            <p>By accessing or using Deal Stage ("the Platform"), operated by DealStage LLC, you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.</p>
           </section>
 
           <section>
@@ -55,7 +55,7 @@ export default function Terms() {
 
           <section>
             <h2 className="text-lg font-semibold text-slate-900">9. Limitation of Liability</h2>
-            <p>Deal Stage is provided "as is" without warranties of any kind. To the maximum extent permitted by law, Get Reach Media LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform.</p>
+            <p>Deal Stage is provided "as is" without warranties of any kind. To the maximum extent permitted by law, DealStage LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform.</p>
           </section>
 
           <section>
