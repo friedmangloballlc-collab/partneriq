@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Admin Dashboard", icon: LayoutDashboard, page: "AdminDashboard" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
@@ -56,6 +57,8 @@ const roleNavItems = {
     { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
+    { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "System Health", icon: Activity, page: "SystemHealth" },
@@ -99,6 +102,8 @@ const roleNavItems = {
     { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
+    { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "Brands", icon: Building2, page: "Brands" },
@@ -142,6 +147,8 @@ const roleNavItems = {
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
+    { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Talent", icon: Users, page: "TalentDiscovery" },
     { name: "Data Room", icon: Database, page: "TalentDataRoom" },
     { name: "Brand Data Room", icon: Database, page: "BrandDataRoom" },
@@ -189,6 +196,8 @@ const roleNavItems = {
     { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
+    { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },

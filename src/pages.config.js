@@ -6,6 +6,7 @@ import { lazy } from 'react';
 import __Layout from './Layout.jsx';
 
 const PAGES = {
+    "AdminDashboard": lazy(() => import('./pages/AdminDashboard')),
     "AIAgentsHub": lazy(() => import('./pages/AIAgentsHub')),
     "AIAnalytics": lazy(() => import('./pages/AIAnalytics')),
     "AICommandCenter": lazy(() => import('./pages/AICommandCenter')),
@@ -59,6 +60,8 @@ const PAGES = {
     "PitchCompetition": lazy(() => import('./pages/PitchCompetition')),
     "BundleDeals": lazy(() => import('./pages/BundleDeals')),
     "DealComparison": lazy(() => import('./pages/DealComparison')),
+    "ContractTemplates": lazy(() => import('./pages/ContractTemplates')),
+    "Referrals": lazy(() => import('./pages/Referrals')),
 };
 
 export { PAGES };

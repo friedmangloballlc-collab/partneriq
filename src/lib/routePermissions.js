@@ -6,6 +6,7 @@
 
 const rolePages = {
   admin: new Set([
+    'AdminDashboard',
     'Dashboard', 'Marketplace', 'TalentProfile', 'BrandDashboard', 'MasterCalendar',
     'CultureCalendar', 'MarketIntelligence', 'BrandSpendPrediction', 'DemographicTargeting', 'PlatformOverview',
     'AIFeatures', 'AIAgentsHub', 'AICommandCenter', 'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue',
@@ -16,6 +17,7 @@ const rolePages = {
     'Settings', 'ConnectAccounts', 'EventManagement', 'Analytics',
     'SubscriptionManagement', 'CreateOpportunity', 'ContactFinder',
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
+    'ContractTemplates', 'Referrals',
   ]),
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -27,6 +29,7 @@ const rolePages = {
     'Integrations', 'BillingHistory', 'Settings', 'Notifications',
     'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts', 'Analytics', 'EventManagement', 'SimulationEngine', 'DataImportExport', 'Notifications', 'BundleDeals', 'PitchCompetition', 'WarmIntroNetwork', 'BrandSpendPrediction',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
+    'ContractTemplates', 'Referrals',
   ]),
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -37,6 +40,7 @@ const rolePages = {
     'DemographicTargeting', 'ConnectAccounts', 'Integrations', 'BillingHistory',
     'Settings', 'Analytics', 'SubscriptionManagement', 'ContactFinder',
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
+    'ContractTemplates', 'Referrals',
   ]),
   agency: new Set([
     'Dashboard', 'Marketplace', 'MasterCalendar', 'CultureCalendar',
@@ -47,6 +51,7 @@ const rolePages = {
     'BillingHistory', 'Settings', 'Notifications', 'DemographicTargeting',
     'Analytics', 'SubscriptionManagement', 'CreateOpportunity', 'ConnectAccounts',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
+    'ContractTemplates', 'Referrals',
   ]),
 };
 
