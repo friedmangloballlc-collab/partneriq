@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/api/supabaseClient";
+import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -59,15 +60,11 @@ export default function Login() {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  // ── Clear any stale/corrupt session tokens on login page load ────────────
-  React.useEffect(() => {
-    // Remove stale tokens from localStorage without making API calls
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith("sb-") && key.includes("-auth-token")) {
-        localStorage.removeItem(key);
-      }
-    });
-  }, []);
+  // Fresh Supabase client for login — avoids stale session state from AuthProvider
+  const freshSupabase = useMemo(() => createClient(
+    import.meta.env.VITE_SUPABASE_URL || "",
+    import.meta.env.VITE_SUPABASE_ANON_KEY || ""
+  ), []);
 
   // ── Magic link still uses plain local state (not validated via RHF) ──────
   const [magicEmail, setMagicEmail] = useState("");
@@ -95,7 +92,7 @@ export default function Login() {
   const handleSocialLogin = async (provider) => {
     setLoading(true);
     setServerError(null);
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error } = await freshSupabase.auth.signInWithOAuth({
       provider,
       options: { redirectTo: `${window.location.origin}/Dashboard` },
     });
@@ -109,7 +106,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setServerError(null);
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await freshSupabase.auth.signInWithOtp({
       email: magicEmail,
       options: { emailRedirectTo: `${window.location.origin}/Dashboard` },
     });
@@ -127,7 +124,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setServerError(null);
-    const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail, {
+    const { error } = await freshSupabase.auth.resetPasswordForEmail(forgotEmail, {
       redirectTo: `${window.location.origin}/login`,
     });
     if (error) {
@@ -142,7 +139,7 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
 
-    const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: loginData, error } = await freshSupabase.auth.signInWithPassword({ email, password });
     if (error) {
       // Sanitize error — never show raw tokens/headers to users
       const msg = error.message || "";
@@ -159,6 +156,14 @@ export default function Login() {
       // Auto-clear error after 4 seconds so user can retry
       setTimeout(() => setServerError(null), 4000);
       return;
+    }
+
+    // Transfer session to the shared supabase client so AuthProvider picks it up
+    if (loginData?.session) {
+      await supabase.auth.setSession({
+        access_token: loginData.session.access_token,
+        refresh_token: loginData.session.refresh_token,
+      });
     }
 
     if (loginData?.user) {
@@ -191,7 +196,7 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
 
-    const { data: signupData, error } = await supabase.auth.signUp({
+    const { data: signupData, error } = await freshSupabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: fullName, role } },
