@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
+import { useNavigate } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer,
@@ -22,7 +24,7 @@ import {
 import {
   DollarSign, TrendingUp, Users, Award, Plus, BarChart3,
   Sparkles, ArrowUpRight, ArrowDownRight, Minus, Target,
-  Share2, Download,
+  Share2, Download, FolderOpen, FileText, ExternalLink,
 } from "lucide-react";
 import DataRoomImporter from "@/components/dataroom/DataRoomImporter";
 import NDAGate from "@/components/dataroom/NDAGate";
@@ -183,6 +185,7 @@ export default function BrandDataRoom() {
   const qc = useQueryClient();
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [tab, setTab]               = useState("overview");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -243,6 +246,23 @@ export default function BrandDataRoom() {
       if (error) throw error;
       return data || [];
     },
+  });
+
+  // ── deck library (My Decks section) ──────────────────────────────────────
+  const { data: myDecks = [] } = useQuery({
+    queryKey: ["deck-library-brand-dataroom", ownerEmail],
+    queryFn: async () => {
+      if (!ownerEmail) return [];
+      const { data, error } = await supabase
+        .from("deck_library")
+        .select("id, title, deck_type, file_type, file_size, created_at, download_count")
+        .eq("user_email", ownerEmail)
+        .order("created_at", { ascending: false })
+        .limit(6);
+      if (error) return [];
+      return data || [];
+    },
+    enabled: !!ownerEmail,
   });
 
   // Apply role filter
@@ -554,6 +574,9 @@ export default function BrandDataRoom() {
           <TabsTrigger value="brief-parser">Brief Parser</TabsTrigger>
           <TabsTrigger value="access">Talent Access</TabsTrigger>
           <TabsTrigger value="audit">Audit Log</TabsTrigger>
+          <TabsTrigger value="my-decks" className="flex items-center gap-1.5">
+            <FolderOpen className="w-3.5 h-3.5" /> My Decks
+          </TabsTrigger>
         </TabsList>
 
         {/* ── OVERVIEW ── */}
@@ -873,6 +896,111 @@ export default function BrandDataRoom() {
         {/* ── AUDIT LOG ── */}
         <TabsContent value="audit">
           <AuditLog />
+        </TabsContent>
+
+        {/* ── MY DECKS ── */}
+        <TabsContent value="my-decks">
+          <Card className="border-slate-200/60">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                  <FolderOpen className="w-4 h-4 text-violet-500" /> My Deck Library
+                </CardTitle>
+                <Button
+                  size="sm"
+                  className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5 h-8 text-xs"
+                  onClick={() => navigate(createPageUrl("DeckLibrary"))}
+                >
+                  <Plus className="w-3.5 h-3.5" /> Upload New
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {myDecks.length === 0 ? (
+                <div className="py-10 text-center">
+                  <FolderOpen className="w-10 h-10 text-slate-200 mx-auto mb-3" />
+                  <p className="text-slate-500 font-semibold text-sm">No decks uploaded yet</p>
+                  <p className="text-xs text-slate-400 mt-1 mb-4">
+                    Upload pitch decks, media kits, and campaign materials to share with partners.
+                  </p>
+                  <Button
+                    size="sm"
+                    className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5"
+                    onClick={() => navigate(createPageUrl("DeckLibrary"))}
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Upload First Deck
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {myDecks.map((deck) => {
+                      const ext = (deck.file_type || "").toUpperCase();
+                      const typeColors = {
+                        pitch_deck: "bg-indigo-100 text-indigo-700",
+                        campaign_brief: "bg-purple-100 text-purple-700",
+                        media_kit: "bg-pink-100 text-pink-700",
+                        case_study: "bg-emerald-100 text-emerald-700",
+                        rate_card: "bg-amber-100 text-amber-700",
+                        portfolio: "bg-blue-100 text-blue-700",
+                        other: "bg-slate-100 text-slate-600",
+                      };
+                      const typeLabels = {
+                        pitch_deck: "Pitch Deck",
+                        campaign_brief: "Campaign Brief",
+                        media_kit: "Media Kit",
+                        case_study: "Case Study",
+                        rate_card: "Rate Card",
+                        portfolio: "Portfolio",
+                        other: "Other",
+                      };
+                      const iconBg = ext === "PDF" ? "bg-red-100 text-red-600"
+                        : ext === "PPTX" || ext === "PPT" || ext === "KEY" ? "bg-orange-100 text-orange-600"
+                        : "bg-blue-100 text-blue-600";
+
+                      return (
+                        <div
+                          key={deck.id}
+                          className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-violet-200 transition-colors"
+                        >
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${iconBg}`}>
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-slate-800 truncate">{deck.title}</p>
+                            <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                              <Badge className={`text-[10px] py-0 ${typeColors[deck.deck_type] || typeColors.other}`}>
+                                {typeLabels[deck.deck_type] || deck.deck_type}
+                              </Badge>
+                              {ext && <span className="text-[10px] text-slate-400">{ext}</span>}
+                            </div>
+                            <p className="text-[10px] text-slate-400 mt-0.5">
+                              {deck.download_count || 0} downloads ·{" "}
+                              {deck.created_at
+                                ? new Date(deck.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                                : "—"}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                    <p className="text-xs text-slate-400">Showing {myDecks.length} most recent decks</p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5 text-xs h-8"
+                      onClick={() => navigate(createPageUrl("DeckLibrary"))}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      View All in Deck Library
+                    </Button>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

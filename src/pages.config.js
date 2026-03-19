@@ -63,6 +63,7 @@ const PAGES = {
     "DealComparison": lazy(() => import('./pages/DealComparison')),
     "ContractTemplates": lazy(() => import('./pages/ContractTemplates')),
     "Referrals": lazy(() => import('./pages/Referrals')),
+    "DeckLibrary": lazy(() => import('./pages/DeckLibrary')),
 };
 
 export { PAGES };

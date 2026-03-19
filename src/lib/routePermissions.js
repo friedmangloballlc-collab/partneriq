@@ -17,7 +17,7 @@ const rolePages = {
     'Settings', 'ConnectAccounts', 'EventManagement', 'Analytics',
     'SubscriptionManagement', 'CreateOpportunity', 'ContactFinder',
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
-    'ContractTemplates', 'Referrals',
+    'ContractTemplates', 'Referrals', 'DeckLibrary',
   ]),
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -30,7 +30,7 @@ const rolePages = {
     'Brands', 'ContactFinder', 'ContractTemplates', 'Referrals',
     'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts', 'EventManagement', 'Notifications', 'BundleDeals', 'PitchCompetition', 'WarmIntroNetwork', 'BrandSpendPrediction',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
-    'ContractTemplates', 'Referrals',
+    'ContractTemplates', 'Referrals', 'DeckLibrary',
   ]),
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -52,7 +52,7 @@ const rolePages = {
     'BillingHistory', 'Settings', 'Notifications', 'DemographicTargeting',
     'Analytics', 'SubscriptionManagement', 'CreateOpportunity', 'ConnectAccounts',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
-    'ContractTemplates', 'Referrals',
+    'ContractTemplates', 'Referrals', 'DeckLibrary',
   ]),
 };
 

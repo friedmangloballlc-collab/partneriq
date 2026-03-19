@@ -53,6 +53,7 @@ const ENTITY_TABLE_MAP = {
   EscrowPayment: 'escrow_payments',
   BundleDeal: 'bundle_deals',
   DealDispute: 'deal_disputes',
+  DeckLibrary: 'deck_library',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder
