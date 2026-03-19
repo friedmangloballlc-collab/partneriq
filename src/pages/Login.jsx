@@ -139,44 +139,42 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
 
-    const { data: loginData, error } = await freshSupabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      // TEMPORARY: Show full error for debugging - will sanitize after fix
-      setServerError(`[${error.status || "?"}] ${error.message || JSON.stringify(error)}`);
-      setLoading(false);
-      setTimeout(() => setServerError(null), 15000);
-      return;
-    }
+    // Use raw fetch to bypass any Supabase JS client header issues
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    // Transfer session to the shared supabase client so AuthProvider picks it up
-    if (loginData?.session) {
-      await supabase.auth.setSession({
-        access_token: loginData.session.access_token,
-        refresh_token: loginData.session.refresh_token,
+    try {
+      const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+        },
+        body: JSON.stringify({ email, password }),
       });
-    }
 
-    if (loginData?.user) {
-      try {
-        const { data: existing } = await supabase
-          .from("profiles")
-          .select("id")
-          .eq("id", loginData.user.id)
-          .single();
+      const data = await res.json();
 
-        if (!existing) {
-          await supabase.from("profiles").upsert({
-            id: loginData.user.id,
-            email: loginData.user.email,
-            full_name: loginData.user.user_metadata?.full_name || "",
-            role: loginData.user.user_metadata?.role || "brand",
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          });
-        }
-      } catch (e) {
-        // Profile check may fail due to RLS — continue to dashboard
+      if (!res.ok) {
+        const msg = data?.error_description || data?.msg || data?.message || "Invalid email or password.";
+        setServerError(msg);
+        setLoading(false);
+        setTimeout(() => setServerError(null), 5000);
+        return;
       }
+
+      // Set the session on the shared supabase client
+      if (data.access_token && data.refresh_token) {
+        await supabase.auth.setSession({
+          access_token: data.access_token,
+          refresh_token: data.refresh_token,
+        });
+      }
+    } catch (err) {
+      setServerError("Network error. Please check your connection and try again.");
+      setLoading(false);
+      setTimeout(() => setServerError(null), 5000);
+      return;
     }
 
     navigate("/Dashboard");
