@@ -59,9 +59,14 @@ export default function Login() {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  // ── Clear any stale/corrupt session on login page load ──────────────────
+  // ── Clear any stale/corrupt session tokens on login page load ────────────
   React.useEffect(() => {
-    supabase.auth.signOut().catch(() => {});
+    // Remove stale tokens from localStorage without making API calls
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("sb-") && key.includes("-auth-token")) {
+        localStorage.removeItem(key);
+      }
+    });
   }, []);
 
   // ── Magic link still uses plain local state (not validated via RHF) ──────
@@ -136,9 +141,6 @@ export default function Login() {
   const handleLogin = loginForm.handleSubmit(async ({ email, password }) => {
     setLoading(true);
     setServerError(null);
-
-    // Clear any stale session before attempting login
-    await supabase.auth.signOut().catch(() => {});
 
     const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
