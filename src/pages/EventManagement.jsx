@@ -23,24 +23,6 @@ export default function EventManagement() {
   });
   const queryClient = useQueryClient();
 
-  // Handle navigation state from search - add to existing selections
-  useEffect(() => {
-    if (location.state?.selectedEvent) {
-      const allEvents = [...cultureEvents, ...megaEvents];
-      const event = allEvents.find(e => e.id === location.state.selectedEvent);
-      if (event) {
-        // Add to existing selections instead of replacing
-        setSelectedEvents(prev => new Set([...prev, location.state.selectedEvent]));
-        // Determine if it's culture or mega event
-        if (cultureEvents.find(e => e.id === location.state.selectedEvent)) {
-          setEventType("culture");
-        } else {
-          setEventType("mega");
-        }
-      }
-    }
-  }, [location.state, cultureEvents, megaEvents]);
-
   const { data: cultureEvents = [], isLoading: cultureLoading } = useQuery({
     queryKey: ["cultureEvents"],
     queryFn: () => base44.entities.CultureEvent.list(),
@@ -50,6 +32,22 @@ export default function EventManagement() {
     queryKey: ["megaEvents"],
     queryFn: () => base44.entities.MegaEvent.list(),
   });
+
+  // Handle navigation state from search - add to existing selections
+  useEffect(() => {
+    if (location.state?.selectedEvent) {
+      const allEvents = [...cultureEvents, ...megaEvents];
+      const event = allEvents.find(e => e.id === location.state.selectedEvent);
+      if (event) {
+        setSelectedEvents(prev => new Set([...prev, location.state.selectedEvent]));
+        if (cultureEvents.find(e => e.id === location.state.selectedEvent)) {
+          setEventType("culture");
+        } else {
+          setEventType("mega");
+        }
+      }
+    }
+  }, [location.state, cultureEvents, megaEvents]);
 
   const { data: demographics = [] } = useQuery({
     queryKey: ["demographics"],
