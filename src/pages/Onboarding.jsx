@@ -15,6 +15,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { FAQSection, ComparisonSection, SecurityBadges, VideoDemoSection, MobileAppSection } from "@/components/landing/LandingSections";
+import LandingPage from "@/components/landing/LandingPage";
 
 // ─────────────────────────────────────────────
 // DATA — unchanged from original
@@ -576,6 +577,17 @@ export default function Onboarding() {
 
   // ─── RENDER ───────────────────────────────────────────────────────────────
 
+  // Step 1: Show the premium landing page
+  if (step === 1) {
+    return (
+      <LandingPage
+        onGetStarted={() => { setStep(2); window.scrollTo(0, 0); }}
+        onSelectRole={(role) => { setSelectedRole(role); setStep(2); window.scrollTo(0, 0); }}
+      />
+    );
+  }
+
+  // Step 2+: Show the signup flow
   return (
     <div className="min-h-screen bg-slate-950 antialiased" style={{ scrollBehavior: "smooth" }}>
 
