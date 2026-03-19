@@ -51,7 +51,7 @@ function FieldError({ message }) {
 }
 
 export default function Login() {
-  const [mode, setMode] = useState("login"); // login | signup | magiclink
+  const [mode, setMode] = useState("login"); // login | signup | magiclink | forgot
   const [role, setRole] = useState("brand");
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
@@ -111,6 +111,23 @@ export default function Login() {
     setLoading(false);
   };
 
+  const [forgotEmail, setForgotEmail] = useState("");
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setServerError(null);
+    const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail, {
+      redirectTo: `${window.location.origin}/login`,
+    });
+    if (error) {
+      setServerError(error.message);
+    } else {
+      setMessage("Password reset link sent! Check your email.");
+    }
+    setLoading(false);
+  };
+
   const handleLogin = loginForm.handleSubmit(async ({ email, password }) => {
     setLoading(true);
     setServerError(null);
@@ -123,21 +140,25 @@ export default function Login() {
     }
 
     if (loginData?.user) {
-      const { data: existing } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("id", loginData.user.id)
-        .single();
+      try {
+        const { data: existing } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", loginData.user.id)
+          .single();
 
-      if (!existing) {
-        await supabase.from("profiles").upsert({
-          id: loginData.user.id,
-          email: loginData.user.email,
-          full_name: loginData.user.user_metadata?.full_name || "",
-          role: loginData.user.user_metadata?.role || "brand",
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        });
+        if (!existing) {
+          await supabase.from("profiles").upsert({
+            id: loginData.user.id,
+            email: loginData.user.email,
+            full_name: loginData.user.user_metadata?.full_name || "",
+            role: loginData.user.user_metadata?.role || "brand",
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+        }
+      } catch (e) {
+        // Profile check may fail due to RLS — continue to dashboard
       }
     }
 
@@ -218,7 +239,7 @@ export default function Login() {
             <img className="login-logo" src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 56 }} />
           </div>
           <p className="text-slate-400 text-sm">
-            {mode === "login" ? "Sign in to your account" : "Create your account"}
+            {mode === "login" ? "Sign in to your account" : mode === "forgot" ? "Reset your password" : "Create your account"}
           </p>
         </div>
 
@@ -243,7 +264,7 @@ export default function Login() {
           )}
 
           {/* Social OAuth Buttons */}
-          {mode !== "magiclink" && (
+          {mode !== "magiclink" && mode !== "forgot" && (
             <div className="space-y-2 mb-6">
               <Button
                 type="button"
@@ -322,8 +343,43 @@ export default function Login() {
             </form>
           )}
 
+          {/* Forgot Password Mode */}
+          {mode === "forgot" && (
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <p className="text-sm text-slate-400 mb-2">Enter your email and we'll send you a password reset link.</p>
+              <div>
+                <Label className="text-slate-300 text-sm">Email</Label>
+                <div className="relative mt-1">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type="email"
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    required
+                    className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-500"
+                  />
+                </div>
+              </div>
+              <Button
+                type="submit"
+                disabled={loading || !forgotEmail}
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium py-5"
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : "Send Reset Link"}
+              </Button>
+              <p className="text-center text-sm text-slate-400">
+                <button type="button" onClick={() => switchMode("login")} className="text-indigo-400 hover:text-indigo-300 font-medium">
+                  Back to sign in
+                </button>
+              </p>
+            </form>
+          )}
+
           {/* Login / Signup form — validated by Zod */}
-          {mode !== "magiclink" && (
+          {mode !== "magiclink" && mode !== "forgot" && (
             <form
               onSubmit={mode === "login" ? handleLogin : handleSignup}
               className="space-y-4"
@@ -385,6 +441,13 @@ export default function Login() {
                   </button>
                 </div>
                 <FieldError message={errors.password?.message} />
+                {mode === "login" && (
+                  <div className="mt-1 text-right">
+                    <button type="button" onClick={() => switchMode("forgot")} className="text-xs text-slate-500 hover:text-slate-300 transition-colors" style={{ color: "#c4a24a" }}>
+                      Forgot password?
+                    </button>
+                  </div>
+                )}
                 {mode === "signup" && watchedPassword && (() => {
                   const strength = getPasswordStrength(watchedPassword);
                   return (
@@ -443,7 +506,7 @@ export default function Login() {
             </form>
           )}
 
-          {mode !== "magiclink" && (
+          {mode !== "magiclink" && mode !== "forgot" && (
             <div className="mt-6 text-center space-y-3">
               <button
                 onClick={() => switchMode("magiclink")}
