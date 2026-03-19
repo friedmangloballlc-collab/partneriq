@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import { Zap, Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
+import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -205,13 +205,7 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <div className="text-left">
-              <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 700, color: "#f5f0e6" }}>Deal<span style={{ background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>stage</span></h1>
-              <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.6rem", color: "rgba(245,240,230,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Intelligence Platform</p>
-            </div>
+            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 44 }} />
           </div>
           <p className="text-slate-400 text-sm">
             {mode === "login" ? "Sign in to your account" : "Create your account"}

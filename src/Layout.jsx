@@ -9,6 +9,8 @@ import {
   Lock, Crown
 } from "lucide-react";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
+import { useTheme } from "@/hooks/useTheme";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 import UpgradeModal from "@/components/UpgradeModal";
 import FeatureGate from "@/components/FeatureGate";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
@@ -230,6 +232,7 @@ export default function Layout({ children, currentPageName }) {
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
   const { canAccess, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
+  const { theme } = useTheme();
   const [upgradeModal, setUpgradeModal] = useState(false);
   const [lockedFeature, setLockedFeature] = useState("");
 
@@ -259,14 +262,10 @@ export default function Layout({ children, currentPageName }) {
     <div className={`flex flex-col h-full bg-slate-950 ${mobile ? "w-72" : collapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
       {/* Logo */}
       <div className={`flex items-center h-16 px-4 border-b border-white/5 ${collapsed && !mobile ? "justify-center" : "gap-3"}`}>
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-          <Zap className="w-4 h-4 text-white" />
-        </div>
-        {(!collapsed || mobile) && (
-          <div className="flex flex-col">
-            <span className="text-white font-bold text-base tracking-tight">Deal Stage</span>
-            <span className="text-[10px] text-slate-500 uppercase tracking-widest">Intelligence Platform</span>
-          </div>
+        {collapsed && !mobile ? (
+          <img src="/brand/marks/10_mark_transparent.png" alt="D" style={{ height: 28 }} />
+        ) : (
+          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 28 }} />
         )}
         {mobile && (
           <button onClick={() => setMobileOpen(false)} className="ml-auto text-slate-400 hover:text-white" aria-label="Close navigation menu">
@@ -329,6 +328,13 @@ export default function Layout({ children, currentPageName }) {
         })}
       </nav>
 
+      {/* Theme switcher (expanded only) */}
+      {(!collapsed || mobile) && (
+        <div className="px-4 pb-2">
+          <ThemeSwitcher compact />
+        </div>
+      )}
+
       {/* User section */}
       <div className={`p-3 border-t border-white/5 ${collapsed && !mobile ? "flex justify-center" : ""}`}>
         <DropdownMenu>
@@ -372,8 +378,12 @@ export default function Layout({ children, currentPageName }) {
     </div>
   );
 
+  const mainBgStyle = theme.bg.startsWith("linear")
+    ? { background: theme.bg, color: theme.text }
+    : { backgroundColor: theme.bg, color: theme.text };
+
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen overflow-hidden" style={{ backgroundColor: theme.bg }}>
       {/* Desktop sidebar */}
       <div className="hidden lg:flex relative flex-shrink-0">
         <Sidebar />
@@ -390,14 +400,17 @@ export default function Layout({ children, currentPageName }) {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0" style={mainBgStyle}>
         {/* Top bar */}
-        <header className="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
+        <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4" style={{
+          backgroundColor: theme.bg.startsWith("linear") ? "rgba(0,0,0,0.15)" : theme.bg2,
+          borderBottom: `1px solid ${theme.border}`,
+        }}>
           <div className="flex items-center gap-4 flex-1">
             <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
-            <h1 className="text-lg font-semibold text-slate-900 hidden sm:block">{currentPageName}</h1>
+            <h1 className="text-lg font-semibold hidden sm:block" style={{ color: theme.text }}>{currentPageName}</h1>
           </div>
           <div className="flex items-center gap-4">
             <GlobalSearch />
@@ -406,7 +419,7 @@ export default function Layout({ children, currentPageName }) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto" style={mainBgStyle}>
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
             {isTrialActive && !isPaidPlan && (
               <div style={{
@@ -418,8 +431,8 @@ export default function Layout({ children, currentPageName }) {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <Crown size={14} style={{ color: "#c4a24a" }} />
-                  <span style={{ fontSize: "0.8rem", color: "#f5f0e6" }}>
-                    <span style={{ color: "#c4a24a", fontWeight: 500 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
+                  <span style={{ fontSize: "0.8rem", color: theme.text }}>
+                    <span style={{ color: theme.gold, fontWeight: 500 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
                   </span>
                 </div>
                 <button onClick={() => navigate("/SubscriptionManagement")} style={{
@@ -440,7 +453,7 @@ export default function Layout({ children, currentPageName }) {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <Lock size={14} style={{ color: "#ef4444" }} />
-                  <span style={{ fontSize: "0.8rem", color: "#f5f0e6" }}>
+                  <span style={{ fontSize: "0.8rem", color: theme.text }}>
                     Your trial has expired. Premium features are now locked.
                   </span>
                 </div>

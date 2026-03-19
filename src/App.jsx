@@ -26,6 +26,12 @@ import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
 
+const FeatureTalentDiscovery = React.lazy(() => import("./pages/FeatureTalentDiscovery"));
+const FeatureDealPipeline = React.lazy(() => import("./pages/FeatureDealPipeline"));
+const FeatureMediaKits = React.lazy(() => import("./pages/FeatureMediaKits"));
+const FeaturePayments = React.lazy(() => import("./pages/FeaturePayments"));
+const FeatureIntegrations = React.lazy(() => import("./pages/FeatureIntegrations"));
+
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
@@ -164,6 +170,11 @@ const AuthenticatedApp = () => {
     '/CookiePolicy': <CookiePolicy />,
     '/GDPR': <GDPR />,
     '/Demo': <Demo />,
+    '/features/talent-discovery': <Suspense fallback={<div>Loading...</div>}><FeatureTalentDiscovery /></Suspense>,
+    '/features/deal-pipeline': <Suspense fallback={<div>Loading...</div>}><FeatureDealPipeline /></Suspense>,
+    '/features/media-kits': <Suspense fallback={<div>Loading...</div>}><FeatureMediaKits /></Suspense>,
+    '/features/payments': <Suspense fallback={<div>Loading...</div>}><FeaturePayments /></Suspense>,
+    '/features/integrations': <Suspense fallback={<div>Loading...</div>}><FeatureIntegrations /></Suspense>,
   };
   if (Object.prototype.hasOwnProperty.call(publicMarketingRoutes, location.pathname)) {
     const element = publicMarketingRoutes[location.pathname];

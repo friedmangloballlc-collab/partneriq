@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2, Download, Trash2, AlertTriangle } from "lucide-react";
+import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2, Download, Trash2, AlertTriangle, Palette } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
 import EmailConnectionManager from "@/components/email/EmailConnectionManager";
@@ -16,6 +16,7 @@ import { Progress } from "@/components/ui/progress";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 // ─── Zod schema ──────────────────────────────────────────────────────────────
 
@@ -165,6 +166,26 @@ export default function Settings() {
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Settings</h1>
         <p className="text-sm text-slate-500 mt-1">Manage your account and preferences (v2 - local)</p>
       </div>
+
+      {/* Appearance */}
+      <Card className="border-slate-200/60">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+              <Palette className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <CardTitle className="text-base">Appearance</CardTitle>
+              <CardDescription>Choose your preferred color theme</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div style={{ background: "#0f0f0d", borderRadius: 10, padding: "1rem" }}>
+            <ThemeSwitcher />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Profile */}
       <Card className="border-slate-200/60">
