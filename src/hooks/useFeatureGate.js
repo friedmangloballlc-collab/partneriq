@@ -19,11 +19,22 @@ export function useFeatureGate() {
     const loadProfile = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data } = await supabase
+        // Try with plan column, fall back to without if column doesn't exist
+        let { data, error } = await supabase
           .from("profiles")
           .select("plan, created_at, role")
           .eq("id", user.id)
           .single();
+
+        if (error && error.message?.includes("column")) {
+          // plan column doesn't exist yet — query without it
+          const result = await supabase
+            .from("profiles")
+            .select("created_at, role")
+            .eq("id", user.id)
+            .single();
+          data = result.data;
+        }
         setProfile(data);
       }
       setLoading(false);
