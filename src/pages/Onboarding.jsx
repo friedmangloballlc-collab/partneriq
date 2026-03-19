@@ -42,15 +42,7 @@ const ROLES = [
   accent: "amber",
   perks: ["Full roster management", "Multi-brand pipelines", "Team collaboration", "Advanced analytics"]
 },
-{
-  key: "admin",
-  icon: Shield,
-  title: "Admin",
-  desc: "Platform administrator with full access",
-  color: "from-rose-500 to-pink-600",
-  accent: "rose",
-  perks: ["Full platform access", "User management", "All analytics & reports", "System configuration"]
-}];
+];
 
 
 const PLANS_BY_ROLE = {
@@ -256,33 +248,12 @@ const PLANS_BY_ROLE = {
     btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
   }],
 
-  admin: [
-  {
-    key: "admin",
-    title: "Admin Access",
-    price: "$0",
-    period: "internal",
-    badge: "Full Access",
-    features: [
-    "Full platform administration",
-    "All features unlocked",
-    "User & team management",
-    "System configuration",
-    "All analytics & reports",
-    "Demo data management"],
-
-    cta: "Continue as Admin",
-    color: "border-rose-500",
-    btnClass: "bg-rose-600 hover:bg-rose-700 text-white"
-  }]
-
 };
 
 const LABEL_MAP = {
   talent: { name: "Stage Name / Brand", namePlaceholder: "Your name or creator brand", title: "Content Niche / Category", titlePlaceholder: "e.g. Fitness, Tech, Lifestyle" },
   brand: { name: "Company Name", namePlaceholder: "Your company name", title: "Your Job Title", titlePlaceholder: "e.g. VP Marketing, Partnership Lead" },
-  agency: { name: "Agency Name", namePlaceholder: "Your agency name", title: "Your Role", titlePlaceholder: "e.g. Talent Manager, Agency Director" },
-  admin: { name: "Full Name", namePlaceholder: "Your name", title: "Your Role", titlePlaceholder: "e.g. Platform Admin, CTO" }
+  agency: { name: "Agency Name", namePlaceholder: "Your agency name", title: "Your Role", titlePlaceholder: "e.g. Talent Manager, Agency Director" }
 };
 
 const PLATFORM_STATS = [
