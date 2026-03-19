@@ -218,8 +218,17 @@ export default function About() {
   return (
     <>
       <SEO title="About" description="Learn about Dealstage — the AI-powered platform connecting talent, brands, and agencies for smarter partnerships" />
-      {/* Font injection */}
-      <style>{fontImport}</style>
+      {/* Font injection + mobile overrides */}
+      <style>{`
+        ${fontImport}
+        * { box-sizing: border-box; }
+        @media (max-width: 768px) {
+          .ab-timeline { flex-direction: column !important; }
+          .ab-timeline-item { flex-direction: column !important; align-items: flex-start !important; }
+          .ab-section-pad { padding: 64px 20px !important; }
+          .ab-hero-pad { padding: 80px 20px 48px !important; }
+        }
+      `}</style>
 
       <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, ...sans }}>
 

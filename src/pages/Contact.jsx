@@ -342,6 +342,13 @@ export default function Contact() {
         ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
         input::placeholder, textarea::placeholder, select::placeholder { color: rgba(245,240,230,0.28); }
         select option { background: #0f0f0d; color: #f5f0e6; }
+        @media (max-width: 768px) {
+          .ct-form-layout { grid-template-columns: 1fr !important; }
+          .ct-field-row { grid-template-columns: 1fr !important; }
+          .ct-channel-grid { grid-template-columns: 1fr !important; }
+          .ct-nav-links { display: none !important; }
+          .ct-nav { padding: 0 16px !important; }
+        }
       `}</style>
 
       {/* Ambient orbs */}
@@ -445,6 +452,7 @@ export default function Contact() {
 
         {/* Form + Map */}
         <div
+          className="ct-form-layout"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 380px",
@@ -519,7 +527,7 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="ct-field-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   <div>
                     <label
                       style={{
@@ -574,7 +582,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="ct-field-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   <div>
                     <label
                       style={{

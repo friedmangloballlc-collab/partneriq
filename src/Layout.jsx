@@ -427,6 +427,7 @@ export default function Layout({ children, currentPageName }) {
                 border: "0.5px solid rgba(196,162,74,0.2)",
                 borderRadius: 8, padding: "0.6rem 1rem",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
+                flexWrap: "wrap", gap: "0.5rem",
                 margin: "0 0 1rem",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -449,6 +450,7 @@ export default function Layout({ children, currentPageName }) {
                 border: "0.5px solid rgba(239,68,68,0.2)",
                 borderRadius: 8, padding: "0.6rem 1rem",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
+                flexWrap: "wrap", gap: "0.5rem",
                 margin: "0 0 1rem",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

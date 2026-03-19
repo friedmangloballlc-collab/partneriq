@@ -161,7 +161,7 @@ function IntegrationGrid() {
         </div>
 
         {/* Integration Cards Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+        <div className="fp-int-grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           {INTEGRATIONS.map((intg, i) => {
             const cat = CATEGORY_COLORS[intg.category] || CATEGORY_COLORS.Social;
             return (
@@ -228,12 +228,20 @@ export default function FeatureIntegrations() {
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
         ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        @media (max-width: 768px) {
+          .fp-nav-links { display: none !important; }
+          .fp-nav { padding: 0 16px !important; }
+          .fp-caps-grid { grid-template-columns: 1fr !important; }
+          .fp-two-col { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .fp-int-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+          .fp-footer-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+        }
       `}</style>
 
       {/* NAV */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: "rgba(8,8,7,0.85)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${T.borderAlt}`, padding: "0 32px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <nav className="fp-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: "rgba(8,8,7,0.85)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${T.borderAlt}`, padding: "0 32px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Link to="/" style={{ ...serif, fontSize: 20, fontWeight: 700, color: T.gold, textDecoration: "none", letterSpacing: "0.04em" }}>Dealstage</Link>
-        <div style={{ display: "flex", gap: 8 }}>
+        <div className="fp-nav-links" style={{ display: "flex", gap: 8 }}>
           <Link to="/login" style={{ ...sans, fontSize: 13, color: T.creamDim, textDecoration: "none", padding: "8px 16px", borderRadius: 6 }}>Log in</Link>
           <Link to="/Onboarding" style={{ ...sans, fontSize: 13, fontWeight: 600, color: T.bg, background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, textDecoration: "none", padding: "8px 18px", borderRadius: 6 }}>Start free</Link>
         </div>
@@ -261,6 +269,21 @@ export default function FeatureIntegrations() {
             <CTAButton to="/Pricing">See pricing</CTAButton>
           </div>
         </Fade>
+
+        <Fade delay={280}>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "2rem", marginTop: "2rem" }}>
+            {[
+              { role: "For Everyone", text: "Connect the tools you already use — no switching costs" },
+              { role: "88 Platforms", text: "Every major social network verified and synced" },
+              { role: "API Access", text: "Build custom workflows with webhooks and Zapier" },
+            ].map(item => (
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              </div>
+            ))}
+          </div>
+        </Fade>
+
         <Fade delay={320}>
           <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 56, flexWrap: "wrap" }}>
             {[["88+", "Social Platforms"], ["12", "CRM Integrations"], ["Real-time", "Data Sync"]].map(([val, lbl], i) => (
@@ -303,6 +326,16 @@ export default function FeatureIntegrations() {
       </section>
 
       <GoldRule />
+
+      {/* TESTIMONIAL */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
+        <Fade>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+            <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"Connecting our CRM and social platforms took 10 minutes. Everything just syncs automatically."</p>
+            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— Operations Lead, Select Management</p>
+          </div>
+        </Fade>
+      </section>
 
       {/* MOCKUP */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 24px" }}>

@@ -202,6 +202,9 @@ export default function Login() {
         .login-card .bg-gradient-to-r { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
         .login-card .border-indigo-500 { border-color: rgba(196,162,74,0.4) !important; }
         .login-card .bg-indigo-500\\/10 { background: rgba(196,162,74,0.08) !important; }
+        @media (max-width: 420px) {
+          .login-card { padding: 1.5rem !important; }
+        }
       `}</style>
       <div className="w-full max-w-md">
         {/* Logo */}

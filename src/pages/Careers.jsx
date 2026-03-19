@@ -446,6 +446,12 @@ export default function Careers() {
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #080807; }
         ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
+        @media (max-width: 768px) {
+          .cr-perks-grid { grid-template-columns: 1fr !important; }
+          .cr-jobs-grid { grid-template-columns: 1fr !important; }
+          .cr-nav-links { display: none !important; }
+          .cr-nav { padding: 0 16px !important; }
+        }
       `}</style>
 
       {/* Ambient orbs */}

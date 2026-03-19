@@ -354,6 +354,11 @@ export default function Blog() {
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #080807; }
         ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
+        @media (max-width: 768px) {
+          .bl-nav-links { display: none !important; }
+          .bl-nav { padding: 0 16px !important; }
+          .bl-filter-row { flex-wrap: wrap !important; gap: 8px !important; overflow-x: visible !important; }
+        }
       `}</style>
 
       {/* Ambient orbs */}
@@ -508,6 +513,16 @@ export default function Blog() {
           {filtered.map((article, i) => (
             <ArticleCard key={article.id} article={article} delay={i * 60} />
           ))}
+        </div>
+
+        {/* Product CTA */}
+        <div style={{ maxWidth: 800, margin: "0 auto 4rem", textAlign: "center", padding: "3rem 2rem", background: "rgba(196,162,74,0.04)", border: "0.5px solid rgba(196,162,74,0.15)", borderRadius: 16 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Ready to put these insights into action?</h3>
+          <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.45)", marginBottom: "1.5rem", lineHeight: 1.7 }}>Join 2,400+ professionals already closing better deals on Dealstage. Start free — no credit card required.</p>
+          <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <a href="/Onboarding" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Start free trial</a>
+            <a href="/Demo" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, border: "0.5px solid rgba(255,248,220,0.13)", background: "none", color: "rgba(245,240,230,0.5)", fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>See interactive demo</a>
+          </div>
         </div>
 
         {/* Newsletter Section */}

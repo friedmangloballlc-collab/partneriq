@@ -190,6 +190,13 @@ export default function Customers() {
         .cs-metric-card { transition: transform 0.2s; }
         .cs-metric-card:hover { transform: translateY(-2px); }
         * { box-sizing: border-box; }
+        @media (max-width: 768px) {
+          .cs-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .cs-case-grid { grid-template-columns: 1fr !important; }
+          .cs-detail-grid { grid-template-columns: 1fr !important; }
+          .cs-logo-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .cs-tabs-row { flex-wrap: wrap !important; gap: 8px !important; }
+        }
       `}</style>
 
       {/* Hero */}
@@ -300,6 +307,7 @@ export default function Customers() {
         }}
       >
         <div
+          className="cs-metrics-grid"
           style={{
             maxWidth: 900,
             margin: "0 auto",
@@ -474,6 +482,7 @@ export default function Customers() {
               />
 
               <div
+                className="cs-case-grid"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -658,6 +667,7 @@ export default function Customers() {
                   </div>
 
                   <div
+                    className="cs-detail-grid"
                     style={{
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr",
@@ -820,6 +830,7 @@ export default function Customers() {
           </div>
 
           <div
+            className="cs-logo-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(5, 1fr)",

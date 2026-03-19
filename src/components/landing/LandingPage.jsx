@@ -200,6 +200,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
   const [howItWorksRole, setHowItWorksRole] = useState("brand");
   const [openFaq, setOpenFaq] = useState(null);
   const [navScrolled, setNavScrolled] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const observerRef = useRef(null);
   const { theme } = useTheme();
 
@@ -653,15 +654,109 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-wrap ::-webkit-scrollbar { width: 3px; }
         .ds-wrap ::-webkit-scrollbar-track { background: var(--ds-bg); }
         .ds-wrap ::-webkit-scrollbar-thumb { background: var(--ds-border2); border-radius: 2px; }
+
+        /* MOBILE NAV OVERLAY */
+        .ds-mobile-menu-btn { display: none; background: none; border: none; color: var(--ds-cream); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; line-height: 1; }
+        .ds-mobile-nav-overlay {
+          display: none; position: fixed; inset: 0; z-index: 500;
+          background: rgba(8,8,7,0.97); flex-direction: column;
+          padding: 1.25rem 1.5rem;
+        }
+        .ds-mobile-nav-overlay.open { display: flex; }
+        .ds-mobile-nav-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+        .ds-mobile-nav-links { display: flex; flex-direction: column; gap: 0; flex: 1; overflow-y: auto; }
+        .ds-mobile-nav-link {
+          font-family: var(--ds-serif); font-size: 1.5rem; font-weight: 500; color: var(--ds-cream);
+          text-decoration: none; padding: 0.85rem 0; border-bottom: 0.5px solid var(--ds-border);
+          display: block; transition: color 0.2s;
+        }
+        .ds-mobile-nav-link:hover { color: var(--ds-gold2); }
+        .ds-mobile-nav-footer { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .ds-mobile-nav-cta {
+          width: 100%; font-family: var(--ds-sans); font-size: 0.9rem; font-weight: 500;
+          padding: 0.85rem; border-radius: 7px; cursor: pointer; text-align: center;
+          background: var(--ds-ga); color: #080807; border: none; text-decoration: none;
+          display: block;
+        }
+        .ds-mobile-nav-login {
+          width: 100%; font-family: var(--ds-sans); font-size: 0.9rem; font-weight: 400;
+          padding: 0.85rem; border-radius: 7px; cursor: pointer; text-align: center;
+          background: none; color: var(--ds-cream2); border: 0.5px solid var(--ds-border2);
+          text-decoration: none; display: block;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+          .ds-mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; }
+          .ds-nav-links { display: none !important; }
+          .ds-btn-demo { display: none !important; }
+          .ds-nav-right .ds-btn-ghost { display: none !important; }
+          .ds-btn-trial { font-size: 0.78rem !important; padding: 0.4rem 0.85rem !important; }
+          .ds-nav { padding: 0 1.25rem !important; }
+          .ds-hero-headline { font-size: clamp(2.2rem, 9vw, 3rem) !important; }
+          .ds-hero-top { padding: 2rem 1.5rem 2rem !important; }
+          .ds-hero-ui { margin: 0 1rem !important; }
+          .ds-ui-body { grid-template-columns: 1fr !important; height: auto !important; }
+          .ds-ui-sidebar, .ds-ui-right { display: none !important; }
+          .ds-trust-bar { padding: 1rem 1.5rem !important; gap: 1.5rem !important; flex-wrap: wrap !important; flex-direction: column !important; align-items: flex-start !important; }
+          .ds-trust-logos { gap: 1.5rem !important; flex-wrap: wrap !important; }
+          .ds-stats { grid-template-columns: repeat(2, 1fr) !important; }
+          .ds-stat-cell { padding: 1.5rem !important; border-right: none !important; border-bottom: 0.5px solid var(--ds-border); }
+          .ds-stat-cell:nth-child(odd) { border-right: 0.5px solid var(--ds-border) !important; }
+          .ds-stat-num { font-size: 2rem !important; }
+          .ds-section { padding: 4rem 1.5rem !important; }
+          .ds-full-bleed { padding: 4rem 1.5rem !important; }
+          .ds-feature-row { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .ds-feature-row.reverse { direction: ltr !important; }
+          .ds-hiw-grid { grid-template-columns: 1fr !important; }
+          .ds-pricing-grid { grid-template-columns: 1fr !important; }
+          .ds-badges-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .ds-mobile-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .ds-comp-table { font-size: 0.75rem !important; }
+          .ds-comp-table th, .ds-comp-table td { padding: 0.5rem 0.75rem !important; }
+          .ds-footer { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2rem 1.5rem !important; }
+          .ds-footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; padding: 1rem 1.5rem !important; }
+          .ds-cta-title { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
+          .ds-hero-btns { flex-direction: column !important; width: 100% !important; }
+          .ds-btn-hero-primary, .ds-btn-hero-secondary { width: 100% !important; text-align: center !important; justify-content: center !important; }
+          .ds-tab-row { flex-wrap: wrap !important; }
+          .ds-cta-actions { flex-direction: column !important; align-items: stretch !important; }
+          .ds-cta-section { padding: 5rem 1.5rem !important; }
+          .ds-hero-sub { font-size: 0.9rem !important; }
+          .ds-ui-stats-row { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       <div className="ds-wrap" style={theme.bg.startsWith("linear") ? { background: theme.bg } : { backgroundColor: theme.bg }}>
+
+        {/* ── MOBILE NAV OVERLAY ──────────────────────────────────────────── */}
+        <div className={`ds-mobile-nav-overlay${mobileNavOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Navigation menu">
+          <div className="ds-mobile-nav-header">
+            <a href="/" style={{ display: "flex", alignItems: "center" }} onClick={() => setMobileNavOpen(false)}>
+              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
+            </a>
+            <button className="ds-mobile-menu-btn" onClick={() => setMobileNavOpen(false)} aria-label="Close menu">✕</button>
+          </div>
+          <nav className="ds-mobile-nav-links">
+            <a href="#features" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Features</a>
+            <a href="#pricing" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Pricing</a>
+            <a href="#how-it-works" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>How It Works</a>
+            <a href="/About" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>About</a>
+            <a href="/Blog" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Blog</a>
+            <a href="/Demo" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Book a Demo</a>
+          </nav>
+          <div className="ds-mobile-nav-footer">
+            <button className="ds-mobile-nav-cta" onClick={() => { setMobileNavOpen(false); handleGetStarted(); }}>Start free trial</button>
+            <a href="/login" className="ds-mobile-nav-login" onClick={() => setMobileNavOpen(false)}>Log in</a>
+          </div>
+        </div>
 
         {/* ── NAV ─────────────────────────────────────────────────────────── */}
         <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`}>
           <a href="/" className="ds-nav-logo" style={{ display: "flex", alignItems: "center" }}>
             <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 42 }} />
           </a>
+          <button className="ds-mobile-menu-btn" onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>☰</button>
           <ul className="ds-nav-links">
             {/* For Brands dropdown */}
             <li className="ds-nav-item">
@@ -670,6 +765,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 <a href="/features/talent-discovery" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
                 <a href="/features/deal-pipeline" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
                 <a href="/Analytics" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
+                <a href="/features/integrations" className="ds-drop-item"><div className="ds-drop-icon">🔗</div><div><div className="ds-drop-title">Integrations</div><div className="ds-drop-desc">Connect 88+ platforms and tools</div></div></a>
               </div>
             </li>
             {/* For Talent dropdown */}

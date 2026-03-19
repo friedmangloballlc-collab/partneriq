@@ -692,7 +692,7 @@ const Screen2 = () => {
         <div style={{ fontFamily: fonts.mono, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: T.gold, marginBottom: 12 }}>
           10-Factor Weighted Scoring Model
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px 24px" }}>
+        <div className="dm-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px 24px" }}>
           {factors10.map((f) => (
             <div key={f.name} style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div
@@ -1676,6 +1676,14 @@ export default function Demo() {
         .tour-nav-btn:hover {
           background: rgba(196,162,74,0.12) !important;
           border-color: rgba(196,162,74,0.4) !important;
+        }
+
+        @media (max-width: 768px) {
+          .dm-two-col { grid-template-columns: 1fr !important; }
+          .dm-four-col { grid-template-columns: repeat(2, 1fr) !important; }
+          .dm-hero-btns { flex-direction: column !important; width: 100% !important; gap: 12px !important; }
+          .dm-hero-btns a, .dm-hero-btns button { width: 100% !important; justify-content: center !important; }
+          .demo-screen { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
         }
       `}</style>
 
