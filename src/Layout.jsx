@@ -21,6 +21,7 @@ const roleNavItems = {
   admin: [
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "Admin Dashboard", icon: LayoutDashboard, page: "AdminDashboard" },
+    { name: "Data Manager", icon: Database, page: "AdminDataManager" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },

@@ -6,7 +6,7 @@
 
 const rolePages = {
   admin: new Set([
-    'AdminDashboard',
+    'AdminDashboard', 'AdminDataManager',
     'Dashboard', 'Marketplace', 'TalentProfile', 'BrandDashboard', 'MasterCalendar',
     'CultureCalendar', 'MarketIntelligence', 'BrandSpendPrediction', 'DemographicTargeting', 'PlatformOverview',
     'AIFeatures', 'AIAgentsHub', 'AICommandCenter', 'TalentDiscovery', 'TalentAnalytics', 'TalentRevenue',
