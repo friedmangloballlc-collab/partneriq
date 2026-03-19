@@ -59,6 +59,11 @@ export default function Login() {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
+  // ── Clear any stale/corrupt session on login page load ──────────────────
+  React.useEffect(() => {
+    supabase.auth.signOut().catch(() => {});
+  }, []);
+
   // ── Magic link still uses plain local state (not validated via RHF) ──────
   const [magicEmail, setMagicEmail] = useState("");
 
@@ -134,7 +139,13 @@ export default function Login() {
 
     const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setServerError(error.message);
+      // Sanitize error — never show raw tokens/headers to users
+      const msg = error.message || "";
+      if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
+        setServerError("Unable to sign in. Please try again.");
+      } else {
+        setServerError(msg);
+      }
       setLoading(false);
       return;
     }
@@ -176,7 +187,12 @@ export default function Login() {
     });
 
     if (error) {
-      setServerError(error.message);
+      const msg = error.message || "";
+      if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
+        setServerError("Unable to create account. Please try again.");
+      } else {
+        setServerError(msg);
+      }
       setLoading(false);
       return;
     }
