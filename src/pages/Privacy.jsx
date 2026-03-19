@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Privacy() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO title="Privacy Policy" description="How Dealstage collects, uses, and protects your personal data" />
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-sm text-indigo-600 hover:text-indigo-800 mb-8">
           <ArrowLeft className="w-4 h-4" /> Back to Deal Stage

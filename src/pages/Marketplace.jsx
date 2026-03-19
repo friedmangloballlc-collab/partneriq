@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
@@ -140,6 +141,7 @@ export default function Marketplace() {
 
   return (
     <div className="space-y-6">
+      <SEO title="Marketplace" description="Browse and discover verified talent and brand opportunities" />
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>

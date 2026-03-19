@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   Brain,
   ShieldCheck,
@@ -216,6 +217,7 @@ const INVESTORS = [
 export default function About() {
   return (
     <>
+      <SEO title="About" description="Learn about Dealstage — the AI-powered platform connecting talent, brands, and agencies for smarter partnerships" />
       {/* Font injection */}
       <style>{fontImport}</style>
 

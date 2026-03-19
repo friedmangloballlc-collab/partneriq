@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import {
   Star,
   TrendingUp,
@@ -178,6 +179,7 @@ export default function Customers() {
         color: COLORS.cream,
       }}
     >
+      <SEO title="Customer Stories" description="See how top brands, talent, and agencies use Dealstage to close better deals" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@300;400;500&display=swap');
 

@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { SkeletonDashboard } from "./components/ui/Skeleton";
 import * as Sentry from "@sentry/react";
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -26,6 +27,8 @@ import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
 
+const CheckEmail = React.lazy(() => import("./pages/CheckEmail"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 const FeatureTalentDiscovery = React.lazy(() => import("./pages/FeatureTalentDiscovery"));
 const FeatureDealPipeline = React.lazy(() => import("./pages/FeatureDealPipeline"));
 const FeatureMediaKits = React.lazy(() => import("./pages/FeatureMediaKits"));
@@ -110,9 +113,7 @@ const AuthenticatedRoutes = ({ authError }) => {
   }
 
   const pageFallback = (
-    <div className="flex items-center justify-center h-64">
-      <div className="w-6 h-6 border-2 border-slate-200 border-t-indigo-600 rounded-full animate-spin" />
-    </div>
+    <div className="p-6"><SkeletonDashboard /></div>
   );
 
   return (
@@ -133,7 +134,7 @@ const AuthenticatedRoutes = ({ authError }) => {
           }
         />
       ))}
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<Suspense fallback={<div />}><NotFound /></Suspense>} />
     </Routes>
   );
 };
@@ -185,6 +186,14 @@ const AuthenticatedApp = () => {
   if (location.pathname === '/login') {
     if (isAuthenticated) return <Navigate to="/Dashboard" replace />;
     return <Routes><Route path="/login" element={<Login />} /></Routes>;
+  }
+
+  if (location.pathname === '/check-email') {
+    return (
+      <Routes>
+        <Route path="/check-email" element={<Suspense fallback={<div />}><CheckEmail /></Suspense>} />
+      </Routes>
+    );
   }
 
   if (location.pathname === '/' || location.pathname === '/Onboarding') {

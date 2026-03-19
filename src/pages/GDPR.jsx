@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import {
   Shield,
   Eye,
@@ -297,6 +298,7 @@ export default function GDPR() {
         color: COLORS.cream,
       }}
     >
+      <SEO title="GDPR Compliance" description="Your data rights and our commitment to GDPR compliance" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@300;400;500&display=swap');
         .gdpr-right-btn:hover { background: #141310 !important; }

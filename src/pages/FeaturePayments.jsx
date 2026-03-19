@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   FileText,
   Shield,
@@ -217,6 +218,7 @@ function PaymentsDashboard() {
 export default function FeaturePayments() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
+      <SEO title="Payments" description="Invoicing, escrow, and commission splits built directly into deals via Stripe" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }

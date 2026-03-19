@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
@@ -191,6 +192,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#080807", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
+      <SEO title="Sign In" description="Sign in to your Dealstage account" />
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <style>{`
         .login-card { background: rgba(255,248,220,0.02) !important; border-color: rgba(255,248,220,0.07) !important; }

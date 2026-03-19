@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Terms() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO title="Terms of Service" description="Terms and conditions for using the Dealstage platform" />
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Link to="/" className="inline-flex items-center gap-2 text-sm text-indigo-600 hover:text-indigo-800 mb-8">
           <ArrowLeft className="w-4 h-4" /> Back to Deal Stage

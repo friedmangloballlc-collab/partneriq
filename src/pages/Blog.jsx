@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import SEO from "@/components/SEO";
 import {
   BookOpen,
   TrendingUp,
@@ -345,6 +346,7 @@ export default function Blog() {
         fontFamily: FONTS.body,
       }}
     >
+      <SEO title="Blog & Resources" description="Insights on partnerships, creator economy trends, AI in marketing, and deal-making strategies" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }

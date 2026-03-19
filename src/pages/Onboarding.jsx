@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
@@ -445,6 +446,12 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 };
 
 // ─────────────────────────────────────────────
+// STRIPE
+// ─────────────────────────────────────────────
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "");
+
+// ─────────────────────────────────────────────
 // MAIN COMPONENT
 // ─────────────────────────────────────────────
 
@@ -558,6 +565,13 @@ export default function Onboarding() {
         } catch (e) { /* non-blocking */ }
       }
 
+      // After successful signUp, redirect to check-email page
+      if (signUpData?.user && !signUpData?.session) {
+        // User needs to verify email first
+        navigate(`/check-email?email=${encodeURIComponent(email)}`);
+        return;
+      }
+
       // Trigger welcome email (non-blocking)
       try {
         await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`, {
@@ -603,6 +617,33 @@ export default function Onboarding() {
             status: "active",
           });
         } catch (e) {}
+      }
+
+      // After profile/brand creation succeeds, handle payment for paid plans
+      if (selectedPlan && selectedPlan !== "free") {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/initializeSubscription`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${session?.access_token || import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              planTier: selectedPlan,
+              billingCycle: billingCycle || 'monthly',
+              userType: selectedRole,
+            }),
+          });
+          const result = await response.json();
+          if (result.url) {
+            window.location.href = result.url; // Redirect to Stripe Checkout
+            return;
+          }
+        } catch (e) {
+          console.error('Stripe checkout error:', e);
+          // Fall through to dashboard if Stripe fails
+        }
       }
 
       navigate(createPageUrl("Dashboard"));
@@ -906,7 +947,7 @@ export default function Onboarding() {
                 color: (name && email && password) ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
                 cursor: (name && email && password) ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
               }}>
-                {saving ? "Creating account..." : "Get Started Free"}
+                {saving ? "Creating account..." : (selectedPlan && selectedPlan !== "free") ? "Continue to Payment" : "Get Started Free"}
               </button>
 
               <p style={{ textAlign: "center", fontSize: "0.7rem", color: "rgba(245,240,230,0.25)", marginTop: "0.25rem" }}>

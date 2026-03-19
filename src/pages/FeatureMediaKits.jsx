@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   DollarSign,
   Download,
@@ -204,6 +205,7 @@ function MediaKitMockup() {
 export default function FeatureMediaKits() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
+      <SEO title="Media Kits" description="Auto-updating media kits with live social stats — no more outdated PDFs" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }

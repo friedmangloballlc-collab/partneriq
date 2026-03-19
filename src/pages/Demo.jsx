@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
 const T = {
@@ -1631,6 +1632,7 @@ export default function Demo() {
         overflowX: "hidden",
       }}
     >
+      <SEO title="Interactive Demo" description="Try the Dealstage platform with an interactive product tour — no signup required" />
       {/* Font imports */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@300;400;500;600;700&family=Instrument+Mono:wght@300;400;500;600;700&display=swap');

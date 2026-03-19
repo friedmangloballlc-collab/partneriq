@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
 import {
-  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb, Target, BrainCircuit, CheckCircle2, AlertCircle, Clock, PlusCircle
+  Sparkles, Loader2, ArrowRight, Building2, Users, Zap, BarChart3, TrendingUp, Database, Lightbulb, Target, BrainCircuit, CheckCircle2, AlertCircle, PlusCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -328,6 +328,7 @@ Return the top 5 matches.`;
 
   return (
     <div className="space-y-8">
+      <SEO title="Match Engine" description="AI-powered matching with 94% accuracy across 10 weighted scoring factors" />
       <ContextualTip
         tipId="match_engine_tip"
         title="How the Match Engine works"

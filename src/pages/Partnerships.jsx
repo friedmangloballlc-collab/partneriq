@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -65,6 +66,7 @@ export default function Partnerships() {
 
   return (
     <div className="space-y-6">
+      <SEO title="Partnerships" description="Manage your active deals and partnership pipeline" />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Partnerships</h1>

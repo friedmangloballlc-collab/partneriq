@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import SEO from "@/components/SEO";
 import {
   Mail,
   HeadphonesIcon,
@@ -331,6 +332,7 @@ export default function Contact() {
         fontFamily: FONTS.body,
       }}
     >
+      <SEO title="Contact" description="Get in touch with Dealstage — sales, support, and partnership inquiries" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }

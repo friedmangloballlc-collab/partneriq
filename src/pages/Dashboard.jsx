@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  Users, Building2, Handshake, DollarSign, Mail, CheckSquare,
-  TrendingUp, Sparkles, ArrowRight, Star, Brain, Zap, FileText, PlayCircle,
+  Users, Building2, Handshake, DollarSign, CheckSquare, Sparkles, ArrowRight, Brain, Zap, FileText, PlayCircle,
   Database, Loader2, AlertCircle
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -156,6 +156,7 @@ function DashboardContent({ user }) {
 
   return (
     <div className="space-y-8">
+      <SEO title="Dashboard" description="Your Dealstage dashboard — deals, analytics, and AI insights" />
       {/* Onboarding wizard — shown until user completes all 4 steps */}
       {showWizard && (
         <div id="onboarding-wizard">

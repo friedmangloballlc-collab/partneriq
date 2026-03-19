@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   ShieldCheck,
   RefreshCw,
@@ -222,6 +223,7 @@ function IntegrationGrid() {
 export default function FeatureIntegrations() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
+      <SEO title="Integrations" description="Connect 88+ social platforms and CRM tools to Dealstage" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }

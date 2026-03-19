@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   Search,
   Sparkles,
@@ -286,6 +287,7 @@ function SearchMockup() {
 export default function FeatureTalentDiscovery() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
+      <SEO title="Talent Discovery" description="Search 12,000+ verified talent profiles across athletes, creators, musicians, and more" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }

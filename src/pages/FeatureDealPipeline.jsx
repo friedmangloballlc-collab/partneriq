@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import {
   Kanban,
   FileText,
@@ -209,6 +210,7 @@ function KanbanMockup() {
 export default function FeatureDealPipeline() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
+      <SEO title="Deal Pipeline" description="Track every partnership deal from pitch to close with visual pipeline management" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
