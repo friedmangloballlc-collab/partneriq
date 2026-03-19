@@ -32,6 +32,57 @@ function confidenceColor(pct) {
   return "text-red-500";
 }
 
+// Role categories with all roles from the spec
+const ROLE_CATEGORIES = {
+  "Partnerships, Activations & Sponsorships": [
+    "Head/VP of Partnerships", "Director of Strategic Partnerships", "VP of Business Development",
+    "Head of Brand Activations", "Director of Sponsorships", "Head of Sponsorships",
+    "VP of Sponsorship Sales", "Sponsorship Manager", "Chief Partnership Officer",
+    "VP of Integrated Marketing", "Brand Partnerships Manager",
+  ],
+  "Marketing & Brand": [
+    "CMO", "VP of Marketing", "Marketing Director", "Head of Brand Marketing",
+    "Influencer Marketing Manager",
+  ],
+  "Digital & Social": [
+    "Head of Digital", "Digital Partnerships Manager", "Social Media Director",
+    "VP of Digital Strategy",
+  ],
+  "Audience & Growth": [
+    "Head of Audience Development", "VP of Growth", "Director of Audience Engagement",
+  ],
+  "Content & Creative": [
+    "Creative Director", "Head of Content Strategy", "VP of Programming",
+    "Host", "Executive Producer", "Head of Podcast Sales", "Head of Video",
+    "Video Partnerships Manager", "Newsletter Editor", "Head of Newsletter Partnerships",
+  ],
+  "Editorial & Content": [
+    "Editor-in-Chief", "Managing Editor", "Executive Editor", "Editorial Director",
+  ],
+  "Advertising & Sales": [
+    "VP of Sales", "Head of Advertising", "Chief Revenue Officer", "Director of Ad Sales",
+    "Commercial Director", "VP of Commercial Partnerships",
+  ],
+  "Events & Booking": [
+    "Events Director", "Head of Programming", "VP of Events", "Booking Manager",
+  ],
+  "Communications & PR": [
+    "Head of Communications", "PR Director", "VP of Public Relations",
+  ],
+  "Management & Talent": [
+    "Agent", "Manager", "Publicist", "Talent Rep", "Talent Manager",
+    "CEO/Founder", "General Manager",
+  ],
+  "Licensing & Affiliate": [
+    "Head of Licensing", "Affiliate Partnerships", "Syndication", "Co-Marketing contact",
+  ],
+  "Other Contacts": [
+    "Client Services Director", "Podcast booking", "Guest submission",
+    "Speaker bureau", "Talent agency", "Digital Marketing Intern", "Marketing Specialist",
+    "Director of Client Relations",
+  ],
+};
+
 export default function ContactFinder() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -39,6 +90,31 @@ export default function ContactFinder() {
   const [extractBrand, setExtractBrand] = useState("");
   const [extractIndustry, setExtractIndustry] = useState("");
   const [addingOutreach, setAddingOutreach] = useState(null);
+  const [selectedRoles, setSelectedRoles] = useState(new Set());
+  const [showRoleFilters, setShowRoleFilters] = useState(false);
+
+  const toggleRole = (role) => {
+    setSelectedRoles(prev => {
+      const next = new Set(prev);
+      if (next.has(role)) next.delete(role);
+      else next.add(role);
+      return next;
+    });
+  };
+
+  const toggleCategory = (category) => {
+    const roles = ROLE_CATEGORIES[category];
+    setSelectedRoles(prev => {
+      const next = new Set(prev);
+      const allSelected = roles.every(r => next.has(r));
+      if (allSelected) {
+        roles.forEach(r => next.delete(r));
+      } else {
+        roles.forEach(r => next.add(r));
+      }
+      return next;
+    });
+  };
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -179,6 +255,65 @@ export default function ContactFinder() {
           </CardContent>
         </Card>
 
+        {/* Role Category Filters */}
+        <Card className="border-slate-200/60">
+          <CardHeader className="pb-2 pt-4 px-5">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5" /> Filter by Role
+                {selectedRoles.size > 0 && (
+                  <Badge className="bg-indigo-100 text-indigo-700 text-[10px] ml-2">{selectedRoles.size} selected</Badge>
+                )}
+              </CardTitle>
+              <div className="flex gap-2">
+                {selectedRoles.size > 0 && (
+                  <button onClick={() => setSelectedRoles(new Set())} className="text-[10px] text-red-500 hover:underline">Clear all</button>
+                )}
+                <button onClick={() => setShowRoleFilters(!showRoleFilters)} className="text-[10px] text-indigo-600 hover:underline">
+                  {showRoleFilters ? "Hide" : "Show"} roles
+                </button>
+              </div>
+            </div>
+          </CardHeader>
+          {showRoleFilters && (
+            <CardContent className="px-5 pb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto">
+                {Object.entries(ROLE_CATEGORIES).map(([category, roles]) => {
+                  const allSelected = roles.every(r => selectedRoles.has(r));
+                  const someSelected = roles.some(r => selectedRoles.has(r));
+                  return (
+                    <div key={category} className="space-y-1.5">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={allSelected}
+                          ref={el => { if (el) el.indeterminate = someSelected && !allSelected; }}
+                          onChange={() => toggleCategory(category)}
+                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <span className="text-xs font-bold text-slate-700">{category}</span>
+                      </label>
+                      <div className="pl-5 space-y-1">
+                        {roles.map(role => (
+                          <label key={role} className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={selectedRoles.has(role)}
+                              onChange={() => toggleRole(role)}
+                              className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3 h-3"
+                            />
+                            <span className="text-[11px] text-slate-600">{role}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+
         {/* Search + AI Extract */}
         <div className="grid lg:grid-cols-2 gap-5">
           {/* Manual search */}
@@ -276,7 +411,10 @@ export default function ContactFinder() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {decisionMakers.map(dm => {
+              {decisionMakers.filter(dm => {
+                if (selectedRoles.size === 0) return true;
+                return selectedRoles.has(dm.role_title) || [...selectedRoles].some(r => dm.role_title?.toLowerCase().includes(r.toLowerCase()));
+              }).map(dm => {
                 const tier = dm.role_tier || 2;
                 const tierCfg = TIER_CONFIG[tier] || TIER_CONFIG[2];
 
