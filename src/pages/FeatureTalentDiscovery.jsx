@@ -422,48 +422,94 @@ export default function FeatureTalentDiscovery() {
             <span style={{ background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>one platform</span>
           </h2>
           <p style={{ ...sans, fontSize: 16, color: T.creamDim, marginBottom: 52, maxWidth: 520, lineHeight: 1.65 }}>
-            From elite athletes to rising creators — Dealstage covers every category of talent that brands partner with.
+            45 talent types across creators, entertainers, athletes, models, and more — all searchable, all verified.
           </p>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
-          {[
-            { emoji: "🏆", name: "Athletes", desc: "Professional & collegiate athletes across all sports", range: "$25K – $50M+", count: "2,400+" },
-            { emoji: "📱", name: "Creators", desc: "YouTubers, TikTokers, Instagram creators, and streamers", range: "$500 – $5M", count: "4,200+" },
-            { emoji: "🎵", name: "Musicians", desc: "Recording artists, DJs, producers, and composers", range: "$10K – $10M+", count: "1,100+" },
-            { emoji: "🎤", name: "Speakers", desc: "Keynote speakers, motivational coaches, and thought leaders", range: "$5K – $500K", count: "680+" },
-            { emoji: "👗", name: "Models", desc: "Fashion, commercial, fitness, and lifestyle models", range: "$5K – $2M", count: "950+" },
-            { emoji: "🎬", name: "Actors", desc: "Film, TV, theater, and voice actors", range: "$10K – $10M+", count: "720+" },
-            { emoji: "🎙️", name: "Podcasters", desc: "Audio and video podcasters across all niches", range: "$2K – $1M", count: "890+" },
-            { emoji: "👨‍🍳", name: "Chefs", desc: "Celebrity chefs, food critics, and culinary influencers", range: "$5K – $1M", count: "340+" },
-            { emoji: "🎮", name: "Gamers", desc: "Esports pros, streamers, and gaming content creators", range: "$1K – $1M", count: "1,050+" },
-            { emoji: "💪", name: "Fitness", desc: "Trainers, athletes, wellness experts, and health coaches", range: "$2K – $500K", count: "780+" },
-            { emoji: "💼", name: "Executives", desc: "Business leaders, entrepreneurs, and industry experts", range: "$10K – $500K", count: "420+" },
-            { emoji: "🎨", name: "Designers", desc: "Fashion designers, graphic artists, and creative directors", range: "$3K – $500K", count: "360+" },
-          ].map((cat, i) => (
-            <Fade key={cat.name} delay={i * 50}>
-              <div style={{
-                background: T.bgCard,
-                border: `1px solid ${T.borderAlt}`,
-                borderRadius: 14,
-                padding: "24px 20px",
-                height: "100%",
-                transition: "border-color 0.25s, transform 0.25s",
-                cursor: "pointer",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-4px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = T.borderAlt; e.currentTarget.style.transform = "translateY(0)"; }}
-              >
-                <div style={{ fontSize: 32, marginBottom: 12 }}>{cat.emoji}</div>
-                <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 6 }}>{cat.name}</h3>
-                <p style={{ ...sans, fontSize: 12.5, color: T.creamDim, lineHeight: 1.55, marginBottom: 14 }}>{cat.desc}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ ...mono, fontSize: 11, color: T.gold, letterSpacing: "0.04em" }}>{cat.count}</span>
-                  <span style={{ ...mono, fontSize: 10, color: T.creamDim, background: "rgba(196,162,74,0.08)", padding: "3px 8px", borderRadius: 4 }}>{cat.range}</span>
-                </div>
+
+        {/* Category groups */}
+        {[
+          { group: "Creators & Digital", icon: "📱", types: [
+            { name: "Instagram Influencer", range: "$500 – $5M" },
+            { name: "TikTok Creator", range: "$500 – $2M" },
+            { name: "YouTube Creator", range: "$1K – $5M" },
+            { name: "Twitch Streamer", range: "$500 – $1M" },
+            { name: "Podcast Host", range: "$2K – $1M" },
+            { name: "Newsletter Writer", range: "$1K – $500K" },
+          ]},
+          { group: "Actors & Entertainers", icon: "🎬", types: [
+            { name: "TV Actor (Series Regular / Recurring)", range: "$25K – $10M+" },
+            { name: "TV Actor (Guest Star)", range: "$10K – $2M" },
+            { name: "Film Actor (Lead / Supporting)", range: "$50K – $10M+" },
+            { name: "Commercial Actor", range: "$5K – $500K" },
+            { name: "Child / Youth Actor", range: "$5K – $1M" },
+            { name: "Stand-up Comedian", range: "$10K – $5M" },
+            { name: "Stunt Performer / Body Double", range: "$2K – $100K" },
+            { name: "Variety Act (Magician / Circus / Mentalist)", range: "$2K – $250K" },
+            { name: "Busker / Street Performer", range: "$500 – $50K" },
+          ]},
+          { group: "Musicians & Dancers", icon: "🎵", types: [
+            { name: "Music Artist (All Genres)", range: "$10K – $10M+" },
+            { name: "Ballet / Contemporary / Broadway Dancer", range: "$5K – $500K" },
+            { name: "Ballroom / Latin Dancer", range: "$3K – $250K" },
+            { name: "Hip-Hop / Urban Dancer", range: "$2K – $500K" },
+            { name: "Backup Tour Dancer", range: "$1K – $100K" },
+            { name: "Choreographer", range: "$5K – $500K" },
+            { name: "Dance Company Director", range: "$10K – $1M" },
+          ]},
+          { group: "Models", icon: "👗", types: [
+            { name: "High Fashion / Haute Couture / Runway", range: "$10K – $5M" },
+            { name: "Fashion Week Participant", range: "$5K – $2M" },
+            { name: "Advertising / Catalog / E-commerce / Editorial", range: "$2K – $500K" },
+            { name: "Specialty Model (Fitness / Parts / Plus-size)", range: "$1K – $250K" },
+            { name: "Stock Photography Model", range: "$500 – $50K" },
+          ]},
+          { group: "Athletes", icon: "🏆", types: [
+            { name: "NBA / NFL / MLB / NHL Athlete", range: "$100K – $50M+" },
+            { name: "WNBA / CFL / International Basketball", range: "$10K – $2M" },
+            { name: "Minor League Baseball Athlete", range: "$5K – $500K" },
+            { name: "Soccer Athlete (MLS / European)", range: "$25K – $10M+" },
+            { name: "Golf Athlete (PGA / LPGA)", range: "$50K – $10M+" },
+            { name: "Tennis Athlete (ATP / WTA)", range: "$50K – $10M+" },
+            { name: "Boxing / MMA Fighter", range: "$25K – $10M+" },
+            { name: "Track & Field / Swimming / Gymnastics", range: "$10K – $2M" },
+            { name: "Summer / Winter Olympic Athlete", range: "$25K – $5M" },
+            { name: "Paralympic Athlete", range: "$10K – $2M" },
+            { name: "F1 / IndyCar Driver", range: "$100K – $50M+" },
+            { name: "NASCAR Driver", range: "$50K – $20M+" },
+            { name: "Extreme Sports (Skate / Surf / BMX)", range: "$5K – $2M" },
+            { name: "Esports Athlete", range: "$5K – $2M" },
+          ]},
+          { group: "Sports Industry", icon: "📊", types: [
+            { name: "Sports Broadcaster / Analyst", range: "$10K – $5M" },
+            { name: "Coach / Team Executive", range: "$10K – $2M" },
+            { name: "Agency (representing multiple talent)", range: "$50K – $10M+" },
+          ]},
+        ].map((group, gi) => (
+          <Fade key={group.group} delay={gi * 60}>
+            <div style={{ marginBottom: 32 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <span style={{ fontSize: 24 }}>{group.icon}</span>
+                <h3 style={{ ...sans, fontSize: 18, fontWeight: 600, color: T.gold }}>{group.group}</h3>
+                <span style={{ ...mono, fontSize: 11, color: T.creamDim, background: "rgba(196,162,74,0.08)", padding: "3px 10px", borderRadius: 100 }}>{group.types.length} types</span>
               </div>
-            </Fade>
-          ))}
-        </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
+                {group.types.map((t) => (
+                  <div key={t.name} style={{
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                    background: T.bgCard, border: `1px solid ${T.borderAlt}`, borderRadius: 10,
+                    padding: "14px 18px", transition: "border-color 0.2s",
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = T.gold}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = T.borderAlt}
+                  >
+                    <span style={{ ...sans, fontSize: 13.5, color: T.cream, fontWeight: 400 }}>{t.name}</span>
+                    <span style={{ ...mono, fontSize: 11, color: T.amber, whiteSpace: "nowrap", marginLeft: 12 }}>{t.range}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Fade>
+        ))}
       </section>
 
       <GoldRule />
