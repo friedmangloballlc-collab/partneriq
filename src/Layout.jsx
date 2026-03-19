@@ -5,9 +5,12 @@ import { createPageUrl } from "@/utils";
 import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2
+  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2,
+  Lock, Crown
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useFeatureGate } from "@/hooks/useFeatureGate";
+import UpgradeModal from "@/components/UpgradeModal";
+import FeatureGate from "@/components/FeatureGate";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
 import GlobalSearch from "@/components/search/GlobalSearch";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -226,6 +229,9 @@ export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
+  const { canAccess, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
+  const [upgradeModal, setUpgradeModal] = useState(false);
+  const [lockedFeature, setLockedFeature] = useState("");
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -283,23 +289,37 @@ export default function Layout({ children, currentPageName }) {
         {navItems.map(item => {
           const isActive = currentPageName === item.page;
           const Icon = item.icon;
+          const isLocked = !canAccess(item.page);
           return (
             <Link
               key={item.page}
-              to={createPageUrl(item.page)}
-              onClick={() => mobile && setMobileOpen(false)}
+              to={isLocked ? "#" : createPageUrl(item.page)}
+              onClick={(e) => {
+                if (isLocked) {
+                  e.preventDefault();
+                  setLockedFeature(item.name);
+                  setUpgradeModal(true);
+                  return;
+                }
+                if (mobile) setMobileOpen(false);
+              }}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 group relative
                 ${isActive
                   ? "bg-indigo-500/15 text-white"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
+                  : isLocked
+                    ? "text-slate-600 hover:text-slate-500 hover:bg-white/3 cursor-pointer"
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
                 }
                 ${collapsed && !mobile ? "justify-center" : ""}
               `}
             >
               {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-indigo-500 rounded-r-full" />}
-              <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300"}`} />
+              <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-indigo-400" : isLocked ? "text-slate-700" : "text-slate-500 group-hover:text-slate-300"}`} />
               {(!collapsed || mobile) && <span>{item.name}</span>}
-              {item.page === "Approvals" && pendingApprovals > 0 && (!collapsed || mobile) && (
+              {(!collapsed || mobile) && isLocked && (
+                <Lock size={12} style={{ color: "rgba(245,240,230,0.2)", marginLeft: "auto", flexShrink: 0 }} />
+              )}
+              {item.page === "Approvals" && pendingApprovals > 0 && (!collapsed || mobile) && !isLocked && (
                 <span className="ml-auto bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                   {pendingApprovals > 9 ? "9+" : pendingApprovals}
                 </span>
@@ -388,10 +408,57 @@ export default function Layout({ children, currentPageName }) {
         {/* Page content */}
         <main className="flex-1 overflow-y-auto">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
-            {children}
+            {isTrialActive && !isPaidPlan && (
+              <div style={{
+                background: "linear-gradient(135deg, rgba(196,162,74,0.08), rgba(224,123,24,0.08))",
+                border: "0.5px solid rgba(196,162,74,0.2)",
+                borderRadius: 8, padding: "0.6rem 1rem",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                margin: "0 0 1rem",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Crown size={14} style={{ color: "#c4a24a" }} />
+                  <span style={{ fontSize: "0.8rem", color: "#f5f0e6" }}>
+                    <span style={{ color: "#c4a24a", fontWeight: 500 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
+                  </span>
+                </div>
+                <button onClick={() => navigate("/SubscriptionManagement")} style={{
+                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: "'Instrument Sans', sans-serif",
+                }}>Upgrade now</button>
+              </div>
+            )}
+            {isTrialExpired && (
+              <div style={{
+                background: "rgba(239,68,68,0.08)",
+                border: "0.5px solid rgba(239,68,68,0.2)",
+                borderRadius: 8, padding: "0.6rem 1rem",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                margin: "0 0 1rem",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Lock size={14} style={{ color: "#ef4444" }} />
+                  <span style={{ fontSize: "0.8rem", color: "#f5f0e6" }}>
+                    Your trial has expired. Premium features are now locked.
+                  </span>
+                </div>
+                <button onClick={() => navigate("/SubscriptionManagement")} style={{
+                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: "'Instrument Sans', sans-serif",
+                }}>Upgrade now</button>
+              </div>
+            )}
+            <FeatureGate locked={!canAccess(currentPageName)} featureName={currentPageName?.replace(/([A-Z])/g, ' $1').trim()}>
+              {children}
+            </FeatureGate>
           </div>
         </main>
       </div>
+      <UpgradeModal isOpen={upgradeModal} onClose={() => setUpgradeModal(false)} featureName={lockedFeature} />
     </div>
   );
 }

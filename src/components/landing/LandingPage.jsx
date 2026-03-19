@@ -713,7 +713,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
               <button className="ds-btn-hero-primary" onClick={handleGetStarted}>Start free trial</button>
               <a href="#how-it-works" className="ds-btn-hero-secondary">See how it works</a>
             </div>
-            <p className="ds-hero-note">No credit card required · Free 14-day trial · All talent types welcome</p>
+            <p className="ds-hero-note">No credit card required · Free 7-day trial · All talent types welcome</p>
           </div>
 
           {/* Product UI mockup */}
@@ -890,7 +890,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
             <span className="ds-section-tag">/ Pricing</span>
             <h2 className="ds-section-title">Start free. Scale<br /><em>as you grow.</em></h2>
-            <p className="ds-section-body" style={{ marginBottom: "2.5rem" }}>Every plan includes a 14-day free trial. No credit card required to get started.</p>
+            <p className="ds-section-body" style={{ marginBottom: "2.5rem" }}>Every plan includes a 7-day free trial. No credit card required to get started.</p>
             {/* Role tabs + billing toggle row */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
               <div className="ds-tab-row" style={{ margin: 0 }}>
@@ -930,7 +930,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                     </div>
                     {isPaid && (
                       <div style={{ marginTop: "0.5rem", marginBottom: "0.25rem" }}>
-                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>14-day free trial</span>
+                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>7-day free trial</span>
                       </div>
                     )}
                     <hr className="ds-plan-divider" />
@@ -1115,7 +1115,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <h2 className="ds-cta-title">Start building deals<br /><em>today</em></h2>
           <p className="ds-cta-sub">
             Join thousands of talent and brands already on Dealstage.<br />
-            Free 14-day trial. No credit card required.
+            Free 7-day trial. No credit card required.
           </p>
           <div className="ds-cta-actions">
             <button className="ds-btn-hero-primary" onClick={handleGetStarted}>Start free trial</button>

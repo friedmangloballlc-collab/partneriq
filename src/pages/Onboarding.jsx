@@ -777,7 +777,7 @@ export default function Onboarding() {
                       <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{plan.title}</p>
                       <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)" }}>{plan.features?.slice(0, 2).join(" · ")}</p>
                       {plan.key !== "free" && plan.price !== "Custom" && (
-                        <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", background: "rgba(196,162,74,0.1)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>14-day free trial</span>
+                        <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", background: "rgba(196,162,74,0.1)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>7-day free trial</span>
                       )}
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -828,7 +828,7 @@ export default function Onboarding() {
                           {plan.title} <span style={{ fontFamily: "'Instrument Mono', monospace", marginLeft: 4, fontSize: "0.7rem", opacity: 0.6 }}>{displayPrice}</span>
                           {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
                           {plan.key !== "free" && plan.price !== "Custom" && (
-                            <span style={{ display: "block", fontSize: "0.55rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", marginTop: 2, opacity: 0.8 }}>14-day trial</span>
+                            <span style={{ display: "block", fontSize: "0.55rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", marginTop: 2, opacity: 0.8 }}>7-day trial</span>
                           )}
                         </button>
                       );
