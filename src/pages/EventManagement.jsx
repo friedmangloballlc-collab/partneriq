@@ -169,7 +169,7 @@ export default function EventManagement() {
 
       if (eventFilters.selectedDemographics.length > 0) {
         const eventDemos = event.audience_demographics
-          ? JSON.parse(event.audience_demographics)
+          ? (typeof event.audience_demographics === 'string' ? JSON.parse(event.audience_demographics) : event.audience_demographics)
           : [];
         const hasMatch = eventFilters.selectedDemographics.some((demoId) =>
           eventDemos.includes(demoId)

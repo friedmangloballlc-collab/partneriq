@@ -87,10 +87,10 @@ function useCultureEvents() {
 }
 
 function useAIPrediction(partnershipData) {
-  const hasData = partnershipData && partnershipData.length > 0;
+  const hasData = !!(partnershipData && partnershipData.length > 0);
 
   return useQuery({
-    queryKey: ["brandSpend:aiPrediction", partnershipData?.length],
+    queryKey: ["brandSpend:aiPrediction", partnershipData?.length || 0],
     enabled: hasData,
     staleTime: 60 * 60 * 1000,
     queryFn: async () => {
