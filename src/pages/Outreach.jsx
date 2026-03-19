@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, CheckSquare, ChevronDown, ChevronUp, BookOpen
+  Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, ChevronDown, ChevronUp, BookOpen
 } from "lucide-react";
 import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import TasksPanel from "@/components/tasks/TasksPanel";
@@ -10,12 +10,12 @@ import OutreachFramework from "@/components/outreach/OutreachFramework";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { format } from "date-fns";
 
 const statusConfig = {
@@ -62,7 +62,7 @@ export default function Outreach() {
 
   const handleGenerateAI = async () => {
     setGenerating(true);
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt: `Generate a professional and personalized partnership outreach email.
 Recipient: ${newEmail.to_name || "Decision Maker"}
 Email: ${newEmail.to_email}
@@ -83,6 +83,7 @@ Write a compelling, concise email that:
         }
       }
     });
+    if (error) throw error;
     setNewEmail(prev => ({ ...prev, subject: result.subject, body: result.body, ai_generated: true }));
     setGenerating(false);
   };

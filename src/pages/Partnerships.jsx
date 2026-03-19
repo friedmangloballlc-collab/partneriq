@@ -12,13 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import NewDealWizard from "@/components/partnerships/NewDealWizard";
-import OptimalPricingPanel from "@/components/partnerships/OptimalPricingPanel";
-import CollaborationPanel from "@/components/collaboration/CollaborationPanel";
 import { EmptyState } from "@/components/ui/empty-state";
 import { KanbanSkeleton, ListSkeleton } from "@/components/ui/loading-skeleton";
 
@@ -41,7 +36,6 @@ export default function Partnerships() {
   const [view, setView] = useState("pipeline");
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
-  const [selectedDeal, setSelectedDeal] = useState(null);
   const [showDeckUpload, setShowDeckUpload] = useState(false);
   const [deckFile, setDeckFile] = useState(null);
   const [deckAnalyzing, setDeckAnalyzing] = useState(false);
@@ -320,55 +314,6 @@ export default function Partnerships() {
           ))}
         </div>
       )}
-
-      {/* Deal Detail Sheet */}
-      <Sheet open={!!selectedDeal} onOpenChange={() => setSelectedDeal(null)}>
-        <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
-          {selectedDeal && (
-            <>
-              <SheetHeader className="pb-4">
-                <SheetTitle className="text-base leading-snug">{selectedDeal.title}</SheetTitle>
-                <p className="text-xs text-slate-400">{selectedDeal.brand_name}{selectedDeal.talent_name ? ` × ${selectedDeal.talent_name}` : ""}</p>
-              </SheetHeader>
-
-              {/* Assignee */}
-              <div className="mb-4">
-                <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Assigned To</label>
-                <AssigneeSelector
-                  value={selectedDeal.assigned_to}
-                  onChange={v => {
-                    updateMutation.mutate({ id: selectedDeal.id, data: { assigned_to: v } });
-                    setSelectedDeal(prev => ({ ...prev, assigned_to: v }));
-                  }}
-                />
-              </div>
-
-              {/* Stage */}
-              <div className="mb-5">
-                <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Pipeline Stage</label>
-                <Select value={selectedDeal.status} onValueChange={v => { moveToStage(selectedDeal.id, v); setSelectedDeal(prev => ({ ...prev, status: v })); }}>
-                  <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
-                  <SelectContent>{stages.map(s => <SelectItem key={s.key} value={s.key}>{s.label}</SelectItem>)}</SelectContent>
-                </Select>
-              </div>
-
-              <Separator className="my-4" />
-
-              {/* Pricing */}
-              <div className="mb-4">
-                <OptimalPricingPanel partnershipId={selectedDeal.id} />
-              </div>
-
-              <Separator className="my-4" />
-
-              <CollaborationPanel
-                partnershipId={selectedDeal.id}
-                resourceLabel={selectedDeal.title}
-              />
-            </>
-          )}
-        </SheetContent>
-      </Sheet>
 
       <NewDealWizard open={showAdd} onOpenChange={setShowAdd} onCreated={() => refetch()} />
     </div>

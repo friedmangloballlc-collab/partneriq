@@ -72,7 +72,7 @@ Deno.serve(async (req) => {
       results.anthropic = { key_set: !!key, key_prefix: key.slice(0, 10) + '...', key_length: key.length };
       // Try multiple models to find one available on this account
       let anthropicResp: Response | null = null;
-      for (const m of ['claude-sonnet-4-20250514', 'claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307']) {
+      for (const m of ['claude-sonnet-4-5', 'claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307']) {
         anthropicResp = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
           headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },

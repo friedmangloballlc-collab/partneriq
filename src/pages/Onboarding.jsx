@@ -559,20 +559,16 @@ export default function Onboarding() {
             full_name: name,
             role: selectedRole,
             plan: selectedPlan,
+            company_name: name,
+            job_title: title,
+            onboarded: true,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           });
         } catch (e) { /* non-blocking */ }
       }
 
-      // After successful signUp, redirect to check-email page
-      if (signUpData?.user && !signUpData?.session) {
-        // User needs to verify email first
-        navigate(`/check-email?email=${encodeURIComponent(email)}`);
-        return;
-      }
-
-      // Trigger welcome email (non-blocking)
+      // Trigger welcome email (non-blocking) — must fire before any early return
       try {
         await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`, {
           method: 'POST',
@@ -581,40 +577,23 @@ export default function Onboarding() {
         });
       } catch (e) { /* non-blocking */ }
 
-      await new Promise(r => setTimeout(r, 1000));
-
-      const brandData = selectedRole === "brand" ? {
-        brand_culture: selectedCultures.join(","),
-        audience_ages: audienceAges.join(","),
-        audience_genders: audienceGenders.join(","),
-        audience_interests: audienceInterests.join(","),
-        audience_locations: audienceLocations.join(","),
-        campaign_objectives: campaignObjectives.join(","),
-        preferred_partnership_types: preferredPartnerships.join(","),
-        annual_budget: annualBudget,
-      } : {};
-
-      try {
-        await base44.auth.updateMe({
-          role: selectedRole,
-          plan: selectedPlan,
-          company_name: name,
-          job_title: title,
-          onboarded: true,
-          ...brandData,
-        });
-      } catch (e) {
-        // Profile update may fail if trigger hasn't fired yet, continue anyway
+      // After successful signUp, redirect to check-email page if email confirmation is required
+      if (signUpData?.user && !signUpData?.session) {
+        navigate(`/check-email?email=${encodeURIComponent(email)}`);
+        return;
       }
 
-      if (selectedRole === "brand" && name) {
+      await new Promise(r => setTimeout(r, 1000));
+
+      if (selectedRole === "brand" && name && signUpData?.user) {
         try {
-          await base44.entities.Brand.create({
+          await supabase.from("brands").insert({
             name,
             preferred_niches: audienceInterests.slice(0, 3).join(","),
             target_audience: `${audienceAges.join(", ")} | ${audienceGenders.join(", ")}`,
             annual_budget: parseFloat(annualBudget) || 0,
             status: "active",
+            user_id: signUpData.user.id,
           });
         } catch (e) {}
       }

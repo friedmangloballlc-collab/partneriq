@@ -3,8 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import {
   Sparkles, Loader2, Copy, CheckCircle2, ChevronDown, ChevronUp,
-  Target, Users, MessageSquare, Lightbulb, BarChart3, Megaphone,
-  Download, RefreshCw, Zap
+  Target, Users, MessageSquare, Lightbulb, BarChart3, Megaphone, RefreshCw, Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -101,7 +100,7 @@ TALENT:
 
 Generate a detailed, actionable campaign brief with the following sections. Be specific, creative, and tailored to this exact pairing.`;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt,
       response_json_schema: {
         type: "object",
@@ -145,6 +144,7 @@ Generate a detailed, actionable campaign brief with the following sections. Be s
         required: ["campaign_title", "executive_summary", "campaign_goals", "target_audience", "key_messaging", "creative_directions", "kpis"]
       }
     });
+    if (error) throw error;
 
     setBrief(result);
     setLoading(false);

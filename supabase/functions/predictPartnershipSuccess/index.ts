@@ -98,6 +98,7 @@ Return a JSON object with these exact fields:
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
+      agent_name: 'partnership_predictor',
       response_json_schema: {
         type: 'object',
         properties: {

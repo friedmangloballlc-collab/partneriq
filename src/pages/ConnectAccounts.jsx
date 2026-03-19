@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/lib/AuthContext";
@@ -134,7 +134,15 @@ export default function ConnectAccounts() {
   // ID Verification state
   const [idFile, setIdFile] = useState(null);
   const [idUploading, setIdUploading] = useState(false);
-  const [idStatus, setIdStatus] = useState(talent?.id_verified ? "verified" : "none"); // none | pending | verified | rejected
+  const [idStatus, setIdStatus] = useState("none"); // none | pending | verified | rejected
+
+  // Sync idStatus once the talent query resolves (talent is undefined on first render)
+  useEffect(() => {
+    if (talent) {
+      if (talent.id_verified) setIdStatus("verified");
+      else if (talent.id_verification_status === "pending") setIdStatus("pending");
+    }
+  }, [talent]);
 
   const handleOAuth = async (platform) => {
     setOauthStep("authorizing");

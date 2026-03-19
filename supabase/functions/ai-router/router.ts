@@ -14,11 +14,11 @@ const TIER_PROVIDERS: Record<RoutingTier, string[]> = {
   BATCH: ['anthropic_haiku', 'deepseek', 'gemini'],
 };
 
-async function callAnthropic(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'claude-sonnet-4-20250514'): Promise<string> {
+async function callAnthropic(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'claude-sonnet-4-5'): Promise<string> {
   const key = Deno.env.get('ANTHROPIC_API_KEY');
   if (!key) throw new Error('ANTHROPIC_API_KEY not set');
 
-  const models = [model, 'claude-sonnet-4-20250514', 'claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022'];
+  const models = [model, 'claude-sonnet-4-5', 'claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022'];
   let lastError = '';
 
   for (const m of [...new Set(models)]) {
@@ -112,7 +112,7 @@ async function callGroq(prompt: string, systemPrompt: string | undefined, maxTok
 }
 
 const PROVIDER_CALLS: Record<string, (p: string, s: string | undefined, m: number, t: number) => Promise<string>> = {
-  anthropic: (p, s, m, t) => callAnthropic(p, s, m, t, 'claude-sonnet-4-20250514'),
+  anthropic: (p, s, m, t) => callAnthropic(p, s, m, t, 'claude-sonnet-4-5'),
   anthropic_haiku: (p, s, m, t) => callAnthropic(p, s, m, t, 'claude-3-5-haiku-20241022'),
   deepseek: (p, s, m, t) => callDeepSeek(p, s, m, t, 'deepseek-chat'),
   deepseek_reasoner: (p, s, m, t) => callDeepSeek(p, s, m, t, 'deepseek-reasoner'),
@@ -121,7 +121,7 @@ const PROVIDER_CALLS: Record<string, (p: string, s: string | undefined, m: numbe
 };
 
 const PROVIDER_MODELS: Record<string, string> = {
-  anthropic: 'claude-sonnet-4-20250514',
+  anthropic: 'claude-sonnet-4-5',
   anthropic_haiku: 'claude-3-5-haiku-20241022',
   deepseek: 'deepseek-chat',
   deepseek_reasoner: 'deepseek-reasoner',

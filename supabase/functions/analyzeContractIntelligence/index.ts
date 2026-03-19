@@ -58,6 +58,7 @@ Generate a comprehensive contract intelligence analysis including:
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
+      agent_name: 'contract_intelligence',
       response_json_schema: {
         type: 'object',
         properties: {

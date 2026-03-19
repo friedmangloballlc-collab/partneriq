@@ -7,7 +7,7 @@ import {
   Brain, Loader2, Send, Sparkles, ArrowRight, Command,
   History, ChevronRight, AlertTriangle, CheckCircle2, Clock,
   Zap, TrendingUp, Users, DollarSign, BarChart3, Shield,
-  MessageSquare, X, ChevronDown, ChevronUp, Search, Target,
+  MessageSquare, X, Search, Target,
   FileText, Flame, PieChart, Palette, Scale
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -88,14 +88,14 @@ export default function AICommandCenter() {
 
     try {
       const res = await base44.functions.invoke("aiCommandCenter", { query: trimmed });
-      if (res?.success && res.response) {
-        setResult(res.response);
+      if (res?.data?.success && res.data.response) {
+        setResult(res.data.response);
         const entry = { query: trimmed, timestamp: Date.now() };
         const updated = [entry, ...history.filter(h => h.query !== trimmed)].slice(0, 50);
         setHistory(updated);
         saveHistory(updated);
       } else {
-        setError(res?.error || "Unexpected response from Command Center.");
+        setError(res?.data?.error || "Unexpected response from Command Center.");
       }
     } catch (err) {
       setError(err.message || "Failed to process your query.");

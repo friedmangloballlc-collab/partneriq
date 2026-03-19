@@ -87,9 +87,16 @@ export default function Login() {
   const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
   const handleSocialLogin = async (provider) => {
-    // OAuth still needs the supabase client for redirect flow
-    const redirectTo = `${window.location.origin}/Dashboard`;
-    window.location.href = `${supabaseUrl}/auth/v1/authorize?provider=${provider}&redirect_to=${encodeURIComponent(redirectTo)}`;
+    setLoading(true);
+    setServerError(null);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/Dashboard` },
+    });
+    if (error) {
+      setServerError(error.message);
+      setLoading(false);
+    }
   };
 
   const handleMagicLink = async (e) => {
@@ -137,10 +144,6 @@ export default function Login() {
   const handleLogin = loginForm.handleSubmit(async ({ email, password }) => {
     setLoading(true);
     setServerError(null);
-
-    // Use raw fetch to bypass any Supabase JS client header issues
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
     try {
       const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {

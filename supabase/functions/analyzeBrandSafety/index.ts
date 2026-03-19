@@ -40,6 +40,7 @@ Perform a comprehensive brand safety analysis:
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
+      agent_name: 'brand_safety',
       response_json_schema: {
         type: 'object',
         properties: {

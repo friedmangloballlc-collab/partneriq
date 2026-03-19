@@ -76,7 +76,7 @@ export default function PitchDeckBuilder() {
     const simMap = { summary: "a brief simulation summary", full: "a full simulation report with technical depth", exclude: "no simulation data" };
     const wordLimit = customOptions.deckLength === "brief" ? 100 : customOptions.deckLength === "comprehensive" ? 350 : 200;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt: `Generate the "${section.title}" slide content for a partnership pitch deck.
 
 Partnership: ${selectedDeal.title}
@@ -106,6 +106,7 @@ Use bullet points where appropriate. Under ${wordLimit} words.`,
         }
       }
     });
+    if (error) throw error;
     setSlides(prev => ({ ...prev, [sectionId]: result }));
     setGeneratingSlide(null);
   };

@@ -114,7 +114,7 @@ export default function SequenceBuilder() {
   const generateStep = async (i) => {
     setGenerating(i);
     const step = steps[i];
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt: `Generate a compelling ${step.email_type.replace(/_/g, " ")} email for a brand-talent partnership outreach sequence.
 
 Context:
@@ -134,6 +134,7 @@ Requirements:
         properties: { subject: { type: "string" }, body: { type: "string" } }
       }
     });
+    if (error) throw error;
     updateStep(i, { ...step, subject: result.subject, body: result.body });
     setGenerating(null);
   };

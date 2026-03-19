@@ -120,7 +120,7 @@ Perform a deep analysis:
 4. Suggest an outreach strategy for each.
 Return top 5 suggestions with detailed reasoning.`;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt,
       response_json_schema: {
         type: "object",
@@ -148,6 +148,7 @@ Return top 5 suggestions with detailed reasoning.`;
         }
       }
     });
+    if (error) throw error;
 
     setProactiveSuggestions(result);
     setLoadingSuggestions(false);
@@ -180,7 +181,7 @@ ${JSON.stringify(pool.slice(0, 10).map(b => ({ id: b.id, name: b.name, industry:
 For each match, provide a score (0-100), reasoning, and recommended partnership type.
 Return the top 5 matches.`;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const { data: result, error } = await base44.functions.invoke("ai-router", {
       prompt,
       response_json_schema: {
         type: "object",
@@ -203,6 +204,7 @@ Return the top 5 matches.`;
         }
       }
     });
+    if (error) throw error;
 
     setMatchResults(result);
     setMatching(false);
