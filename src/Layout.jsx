@@ -72,6 +72,8 @@ const roleNavItems = {
     { name: "AI Analytics", icon: Activity, page: "AIAnalytics" },
     { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
+    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
@@ -259,7 +261,7 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const Sidebar = ({ mobile = false }) => (
-    <div className={`flex flex-col h-full bg-slate-950 ${mobile ? "w-72" : collapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
+    <div className={`flex flex-col h-full bg-[#0c0c0b] border-r border-white/[0.06] ${mobile ? "w-72" : collapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
       {/* Logo */}
       <div className={`flex items-center h-16 px-4 border-b border-white/5 ${collapsed && !mobile ? "justify-center" : "gap-3"}`}>
         {collapsed && !mobile ? (
@@ -304,7 +306,7 @@ export default function Layout({ children, currentPageName }) {
               }}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 group relative
                 ${isActive
-                  ? "bg-indigo-500/15 text-white"
+                  ? "text-white border-l-2 border-[#c4a24a] bg-[#c4a24a]/8 rounded-l-none"
                   : isLocked
                     ? "text-slate-600 hover:text-slate-500 hover:bg-white/3 cursor-pointer"
                     : "text-slate-400 hover:text-white hover:bg-white/5"
@@ -312,8 +314,8 @@ export default function Layout({ children, currentPageName }) {
                 ${collapsed && !mobile ? "justify-center" : ""}
               `}
             >
-              {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-indigo-500 rounded-r-full" />}
-              <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-indigo-400" : isLocked ? "text-slate-700" : "text-slate-500 group-hover:text-slate-300"}`} />
+              {isActive && !collapsed && !mobile && null}
+              <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-[#c4a24a]" : isLocked ? "text-slate-700" : "text-slate-400 group-hover:text-slate-300"}`} />
               {(!collapsed || mobile) && <span>{item.name}</span>}
               {(!collapsed || mobile) && isLocked && (
                 <Lock size={12} style={{ color: "rgba(245,240,230,0.2)", marginLeft: "auto", flexShrink: 0 }} />
@@ -378,9 +380,12 @@ export default function Layout({ children, currentPageName }) {
     </div>
   );
 
+  const isDarkDefault = theme.bg === "#080807" || theme.bg === "#0c0c0b";
   const mainBgStyle = theme.bg.startsWith("linear")
     ? { background: theme.bg, color: theme.text }
-    : { backgroundColor: theme.bg, color: theme.text };
+    : isDarkDefault
+      ? { backgroundColor: "#0d0d0c", color: theme.text }
+      : { backgroundColor: theme.bg, color: theme.text };
 
   return (
     <div className="flex h-screen overflow-hidden" style={{ backgroundColor: theme.bg }}>
@@ -405,18 +410,21 @@ export default function Layout({ children, currentPageName }) {
         <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4" style={{
           backgroundColor: theme.bg.startsWith("linear") ? "rgba(0,0,0,0.15)" : theme.bg2,
           borderBottom: `1px solid ${theme.border}`,
+          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
         }}>
           <div className="flex items-center gap-4 flex-1">
             <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700 flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
-            <h1 className="text-lg font-semibold hidden sm:block" style={{ color: theme.text }}>{currentPageName}</h1>
+            <h1 className="text-lg font-semibold hidden sm:block" style={{ color: "#c4a24a" }}>{currentPageName}</h1>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <GlobalSearch />
             <NotificationDropdown />
           </div>
         </header>
+        {/* Gold gradient accent stripe */}
+        <div style={{ height: 2, background: "linear-gradient(90deg, #c4a24a, #e07b18, #c4a24a)", opacity: 0.3, flexShrink: 0 }} />
 
         {/* Page content */}
         <main className="flex-1 overflow-y-auto" style={mainBgStyle}>
