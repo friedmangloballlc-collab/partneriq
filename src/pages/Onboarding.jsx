@@ -10,10 +10,9 @@ import {
   Zap, Building2, Users, Briefcase, ArrowRight, Loader2,
   CheckCircle2, CheckSquare, Star, Sparkles, Shield, Lock,
   Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3, Globe, Network,
-  Calendar, Award, Target, DollarSign, ChevronRight, Play, Check
+  Calendar, Award, DollarSign, Check
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { Badge } from "@/components/ui/badge";
 import { FAQSection, ComparisonSection, SecurityBadges, VideoDemoSection, MobileAppSection } from "@/components/landing/LandingSections";
 import LandingPage from "@/components/landing/LandingPage";
 
@@ -457,6 +456,7 @@ export default function Onboarding() {
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
   const [authError, setAuthError] = useState("");
 
@@ -582,7 +582,7 @@ export default function Onboarding() {
     return (
       <LandingPage
         onGetStarted={() => { setStep(2); window.scrollTo(0, 0); }}
-        onSelectRole={(role) => { setSelectedRole(role); setStep(2); window.scrollTo(0, 0); }}
+        onSelectRole={(role) => { setSelectedRole(role); setStep(4); window.scrollTo(0, 0); }}
       />
     );
   }
@@ -660,7 +660,7 @@ export default function Onboarding() {
           {/* Step title */}
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.5rem" }}>
-              {step === 2 ? "Choose your role" : step === 3 ? "Pick your plan" : step === 4 ? "Create your account" : "Almost there"}
+              {step === 2 ? "Choose your role" : "Get started for free"}
             </h1>
             <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.4)" }}>
               {step === 2 ? "Select how you'll use Deal Stage" : step === 3 ? "Start free, upgrade anytime" : step === 4 ? "Set up your account in 30 seconds" : "Final details to get started"}
@@ -737,9 +737,32 @@ export default function Onboarding() {
             </div>
           )}
 
-          {/* ── STEP 4: Account Creation ── */}
-          {step === 4 && (
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {/* ── STEP 4: Plan + Account (combined — one page) ── */}
+          {step >= 4 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+
+              {/* Plan selector — compact horizontal pills */}
+              {selectedRole && PLANS_BY_ROLE[selectedRole] && (
+                <div>
+                  <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", display: "block", marginBottom: 8, fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
+                  <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                    {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => (
+                      <button key={plan.key} onClick={() => setSelectedPlan(plan.key)} style={{
+                        padding: "0.6rem 1rem", borderRadius: 8, fontSize: "0.8rem", fontWeight: 500, cursor: "pointer",
+                        border: selectedPlan === plan.key ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.1)",
+                        background: selectedPlan === plan.key ? "rgba(196,162,74,0.12)" : "transparent",
+                        color: selectedPlan === plan.key ? "#d9b96a" : "rgba(245,240,230,0.5)",
+                        fontFamily: "'Instrument Sans', sans-serif", transition: "all 0.15s", position: "relative",
+                      }}>
+                        {plan.title} <span style={{ fontFamily: "'Instrument Mono', monospace", marginLeft: 4, fontSize: "0.7rem", opacity: 0.6 }}>{plan.price}</span>
+                        {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Account fields */}
               <div>
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Full Name</label>
                 <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
@@ -752,18 +775,21 @@ export default function Onboarding() {
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Password</label>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 8 characters" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
               </div>
-              {error && <p style={{ fontSize: "0.8rem", color: "#e07b18", padding: "0.5rem 1rem", background: "rgba(224,123,24,0.1)", borderRadius: 8 }}>{error}</p>}
+
+              {(error || authError) && <p style={{ fontSize: "0.8rem", color: "#e07b18", padding: "0.5rem 1rem", background: "rgba(224,123,24,0.1)", borderRadius: 8 }}>{error || authError}</p>}
+
               <button onClick={handleComplete} disabled={saving || !name || !email || !password} style={{
                 width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
                 background: (name && email && password) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
                 color: (name && email && password) ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
                 cursor: (name && email && password) ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
               }}>
-                {saving ? "Creating account..." : "Create Account"}
+                {saving ? "Creating account..." : "Get Started Free"}
               </button>
-              <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "rgba(245,240,230,0.35)", fontSize: "0.8rem", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }}>
-                ← Back to plan selection
-              </button>
+
+              <p style={{ textAlign: "center", fontSize: "0.7rem", color: "rgba(245,240,230,0.25)", marginTop: "0.25rem" }}>
+                No credit card required · Free plan available · <a href="/login" style={{ color: "#c4a24a", textDecoration: "none" }}>Already have an account?</a>
+              </p>
             </div>
           )}
 

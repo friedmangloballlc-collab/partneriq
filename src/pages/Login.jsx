@@ -172,7 +172,17 @@ export default function Login() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#080807", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
+      <style>{`
+        .login-card { background: rgba(255,248,220,0.02) !important; border-color: rgba(255,248,220,0.07) !important; }
+        .login-card input { background: rgba(255,248,220,0.03) !important; border-color: rgba(255,248,220,0.1) !important; color: #f5f0e6 !important; }
+        .login-card button[type="submit"] { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
+        .login-card .text-indigo-400, .login-card .text-indigo-300 { color: #c4a24a !important; }
+        .login-card .bg-gradient-to-r { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
+        .login-card .border-indigo-500 { border-color: rgba(196,162,74,0.4) !important; }
+        .login-card .bg-indigo-500\\/10 { background: rgba(196,162,74,0.08) !important; }
+      `}</style>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -181,8 +191,8 @@ export default function Login() {
               <Zap className="w-6 h-6 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="text-2xl font-bold text-white tracking-tight">Deal Stage</h1>
-              <p className="text-xs text-slate-400 uppercase tracking-widest">Intelligence Platform</p>
+              <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 700, color: "#f5f0e6" }}>Deal<span style={{ background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>stage</span></h1>
+              <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.6rem", color: "rgba(245,240,230,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Intelligence Platform</p>
             </div>
           </div>
           <p className="text-slate-400 text-sm">
@@ -191,7 +201,7 @@ export default function Login() {
         </div>
 
         {/* Card */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+        <div className="login-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
           {message && (
             <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-emerald-400 text-sm">
               {message}
