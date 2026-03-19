@@ -587,27 +587,60 @@ export default function Onboarding() {
     );
   }
 
-  // Step 2+: Show the signup flow
+  // Step 2+: Show the signup flow (gold theme matching landing page)
   return (
-    <div className="min-h-screen bg-slate-950 antialiased" style={{ scrollBehavior: "smooth" }}>
+    <div className="min-h-screen antialiased" style={{ scrollBehavior: "smooth", background: "#080807", color: "#f5f0e6", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
+      <style>{`
+        /* Gold theme overrides for signup flow */
+        .min-h-screen { background: #080807 !important; }
+        .bg-slate-950, .bg-gradient-to-b, .bg-gradient-to-br { background: #080807 !important; }
+        .from-indigo-500, .from-indigo-600, .bg-indigo-600, .bg-indigo-500 { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; }
+        .hover\\:bg-indigo-700:hover, .hover\\:bg-indigo-600:hover { background: linear-gradient(135deg, #b39340, #d07015) !important; }
+        .text-indigo-400, .text-indigo-300, .text-violet-400 { color: #d9b96a !important; }
+        .text-indigo-600, .text-indigo-500 { color: #c4a24a !important; }
+        .border-indigo-500, .border-indigo-500\\/20 { border-color: rgba(196,162,74,0.3) !important; }
+        .bg-indigo-500\\/10, .bg-indigo-500\\/15 { background: rgba(196,162,74,0.1) !important; }
+        .shadow-indigo-500\\/20, .shadow-indigo-500\\/25, .shadow-indigo-500\\/30 { box-shadow: 0 4px 24px rgba(196,162,74,0.15) !important; }
+        .from-violet-400, .to-violet-400, .from-violet-500, .to-violet-500 { color: #f09040; }
+        .bg-gradient-to-r.from-indigo-400 { background: linear-gradient(90deg, #d9b96a, #f09040) !important; -webkit-background-clip: text !important; }
+        .ring-indigo-500 { --tw-ring-color: rgba(196,162,74,0.5) !important; }
+        /* Buttons */
+        button[class*="bg-indigo"], a[class*="bg-indigo"] { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
+        /* Cards on dark bg */
+        .bg-white\\/5, .bg-white\\/10 { background: rgba(245,240,230,0.03) !important; }
+        .border-white\\/10, .border-white\\/5 { border-color: rgba(255,248,220,0.07) !important; }
+        /* Emerald to gold */
+        .from-emerald-500, .bg-emerald-500, .text-emerald-400 { color: #c4a24a !important; }
+        .bg-emerald-50, .bg-emerald-500\\/10 { background: rgba(196,162,74,0.1) !important; }
+      `}</style>
 
       {/* ══════════════════════════════════════════════
-          STICKY HEADER
+          STICKY HEADER — gold theme
       ══════════════════════════════════════════════ */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 sm:px-10"
-        style={{ background: "rgba(2,6,23,0.80)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-            <Zap className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-white text-lg tracking-tight">Deal Stage</span>
+      <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-6 sm:px-10"
+        style={{ background: "rgba(8,8,7,0.92)", backdropFilter: "blur(24px)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>
+        <button onClick={() => setStep(1)} className="flex items-center gap-2" style={{ background: "none", border: "none", cursor: "pointer" }}>
+          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem", fontWeight: 700, color: "#f5f0e6" }}>Deal<span style={{ background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>stage</span></span>
+        </button>
+        {/* Step indicator */}
+        <div className="hidden md:flex items-center gap-3">
+          {["Role", "Plan", "Account"].map((label, i) => (
+            <div key={label} className="flex items-center gap-2">
+              <div style={{
+                width: 24, height: 24, borderRadius: "50%", fontSize: "0.65rem", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center",
+                background: step >= i + 2 ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: step >= i + 2 ? "#080807" : "rgba(245,240,230,0.3)",
+                fontFamily: "'Instrument Mono', monospace",
+              }}>{i + 1}</div>
+              <span style={{ fontSize: "0.75rem", color: step >= i + 2 ? "#f5f0e6" : "rgba(245,240,230,0.25)", fontFamily: "'Instrument Sans', sans-serif" }}>{label}</span>
+              {i < 2 && <div style={{ width: 20, height: "0.5px", background: "rgba(255,248,220,0.1)" }} />}
+            </div>
+          ))}
         </div>
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#how-it-works" className="text-sm text-slate-400 hover:text-white transition-colors">How it works</a>
-          <a href="#features" className="text-sm text-slate-400 hover:text-white transition-colors">Features</a>
-          <a href="#pricing" className="text-sm text-slate-400 hover:text-white transition-colors">Pricing</a>
-          <a href="/calculator" className="text-sm text-slate-400 hover:text-white transition-colors">Calculator</a>
-        </nav>
+        <div className="flex items-center gap-3">
+          <a href="/login" style={{ fontSize: "0.82rem", color: "rgba(245,240,230,0.4)", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Log in</a>
+        </div>
         <div className="flex items-center gap-3">
           <button onClick={() => navigate("/login")} className="text-sm text-slate-400 hover:text-white transition-colors font-medium hidden sm:block">
             Sign in
