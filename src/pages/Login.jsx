@@ -141,20 +141,10 @@ export default function Login() {
 
     const { data: loginData, error } = await freshSupabase.auth.signInWithPassword({ email, password });
     if (error) {
-      // Sanitize error — never show raw tokens/headers to users
-      const msg = error.message || "";
-      let userMsg;
-      if (msg.includes("Invalid login")) {
-        userMsg = "Invalid email or password. Please try again.";
-      } else if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
-        userMsg = "Unable to sign in. Please try again.";
-      } else {
-        userMsg = msg;
-      }
-      setServerError(userMsg);
+      // TEMPORARY: Show full error for debugging - will sanitize after fix
+      setServerError(`[${error.status || "?"}] ${error.message || JSON.stringify(error)}`);
       setLoading(false);
-      // Auto-clear error after 4 seconds so user can retry
-      setTimeout(() => setServerError(null), 4000);
+      setTimeout(() => setServerError(null), 15000);
       return;
     }
 
