@@ -413,6 +413,61 @@ export default function FeatureTalentDiscovery() {
         </Fade>
       </section>
 
+      {/* TALENT CATEGORIES */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 24px" }}>
+        <Fade>
+          <SectionLabel>Talent Categories</SectionLabel>
+          <h2 style={{ ...serif, fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 700, color: T.cream, marginBottom: 16, maxWidth: 580 }}>
+            Every type of talent,{" "}
+            <span style={{ background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>one platform</span>
+          </h2>
+          <p style={{ ...sans, fontSize: 16, color: T.creamDim, marginBottom: 52, maxWidth: 520, lineHeight: 1.65 }}>
+            From elite athletes to rising creators — Dealstage covers every category of talent that brands partner with.
+          </p>
+        </Fade>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
+          {[
+            { emoji: "🏆", name: "Athletes", desc: "Professional & collegiate athletes across all sports", range: "$25K – $50M+", count: "2,400+" },
+            { emoji: "📱", name: "Creators", desc: "YouTubers, TikTokers, Instagram creators, and streamers", range: "$500 – $5M", count: "4,200+" },
+            { emoji: "🎵", name: "Musicians", desc: "Recording artists, DJs, producers, and composers", range: "$10K – $10M+", count: "1,100+" },
+            { emoji: "🎤", name: "Speakers", desc: "Keynote speakers, motivational coaches, and thought leaders", range: "$5K – $500K", count: "680+" },
+            { emoji: "👗", name: "Models", desc: "Fashion, commercial, fitness, and lifestyle models", range: "$5K – $2M", count: "950+" },
+            { emoji: "🎬", name: "Actors", desc: "Film, TV, theater, and voice actors", range: "$10K – $10M+", count: "720+" },
+            { emoji: "🎙️", name: "Podcasters", desc: "Audio and video podcasters across all niches", range: "$2K – $1M", count: "890+" },
+            { emoji: "👨‍🍳", name: "Chefs", desc: "Celebrity chefs, food critics, and culinary influencers", range: "$5K – $1M", count: "340+" },
+            { emoji: "🎮", name: "Gamers", desc: "Esports pros, streamers, and gaming content creators", range: "$1K – $1M", count: "1,050+" },
+            { emoji: "💪", name: "Fitness", desc: "Trainers, athletes, wellness experts, and health coaches", range: "$2K – $500K", count: "780+" },
+            { emoji: "💼", name: "Executives", desc: "Business leaders, entrepreneurs, and industry experts", range: "$10K – $500K", count: "420+" },
+            { emoji: "🎨", name: "Designers", desc: "Fashion designers, graphic artists, and creative directors", range: "$3K – $500K", count: "360+" },
+          ].map((cat, i) => (
+            <Fade key={cat.name} delay={i * 50}>
+              <div style={{
+                background: T.bgCard,
+                border: `1px solid ${T.borderAlt}`,
+                borderRadius: 14,
+                padding: "24px 20px",
+                height: "100%",
+                transition: "border-color 0.25s, transform 0.25s",
+                cursor: "pointer",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-4px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = T.borderAlt; e.currentTarget.style.transform = "translateY(0)"; }}
+              >
+                <div style={{ fontSize: 32, marginBottom: 12 }}>{cat.emoji}</div>
+                <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 6 }}>{cat.name}</h3>
+                <p style={{ ...sans, fontSize: 12.5, color: T.creamDim, lineHeight: 1.55, marginBottom: 14 }}>{cat.desc}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ ...mono, fontSize: 11, color: T.gold, letterSpacing: "0.04em" }}>{cat.count}</span>
+                  <span style={{ ...mono, fontSize: 10, color: T.creamDim, background: "rgba(196,162,74,0.08)", padding: "3px 8px", borderRadius: 4 }}>{cat.range}</span>
+                </div>
+              </div>
+            </Fade>
+          ))}
+        </div>
+      </section>
+
+      <GoldRule />
+
       {/* MOCKUP */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 24px" }}>
         <Fade>
