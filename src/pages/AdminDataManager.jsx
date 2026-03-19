@@ -13,13 +13,11 @@ import Papa from "papaparse";
 import {
   Database, Plus, Pencil, Trash2, Search, Upload, Download,
   ChevronUp, ChevronDown, ChevronsUpDown, Loader2, Building2,
-  Users, Handshake, X, Check, AlertTriangle, FileText, ArrowUpDown,
-  RefreshCw, Eye,
+  Users, Handshake, X, Check, AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -420,7 +418,44 @@ function CsvImport({ onImport, expectedFields, loading }) {
 const BRAND_EMPTY = {
   name: "", industry: "", domain: "", location: "",
   annual_budget: "", contact_email: "", description: "",
+  // Extended fields — stored serialized in the `description` column
+  company_linkedin_url: "", company_founded: "", company_type: "", company_country: "",
+  company_size: "",
 };
+
+// Serialize extended brand fields into description column
+function serializeBrandDescription(form) {
+  // Build an object with the raw description plus extended fields
+  const extended = {
+    _desc: form.description || "",
+    _linkedin: form.company_linkedin_url || "",
+    _founded: form.company_founded || "",
+    _type: form.company_type || "",
+    _country: form.company_country || "",
+  };
+  // Only add the marker if there is any extended data
+  const hasExtended = extended._linkedin || extended._founded || extended._type || extended._country;
+  if (!hasExtended) return form.description || "";
+  return JSON.stringify(extended);
+}
+
+// Parse description column back into form fields
+function parseBrandDescription(description) {
+  if (!description) return { description: "", company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
+  try {
+    if (description.startsWith("{")) {
+      const parsed = JSON.parse(description);
+      return {
+        description: parsed._desc || "",
+        company_linkedin_url: parsed._linkedin || "",
+        company_founded: parsed._founded || "",
+        company_type: parsed._type || "",
+        company_country: parsed._country || "",
+      };
+    }
+  } catch {}
+  return { description, company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
+}
 
 function BrandsTab() {
   const qc = useQueryClient();
@@ -449,7 +484,7 @@ function BrandsTab() {
     if (!search.trim()) return sorted;
     const q = search.toLowerCase();
     return sorted.filter(b =>
-      [b.name, b.industry, b.domain, b.location, b.contact_email]
+      [b.name, b.industry, b.domain, b.location, b.contact_email, b.company_size]
         .some(v => String(v ?? "").toLowerCase().includes(q))
     );
   }, [sorted, search]);
@@ -459,8 +494,15 @@ function BrandsTab() {
   const upsertMutation = useMutation({
     mutationFn: async (values) => {
       const payload = {
-        ...values,
+        name: values.name,
+        industry: values.industry,
+        domain: values.domain,
+        // Store address-only in location; country lives in description JSON (_country)
+        location: values.location || "",
         annual_budget: values.annual_budget ? Number(values.annual_budget) : null,
+        contact_email: values.contact_email,
+        company_size: values.company_size || null,
+        description: serializeBrandDescription(values),
       };
       if (editRow?.id) {
         const { error } = await supabase.from("brands").update(payload).eq("id", editRow.id);
@@ -495,15 +537,38 @@ function BrandsTab() {
 
   const importMutation = useMutation({
     mutationFn: async (rows) => {
-      const payload = rows.map(r => ({
-        name: r.name || r.Name || "",
-        industry: r.industry || r.Industry || "",
-        domain: r.domain || r.Domain || "",
-        location: r.location || r.Location || "",
-        annual_budget: r.annual_budget ? Number(r.annual_budget) : null,
-        contact_email: r.contact_email || r.Email || "",
-        description: r.description || r.Description || "",
-      }));
+      const payload = rows.map(r => {
+        // Support both old column names and new spec column names
+        const name = r.name || r.Name || r.company_name || r.Company || "";
+        const industry = r.industry || r.Industry || r.company_industry || "";
+        const domain = r.domain || r.Domain || r.website || r.Website || "";
+        const country = r.company_country || r.Country || "";
+        // Keep address-only in location; country stored in description JSON
+        const location = r.location || r.Location || r.company_address || r.Address || "";
+        const companySize = r.company_size || r["Company Size"] || r.company_size_range || "";
+        const emailFormat = r.contact_email || r.email_format || r.Email || "";
+        const descRaw = r.description || r.Description || "";
+        const linkedinUrl = r.company_linkedin_url || r["Company LinkedIn"] || "";
+        const founded = r.company_founded || r.Founded || "";
+        const companyType = r.company_type || r["Company Type"] || "";
+        const descValue = serializeBrandDescription({
+          description: descRaw,
+          company_linkedin_url: linkedinUrl,
+          company_founded: founded,
+          company_type: companyType,
+          company_country: country,
+        });
+        return {
+          name,
+          industry,
+          domain,
+          location,
+          company_size: companySize || null,
+          annual_budget: r.annual_budget ? Number(r.annual_budget) : null,
+          contact_email: emailFormat,
+          description: descValue,
+        };
+      });
       const { error } = await supabase.from("brands").insert(payload);
       if (error) throw error;
     },
@@ -521,6 +586,7 @@ function BrandsTab() {
 
   function openEdit(row) {
     setEditRow(row);
+    const descParsed = parseBrandDescription(row.description);
     setForm({
       name: row.name ?? "",
       industry: row.industry ?? "",
@@ -528,7 +594,8 @@ function BrandsTab() {
       location: row.location ?? "",
       annual_budget: row.annual_budget ?? "",
       contact_email: row.contact_email ?? "",
-      description: row.description ?? "",
+      company_size: row.company_size ?? "",
+      ...descParsed,
     });
     setDialogOpen(true);
   }
@@ -579,7 +646,7 @@ function BrandsTab() {
       <CsvImport
         onImport={importMutation.mutateAsync}
         loading={importMutation.isPending}
-        expectedFields={["name", "industry", "domain", "location", "annual_budget", "contact_email", "description"]}
+        expectedFields={["company_name", "company_industry", "website", "company_size", "company_address", "company_country", "email_format", "annual_budget", "company_linkedin_url", "company_founded", "company_type"]}
       />
 
       {/* Table */}
@@ -590,34 +657,48 @@ function BrandsTab() {
               <tr>
                 <Th col="name" label="Name" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <Th col="industry" label="Industry" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="domain" label="Domain" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="domain" label="Website" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="company_size" label="Size" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <Th col="location" label="Location" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <Th col="annual_budget" label="Annual Budget" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="contact_email" label="Contact Email" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+                <Th col="contact_email" label="Email Format" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">LinkedIn</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Founded</th>
                 <th className="px-4 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
-                <SkeletonRows cols={8} />
+                <SkeletonRows cols={10} />
               ) : paginated.length === 0 ? (
                 <EmptyState icon={Building2} title="No brands yet." cta="Add your first brand" onCta={openAdd} />
               ) : (
-                paginated.map(row => (
+                paginated.map(row => {
+                  const descParsed = parseBrandDescription(row.description);
+                  return (
                   <tr key={row.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-slate-900">{fmt(row.name)}</td>
+                    <td className="px-4 py-3 font-medium text-slate-900 whitespace-nowrap">{fmt(row.name)}</td>
                     <td className="px-4 py-3 text-slate-600">{fmt(row.industry)}</td>
                     <td className="px-4 py-3 text-slate-600">
                       {row.domain
-                        ? <a href={`https://${row.domain}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">{row.domain}</a>
+                        ? <a href={`https://${row.domain}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline text-xs">{row.domain}</a>
                         : "—"
                       }
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{fmt(row.location)}</td>
+                    <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmt(row.company_size)}</td>
+                    <td className="px-4 py-3 text-xs max-w-[140px]">
+                      <div className="text-slate-600 truncate">{fmt(row.location)}</div>
+                      {descParsed.company_country && <div className="text-slate-400 truncate">{descParsed.company_country}</div>}
+                    </td>
                     <td className="px-4 py-3 text-slate-600">{fmtMoney(row.annual_budget)}</td>
-                    <td className="px-4 py-3 text-slate-600">{fmt(row.contact_email)}</td>
-                    <td className="px-4 py-3 text-slate-500 max-w-[200px] truncate">{fmt(row.description)}</td>
+                    <td className="px-4 py-3 text-slate-600 text-xs">{fmt(row.contact_email)}</td>
+                    <td className="px-4 py-3">
+                      {descParsed.company_linkedin_url
+                        ? <a href={descParsed.company_linkedin_url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline text-xs">View</a>
+                        : "—"
+                      }
+                    </td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{fmt(descParsed.company_founded)}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => openEdit(row)}>
@@ -629,7 +710,8 @@ function BrandsTab() {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -639,12 +721,14 @@ function BrandsTab() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={closeDialog}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editRow ? "Edit Brand" : "Add Brand"}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
-            <FormField label="Brand Name" required>
+            {/* Section: Company Identity */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Company Identity</p>
+            <FormField label="Company Name" required>
               <Input value={form.name} onChange={e => setField("name", e.target.value)} placeholder="e.g. Nike" />
             </FormField>
             <div className="grid grid-cols-2 gap-3">
@@ -656,13 +740,43 @@ function BrandsTab() {
                   </SelectContent>
                 </Select>
               </FormField>
-              <FormField label="Location">
-                <Input value={form.location} onChange={e => setField("location", e.target.value)} placeholder="e.g. New York, NY" />
+              <FormField label="Company Type" hint="e.g. Public, Private, Startup">
+                <Input value={form.company_type} onChange={e => setField("company_type", e.target.value)} placeholder="e.g. Public" />
               </FormField>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <FormField label="Domain" hint="Without https://">
+              <FormField label="Company Size" hint="e.g. 1-10, 201-500, 1001-5000">
+                <Input value={form.company_size} onChange={e => setField("company_size", e.target.value)} placeholder="e.g. 201-500" />
+              </FormField>
+              <FormField label="Founded Year">
+                <Input value={form.company_founded} onChange={e => setField("company_founded", e.target.value)} placeholder="e.g. 2005" />
+              </FormField>
+            </div>
+            {/* Section: Online Presence */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Online Presence</p>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="Website" hint="Without https://">
                 <Input value={form.domain} onChange={e => setField("domain", e.target.value)} placeholder="example.com" />
+              </FormField>
+              <FormField label="Company LinkedIn URL">
+                <Input value={form.company_linkedin_url} onChange={e => setField("company_linkedin_url", e.target.value)} placeholder="https://linkedin.com/company/nike" />
+              </FormField>
+            </div>
+            {/* Section: Location */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Location</p>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="Address / City">
+                <Input value={form.location} onChange={e => setField("location", e.target.value)} placeholder="e.g. New York, NY" />
+              </FormField>
+              <FormField label="Country">
+                <Input value={form.company_country} onChange={e => setField("company_country", e.target.value)} placeholder="e.g. United States" />
+              </FormField>
+            </div>
+            {/* Section: Contact & Budget */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Contact & Budget</p>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="Email Format" hint="e.g. {first}.{last}@brand.com">
+                <Input value={form.contact_email} onChange={e => setField("contact_email", e.target.value)} placeholder="{first}@brand.com" />
               </FormField>
               <FormField label="Annual Budget ($)">
                 <Input
@@ -673,9 +787,6 @@ function BrandsTab() {
                 />
               </FormField>
             </div>
-            <FormField label="Contact Email">
-              <Input type="email" value={form.contact_email} onChange={e => setField("contact_email", e.target.value)} placeholder="partnerships@brand.com" />
-            </FormField>
             <FormField label="Description">
               <Textarea value={form.description} onChange={e => setField("description", e.target.value)} placeholder="Brief overview of this brand…" rows={3} />
             </FormField>
@@ -709,9 +820,47 @@ function BrandsTab() {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const CONTACT_EMPTY = {
+  // DB columns
   full_name: "", role_title: "", role_tier: "", brand_name: "", brand_id: "",
   email: "", email_confidence: "", linkedin_url: "", phone: "", source: "",
+  // UI-only split fields (combined into full_name on save)
+  first_name: "", last_name: "",
+  // Extended fields stored in source column as JSON prefix or gracefully omitted
+  headline: "", personal_email: "", city: "", person_location: "", linkedin_id: "",
 };
+
+// Parse stored contact extra fields from the source column
+// We encode extras in source as a JSON string when needed; otherwise source is plain text.
+function serializeContactSource(form) {
+  const hasExtras = form.personal_email || form.city || form.person_location || form.linkedin_id || form.headline;
+  if (!hasExtras) return form.source || "";
+  return JSON.stringify({
+    _src: form.source || "",
+    _pe: form.personal_email || "",
+    _city: form.city || "",
+    _loc: form.person_location || "",
+    _lid: form.linkedin_id || "",
+    _hl: form.headline || "",
+  });
+}
+
+function parseContactSource(source) {
+  if (!source) return { source: "", personal_email: "", city: "", person_location: "", linkedin_id: "", headline: "" };
+  try {
+    if (source.startsWith("{")) {
+      const p = JSON.parse(source);
+      return {
+        source: p._src || "",
+        personal_email: p._pe || "",
+        city: p._city || "",
+        person_location: p._loc || "",
+        linkedin_id: p._lid || "",
+        headline: p._hl || "",
+      };
+    }
+  } catch {}
+  return { source, personal_email: "", city: "", person_location: "", linkedin_id: "", headline: "" };
+}
 
 function ContactsTab({ brands }) {
   const qc = useQueryClient();
@@ -770,16 +919,20 @@ function ContactsTab({ brands }) {
 
   const upsertMutation = useMutation({
     mutationFn: async (values) => {
+      // Combine first + last name into full_name
+      const combinedName = [values.first_name, values.last_name].filter(Boolean).join(" ") || values.full_name;
+      // Combine headline into role_title if headline provided and role_title is empty
+      const roleTitle = values.role_title || values.headline || "";
       const payload = {
-        full_name: values.full_name,
-        role_title: values.role_title,
+        full_name: combinedName,
+        role_title: roleTitle,
         role_tier: values.role_tier ? Number(values.role_tier) : null,
         brand_name: values.brand_name,
         email: values.email,
         email_confidence: values.email_confidence ? Number(values.email_confidence) : null,
         linkedin_url: values.linkedin_url,
         phone: values.phone,
-        source: values.source,
+        source: serializeContactSource(values),
       };
       if (editRow?.id) {
         const { error } = await supabase.from("decision_makers").update(payload).eq("id", editRow.id);
@@ -814,17 +967,44 @@ function ContactsTab({ brands }) {
 
   const importMutation = useMutation({
     mutationFn: async (rows) => {
-      const payload = rows.map(r => ({
-        full_name: r.full_name || r["Full Name"] || "",
-        role_title: r.role_title || r["Role Title"] || "",
-        role_tier: r.role_tier ? Number(r.role_tier) : null,
-        brand_name: r.brand_name || r["Brand Name"] || "",
-        email: r.email || r.Email || "",
-        email_confidence: r.email_confidence ? Number(r.email_confidence) : null,
-        linkedin_url: r.linkedin_url || r.LinkedIn || "",
-        phone: r.phone || r.Phone || "",
-        source: r.source || r.Source || "",
-      }));
+      const payload = rows.map(r => {
+        // Support both old column names and new spec column names
+        const firstName = r.person_first_name || r.first_name || r["First Name"] || "";
+        const lastName = r.person_last_name || r.last_name || r["Last Name"] || "";
+        const fullName = r.full_name || r["Full Name"]
+          || (firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName) || "";
+        const roleTitle = r.role_title || r["Role Title"] || r.person_job_title || r.person_headline || "";
+        const brandName = r.brand_name || r["Brand Name"] || r.person_company_name || r.company_name || "";
+        const email = r.email || r.Email || r.person_business_email || "";
+        const linkedinUrl = r.linkedin_url || r.LinkedIn || r.person_linkedin_url || "";
+        const phone = r.phone || r.Phone || r.person_phone || "";
+        // Extended fields — serialize into source
+        const personalEmail = r.person_personal_email || "";
+        const city = r.person_city || r.city || "";
+        const personLocation = r.person_location || r.location || "";
+        const linkedinId = r.person_linkedin_id || "";
+        const headline = r.person_headline || "";
+        const sourceRaw = r.source || r.Source || "CSV Import";
+        const sourceValue = serializeContactSource({
+          source: sourceRaw,
+          personal_email: personalEmail,
+          city,
+          person_location: personLocation,
+          linkedin_id: linkedinId,
+          headline,
+        });
+        return {
+          full_name: fullName,
+          role_title: roleTitle,
+          role_tier: r.role_tier ? Number(r.role_tier) : null,
+          brand_name: brandName,
+          email,
+          email_confidence: r.email_confidence ? Number(r.email_confidence) : null,
+          linkedin_url: linkedinUrl,
+          phone,
+          source: sourceValue,
+        };
+      });
       const { error } = await supabase.from("decision_makers").insert(payload);
       if (error) throw error;
     },
@@ -840,8 +1020,15 @@ function ContactsTab({ brands }) {
 
   function openEdit(row) {
     setEditRow(row);
+    const fullName = row.full_name ?? "";
+    const spaceIdx = fullName.indexOf(" ");
+    const firstName = spaceIdx > -1 ? fullName.slice(0, spaceIdx) : fullName;
+    const lastName = spaceIdx > -1 ? fullName.slice(spaceIdx + 1) : "";
+    const sourceParsed = parseContactSource(row.source);
     setForm({
-      full_name: row.full_name ?? "",
+      full_name: fullName,
+      first_name: firstName,
+      last_name: lastName,
       role_title: row.role_title ?? "",
       role_tier: row.role_tier ? String(row.role_tier) : "",
       brand_name: row.brand_name ?? "",
@@ -849,7 +1036,7 @@ function ContactsTab({ brands }) {
       email_confidence: row.email_confidence ?? "",
       linkedin_url: row.linkedin_url ?? "",
       phone: row.phone ?? "",
-      source: row.source ?? "",
+      ...sourceParsed,
     });
     setBrandSearch(row.brand_name ?? "");
     setDialogOpen(true);
@@ -869,8 +1056,9 @@ function ContactsTab({ brands }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!form.full_name.trim()) {
-      toast({ title: "Full name is required.", variant: "destructive" });
+    const combinedName = [form.first_name, form.last_name].filter(Boolean).join(" ") || form.full_name;
+    if (!combinedName.trim()) {
+      toast({ title: "First name (or Full name) is required.", variant: "destructive" });
       return;
     }
     upsertMutation.mutate(form);
@@ -937,7 +1125,7 @@ function ContactsTab({ brands }) {
       <CsvImport
         onImport={importMutation.mutateAsync}
         loading={importMutation.isPending}
-        expectedFields={["full_name", "role_title", "role_tier", "brand_name", "email", "email_confidence", "linkedin_url", "phone", "source"]}
+        expectedFields={["person_first_name", "person_last_name", "person_job_title", "person_headline", "person_business_email", "person_personal_email", "person_phone", "person_company_name", "person_city", "person_location", "person_linkedin_url", "person_linkedin_id", "role_tier", "email_confidence", "source"]}
       />
 
       {/* Table */}
@@ -946,12 +1134,13 @@ function ContactsTab({ brands }) {
           <table className="w-full text-sm">
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
-                <Th col="full_name" label="Full Name" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="role_title" label="Role" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="full_name" label="Name" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="role_title" label="Role / Headline" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <Th col="role_tier" label="Tier" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="brand_name" label="Brand" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="email" label="Email" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="email_confidence" label="Confidence" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="brand_name" label="Company" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="email" label="Business Email" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Personal Email</th>
+                <Th col="email_confidence" label="Conf." sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">LinkedIn</th>
                 <Th col="phone" label="Phone" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <Th col="source" label="Source" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
@@ -960,14 +1149,24 @@ function ContactsTab({ brands }) {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
-                <SkeletonRows cols={10} />
+                <SkeletonRows cols={11} />
               ) : paginated.length === 0 ? (
                 <EmptyState icon={Users} title="No contacts yet." cta="Add your first contact" onCta={openAdd} />
               ) : (
-                paginated.map(row => (
+                paginated.map(row => {
+                  const srcParsed = parseContactSource(row.source);
+                  return (
                   <tr key={row.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-slate-900 whitespace-nowrap">{fmt(row.full_name)}</td>
-                    <td className="px-4 py-3 text-slate-600 max-w-[160px] truncate">{fmt(row.role_title)}</td>
+                    <td className="px-4 py-3 font-medium text-slate-900 whitespace-nowrap">
+                      <div>{fmt(row.full_name)}</div>
+                      {srcParsed.city && <div className="text-[11px] text-slate-400">{srcParsed.city}</div>}
+                    </td>
+                    <td className="px-4 py-3 text-slate-600 max-w-[160px]">
+                      <div className="truncate text-xs">{fmt(row.role_title)}</div>
+                      {srcParsed.headline && row.role_title !== srcParsed.headline && (
+                        <div className="truncate text-[11px] text-slate-400">{srcParsed.headline}</div>
+                      )}
+                    </td>
                     <td className="px-4 py-3">
                       {row.role_tier ? (
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${tierConfig[row.role_tier] || "bg-slate-100 text-slate-600"}`}>
@@ -975,8 +1174,9 @@ function ContactsTab({ brands }) {
                         </span>
                       ) : "—"}
                     </td>
-                    <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{fmt(row.brand_name)}</td>
+                    <td className="px-4 py-3 text-slate-600 whitespace-nowrap text-xs">{fmt(row.brand_name)}</td>
                     <td className="px-4 py-3 text-slate-600 text-xs">{fmt(row.email)}</td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{srcParsed.personal_email ? fmt(srcParsed.personal_email) : "—"}</td>
                     <td className={`px-4 py-3 text-sm font-semibold ${confidenceColor(row.email_confidence)}`}>
                       {row.email_confidence != null ? `${row.email_confidence}%` : "—"}
                     </td>
@@ -987,7 +1187,7 @@ function ContactsTab({ brands }) {
                       }
                     </td>
                     <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmt(row.phone)}</td>
-                    <td className="px-4 py-3 text-slate-500 text-xs">{fmt(row.source)}</td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{fmt(srcParsed.source)}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => openEdit(row)}>
@@ -999,7 +1199,8 @@ function ContactsTab({ brands }) {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -1009,29 +1210,41 @@ function ContactsTab({ brands }) {
 
       {/* Add/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={closeDialog}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editRow ? "Edit Contact" : "Add Contact"}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
+            {/* Section: Personal Info */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Personal Info</p>
             <div className="grid grid-cols-2 gap-3">
-              <FormField label="Full Name" required>
-                <Input value={form.full_name} onChange={e => setField("full_name", e.target.value)} placeholder="Jane Smith" />
+              <FormField label="First Name" required>
+                <Input value={form.first_name} onChange={e => setField("first_name", e.target.value)} placeholder="Jane" />
               </FormField>
-              <FormField label="Role Title">
-                <Input value={form.role_title} onChange={e => setField("role_title", e.target.value)} placeholder="Head of Partnerships" />
+              <FormField label="Last Name">
+                <Input value={form.last_name} onChange={e => setField("last_name", e.target.value)} placeholder="Smith" />
               </FormField>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <FormField label="Tier">
-                <Select value={form.role_tier} onValueChange={v => setField("role_tier", v)}>
-                  <SelectTrigger><SelectValue placeholder="Select tier" /></SelectTrigger>
-                  <SelectContent>
-                    {TIERS.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+              <FormField label="Job Title">
+                <Input value={form.role_title} onChange={e => setField("role_title", e.target.value)} placeholder="Head of Partnerships" />
               </FormField>
-              <FormField label="Brand Name" hint="Type to search">
+              <FormField label="Headline" hint="LinkedIn-style headline">
+                <Input value={form.headline} onChange={e => setField("headline", e.target.value)} placeholder="Partnerships Lead @ Nike" />
+              </FormField>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="City">
+                <Input value={form.city} onChange={e => setField("city", e.target.value)} placeholder="New York" />
+              </FormField>
+              <FormField label="Location">
+                <Input value={form.person_location} onChange={e => setField("person_location", e.target.value)} placeholder="New York, NY, United States" />
+              </FormField>
+            </div>
+            {/* Section: Company */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Company</p>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="Company Name" hint="Type to search">
                 <div className="relative">
                   <Input
                     value={brandSearch}
@@ -1064,11 +1277,26 @@ function ContactsTab({ brands }) {
                   )}
                 </div>
               </FormField>
+              <FormField label="Tier">
+                <Select value={form.role_tier} onValueChange={v => setField("role_tier", v)}>
+                  <SelectTrigger><SelectValue placeholder="Select tier" /></SelectTrigger>
+                  <SelectContent>
+                    {TIERS.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </FormField>
             </div>
+            {/* Section: Contact Details */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Contact Details</p>
             <div className="grid grid-cols-2 gap-3">
-              <FormField label="Email">
+              <FormField label="Business Email">
                 <Input type="email" value={form.email} onChange={e => setField("email", e.target.value)} placeholder="jane@brand.com" />
               </FormField>
+              <FormField label="Personal Email">
+                <Input type="email" value={form.personal_email} onChange={e => setField("personal_email", e.target.value)} placeholder="jane@gmail.com" />
+              </FormField>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
               <FormField label="Email Confidence %" hint="0–100">
                 <Input
                   type="number" min="0" max="100"
@@ -1077,23 +1305,30 @@ function ContactsTab({ brands }) {
                   placeholder="85"
                 />
               </FormField>
-            </div>
-            <FormField label="LinkedIn URL">
-              <Input value={form.linkedin_url} onChange={e => setField("linkedin_url", e.target.value)} placeholder="https://linkedin.com/in/janesmith" />
-            </FormField>
-            <div className="grid grid-cols-2 gap-3">
               <FormField label="Phone">
                 <Input value={form.phone} onChange={e => setField("phone", e.target.value)} placeholder="+1 555 000 0000" />
               </FormField>
-              <FormField label="Source">
-                <Select value={form.source} onValueChange={v => setField("source", v)}>
-                  <SelectTrigger><SelectValue placeholder="Select source" /></SelectTrigger>
-                  <SelectContent>
-                    {SOURCES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+            </div>
+            {/* Section: LinkedIn */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">LinkedIn</p>
+            <div className="grid grid-cols-2 gap-3">
+              <FormField label="LinkedIn URL">
+                <Input value={form.linkedin_url} onChange={e => setField("linkedin_url", e.target.value)} placeholder="https://linkedin.com/in/janesmith" />
+              </FormField>
+              <FormField label="LinkedIn ID" hint="e.g. janesmith">
+                <Input value={form.linkedin_id} onChange={e => setField("linkedin_id", e.target.value)} placeholder="janesmith" />
               </FormField>
             </div>
+            {/* Section: Meta */}
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-1">Meta</p>
+            <FormField label="Source">
+              <Select value={form.source} onValueChange={v => setField("source", v)}>
+                <SelectTrigger><SelectValue placeholder="Select source" /></SelectTrigger>
+                <SelectContent>
+                  {SOURCES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </FormField>
             <DialogFooter>
               <DialogClose asChild>
                 <Button type="button" variant="outline">Cancel</Button>
