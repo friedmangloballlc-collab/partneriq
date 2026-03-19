@@ -380,15 +380,8 @@ export default function Layout({ children, currentPageName }) {
     </div>
   );
 
-  const isDarkDefault = theme.bg === "#080807" || theme.bg === "#0c0c0b";
-  const mainBgStyle = theme.bg.startsWith("linear")
-    ? { background: theme.bg, color: theme.text }
-    : isDarkDefault
-      ? { backgroundColor: "#0d0d0c", color: theme.text }
-      : { backgroundColor: theme.bg, color: theme.text };
-
   return (
-    <div className="flex h-screen overflow-hidden" style={{ backgroundColor: theme.bg }}>
+    <div className="flex h-screen overflow-hidden bg-background">
       {/* Desktop sidebar */}
       <div className="hidden lg:flex relative flex-shrink-0">
         <Sidebar />
@@ -405,18 +398,14 @@ export default function Layout({ children, currentPageName }) {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden min-w-0" style={mainBgStyle}>
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0 bg-background text-foreground">
         {/* Top bar */}
-        <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4" style={{
-          backgroundColor: theme.bg.startsWith("linear") ? "rgba(0,0,0,0.15)" : theme.bg2,
-          borderBottom: `1px solid ${theme.border}`,
-          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-        }}>
+        <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4 bg-card border-b border-border" style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700 flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
+            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
-            <h1 className="text-lg font-semibold hidden sm:block" style={{ color: "#c4a24a" }}>{currentPageName}</h1>
+            <h1 className="text-lg font-semibold hidden sm:block text-foreground">{currentPageName}</h1>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <GlobalSearch />
@@ -424,7 +413,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
         </header>
         {/* Gold gradient accent stripe */}
-        <div style={{ height: 2, background: "linear-gradient(90deg, #c4a24a, #e07b18, #c4a24a)", opacity: 0.3, flexShrink: 0 }} />
+        <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
 
         {/* Page content */}
         <main className="flex-1 overflow-y-auto" style={mainBgStyle}>
@@ -440,8 +429,8 @@ export default function Layout({ children, currentPageName }) {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <Crown size={14} style={{ color: "#c4a24a" }} />
-                  <span style={{ fontSize: "0.8rem", color: theme.text }}>
-                    <span style={{ color: theme.gold, fontWeight: 500 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
+                  <span className="text-sm text-foreground">
+                    <span style={{ color: "#b3922e", fontWeight: 600 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
                   </span>
                 </div>
                 <button onClick={() => navigate("/SubscriptionManagement")} style={{
@@ -463,7 +452,7 @@ export default function Layout({ children, currentPageName }) {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <Lock size={14} style={{ color: "#ef4444" }} />
-                  <span style={{ fontSize: "0.8rem", color: theme.text }}>
+                  <span className="text-sm text-foreground">
                     Your trial has expired. Premium features are now locked.
                   </span>
                 </div>
