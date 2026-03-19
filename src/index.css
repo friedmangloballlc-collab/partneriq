@@ -66,38 +66,39 @@ body {
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    /* Dealstage dark theme — gold/amber palette with better contrast */
+    --background: 40 6% 5%; /* #0d0d0b — slightly warm dark */
+    --foreground: 40 20% 93%; /* #f0ebe0 — warm cream text */
+    --card: 40 5% 8%; /* #151412 — cards stand out from bg */
+    --card-foreground: 40 20% 93%; /* #f0ebe0 */
+    --popover: 40 5% 10%; /* #1a1917 */
+    --popover-foreground: 40 20% 93%;
+    --primary: 43 55% 52%; /* #c4a24a — gold */
+    --primary-foreground: 40 6% 5%; /* dark text on gold buttons */
+    --secondary: 40 4% 14%; /* #252320 — subtle secondary bg */
+    --secondary-foreground: 40 15% 85%;
+    --muted: 40 4% 14%; /* #252320 */
+    --muted-foreground: 40 10% 55%; /* readable muted text */
+    --accent: 33 80% 49%; /* #e07b18 — amber accent */
+    --accent-foreground: 40 20% 93%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 40 6% 18%; /* #2e2c28 — visible borders */
+    --input: 40 6% 18%; /* #2e2c28 — visible input borders */
+    --ring: 43 55% 52%; /* gold focus ring */
+    --chart-1: 43 55% 52%; /* gold */
+    --chart-2: 33 80% 49%; /* amber */
+    --chart-3: 160 60% 45%; /* teal */
+    --chart-4: 220 70% 55%; /* blue */
+    --chart-5: 280 65% 60%; /* purple */
+    --sidebar-background: 40 5% 4%; /* #0c0b0a */
+    --sidebar-foreground: 40 15% 85%;
+    --sidebar-primary: 43 55% 52%; /* gold */
+    --sidebar-primary-foreground: 40 6% 5%;
+    --sidebar-accent: 40 5% 12%;
+    --sidebar-accent-foreground: 40 15% 85%;
+    --sidebar-border: 40 6% 15%;
+    --sidebar-ring: 43 55% 52%;
   }
 }
 
