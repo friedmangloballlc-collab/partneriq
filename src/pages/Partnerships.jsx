@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, UserCheck, Handshake
+  Plus, Search, DollarSign, ArrowRight, MoreHorizontal, UserCheck, Handshake,
+  Upload, Sparkles, FileText, X, CheckCircle2, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,10 @@ export default function Partnerships() {
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
+  const [showDeckUpload, setShowDeckUpload] = useState(false);
+  const [deckFile, setDeckFile] = useState(null);
+  const [deckAnalyzing, setDeckAnalyzing] = useState(false);
+  const [deckMatches, setDeckMatches] = useState(null);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { data: partnerships = [], isLoading, refetch } = useQuery({
@@ -66,10 +71,10 @@ export default function Partnerships() {
 
   return (
     <div className="space-y-6">
-      <SEO title="Partnerships" description="Manage your active deals and partnership pipeline" />
+      <SEO title="Deal Pipeline" description="Manage your active deals and partnership pipeline" />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Partnerships</h1>
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">Deal Pipeline</h1>
           <p className="text-sm text-slate-500 mt-1">{partnerships.length} total deals · ${(partnerships.reduce((s, p) => s + (p.deal_value || 0), 0) / 1000).toFixed(0)}K pipeline value</p>
         </div>
         <div className="flex gap-2">
@@ -83,10 +88,131 @@ export default function Partnerships() {
         </div>
       </div>
 
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-        <Input placeholder="Search deals..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Input placeholder="Search deals..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
+        </div>
+        <Button variant="outline" onClick={() => setShowDeckUpload(!showDeckUpload)} className="gap-2 border-amber-200 text-amber-700 hover:bg-amber-50">
+          <Upload className="w-4 h-4" /> Upload Deck for AI Matching
+        </Button>
       </div>
+
+      {/* Deck Upload & AI Matching Panel */}
+      {showDeckUpload && (
+        <Card className="p-6 border-amber-200 bg-amber-50/30">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-600" /> Upload Campaign Deck — AI Auto-Match
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Upload your campaign brief or deck and our AI will analyze it and find the best talent matches within your budget.</p>
+            </div>
+            <button onClick={() => { setShowDeckUpload(false); setDeckFile(null); setDeckMatches(null); }} className="text-muted-foreground hover:text-foreground">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {!deckMatches ? (
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* Upload area */}
+              <div
+                className="flex-1 border-2 border-dashed border-amber-300 rounded-xl p-8 text-center cursor-pointer hover:border-amber-400 hover:bg-amber-50/50 transition-colors"
+                onClick={() => document.getElementById("deck-upload-input").click()}
+                onDragOver={e => { e.preventDefault(); e.currentTarget.style.borderColor = "#d97706"; }}
+                onDragLeave={e => { e.currentTarget.style.borderColor = ""; }}
+                onDrop={e => {
+                  e.preventDefault();
+                  const file = e.dataTransfer.files[0];
+                  if (file) setDeckFile(file);
+                }}
+              >
+                <input id="deck-upload-input" type="file" accept=".pdf,.pptx,.ppt,.docx,.doc" className="hidden" onChange={e => { if (e.target.files[0]) setDeckFile(e.target.files[0]); }} />
+                {deckFile ? (
+                  <div className="flex items-center justify-center gap-3">
+                    <FileText className="w-8 h-8 text-amber-600" />
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-foreground">{deckFile.name}</p>
+                      <p className="text-xs text-muted-foreground">{(deckFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Upload className="w-10 h-10 text-amber-400 mx-auto mb-3" />
+                    <p className="text-sm font-medium text-foreground">Drag & drop your campaign deck</p>
+                    <p className="text-xs text-muted-foreground mt-1">PDF, PPTX, or DOCX · Max 50MB</p>
+                  </>
+                )}
+              </div>
+
+              {/* What AI extracts */}
+              <div className="flex-1 space-y-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">AI will extract & match on:</p>
+                {["Campaign objectives & KPIs", "Target audience demographics", "Budget range & timeline", "Brand tone & creative direction", "Preferred talent categories"].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm text-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                    {item}
+                  </div>
+                ))}
+                <Button
+                  className="mt-4 w-full bg-amber-600 hover:bg-amber-700 text-white gap-2"
+                  disabled={!deckFile || deckAnalyzing}
+                  onClick={async () => {
+                    setDeckAnalyzing(true);
+                    // Simulate AI analysis (replace with real API call)
+                    await new Promise(r => setTimeout(r, 2500));
+                    setDeckMatches([
+                      { name: "Jordan Reeves", type: "NBA Athlete", match: 97, rate: "$85K", reason: "Audience 92% overlap with your target demo, fitness + lifestyle niche alignment" },
+                      { name: "Mia Chen", type: "YouTube Creator", match: 94, rate: "$12.5K", reason: "Tech audience match, 6.8% engagement — within your $10-15K tier" },
+                      { name: "Zara Ali", type: "Fashion Model", match: 91, rate: "$34K", reason: "Luxury demographic fit, 340K avg views, premium brand alignment" },
+                      { name: "Marcus Cole", type: "Podcast Host", match: 88, rate: "$8K", reason: "Finance audience overlap, 120K weekly listeners, strong conversion rates" },
+                      { name: "Priya Sharma", type: "Instagram Influencer", match: 85, rate: "$15K", reason: "Food & lifestyle niche, 4.2M followers, 3.8% engagement rate" },
+                    ]);
+                    setDeckAnalyzing(false);
+                  }}
+                >
+                  {deckAnalyzing ? <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing deck...</> : <><Sparkles className="w-4 h-4" /> Analyze & Find Matches</>}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            /* Match Results */
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="w-5 h-5 text-amber-600" />
+                <h4 className="text-sm font-semibold text-foreground">{deckMatches.length} talent matches found within your budget</h4>
+                <button onClick={() => { setDeckMatches(null); setDeckFile(null); }} className="ml-auto text-xs text-muted-foreground hover:text-foreground">Upload new deck</button>
+              </div>
+              <div className="space-y-3">
+                {deckMatches.map((talent, i) => (
+                  <div key={i} className="flex items-center gap-4 p-4 bg-card border rounded-xl hover:border-amber-300 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      {talent.name.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-foreground">{talent.name}</span>
+                        <Badge variant="outline" className="text-[10px]">{talent.type}</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{talent.reason}</p>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <div className="text-lg font-bold text-amber-600">{talent.match}%</div>
+                      <div className="text-xs text-muted-foreground">{talent.rate}</div>
+                    </div>
+                    <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white text-xs flex-shrink-0" onClick={() => setShowAdd(true)}>
+                      Send Deal
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <Button className="mt-4 w-full bg-amber-600 hover:bg-amber-700 text-white gap-2" onClick={() => setShowAdd(true)}>
+                <Handshake className="w-4 h-4" /> Send deal to all {deckMatches.length} matches
+              </Button>
+            </div>
+          )}
+        </Card>
+      )}
 
       {isLoading ? (
         view === "pipeline" ? (
