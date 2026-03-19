@@ -31,9 +31,11 @@ export function useFeatureGate() {
     loadProfile();
   }, []);
 
-  const isPaidPlan = profile?.plan && profile.plan !== "free";
+  const isAdmin = profile?.role === "admin";
+  const isPaidPlan = isAdmin || (profile?.plan && profile.plan !== "free");
 
   const trialDaysLeft = (() => {
+    if (isAdmin) return 999; // admin never expires
     if (!profile?.created_at) return 0;
     const created = new Date(profile.created_at);
     const now = new Date();
@@ -42,8 +44,8 @@ export function useFeatureGate() {
     return Math.max(0, TRIAL_DAYS - diffDays);
   })();
 
-  const isTrialActive = trialDaysLeft > 0;
-  const isTrialExpired = !isTrialActive && !isPaidPlan;
+  const isTrialActive = isAdmin || trialDaysLeft > 0;
+  const isTrialExpired = !isAdmin && !isTrialActive && !isPaidPlan;
 
   const canAccess = (pageName) => {
     if (loading) return true; // don't block while loading
