@@ -13,9 +13,12 @@ import { X } from "lucide-react";
 
 export default function EventForm({ event, eventType, demographics, onSubmit, onCancel }) {
   const [formData, setFormData] = useState(event || {});
-  const [selectedDemographics, setSelectedDemographics] = useState(
-    event?.audience_demographics ? JSON.parse(event.audience_demographics) : []
-  );
+  const [selectedDemographics, setSelectedDemographics] = useState(() => {
+    if (!event?.audience_demographics) return [];
+    return typeof event.audience_demographics === 'string'
+      ? JSON.parse(event.audience_demographics)
+      : event.audience_demographics;
+  });
   const [showDemoSelect, setShowDemoSelect] = useState(false);
 
   const handleSubmit = (e) => {

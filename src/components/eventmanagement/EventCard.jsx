@@ -8,7 +8,9 @@ export default function EventCard({ event, eventType, demographics, onEdit, onDe
   const [expanded, setExpanded] = useState(false);
 
   const selectedDemographics = event.audience_demographics
-    ? JSON.parse(event.audience_demographics)
+    ? (typeof event.audience_demographics === 'string'
+        ? JSON.parse(event.audience_demographics)
+        : event.audience_demographics)
     : [];
   const demoNames = demographics
     .filter((d) => selectedDemographics.includes(d.id))

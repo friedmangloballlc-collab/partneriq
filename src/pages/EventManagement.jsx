@@ -33,13 +33,12 @@ export default function EventManagement() {
     queryFn: () => base44.entities.MegaEvent.list(),
   });
 
-  // Handle navigation state from search - add to existing selections
+  // Handle navigation state from search - switch to the tab containing the event
   useEffect(() => {
     if (location.state?.selectedEvent) {
       const allEvents = [...cultureEvents, ...megaEvents];
       const event = allEvents.find(e => e.id === location.state.selectedEvent);
       if (event) {
-        setSelectedEvents(prev => new Set([...prev, location.state.selectedEvent]));
         if (cultureEvents.find(e => e.id === location.state.selectedEvent)) {
           setEventType("culture");
         } else {
@@ -150,13 +149,15 @@ export default function EventManagement() {
       if (eventFilters.dateFrom && event.dates) {
         const eventDate = new Date(event.dates);
         const filterDate = new Date(eventFilters.dateFrom);
-        if (eventDate < filterDate) return false;
+        // Skip date comparison when event.dates is a non-ISO text string
+        if (!isNaN(eventDate) && !isNaN(filterDate) && eventDate < filterDate) return false;
       }
 
       if (eventFilters.dateTo && event.dates) {
         const eventDate = new Date(event.dates);
         const filterDate = new Date(eventFilters.dateTo);
-        if (eventDate > filterDate) return false;
+        // Skip date comparison when event.dates is a non-ISO text string
+        if (!isNaN(eventDate) && !isNaN(filterDate) && eventDate > filterDate) return false;
       }
 
       if (eventFilters.category && event.category !== eventFilters.category) {

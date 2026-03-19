@@ -58,7 +58,7 @@ export default function MarketIntelligence() {
                   <CardTitle className="capitalize flex items-center justify-between">
                     <span>{tier.tier} Tier</span>
                     <span className="text-sm font-normal text-slate-600">
-                      {tier.followers_min.toLocaleString()} - {tier.followers_max.toLocaleString()} followers
+                      {tier.followers_min?.toLocaleString() ?? "N/A"} - {tier.followers_max?.toLocaleString() ?? "N/A"} followers
                     </span>
                   </CardTitle>
                 </CardHeader>
