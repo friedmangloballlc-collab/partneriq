@@ -131,6 +131,11 @@ export default function ConnectAccounts() {
   const levelColor = getVerificationColor(level);
   const getConnections = (slug) => connected.filter(c => c.platform === slug);
 
+  // ID Verification state
+  const [idFile, setIdFile] = useState(null);
+  const [idUploading, setIdUploading] = useState(false);
+  const [idStatus, setIdStatus] = useState(talent?.id_verified ? "verified" : "none"); // none | pending | verified | rejected
+
   const handleOAuth = async (platform) => {
     setOauthStep("authorizing");
     await new Promise(r => setTimeout(r, 1500));
@@ -183,6 +188,97 @@ export default function ConnectAccounts() {
                 <span>{verifiedCount} verified</span>
               </div>
               <Progress value={Math.min((boost / 30) * 100, 100)} className="h-2" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Identity Verification — Verified Badge */}
+      <Card className={idStatus === "verified" ? "border-emerald-300 bg-emerald-50/30" : "border-amber-200 bg-amber-50/20"}>
+        <CardContent className="p-5">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center border shrink-0 ${
+              idStatus === "verified" ? "bg-emerald-100 border-emerald-300 text-emerald-700" :
+              idStatus === "pending" ? "bg-amber-100 border-amber-300 text-amber-700" :
+              "bg-slate-100 border-slate-200 text-slate-500"
+            }`}>
+              {idStatus === "verified" ? <CheckCircle2 className="w-6 h-6" /> : <ShieldCheck className="w-6 h-6" />}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="text-sm font-semibold text-foreground">Identity Verification</h3>
+                {idStatus === "verified" && <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200">Verified ✓</Badge>}
+                {idStatus === "pending" && <Badge className="bg-amber-100 text-amber-700 border-amber-200">Under Review</Badge>}
+              </div>
+              {idStatus === "verified" ? (
+                <p className="text-sm text-muted-foreground">Your identity has been verified. You have the <strong className="text-emerald-700">Verified Badge</strong> on your profile — brands can trust you are who you say you are.</p>
+              ) : idStatus === "pending" ? (
+                <p className="text-sm text-muted-foreground">Your ID is being reviewed. This typically takes 1-2 business hours. You'll receive a notification once approved.</p>
+              ) : (
+                <>
+                  <p className="text-sm text-muted-foreground mb-3">Upload a government-issued ID to earn your <strong>Verified Badge</strong>. Verified talent get up to 40% more deal inquiries from brands.</p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <div
+                      className="flex-1 border-2 border-dashed border-amber-300 rounded-xl p-4 text-center cursor-pointer hover:border-amber-400 hover:bg-amber-50/50 transition-colors"
+                      onClick={() => document.getElementById("id-upload-input").click()}
+                    >
+                      <input
+                        id="id-upload-input"
+                        type="file"
+                        accept="image/*,.pdf"
+                        className="hidden"
+                        onChange={e => { if (e.target.files[0]) setIdFile(e.target.files[0]); }}
+                      />
+                      {idFile ? (
+                        <div className="flex items-center justify-center gap-2">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                          <span className="text-sm font-medium text-foreground">{idFile.name}</span>
+                          <span className="text-xs text-muted-foreground">({(idFile.size / 1024 / 1024).toFixed(1)} MB)</span>
+                        </div>
+                      ) : (
+                        <>
+                          <ShieldCheck className="w-8 h-8 text-amber-400 mx-auto mb-2" />
+                          <p className="text-sm font-medium text-foreground">Upload Government ID</p>
+                          <p className="text-xs text-muted-foreground mt-1">Driver's license, passport, or national ID · JPG, PNG, or PDF</p>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-2 sm:w-48 shrink-0">
+                      <Button
+                        className="bg-amber-600 hover:bg-amber-700 text-white gap-2"
+                        disabled={!idFile || idUploading}
+                        onClick={async () => {
+                          setIdUploading(true);
+                          try {
+                            // Upload to Supabase storage
+                            const filePath = `id-verification/${user?.id || "unknown"}/${Date.now()}_${idFile.name}`;
+                            await supabase.storage.from("id-verification").upload(filePath, idFile);
+                            // Update profile
+                            if (talent?.id) {
+                              await supabase.from("talents").update({
+                                id_verification_file: filePath,
+                                id_verification_status: "pending",
+                                id_verification_submitted_at: new Date().toISOString(),
+                              }).eq("id", talent.id);
+                            }
+                            setIdStatus("pending");
+                            setIdFile(null);
+                          } catch (err) {
+                            console.error("ID upload error:", err);
+                          }
+                          setIdUploading(false);
+                        }}
+                      >
+                        {idUploading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
+                        {idUploading ? "Uploading..." : "Submit for Review"}
+                      </Button>
+                      <div className="text-[10px] text-muted-foreground text-center leading-tight">
+                        Your ID is encrypted and only used for verification. It is never shared with brands or other users.
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </CardContent>
