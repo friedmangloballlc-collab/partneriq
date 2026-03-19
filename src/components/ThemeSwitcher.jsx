@@ -1,13 +1,12 @@
 import React from "react";
 import { useTheme } from "@/hooks/useTheme";
-import { Check, Sun, Moon, Sparkles } from "lucide-react";
+import { Check, Moon, Sparkles } from "lucide-react";
 
 export default function ThemeSwitcher({ compact = false }) {
   const { themeKey, setTheme, themes } = useTheme();
 
   const options = [
     { key: "dark", icon: Moon, preview: { bg: "#080807", accent: "#c4a24a", text: "#f5f0e6" } },
-    { key: "light", icon: Sun, preview: { bg: "#f5f0e6", accent: "#a08630", text: "#1a1a18" } },
     { key: "gradient", icon: Sparkles, preview: { bg: "linear-gradient(135deg, #c4a24a, #e07b18)", accent: "#1a1a18", text: "#1a1a18" } },
   ];
 

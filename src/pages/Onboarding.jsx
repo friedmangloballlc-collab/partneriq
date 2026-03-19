@@ -666,7 +666,7 @@ export default function Onboarding() {
       <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-6 sm:px-10"
         style={{ background: "rgba(8,8,7,0.92)", backdropFilter: "blur(24px)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>
         <button onClick={() => setStep(1)} className="flex items-center gap-2" style={{ background: "none", border: "none", cursor: "pointer" }}>
-          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 32 }} />
+          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 40 }} />
         </button>
         {/* Step indicator */}
         <div className="hidden md:flex items-center gap-3">

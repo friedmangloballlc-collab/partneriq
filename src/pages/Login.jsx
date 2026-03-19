@@ -205,7 +205,7 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
-            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 44 }} />
+            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 56 }} />
           </div>
           <p className="text-slate-400 text-sm">
             {mode === "login" ? "Sign in to your account" : "Create your account"}

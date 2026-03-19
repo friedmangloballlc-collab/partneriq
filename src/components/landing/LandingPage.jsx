@@ -660,7 +660,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         {/* ── NAV ─────────────────────────────────────────────────────────── */}
         <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`}>
           <a href="/" className="ds-nav-logo" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 32 }} />
+            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 42 }} />
           </a>
           <ul className="ds-nav-links">
             {/* For Brands dropdown */}
@@ -1088,7 +1088,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 <div className="ds-phone-frame">
                   <div className="ds-phone-screen">
                     <div className="ds-phone-header">
-                      <div className="ds-phone-logo"><img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 16 }} /></div>
+                      <div className="ds-phone-logo"><img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 20 }} /></div>
                       <div className="ds-phone-notif" />
                     </div>
                     <div className="ds-phone-card">
@@ -1136,7 +1136,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         <footer className="ds-footer">
           <div>
             <a href="/" className="ds-footer-logo" style={{ display: "flex", alignItems: "center" }}>
-              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 28 }} />
+              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
             </a>
             <p className="ds-footer-tagline">The platform where talent meets brands and deals get done.</p>
             <p style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-cream3)", marginTop: "1.5rem" }}>&copy; 2026 DealStage LLC</p>
