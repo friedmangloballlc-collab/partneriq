@@ -324,6 +324,104 @@ export default function FeatureDealPipeline() {
         </Fade>
       </section>
 
+      {/* DECK UPLOAD & AI MATCHING */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 24px" }}>
+        <Fade>
+          <SectionLabel>For Brands</SectionLabel>
+          <h2 style={{ ...serif, fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 700, color: T.cream, marginBottom: 16, maxWidth: 600 }}>
+            Upload your deck.{" "}
+            <span style={{ background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>AI finds the talent.</span>
+          </h2>
+          <p style={{ ...sans, fontSize: 16, color: T.creamDim, marginBottom: 48, maxWidth: 560, lineHeight: 1.65 }}>
+            Already have a campaign deck or brief? Upload it and our AI will analyze your goals, budget, and audience — then auto-match you with the best talent within your price range.
+          </p>
+        </Fade>
+
+        <Fade delay={100}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+            {/* Left: Upload mockup */}
+            <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: 32, position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at top left, rgba(196,162,74,0.05), transparent 60%)", pointerEvents: "none" }} />
+              <div style={{ ...mono, fontSize: 11, color: T.goldDim, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 20 }}>Upload Your Campaign Deck</div>
+
+              {/* Drop zone */}
+              <div style={{ border: `2px dashed ${T.border}`, borderRadius: 12, padding: "40px 24px", textAlign: "center", marginBottom: 24, background: "rgba(196,162,74,0.02)" }}>
+                <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
+                <p style={{ ...sans, fontSize: 14, color: T.cream, fontWeight: 500, marginBottom: 4 }}>Drag & drop your deck here</p>
+                <p style={{ ...sans, fontSize: 12, color: T.creamDim }}>PDF, PPTX, or DOCX · Max 50MB</p>
+                <div style={{ marginTop: 16, display: "inline-block", background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, color: T.bg, padding: "8px 20px", borderRadius: 6, fontSize: 13, fontWeight: 600, ...sans }}>Browse files</div>
+              </div>
+
+              {/* What AI extracts */}
+              <div style={{ ...mono, fontSize: 11, color: T.goldDim, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>AI Extracts From Your Deck</div>
+              {["Campaign objectives & KPIs", "Target audience demographics", "Budget range & timeline", "Brand tone & creative direction", "Preferred talent categories"].map((item, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < 4 ? `1px solid ${T.borderAlt}` : "none" }}>
+                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "rgba(196,162,74,0.12)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontSize: 10, color: T.gold }}>✓</span>
+                  </div>
+                  <span style={{ ...sans, fontSize: 13, color: T.cream }}>{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Right: AI match results */}
+            <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: 32, position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at top right, rgba(224,123,24,0.05), transparent 60%)", pointerEvents: "none" }} />
+              <div style={{ ...mono, fontSize: 11, color: T.amber, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 20 }}>AI-Matched Talent · Within Budget</div>
+
+              {/* Match results */}
+              {[
+                { name: "Jordan Reeves", type: "NBA Athlete", match: 97, rate: "$85K", reason: "Audience 92% overlap, fitness + lifestyle niche" },
+                { name: "Mia Chen", type: "YouTube Creator", match: 94, rate: "$12.5K", reason: "Tech audience match, 6.8% engagement rate" },
+                { name: "Zara Ali", type: "Fashion Model", match: 91, rate: "$34K", reason: "Luxury demo fit, 340K avg views per post" },
+                { name: "Marcus Cole", type: "Podcast Host", match: 88, rate: "$8K", reason: "Finance audience, 120K weekly listeners" },
+              ].map((talent, i) => (
+                <div key={i} style={{
+                  display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16,
+                  padding: "16px 0", borderBottom: i < 3 ? `1px solid ${T.borderAlt}` : "none",
+                }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 8, background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, display: "flex", alignItems: "center", justifyContent: "center", ...mono, fontSize: 11, color: T.bg, fontWeight: 600, flexShrink: 0 }}>{talent.name.split(" ").map(n => n[0]).join("")}</div>
+                      <div>
+                        <div style={{ ...sans, fontSize: 14, fontWeight: 600, color: T.cream }}>{talent.name}</div>
+                        <div style={{ ...mono, fontSize: 11, color: T.creamDim }}>{talent.type}</div>
+                      </div>
+                    </div>
+                    <div style={{ ...sans, fontSize: 12, color: T.creamDim, lineHeight: 1.5, marginTop: 4 }}>{talent.reason}</div>
+                  </div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <div style={{ ...serif, fontSize: 22, fontWeight: 700, color: T.gold }}>{talent.match}%</div>
+                    <div style={{ ...mono, fontSize: 11, color: T.amber }}>{talent.rate}</div>
+                  </div>
+                </div>
+              ))}
+
+              <div style={{ marginTop: 20, textAlign: "center" }}>
+                <div style={{ display: "inline-block", background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`, color: T.bg, padding: "10px 24px", borderRadius: 8, fontSize: 13, fontWeight: 600, ...sans, cursor: "pointer" }}>Send deal to all matches →</div>
+              </div>
+            </div>
+          </div>
+        </Fade>
+
+        <Fade delay={200}>
+          <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
+            {[
+              { val: "< 30 sec", label: "Deck analysis time" },
+              { val: "94%", label: "Match accuracy" },
+              { val: "100%", label: "Within your budget" },
+            ].map(({ val, label }, i) => (
+              <div key={i} style={{ textAlign: "center" }}>
+                <div style={{ ...serif, fontSize: 24, fontWeight: 700, color: T.gold }}>{val}</div>
+                <div style={{ ...mono, fontSize: 11, color: T.creamDim, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+        </Fade>
+      </section>
+
+      <GoldRule />
+
       {/* MOCKUP */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 24px" }}>
         <Fade>
