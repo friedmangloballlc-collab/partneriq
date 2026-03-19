@@ -642,7 +642,7 @@ export default function Onboarding() {
     return (
       <LandingPage
         onGetStarted={() => { setStep(2); window.scrollTo(0, 0); }}
-        onSelectRole={(role, plan) => { setSelectedRole(role); if (plan) setSelectedPlan(plan); setStep(4); window.scrollTo(0, 0); }}
+        onSelectRole={(role, plan) => { setSelectedRole(role); if (plan) setSelectedPlan(plan); setStep(3); window.scrollTo(0, 0); }}
       />
     );
   }

@@ -18,6 +18,11 @@ import {
 import {
   getVerificationLevel, getVerificationColor, getNextBoostMessage, recalculateBoost
 } from "@/lib/verificationBoost";
+import { useToast } from "@/components/ui/use-toast";
+
+const PHYLLO_CLIENT_ID = import.meta.env.VITE_PHYLLO_CLIENT_ID || "";
+const PHYLLO_ENV = import.meta.env.VITE_PHYLLO_ENV || "sandbox";
+const hasPhyllo = !!PHYLLO_CLIENT_ID;
 
 const CATEGORY_META = [
   { key: "all", label: "All Platforms", icon: Globe },
@@ -43,6 +48,7 @@ const AUTH_BADGES = {
 export default function ConnectAccounts() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
   const [connectModal, setConnectModal] = useState(null);
@@ -145,16 +151,70 @@ export default function ConnectAccounts() {
   }, [talent]);
 
   const handleOAuth = async (platform) => {
+    // Auto-create talent profile if missing
+    if (!talent?.id && user?.email) {
+      try {
+        await supabase.from("talents").insert({
+          email: user.email,
+          name: user?.full_name || user?.email?.split("@")[0] || "New Talent",
+          status: "active",
+        });
+        queryClient.invalidateQueries({ queryKey: ["my-talent"] });
+      } catch (insertErr) {
+        console.error("Auto-create talent error:", insertErr);
+      }
+    }
+
+    if (!hasPhyllo) {
+      setOauthStep("error");
+      toast({
+        title: "OAuth Not Configured",
+        description: "Real social platform OAuth requires Phyllo integration. Contact admin to set up VITE_PHYLLO_CLIENT_ID.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setOauthStep("authorizing");
-    await new Promise(r => setTimeout(r, 1500));
-    setOauthStep("done");
-    await connectMutation.mutateAsync({
-      platform,
-      authMethod: "oauth",
-      username: connectForm.username || user?.email?.split("@")[0] || "connected",
-      followers: connectForm.followers,
-      engagementRate: connectForm.engagementRate,
-    });
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-phyllo-token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({ platform: platform.slug }),
+      });
+      const { token, phyllo_user_id } = await res.json();
+
+      const config = {
+        clientDisplayName: "Dealstage",
+        environment: PHYLLO_ENV,
+        userId: phyllo_user_id,
+        token: token,
+        workPlatformId: platform.phyllo_platform_id || null,
+      };
+
+      window.PhylloConnect?.initialize(config);
+      window.PhylloConnect?.open();
+
+      // Phyllo handles OAuth in a popup; webhook updates connected_platforms on success
+      setOauthStep("done");
+
+      await connectMutation.mutateAsync({
+        platform,
+        authMethod: "oauth",
+        username: "connecting...",
+        followers: 0,
+        engagementRate: 0,
+      });
+    } catch (err) {
+      console.error("Phyllo connect error:", err);
+      setOauthStep("error");
+      toast({ title: "Connection failed", description: err.message, variant: "destructive" });
+    }
   };
 
   const handleApiConnect = async (platform) => {
@@ -429,6 +489,14 @@ export default function ConnectAccounts() {
             <div className="space-y-4">
               {oauthStep === "idle" && (
                 <>
+                  {!hasPhyllo && (
+                    <div style={{ padding: "1rem", background: "rgba(234,179,8,0.08)", border: "1px solid rgba(234,179,8,0.2)", borderRadius: 8, marginBottom: 12 }}>
+                      <p style={{ fontSize: "0.8rem", color: "#a16207", fontWeight: 500, marginBottom: 4 }}>Real OAuth Coming Soon</p>
+                      <p style={{ fontSize: "0.75rem", color: "#92400e" }}>
+                        Direct login to {connectModal.name} requires Phyllo integration. For now, enter your username and we'll verify your account manually within 24 hours.
+                      </p>
+                    </div>
+                  )}
                   <div><Label className="text-sm">Username (optional)</Label><Input placeholder={`Your ${connectModal.name} username`} value={connectForm.username} onChange={e => setConnectForm(f => ({ ...f, username: e.target.value }))} className="mt-1" /></div>
                   <div className="p-3 bg-slate-50 rounded-lg"><p className="text-xs text-slate-500"><ShieldCheck className="w-3 h-3 inline mr-1" />Read-only access. We never post or store credentials.{connectModal.scopes && <span className="block mt-1">Scopes: {connectModal.scopes}</span>}</p></div>
                   <Button className="w-full bg-emerald-600 hover:bg-emerald-700" onClick={() => handleOAuth(connectModal)} disabled={connectMutation.isPending}><ExternalLink className="w-4 h-4 mr-2" />Authorize with {connectModal.name}</Button>
@@ -436,6 +504,7 @@ export default function ConnectAccounts() {
               )}
               {oauthStep === "authorizing" && (<div className="text-center py-8"><RefreshCw className="w-8 h-8 mx-auto mb-3 text-indigo-500 animate-spin" /><p className="text-sm text-slate-700">Connecting to {connectModal.name}...</p></div>)}
               {oauthStep === "done" && (<div className="text-center py-8"><CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-emerald-500" /><p className="text-sm font-medium text-slate-900">Connected!</p><p className="text-xs text-slate-500 mt-1">Your {connectModal.name} account is now verified</p></div>)}
+              {oauthStep === "error" && (<div className="text-center py-8"><XCircle className="w-10 h-10 mx-auto mb-3 text-red-500" /><p className="text-sm font-medium text-slate-900">Connection failed</p><button onClick={() => setOauthStep("idle")} className="text-xs text-indigo-600 hover:underline mt-2">Try again</button></div>)}
             </div>
           )}
 
