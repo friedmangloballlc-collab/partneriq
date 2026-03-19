@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/hooks/useTheme";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import AnimatedWalkthrough from "./AnimatedWalkthrough";
 
@@ -203,6 +204,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const observerRef = useRef(null);
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   // Scroll-based nav shadow
   useEffect(() => {
@@ -798,12 +800,12 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── NAV ─────────────────────────────────────────────────────────── */}
-        <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`}>
+        <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`} style={isMobile ? { padding: "0 1rem", height: 52 } : {}}>
           <a href="/" className="ds-nav-logo" style={{ display: "flex", alignItems: "center" }}>
             <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 42 }} />
           </a>
-          <button className="ds-mobile-menu-btn" onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>☰</button>
-          <ul className="ds-nav-links">
+          <button className="ds-mobile-menu-btn" style={{ display: isMobile ? "flex" : "none", alignItems: "center", justifyContent: "center", minWidth: 44, minHeight: 44 }} onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>☰</button>
+          <ul className="ds-nav-links" style={isMobile ? { display: "none" } : {}}>
             {/* For Brands dropdown */}
             <li className="ds-nav-item">
               <button className="ds-nav-link">For Brands <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
@@ -837,8 +839,8 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           </ul>
           <div className="ds-nav-right">
             <ThemeSwitcher compact />
-            <a href="/login" className="ds-btn-ghost">Log in</a>
-            <a href="/Demo" className="ds-btn-demo">Book a demo</a>
+            {!isMobile && <a href="/login" className="ds-btn-ghost">Log in</a>}
+            {!isMobile && <a href="/Demo" className="ds-btn-demo">Book a demo</a>}
             <button className="ds-btn-trial" onClick={handleGetStarted}>Start free trial</button>
           </div>
         </nav>
@@ -858,9 +860,9 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <p className="ds-hero-sub">
               Dealstage connects every type of talent to brands and agencies — with deal management, media kits, contracts, and payments built in.
             </p>
-            <div className="ds-hero-btns">
-              <button className="ds-btn-hero-primary" onClick={handleGetStarted}>Start free trial</button>
-              <a href="#how-it-works" className="ds-btn-hero-secondary">See how it works</a>
+            <div className="ds-hero-btns" style={isMobile ? { flexDirection: "column", width: "100%", gap: "0.65rem" } : {}}>
+              <button className="ds-btn-hero-primary" style={isMobile ? { width: "100%", textAlign: "center" } : {}} onClick={handleGetStarted}>Start free trial</button>
+              <a href="#how-it-works" className="ds-btn-hero-secondary" style={isMobile ? { width: "100%", textAlign: "center" } : {}}>See how it works</a>
             </div>
             <p className="ds-hero-note">No credit card required · Free 7-day trial · All talent types welcome</p>
           </div>
@@ -880,12 +882,12 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
               </div>
               <div style={{ width: 60 }} />
             </div>
-            <div className="ds-ui-body">
-              <div className="ds-ui-sidebar">
+            <div className="ds-ui-body" style={isMobile ? { gridTemplateColumns: "1fr", height: "auto" } : {}}>
+              {!isMobile && <div className="ds-ui-sidebar">
                 {[["📋", "Deals", true], ["🏠", "Home", false], ["📅", "Calendar", false], ["👥", "Roster", false], ["📄", "Media Kits", false], ["📊", "Reports", false], ["💸", "Payments", false], ["🔗", "Contacts", false]].map(([icon, label, active]) => (
                   <div key={label} className={`ds-ui-nav-item${active ? " active" : ""}`}>{icon}&nbsp;&nbsp;{label}</div>
                 ))}
-              </div>
+              </div>}
               <div className="ds-ui-main">
                 <div className="ds-ui-header-row">
                   <div className="ds-ui-title">Deal Pipeline</div>
@@ -916,7 +918,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                   </div>
                 ))}
               </div>
-              <div className="ds-ui-right">
+              {!isMobile && <div className="ds-ui-right">
                 <div className="ds-ui-revenue-card">
                   <div className="ds-ui-rev-label">2026 Revenue</div>
                   <div className="ds-ui-rev-val">$1,248,325</div>
@@ -936,7 +938,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
           </div>
         </div>
@@ -952,7 +954,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── STATS ───────────────────────────────────────────────────────── */}
-        <div className="ds-stats">
+        <div className="ds-stats" style={isMobile ? { gridTemplateColumns: "repeat(2, 1fr)" } : {}}>
           <div className="ds-stat-cell"><div className="ds-stat-num">12<span>k+</span></div><div className="ds-stat-lbl">Talent profiles</div></div>
           <div className="ds-stat-cell"><div className="ds-stat-num"><span>$</span>48M</div><div className="ds-stat-lbl">Deals facilitated</div></div>
           <div className="ds-stat-cell"><div className="ds-stat-num">840<span>+</span></div><div className="ds-stat-lbl">Brands &amp; agencies</div></div>
@@ -980,7 +982,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <button className={`ds-tab-btn${howItWorksRole === "brand" ? " active" : ""}`} onClick={() => setHowItWorksRole("brand")}>For Brands</button>
             <button className={`ds-tab-btn${howItWorksRole === "talent" ? " active" : ""}`} onClick={() => setHowItWorksRole("talent")}>For Talent</button>
           </div>
-          <div className="ds-hiw-grid">
+          <div className="ds-hiw-grid" style={isMobile ? { gridTemplateColumns: "1fr" } : {}}>
             {HOW_IT_WORKS[howItWorksRole].map((step) => (
               <div key={step.step} className="ds-hiw-step">
                 <div className="ds-hiw-num">{step.step}</div>
@@ -998,7 +1000,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <h2 className="ds-section-title">Everything in one place.<br /><em>Nothing left out.</em></h2>
             <p className="ds-section-body" style={{ marginBottom: "5rem" }}>Every feature is built around the deal — from first discovery to final payment.</p>
             {FEATURES.map((feat) => (
-              <div key={feat.label} className={`ds-feature-row${feat.reverse ? " reverse" : ""}`}>
+              <div key={feat.label} className={`ds-feature-row${feat.reverse ? " reverse" : ""}`} style={isMobile ? { gridTemplateColumns: "1fr", gap: "1.5rem", direction: "ltr" } : {}}>
                 <div className="ds-feature-copy">
                   <span className="ds-feature-label">{feat.label}</span>
                   <h3 className="ds-feature-title">{feat.title}<br /><em>{feat.titleEm}</em></h3>
@@ -1061,7 +1063,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 </span>
               </div>
             </div>
-            <div className="ds-pricing-grid ds-pricing-grid-cols" data-cols={PRICING[pricingRole].length}>
+            <div className="ds-pricing-grid ds-pricing-grid-cols" data-cols={PRICING[pricingRole].length} style={isMobile ? { gridTemplateColumns: "1fr" } : {}}>
               {PRICING[pricingRole].map((plan) => {
                 const numericPrice = parseInt((plan.price || "").replace(/[^0-9]/g, ""), 10);
                 const annualMonthlyPrice = (billingAnnual && numericPrice) ? `$${Math.round(numericPrice * 0.8)}` : plan.price;
@@ -1110,7 +1112,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <h2 className="ds-section-title">Dealstage vs the<br /><em>alternatives</em></h2>
           <p className="ds-section-body">See why top agencies and brands choose Dealstage over disconnected tools.</p>
           <div className="ds-comp-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-          <table className="ds-comp-table">
+          <table className="ds-comp-table" style={isMobile ? { minWidth: 480, fontSize: "0.72rem" } : {}}>
             <thead>
               <tr>
                 <th>Feature</th>
@@ -1168,7 +1170,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <span className="ds-section-tag">/ Security &amp; compliance</span>
           <h2 className="ds-section-title">Built to enterprise<br /><em>security standards</em></h2>
           <p className="ds-section-body">Your data, your deals, and your payments are protected at every layer.</p>
-          <div className="ds-badges-grid">
+          <div className="ds-badges-grid" style={isMobile ? { gridTemplateColumns: "repeat(2, 1fr)" } : {}}>
             <div className="ds-badge-card">
               <span className="ds-badge-icon">&#128737;</span>
               <div className="ds-badge-title">SOC 2 Type II</div>
@@ -1195,7 +1197,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         {/* ── MOBILE APP PREVIEW ──────────────────────────────────────────── */}
         <div className="ds-full-bleed ds-fade">
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-            <div className="ds-mobile-grid">
+            <div className="ds-mobile-grid" style={isMobile ? { gridTemplateColumns: "1fr", gap: "2rem" } : {}}>
               <div>
                 <span className="ds-section-tag">/ Mobile app</span>
                 <h2 className="ds-section-title">Your pipeline,<br /><em>in your pocket</em></h2>
@@ -1269,7 +1271,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             Join thousands of talent and brands already on Dealstage.<br />
             Free 7-day trial. No credit card required.
           </p>
-          <div className="ds-cta-actions">
+          <div className="ds-cta-actions" style={isMobile ? { flexDirection: "column", alignItems: "stretch", maxWidth: 360, margin: "0 auto" } : {}}>
             <button className="ds-btn-hero-primary" onClick={handleGetStarted}>Start free trial</button>
             <a href="#how-it-works" className="ds-btn-hero-secondary">See how it works</a>
           </div>
@@ -1277,7 +1279,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-        <footer className="ds-footer">
+        <footer className="ds-footer" style={isMobile ? { gridTemplateColumns: "1fr", gap: "2rem", padding: "2rem 1.25rem" } : {}}>
           <div>
             <a href="/" className="ds-footer-logo" style={{ display: "flex", alignItems: "center" }}>
               <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
