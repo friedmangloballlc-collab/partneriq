@@ -699,18 +699,30 @@ export default function Onboarding() {
           .plan-pills-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; }
           .plan-pills-grid > button { width: 100% !important; }
         }
+        /* Onboarding mobile fixes */
+        @media (max-width: 600px) {
+          .ob-header-inner { overflow: hidden !important; }
+          .ob-billing-toggle-row { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+          .ob-step-form { padding: 0 0.25rem !important; }
+          .ob-role-btn { padding: 1rem !important; }
+          .ob-plan-btn { padding: 1rem !important; }
+          .ob-plan-btn .ob-plan-right { text-align: left !important; margin-top: 0.5rem !important; }
+        }
+        @media (max-width: 420px) {
+          .ob-section-pad { padding-left: 1rem !important; padding-right: 1rem !important; }
+        }
       `}</style>
 
       {/* ══════════════════════════════════════════════
           STICKY HEADER — gold theme
       ══════════════════════════════════════════════ */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-6 sm:px-10"
-        style={{ background: "rgba(8,8,7,0.92)", backdropFilter: "blur(24px)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>
-        <button onClick={() => setStep(1)} className="flex items-center gap-2" style={{ background: "none", border: "none", cursor: "pointer" }}>
-          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 40 }} />
+      <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-4 sm:px-8"
+        style={{ background: "rgba(8,8,7,0.92)", backdropFilter: "blur(24px)", borderBottom: "0.5px solid rgba(255,248,220,0.07)", minWidth: 0 }}>
+        <button onClick={() => setStep(1)} className="flex items-center gap-2 flex-shrink-0" style={{ background: "none", border: "none", cursor: "pointer" }}>
+          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
         </button>
-        {/* Step indicator */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Step indicator — desktop only */}
+        <div className="hidden md:flex items-center gap-3 flex-1 justify-center">
           {["Choose Role", "Create Account"].map((label, i) => (
             <div key={label} className="flex items-center gap-2">
               <div style={{
@@ -724,24 +736,17 @@ export default function Onboarding() {
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-3">
-          <a href="/login" style={{ fontSize: "0.82rem", color: "rgba(245,240,230,0.4)", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Log in</a>
-        </div>
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/login")} className="text-sm text-slate-400 hover:text-white transition-colors font-medium hidden sm:block">
-            Sign in
-          </button>
-          <Button onClick={scrollToForm} className="h-9 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/25 transition-all">
-            Get started
-          </Button>
+        {/* Right actions */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <a href="/login" style={{ fontSize: "0.8rem", color: "rgba(245,240,230,0.4)", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif", whiteSpace: "nowrap" }}>Log in</a>
         </div>
       </header>
 
       {/* ══════════════════════════════════════════════
           SIGNUP FORM — centered, clean, no old landing content
       ══════════════════════════════════════════════ */}
-      <div className="pt-20 pb-16 px-4" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: "100%", maxWidth: 560, margin: "0 auto" }}>
+      <div className="ob-section-pad pt-20 pb-16 px-4" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <div className="ob-step-form" style={{ width: "100%", maxWidth: 560, margin: "0 auto" }}>
 
           {/* Step title */}
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -841,7 +846,7 @@ export default function Onboarding() {
               {/* Plan selector — compact horizontal pills with billing toggle */}
               {selectedRole && PLANS_BY_ROLE[selectedRole] && (
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                  <div className="ob-billing-toggle-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                     <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
                     {/* Billing cycle toggle */}
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(255,248,220,0.04)", border: "0.5px solid rgba(255,248,220,0.08)", borderRadius: 8, padding: "0.2rem" }}>

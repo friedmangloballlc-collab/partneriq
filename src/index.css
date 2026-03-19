@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Global mobile overflow & box-sizing reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent long words / URLs from breaking layouts */
+body {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -74,8 +100,6 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
-
 
 @layer base {
   * {

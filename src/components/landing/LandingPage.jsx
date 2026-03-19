@@ -532,6 +532,10 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
 
         /* PRICING */
         .ds-pricing-grid { display: grid; gap: 1.25rem; }
+        .ds-pricing-grid-cols[data-cols="1"] { grid-template-columns: 1fr; }
+        .ds-pricing-grid-cols[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
+        .ds-pricing-grid-cols[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
+        .ds-pricing-grid-cols[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
         .ds-plan-card { background: var(--ds-bg3); border: 0.5px solid var(--ds-border); border-radius: 12px; padding: 2rem; position: relative; transition: border-color 0.2s; }
         .ds-plan-card:hover { border-color: var(--ds-border2); }
         .ds-plan-card.popular { border-color: rgba(196,162,74,0.35); background: linear-gradient(135deg, var(--ds-bg3) 0%, rgba(196,162,74,0.04) 100%); }
@@ -687,43 +691,85 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-          .ds-mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; }
+          .ds-mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
           .ds-nav-links { display: none !important; }
           .ds-btn-demo { display: none !important; }
           .ds-nav-right .ds-btn-ghost { display: none !important; }
-          .ds-btn-trial { font-size: 0.78rem !important; padding: 0.4rem 0.85rem !important; }
-          .ds-nav { padding: 0 1.25rem !important; }
-          .ds-hero-headline { font-size: clamp(2.2rem, 9vw, 3rem) !important; }
-          .ds-hero-top { padding: 2rem 1.5rem 2rem !important; }
-          .ds-hero-ui { margin: 0 1rem !important; }
+          .ds-btn-trial { font-size: 0.78rem !important; padding: 0.4rem 0.85rem !important; min-height: 44px; }
+          .ds-nav { padding: 0 1rem !important; height: 52px !important; }
+          .ds-hero { padding-top: 52px !important; }
+          .ds-hero-headline { font-size: clamp(2rem, 8.5vw, 3rem) !important; word-break: break-word !important; }
+          .ds-hero-top { padding: 2rem 1.25rem 1.5rem !important; }
+          .ds-hero-ui { margin: 0 0.75rem !important; min-height: 280px !important; }
           .ds-ui-body { grid-template-columns: 1fr !important; height: auto !important; }
           .ds-ui-sidebar, .ds-ui-right { display: none !important; }
-          .ds-trust-bar { padding: 1rem 1.5rem !important; gap: 1.5rem !important; flex-wrap: wrap !important; flex-direction: column !important; align-items: flex-start !important; }
-          .ds-trust-logos { gap: 1.5rem !important; flex-wrap: wrap !important; }
+          .ds-ui-main { padding: 1rem !important; overflow: hidden !important; }
+          .ds-ui-deal-name { font-size: 0.7rem !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 140px !important; }
+          .ds-ui-deal-brand { font-size: 0.58rem !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 140px !important; }
+          .ds-ui-tabs { gap: 0.15rem !important; overflow-x: auto !important; }
+          .ds-ui-tab { font-size: 0.58rem !important; padding: 0.25rem 0.45rem !important; white-space: nowrap !important; }
+          .ds-trust-bar { padding: 1rem 1.25rem !important; gap: 1rem !important; flex-wrap: wrap !important; flex-direction: column !important; align-items: flex-start !important; }
+          .ds-trust-logos { gap: 1rem !important; flex-wrap: wrap !important; }
           .ds-stats { grid-template-columns: repeat(2, 1fr) !important; }
-          .ds-stat-cell { padding: 1.5rem !important; border-right: none !important; border-bottom: 0.5px solid var(--ds-border); }
+          .ds-stat-cell { padding: 1.25rem 1rem !important; border-right: none !important; border-bottom: 0.5px solid var(--ds-border); }
           .ds-stat-cell:nth-child(odd) { border-right: 0.5px solid var(--ds-border) !important; }
-          .ds-stat-num { font-size: 2rem !important; }
-          .ds-section { padding: 4rem 1.5rem !important; }
-          .ds-full-bleed { padding: 4rem 1.5rem !important; }
-          .ds-feature-row { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .ds-stat-cell:nth-child(3), .ds-stat-cell:nth-child(4) { border-bottom: none !important; }
+          .ds-stat-num { font-size: 1.85rem !important; }
+          .ds-section { padding: 3.5rem 1.25rem !important; }
+          .ds-full-bleed { padding: 3.5rem 1.25rem !important; }
+          .ds-feature-row { grid-template-columns: 1fr !important; gap: 1.5rem !important; margin-bottom: 3.5rem !important; }
           .ds-feature-row.reverse { direction: ltr !important; }
+          .ds-feature-title { font-size: 1.75rem !important; word-break: break-word !important; }
+          .ds-feature-panel { min-height: 220px !important; }
           .ds-hiw-grid { grid-template-columns: 1fr !important; }
-          .ds-pricing-grid { grid-template-columns: 1fr !important; }
+          .ds-pricing-grid,
+          .ds-pricing-grid-cols[data-cols="1"],
+          .ds-pricing-grid-cols[data-cols="2"],
+          .ds-pricing-grid-cols[data-cols="3"],
+          .ds-pricing-grid-cols[data-cols="4"] { grid-template-columns: 1fr !important; }
           .ds-badges-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .ds-mobile-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .ds-comp-table { font-size: 0.75rem !important; }
-          .ds-comp-table th, .ds-comp-table td { padding: 0.5rem 0.75rem !important; }
-          .ds-footer { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2rem 1.5rem !important; }
-          .ds-footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; padding: 1rem 1.5rem !important; }
-          .ds-cta-title { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
-          .ds-hero-btns { flex-direction: column !important; width: 100% !important; }
-          .ds-btn-hero-primary, .ds-btn-hero-secondary { width: 100% !important; text-align: center !important; justify-content: center !important; }
-          .ds-tab-row { flex-wrap: wrap !important; }
-          .ds-cta-actions { flex-direction: column !important; align-items: stretch !important; }
-          .ds-cta-section { padding: 5rem 1.5rem !important; }
-          .ds-hero-sub { font-size: 0.9rem !important; }
+          .ds-comp-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+          .ds-comp-table { font-size: 0.72rem !important; min-width: 480px !important; }
+          .ds-comp-table th, .ds-comp-table td { padding: 0.6rem 0.75rem !important; }
+          .ds-footer { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2rem 1.25rem !important; }
+          .ds-footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; padding: 1rem 1.25rem !important; }
+          .ds-cta-title { font-size: clamp(1.85rem, 7.5vw, 2.5rem) !important; word-break: break-word !important; }
+          .ds-hero-btns { flex-direction: column !important; width: 100% !important; gap: 0.65rem !important; }
+          .ds-btn-hero-primary, .ds-btn-hero-secondary { width: 100% !important; text-align: center !important; justify-content: center !important; min-height: 48px !important; box-sizing: border-box !important; }
+          .ds-tab-row { flex-wrap: wrap !important; width: 100% !important; }
+          .ds-tab-btn { flex: 1 !important; text-align: center !important; min-height: 44px !important; font-size: 0.68rem !important; }
+          .ds-cta-actions { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 360px !important; margin-left: auto !important; margin-right: auto !important; }
+          .ds-cta-section { padding: 4rem 1.25rem !important; }
+          .ds-hero-sub { font-size: 0.875rem !important; }
+          .ds-hero-note { font-size: 0.6rem !important; }
           .ds-ui-stats-row { grid-template-columns: 1fr !important; }
+          .ds-faq-q { padding: 1rem 1.25rem !important; font-size: 0.88rem !important; }
+          .ds-faq-a { padding: 0 1.25rem 1rem !important; }
+          .ds-section-title { font-size: clamp(1.75rem, 6.5vw, 3.5rem) !important; word-break: break-word !important; }
+          .ds-video-box { margin: 2rem 0 0 !important; border-radius: 10px !important; }
+          .ds-plan-price { font-size: 2rem !important; }
+          .ds-hiw-step { padding: 1.5rem !important; }
+          .ds-phone-frame { max-width: 240px !important; }
+        }
+
+        @media (max-width: 480px) {
+          .ds-hero-headline { font-size: clamp(1.85rem, 8vw, 2.5rem) !important; }
+          .ds-nav { padding: 0 0.875rem !important; }
+          .ds-ui-topbar { padding: 0.65rem 0.85rem !important; }
+          .ds-ui-dot { width: 8px !important; height: 8px !important; }
+          .ds-badges-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+          .ds-badge-card { padding: 1rem !important; }
+          .ds-trust-logo { font-size: 0.82rem !important; }
+          .ds-stat-num { font-size: 1.6rem !important; }
+          .ds-section { padding: 3rem 1rem !important; }
+          .ds-full-bleed { padding: 3rem 1rem !important; }
+          .ds-footer { padding: 1.75rem 1rem !important; }
+          .ds-footer-bottom { padding: 1rem !important; }
+          .ds-cta-section { padding: 3.5rem 1rem !important; }
+          .ds-cta-actions .ds-btn-hero-primary, .ds-cta-actions .ds-btn-hero-secondary { font-size: 0.85rem !important; }
+          .ds-mobile-nav-link { font-size: 1.25rem !important; }
+          .ds-plan-card { padding: 1.5rem !important; }
         }
       `}</style>
 
@@ -1015,7 +1061,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 </span>
               </div>
             </div>
-            <div className="ds-pricing-grid" style={{ gridTemplateColumns: `repeat(${PRICING[pricingRole].length}, 1fr)` }}>
+            <div className="ds-pricing-grid ds-pricing-grid-cols" data-cols={PRICING[pricingRole].length}>
               {PRICING[pricingRole].map((plan) => {
                 const numericPrice = parseInt((plan.price || "").replace(/[^0-9]/g, ""), 10);
                 const annualMonthlyPrice = (billingAnnual && numericPrice) ? `$${Math.round(numericPrice * 0.8)}` : plan.price;
@@ -1063,6 +1109,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <span className="ds-section-tag">/ How we compare</span>
           <h2 className="ds-section-title">Dealstage vs the<br /><em>alternatives</em></h2>
           <p className="ds-section-body">See why top agencies and brands choose Dealstage over disconnected tools.</p>
+          <div className="ds-comp-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <table className="ds-comp-table">
             <thead>
               <tr>
@@ -1094,6 +1141,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}

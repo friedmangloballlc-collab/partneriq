@@ -407,12 +407,12 @@ export default function Layout({ children, currentPageName }) {
           borderBottom: `1px solid ${theme.border}`,
         }}>
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700" aria-label="Open navigation menu">
+            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-slate-500 hover:text-slate-700 flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
             <h1 className="text-lg font-semibold hidden sm:block" style={{ color: theme.text }}>{currentPageName}</h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <GlobalSearch />
             <NotificationDropdown />
           </div>

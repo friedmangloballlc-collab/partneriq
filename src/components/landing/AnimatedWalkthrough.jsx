@@ -69,6 +69,67 @@ const STYLES = `
   .aw-slide-right  { animation: aw-slide-in-right 0.45s ease forwards; }
   .aw-slide-left   { animation: aw-slide-in-left  0.45s ease forwards; }
   .aw-slide-bottom { animation: aw-slide-in-bottom 0.45s ease forwards; }
+
+  /* ── Mobile overrides ── */
+  @media (max-width: 600px) {
+    .aw-container {
+      aspect-ratio: 4/3 !important;
+      border-radius: 10px !important;
+    }
+    .aw-narration-text {
+      font-size: 0.72rem !important;
+    }
+    .aw-scene-inner {
+      padding: 0.75rem !important;
+    }
+    .aw-scene-inner-top {
+      padding-top: 3rem !important;
+    }
+    .aw-card-grid-3 {
+      grid-template-columns: 1fr !important;
+      gap: 0.5rem !important;
+    }
+    .aw-kanban-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .aw-scene2-layout {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    .aw-scene2-brief {
+      width: 100% !important;
+    }
+    .aw-talent-card {
+      min-width: unset !important;
+      flex: 1 !important;
+    }
+    .aw-contract-layout {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    .aw-contract-doc {
+      width: 100% !important;
+    }
+    .aw-contract-sidebar {
+      width: 100% !important;
+    }
+    .aw-analytics-layout {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    .aw-payment-notif {
+      right: 0.5rem !important;
+      bottom: 1.5rem !important;
+      padding: 0.5rem 0.65rem !important;
+    }
+    .aw-payment-notif-amount {
+      font-size: 0.62rem !important;
+    }
+    .aw-filter-chips {
+      flex-wrap: wrap !important;
+      gap: 0.3rem !important;
+    }
+  }
 `;
 
 // ─── SHARED STYLES ────────────────────────────────────────────────────────────
@@ -171,19 +232,19 @@ function Scene1({ active }) {
   ];
 
   return (
-    <div style={{ padding: "1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div className="aw-scene-inner" style={{ padding: "1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "1rem" }}>
       {/* Search bar */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", background: "#161613", border: "0.5px solid rgba(255,248,220,0.18)", borderRadius: 8, padding: "0.75rem 1rem", boxShadow: "0 0 0 3px rgba(196,162,74,0.08)" }}>
         <span style={{ color: "rgba(245,240,230,0.4)", fontSize: "0.9rem" }}>&#128269;</span>
-        <span style={{ ...S.mono, fontSize: "0.82rem", color: "rgba(245,240,230,0.75)", flex: 1 }}>
+        <span style={{ ...S.mono, fontSize: "0.82rem", color: "rgba(245,240,230,0.75)", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {typedText}
           <span style={{ animation: "aw-cursor-blink 0.9s infinite", borderLeft: "1.5px solid #d9b96a", marginLeft: 1 }}>&nbsp;</span>
         </span>
-        <span style={{ ...S.mono, fontSize: "0.65rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", borderRadius: 5, padding: "0.25rem 0.6rem" }}>Search</span>
+        <span style={{ ...S.mono, fontSize: "0.65rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", borderRadius: 5, padding: "0.25rem 0.6rem", flexShrink: 0 }}>Search</span>
       </div>
 
       {/* Filter chips */}
-      <div style={{ display: "flex", gap: "0.4rem" }}>
+      <div className="aw-filter-chips" style={{ display: "flex", gap: "0.4rem", overflow: "hidden" }}>
         {["All", "Athletes", "Creators", "Musicians"].map((f, i) => (
           <span key={f} style={{ ...S.mono, fontSize: "0.62rem", padding: "0.25rem 0.65rem", borderRadius: 100, background: i === 1 ? "rgba(196,162,74,0.18)" : "rgba(255,248,220,0.04)", border: `0.5px solid ${i === 1 ? "rgba(196,162,74,0.35)" : "rgba(255,248,220,0.07)"}`, color: i === 1 ? "#d9b96a" : "rgba(245,240,230,0.45)", letterSpacing: "0.05em" }}>
             {f}
@@ -193,7 +254,7 @@ function Scene1({ active }) {
       </div>
 
       {/* Talent cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.75rem", flex: 1 }}>
+      <div className="aw-card-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.75rem", flex: 1 }}>
         {talents.map((t, i) => (
           <div
             key={t.name}
@@ -286,9 +347,9 @@ function Scene2({ active }) {
   }, [active]);
 
   return (
-    <div style={{ padding: "1.5rem", height: "100%", display: "flex", gap: "1.25rem", alignItems: "center" }}>
+    <div className="aw-scene-inner aw-scene2-layout" style={{ padding: "1.5rem", height: "100%", display: "flex", gap: "1.25rem", alignItems: "center" }}>
       {/* Brand brief */}
-      <div style={{ width: "38%", opacity: showBrief ? 1 : 0, transform: showBrief ? "translateX(0)" : "translateX(-20px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
+      <div className="aw-scene2-brief" style={{ width: "38%", opacity: showBrief ? 1 : 0, transform: showBrief ? "translateX(0)" : "translateX(-20px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
         <div style={{ ...S.card, padding: "1rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
           <div style={{ ...S.mono, fontSize: "0.55rem", color: "rgba(196,162,74,0.8)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Campaign Brief</div>
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", fontWeight: 700, color: "#f5f0e6", lineHeight: 1.2 }}>Nike Air Max<br />Summer 2026</div>
@@ -321,7 +382,7 @@ function Scene2({ active }) {
               }} />
             </div>
             {/* Talent card */}
-            <div style={{
+            <div className="aw-talent-card" style={{
               ...S.card,
               padding: "0.6rem 0.85rem",
               display: "flex",
@@ -388,12 +449,12 @@ function Scene3({ active }) {
   }, [active]);
 
   return (
-    <div style={{ padding: "1.25rem 1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+    <div className="aw-scene-inner" style={{ padding: "1.25rem 1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "0.85rem" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", fontWeight: 500, color: "#f5f0e6" }}>Deal Pipeline</span>
         <span style={{ ...S.mono, fontSize: "0.58rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", borderRadius: 4, padding: "0.2rem 0.55rem" }}>+ New Deal</span>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "0.75rem", flex: 1 }}>
+      <div className="aw-kanban-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "0.75rem", flex: 1 }}>
         {columns.map((col, ci) => (
           <div key={col.label} style={{ opacity: showCols[ci] ? 1 : 0, transform: showCols[ci] ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease, transform 0.4s ease", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
@@ -475,9 +536,9 @@ function Scene4({ active }) {
   }, [active]);
 
   return (
-    <div style={{ padding: "1.5rem", height: "100%", display: "flex", gap: "1.25rem" }}>
+    <div className="aw-scene-inner aw-contract-layout" style={{ padding: "1.5rem", height: "100%", display: "flex", gap: "1.25rem" }}>
       {/* Contract doc */}
-      <div style={{ flex: 1, opacity: showDoc ? 1 : 0, transform: showDoc ? "translateX(0)" : "translateX(-16px)", transition: "opacity 0.5s ease, transform 0.5s ease", position: "relative" }}>
+      <div className="aw-contract-doc" style={{ flex: 1, opacity: showDoc ? 1 : 0, transform: showDoc ? "translateX(0)" : "translateX(-16px)", transition: "opacity 0.5s ease, transform 0.5s ease", position: "relative" }}>
         <div style={{ ...S.card, padding: "1.25rem", height: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <div style={{ ...S.mono, fontSize: "0.55rem", color: "rgba(245,240,230,0.4)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Partnership Agreement</div>
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", fontWeight: 700, color: "#f5f0e6" }}>Nike × Jordan Reeves<br /><span style={{ fontSize: "0.85rem", fontWeight: 500, fontStyle: "italic", color: "rgba(245,240,230,0.6)" }}>Summer Campaign 2026</span></div>
@@ -504,7 +565,7 @@ function Scene4({ active }) {
       </div>
 
       {/* Issues sidebar */}
-      <div style={{ width: "38%", opacity: showSidebar ? 1 : 0, transform: showSidebar ? "translateX(0)" : "translateX(16px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
+      <div className="aw-contract-sidebar" style={{ width: "38%", opacity: showSidebar ? 1 : 0, transform: showSidebar ? "translateX(0)" : "translateX(16px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
         <div style={{ ...S.card, padding: "1rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <span style={{ fontSize: "0.9rem" }}>&#129302;</span>
@@ -587,7 +648,7 @@ function Scene5({ active }) {
   }, [active]);
 
   return (
-    <div style={{ padding: "1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div className="aw-scene-inner aw-analytics-layout" style={{ padding: "1.5rem", height: "100%", display: "flex", flexDirection: "column", gap: "1rem" }}>
       {/* KPI row */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.75rem" }}>
         {kpiLabels.map((label, i) => (
@@ -624,7 +685,7 @@ function Scene5({ active }) {
 
       {/* Payment notification */}
       {showNotif && (
-        <div style={{
+        <div className="aw-payment-notif" style={{
           position: "absolute",
           bottom: "2.5rem",
           right: "1.5rem",
@@ -638,11 +699,12 @@ function Scene5({ active }) {
           animation: "aw-notification-in 0.5s cubic-bezier(0.34,1.1,0.64,1) forwards",
           boxShadow: "0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(92,184,92,0.15)",
           zIndex: 10,
+          maxWidth: "calc(100% - 1rem)",
         }}>
-          <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(92,184,92,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>&#128176;</div>
-          <div>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(92,184,92,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", flexShrink: 0 }}>&#128176;</div>
+          <div style={{ minWidth: 0 }}>
             <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "#f5f0e6", marginBottom: 2 }}>Payment received</div>
-            <div style={{ ...S.mono, fontSize: "0.7rem", ...S.goldText }}>$85,000 from Nike</div>
+            <div className="aw-payment-notif-amount" style={{ ...S.mono, fontSize: "0.7rem", ...S.goldText }}>$85,000 from Nike</div>
           </div>
           <div style={{ ...S.mono, fontSize: "0.55rem", color: "rgba(92,184,92,0.8)", marginLeft: "0.25rem" }}>&#10003; Paid</div>
         </div>
@@ -758,37 +820,44 @@ export default function AnimatedWalkthrough() {
     <>
       <style>{STYLES}</style>
       <div
+        className="aw-container"
         style={S.container}
         onClick={handleToggle}
         title={isPlaying ? "Click to pause" : "Click to resume"}
       >
         {/* Scene content */}
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          opacity: sceneVisible ? 1 : 0,
-          transform: sceneVisible ? "scale(1)" : "scale(0.98)",
-          transition: "opacity 0.35s ease, transform 0.35s ease",
-          paddingTop: "3.5rem",
-        }}>
+        <div
+          className="aw-scene-inner-top"
+          style={{
+            position: "absolute",
+            inset: 0,
+            opacity: sceneVisible ? 1 : 0,
+            transform: sceneVisible ? "scale(1)" : "scale(0.98)",
+            transition: "opacity 0.35s ease, transform 0.35s ease",
+            paddingTop: "3.5rem",
+          }}
+        >
           <Component active={sceneVisible} />
         </div>
 
         {/* Narration overlay at top */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          padding: "0.9rem 1.5rem",
-          background: "linear-gradient(to bottom, rgba(10,10,9,0.95) 60%, transparent)",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-          zIndex: 5,
-          opacity: sceneVisible ? 1 : 0,
-          transition: "opacity 0.4s ease",
-        }}>
+        <div
+          className="aw-narration-bar"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            padding: "0.9rem 1.5rem",
+            background: "linear-gradient(to bottom, rgba(10,10,9,0.95) 60%, transparent)",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            zIndex: 5,
+            opacity: sceneVisible ? 1 : 0,
+            transition: "opacity 0.4s ease",
+          }}
+        >
           {/* Scene indicator dots */}
           <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
             {SCENES.map((_, i) => (
@@ -801,7 +870,7 @@ export default function AnimatedWalkthrough() {
               }} />
             ))}
           </div>
-          <p style={{ ...S.narration, margin: 0, fontSize: "0.92rem" }}>{narration}</p>
+          <p className="aw-narration-text" style={{ ...S.narration, margin: 0, fontSize: "0.92rem" }}>{narration}</p>
         </div>
 
         {/* Play/pause button bottom-right */}

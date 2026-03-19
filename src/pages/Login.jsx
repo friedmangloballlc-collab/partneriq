@@ -191,7 +191,7 @@ export default function Login() {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#080807", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
+    <div className="login-outer min-h-screen flex items-center justify-center p-4" style={{ background: "#080807", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
       <SEO title="Sign In" description="Sign in to your Dealstage account" />
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <style>{`
@@ -202,15 +202,20 @@ export default function Login() {
         .login-card .bg-gradient-to-r { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
         .login-card .border-indigo-500 { border-color: rgba(196,162,74,0.4) !important; }
         .login-card .bg-indigo-500\\/10 { background: rgba(196,162,74,0.08) !important; }
-        @media (max-width: 420px) {
+        @media (max-width: 480px) {
           .login-card { padding: 1.5rem !important; }
+          .login-outer { padding: 0.75rem !important; }
+        }
+        @media (max-width: 360px) {
+          .login-card { padding: 1.25rem !important; }
+          .login-logo { height: 44px !important; }
         }
       `}</style>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
-            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 56 }} />
+            <img className="login-logo" src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 56 }} />
           </div>
           <p className="text-slate-400 text-sm">
             {mode === "login" ? "Sign in to your account" : "Create your account"}

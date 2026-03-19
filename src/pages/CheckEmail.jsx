@@ -20,10 +20,17 @@ export default function CheckEmail() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');`}</style>
+    <div style={{ minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
+        @media (max-width: 480px) {
+          .ce-resend-btn { width: 100% !important; justify-content: center !important; }
+          .ce-steps-box { padding: 1rem !important; }
+          .ce-heading { font-size: 1.6rem !important; }
+        }
+      `}</style>
 
-      <div style={{ maxWidth: 440, width: "100%", textAlign: "center" }}>
+      <div style={{ maxWidth: 440, width: "100%", textAlign: "center", boxSizing: "border-box" }}>
         {/* Logo */}
         <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 48, margin: "0 auto 2.5rem" }} />
 
@@ -32,20 +39,20 @@ export default function CheckEmail() {
           <Mail size={32} style={{ color: "#c4a24a" }} />
         </div>
 
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Check your email</h1>
+        <h1 className="ce-heading" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Check your email</h1>
 
         <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.5)", lineHeight: 1.7, marginBottom: "0.5rem" }}>
           We sent a confirmation link to
         </p>
         {email && (
-          <p style={{ fontSize: "1rem", color: "#c4a24a", fontWeight: 500, marginBottom: "1.5rem", fontFamily: "'Instrument Mono', monospace" }}>{email}</p>
+          <p style={{ fontSize: "1rem", color: "#c4a24a", fontWeight: 500, marginBottom: "1.5rem", fontFamily: "'Instrument Mono', monospace", wordBreak: "break-all", overflowWrap: "break-word" }}>{email}</p>
         )}
         <p style={{ fontSize: "0.85rem", color: "rgba(245,240,230,0.35)", lineHeight: 1.7, marginBottom: "2rem" }}>
           Click the link in your email to verify your account and get started. The link expires in 24 hours.
         </p>
 
         {/* Steps */}
-        <div style={{ background: "rgba(255,248,220,0.02)", border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 12, padding: "1.25rem", marginBottom: "1.5rem", textAlign: "left" }}>
+        <div className="ce-steps-box" style={{ background: "rgba(255,248,220,0.02)", border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 12, padding: "1.25rem", marginBottom: "1.5rem", textAlign: "left" }}>
           {[
             { num: "1", text: "Open your email inbox", done: true },
             { num: "2", text: "Click the verification link", done: false },
@@ -61,12 +68,12 @@ export default function CheckEmail() {
         </div>
 
         {/* Resend button */}
-        <button onClick={handleResend} disabled={resending || resent} style={{
+        <button onClick={handleResend} disabled={resending || resent} className="ce-resend-btn" style={{
           background: "none", border: "0.5px solid rgba(255,248,220,0.1)", borderRadius: 8,
           padding: "0.65rem 1.25rem", color: resent ? "#22c55e" : "rgba(245,240,230,0.4)",
           fontSize: "0.8rem", cursor: resending ? "wait" : "pointer", display: "inline-flex",
           alignItems: "center", gap: "0.5rem", fontFamily: "'Instrument Sans', sans-serif",
-          transition: "all 0.2s", marginBottom: "1rem",
+          transition: "all 0.2s", marginBottom: "1rem", minHeight: "44px",
         }}>
           {resent ? <><CheckCircle2 size={14} /> Email resent!</> : resending ? <><RefreshCw size={14} className="animate-spin" /> Resending...</> : <><RefreshCw size={14} /> Resend verification email</>}
         </button>
