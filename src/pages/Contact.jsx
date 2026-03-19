@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SEO from "@/components/SEO";
 import {
   Mail,
-  HeadphonesIcon,
+  Headphones,
   Handshake,
   MapPin,
   Send,
@@ -38,7 +38,7 @@ const contactCards = [
     desc: "Interested in Deal Stage for your brand or agency? Let's talk pricing, onboarding, and everything in between.",
   },
   {
-    icon: HeadphonesIcon,
+    icon: Headphones,
     label: "Support",
     email: "support@thedealstage.com",
     desc: "Having trouble with the platform? Our support team typically responds within one business hour.",

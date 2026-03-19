@@ -1,4 +1,5 @@
 import React from "react";
+import SEO from "@/components/SEO";
 import { useNavigate } from "react-router-dom";
 import { Home, ArrowLeft, Search } from "lucide-react";
 
@@ -6,6 +7,8 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
+    <>
+    <SEO title="Page Not Found" description="The page you're looking for doesn't exist" />
     <div style={{
       minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center",
       justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif",
@@ -75,5 +78,6 @@ export default function NotFound() {
         </p>
       </div>
     </div>
+    </>
   );
 }

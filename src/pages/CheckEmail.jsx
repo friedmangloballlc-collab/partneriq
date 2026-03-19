@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SEO from "@/components/SEO";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/api/supabaseClient";
 import { Mail, ArrowRight, RefreshCw, CheckCircle2 } from "lucide-react";
@@ -20,7 +21,9 @@ export default function CheckEmail() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
+    <>
+      <SEO title="Check Your Email" description="Verify your email to complete your Dealstage account setup" />
+      <div style={{ minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
         @media (max-width: 480px) {
@@ -93,5 +96,6 @@ export default function CheckEmail() {
         </p>
       </div>
     </div>
+    </>
   );
 }
