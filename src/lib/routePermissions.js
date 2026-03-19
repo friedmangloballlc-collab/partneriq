@@ -18,6 +18,7 @@ const rolePages = {
     'SubscriptionManagement', 'CreateOpportunity', 'ContactFinder',
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals', 'DeckLibrary',
+    'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
   ]),
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -31,6 +32,7 @@ const rolePages = {
     'CreateOpportunity', 'Analytics', 'SubscriptionManagement', 'ConnectAccounts', 'EventManagement', 'Notifications', 'BundleDeals', 'PitchCompetition', 'WarmIntroNetwork', 'BrandSpendPrediction',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals', 'DeckLibrary',
+    'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
   ]),
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -42,6 +44,7 @@ const rolePages = {
     'Settings', 'Analytics', 'SubscriptionManagement', 'ContactFinder',
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals',
+    'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
   ]),
   agency: new Set([
     'Dashboard', 'Marketplace', 'MasterCalendar', 'CultureCalendar',
@@ -53,6 +56,7 @@ const rolePages = {
     'Analytics', 'SubscriptionManagement', 'CreateOpportunity', 'ConnectAccounts',
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals', 'DeckLibrary',
+    'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
   ]),
 };
 

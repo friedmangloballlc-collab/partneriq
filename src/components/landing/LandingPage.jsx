@@ -661,35 +661,35 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <li className="ds-nav-item">
               <button className="ds-nav-link">For Brands <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               <div className="ds-dropdown">
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
+                <a href="/Marketplace" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
+                <a href="/Partnerships" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
+                <a href="/Analytics" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
               </div>
             </li>
             {/* For Talent dropdown */}
             <li className="ds-nav-item">
               <button className="ds-nav-link">For Talent <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               <div className="ds-dropdown">
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">🎯</div><div><div className="ds-drop-title">Talent Discovery</div><div className="ds-drop-desc">Find any talent type instantly</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📋</div><div><div className="ds-drop-title">Deal Pipeline</div><div className="ds-drop-desc">Track deals from pitch to close</div></div><span className="ds-nav-badge">New</span></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">📄</div><div><div className="ds-drop-title">Media Kits</div><div className="ds-drop-desc">Auto-updating talent profiles</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💰</div><div><div className="ds-drop-title">Payments</div><div className="ds-drop-desc">Invoicing and commission splits</div></div></a>
+                <a href="/TalentDiscovery" className="ds-drop-item"><div className="ds-drop-icon">🎯</div><div><div className="ds-drop-title">Talent Discovery</div><div className="ds-drop-desc">Find any talent type instantly</div></div></a>
+                <a href="/Partnerships" className="ds-drop-item"><div className="ds-drop-icon">📋</div><div><div className="ds-drop-title">Deal Pipeline</div><div className="ds-drop-desc">Track deals from pitch to close</div></div><span className="ds-nav-badge">New</span></a>
+                <a href="/TalentProfile" className="ds-drop-item"><div className="ds-drop-icon">📄</div><div><div className="ds-drop-title">Media Kits</div><div className="ds-drop-desc">Auto-updating talent profiles</div></div></a>
+                <a href="/BillingHistory" className="ds-drop-item"><div className="ds-drop-icon">💰</div><div><div className="ds-drop-title">Payments</div><div className="ds-drop-desc">Invoicing and commission splits</div></div></a>
               </div>
             </li>
             {/* For Talent (discovery) dropdown */}
             <li className="ds-nav-item">
               <button className="ds-nav-link">For Creators <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               <div className="ds-dropdown">
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">⭐</div><div><div className="ds-drop-title">Get Discovered</div><div className="ds-drop-desc">Brands come to you</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💼</div><div><div className="ds-drop-title">Manage Deals</div><div className="ds-drop-desc">Your pipeline in one place</div></div></a>
-                <a href="#features" className="ds-drop-item"><div className="ds-drop-icon">💲</div><div><div className="ds-drop-title">Get Paid Fast</div><div className="ds-drop-desc">Secure, on-time payments</div></div></a>
+                <a href="/Marketplace" className="ds-drop-item"><div className="ds-drop-icon">⭐</div><div><div className="ds-drop-title">Get Discovered</div><div className="ds-drop-desc">Brands come to you</div></div></a>
+                <a href="/Partnerships" className="ds-drop-item"><div className="ds-drop-icon">💼</div><div><div className="ds-drop-title">Manage Deals</div><div className="ds-drop-desc">Your pipeline in one place</div></div></a>
+                <a href="/BillingHistory" className="ds-drop-item"><div className="ds-drop-icon">💲</div><div><div className="ds-drop-title">Get Paid Fast</div><div className="ds-drop-desc">Secure, on-time payments</div></div></a>
               </div>
             </li>
             <li><a href="#pricing" className="ds-nav-link">Pricing</a></li>
           </ul>
           <div className="ds-nav-right">
             <a href="/login" className="ds-btn-ghost">Log in</a>
-            <a href="/login" className="ds-btn-demo">Book a demo</a>
+            <a href="/Demo" className="ds-btn-demo">Book a demo</a>
             <button className="ds-btn-trial" onClick={handleGetStarted}>Start free trial</button>
           </div>
         </nav>
@@ -874,7 +874,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <span className="ds-section-tag">/ Product demo</span>
           <h2 className="ds-section-title">See it in <em>2 minutes</em></h2>
           <p className="ds-section-body" style={{ maxWidth: 440, margin: "0 auto" }}>Watch how a brand finds talent, sends a deal, and closes a contract — all without leaving Dealstage.</p>
-          <div className="ds-video-box" onClick={handleGetStarted}>
+          <div className="ds-video-box" onClick={() => window.location.href = '/Demo'}>
             <div className="ds-video-bg-text">DEALSTAGE</div>
             <div className="ds-video-play">
               <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
@@ -882,7 +882,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
               </svg>
             </div>
           </div>
-          <p className="ds-video-label">2-min platform walkthrough · No signup required</p>
+          <p className="ds-video-label">Interactive product tour · No signup required</p>
         </div>
 
         {/* ── PRICING ─────────────────────────────────────────────────────── */}
@@ -1059,21 +1059,24 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                     </div>
                   ))}
                 </div>
-                <div style={{ display: "flex", gap: "0.75rem" }}>
-                  <div style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border2)", borderRadius: 8, padding: "0.65rem 1.25rem", display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer" }}>
-                    <span style={{ fontSize: "1.25rem" }}>&#63743;</span>
-                    <div>
-                      <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.55rem", color: "var(--ds-cream3)", letterSpacing: "0.06em" }}>Download on the</div>
-                      <div style={{ fontSize: "0.85rem", color: "var(--ds-cream)", fontWeight: 500 }}>App Store</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <div style={{ display: "flex", gap: "0.75rem" }}>
+                    <div title="Coming Q3 2026" style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 8, padding: "0.65rem 1.25rem", display: "flex", alignItems: "center", gap: "0.6rem", cursor: "not-allowed", opacity: 0.45, userSelect: "none" }}>
+                      <span style={{ fontSize: "1.25rem" }}>&#63743;</span>
+                      <div>
+                        <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.55rem", color: "var(--ds-cream3)", letterSpacing: "0.06em" }}>Download on the</div>
+                        <div style={{ fontSize: "0.85rem", color: "var(--ds-cream)", fontWeight: 500 }}>App Store</div>
+                      </div>
+                    </div>
+                    <div title="Coming Q3 2026" style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 8, padding: "0.65rem 1.25rem", display: "flex", alignItems: "center", gap: "0.6rem", cursor: "not-allowed", opacity: 0.45, userSelect: "none" }}>
+                      <span style={{ fontSize: "1.25rem" }}>&#9654;</span>
+                      <div>
+                        <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.55rem", color: "var(--ds-cream3)", letterSpacing: "0.06em" }}>Get it on</div>
+                        <div style={{ fontSize: "0.85rem", color: "var(--ds-cream)", fontWeight: 500 }}>Google Play</div>
+                      </div>
                     </div>
                   </div>
-                  <div style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border2)", borderRadius: 8, padding: "0.65rem 1.25rem", display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer" }}>
-                    <span style={{ fontSize: "1.25rem" }}>&#9654;</span>
-                    <div>
-                      <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.55rem", color: "var(--ds-cream3)", letterSpacing: "0.06em" }}>Get it on</div>
-                      <div style={{ fontSize: "0.85rem", color: "var(--ds-cream)", fontWeight: 500 }}>Google Play</div>
-                    </div>
-                  </div>
+                  <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-cream3)", letterSpacing: "0.06em" }}>Coming Q3 2026</div>
                 </div>
               </div>
               <div style={{ display: "flex", justifyContent: "center" }}>
@@ -1134,30 +1137,30 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <div>
             <div className="ds-footer-col-title">Product</div>
             <ul className="ds-footer-links">
-              <li><a href="#">Talent discovery</a></li>
-              <li><a href="#">Deal pipeline</a></li>
-              <li><a href="#">Media kits</a></li>
-              <li><a href="#">Payments</a></li>
-              <li><a href="#">Integrations</a></li>
+              <li><a href="/TalentDiscovery">Talent discovery</a></li>
+              <li><a href="/Partnerships">Deal pipeline</a></li>
+              <li><a href="/TalentProfile">Media kits</a></li>
+              <li><a href="/BillingHistory">Payments</a></li>
+              <li><a href="/Integrations">Integrations</a></li>
             </ul>
           </div>
           <div>
             <div className="ds-footer-col-title">Company</div>
             <ul className="ds-footer-links">
-              <li><a href="#">About</a></li>
-              <li><a href="#">Customer stories</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="/About">About</a></li>
+              <li><a href="/Customers">Customer stories</a></li>
+              <li><a href="/Blog">Blog</a></li>
+              <li><a href="/Careers">Careers</a></li>
+              <li><a href="/Contact">Contact</a></li>
             </ul>
           </div>
           <div>
             <div className="ds-footer-col-title">Legal</div>
             <ul className="ds-footer-links">
-              <li><a href="#">Privacy policy</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Cookie policy</a></li>
-              <li><a href="#">GDPR</a></li>
+              <li><a href="/privacy">Privacy policy</a></li>
+              <li><a href="/terms">Terms of service</a></li>
+              <li><a href="/CookiePolicy">Cookie policy</a></li>
+              <li><a href="/GDPR">GDPR</a></li>
             </ul>
           </div>
         </footer>

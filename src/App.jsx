@@ -14,6 +14,14 @@ import Onboarding from '@/pages/Onboarding';
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import CreatorCalculator from '@/pages/CreatorCalculator';
+import About from '@/pages/About';
+import Blog from '@/pages/Blog';
+import Careers from '@/pages/Careers';
+import Contact from '@/pages/Contact';
+import Customers from '@/pages/Customers';
+import CookiePolicy from '@/pages/CookiePolicy';
+import GDPR from '@/pages/GDPR';
+import Demo from '@/pages/Demo';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
@@ -145,6 +153,21 @@ const AuthenticatedApp = () => {
   }
   if (location.pathname === '/calculator') {
     return <Routes><Route path="/calculator" element={<CreatorCalculator />} /></Routes>;
+  }
+  // Public marketing routes (no auth needed)
+  const publicMarketingRoutes = {
+    '/About': <About />,
+    '/Blog': <Blog />,
+    '/Careers': <Careers />,
+    '/Contact': <Contact />,
+    '/Customers': <Customers />,
+    '/CookiePolicy': <CookiePolicy />,
+    '/GDPR': <GDPR />,
+    '/Demo': <Demo />,
+  };
+  if (Object.prototype.hasOwnProperty.call(publicMarketingRoutes, location.pathname)) {
+    const element = publicMarketingRoutes[location.pathname];
+    return <Routes><Route path={location.pathname} element={element} /></Routes>;
   }
 
   // Public routes: onboarding (landing) and login

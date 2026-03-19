@@ -64,6 +64,14 @@ const PAGES = {
     "ContractTemplates": lazy(() => import('./pages/ContractTemplates')),
     "Referrals": lazy(() => import('./pages/Referrals')),
     "DeckLibrary": lazy(() => import('./pages/DeckLibrary')),
+    "About": lazy(() => import('./pages/About')),
+    "Blog": lazy(() => import('./pages/Blog')),
+    "Careers": lazy(() => import('./pages/Careers')),
+    "Contact": lazy(() => import('./pages/Contact')),
+    "Customers": lazy(() => import('./pages/Customers')),
+    "CookiePolicy": lazy(() => import('./pages/CookiePolicy')),
+    "GDPR": lazy(() => import('./pages/GDPR')),
+    "Demo": lazy(() => import('./pages/Demo')),
 };
 
 export { PAGES };
