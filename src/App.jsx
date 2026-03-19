@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { SkeletonDashboard } from "./components/ui/Skeleton";
+import { SkeletonDashboard } from "./components/ui/skeleton";
 import * as Sentry from "@sentry/react";
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
