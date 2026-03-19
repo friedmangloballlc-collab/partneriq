@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
+import { FAQSection, ComparisonSection, SecurityBadges, VideoDemoSection, MobileAppSection } from "@/components/landing/LandingSections";
 
 // ─────────────────────────────────────────────
 // DATA — unchanged from original
@@ -1671,6 +1672,15 @@ export default function Onboarding() {
       {/* ══════════════════════════════════════════════
           FINAL CTA SECTION
       ══════════════════════════════════════════════ */}
+      {/* ── NEW SECTIONS: Video Demo, Comparison, FAQ, Security, Mobile ── */}
+      <div style={{ background: "#080807", color: "#f5f0e6" }}>
+        <VideoDemoSection />
+        <ComparisonSection />
+        <SecurityBadges />
+        <FAQSection />
+        <MobileAppSection />
+      </div>
+
       <section className="py-28 sm:py-36 bg-gradient-to-b from-[#06080f] to-slate-950 border-t border-white/5">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <FadeIn>
