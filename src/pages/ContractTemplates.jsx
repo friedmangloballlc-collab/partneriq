@@ -590,7 +590,7 @@ function TemplateFormDialog({ template, partnerships, onClose }) {
   const handleAISuggest = async () => {
     setLoadingAI(true);
     try {
-      const result = await base44.integrations.Core.InvokeLLM({
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
         prompt: `You are a talent partnership expert. Suggest realistic fill-in values for a ${template.name} contract. Return JSON with these fields:
 - talentName: a realistic influencer name
 - brandName: a realistic consumer brand name that would use this deal type
@@ -618,6 +618,7 @@ Return only valid JSON with no explanation.`,
           },
         },
       });
+      if (error) throw error;
       if (result) {
         const suggested = typeof result === "string" ? JSON.parse(result) : result;
         setFields((prev) => ({ ...prev, ...suggested }));
