@@ -137,16 +137,25 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
 
+    // Clear any stale session before attempting login
+    await supabase.auth.signOut().catch(() => {});
+
     const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       // Sanitize error — never show raw tokens/headers to users
       const msg = error.message || "";
-      if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
-        setServerError("Unable to sign in. Please try again.");
+      let userMsg;
+      if (msg.includes("Invalid login")) {
+        userMsg = "Invalid email or password. Please try again.";
+      } else if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
+        userMsg = "Unable to sign in. Please try again.";
       } else {
-        setServerError(msg);
+        userMsg = msg;
       }
+      setServerError(userMsg);
       setLoading(false);
+      // Auto-clear error after 4 seconds so user can retry
+      setTimeout(() => setServerError(null), 4000);
       return;
     }
 
@@ -194,6 +203,7 @@ export default function Login() {
         setServerError(msg);
       }
       setLoading(false);
+      setTimeout(() => setServerError(null), 4000);
       return;
     }
 
