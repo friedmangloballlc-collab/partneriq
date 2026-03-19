@@ -416,7 +416,7 @@ export default function Layout({ children, currentPageName }) {
         <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto" style={mainBgStyle}>
+        <main className="flex-1 overflow-y-auto bg-background">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
             {isTrialActive && !isPaidPlan && (
               <div style={{
