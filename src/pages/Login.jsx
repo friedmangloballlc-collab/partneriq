@@ -1,7 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/api/supabaseClient";
-import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -60,11 +59,6 @@ export default function Login() {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  // Fresh Supabase client for login — avoids stale session state from AuthProvider
-  const freshSupabase = useMemo(() => createClient(
-    import.meta.env.VITE_SUPABASE_URL || "",
-    import.meta.env.VITE_SUPABASE_ANON_KEY || ""
-  ), []);
 
   // ── Magic link still uses plain local state (not validated via RHF) ──────
   const [magicEmail, setMagicEmail] = useState("");
@@ -89,32 +83,32 @@ export default function Login() {
 
   // ── Auth handlers ────────────────────────────────────────────────────────
 
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
   const handleSocialLogin = async (provider) => {
-    setLoading(true);
-    setServerError(null);
-    const { error } = await freshSupabase.auth.signInWithOAuth({
-      provider,
-      options: { redirectTo: `${window.location.origin}/Dashboard` },
-    });
-    if (error) {
-      setServerError(error.message);
-      setLoading(false);
-    }
+    // OAuth still needs the supabase client for redirect flow
+    const redirectTo = `${window.location.origin}/Dashboard`;
+    window.location.href = `${supabaseUrl}/auth/v1/authorize?provider=${provider}&redirect_to=${encodeURIComponent(redirectTo)}`;
   };
 
   const handleMagicLink = async (e) => {
     e.preventDefault();
     setLoading(true);
     setServerError(null);
-    const { error } = await freshSupabase.auth.signInWithOtp({
-      email: magicEmail,
-      options: { emailRedirectTo: `${window.location.origin}/Dashboard` },
-    });
-    if (error) {
-      setServerError(error.message);
-    } else {
-      setMessage("Check your email for a magic link to sign in.");
-    }
+    try {
+      const res = await fetch(`${supabaseUrl}/auth/v1/magiclink`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
+        body: JSON.stringify({ email: magicEmail }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        setServerError(data?.msg || data?.message || "Failed to send magic link.");
+      } else {
+        setMessage("Check your email for a magic link to sign in.");
+      }
+    } catch { setServerError("Network error. Please try again."); }
     setLoading(false);
   };
 
@@ -124,14 +118,19 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setServerError(null);
-    const { error } = await freshSupabase.auth.resetPasswordForEmail(forgotEmail, {
-      redirectTo: `${window.location.origin}/login`,
-    });
-    if (error) {
-      setServerError(error.message);
-    } else {
-      setMessage("Password reset link sent! Check your email.");
-    }
+    try {
+      const res = await fetch(`${supabaseUrl}/auth/v1/recover`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        setServerError(data?.msg || data?.message || "Failed to send reset link.");
+      } else {
+        setMessage("Password reset link sent! Check your email.");
+      }
+    } catch { setServerError("Network error. Please try again."); }
     setLoading(false);
   };
 
@@ -184,33 +183,39 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
 
-    const { data: signupData, error } = await freshSupabase.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: fullName, role } },
-    });
+    try {
+      const res = await fetch(`${supabaseUrl}/auth/v1/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
+        body: JSON.stringify({ email, password, data: { full_name: fullName, role } }),
+      });
+      const data = await res.json();
 
-    if (error) {
-      const msg = error.message || "";
-      if (msg.includes("Authorization") || msg.includes("Bearer") || msg.includes("eyJ")) {
-        setServerError("Unable to create account. Please try again.");
-      } else {
-        setServerError(msg);
+      if (!res.ok) {
+        setServerError(data?.msg || data?.message || "Unable to create account.");
+        setLoading(false);
+        setTimeout(() => setServerError(null), 4000);
+        return;
       }
+
+      // Create profile
+      if (data?.id) {
+        try {
+          await supabase.from("profiles").upsert({
+            id: data.id,
+            email,
+            full_name: fullName,
+            role,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+        } catch {}
+      }
+    } catch {
+      setServerError("Network error. Please try again.");
       setLoading(false);
       setTimeout(() => setServerError(null), 4000);
       return;
-    }
-
-    if (signupData?.user) {
-      await supabase.from("profiles").upsert({
-        id: signupData.user.id,
-        email,
-        full_name: fullName,
-        role,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      });
     }
 
     setMessage("Check your email for a confirmation link, then sign in.");

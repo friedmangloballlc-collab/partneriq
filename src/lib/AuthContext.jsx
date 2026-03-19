@@ -44,6 +44,18 @@ export const AuthProvider = ({ children }) => {
       try {
         // Race getSession against a timeout so the app doesn't hang
         // when Supabase is unreachable
+        // Clear any stale auth tokens that might cause header errors
+        try {
+          Object.keys(localStorage).forEach(key => {
+            if (key.startsWith("sb-") && key.includes("-auth-token")) {
+              const stored = localStorage.getItem(key);
+              if (stored) {
+                try { JSON.parse(stored); } catch { localStorage.removeItem(key); }
+              }
+            }
+          });
+        } catch {}
+
         const sessionResult = await Promise.race([
           supabase.auth.getSession(),
           new Promise((_, reject) =>
@@ -53,6 +65,7 @@ export const AuthProvider = ({ children }) => {
 
         await loadUserProfile(sessionResult?.data?.session?.user ?? null);
       } catch (err) {
+        // Silently handle auth errors — don't surface to UI
         setUser(null);
         setIsAuthenticated(false);
       } finally {
