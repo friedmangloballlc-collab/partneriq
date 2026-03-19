@@ -652,8 +652,126 @@ export default function Onboarding() {
       </header>
 
       {/* ══════════════════════════════════════════════
-          HERO SECTION
+          SIGNUP FORM — centered, clean, no old landing content
       ══════════════════════════════════════════════ */}
+      <div className="pt-20 pb-16 px-4" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "100%", maxWidth: 560, margin: "0 auto" }}>
+
+          {/* Step title */}
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.5rem" }}>
+              {step === 2 ? "Choose your role" : step === 3 ? "Pick your plan" : step === 4 ? "Create your account" : "Almost there"}
+            </h1>
+            <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.4)" }}>
+              {step === 2 ? "Select how you'll use Deal Stage" : step === 3 ? "Start free, upgrade anytime" : step === 4 ? "Set up your account in 30 seconds" : "Final details to get started"}
+            </p>
+          </div>
+
+          {/* ── STEP 2: Role Selection ── */}
+          {step === 2 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              {ROLES.map((role) => {
+                const Icon = role.icon;
+                const isSelected = selectedRole === role.key;
+                return (
+                  <button key={role.key} onClick={() => setSelectedRole(role.key)} style={{
+                    display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem",
+                    border: isSelected ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.07)",
+                    borderRadius: 12, background: isSelected ? "rgba(196,162,74,0.08)" : "transparent",
+                    cursor: "pointer", textAlign: "left", width: "100%", transition: "all 0.2s",
+                  }}>
+                    <div style={{ width: 48, height: 48, borderRadius: 10, background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Icon style={{ width: 22, height: 22, color: "#080807" }} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{role.title}</p>
+                      <p style={{ fontSize: "0.78rem", color: "rgba(245,240,230,0.4)" }}>{role.desc}</p>
+                    </div>
+                    <div style={{ marginLeft: "auto", width: 20, height: 20, borderRadius: "50%", border: isSelected ? "none" : "1.5px solid rgba(255,248,220,0.15)", background: isSelected ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      {isSelected && <CheckCircle2 style={{ width: 20, height: 20, color: "#080807" }} />}
+                    </div>
+                  </button>
+                );
+              })}
+              <button onClick={() => { if (selectedRole) setStep(3); }} disabled={!selectedRole} style={{
+                marginTop: "1rem", width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
+                background: selectedRole ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: selectedRole ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
+                cursor: selectedRole ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
+                transition: "all 0.2s",
+              }}>
+                Continue <ArrowRight style={{ width: 16, height: 16, display: "inline", verticalAlign: "middle", marginLeft: 6 }} />
+              </button>
+              <p style={{ textAlign: "center", fontSize: "0.75rem", color: "rgba(245,240,230,0.25)", marginTop: "0.5rem" }}>
+                Already have an account? <a href="/login" style={{ color: "#c4a24a", textDecoration: "none" }}>Log in</a>
+              </p>
+            </div>
+          )}
+
+          {/* ── STEP 3: Plan Selection ── */}
+          {step === 3 && selectedRole && (
+            <div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => (
+                  <button key={plan.key} onClick={() => { setSelectedPlan(plan.key); setStep(4); }} style={{
+                    display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem",
+                    border: plan.badge ? "1.5px solid rgba(196,162,74,0.4)" : "0.5px solid rgba(255,248,220,0.07)",
+                    borderRadius: 12, background: plan.badge ? "rgba(196,162,74,0.06)" : "transparent",
+                    cursor: "pointer", textAlign: "left", width: "100%", transition: "all 0.2s", position: "relative",
+                  }}>
+                    {plan.badge && <span style={{ position: "absolute", top: -10, right: 16, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.6rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 4, fontFamily: "'Instrument Mono', monospace" }}>{plan.badge}</span>}
+                    <div>
+                      <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{plan.title}</p>
+                      <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)" }}>{plan.features?.slice(0, 2).join(" · ")}</p>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <p style={{ fontSize: "1.25rem", fontWeight: 700, color: "#f5f0e6", fontFamily: "'Instrument Mono', monospace" }}>{plan.price}</p>
+                      <p style={{ fontSize: "0.65rem", color: "rgba(245,240,230,0.3)" }}>{plan.period}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <button onClick={() => setStep(2)} style={{ marginTop: "1.5rem", background: "none", border: "none", color: "rgba(245,240,230,0.35)", fontSize: "0.8rem", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }}>
+                ← Back to role selection
+              </button>
+            </div>
+          )}
+
+          {/* ── STEP 4: Account Creation ── */}
+          {step === 4 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div>
+                <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Full Name</label>
+                <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
+              </div>
+              <div>
+                <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Email</label>
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
+              </div>
+              <div>
+                <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Password</label>
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 8 characters" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
+              </div>
+              {error && <p style={{ fontSize: "0.8rem", color: "#e07b18", padding: "0.5rem 1rem", background: "rgba(224,123,24,0.1)", borderRadius: 8 }}>{error}</p>}
+              <button onClick={handleComplete} disabled={saving || !name || !email || !password} style={{
+                width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
+                background: (name && email && password) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: (name && email && password) ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
+                cursor: (name && email && password) ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
+              }}>
+                {saving ? "Creating account..." : "Create Account"}
+              </button>
+              <button onClick={() => setStep(3)} style={{ background: "none", border: "none", color: "rgba(245,240,230,0.35)", fontSize: "0.8rem", cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif" }}>
+                ← Back to plan selection
+              </button>
+            </div>
+          )}
+
+        </div>
+      </div>
+
+      {/* OLD LANDING CONTENT — HIDDEN (kept for reference, remove later) */}
+      <div style={{ display: "none" }}>
       <section className="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden bg-slate-950">
         {/* Background gradient mesh */}
         <div className="absolute inset-0 pointer-events-none">
@@ -1840,6 +1958,7 @@ export default function Onboarding() {
           </div>
         </div>
       </footer>
+      </div>{/* end hidden old content */}
 
     </div>
   );
