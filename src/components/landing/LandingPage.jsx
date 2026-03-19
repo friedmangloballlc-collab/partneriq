@@ -193,6 +193,7 @@ const HOW_IT_WORKS = {
 
 export default function LandingPage({ onGetStarted, onSelectRole }) {
   const [pricingRole, setPricingRole] = useState("talent");
+  const [billingAnnual, setBillingAnnual] = useState(false);
   const [howItWorksRole, setHowItWorksRole] = useState("brand");
   const [openFaq, setOpenFaq] = useState(null);
   const [navScrolled, setNavScrolled] = useState(false);
@@ -216,7 +217,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
   }, []);
 
   const handleGetStarted = () => onGetStarted && onGetStarted();
-  const handleSelectRole = (role) => onSelectRole && onSelectRole(role);
+  const handleSelectRole = (role, plan) => onSelectRole && onSelectRole(role, plan);
 
   return (
     <>
@@ -890,37 +891,68 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <span className="ds-section-tag">/ Pricing</span>
             <h2 className="ds-section-title">Start free. Scale<br /><em>as you grow.</em></h2>
             <p className="ds-section-body" style={{ marginBottom: "2.5rem" }}>Every plan includes a 14-day free trial. No credit card required to get started.</p>
-            <div className="ds-tab-row">
-              {[["talent", "Talent"], ["brand", "Brands"], ["agency", "Agencies"]].map(([key, label]) => (
-                <button key={key} className={`ds-tab-btn${pricingRole === key ? " active" : ""}`} onClick={() => setPricingRole(key)}>{label}</button>
-              ))}
+            {/* Role tabs + billing toggle row */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
+              <div className="ds-tab-row" style={{ margin: 0 }}>
+                {[["talent", "Talent"], ["brand", "Brands"], ["agency", "Agencies"]].map(([key, label]) => (
+                  <button key={key} className={`ds-tab-btn${pricingRole === key ? " active" : ""}`} onClick={() => setPricingRole(key)}>{label}</button>
+                ))}
+              </div>
+              {/* Billing toggle */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: !billingAnnual ? "var(--ds-cream)" : "var(--ds-cream3)", letterSpacing: "0.04em" }}>Monthly</span>
+                <button
+                  onClick={() => setBillingAnnual(!billingAnnual)}
+                  style={{ width: 40, height: 22, borderRadius: 11, border: "none", cursor: "pointer", position: "relative", transition: "background 0.2s", background: billingAnnual ? "var(--ds-ga)" : "rgba(255,248,220,0.1)" }}
+                  aria-label="Toggle annual billing"
+                >
+                  <div style={{ position: "absolute", top: 3, left: billingAnnual ? 21 : 3, width: 16, height: 16, borderRadius: "50%", background: billingAnnual ? "#080807" : "rgba(245,240,230,0.5)", transition: "left 0.2s" }} />
+                </button>
+                <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: billingAnnual ? "var(--ds-cream)" : "var(--ds-cream3)", letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  Annual
+                  {billingAnnual && <span style={{ fontSize: "0.58rem", background: "var(--ds-ga)", color: "#080807", borderRadius: 3, padding: "0.1rem 0.4rem", fontWeight: 600 }}>Save 20%</span>}
+                </span>
+              </div>
             </div>
             <div className="ds-pricing-grid" style={{ gridTemplateColumns: `repeat(${PRICING[pricingRole].length}, 1fr)` }}>
-              {PRICING[pricingRole].map((plan) => (
-                <div key={plan.title} className={`ds-plan-card${plan.popular ? " popular" : ""}`}>
-                  {plan.badge && <div className="ds-plan-badge">{plan.badge}</div>}
-                  <div className="ds-plan-title">{plan.title}</div>
-                  <div className="ds-plan-price">
-                    {plan.price}
-                    <span>{plan.period}</span>
-                  </div>
-                  <hr className="ds-plan-divider" />
-                  <div className="ds-plan-features">
-                    {plan.features.map((f) => (
-                      <div key={f} className="ds-plan-feature">
-                        <span className="ds-plan-check">&#9670;</span>
-                        <span>{f}</span>
+              {PRICING[pricingRole].map((plan) => {
+                const numericPrice = parseInt((plan.price || "").replace(/[^0-9]/g, ""), 10);
+                const annualMonthlyPrice = (billingAnnual && numericPrice) ? `$${Math.round(numericPrice * 0.8)}` : plan.price;
+                const displayPrice = (plan.price === "$0" || plan.price === "Custom") ? plan.price : annualMonthlyPrice;
+                const isPaid = plan.price !== "$0" && plan.price !== "Custom";
+                return (
+                  <div key={plan.title} className={`ds-plan-card${plan.popular ? " popular" : ""}`}>
+                    {plan.badge && <div className="ds-plan-badge">{plan.badge}</div>}
+                    <div className="ds-plan-title">{plan.title}</div>
+                    <div className="ds-plan-price">
+                      {displayPrice}
+                      <span>{billingAnnual && isPaid ? "/ mo · billed annually" : plan.period}</span>
+                    </div>
+                    {isPaid && (
+                      <div style={{ marginTop: "0.5rem", marginBottom: "0.25rem" }}>
+                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>14-day free trial</span>
                       </div>
-                    ))}
+                    )}
+                    <hr className="ds-plan-divider" />
+                    <div className="ds-plan-features">
+                      {plan.features.map((f) => (
+                        <div key={f} className="ds-plan-feature">
+                          <span className="ds-plan-check">&#9670;</span>
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      className={`ds-plan-btn${plan.popular ? "" : " outline"}`}
+                      onClick={() => {
+                        if (onSelectRole) onSelectRole(pricingRole, plan.title.toLowerCase());
+                      }}
+                    >
+                      {plan.cta}
+                    </button>
                   </div>
-                  <button
-                    className={`ds-plan-btn${plan.popular ? "" : " outline"}`}
-                    onClick={() => handleSelectRole(pricingRole)}
-                  >
-                    {plan.cta}
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

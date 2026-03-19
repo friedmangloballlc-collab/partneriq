@@ -9,6 +9,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+// ─── Password strength helper ─────────────────────────────────────────────────
+const getPasswordStrength = (pw) => {
+  if (!pw) return { level: 0, label: "", color: "" };
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  if (score <= 1) return { level: 1, label: "Weak", color: "#ef4444" };
+  if (score <= 2) return { level: 2, label: "Fair", color: "#f59e0b" };
+  if (score <= 3) return { level: 3, label: "Good", color: "#c4a24a" };
+  return { level: 4, label: "Strong", color: "#22c55e" };
+};
+
 // ─── Zod schemas ────────────────────────────────────────────────────────────
 
 const loginSchema = z.object({
@@ -60,6 +75,9 @@ export default function Login() {
   // ── Derive the active form so we can read its errors cleanly ─────────────
   const activeForm = mode === "login" ? loginForm : signupForm;
   const { errors } = activeForm.formState;
+
+  // ── Watch password for strength meter ────────────────────────────────────
+  const watchedPassword = signupForm.watch("password");
 
   // ── Auth handlers ────────────────────────────────────────────────────────
 
@@ -211,6 +229,12 @@ export default function Login() {
           {serverError && (
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
               {serverError}
+              {mode === "signup" && serverError.toLowerCase().includes("already") && (
+                <div className="mt-2 flex gap-3">
+                  <button onClick={() => switchMode("login")} className="text-xs underline" style={{ color: "#c4a24a" }}>Sign in instead</button>
+                  <button onClick={() => switchMode("magiclink")} className="text-xs underline" style={{ color: "#c4a24a" }}>Reset password</button>
+                </div>
+              )}
             </div>
           )}
 
@@ -357,6 +381,19 @@ export default function Login() {
                   </button>
                 </div>
                 <FieldError message={errors.password?.message} />
+                {mode === "signup" && watchedPassword && (() => {
+                  const strength = getPasswordStrength(watchedPassword);
+                  return (
+                    <div style={{ marginTop: 6 }}>
+                      <div style={{ display: "flex", gap: 3, marginBottom: 4 }}>
+                        {[1, 2, 3, 4].map(i => (
+                          <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i <= strength.level ? strength.color : "rgba(255,248,220,0.1)", transition: "background 0.2s" }} />
+                        ))}
+                      </div>
+                      <p style={{ fontSize: "0.65rem", color: strength.color, fontFamily: "'Instrument Mono', monospace" }}>{strength.label}</p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {mode === "signup" && (

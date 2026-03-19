@@ -448,10 +448,26 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 // MAIN COMPONENT
 // ─────────────────────────────────────────────
 
+// ─── Password strength helper ─────────────────────────────────────────────────
+const getPasswordStrength = (pw) => {
+  if (!pw) return { level: 0, label: "", color: "" };
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  if (score <= 1) return { level: 1, label: "Weak", color: "#ef4444" };
+  if (score <= 2) return { level: 2, label: "Fair", color: "#f59e0b" };
+  if (score <= 3) return { level: 3, label: "Good", color: "#c4a24a" };
+  return { level: 4, label: "Strong", color: "#22c55e" };
+};
+
 export default function Onboarding() {
   const [step, setStep] = useState(1); // 1 = role, 2 = plan, 3 = details, 4 = brand wizard
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
+  const [billingCycle, setBillingCycle] = useState("monthly");
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
@@ -527,6 +543,30 @@ export default function Onboarding() {
         return;
       }
 
+      // Upsert profile in Supabase
+      if (signUpData?.user) {
+        try {
+          await supabase.from("profiles").upsert({
+            id: signUpData.user.id,
+            email,
+            full_name: name,
+            role: selectedRole,
+            plan: selectedPlan,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+        } catch (e) { /* non-blocking */ }
+      }
+
+      // Trigger welcome email (non-blocking)
+      try {
+        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
+          body: JSON.stringify({ email, name, role: selectedRole, plan: selectedPlan })
+        });
+      } catch (e) { /* non-blocking */ }
+
       await new Promise(r => setTimeout(r, 1000));
 
       const brandData = selectedRole === "brand" ? {
@@ -582,7 +622,7 @@ export default function Onboarding() {
     return (
       <LandingPage
         onGetStarted={() => { setStep(2); window.scrollTo(0, 0); }}
-        onSelectRole={(role) => { setSelectedRole(role); setStep(4); window.scrollTo(0, 0); }}
+        onSelectRole={(role, plan) => { setSelectedRole(role); if (plan) setSelectedPlan(plan); setStep(4); window.scrollTo(0, 0); }}
       />
     );
   }
@@ -613,6 +653,11 @@ export default function Onboarding() {
         /* Emerald to gold */
         .from-emerald-500, .bg-emerald-500, .text-emerald-400 { color: #c4a24a !important; }
         .bg-emerald-50, .bg-emerald-500\\/10 { background: rgba(196,162,74,0.1) !important; }
+        /* Plan pills mobile grid */
+        @media (max-width: 640px) {
+          .plan-pills-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; }
+          .plan-pills-grid > button { width: 100% !important; }
+        }
       `}</style>
 
       {/* ══════════════════════════════════════════════
@@ -625,16 +670,16 @@ export default function Onboarding() {
         </button>
         {/* Step indicator */}
         <div className="hidden md:flex items-center gap-3">
-          {["Role", "Plan", "Account"].map((label, i) => (
+          {["Choose Role", "Create Account"].map((label, i) => (
             <div key={label} className="flex items-center gap-2">
               <div style={{
                 width: 24, height: 24, borderRadius: "50%", fontSize: "0.65rem", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center",
-                background: step >= i + 2 ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
-                color: step >= i + 2 ? "#080807" : "rgba(245,240,230,0.3)",
+                background: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "#080807" : "rgba(245,240,230,0.3)",
                 fontFamily: "'Instrument Mono', monospace",
               }}>{i + 1}</div>
-              <span style={{ fontSize: "0.75rem", color: step >= i + 2 ? "#f5f0e6" : "rgba(245,240,230,0.25)", fontFamily: "'Instrument Sans', sans-serif" }}>{label}</span>
-              {i < 2 && <div style={{ width: 20, height: "0.5px", background: "rgba(255,248,220,0.1)" }} />}
+              <span style={{ fontSize: "0.75rem", color: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "#f5f0e6" : "rgba(245,240,230,0.25)", fontFamily: "'Instrument Sans', sans-serif" }}>{label}</span>
+              {i < 1 && <div style={{ width: 20, height: "0.5px", background: "rgba(255,248,220,0.1)" }} />}
             </div>
           ))}
         </div>
@@ -659,6 +704,14 @@ export default function Onboarding() {
 
           {/* Step title */}
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            {/* Mobile step indicator */}
+            {(step === 2 || step >= 4) && (
+              <div className="md:hidden" style={{ display: "flex", justifyContent: "center", marginBottom: "1rem", gap: "0.5rem" }}>
+                {[1, 2].map(i => (
+                  <div key={i} style={{ width: 32, height: 4, borderRadius: 2, background: (step === 2 && i === 1) || (step >= 4 && i <= 2) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.1)", transition: "background 0.3s" }} />
+                ))}
+              </div>
+            )}
             <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.5rem" }}>
               {step === 2 ? "Choose your role" : "Get started for free"}
             </h1>
@@ -723,6 +776,9 @@ export default function Onboarding() {
                     <div>
                       <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{plan.title}</p>
                       <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)" }}>{plan.features?.slice(0, 2).join(" · ")}</p>
+                      {plan.key !== "free" && plan.price !== "Custom" && (
+                        <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", background: "rgba(196,162,74,0.1)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>14-day free trial</span>
+                      )}
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <p style={{ fontSize: "1.25rem", fontWeight: 700, color: "#f5f0e6", fontFamily: "'Instrument Mono', monospace" }}>{plan.price}</p>
@@ -741,26 +797,79 @@ export default function Onboarding() {
           {step >= 4 && (
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
 
-              {/* Plan selector — compact horizontal pills */}
+              {/* Plan selector — compact horizontal pills with billing toggle */}
               {selectedRole && PLANS_BY_ROLE[selectedRole] && (
                 <div>
-                  <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", display: "block", marginBottom: 8, fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
-                  <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                    {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => (
-                      <button key={plan.key} onClick={() => setSelectedPlan(plan.key)} style={{
-                        padding: "0.6rem 1rem", borderRadius: 8, fontSize: "0.8rem", fontWeight: 500, cursor: "pointer",
-                        border: selectedPlan === plan.key ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.1)",
-                        background: selectedPlan === plan.key ? "rgba(196,162,74,0.12)" : "transparent",
-                        color: selectedPlan === plan.key ? "#d9b96a" : "rgba(245,240,230,0.5)",
-                        fontFamily: "'Instrument Sans', sans-serif", transition: "all 0.15s", position: "relative",
-                      }}>
-                        {plan.title} <span style={{ fontFamily: "'Instrument Mono', monospace", marginLeft: 4, fontSize: "0.7rem", opacity: 0.6 }}>{plan.price}</span>
-                        {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                    <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
+                    {/* Billing cycle toggle */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(255,248,220,0.04)", border: "0.5px solid rgba(255,248,220,0.08)", borderRadius: 8, padding: "0.2rem" }}>
+                      <button onClick={() => setBillingCycle("monthly")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "monthly" ? "rgba(196,162,74,0.18)" : "transparent", color: billingCycle === "monthly" ? "#d9b96a" : "rgba(245,240,230,0.35)" }}>Monthly</button>
+                      <button onClick={() => setBillingCycle("annual")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "annual" ? "rgba(196,162,74,0.18)" : "transparent", color: billingCycle === "annual" ? "#d9b96a" : "rgba(245,240,230,0.35)", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                        Annual
+                        {billingCycle === "annual" && <span style={{ fontSize: "0.5rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", borderRadius: 2, padding: "0.05rem 0.3rem", fontWeight: 600 }}>-20%</span>}
                       </button>
-                    ))}
+                    </div>
                   </div>
+                  <div className="plan-pills-grid" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                    {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => {
+                      const isAnnual = billingCycle === "annual";
+                      const numericPrice = parseInt((plan.price || "").replace(/[^0-9]/g, ""), 10);
+                      const annualPrice = (isAnnual && numericPrice) ? `$${Math.round(numericPrice * 0.8)}` : plan.price;
+                      const displayPrice = (plan.price === "$0" || plan.price === "Custom") ? plan.price : annualPrice;
+                      return (
+                        <button key={plan.key} onClick={() => setSelectedPlan(plan.key)} style={{
+                          padding: "0.6rem 1rem", borderRadius: 8, fontSize: "0.8rem", fontWeight: 500, cursor: "pointer",
+                          border: selectedPlan === plan.key ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.1)",
+                          background: selectedPlan === plan.key ? "rgba(196,162,74,0.12)" : "transparent",
+                          color: selectedPlan === plan.key ? "#d9b96a" : "rgba(245,240,230,0.5)",
+                          fontFamily: "'Instrument Sans', sans-serif", transition: "all 0.15s", position: "relative",
+                        }}>
+                          {plan.title} <span style={{ fontFamily: "'Instrument Mono', monospace", marginLeft: 4, fontSize: "0.7rem", opacity: 0.6 }}>{displayPrice}</span>
+                          {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
+                          {plan.key !== "free" && plan.price !== "Custom" && (
+                            <span style={{ display: "block", fontSize: "0.55rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", marginTop: 2, opacity: 0.8 }}>14-day trial</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {billingCycle === "annual" && (
+                    <p style={{ fontSize: "0.62rem", color: "rgba(196,162,74,0.7)", fontFamily: "'Instrument Mono', monospace", marginTop: 6 }}>Annual pricing shown · billed as one payment · Save 20%</p>
+                  )}
                 </div>
               )}
+
+              {/* Google OAuth signup button */}
+              <button
+                type="button"
+                onClick={async () => {
+                  const { error } = await supabase.auth.signInWithOAuth({
+                    provider: "google",
+                    options: { redirectTo: `${window.location.origin}/Dashboard` }
+                  });
+                  if (error) setAuthError(error.message);
+                }}
+                style={{
+                  width: "100%", padding: "0.75rem 1rem", borderRadius: 8, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem",
+                  background: "rgba(255,248,220,0.04)", border: "0.5px solid rgba(255,248,220,0.13)", color: "#f5f0e6", fontSize: "0.88rem", fontFamily: "'Instrument Sans', sans-serif", fontWeight: 400, transition: "background 0.2s, border-color 0.2s",
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#f5f0e6" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                  <path fill="#f5f0e6" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#f5f0e6" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#f5f0e6" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Continue with Google
+              </button>
+
+              {/* Divider */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <div style={{ flex: 1, height: "0.5px", background: "rgba(255,248,220,0.08)" }} />
+                <span style={{ fontSize: "0.72rem", color: "rgba(245,240,230,0.3)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.06em" }}>or continue with email</span>
+                <div style={{ flex: 1, height: "0.5px", background: "rgba(255,248,220,0.08)" }} />
+              </div>
 
               {/* Account fields */}
               <div>
@@ -774,6 +883,19 @@ export default function Onboarding() {
               <div>
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Password</label>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 8 characters" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
+                {password && (() => {
+                  const strength = getPasswordStrength(password);
+                  return (
+                    <div style={{ marginTop: 6 }}>
+                      <div style={{ display: "flex", gap: 3, marginBottom: 4 }}>
+                        {[1, 2, 3, 4].map(i => (
+                          <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i <= strength.level ? strength.color : "rgba(255,248,220,0.1)", transition: "background 0.2s" }} />
+                        ))}
+                      </div>
+                      <p style={{ fontSize: "0.65rem", color: strength.color, fontFamily: "'Instrument Mono', monospace" }}>{strength.label}</p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {(error || authError) && <p style={{ fontSize: "0.8rem", color: "#e07b18", padding: "0.5rem 1rem", background: "rgba(224,123,24,0.1)", borderRadius: 8 }}>{error || authError}</p>}
@@ -790,6 +912,18 @@ export default function Onboarding() {
               <p style={{ textAlign: "center", fontSize: "0.7rem", color: "rgba(245,240,230,0.25)", marginTop: "0.25rem" }}>
                 No credit card required · Free plan available · <a href="/login" style={{ color: "#c4a24a", textDecoration: "none" }}>Already have an account?</a>
               </p>
+
+              {/* Social proof */}
+              <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}>
+                <div style={{ display: "flex", gap: "-0.5rem" }}>
+                  {["NK", "SP", "MC", "ZA", "JR"].map((init, i) => (
+                    <div key={init} style={{ width: 28, height: 28, borderRadius: "50%", background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem", fontWeight: 600, color: "#080807", border: "2px solid #080807", marginLeft: i > 0 ? "-6px" : 0, fontFamily: "'Instrument Mono', monospace" }}>{init}</div>
+                  ))}
+                </div>
+                <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)", textAlign: "center" }}>
+                  <span style={{ color: "#c4a24a", fontWeight: 500 }}>2,400+ professionals</span> already on Dealstage
+                </p>
+              </div>
             </div>
           )}
 
