@@ -2378,4 +2378,307 @@ Contingency: If the Comeback episode produces 0 or 1 returning contestant, Episo
 
 _Review completed March 20, 2026. All fixes are appended above. Original document content above this review section is unchanged._
 
+---
+
+# [NEW] STRATEGIC ENHANCEMENTS — APPLIED FROM EXECUTIVE REVIEW
+
+_The following sections apply all 10 suggestions from the Senior Entertainment Executive Review (March 20, 2026). Each section is marked with the [NEW] prefix and addresses a specific strategic recommendation designed to increase greenlight probability, audience retention, and platform conversion._
+
+---
+
+## [NEW] 5.1 — The Shadow Deal: Home Viewer Parallel Competition Mechanic
+
+### Concept Overview
+
+The Shadow Deal mechanic transforms every episode of The Deal Stage from a passive viewing experience into an active participation event. Home audiences submit their own pitch strategies via the DealStage app during each episode's live premiere window, creating a parallel competition that runs alongside the on-screen contest. At episode's end, the top-rated viewer submission is revealed and compared against what the on-screen contestant actually did — creating a second reveal moment with its own dramatic weight.
+
+This mechanic does not require rebuilding the show. It layers onto the existing format using infrastructure the DealStage platform already has: creator profiles, brand briefs, and AI match scoring. The distinction is that Pitch Mode activates for home audiences during a defined window, giving every viewer the same information the contestant had and fifteen minutes to demonstrate what they would have done differently.
+
+### Why This Changes the Show's Cultural Footprint
+
+Love Is Blind and The Circle became phenomena partly because audiences could project themselves into the competition. The Deal Stage has a structural advantage those shows never had: the actual platform exists, and viewers can use it. The home-play mechanic eliminates the gap between entertainment and utility — a viewer who submits a Shadow Deal pitch has, without being explicitly recruited, demonstrated their interest in using DealStage as a real business tool.
+
+Netflix's interactive content analysis showed that Bandersnatch drove two to three times the engagement of comparable linear content. The Shadow Deal mechanic delivers that interactivity without rebuilding the show's narrative architecture.
+
+### Implementation Blueprint
+
+**Step 1 — Pitch Mode Feature Build:** Develop a "Pitch Mode" interface within the DealStage app that activates during live premiere events. Viewers see the same brand brief as contestants and have a 15-minute submission window to enter their pitch angle, recommended rate, and creator-brand fit rationale.
+
+**Step 2 — AI Scoring:** The same algorithm that evaluates contestants scores viewer submissions on identical criteria. Scores are held until the episode's final segment.
+
+**Step 3 — The Shadow Reveal:** The top five viewer submissions are surfaced in a post-episode recap segment. The viewer whose pitch strategy most closely mirrors the winning contestant's approach wins a real $5,000 DealStage credit redeemable against an actual brand deal — making the prize functionally identical in kind (though not scale) to the show's main prize.
+
+**Step 4 — Marketing the Mechanic:** The season trailer leads with: "You don't just watch. You play." This single line reframes the show's entire value proposition for potential viewers who might otherwise classify it as passive competition content.
+
+**Step 5 — Season 2 Escalation:** The top-rated viewer pitcher from Season 1 earns an audition for the actual Season 2 cast. The pipeline from living room to stage becomes a documented, real narrative arc — and the most powerful recruitment tool in the show's history.
+
+### Platform Integration Specifics
+
+- Pitch Mode is gated behind a free DealStage account, making every Shadow Deal participant a registered platform user
+- Aggregate viewer pitch data (anonymized) becomes market intelligence content for Deal Drops and the DealStage Creator Economy Index
+- Pitch Mode engagement metrics (submissions per episode, score distributions) are published post-season as a "Shadow Deal Report" — demonstrating platform scale and audience sophistication to prospective brand partners
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.2 — The Unicorn Brand Finale: Securing the Show's First-Ever Prestige Partnership
+
+### Concept Overview
+
+The Season 1 finale is not defined by the contestant who wins — it is defined by the brand that closes the deal. The Unicorn Brand strategy involves negotiating with one prestige brand that has historically been absent from the creator economy to make the finale deal the first creator partnership that brand has ever publicly committed to. The field of candidates includes Rolex, Ferrari, Louis Vuitton, Hermes, and comparable prestige holdouts — brands whose absence from the creator economy is itself a cultural statement, and whose entry into it would therefore constitute a cultural event.
+
+### Why This Generates Unmanufacturable Press Coverage
+
+Shark Tank's most viral moments are not the biggest deals — they are the deals that feel impossible. When a prestige brand announces its first-ever creator partnership on the show, the story writes itself across every relevant press category simultaneously: AdWeek covers the marketing angle, Variety covers the entertainment angle, The Wall Street Journal covers the business angle, and every creator economy newsletter covers the platform angle. None of this coverage can be purchased. It is earned entirely through the significance of the event — and the event's significance depends entirely on executing this strategy correctly.
+
+### Implementation Blueprint
+
+**Step 1 — Target Identification:** Identify 10 prestige brands with zero documented creator economy history and marketing budgets capable of accommodating a $1M+ deal. Research their CMO histories, recent marketing strategy signals, and any internal discussions about creator economy entry that have surfaced in trade press.
+
+**Step 2 — The "First Mover" Pitch:** Build a dedicated pitch deck that frames participation not as a marketing buy but as a historic milestone. The language is explicit: this brand will be the first major prestige brand to close a creator deal on a major streaming show. Frame the cultural significance — not the audience reach, not the demographic data, but the historic nature of the moment.
+
+**Step 3 — Editorial Control as Incentive:** Offer the participating brand editorial review of how their brand story is presented in the finale episode. They do not control the show's narrative, but they approve the context in which their participation is characterized. This converts a marketing risk into a manageable brand decision.
+
+**Step 4 — Legal Commitment Timeline:** Secure a Letter of Intent no later than six months before production begins. Both the brand and the show make binding commitments — the brand commits to the deal structure; the show commits to the finale placement and the editorial framing agreed upon.
+
+**Step 5 — The Embargo Strategy:** Brief entertainment journalists at Variety, AdWeek, and The Hollywood Reporter under embargo 30 days before the finale premiere. The story breaks on the day of the premiere, not before — creating maximum press velocity at precisely the moment when viewership matters most.
+
+### What Success Looks Like
+
+A prestige brand's first-ever creator partnership closing on The Deal Stage creates a before/after marker in creator economy history. The episode's cultural permanence is ensured. Every creator economy podcast, newsletter, and commentary platform covers it. DealStage's role in facilitating that moment — the AI that matched the creator to the brand — is embedded in the historical record of the deal.
+
+**Impact Rating:** High | **Effort Rating:** High
+
+---
+
+## [NEW] 5.3 — The Reluctant Creator: Casting the Show's Moral Spine
+
+### Concept Overview
+
+Among the twelve contestants, one is deliberately cast for their documented public history of declining or criticizing brand partnerships. This creator — identified through YouTube videos, podcast appearances, and public statements under search terms like "why I don't do brand deals" — has built their audience identity around rejecting the very competition they are now entering. Their arc across the season becomes the show's central philosophical tension: is it possible to maintain creative integrity while winning a $1 million brand deal?
+
+### Why This Character Makes the Show Irreplaceable
+
+Every great competition show needs a character who challenges the premise from within. The Voice has the artist who almost didn't audition. Survivor has the player who refuses to lie. The Deal Stage needs the creator who believes brand deals corrupt creativity — and who, over ten episodes, is forced to either prove or disprove that conviction with real data.
+
+This character gives the show a moral spine that separates it from pure business entertainment. It also makes the AI's match scores meaningfully complicated: what does a 94% compatibility rating mean to a creator who has spent three years publicly arguing that compatibility with brands is irrelevant to creative value? The tension between the data's conclusion and the creator's self-conception is the most interesting dramatic space in the show.
+
+### Casting Strategy
+
+**Source Pool:** Search YouTube for "why I don't do brand deals" and filter for creators with genuine audiences (50,000 to 500,000 followers), authentic stated positions (not manufactured controversy), and the vocal intelligence to articulate complex positions under pressure.
+
+**Transparency Requirement:** Be completely transparent with this cast member about how they will be positioned. Their authentic ambivalence is the content. A manufactured "reluctant creator" who is secretly enthusiastic about brand deals is worthless; a genuinely ambivalent creator who wrestles honestly with the show's premise across ten episodes is television.
+
+**Arc Architecture:** Structure their episode appearances to give them genuine wins — moments where the AI validates their creative instincts — and genuine moral dilemmas — moments where a high match score requires them to pitch a brand whose values conflict with their stated creative principles.
+
+**Finale Assignment:** In the finale, this contestant receives the most ethically complex brand brief: something where the AI's match score is exceptional but the creator's stated values create genuine friction with the brand's identity. The audience should not be certain until the last moment whether this creator will pitch the deal or walk away.
+
+**Post-Season Extension:** Feature this contestant in a DealStage-produced YouTube mini-documentary — "What Changed" — released one month after the finale, tracking how their relationship to brand deals evolved across the season and afterward. This content drives long-tail discovery of both the show and the platform.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+## [NEW] 5.4 — The Brand Rejection Moment: Reversing Power in One Pivotal Scene
+
+### Concept Overview
+
+In at least one episode per season, the show formally reverses the power dynamic: after a brand has offered a deal to a contestant, the contestant publicly declines it — on camera, with their reasoning — and this decision is treated by the show as a demonstration of business sophistication rather than a failure or an act of rebellion.
+
+This is not an unplanned walkout. It is a structured format mechanic: every contestant has one "right of refusal" per season, which they can deploy to decline any brand offer without facing elimination. The mechanic is announced in the show's promotional materials before the season begins.
+
+### Why This Mechanic Changes Every Scene It Has Not Yet Appeared In
+
+Once audiences know any contestant could decline a brand offer, every brand offer becomes more dramatic — because viewers are watching for two outcomes instead of one. Will the brand choose this creator? And if they do, will the creator choose them back? The power asymmetry that defines most competition formats is replaced by a genuine bilateral negotiation, which is a more accurate representation of how the creator economy actually works at its most sophisticated level.
+
+The mechanic also teaches a business lesson no creator economy content has ever dramatized effectively: the best deal of your career might be the one you decline, because accepting the wrong partnership at the wrong time can define you in ways that damage future opportunities. That lesson, dramatized live on camera, is more valuable than any podcast episode or YouTube tutorial.
+
+### Implementation Framework
+
+**The Rulebook:** Add an explicit provision to the show's official rules, announced in Episode 1: any contestant may decline one brand offer per season without elimination. The refusal is permanent — the same brand cannot return with a different offer to the same contestant in the same season.
+
+**The Cascade:** If a contestant uses their refusal, the brand immediately redirects to the next-highest AI match score contestant, creating a live cascade drama moment. Viewers watch in real time as the brand recalibrates.
+
+**The AI Analysis:** After the refusal, the DealStage AI analyzes the decision: what was the objective data quality of the declined deal? Did the contestant make a correct or incorrect business decision by the numbers? This creates the show's most interesting recurring analytical moment — the machine's verdict on a human decision the machine cannot fully understand.
+
+**The Promotional Identity:** Market this mechanic explicitly and early: "On The Deal Stage, creators have the power to say no." This single line changes the show's perceived power dynamic for potential contestants, potential viewers, and potential brand partners simultaneously.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+## [NEW] 5.5 — The AI Match Score Visualization: Designing the Show's Most Iconic Moment
+
+### Concept Overview
+
+The AI match score reveal is the show's defining dramatic moment — the equivalent of the rose ceremony, the steamer trunk opening, or the elimination chair. But as currently described, the visualization is generic: spinning data wheels, percentage builds, and color-coded compatibility breakdowns that could belong to any data-driven competition show.
+
+The recommendation is to invest $150,000 to $250,000 in a custom AI match score visualization sequence — a branded 3-to-5-second animation with its own sonic signature — designed specifically for social media velocity. Every time the score appears on screen, it should provoke an instinctive reaction. Viewers should want to screenshot it, post it, talk about it. That only happens if the design is extraordinary, not merely functional.
+
+### The Social Media Standard for Iconic Visual Moments
+
+Squid Game's visual identity — the shapes, the colors, the guards — became globally recognizable within 72 hours of the show's premiere. The rose ceremony has been parodied, referenced, and recreated more than any other single moment in reality television history. The common architecture of iconic competition moments: a specific visual sequence, a specific sound, and a reveal beat that the audience knows is coming but cannot resist watching anyway.
+
+The Deal Stage's equivalent is the match score reveal. The difference between a functional reveal and an iconic one is approximately $200,000 in design investment and the willingness to test aggressively before committing.
+
+### Implementation Blueprint
+
+**Step 1 — Studio Selection:** Hire a motion graphics studio with direct streaming competition experience. The benchmark quality target is the team behind Squid Game's title sequence or the comparable work on The Crown's visual identity system.
+
+**Step 2 — Integrated AV Design:** Commission the visualization and the sonic signature simultaneously as a single unified creative brief. The visual and the sound are not two separate elements — they are one moment. They must be designed together or they will not feel inevitable together.
+
+**Step 3 — Concept Development and Testing:** Generate 10 concept directions, narrow to 3 finalists, and test with focus groups of 22-to-35-year-olds before committing. The winning design should provoke a visceral reaction — not just comprehension. If focus group participants describe it as "interesting," it is not the one. If they reach for their phones to record it, it is.
+
+**Step 4 — Trademark the Sequence:** Register the visual sequence as a trademark before the show premieres. Every time the score appears — on the show, in marketing materials, in press coverage — it reinforces a protected brand asset.
+
+**Step 5 — The Teaser Strategy:** In the first wave of promotional marketing, release only the sound of the reveal — not the visual. Create anticipation for the full sequence through audio alone. The first time audiences see and hear the complete reveal is Episode 1, making the reveal itself a premiere event within the premiere.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.6 — The Hall of Deals: A Post-Season Documentary One Year After Filming
+
+### Concept Overview
+
+Twelve months after Season 1 films, a 60-minute documentary follows all twelve contestants to find out what actually happened: which deals lasted, which fell apart, which contestants went on to close the biggest deals of their lives, and whether the DealStage AI's predictions proved accurate. This special — planned from the outset as part of the original production budget and rights negotiation — is both a standalone content property and the most powerful marketing vehicle the show has ever produced.
+
+### The Proof-of-Concept Problem This Solves
+
+Competition shows make promises they almost never return to verify. The Voice promises career-launching outcomes; its follow-up coverage of contestants' actual careers is minimal and selective. Shark Tank's most interesting content — what actually happened to the deals — lives almost entirely in fan-produced YouTube compilations rather than official programming. The Hall of Deals is the official answer to the question every viewer of every competition show has always asked: did it actually work?
+
+If DealStage is genuinely transforming careers — as the show's core premise claims — the 12-month follow-up is the proof. And proof, documented and distributed as a premium special, is worth more than any advertising campaign the company could run.
+
+### Implementation Blueprint
+
+**Contractual Foundation:** Include a provision in every contestant's Season 1 contract requiring participation in a 12-month follow-up interview. This is not optional and is discussed transparently during casting so contestants understand the full commitment.
+
+**Production Budget Integration:** Plan the follow-up documentary as part of the original production budget discussion. Negotiate streaming rights for the special simultaneously with the original series deal — position it as "Episode 11" or as a companion special at the same tier as the main series.
+
+**Data Backbone:** Track all twelve contestants' DealStage platform activity post-show. Their real deal data — what they closed, what they declined, what the AI recommended and whether they followed it — is the structural spine of the documentary. The human stories are built around the data, not despite it.
+
+**Authentic Failure Policy:** If contestants had negative experiences post-show — deals that fell apart, partnerships that damaged their brand, AI recommendations that proved wrong — include those experiences honestly. The authenticity is the value. A documentary that only shows winners is not a Hall of Deals; it is a marketing brochure.
+
+**Release Timing:** Premiere the special exactly 12 months after Season 1's debut. The timing simultaneously serves as a one-year anniversary event for Season 1 fans and as the primary promotional engine for Season 2.
+
+**The AI Accuracy Segment:** Dedicate ten minutes of the documentary specifically to the DealStage AI's prediction accuracy: what did it recommend, what happened when contestants followed those recommendations, and what happened when they ignored them. This segment is the platform's most credible sales tool and should be excerpted and distributed separately as a standalone marketing asset.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.7 — The Academic Partnership: Business School Legitimacy for the Show's Expert Panel
+
+### Concept Overview
+
+Formalize a co-branded academic partnership with Harvard Business School, Wharton, or Stanford GSB, where faculty serve as a rotating expert panel on the show — lending brand deal negotiations the intellectual credibility of peer-reviewed business analysis. This is not a product placement or a sponsorship. It is an academic co-production relationship in which real faculty contribute real analytical perspective to real negotiations, in exchange for access to the show's deal data as research material.
+
+### Why Academic Credibility Changes the Show's Press Category
+
+Business school faculty generate a different class of press coverage than entertainment personalities. When a Wharton professor analyzes a brand deal's structure on camera, the story is not "reality TV recap" — it is "business education meets entertainment," which is covered by The New York Times Business Section, Harvard Business Review, and Fast Company rather than Entertainment Weekly. That press coverage reaches a dramatically different audience: brand marketing executives, MBA students, and the investors who fund both.
+
+The Wharton partnership also serves as a recruitment tool. MBA students who are studying marketing, media, and brand management are exactly the enterprise DealStage brand customers the platform needs in Year 2 and beyond. A show that is part of their business school curriculum creates warm leads before those students become decision-makers.
+
+### Implementation Blueprint
+
+**Step 1 — Target Institutions:** Approach the Harvard Business School Division of Research and the Wharton School's Baker Retailing Center. Both have documented interests in creator economy case studies and both have published research in this space that can be cited when initiating contact.
+
+**Step 2 — The Case Study Co-Production Offer:** Offer a co-branded "DealStage Case Study Series" in which each season's most interesting negotiations are developed into published HBS or Wharton case studies. The academic institution gets publishable material; the show gets a citation trail that signals intellectual seriousness.
+
+**Step 3 — Faculty Panel Structure:** Feature two to three faculty members per season as rotating expert commentators. Their role is specific: they analyze the AI match scores from an academic perspective — not what their business instincts say about the deal, but what the academic literature on creator-brand relationships, negotiation dynamics, and market information asymmetry says.
+
+**Step 4 — Research Rights Agreement:** Negotiate rights for faculty to use the show's deal data as research material, with DealStage receiving institutional co-authorship credit on any published research. The data sharing is the most valuable thing DealStage can offer an academic institution; the credibility signal is the most valuable thing the institution can offer DealStage.
+
+**Step 5 — The Fellowship:** Launch a "DealStage x HBS Creator Economy Fellowship" that sponsors one MBA student's annual research into creator economy deal structures. The fellow's research is published; DealStage's sponsorship is acknowledged; the fellowship becomes a recurring annual announcement that keeps the academic partnership in the press.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.8 — The Dark Horse Index: A Secondary AI Prediction Layer That Creates Weekly Debate
+
+### Concept Overview
+
+The Dark Horse Index is a secondary AI score visible within the show's world — a weekly prediction of which contestant is most likely to win the $1M deal based on their platform activity, pitch improvement rate, and brand feedback signals — that is deliberately separated from the brands' stated preferences. When the Index's prediction diverges from what the brands are doing, that divergence is the week's most important content.
+
+### The Sports Betting Architecture Applied to Competition Television
+
+Fantasy sports transformed sports viewership by giving audiences a parallel engagement layer built on predictive data. The most engaged fans of American Idol argued week-to-week about who "should" win based on objective performance metrics versus who the judges were advancing. The Dark Horse Index manufactures that productive disagreement between data and human judgment — but with real AI predictions, not fan speculation.
+
+When the Index says Devon is most likely to win but Spotify chooses Marcus in the episode, audiences spend the week between drops debating who is right. That debate is the social media content that sustains the show between releases — and it is content that costs nothing to produce because the audience produces it.
+
+### Implementation Blueprint
+
+**Feature Build:** Develop the Dark Horse Index as a real, visible feature within the DealStage platform's show-world interface. Contestants can see it. They can see that the AI has a different opinion than the brands. This creates strategic tension within the show's cast in addition to the audience.
+
+**Weekly Publishing Cadence:** Publish the Dark Horse Index on DealStage's website and social channels 24 hours after each episode drops. Frame it as appointment content: "This week's Dark Horse Index is live." Drive weekly return visits with a single, shareable data point.
+
+**End-of-Season Accuracy Audit:** After the finale, conduct a public post-mortem on the Index's accuracy. What percentage of its predictions held? Where was it wrong, and what does that reveal about the limits of AI prediction in human negotiation contexts? This audit is both intellectually honest and a platform marketing asset.
+
+**Season 2 Mechanic Escalation:** In Season 2, introduce the Dark Horse Bet — a contestant can challenge their Dark Horse ranking by voluntarily taking on a harder brand brief than they were assigned. If they succeed, their Index score updates in real time. The bet creates a risk-reward narrative that the Index makes legible to audiences in precise, data-driven terms.
+
+**Impact Rating:** Medium | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.9 — The Spanish-Language Pilot: A Low-Risk International Format Validation
+
+### Concept Overview
+
+Before pitching Version B to ABC or NBC, produce a 6-episode Spanish-language pilot with Telemundo or Univision as a production partner. This pilot validates the format with one of the largest and fastest-growing creator economy audiences in the United States while generating proof-of-concept performance data that changes the English-language network pitch from speculation to evidence.
+
+### The Strategic Case for Spanish-Language First
+
+The Spanish-language creator economy in the US is a massive, underserved market. Neither the creator economy platforms nor the business media properties that cover them have made a serious investment in Spanish-language content that serves this audience's specific creator-brand relationship dynamics. Telemundo and Univision are actively seeking formats that serve their creator-economy-obsessed young audience while connecting to platform subscription businesses.
+
+A successful Spanish-language pilot generates three strategic wins simultaneously. First, it validates the format with real viewership data from a real broadcast partner. Second, it serves an audience that English-language networks cannot reach, creating a competitive moat before competitors have identified the opportunity. Third, it positions DealStage as the creator economy platform for Latino creators — a positioning no competitor currently occupies and one that has measurable commercial value in the brand partnership market.
+
+### Implementation Blueprint
+
+**Step 1 — Partner Approach:** Contact Telemundo's content development division and Univision's creator economy marketing team within 60 days of finalizing the Version B format bible. Both networks have active creator economy programming mandates and neither has a direct equivalent to The Deal Stage's format.
+
+**Step 2 — Brand Partner Adaptation:** Replace the English-language brand partner list with brands that have strong Spanish-language marketing priorities: T-Mobile (which maintains one of the largest Spanish-language advertising budgets in the US), GOYA, Univision's own streaming service ViX, and international brands seeking US Latino market entry. Each of these brands is a stronger DealStage conversion target in this market than the English-language equivalents.
+
+**Step 3 — Miami Production:** Film the pilot in Miami. The document already identifies Miami as a top creator economy market; Miami's bilingual creator community provides the ideal contestant pool for a Spanish-language pilot that does not compromise on creator quality or business sophistication.
+
+**Step 4 — Data Collection for the Network Pitch:** Use the pilot's performance data — viewership, DealStage signups, social engagement, brand partner satisfaction — as the centerpiece of the English-language network pitch deck. The pitch changes from "here is a format we believe in" to "here is a format that delivered these specific results with this specific audience."
+
+**Step 5 — Rights Retention:** Structure the agreement so DealStage retains all international format rights regardless of how the Telemundo deal evolves. The format is the asset; the Telemundo deal is the proof-of-concept mechanism.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 5.10 — Brands on Trial: The Power Reversal Episode
+
+### Concept Overview
+
+Once per season — specifically at Episode 7, after the Comeback episode has restored the contestant count and the final stretch has begun — the show inverts its entire power structure. Instead of creators pitching brands, the five remaining brands still in the competition must pitch the five remaining contestants on why they deserve to be chosen. The contestants vote. The AI runs in the background and its scores are revealed after the contestants have committed — creating a data layer on top of the human decision that reframes everything the audience just watched.
+
+### Why Format Inversions at Episode 7 Are Television's Most Reliable Engagement Spike Tool
+
+Great competition shows introduce format innovations at precisely the moment audiences have mastered the rules — the twist creates fresh tension using the same cast and set. The Deal Stage's Episode 4 Team Challenge and Episode 6 Comeback already demonstrate this instinct for format variation. Brands on Trial takes it further: it makes explicit what every sophisticated creator economy viewer already knows but no show has ever dramatized — creators have power, not just brands.
+
+The brands' pitches reveal their actual creative desperation in a way their polished marketing never would. Audiences who have spent six episodes watching brands choose creators will be electrified by watching brands fight for creator attention. The format shift does not require new production infrastructure, new cast members, or additional budget — it requires only that the show trust its format enough to invert it.
+
+### Implementation Framework
+
+**The Rules:** Brands are given 48 hours to prepare a 3-minute pitch explaining why the remaining contestants should choose to partner with them. They may use any resource except the DealStage platform, which is withheld from them for this episode specifically — creating an honest playing field that demonstrates, through absence, what the platform normally provides.
+
+**The Vote:** Contestants vote by ranking all five brands in order of preference. The brand that receives the lowest overall ranking from the majority of contestants cannot make deal offers in the following episode. Their absence from Episode 8 creates immediate narrative consequences for the contestants whose optimal AI match scores were with that brand.
+
+**The AI Reveal:** After contestants have voted and committed, the DealStage AI reveals what its scores would have recommended. Did the contestants' votes align with the data? Where they diverged, why? This creates the show's most sophisticated analytical moment — a direct comparison between human judgment based on brand pitches and AI judgment based on objective match data.
+
+**The Marketing Identity:** Develop a dedicated promotional trailer for this episode: "For one week, the brands have to earn it." Release it one week before Episode 7 drops. The format inversion is marketed as an event within the season, not merely an episode.
+
+**Long-Term Format Value:** In Season 2, advance the Brands on Trial episode to Episode 6 and add a public component: the brands' pitches are published on DealStage's social channels in edited form before the episode airs, allowing the DealStage community to predict the contestants' votes. This creates a pre-episode engagement event that drives same-day viewership.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+_Strategic enhancements section completed: March 20, 2026_
+_Source: STRATEGIC_SUGGESTIONS_DOCS_5_8.md — All 10 suggestions for Document 5 applied in full._
+
 The resulting deal brief — constructed entirely by audience vote — is presented to all remaining contestants with the same competitive structure as every other episode. The twist: contestants know this deal was designed by their audience, which creates a distinct emotional dynamic. They are not just pitching to a brand — they are pitching to the people who built the brief for them.

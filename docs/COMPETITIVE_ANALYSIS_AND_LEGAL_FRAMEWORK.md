@@ -2533,3 +2533,379 @@ Any version of the show that involves European contestants, European viewers acc
 _Review completed: March 20, 2026_
 _Next review recommended: Prior to first international licensing negotiation or after any significant US/international regulatory changes_
 _Reviewed by: Senior Business Analyst, DealStage Strategic Planning_
+
+---
+
+# [NEW] STRATEGIC ENHANCEMENTS — Applied March 20, 2026
+
+_The following sections apply all 10 strategic suggestions from STRATEGIC_SUGGESTIONS_DOCS_9_12.md. All new content is marked with [NEW] prefix. No existing content has been modified or deleted._
+
+---
+
+## [NEW] Suggestion 11.1 Applied: Inverse Shark Tank Positioning Framework
+
+**One-Line Pitch for Production Companies, Agents, and Network Executives**
+
+Every development executive, agent, and network programmer knows Shark Tank. The natural first question about DealStage is "how is this different from Shark Tank?" Having a prepared, elegant answer that acknowledges the comparison while establishing the differentiation is not just useful — it is necessary for anyone championing the show internally.
+
+**Three Candidate Positioning Lines — Test All Three:**
+
+**Option A:**
+_"Shark Tank shows entrepreneurs asking for money. The Deal Stage shows creators earning it — with the data to prove they deserve it."_
+
+**Option B:**
+_"Shark Tank is about investment. The Deal Stage is about partnership — and the AI that makes the right partnership undeniable."_
+
+**Option C:**
+_"In Shark Tank, five investors decide who succeeds. In The Deal Stage, the data decides who's ready — and thirty-two AI agents make the case."_
+
+**Testing Protocol:** Share all three with five people who know Shark Tank well — specifically people with development, production, or brand marketing backgrounds. Ask: "If you were pitching this to your boss in one sentence, which version would you use?" The answer determines which line goes into the pitch deck, the pilot treatment, and every verbal pitch.
+
+**Position in the Competitive Analysis:**
+Add this framework as a standalone section titled "Our Position in the Format Landscape" immediately before the competitor table. This framing must be consistent across the pitch deck, the pilot treatment, and this competitive analysis document. Any champion at a production company or network will need this line ready before the internal greenlight meeting. Give them the language.
+
+---
+
+## [NEW] Suggestion 11.2 Applied: Failure Mode Analysis for Each Competitor
+
+**Why Each Show Failed — And Why DealStage's Architecture Prevents the Same Failure**
+
+The competitive analysis correctly identifies why historical shows failed. This section adds the second column every production company executive is actually asking: "Could that happen to DealStage?"
+
+**Failure Mode Analysis Table:**
+
+| Show                                    | Core Failure Mode                                                                            | DealStage Prevention Architecture                                                                                                                                                                                                                                                                             |
+| --------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Opportunity Knocks                      | Format confusion — viewers could not understand what they were watching in the first episode | DealStage's format is legible in one sentence: "Creators pitch brands with real AI scoring and walk away with real deals or nothing." The circular progress ring is a visible, repeatable format mechanic that anchors viewer understanding from the cold open.                                               |
+| The Apprentice (decline)                | Tasks became increasingly contrived; business outcomes were not real                         | Every deal reached on The Deal Stage is a legally binding contract executed through DealStage's platform infrastructure during filming. The business outcomes are real by construction. The format collapses without real deals — the architecture enforces authenticity.                                     |
+| The Profit (limited scale)              | Format dependent on one personality; difficult to franchise and expand                       | DealStage's format mechanic (AI match scoring) is platform-dependent, not host-dependent. The show can run with different hosts in different markets while the AI scoring engine remains constant. The IP is the system, not the person.                                                                      |
+| Make Me a Millionaire Inventor          | Contestants were not the audience's proxy; viewers could not imagine themselves in the role  | DealStage's contestant pool is the exact audience watching the show — working creators who have social media followings and have never closed a significant brand deal. Every viewer is two years away from being on that stage. The proxy identification is direct.                                          |
+| Shark Tank near-cancellation (Season 1) | Product pitches were too dry; investors held all the power and contestants were supplicants  | The Deal Stage's power dynamic is inverted. Creators are not asking brands for money. Brands are competing to partner with proven creators the AI has identified as undervalued. The structural power dynamic — the creator has the audience, the brand needs access to it — reverses the Shark Tank dynamic. |
+
+**The Override Moment as Active-vs-Passive Differentiator:**
+Opportunity Knocks and similar formats failed partly because the audience was passive — watching outcomes without being asked to engage with decisions. The Override Moment format beat converts the audience into active participants: every episode gives the audience a decision to debate. "She took the 74% match over the 92%. Was she right?" is a social media post. "She walked away with a brand deal" is not. The active-engagement mechanic is designed to prevent the passive observation problem that killed multiple competitor formats.
+
+---
+
+## [NEW] Suggestion 11.3 Applied: Format IP Protection — Foundation of the Legal Strategy
+
+**New Section 1: Format Intellectual Property Protection**
+
+_(Elevated from buried recommendation to lead section of the legal framework)_
+
+DealStage's most valuable single asset is its format IP. The platform can eventually be copied by a well-capitalized competitor. The content can be replicated with sufficient investment. The format — specifically the AI Match Score reveal as a competitive mechanic, the three-sided contestant/brand/agency structure, and the real-deals-on-camera architecture — is the IP that cannot be legally copied once properly registered and documented.
+
+**Format IP Protection Checklist — Immediate Actions:**
+
+| Protection Method                      | Cost              | Timeline          | Action Required                                                                                                                                                                                                                      |
+| -------------------------------------- | ----------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| WGA Format Registration                | $25               | 20 minutes        | Register all format documentation immediately — before any external pitch                                                                                                                                                            |
+| FRAPA Registration                     | $500-2,000        | 1-2 weeks         | Register with the Format Recognition and Protection Association (international body for TV format IP)                                                                                                                                |
+| Copyright Registration                 | $65 per work      | 3-5 days (online) | Register pilot treatment, sizzle reel script, and judge character bible as literary works                                                                                                                                            |
+| Timestamp Documentation                | $0                | Ongoing           | Maintain version-controlled document history with timestamps on all format development materials; store in a documented repository                                                                                                   |
+| Entertainment IP Attorney Consultation | $2,000-5,000      | 2-4 weeks         | Assess patent eligibility of the AI Match Score algorithm as a competitive mechanic; assess trade dress protection for the scoring visualization                                                                                     |
+| Development Agreement Reversion Clause | $0 (legal review) | Per deal          | Every production company development agreement must include a reversion clause returning all show concepts to DealStage IP if the agreement is terminated — standard in sophisticated IP deals, often missed by first-time producers |
+
+**Total Estimated Format Protection Cost at This Stage:** $5,000-$25,000
+
+**What This $5,000-$25,000 Protects:** A format IP asset with a potential licensing value of $100M+ across domestic broadcast, international format adaptation, and streaming platform rights. The ROI on format protection at this stage is not a calculation. It is a requirement.
+
+**The Elements That Are Protectable:**
+
+1. **The AI Match Score Reveal as a Competitive Mechanic** — The specific format architecture in which an AI-generated compatibility score is revealed to a contestant as a competition mechanic, in real time, on camera, with judges present, is a protectable format element. No prior television format has used this specific mechanic.
+
+2. **The Three-Sided Competition Structure** — The simultaneous competition involving Brand partners (as prize providers), Talent (as contestants), and Agency (as strategic advisors) in a single format is a protectable structural innovation. Standard competition formats are two-sided (contestant vs. judges). DealStage's three-sided structure is distinctly registrable.
+
+3. **The Real Deals on Camera Architecture** — The format mechanic in which legally binding contracts are executed during filming, through a live platform integration, is a protectable production architecture with no direct historical precedent.
+
+4. **The Override Moment Format Beat** — The specific recurring narrative beat in which a contestant explicitly chooses between the AI's highest-scored recommendation and a personally-motivated lower-scored alternative, with the outcome revealed within the same episode, is a protectable format element.
+
+**Reversion Clause Language (Standard):**
+_"In the event this Development Agreement is terminated for any reason, all format concepts, show treatments, pitch materials, and intellectual property developed by [Production Company] under this agreement shall immediately revert to DealStage and shall be the sole and exclusive property of DealStage. Production Company shall execute any documents necessary to confirm such reversion within five (5) business days of termination."_
+
+**Instruction:** This clause must appear in every development agreement before signature. It protects the IP in the scenario that matters most: a development deal that goes cold after a production company has spent months developing the format using DealStage's concepts.
+
+---
+
+## [NEW] Suggestion 11.4 Applied: Tiered Pitch Package Strategy
+
+**Three Versions of the Pitch — One for Each Audience**
+
+A production company cares about development terms, IP ownership, and co-production economics. A broadcast network cares about advertising CPM, live appointment viewing, and demographic profile. A streaming platform cares about subscriber acquisition, international adaptation, and algorithm performance. Sending the same package to all three is a missed opportunity.
+
+**Pitch Customization Guide:**
+
+---
+
+**Package A: Production Company Development Meeting**
+
+_Emphasis:_
+
+- Format IP ownership structure (DealStage retains all format IP; production company receives packaging fee and co-production credit)
+- DealStage's existing platform infrastructure as production infrastructure (the escrow system, contract execution, and AI matching engine are built — the show does not need to build fake versions of these elements)
+- Co-production economics: DealStage brings the platform, the IP, the creator community, and the brand partner pipeline; the production company brings production infrastructure and distribution relationships
+- Development terms: format reversion clause is non-negotiable; DealStage maintains final approval on all materials that use the DealStage name or platform UI
+
+_Lead Slides:_ Pilot Treatment (format mechanic); Competitive Analysis (Inverse Shark Tank positioning); Financial Model (production cost structure and co-production split)
+
+_What to Minimize:_ Network deal terms (these are post-attachment negotiations). Do not discuss streaming deal size until a production company partner is attached.
+
+---
+
+**Package B: Broadcast Network Executive**
+
+_Emphasis:_
+
+- Live audience potential: Deal Stage Live format validation on YouTube Live before network pitch (see Document 12)
+- Advertising CPM opportunity: the DealStage audience is a premium B2B audience — brands spending $500K+ on creator deals are exactly the audience CMOs want to reach through TV advertising
+- Weekly appointment viewing habit: the live deal execution mechanic creates weekly "did they get the deal?" social media conversation that drives tune-in
+- Demographic profile: primary 25-44, high household income, decision-maker roles in brand marketing — a demographic every major broadcast advertiser is currently paying a premium to reach
+
+_Lead Slides:_ Why Now (2026 confluence); Transaction Fee Story (the fintech angle that differentiates this from standard advertising); Live Format Validation Data (from YouTube Live test episodes)
+
+_What to Minimize:_ Platform SaaS metrics (a network executive is not evaluating the SaaS business; they are evaluating the show). Keep platform context to one slide — "the platform is real, the deals are real, the infrastructure exists."
+
+---
+
+**Package C: Streaming Platform Executive**
+
+_Emphasis:_
+
+- International format adaptation potential: the AI matching engine operates on platform API data that is globally available — the format adapts to any market with an established creator economy
+- Subscriber retention mechanics: a show where deals are executed in real time creates content that is irreplaceable on-demand viewing — "I need to see what happens with Marcus" is a rewatch behavior driver
+- Binge-ability of the 10-episode limited series format: the season arc is structured around a question that resolves only in the finale; the format rewards watching multiple episodes
+- Algorithm performance: creator economy content is consistently over-indexed in streaming algorithm recommendation — the format's native digital audience is already on the streaming platform
+
+_Lead Slides:_ Season Arc Overview; Pilot Treatment (demonstrate binge-ability); International Licensing Potential (territory checklist); Platform-to-Content Flywheel (show the subscriber acquisition story)
+
+_What to Minimize:_ Broadcast network arguments (appointment viewing, live format, advertising CPM are broadcast arguments that don't land with streaming executives). Focus entirely on on-demand binge behavior and subscriber acquisition.
+
+---
+
+## [NEW] Suggestion 11.5 Applied: Platform Competitive Landscape Analysis
+
+**Expanding the Competitive Analysis Beyond TV Format Competitors**
+
+The competitive analysis currently addresses TV format competitors. Any investor conducting Series A diligence will immediately examine the platform competitive landscape. This section provides the prepared answer.
+
+**Platform Competitor Comparison — Five Key Dimensions:**
+
+| Competitor    | AI Matching Sophistication                                    | Three-Sided Marketplace (Brand + Talent + Agency)                    | Deal Execution Infrastructure                                        | Media Ecosystem                                      | Data Moat                                                         |
+| ------------- | ------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------- |
+| AspireIQ      | Basic keyword and category matching                           | Two-sided only (Brand + Creator)                                     | No escrow; no binding contract execution                             | No media ecosystem                                   | Limited to platform transaction history                           |
+| Creator.co    | Algorithm-assisted, not AI-native                             | Two-sided only                                                       | No binding deal execution                                            | No media ecosystem                                   | Campaign performance data only                                    |
+| Grin          | CRM-focused matching; manual outreach                         | Two-sided only                                                       | No escrow; standard email contract                                   | No media ecosystem                                   | Brand's own campaign data                                         |
+| Influencer.co | Category and follower-count matching                          | Two-sided only                                                       | No binding deal architecture                                         | No media ecosystem                                   | Limited platform data                                             |
+| **DealStage** | **32-agent AI orchestration; proprietary deal data training** | **True three-sided: Brand + Talent + Agency with cross-referencing** | **Escrow, binding contracts, live deal execution — platform-native** | **TV show, YouTube series, podcast — 18 properties** | **Grows with every transaction; compounding advantage over time** |
+
+**Why Platform Competitors Cannot Build the Media Ecosystem:**
+
+AspireIQ does not have a TV show format because they do not have an entertainment production strategy. Building one now would require competing with DealStage's established media presence, which — by the time they commit resources — will be 2-3 years ahead in audience development, brand relationships, and format IP protection.
+
+The media-as-moat argument applies in the opposite direction to each competitor: their core competency is platform operations, not content production. Crossing from platform operations into entertainment production requires organizational capabilities that their investor bases, engineering teams, and product roadmaps are not structured to support. DealStage built both simultaneously because the architecture demands it.
+
+**The Compounding Data Moat:**
+Every deal closed on the DealStage platform — the brand category, the deal terms, the creator's audience data at the moment of the deal, the post-deal performance — trains the AI matching engine. Platform competitors starting today start with zero deal history. DealStage's matching engine is already trained on real transaction data. This gap widens with every transaction. The data moat is not a feature. It is the product.
+
+---
+
+## [NEW] Suggestion 11.6 Applied: First Mover Window — The Urgency Argument
+
+**A Time-Pressure Framework for Production Company Champions**
+
+Production companies are notoriously slow to move. Standard development timelines run 8-12 weeks from pitch meeting to decision, and many pitches sit in limbo for 6-12 months. This section gives champions within the production company the factual urgency argument they need to justify a faster internal decision.
+
+**The First Mover Window — Approximately 24 Months From March 2026:**
+
+**Factor 1: Creator Economy Growth Rate — 32% Annual**
+Every month of development delay allows a competitor with capital and awareness of the opportunity to begin platform development. At 32% annual growth in creator economy transaction volume, the total addressable market is materially larger in 18 months than it is today. First-mover platform advantages — brand awareness, creator relationships, brand partner contracts — are time-locked. They do not transfer to the company that moves second.
+
+**Factor 2: Deal Database Compounding — The Competitor Starts at Zero**
+DealStage's proprietary deal database grows with every platform transaction. A competitor that decides to enter this market in 12 months begins with zero deal history, zero creator-brand relationship data, and zero transaction intelligence to train their AI matching engine. The gap between DealStage's training data and a competitor's starting point widens every month. The first-mover data advantage is the most durable competitive advantage available in a platform business.
+
+**Factor 3: The Competitor Vector — Named Specifically**
+The most likely threat vector for a competitive format is not a startup. It is a well-funded media company that recognizes the opportunity after seeing DealStage's early traction:
+
+- **Candle Media (Blackstone-backed):** Has the capital and content distribution appetite to back a competitive format within 12-18 months of seeing proof of concept
+- **Buzzfeed Studios:** Has the creator economy credibility and digital audience to launch a competitive YouTube-native format
+- **Electus (now part of FremantleMedia):** Has the unscripted production infrastructure to replicate the format architecture
+- **A streaming platform's internal development team:** Netflix, Hulu, or Amazon could commission a format that mimics the Deal Stage mechanic with their own creator relationships
+
+None of these organizations have moved yet. DealStage's window is open. The question for any production company considering the pitch is not "should we develop this?" — it is "what happens to our ability to develop this if a Candle Media deal gets announced in six months?"
+
+**The Statement for Internal Champion Use:**
+"The question is not whether this format will be made. It will be made. The creator economy is too large, the format innovation is too clear, and the timing is too right for this not to exist. The question is whether it is made by DealStage — with its platform infrastructure, its creator community, and its data moat — or by a well-funded competitor who recognized the opportunity six months after we did. That is the only decision this conversation is actually about."
+
+---
+
+## [NEW] Suggestion 11.7 Applied: International Legal Checklist
+
+**One-Page Pre-Negotiation Checklist for Each of the Top Five International Markets**
+
+International licensing deals fail most often not on creative terms but on legal compliance surprises that surface midway through negotiation. This checklist surfaces compliance requirements proactively.
+
+**TOP 5 INTERNATIONAL MARKETS — PRE-NEGOTIATION LEGAL CHECKLIST**
+
+---
+
+**UNITED KINGDOM**
+
+| Checklist Item                 | Requirement                                                                                                                            | Estimated Cost                         | Estimated Timeline      |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------------------- |
+| Regulatory Authority           | Ofcom (Office of Communications)                                                                                                       | —                                      | —                       |
+| Prize Competition Registration | Gambling Commission review for prize formats above £500; AI scoring format may require consultation on "game of chance" classification | £2,000-5,000 (legal)                   | 4-6 weeks               |
+| Data Protection Compliance     | UK GDPR (post-Brexit framework); ICO registration required; separate from EU GDPR but substantively similar                            | £5,000-15,000 (audit)                  | 6-8 weeks               |
+| Talent Contract Requirements   | PACT (Producers Alliance for Cinema and Television) collective agreement compliance for on-camera talent                               | Per contract (entertainment solicitor) | Per deal                |
+| Broadcaster Relationships      | BBC, ITV, Channel 4, Sky (streaming)                                                                                                   | —                                      | —                       |
+| Estimated Compliance Cost      | £8,000-25,000                                                                                                                          | —                                      | 6-10 weeks pre-contract |
+| **Legal Counsel Required**     | UK entertainment solicitor with Ofcom regulatory experience                                                                            | —                                      | —                       |
+
+---
+
+**CANADA**
+
+| Checklist Item                 | Requirement                                                                                                                            | Estimated Cost                       | Estimated Timeline |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------ |
+| Regulatory Authority           | CRTC (Canadian Radio-television and Telecommunications Commission)                                                                     | —                                    | —                  |
+| Prize Competition Registration | Provincial lottery and gaming authorities; federal no-purchase-necessary rules apply                                                   | CAD 2,000-5,000                      | 3-4 weeks          |
+| Tax Credit Eligibility         | Canada-US Television Co-Production Treaty; Canadian Content (CanCon) points system; 35% federal + provincial credits on eligible costs | Requires co-production certification | 8-12 weeks         |
+| Data Protection Compliance     | PIPEDA (Personal Information Protection and Electronic Documents Act) for federal; provincial equivalents in BC, AB, QC                | CAD 3,000-8,000 (audit)              | 4-6 weeks          |
+| Broadcaster Relationships      | Rogers (Citytv), Bell (CTV), CBC, Crave (streaming)                                                                                    | —                                    | —                  |
+| **Legal Counsel Required**     | Canadian broadcast regulatory counsel with co-production treaty experience                                                             | —                                    | —                  |
+
+---
+
+**AUSTRALIA**
+
+| Checklist Item                 | Requirement                                                                                                                                                                                   | Estimated Cost                          | Estimated Timeline                     |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------------------------------- |
+| Regulatory Authority           | ACMA (Australian Communications and Media Authority)                                                                                                                                          | —                                       | —                                      |
+| Prize Competition Registration | Must register with state-level authorities: NSW Fair Trading, Consumer Affairs Victoria, Office of Liquor and Gaming Regulation QLD; major prizes require separate registration in each state | AUD 3,000-8,000                         | 6-8 weeks (NSW can be 6-8 weeks alone) |
+| Tax Rebate Eligibility         | Australian Screen Production Incentive: 20% Location Offset for qualifying productions; additional 40% for Australian content                                                                 | Requires Screen Australia certification | 8-12 weeks                             |
+| Data Protection Compliance     | Privacy Act 1988 (Cth); Australian Privacy Principles; separate from GDPR but requires comparable documentation                                                                               | AUD 5,000-12,000 (audit)                | 4-6 weeks                              |
+| Broadcaster Relationships      | Nine Network, Seven Network, Ten (Paramount+), ABC, Foxtel                                                                                                                                    | —                                       | —                                      |
+| **Legal Counsel Required**     | Australian entertainment lawyer with ACMA and state-level prize regulation experience                                                                                                         | —                                       | —                                      |
+
+---
+
+**GERMANY**
+
+| Checklist Item                 | Requirement                                                                                                                                           | Estimated Cost                      | Estimated Timeline |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------ |
+| Regulatory Authority           | KEK (Commission for the Determination of Concentration in the Media Sector); state media authorities (Landesmedienanstalten)                          | —                                   | —                  |
+| Prize Competition Registration | Glücksspielstaatsvertrag (Interstate Gambling Treaty) review; competition formats with material prizes require state authority consultation           | €3,000-8,000 (legal)                | 6-10 weeks         |
+| Data Protection Compliance     | EU GDPR in full; BfDI (Federal Commissioner for Data Protection) oversight; German data protection law has historically been stricter than EU minimum | €10,000-25,000 (GDPR audit)         | 8-12 weeks         |
+| Talent Contract Requirements   | Tarifvertrag (collective agreement) compliance for all on-camera talent; VDD (Association of German TV Directors) standards                           | Per contract (Medienrecht attorney) | Per deal           |
+| Broadcaster Relationships      | ARD, ZDF, RTL, Pro7, Sat.1, Joyn (streaming)                                                                                                          | —                                   | —                  |
+| **Legal Counsel Required**     | German Medienrecht (media law) specialist with Rundfunkrecht (broadcasting law) experience                                                            | —                                   | —                  |
+
+---
+
+**INDIA (Recommended 5th Market)**
+
+| Checklist Item                 | Requirement                                                                                                                                | Estimated Cost                               | Estimated Timeline          |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- | --------------------------- |
+| Regulatory Authority           | MIB (Ministry of Information and Broadcasting); BARC for ratings measurement                                                               | —                                            | —                           |
+| Prize Competition Registration | Prize Competition Act 1955; state-level lottery regulation applies differently across states                                               | INR 50,000-150,000 (legal)                   | 4-6 weeks                   |
+| Data Protection Compliance     | Digital Personal Data Protection Act 2023 (DPDP Act) — newly enacted; compliance framework still developing; consent architecture required | INR 200,000-500,000 (audit)                  | Ongoing; framework evolving |
+| Talent Contract Requirements   | Film Federation of India standards for on-camera talent; separate standards for digital-native creators                                    | Per contract (Indian entertainment attorney) | Per deal                    |
+| Creator Economy Scale          | 550M+ internet users; 150M+ active content creators; second-largest creator economy globally                                               | —                                            | —                           |
+| Broadcaster Relationships      | Star Network (Disney), Zee Entertainment, Sony LIV, Netflix India, Amazon Prime India                                                      | —                                            | —                           |
+| **Legal Counsel Required**     | Indian entertainment attorney with DPDP Act and broadcasting law experience; Mumbai or Delhi-based preferred                               | —                                            | —                           |
+
+**Instruction:** Attach the relevant country checklist to the first formal discussion with any international licensing prospect. It signals operational readiness and builds trust with international partners who frequently deal with US producers who arrive without knowledge of local compliance requirements.
+
+---
+
+## [NEW] Suggestion 11.8 Applied: Creator-Native Management Company Strategy
+
+**Elevated to Primary Strategic Priority — Night Media, Select Management, and Comparable Firms**
+
+Creator-native management companies are the fastest path to three critical resources simultaneously: pre-qualified show contestants with proven track records, brand partners who already trust the management company's judgment, and industry advocates who will actively recommend DealStage's platform to their full client roster.
+
+**Why Creator Management Firms Move Faster Than Traditional Agencies:**
+WME and CAA have 18-24 month relationship development timelines. Night Media and Select Management make decisions in 4-6 weeks. The near-term relationship priority is clear.
+
+**Creator Management Outreach Plan — Five Primary Targets:**
+
+| Firm                             | Key Decision-Maker (Public) | Firm Profile                                                                                    | DealStage Pitch Angle                                                                                                                                                                              | 30-Day Target Action                                                     |
+| -------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Night Media                      | Reed Duchscher (CEO)        | MrBeast's management company; full-service creator management for top 100M+ subscriber creators | "We want to feature two Night Media clients in Season 1 of our YouTube series, and we are building a platform that solves the exact deal infrastructure problem your business is built to manage"  | Email introduction through creator industry mutual connection            |
+| Select Management Group          | Matthew Gilman (CEO)        | Manages major gaming and lifestyle creators including Ninja; strong brand deal volume           | "Your clients are exactly the profile our AI matching engine was built for — established audiences, undervalued in the brand deal market. We want to prove it with data before we pitch anything." | Request a data demonstration meeting using a Select client's public data |
+| Slash Management                 | Abe Bahrani (Partner)       | Gaming and esports-adjacent creator management                                                  | Strong brand deal infrastructure; overlap with DealStage's gaming creator user segment                                                                                                             | Pitch priority: agency subscription tier access                          |
+| Shots Studios / Shots Management | John Shahidi (CEO)          | Mid-tier creator management with strong brand relationship network                              | High volume of creator-brand deals; DealStage platform directly reduces their administrative overhead                                                                                              | Platform demo for agency team                                            |
+| Gleam Futures (UK)               | Dominic Smales (Founder)    | UK's largest creator management company; strong YouTube and Instagram creator roster            | Entry point for UK market development; Gleam clients are the natural pilot for international format expansion                                                                                      | UK market priority contact                                               |
+
+**DealStage Value Proposition for Each Firm:**
+
+1. **Platform Access:** Preferred agency subscription rate for their full client roster — every creator they manage gets access to the AI matching engine at a negotiated group rate
+
+2. **First Access to Brand Opportunities:** Brand partners using DealStage's matching engine surface creator recommendations before those recommendations are available on any other platform; Night Media and Select Management creators see these opportunities first
+
+3. **Co-Production Credit:** Any YouTube episode featuring their talent includes a "talent partner" credit for the management company — this is marketing value for the firm with no production cost to DealStage
+
+4. **Show Contestant Pipeline:** Management companies who have a formal relationship with DealStage get priority consideration for Season 1 contestant slots — their clients have the best stories, the most documented track records, and the most authentic narratives
+
+**First Relationship as Proof of Concept:**
+The first Night Media or Select Management relationship is the proof of concept for the broader talent agency strategy (WME, CAA, UTA). Document the relationship carefully: how many platform signups came through the management firm's client roster, how many brand deals were facilitated, what the management firm says publicly about the relationship. This documentation is the case study for every subsequent agency conversation.
+
+---
+
+## [NEW] Suggestion 11.9 Applied: Creator Economy Contestant Participation Agreement
+
+**Contestant Contract Template — Creator-Economy Specific**
+
+Standard reality TV contestant contracts were not designed for creator economy participants. A creator whose livelihood is their ongoing content output faces rights questions that a standard contract does not address.
+
+**Creator Economy Contestant Participation Agreement — Key Custom Provisions:**
+
+**Section 1 — Social Media Posting Restrictions During Production:**
+Unlike standard talent restrictions, this section must define posting restrictions by specific content category, not blanket prohibition. A creator who cannot post during production risks losing audience engagement, algorithmic positioning, and brand relationships that are not related to the show.
+
+_Standard provision language:_ "Contestant may not post any content that directly or indirectly references the show, the DealStage platform, other contestants, judges, or brand partners during the Production Blackout Period. Contestant may continue to post content in all other categories without restriction. The Production Blackout Period is defined as [start date] through [first air date]."
+
+**Section 2 — Post-Show Brand Deal Exclusivity Window:**
+_Standard provision language:_ "For a period of [90/180] days following the air date of the episode in which Contestant's participation concludes, Contestant agrees not to enter into brand partnership agreements with any Brand Partner who participated in the season in which Contestant appeared. This exclusivity window applies only to the specific Brands who participated in the show; it does not restrict Contestant from entering brand deals in any other category."
+
+**Section 3 — DealStage Platform Data Rights:**
+This is the most novel provision — no standard contract addresses it because no prior show generated AI match score data as a show mechanic.
+
+_Standard provision language:_ "The AI Match Scores, brand compatibility data, and deal terms generated during Contestant's participation on the show are the property of DealStage and may be used by DealStage for platform training, anonymized research, and internal analytics purposes. Contestant retains the right to use the insights derived from their AI Match Score for their own future deal-making and brand partnership negotiations, provided they do not disclose the specific numeric scores without DealStage's written consent."
+
+**Section 4 — Post-Show Platform Subscription:**
+_Standard provision language:_ "Following the conclusion of Contestant's participation in the show, Contestant will receive a complimentary [12-month] DealStage platform subscription. Contestant is not required to continue using the platform after the complimentary period; the subscription is provided as a benefit of participation, not as a contractual obligation."
+
+**Section 5 — Post-Show Participation Requirements:**
+_Standard provision language:_ "Contestant agrees to participate in up to [3] additional filming days for promotional purposes, to appear in any reunion episode if produced, and to provide [2] social media posts promoting the show's air date. Any additional participation beyond these requirements requires separate compensation negotiation."
+
+**Validation Protocol:** Commission an entertainment lawyer with reality TV experience to draft the full agreement. Share the draft with Night Media and Select Management before finalizing — their input on what terms their clients will and will not accept is essential intelligence before the agreement becomes standard.
+
+---
+
+## [NEW] Suggestion 11.10 Applied: Novel Format Risks — Issues No Historical Show Has Navigated
+
+**"Lessons Not Yet Learned" — Forward-Looking Risk Section**
+
+The competitive analysis excels at extracting lessons from historical shows. But DealStage is doing something none of those shows did, which means there are risks that historical analysis cannot surface. This section identifies format risks unique to DealStage.
+
+**Novel Format Risks — Issues We Are the First to Navigate:**
+
+| #   | Risk Scenario                                                                                                     | Likelihood | Potential Impact                                                 | Preliminary Mitigation Strategy                                                                                                                                                                                                                                                                    |
+| --- | ----------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | AI match score on air differs significantly from what the brand actually wants by filming date                    | Medium     | High — format credibility                                        | Lock brand partner requirements 30 days before filming; re-run AI scores within 7 days of production start using updated platform API data; include contractual provision allowing brand to update preferences within a defined pre-production window                                              |
+| 2   | Brand partner backs out of a deal negotiated on camera before the episode airs                                    | Low        | High — format integrity and legal exposure                       | Escrow funds committed before filming; binding platform agreement executed on camera; production insurance rider for brand default; episode can air regardless of whether the deal ultimately closes — the negotiation is the format mechanic, not the post-production outcome                     |
+| 3   | Contestant's social platform suspends or bans their account between filming and broadcast                         | Low-Medium | Medium — AI score becomes obsolete; contestant's premise changes | AI match scores are locked to the data state at time of filming; the show documents the creator's situation at a point in time; if account suspension occurs before air, legal counsel reviews whether the episode can air with appropriate disclosure                                             |
+| 4   | FTC compliance challenge: a brand deal executed on camera is classified as an undisclosed endorsement             | Low        | High — regulatory exposure for DealStage, brand, and contestant  | All on-camera deal executions include standard FTC disclosure language in the contract; DealStage's deal documentation infrastructure creates the audit trail required for compliance; production lawyers review each deal execution for endorsement disclosure compliance before the episode airs |
+| 5   | Contestant claims they did not understand the AI match score implications and challenges the deal post-production | Medium     | Medium — legal; format credibility                               | Contestant orientation document explains all AI scoring methodology before filming begins; contestant signs acknowledgment of understanding; deal terms are reviewed by contestant's representative (manager or attorney) before execution                                                         |
+| 6   | A brand partner uses their appearance on the show for competitive intelligence about other brands' deal terms     | Low        | Medium — brand trust                                             | All brand deal terms are confidential between DealStage, the brand, and the contestant; non-disclosure provision in brand participation agreement; episode editing reviews deal term disclosure before broadcast                                                                                   |
+| 7   | Platform API access changes (Instagram, TikTok, YouTube) invalidate the AI scoring methodology mid-season         | Medium     | High — format credibility and legal commitments                  | Multi-API redundancy: AI scores are generated from a basket of platform data sources, not a single API; methodology disclosure in contestant materials acknowledges data source limitations; production insurance includes API disruption as a covered force majeure event                         |
+
+**On the Novel Risk Approach — Note for Production Company Partners:**
+This section is shared in the second meeting, not the first. It is a trust-building document for partners who have already decided to explore the relationship. It demonstrates that the DealStage team has mapped the uncharted territory and has a preliminary mitigation strategy for every risk that does not have a historical answer. That is the mark of a team building something genuinely new — not a team copying a format that has been done before.
+
+---
+
+_[NEW] sections applied: March 20, 2026_
+_Source: STRATEGIC_SUGGESTIONS_DOCS_9_12.md — All 10 suggestions for Document 11 incorporated_
+_Existing content: Unchanged and preserved in full_
+_Immediate next action: WGA format registration ($25, 20 minutes) and FRAPA registration (1-2 weeks) — both must be completed before any external pitch meeting (Suggestion 11.3)_

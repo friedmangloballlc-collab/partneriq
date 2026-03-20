@@ -1434,4 +1434,275 @@ Would Thursday or Friday this week work for a call?
 
 _Review completed March 20, 2026. All fixes appended above. Original document content above this review section is unchanged._
 
+---
+
+# [NEW] STRATEGIC ENHANCEMENTS — APPLIED FROM EXECUTIVE REVIEW
+
+_The following sections apply all 10 suggestions from the Senior Entertainment Executive Review (March 20, 2026). Each section addresses a specific recommendation for "The Agency" (Concept C) and "Brand vs. Brand" (Concept D), designed to increase docuseries authenticity, competition format tension, and platform conversion mechanics._
+
+---
+
+## [NEW] 6.1 — Let a Deal Collapse on Camera: The Agency Season 1 Finale Strategy
+
+### Concept Overview
+
+Instead of engineering a satisfying resolution for The Agency Season 1, the production team is instructed to allow one major deal to collapse on camera — with full legal, personal, and professional consequences visible — making the finale's emotional power come from authentic failure rather than manufactured triumph.
+
+This is not a manufactured conflict engineered by production. It is an explicit production policy: do not intervene to save deals for the sake of narrative satisfaction. If a deal is fragile — if a creator's post creates a crisis, if a brand's CMO changes, if an agent makes a recoverable but costly error — the cameras follow the collapse, not a rescue.
+
+### Why Authentic Failure Is Better Television Than Engineered Success
+
+Selling Sunset has run for multiple seasons because viewers trust that the deals are real and the drama is unscripted. The moment a docuseries starts feeling orchestrated — when every season ends with a triumphant close — audiences disengage. The most powerful moment in creator economy business history is not a $10M deal closing; it is a $10M deal collapsing because a creator posted something wrong, a brand's CMO changed, or an agent made a mistake.
+
+That moment, filmed with full access and honest reporting, is the kind of television that wins Emmy nominations, generates thinkpieces in The Atlantic, and creates the word-of-mouth that money cannot buy. The document's Episode 1 cold open already knows this instinct — it opens on a deal falling apart. The recommendation is to make an entire season finale out of that instinct.
+
+### Implementation Framework
+
+**Step 1 — Identify Fragile Deals:** During production, identify two to three deals with genuine risk factors: talent with complicated recent social media history, brands in active leadership transitions, agents managing competing client interests that create unavoidable conflicts. These are not manufactured — they are real structural vulnerabilities present in any active agency operation.
+
+**Step 2 — No Rescue Policy:** Give the production team explicit written instructions: do not flag deal risk to the agency for the purpose of preventing a narrative collapse. The production team's job is documentation, not intervention.
+
+**Step 3 — Follow the Aftermath:** If a major deal collapses in Episode 7 or 8, make the aftermath — not the deal itself — the emotional engine of the finale. Follow the agent's professional recovery. Follow the talent's next move. Follow the brand's internal response. The story after the collapse is richer than the collapse itself.
+
+**Step 4 — Protect the Collapse Narrative in the Streaming Deal:** When negotiating with the streaming partner, include explicit language protecting the failure narrative from network notes that push toward resolution or redemption. This is a deal-term conversation, not an editorial suggestion.
+
+**Step 5 — Season 2 Marketing:** Use the Season 1 collapse as the cornerstone of Season 2 marketing: "This is what really happens." The authenticity of Season 1's failure is the most powerful proof of Season 2's credibility.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+## [NEW] 6.2 — The Rogue Agent: A Season 2 Character Who Builds With DealStage Independently
+
+### Concept Overview
+
+In The Agency Season 2, a new character is introduced who has either left or been fired from the Season 1 agency and uses the DealStage platform independently to build a competing one-person boutique operation. This character's story arc turns the show's spin-off potential into a direct platform acquisition narrative embedded within the parent series.
+
+When a character leaves the agency and builds a business using DealStage, the platform becomes the equalizer — the technology that makes a one-person operation competitive with a 50-person firm. That story converts viewers to DealStage users at a rate that no advertisement can match.
+
+### Implementation Framework
+
+**Step 1 — Season 1 Setup:** During Season 1 casting, identify the cast member with the most demonstrable entrepreneurial ambition and set them on a natural trajectory that creates structural conflict with the agency's institutional culture.
+
+**Step 2 — The Solo Win:** Give this character a Season 1 episode where they close a deal alone — using DealStage to identify and qualify a brand opportunity that the agency's traditional pipeline would have missed. This episode is the proof of individual capability.
+
+**Step 3 — The Departure Tease:** In the Season 1 finale or post-credits sequence, tease the departure without confirming it. Leave the audience asking "Is she leaving?" not "She left."
+
+**Step 4 — Season 2 Crossover Structure:** Follow this character in Season 2 as a recurring crossover — showing the independent DealStage-powered boutique alongside the agency in parallel. Two competing models, same platform. The contrast is the story.
+
+**Step 5 — Spin-Off Development:** Negotiate with the streaming partner for the spin-off — "The Rookie" or equivalent — to be developed simultaneously with Season 2, with the character's real-world platform performance as the proof of concept for the new show's premise.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 6.3 — The Audience Draft: A Three-Way Competition Adding Viewer Participation to Brand vs. Brand
+
+### Concept Overview
+
+In addition to the two competing brands drafting from the talent pool, Brand vs. Brand adds a third "audience draft" where viewers use the DealStage app to select their own optimal creator roster from the same pool. The audience's AI-optimized roster is scored against both brand rosters at the end of each episode — creating a three-way competition where the crowd competes against the professionals.
+
+This is the fantasy sports architecture fully exploited. Every viewer who participates has skin in the game. To participate, viewers must log into DealStage. The competition directly drives platform signups and demonstrates the AI's capabilities in real time, because the audience uses the same scoring model the brands use.
+
+### Implementation Blueprint
+
+**Feature Build:** Develop the "Audience Roster" feature in the DealStage app with a simplified interface: viewers see the same 10 talent profiles shown to the brands and have a 10-minute window to draft their top 5. The interface is designed for first-time users — no existing DealStage knowledge required to participate.
+
+**Scoring Process:** After filming wraps and before the episode airs, run the audience's aggregated draft picks through the same DealStage scoring model used for the brand drafts. This is not a separate algorithm — it is the same one. The comparison is therefore analytically valid.
+
+**The Three-Way Reveal:** At each episode's end, reveal three scores: Brand A's Roster Score, Brand B's Roster Score, and the Audience Roster Score. Did the crowd outperform the professionals? This question drives the episode's final-minutes tension and the social media conversation that follows.
+
+**Season 2 Designation:** In Season 2, episodes where the audience roster outscores both brand rosters receive a "Crowd Wins" designation and are publicized as marketing events — press release, social posts, and a segment on Deal Drops analyzing how the crowd identified what the professionals missed.
+
+**Seasonal Prize:** The viewer with the highest cumulative roster score across a full season wins a featured appearance on an upcoming episode and a free DealStage enterprise subscription for one year.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 6.4 — The Real Agency Partnership: Signing a Genuine Sports and Creator Talent Firm for Season 1
+
+### Concept Overview
+
+Instead of using a "specially assembled boutique" agency as the subject of The Agency Season 1, negotiate with a real, established sports and creator talent agency — Octagon, Excel Sports Management, or Klutch Sports Group — to use their actual operations, actual talent, and real agents as the cast.
+
+The document's current plan risks the show's biggest liability: if the agency feels assembled for television rather than real, audiences will smell it within three episodes. Selling Sunset works because The Oppenheim Group was a real, successful agency that operated before cameras arrived. The Agency needs that same foundation of pre-existing reality.
+
+### Implementation Framework
+
+**Step 1 — First Approach:** Contact Excel Sports Management and Octagon before any other agency. Both are large enough to provide compelling deal volume and diverse enough to include creator economy deals alongside traditional athlete and musician deals — giving the show's episode structure natural variety without requiring manufactured storylines.
+
+**Step 2 — Equity Participation Model:** Offer a co-production credit and equity participation in the show's licensing revenue rather than a standard appearance fee. Aligning the agency's financial interest with the show's success converts a reluctant participant into an invested partner.
+
+**Step 3 — Editorial Control Agreement:** Give the agency editorial approval over how its business practices are characterized while retaining narrative editorial control for the production team. This is a standard arrangement in business docuseries and is not a creative compromise — it is a realistic accommodation that makes the deal possible.
+
+**Step 4 — DealStage as a Real Operational Adoption:** Structure the DealStage integration as something the agency genuinely adopts during Season 1 filming — not a product placement, but an actual operational decision that viewers watch happen in real time. The agency starts using DealStage. The platform becomes part of how they work. That story is infinitely more credible than any integration that appears pre-arranged.
+
+**Step 5 — Existing Talent Roster as Story:** Use the agency's existing talent relationships for episode storylines. Real athletes, musicians, and creators whose careers viewers already follow create instant emotional investment — no character development required because the audience already has the context.
+
+**Impact Rating:** High | **Effort Rating:** High
+
+---
+
+## [NEW] 6.5 — The Poison Pick: Building Strategic Paranoia Into Brand vs. Brand's Draft Architecture
+
+### Concept Overview
+
+In each episode of Brand vs. Brand, one creator in the pool of 10 is secretly designated as a "Poison Pick" — a creator who is contractually unable to fulfill the campaign deliverables at full capacity due to a pre-existing commitment, scheduling conflict, or exclusivity clause. The brands do not know which creator is the Poison Pick until after the draft closes.
+
+The Poison Pick mechanic creates genuine strategic paranoia: which creator is the trap? It also teaches a business lesson that every brand marketer already knows — creator capacity, exclusivity conflicts, and scheduling constraints are the silent deal-killers that never show up in engagement rate data. The DealStage platform's job is to surface exactly these risks before deals close. The Poison Pick makes that platform capability dramatically relevant in real time.
+
+### Implementation Framework
+
+**The Real Constraint:** In each episode, one creator in the talent pool genuinely has a real pre-existing constraint — a competing brand deal, a filming conflict, an exclusivity clause from a previous partnership. This is real, not manufactured. The production team identifies creators with genuine constraints during casting, not after.
+
+**Creator Consent and Compensation:** The creator is briefed before filming and consents to participate with the constraint disclosed. Their appearance fee remains identical to other talent pool participants — they are not penalized financially for their constraint.
+
+**The Reveal:** After the draft closes, the constraint is announced. Whichever brand drafted the Poison Pick must either renegotiate the deal structure live on camera (perhaps accepting a reduced deliverable scope at the same rate) or formally forfeit the pick and receive a replacement from the remaining pool.
+
+**The Platform Lesson:** Immediately after the constraint is revealed, the DealStage platform's contract intelligence tool is shown on screen finding the constraint that the brands missed in their draft research. The platform is not the villain — the platform is what would have caught this if the brands had used it. This is the show's most powerful product demonstration moment.
+
+**Season 2 Audience Meta-Layer:** In Season 2, viewers playing the audience draft game will attempt to identify the Poison Pick before the draft closes. This creates a meta-engagement layer — viewers looking for the red flag in the talent profiles — that drives repeat viewership and rewards careful platform users who understand how to read creator data.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+## [NEW] 6.6 — The Deal Valuation Hearing: An Annual Episode Where Industry Experts Judge the Agency's Deals
+
+### Concept Overview
+
+Once per season of The Agency, an independent panel of three industry experts — a major brand CMO, a talent attorney, and a creator economy analyst — reviews the eight biggest deals closed during the season and issues binding verdicts on whether each deal was correctly valued. The panel's verdicts are: "Fairly Valued," "Underpaid by X%," or "Overpaid by X%." The specific percentage is shown on screen alongside DealStage's market rate benchmark data.
+
+### Why This Is the Show's Most Commercially Valuable Episode
+
+The creator economy's most pervasive problem is information asymmetry about deal values. No one knows if they are being paid fairly because there is no public price discovery. An episode that brings real industry experts to judge real deals is simultaneously the most valuable content the creator economy has ever produced and the most direct possible demonstration of DealStage's core value proposition.
+
+The episode is also controversial in the best way: agents defend their deals with real professional pride, experts disagree with each other, and the verdicts generate more social commentary than any other episode of the season.
+
+### Implementation Blueprint
+
+**Episode Placement:** Designate Episode 6 of each season as the Deal Review episode. Structure the two episodes before it to close the deals that will be reviewed — audiences experience the deals being made before they are judged.
+
+**Panel Composition:** Recruit the panel from the highest-credibility names available. The ideal configuration: a CMO from a brand that appeared earlier in the season (who has skin in the game and a perspective on the deals from the brand side), a talent attorney with documented creator economy expertise, and a DealStage data analyst presenting market rate intelligence from the platform's actual transaction data.
+
+**The DealStage Data Layer:** Throughout the panel review, DealStage's market rate benchmarks are shown on screen alongside each deal. The audience sees what the platform says the deal was worth and what the agents actually closed. This is the show's most transparent product demonstration.
+
+**The Published Report:** After each season, publish the deal review verdicts as a public report — "The State of Creator Deal Valuation, Season 1" — with DealStage branding. This report is both a press event and a sales tool for enterprise brand and agency subscriptions.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 6.7 — Brand vs. Brand as a Live Show: Real-Time Competition From Day One
+
+### Concept Overview
+
+Film Brand vs. Brand as a genuinely live competition — streaming in real time on YouTube or the DealStage platform, with brand teams in separate physical locations, the talent pool revealed live, and the draft clock running in real time. This is not a taped competition edited to simulate urgency. It is actual live television, with all the unmanufacturable tension that only genuinely real-time stakes create.
+
+### The Structural Argument for Going Live Immediately
+
+The greatest entertainment moments of the past decade were genuinely live — not edited to feel live. The NFL Draft's surprise picks, the Oscars best picture mistake, the Twitch events that broke concurrent viewership records — these moments are unforgettable precisely because they could not have been planned. Brand vs. Brand's draft mechanic is structurally identical to a live sports draft. Filming it live creates a category of tension that editing cannot replicate.
+
+It also creates a live social media event that becomes an annual cultural moment in the marketing and creator economy world — something editors at AdWeek, Digiday, and Marketing Week put on their editorial calendars in advance.
+
+### Implementation Blueprint
+
+**Step 1 — YouTube Live Proof of Concept:** Before approaching any streaming platform, develop the live format for YouTube Live as a lower-risk first production. YouTube Live handles large concurrent audiences at no additional platform cost and allows format iteration before a network commitment locks in the format.
+
+**Step 2 — Broadcast-Quality Production Package:** Build the live format with two brand team studios, one talent showcase stage, and a host managing transitions between pick announcements. The production quality must match or exceed the taped equivalent — live does not mean casual.
+
+**Step 3 — Live Sponsorship Revenue:** Partner with a brand to sponsor the live format's infrastructure. The live event itself can generate $250,000 to $500,000 in sponsorship revenue before any episode licensing fee is negotiated — making the live format financially self-sustaining before a streaming deal is required.
+
+**Step 4 — First Two Episodes as Pitch Material:** Use footage from the first two live episodes as the centerpiece of the network or streaming pitch. Live footage of a genuinely tense brand draft is more persuasive than any written treatment — network executives can see exactly what they are buying.
+
+**Step 5 — Three-Year Exclusive Partnership:** Negotiate a three-year exclusive live broadcast deal with a partner who commits to promoting the event to their audience. Target partners: YouTube Premium, LinkedIn Live (reaching the brand marketing professional audience directly), or a sports network seeking creator economy programming.
+
+**Impact Rating:** High | **Effort Rating:** High
+
+---
+
+## [NEW] 6.8 — The Cautionary Expert: Casting a Former CMO Who Made a Famous Influencer Marketing Mistake
+
+### Concept Overview
+
+Cast one recurring expert on The Agency who is known for a publicly documented influencer marketing failure — a real CMO or marketing executive whose brand's creator partnership campaign generated significant negative press — whose role is to provide the "here is what I did wrong and why" perspective throughout the season.
+
+### Why Documented Failure Is the Show's Most Valuable Secondary Character
+
+The most honest business content any show can produce is expert testimony about failure. The creator economy is documented with famous brand missteps — campaigns that generated significant negative press, partnerships that blew up when creators' pasts resurfaced, tone-deaf activations that became memes. A real executive who lived through one of these disasters and is willing to speak candidly about what went wrong, what the data missed, and what they would do differently is extraordinary television.
+
+This character makes every scene more urgent. Viewers who recognize the pattern think: "This agent is about to make the same mistake."
+
+### Implementation Framework
+
+**Step 1 — Identify Candidates:** Research executives from documented influencer marketing failures who have since moved roles and are no longer constrained by the PR sensitivity of their previous company. Target executives who are two or more jobs removed from the failure — enough distance to speak candidly.
+
+**Step 2 — The Expert Framing:** Approach candidates not as subjects of scrutiny but as experts: "We want you here precisely because you went through something that every brand in this building is at risk of. Help them avoid what you experienced."
+
+**Step 3 — Structured Involvement:** Feature this expert in two to three episodes per season with a specific focus: they review the season's most structurally risky deals and identify the warning signs they recognize from their own experience.
+
+**Step 4 — The DealStage Moment:** In one episode per season, give this expert live access to the DealStage platform's risk scoring tools. Their reaction when the platform surfaces exactly the warning sign they missed in their own career — the data point they did not have — is the show's most powerful platform demonstration moment.
+
+**Step 5 — Season 2 Upgrade:** If the cautionary expert character is working in Season 1, upgrade their role in Season 2 to a full cast member with a formal advisory position at the agency. Their structural presence creates ongoing story opportunities.
+
+**Impact Rating:** Medium | **Effort Rating:** Low
+
+---
+
+## [NEW] 6.9 — The Agency as an Anthology Franchise: Four-Season Blueprint From Day One
+
+### Concept Overview
+
+Structure The Agency not as a single-location show that may expand, but as an anthology franchise from the outset — with Season 1 in Los Angeles (creator deals), Season 2 in Nashville (music deals), Season 3 in Atlanta (sports and music hybrid), Season 4 in London (international deals) — pitched to streaming partners as a pre-planned multi-season commitment with a documented creative vision for each city.
+
+### Why a Franchise Pitch Is More Fundable Than a Single-Season Pitch
+
+Streaming platforms greenlight shows they believe will run. A single-season pitch is harder to sell than a franchise pitch with a pre-planned architecture. The Real Housewives franchise, Million Dollar Listing, and Below Deck all demonstrated that city-based anthology formats can run indefinitely as long as the underlying format is strong. By pitching The Agency as a franchise with a 4-season blueprint, DealStage gives streaming partners the multi-year content commitment they need to justify meaningful production investment and promotional support.
+
+### Implementation Blueprint
+
+**Step 1 — Pre-Pitch Development:** Before any streaming pitch meeting, develop a one-page creative vision for each of the first four seasons: city, agency type, dominant deal category, specific DealStage platform feature that each city's deal culture best showcases. These are not vague concepts — they are developed premises.
+
+**Step 2 — The Franchise Opening Frame:** Present the 4-season blueprint as the pitch's first slide: "We are not here to sell you one show. We are here to build the creator economy's version of Real Housewives." This reframes the conversation from "can this show succeed" to "how large can this franchise become."
+
+**Step 3 — Two-Season Minimum:** Negotiate for a 2-season commitment as the minimum deal structure. One season is not enough to build the character investment and brand recognition that makes a docuseries franchise work commercially.
+
+**Step 4 — Connective Tissue Casting:** Structure the cast so that one to two characters carry through each season as narrative connective tissue. These are not the primary subjects — they are the recurring observers whose cross-city perspective ties the anthology together and gives long-term viewers a sense of continuity.
+
+**Step 5 — Franchise IP Protection:** Register The Agency as a franchise brand mark before any streaming pitch. Protecting the property for future licensing — including international format sales — ensures that the franchise value accrues to DealStage regardless of how distribution agreements evolve.
+
+**Impact Rating:** High | **Effort Rating:** Medium
+
+---
+
+## [NEW] 6.10 — The Season Forecast: DealStage's Public AI Prediction as Built-In Accountability Content
+
+### Concept Overview
+
+Before each season of Brand vs. Brand films, publish a "DealStage Season Forecast" — the AI's predictions for which brands will build the strongest creator rosters, which creator categories will be most in-demand, and what the projected deal values will be. These predictions are specific and public. The finale revisits every prediction, creating a built-in accountability narrative that turns every season into a live proof-of-concept for the platform's AI capabilities.
+
+### Why Prediction Accuracy Is the Platform's Most Valuable Marketing Content
+
+The most powerful marketing for a data platform is not testimonials — it is prediction accuracy. If DealStage publishes a forecast saying "Brand A will outperform Brand B in this season's draft by 18% based on current creator market data" and the season validates that prediction, that single data point is worth more than any advertising campaign. If the forecast is wrong, the transparent post-mortem about why it was wrong is equally valuable — it demonstrates intellectual honesty that builds trust with sophisticated marketing professionals.
+
+### Implementation Blueprint
+
+**Timing:** Publish the forecast 30 days before each season of Brand vs. Brand. Specific predictions, not vague directional statements. The forecast is DealStage's public commitment to the accuracy of its own AI.
+
+**Authorship:** The forecast is written by DealStage's data team using the same AI models the brands will use on the show. This is not a marketing document — it is the platform's genuine output applied to the season's specific participants.
+
+**Finale Review:** Dedicate 10 minutes of the season finale to reviewing forecast accuracy: which predictions held, which were wrong, and what the data missed. This segment is produced as part of the episode's core structure, not as an afterthought.
+
+**The Accuracy Report:** After the finale, publish a full "Forecast Accuracy Report" — available publicly on DealStage's website and distributed to marketing trade publications. This report is simultaneously press bait and enterprise sales collateral.
+
+**Sales Application:** In Year 2, brands considering platform subscriptions are shown the Year 1 forecast accuracy report as part of the sales process. Skeptics who doubt AI-driven marketing recommendations are shown documented evidence of the AI making accurate public predictions under transparent conditions. This closes skeptical enterprise buyers in a way that feature lists and testimonials never will.
+
+**Impact Rating:** High | **Effort Rating:** Low
+
+---
+
+_Strategic enhancements section completed: March 20, 2026_
+_Source: STRATEGIC_SUGGESTIONS_DOCS_5_8.md — All 10 suggestions for Document 6 applied in full._
+
 Each international matchup doubles as a global market education episode — teaching audiences how the creator economy works differently across cultures while maintaining the competitive format that makes it entertaining.
