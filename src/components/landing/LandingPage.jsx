@@ -14,7 +14,14 @@ const PRICING = {
       period: "forever",
       badge: null,
       popular: false,
-      features: ["Basic profile & brand search", "View up to 3 campaign briefs/mo", "1 active partnership", "In-app notifications", "Basic analytics"],
+      features: [
+        "Basic profile & brand search",
+        "Browse marketplace (view only)",
+        "1 active partnership",
+        "Connect up to 2 social accounts",
+        "Basic earnings summary",
+        "Master Calendar access"
+      ],
       cta: "Get Started Free",
     },
     {
@@ -23,7 +30,15 @@ const PRICING = {
       period: "/ month",
       badge: null,
       popular: false,
-      features: ["Enhanced profile with media kit", "Unlimited campaign brief views", "Up to 5 active partnerships", "AI Match Engine (basic)", "15 outreach messages/mo", "Performance analytics"],
+      features: [
+        "Everything in Free, plus:",
+        "AI Match Engine (top 5 matches)",
+        "15 outreach messages/month",
+        "5 active partnerships",
+        "Connect up to 5 social accounts",
+        "Basic performance analytics",
+        "Apply to brand campaigns"
+      ],
       cta: "Start Rising",
     },
     {
@@ -32,7 +47,16 @@ const PRICING = {
       period: "/ month",
       badge: "Most Popular",
       popular: true,
-      features: ["Priority placement in searches", "Up to 20 active partnerships", "AI Match Engine (smart scoring)", "Unlimited outreach & sequences", "AI Pitch Deck Generation", "Full ROI Simulator"],
+      features: [
+        "Everything in Rising, plus:",
+        "Full AI Match Engine (10-factor scoring)",
+        "Unlimited outreach & sequences",
+        "20 active partnerships",
+        "Contact Finder & Warm Intros",
+        "AI Pitch Deck Generation",
+        "Market Intelligence & Data Room",
+        "AI Command Center (32 agents)"
+      ],
       cta: "Start Pro",
     },
     {
@@ -41,7 +65,15 @@ const PRICING = {
       period: "/ month",
       badge: null,
       popular: false,
-      features: ["Unlimited partnerships", "AI Match Engine (auto-matching)", "AI brand recommendations", "Unlimited team seats & integrations", "Dedicated account manager", "Priority support"],
+      features: [
+        "Everything in Pro, plus:",
+        "AI auto-matching with brands",
+        "Unlimited partnerships",
+        "Priority placement in searches",
+        "Unlimited team seats & integrations",
+        "Dedicated account manager",
+        "Custom analytics & priority support"
+      ],
       cta: "Start Elite",
     },
   ],
@@ -52,7 +84,13 @@ const PRICING = {
       period: "forever",
       badge: null,
       popular: false,
-      features: ["Browse talent directory (limited)", "Post 1 campaign brief/mo", "1 active partnership", "In-app notifications", "Basic analytics"],
+      features: [
+        "Browse talent directory (limited)",
+        "Post 1 campaign brief/month",
+        "1 active partnership",
+        "Basic campaign analytics",
+        "Master Calendar access"
+      ],
       cta: "Get Started Free",
     },
     {
@@ -61,7 +99,15 @@ const PRICING = {
       period: "/ month",
       badge: null,
       popular: false,
-      features: ["Full talent search & filters", "Up to 5 campaign briefs/mo", "15 active partnerships", "AI Match Engine (basic)", "50 outreach messages/mo", "Performance analytics dashboard"],
+      features: [
+        "Everything in Free, plus:",
+        "Full talent search & filters",
+        "AI Match Engine (top 10 matches)",
+        "50 outreach messages/month",
+        "Contact Finder (50 lookups/mo)",
+        "15 active partnerships",
+        "Full campaign analytics"
+      ],
       cta: "Start Growth",
     },
     {
@@ -70,7 +116,17 @@ const PRICING = {
       period: "/ month",
       badge: "Most Popular",
       popular: true,
-      features: ["Unlimited campaign briefs", "Up to 100 active partnerships", "AI Match Engine (smart scoring)", "Unlimited outreach & sequences", "AI Pitch Deck Generation", "Team collaboration (10 seats)"],
+      features: [
+        "Everything in Growth, plus:",
+        "Full AI Match Engine (10-factor)",
+        "Unlimited outreach & sequences",
+        "100 active partnerships",
+        "Contact Finder (unlimited)",
+        "AI Pitch Deck & Data Room",
+        "Market Intelligence & ROI Simulator",
+        "AI Command Center (32 agents)",
+        "Team collaboration (10 seats)"
+      ],
       cta: "Start Scale",
     },
     {
@@ -79,7 +135,14 @@ const PRICING = {
       period: "starting at $2,500/mo",
       badge: null,
       popular: false,
-      features: ["Unlimited partnerships & briefs", "AI Match Engine (auto-matching)", "Unlimited team seats & integrations", "Custom pitch deck templates", "White-label options", "Dedicated success manager & SLA"],
+      features: [
+        "Everything in Scale, plus:",
+        "AI auto-matching talent",
+        "Unlimited partnerships & seats",
+        "All integrations (Salesforce, HubSpot)",
+        "White-label options",
+        "Dedicated success manager & SLA"
+      ],
       cta: "Contact Sales",
     },
   ],
@@ -90,7 +153,14 @@ const PRICING = {
       period: "/ month",
       badge: null,
       popular: false,
-      features: ["Manage up to 5 brands or 10 talent", "Unlimited campaign briefs & outreach", "AI Pitch Deck Generation", "Multi-step approval workflows", "Team collaboration (10 seats)", "Agency-level reporting"],
+      features: [
+        "Manage up to 5 brands or 10 talent",
+        "Full AI features & outreach",
+        "AI Pitch Deck Generation",
+        "Multi-step approval workflows",
+        "Team collaboration (10 seats)",
+        "Agency-level reporting"
+      ],
       cta: "Start Starter",
     },
     {
@@ -99,7 +169,14 @@ const PRICING = {
       period: "/ month",
       badge: "Most Popular",
       popular: true,
-      features: ["Manage up to 10 brands or 20 talent", "AI Match Engine (auto-matching)", "Unlimited team seats & integrations", "Custom pitch deck templates per client", "Cross-client analytics & benchmarking", "Bulk outreach & campaign coordination"],
+      features: [
+        "Manage up to 10 brands or 20 talent",
+        "AI auto-matching across roster",
+        "Unlimited team seats",
+        "Custom pitch deck templates",
+        "Cross-client analytics",
+        "Bulk outreach coordination"
+      ],
       cta: "Start Pro",
     },
     {
@@ -108,7 +185,14 @@ const PRICING = {
       period: "starting at $9,999/mo",
       badge: null,
       popular: false,
-      features: ["Up to 25 brands or 25 talent profiles", "White-label platform & custom domain", "Full API access & custom endpoints", "SSO & advanced security with audit logs", "Custom BI dashboards & data exports", "Dedicated success team & SLA support"],
+      features: [
+        "Up to 25 brands or 25 talent profiles",
+        "White-label platform & custom domain",
+        "Full API access",
+        "SSO & advanced security",
+        "Custom BI dashboards",
+        "Dedicated success team & SLA"
+      ],
       cta: "Contact Sales",
     },
   ],
