@@ -1,0 +1,143 @@
+SHEET: MASTER CONTENT PROPERTIES
+Property,Type,Format,Episodes/Year,Budget Per Season,Revenue Target Y1,Revenue Target Y3,Status,Launch Month,Priority
+The Deal Stage (Competition),TV Show,Streaming 60min,10,$11M-$17M,$47M,$92M,Development,Month 15,1
+Deal or No Deal Stage (Game Show),TV Show,Network 30min,20,$6M-$10M,$25M,$60M,Concept,Month 18,3
+The Agency (Docuseries),TV Show,Streaming 45min,8,$8M-$10.5M,$15M,$40M,Concept,Month 20,4
+Brand vs Brand (Draft),TV Show,Streaming 60min,10,$9M-$13M,$20M,$55M,Concept,Month 22,5
+The Comeback (Redemption),TV Show,Streaming 45min,8,$6M-$9M,$12M,$35M,Concept,Month 24,6
+Deal Stage Live (Weekly),TV Show,Live 60min,30,$3M-$5M,$18M,$45M,Concept,Month 20,5
+Deal Stage Contenders,YouTube,Series 18min,8,$175K-$450K,$600K,$2M,Pre-Production,Month 6,1
+The $100K Challenge,YouTube,Standalone 15min,12,$192K,$400K,$1.2M,Concept,Month 9,2
+Rate My Deal,YouTube,Weekly 25min,50,$700K,$1.5M,$4M,Concept,Month 8,2
+First Deal,YouTube,Bi-weekly 30min,24,$384K,$500K,$1.5M,Concept,Month 10,3
+Deal Stage Academy,YouTube,Course 22min,12,$120K,$300K,$1M,Concept,Month 7,2
+The Blind Deal,YouTube,Series 20min,8,$200K,$350K,$1M,Concept,Month 12,4
+The Deal Stage Podcast,Podcast,Weekly 55min,52,$249K,$1.56M,$5M,Pre-Production,Month 3,1
+Deal Drops,Podcast,Daily 10min,260,$132K,$435K,$1.5M,Concept,Month 5,2
+The Negotiation,Podcast,Weekly 40min,52,$292K,$827K,$2.5M,Concept,Month 8,3
+Creator Confessions,Podcast,Weekly 35min,52,$137K,$435K,$1.2M,Concept,Month 10,4
+The Other Side,Podcast,Weekly 45min,52,$180K,$800K,$2M,Concept,Month 9,3
+Deal or Disaster,Podcast,Weekly 38min,52,$155K,$600K,$1.8M,Concept,Month 11,4
+
+SHEET: FINANCIAL SUMMARY (3 SCENARIOS)
+Property,Conservative Y1,Moderate Y1,Aggressive Y1,Conservative Y3,Moderate Y3,Aggressive Y3
+TV Show (Competition),$15M,$47M,$78M,$45M,$92M,$180M
+YouTube (All 6),$1.5M,$3.6M,$8M,$6M,$11M,$25M
+Podcast (All 6),$2M,$4.7M,$9M,$8M,$16M,$32M
+Platform (SaaS),$5M,$15M,$30M,$30M,$50M,$100M
+Combined,$23.5M,$70.3M,$125M,$89M,$169M,$337M
+
+SHEET: LAUNCH TIMELINE (Month-by-Month)
+Month,Platform,Podcast,YouTube,TV Show,Milestone
+1-3,Get first 500 users + 50 deals,,,, Foundation
+3,Stable platform with real data,Launch Deal Stage Podcast,,,Podcast Live
+5,,Launch Deal Drops (daily),,, Daily Content
+6,1000+ users,,Launch Contenders (8 eps),,YouTube Live
+7,,,Launch Academy (12 eps),,Education Content
+8,,,Launch Rate My Deal (weekly),,Weekly Content
+9,,Launch Negotiation + Other Side,Launch $100K Challenge,,Content Expansion
+10,,Launch Confessions + Deal or Disaster,Launch First Deal,,Full Podcast Network
+11,,,,Begin TV development,Sizzle Reel
+12,5000+ users,25K+ downloads/ep,500K+ views/ep,Pitch to production companies,Proof of Concept
+13,,,,Package with agency (WME/CAA),Agency Package
+14,,,,Pitch to Netflix/Hulu/Amazon,Network Pitch
+15,,,,Deal negotiation,TV Deal
+16,,,,Pre-production + casting,Pre-Production
+17-18,,,,FILMING (10 episodes),Production
+19,,,,Post-production,Post-Production
+20,,,,Marketing blitz + premiere,TV PREMIERE
+
+SHEET: BRAND PARTNER PIPELINE
+Brand,Category,Target Show,Integration Fee,Deal Commitment,Status,Contact Title,Priority
+Nike,Sports/Apparel,Competition Ep 2,$1M,$250K deal,Target,VP Influencer Marketing,1
+Spotify,Music/Streaming,Competition Ep 1,$750K,$150K deal,Target,Head of Creator Partnerships,1
+Sephora,Beauty,Competition Ep 3,$500K,$100K deal,Target,Director Influencer Marketing,1
+Netflix,Entertainment,Competition Ep 5,$1M,$200K deal,Target,VP Marketing Partnerships,2
+Amazon,E-commerce,Competition Finale,$2M,$1M deal,Target,Head of Influencer Program,1
+Red Bull,Beverage/Sports,Competition Ep 9,$750K,$150K deal,Target,Director Brand Partnerships,2
+Apple,Technology,Competition Ep 7,$1.5M,$250K deal,Target,Head of Brand Marketing,2
+Chipotle,Food/QSR,Competition Ep 4,$500K,$75K deal,Target,Director Digital Marketing,2
+Adidas,Sports/Apparel,Competition Ep 8,$750K,$200K deal,Target,VP Brand Partnerships,2
+Target,Retail,Game Show,$300K,$50K deal,Target,Director Creator Partnerships,3
+Progressive,Insurance,Game Show,$250K,$25K deal,Target,VP Advertising,3
+Samsung,Technology,Brand vs Brand,$500K,$100K deal,Target,Head of Influencer Marketing,3
+L'Oreal,Beauty,Brand vs Brand,$500K,$100K deal,Target,VP Digital Marketing,3
+Gatorade,Sports/Beverage,The Agency,$300K,$75K deal,Target,Director Sports Marketing,4
+Lululemon,Fitness/Apparel,The Agency,$400K,$100K deal,Target,Head of Brand Partnerships,4
+HelloFresh,Food/DTC,Contenders,$50K,$50K deal,Target,Director Influencer Marketing,2
+Gymshark,Fitness/DTC,Contenders,$25K,$25K deal,Target,Head of Creator Marketing,2
+Huel,Health/DTC,Contenders,$25K,$25K deal,Target,Director Partnerships,3
+Athletic Greens,Health/DTC,$100K Challenge,$25K,$50K deal,Target,VP Marketing,3
+Calm,Wellness/App,Podcast Sponsor,$50K/ep,,Target,Head of Brand Partnerships,2
+
+SHEET: KPI TARGETS
+Metric,Month 3,Month 6,Month 12,Month 18,Month 24
+Platform Users,500,2000,5000,15000,50000
+Monthly Active Users,200,800,2500,8000,25000
+Paying Subscribers,50,300,1000,3000,10000
+MRR,$15K,$90K,$350K,$1.2M,$4M
+ARR,$180K,$1.08M,$4.2M,$14.4M,$48M
+Deals Completed,50,250,1000,4000,15000
+Podcast Downloads/Episode,1000,5000,15000,25000,50000
+YouTube Views/Episode,5000,50000,200000,500000,1000000
+TikTok Followers,0,10000,50000,200000,500000
+Email Subscribers,500,3000,10000,30000,75000
+NPS Score,40,50,60,65,70
+Churn Rate (Monthly),8%,6%,5%,4%,3%
+
+SHEET: BUDGET TRACKER
+Category,Planned Q1,Planned Q2,Planned Q3,Planned Q4,Annual Total,Actual Q1,Actual Q2,Actual Q3,Actual Q4,Variance
+Platform Development,$50K,$50K,$30K,$30K,$160K,,,,, 
+Podcast Production,$25K,$50K,$60K,$60K,$195K,,,,,
+YouTube Production,$0,$50K,$100K,$100K,$250K,,,,,
+TV Development,$0,$0,$25K,$50K,$75K,,,,,
+Marketing,$10K,$25K,$50K,$75K,$160K,,,,,
+Salaries,$60K,$90K,$120K,$150K,$420K,,,,,
+Legal,$10K,$10K,$15K,$15K,$50K,,,,,
+Tools/Software,$5K,$5K,$5K,$5K,$20K,,,,,
+Travel/Events,$5K,$10K,$15K,$20K,$50K,,,,,
+Contingency,$10K,$15K,$20K,$25K,$70K,,,,,
+TOTAL,$175K,$305K,$440K,$530K,$1.45M,,,,,
+
+SHEET: RISK REGISTER
+Risk,Category,Probability,Impact,Severity,Mitigation,Owner,Status
+Platform bugs at launch,Technical,High,High,Critical,Extensive QA + beta testing,CTO,Active
+Low initial user signups,Business,Medium,High,High,Content marketing + referral program,Growth Lead,Active
+Brand partners say no,Revenue,Medium,High,High,Start with DTC brands (lower barrier),Sales Lead,Active
+AI provider outage,Technical,Low,High,Medium,4-provider failover (already built),CTO,Mitigated
+Podcast low downloads,Content,Medium,Medium,Medium,Podcast swaps + paid promotion,Content Lead,Active
+YouTube low views,Content,Medium,Medium,Medium,Algorithm optimization + paid ads,Content Lead,Active
+TV show not greenlit,Content,Medium,High,High,YouTube proves format first,EP,Planned
+Contestant legal issues,Legal,Low,High,Medium,Comprehensive contracts + insurance,Legal,Planned
+Brand deal falls through on camera,Production,Medium,Medium,Medium,Backup brands on standby,Producer,Planned
+Competitor launches similar show,Market,Low,Medium,Low,First-mover + data moat,CEO,Monitoring
+Cash runway too short,Financial,Medium,Critical,Critical,Raise sufficient seed round,CFO,Active
+Key hire doesn't work out,Team,Medium,Medium,Medium,Clear performance milestones,CEO,Active
+FTC compliance issue,Legal,Low,High,Medium,FTC counsel from day 1,Legal,Planned
+International expansion fails,Business,Low,Medium,Low,Focus on US first,CEO,Planned
+Data breach / security incident,Technical,Low,Critical,High,Security audit + insurance,CTO,Active
+
+SHEET: LAUNCH CHECKLIST
+Task,Property,Due Date,Owner,Status,Notes
+Complete platform QA,Platform,Month 1,CTO,Not Started,
+Get first 100 users,Platform,Month 2,Growth,Not Started,
+Close first 10 deals on platform,Platform,Month 2,Sales,Not Started,
+Hire podcast host,Podcast,Month 2,CEO,Not Started,
+Set up podcast studio,Podcast,Month 2,Producer,Not Started,
+Record 4 podcast episodes (bank),Podcast,Month 3,Host,Not Started,
+Launch podcast on Spotify/Apple/YouTube,Podcast,Month 3,Producer,Not Started,
+Recruit 8 YouTube contestants,YouTube,Month 4,Producer,Not Started,
+Recruit 8 brand partners for YouTube,YouTube,Month 5,Sales,Not Started,
+Film YouTube Season 1,YouTube,Month 5-6,Director,Not Started,
+Launch YouTube Season 1,YouTube,Month 6,Producer,Not Started,
+Create TV sizzle reel,TV,Month 11,EP,Not Started,
+Identify production company,TV,Month 10,CEO,Not Started,
+Package show with talent agency,TV,Month 12,EP,Not Started,
+Pitch to networks/streamers,TV,Month 13,EP,Not Started,
+Register format IP (WGA),TV,Month 9,Legal,Not Started,$25 investment
+File trademark for show name,Legal,Month 1,Legal,Not Started,
+Set up prize bond/escrow,TV,Month 14,Finance,Not Started,
+Hire showrunner,TV,Month 14,EP,Not Started,
+Cast 12 TV contestants,TV,Month 15,Casting,Not Started,
+Film TV Season 1,TV,Month 17-18,Showrunner,Not Started,
+TV premiere,TV,Month 20,Marketing,Not Started,
