@@ -90,7 +90,7 @@ const PRICING = {
       period: "/ month",
       badge: null,
       popular: false,
-      features: ["Manage up to 5 brands or 25 talent", "Unlimited campaign briefs & outreach", "AI Pitch Deck Generation", "Multi-step approval workflows", "Team collaboration (10 seats)", "Agency-level reporting"],
+      features: ["Manage up to 5 brands or 10 talent", "Unlimited campaign briefs & outreach", "AI Pitch Deck Generation", "Multi-step approval workflows", "Team collaboration (10 seats)", "Agency-level reporting"],
       cta: "Start Starter",
     },
     {
@@ -99,7 +99,7 @@ const PRICING = {
       period: "/ month",
       badge: "Most Popular",
       popular: true,
-      features: ["Manage up to 20 brands or 100 talent", "AI Match Engine (auto-matching)", "Unlimited team seats & integrations", "Custom pitch deck templates per client", "Cross-client analytics & benchmarking", "Bulk outreach & campaign coordination"],
+      features: ["Manage up to 10 brands or 20 talent", "AI Match Engine (auto-matching)", "Unlimited team seats & integrations", "Custom pitch deck templates per client", "Cross-client analytics & benchmarking", "Bulk outreach & campaign coordination"],
       cta: "Start Pro",
     },
     {
@@ -108,7 +108,7 @@ const PRICING = {
       period: "starting at $9,999/mo",
       badge: null,
       popular: false,
-      features: ["Unlimited brands & talent profiles", "White-label platform & custom domain", "Full API access & custom endpoints", "SSO & advanced security with audit logs", "Custom BI dashboards & data exports", "Dedicated success team & SLA support"],
+      features: ["Up to 25 brands or 25 talent profiles", "White-label platform & custom domain", "Full API access & custom endpoints", "SSO & advanced security with audit logs", "Custom BI dashboards & data exports", "Dedicated success team & SLA support"],
       cta: "Contact Sales",
     },
   ],

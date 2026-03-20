@@ -208,7 +208,7 @@ const PLANS_BY_ROLE = {
       period: "/ month",
       badge: null,
       features: [
-        "Manage up to 5 brands or 25 talent",
+        "Manage up to 5 brands or 10 talent",
         "Unlimited campaign briefs & outreach",
         "AI Pitch Deck Generation",
         "Multi-step approval workflows",
@@ -226,7 +226,7 @@ const PLANS_BY_ROLE = {
       period: "/ month",
       badge: "Most Popular",
       features: [
-        "Manage up to 20 brands or 100 talent",
+        "Manage up to 10 brands or 20 talent",
         "AI Match Engine (auto-matching)",
         "Unlimited team seats & integrations",
         "Custom pitch deck templates per client",
@@ -244,7 +244,7 @@ const PLANS_BY_ROLE = {
       period: "starting at $9,999/mo",
       badge: null,
       features: [
-        "Unlimited brands & talent profiles",
+        "Up to 25 brands or 25 talent profiles",
         "White-label platform & custom domain",
         "Full API access & custom endpoints",
         "SSO & advanced security with audit logs",
