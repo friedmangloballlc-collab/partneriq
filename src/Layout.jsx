@@ -132,19 +132,24 @@ const roleNavItems = {
     // ── Home ──
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
+    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     // ── Discovery ──
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Browse Brands", icon: Building2, page: "Brands" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
     // ── Outreach ──
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
+    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Deals ──
     { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
+    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
     // ── Content ──
     { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
