@@ -11,7 +11,7 @@ import {
   Zap, Building2, Users, Briefcase, ArrowRight, Loader2,
   CheckCircle2, CheckSquare, Star, Sparkles, Shield, Lock,
   Brain, TrendingUp, Layers, Bell, ChevronDown, BarChart3, Globe, Network,
-  Calendar, Award, DollarSign, Check
+  Calendar, Award, DollarSign, Check, UserCheck
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { FAQSection, ComparisonSection, SecurityBadges, VideoDemoSection, MobileAppSection } from "@/components/landing/LandingSections";
@@ -48,6 +48,15 @@ const ROLES = [
     color: "from-amber-500 to-orange-600",
     accent: "amber",
     perks: ["Full roster management", "Multi-brand pipelines", "Team collaboration", "Advanced analytics"]
+  },
+  {
+    key: "manager",
+    icon: UserCheck,
+    title: "Manager",
+    desc: "I manage a talent's career and partnerships",
+    color: "from-violet-500 to-purple-600",
+    accent: "violet",
+    perks: ["Manage deals on behalf of talent", "Full pipeline access", "Outreach & negotiations", "Revenue tracking"]
   },
 ];
 
@@ -771,7 +780,7 @@ export default function Onboarding() {
                   </button>
                 );
               })}
-              <button onClick={() => { if (selectedRole) setStep(3); }} disabled={!selectedRole} style={{
+              <button onClick={() => { if (selectedRole) setStep(selectedRole === "manager" ? 4 : 3); }} disabled={!selectedRole} style={{
                 marginTop: "1rem", width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
                 background: selectedRole ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
                 color: selectedRole ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
@@ -823,7 +832,7 @@ export default function Onboarding() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
 
               {/* Plan selector — compact horizontal pills with billing toggle */}
-              {selectedRole && PLANS_BY_ROLE[selectedRole] && (
+              {selectedRole !== "manager" && selectedRole && PLANS_BY_ROLE[selectedRole] && (
                 <div>
                   <div className="ob-billing-toggle-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                     <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>

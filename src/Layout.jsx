@@ -171,6 +171,49 @@ const roleNavItems = {
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
   ],
+  manager: [
+    // ── Home ──
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "My Profile", icon: User, page: "TalentProfile" },
+    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
+    // ── Discovery ──
+    { name: "Marketplace", icon: Zap, page: "Marketplace" },
+    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Browse Brands", icon: Building2, page: "Brands" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
+    // ── Outreach ──
+    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
+    { name: "Outreach", icon: Mail, page: "Outreach" },
+    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
+    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
+    // ── Deals ──
+    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
+    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
+    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
+    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
+    // ── Content ──
+    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
+    // ── Earnings ──
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
+    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Data Room", icon: Database, page: "TalentDataRoom" },
+    // ── AI ──
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
+    // ── Calendar ──
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
+    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
+    // ── Account ──
+    { name: "Referrals", icon: Share2, page: "Referrals" },
+    { name: "Notifications", icon: Bell, page: "Notifications" },
+    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
+    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
+    { name: "Settings", icon: Settings, page: "Settings" },
+  ],
   agency: [
     // ── Home ──
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
@@ -256,6 +299,7 @@ export default function Layout({ children, currentPageName }) {
     brand: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
     talent: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
     agency: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    manager: "bg-violet-500/10 text-violet-400 border-violet-500/20",
   };
 
   const Sidebar = ({ mobile = false }) => (
@@ -276,10 +320,13 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Role badge */}
       {(!collapsed || mobile) && (
-        <div className="px-4 py-3">
+        <div className="px-4 py-3 space-y-1">
           <Badge variant="outline" className={`${roleColors[userRole]} text-[10px] uppercase tracking-wider w-full justify-center py-1`}>
-            {userRole} Portal
+            {userRole === "manager" ? "Manager Portal" : `${userRole} Portal`}
           </Badge>
+          {userRole === "manager" && (
+            <p className="text-[10px] text-slate-500 text-center truncate">Managing talent</p>
+          )}
         </div>
       )}
 
@@ -405,6 +452,11 @@ export default function Layout({ children, currentPageName }) {
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
             <h1 className="text-lg font-semibold hidden sm:block text-foreground">{currentPageName}</h1>
+            {userRole === "manager" && (
+              <Badge variant="outline" className="bg-violet-50 text-violet-600 border-violet-200 text-[10px] ml-2 hidden sm:flex">
+                Managing Talent
+              </Badge>
+            )}
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <GlobalSearch />

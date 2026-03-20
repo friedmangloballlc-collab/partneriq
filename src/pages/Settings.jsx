@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2, Download, Trash2, AlertTriangle, Palette } from "lucide-react";
+import { Save, User, Shield, Bell, Loader2, Database, CheckCircle2, Download, Trash2, AlertTriangle, Palette, UserCheck, Copy, Mail as MailIcon, X } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { seedDemoData } from "@/utils/seedDemoData";
 import EmailConnectionManager from "@/components/email/EmailConnectionManager";
@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { useToast } from "@/components/ui/use-toast";
 
 // ─── Zod schema ──────────────────────────────────────────────────────────────
 
@@ -57,6 +58,13 @@ export default function Settings() {
   const [seedDone, setSeedDone] = useState(false);
   const [seedErrors, setSeedErrors] = useState([]);
 
+  // Manager invite state
+  const [managerInviteEmail, setManagerInviteEmail] = useState("");
+  const [sendingInvite, setSendingInvite] = useState(false);
+  const [manager, setManager] = useState(null); // { name, email, addedAt }
+  const [revokeConfirmOpen, setRevokeConfirmOpen] = useState(false);
+  const { toast } = useToast();
+
   // GDPR state
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState(null);
@@ -87,6 +95,13 @@ export default function Settings() {
         job_title: u?.job_title || "",
         phone: u?.phone || "",
       });
+      // Load manager info from localStorage
+      if (u?.role === "talent" && u?.id) {
+        const stored = localStorage.getItem(`partneriq_manager_${u.id}`);
+        if (stored) {
+          try { setManager(JSON.parse(stored)); } catch {}
+        }
+      }
     }).catch(() => {});
   }, [reset]);
 
@@ -149,6 +164,48 @@ export default function Settings() {
       setDeleteError(err?.message || "Failed to delete account. Please try again.");
       setDeleting(false);
     }
+  };
+
+  // ── Manager invite helpers ──────────────────────────────────────────────────
+  const generateInviteLink = () => {
+    const token = crypto.randomUUID();
+    const link = `${window.location.origin}/Onboarding?invite=manager&from=${user?.id}&token=${token}`;
+    // Store invite token in localStorage so it can be validated later
+    const inviteData = { token, createdAt: new Date().toISOString(), talentId: user?.id };
+    localStorage.setItem(`partneriq_manager_invite_${token}`, JSON.stringify(inviteData));
+    navigator.clipboard.writeText(link).catch(() => {});
+    toast({ title: "Invite link copied!", description: "Share this link with your manager." });
+  };
+
+  const handleSendManagerInvite = async () => {
+    if (!managerInviteEmail.trim()) return;
+    setSendingInvite(true);
+    try {
+      const token = crypto.randomUUID();
+      const link = `${window.location.origin}/Onboarding?invite=manager&from=${user?.id}&token=${token}`;
+      const inviteData = { token, email: managerInviteEmail.trim(), createdAt: new Date().toISOString(), talentId: user?.id };
+      localStorage.setItem(`partneriq_manager_invite_${token}`, JSON.stringify(inviteData));
+      // Copy the link to clipboard as a fallback (email sending requires backend)
+      navigator.clipboard.writeText(link).catch(() => {});
+      toast({
+        title: "Invite sent!",
+        description: `An invite link has been copied to your clipboard. Share it with ${managerInviteEmail.trim()}.`,
+      });
+      setManagerInviteEmail("");
+    } catch (err) {
+      toast({ title: "Failed to send invite", description: "Please try the invite link option instead.", variant: "destructive" });
+    } finally {
+      setSendingInvite(false);
+    }
+  };
+
+  const handleRevokeManager = () => {
+    if (user?.id) {
+      localStorage.removeItem(`partneriq_manager_${user.id}`);
+    }
+    setManager(null);
+    setRevokeConfirmOpen(false);
+    toast({ title: "Manager access revoked", description: "Your manager no longer has access to your account." });
   };
 
   const roleInfo = {
@@ -266,6 +323,113 @@ export default function Settings() {
           </div>
         </CardContent>
       </Card>
+
+      {/* My Manager — talent only */}
+      {user?.role === "talent" && (
+        <Card className="border-slate-200/60">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <UserCheck className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div>
+                <CardTitle className="text-base">My Manager</CardTitle>
+                <CardDescription>A personal manager can handle deals and outreach on your behalf</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {manager ? (
+              /* State B: Has manager */
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 rounded-lg bg-emerald-50 border border-emerald-100">
+                  <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                    <User className="w-4 h-4 text-emerald-700" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-800">{manager.name || "Manager"}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{manager.email}</p>
+                    {manager.addedAt && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        Added {new Date(manager.addedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                      </p>
+                    )}
+                  </div>
+                  <Badge className="bg-emerald-100 text-emerald-700 text-[10px] border-0 flex-shrink-0">Active</Badge>
+                </div>
+                {revokeConfirmOpen ? (
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-4 space-y-3">
+                    <p className="text-sm font-medium text-red-800">Are you sure you want to revoke this manager's access?</p>
+                    <p className="text-xs text-red-600">They will immediately lose the ability to act on your behalf.</p>
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="destructive" onClick={handleRevokeManager} className="bg-red-600 hover:bg-red-700">
+                        Yes, Revoke Access
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => setRevokeConfirmOpen(false)}>Cancel</Button>
+                    </div>
+                  </div>
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setRevokeConfirmOpen(true)}
+                    className="border-red-300 text-red-600 hover:bg-red-50 hover:text-red-700"
+                  >
+                    <X className="w-3.5 h-3.5 mr-1.5" />
+                    Revoke Access
+                  </Button>
+                )}
+              </div>
+            ) : (
+              /* State A: No manager */
+              <div className="space-y-5">
+                <p className="text-sm text-slate-500">
+                  Invite a personal manager to handle deals and outreach on your behalf.
+                </p>
+                {/* Email invite */}
+                <div className="space-y-2">
+                  <Label className="text-xs text-slate-600 font-medium">Invite by email</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      type="email"
+                      placeholder="manager@example.com"
+                      value={managerInviteEmail}
+                      onChange={(e) => setManagerInviteEmail(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSendManagerInvite()}
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={handleSendManagerInvite}
+                      disabled={sendingInvite || !managerInviteEmail.trim()}
+                      className="bg-emerald-600 hover:bg-emerald-700 flex-shrink-0"
+                    >
+                      {sendingInvite ? <Loader2 className="w-4 h-4 animate-spin" /> : <MailIcon className="w-4 h-4 mr-1.5" />}
+                      {sendingInvite ? "Sending..." : "Send Invite"}
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Separator className="flex-1" />
+                  <span className="text-xs text-slate-400">or</span>
+                  <Separator className="flex-1" />
+                </div>
+                {/* Generate invite link */}
+                <Button
+                  variant="outline"
+                  onClick={generateInviteLink}
+                  className="w-full border-dashed border-slate-300 text-slate-600 hover:border-emerald-400 hover:text-emerald-700 hover:bg-emerald-50"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Generate Invite Link
+                </Button>
+                <p className="text-xs text-slate-400 text-center">
+                  The link grants manager-level access to your account. Only share with someone you trust.
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Role */}
       <Card className="border-slate-200/60">

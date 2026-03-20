@@ -116,11 +116,14 @@ function getTierLevel(role, plan) {
   if (role === "talent") return TALENT_TIERS[plan] ?? 0;
   if (role === "brand")  return BRAND_TIERS[plan]  ?? 0;
   if (role === "agency") return AGENCY_TIERS[plan]  ?? 1;
+  if (role === "manager") return TALENT_TIERS[plan] ?? 0;
   return 0;
 }
 
 // ─── Collect all pages accessible at a given tier ───
 function getAccessiblePages(role, tierLevel) {
+  if (role === "manager") return getAccessiblePages("talent", tierLevel);
+
   const tierMap = role === "talent" ? TALENT_PAGES
                 : role === "brand"  ? BRAND_PAGES
                 : role === "agency" ? AGENCY_PAGES
@@ -198,16 +201,17 @@ export function useFeatureGate() {
 
   // Determine what tier a locked page requires (for upgrade messaging)
   const getRequiredTier = (pageName) => {
-    const tierMap = role === "talent" ? TALENT_PAGES
-                  : role === "brand"  ? BRAND_PAGES
-                  : role === "agency" ? AGENCY_PAGES
+    const effectiveRole = role === "manager" ? "talent" : role;
+    const tierMap = effectiveRole === "talent" ? TALENT_PAGES
+                  : effectiveRole === "brand"  ? BRAND_PAGES
+                  : effectiveRole === "agency" ? AGENCY_PAGES
                   : null;
     if (!tierMap) return null;
     for (let t = 0; t <= 3; t++) {
       if (tierMap[t] && tierMap[t].includes(pageName)) {
-        if (role === "talent") return ["Starter", "Rising", "Pro", "Elite"][t];
-        if (role === "brand")  return ["Explorer", "Growth", "Scale", "Enterprise"][t];
-        if (role === "agency") return [null, "Agency Starter", "Agency Pro", "Agency Enterprise"][t];
+        if (effectiveRole === "talent") return ["Starter", "Rising", "Pro", "Elite"][t];
+        if (effectiveRole === "brand")  return ["Explorer", "Growth", "Scale", "Enterprise"][t];
+        if (effectiveRole === "agency") return [null, "Agency Starter", "Agency Pro", "Agency Enterprise"][t];
       }
     }
     return null;
