@@ -1,0 +1,172 @@
+=== TAB 1: DOCUMENT INDEX ===
+#,Document Name,Type,Words,Pages (est),Location,Audience,Last Updated
+1,Company Operating Blueprint,.docx,17000,45,docs/DEALSTAGE_OPERATING_BLUEPRINT.docx,Investors + Internal,2026-03-19
+2,Media Empire Blueprint,.docx,27600,72,docs/DEALSTAGE_MEDIA_EMPIRE_BLUEPRINT.docx,Investors + Networks,2026-03-20
+3,TV Show Production Plan,.docx,22700,59,docs/DEALSTAGE_TV_SHOW_PRODUCTION_PLAN.docx,Production Companies,2026-03-20
+4,Digital Content Plan,.docx,26600,69,docs/DEALSTAGE_DIGITAL_CONTENT_PLAN.docx,Content Team,2026-03-20
+5,User Journeys (×2 versions),.docx,17600,46,docs/PART1_USER_JOURNEYS_COMPLETE.docx,Sales + Investors,2026-03-20
+6,TV Show Formats (×2),.docx,28400,74,docs/PART2_TV_SHOW_COMPLETE.docx,Networks + Producers,2026-03-20
+7,TV Additional Formats (×2),.docx,18500,48,docs/PART2_TV_SHOW_ADDITIONAL_CONCEPTS.docx,Networks + Producers,2026-03-20
+8,Viral + Podcast + Thesis (×2),.docx,20200,53,docs/PART3_4_5_VIRAL_PODCAST_THESIS_COMPLETE.docx,Investors + Partners,2026-03-20
+9,YouTube + Podcast Additional,.docx,23400,61,docs/ADDITIONAL_YOUTUBE_PODCAST_CONCEPTS.docx,Content Team,2026-03-20
+10,Financial Models + Pitch Deck,.docx,16300,42,docs/FINANCIAL_MODELS_AND_PITCH_DECK.docx,Investors,2026-03-20
+11,Sizzle Reel + Pilot Treatment,.docx,16800,44,docs/SIZZLE_REEL_AND_PILOT_TREATMENT.docx,Networks + Producers,2026-03-20
+12,Competitive Analysis + Legal,.docx,11700,30,docs/COMPETITIVE_ANALYSIS_AND_LEGAL_FRAMEWORK.docx,Legal + Networks,2026-03-20
+13,Unified Strategy + New Concepts,.docx,14200,37,docs/ADDITIONAL_CONCEPTS_AND_UNIFIED_STRATEGY.docx,Executive Team,2026-03-20
+14,Strategic Suggestions (1-4),.docx,12000,31,docs/STRATEGIC_SUGGESTIONS_REPORT.docx,Executive Team,2026-03-20
+15,Strategic Suggestions (5-8),.docx,11000,29,docs/STRATEGIC_SUGGESTIONS_DOCS_5_8.docx,Executive Team,2026-03-20
+16,Strategic Suggestions (9-12),.docx,13000,34,docs/STRATEGIC_SUGGESTIONS_DOCS_9_12.docx,Executive Team,2026-03-20
+17,Feature Tier Matrix,.docx,—,—,docs/FEATURE_TIER_MATRIX.docx,Product + Sales,2026-03-20
+18,Operations Manual,.docx,15600,41,docs/DEALSTAGE_OPERATIONS_MANUAL.docx,All Departments,2026-03-20
+S1,Empire Operations Tracker,.csv,—,24 sheets,docs/DEALSTAGE_EMPIRE_OPERATIONS.csv,CEO,2026-03-20
+S2,Master Content Tracker,.csv,—,10 sheets,docs/DEALSTAGE_MASTER_TRACKER.csv,Content + Media,2026-03-20
+S3,App Platform Tracker,.csv,—,8 sheets,docs/DEALSTAGE_APP_TRACKER.csv,Engineering + Product,2026-03-20
+TOTAL,,397000+ words,,,,,
+
+=== TAB 2: COMPANY OVERVIEW ===
+Field,Value
+Company Name,DealStage LLC
+DBA,DealStage / The Deal Stage
+Website,www.thedealstage.com
+Founded,2024
+Entity,LLC (Delaware)
+Stage,Pre-Seed
+Headquarters,New York
+Mission,"Make talent-brand partnerships data-driven, transparent, and fair"
+Product,"AI-powered partnership intelligence platform"
+Users,Talent + Brands + Agencies + Managers
+Total App Pages,61
+AI Agents,32 (29 working + 3 need Gemini API)
+AI Providers,4 (Anthropic + DeepSeek + Groq + Gemini)
+Social Platforms Supported,88
+Calendar Events Seeded,486
+Subscription Plans,11 (4 Talent + 4 Brand + 3 Agency)
+Media Properties Planned,18 (6 TV + 6 YouTube + 6 Podcast)
+
+=== TAB 3: TEAM & HIRING PLAN ===
+Role,Name,Type,Salary Range,Equity,Priority,Hire By,Department,Status
+CEO / Founder,[Your Name],Full-Time,—,Majority,—,—,Executive,Active
+CTO,[Open],Full-Time,$150K-$200K,2-5%,1,Month 1,Engineering,Hiring
+Full-Stack Developer,[Open],Full-Time,$130K-$170K,1-2%,1,Month 1,Engineering,Hiring
+Head of Growth,[Open],Full-Time,$120K-$160K,1-3%,2,Month 2,Marketing,Planned
+Podcast Host,[Open],Full-Time,$80K-$120K,0.5-1%,2,Month 2,Content,Planned
+Community Manager,[Open],Part-Time,$2K-$3K/mo,—,2,Month 2,Marketing,Planned
+Head of Content,[Open],Full-Time,$120K-$160K,1-3%,3,Month 3,Content,Planned
+Head of Sales,[Open],Full-Time,$120K-$150K + comm,1-2%,3,Month 3,Sales,Planned
+ML/AI Engineer,[Open],Full-Time,$150K-$190K,1-3%,3,Month 3,Engineering,Planned
+Video Producer,[Open],Contract,$5K-$8K/mo,—,4,Month 5,Content,Planned
+Video Editor,[Open],Contract,$3K-$5K/mo,—,4,Month 5,Content,Planned
+Social Media Manager,[Open],Contract,$3K-$5K/mo,—,4,Month 4,Marketing,Planned
+Customer Success,[Open],Full-Time,$70K-$90K,0.5-1%,5,Month 6,Operations,Planned
+Legal Counsel,[Open],Retainer,$5K-$10K/mo,—,1,Month 1,Legal,Planned
+Bookkeeper,[Open],Contract,$1K-$2K/mo,—,1,Month 1,Finance,Planned
+Executive Producer,[Open],Contract,$25K-$40K/ep,—,6,Month 12,Content,Planned
+Showrunner,[Open],Contract,$25K-$40K/ep,—,7,Month 15,Content,Planned
+
+=== TAB 4: REVENUE MODEL ===
+Stream,Type,Current,Month 6,Month 12,Month 24,Notes
+Talent Subscriptions,SaaS,$0,$27K/mo,$114K/mo,$448K/mo,4 tiers: Free/$99/$249/$499
+Brand Subscriptions,SaaS,$0,$47K/mo,$188K/mo,$774K/mo,4 tiers: Free/$499/$1299/Custom
+Agency Subscriptions,SaaS,$0,$70K/mo,$280K/mo,$1.05M/mo,3 tiers: $2499/$4999/Custom
+Transaction Fees,Transaction,$0,$2K/mo,$8K/mo,$30K/mo,2.9% Stripe Connect
+TV Show Revenue,Media,$0,$0,$0,$3.9M/mo (season),Starts Month 21
+YouTube Revenue,Media,$0,$2K/mo,$8K/mo,$25K/mo,AdSense + sponsors
+Podcast Revenue,Media,$0,$5K/mo,$20K/mo,$60K/mo,Sponsorships + premium
+Data Products,Data,$0,$0,$10K/mo,$50K/mo,Creator Economy Index
+TOTAL,,$0,$153K/mo,$628K/mo,$6.34M/mo,
+
+=== TAB 5: EXPENSE BUDGET (YEAR 1) ===
+Category,Q1,Q2,Q3,Q4,Annual,% of Total
+Salaries,$60K,$90K,$120K,$150K,$420K,25%
+Contractors,$15K,$45K,$60K,$75K,$195K,12%
+Content Production,$25K,$60K,$120K,$120K,$325K,20%
+Marketing/Ads,$10K,$25K,$40K,$50K,$125K,8%
+Infrastructure,$2K,$3K,$5K,$8K,$18K,1%
+AI Provider Costs,$1K,$2K,$5K,$10K,$18K,1%
+Legal,$10K,$10K,$20K,$20K,$60K,4%
+Insurance,$0,$3K,$5K,$5K,$13K,1%
+Travel/Events,$5K,$10K,$15K,$25K,$55K,3%
+Tools/Software,$5K,$8K,$10K,$12K,$35K,2%
+TV Development,$0,$0,$25K,$75K,$100K,6%
+Contingency (10%),$13K,$26K,$45K,$55K,$139K,8%
+Office/Misc,$2K,$3K,$5K,$5K,$15K,1%
+TOTAL,$148K,$285K,$475K,$610K,$1.52M,100%
+
+=== TAB 6: FUNDRAISING ROADMAP ===
+Round,Amount,Pre-Money Valuation,Timeline,Use of Funds,Key Milestones Needed,Status
+Friends & Family,$100K-$250K,$1M-$2M,Month 1-2,"Legal setup + first hires + platform polish","Working platform + first users",Planning
+Pre-Seed,$250K-$500K,$2M-$4M,Month 2-4,"Podcast launch + first content + community","Platform live + 100 users + podcast launched",Planning
+Seed,$1.5M-$3M,$8M-$15M,Month 6-8,"Full team + YouTube + brand partners + 18-month runway","500+ users + $50K MRR + YouTube proof + 5 brand partners",Planning
+Series A,$8M-$15M,$40M-$80M,Month 18-24,"TV production + international + scale to 25+ team","TV greenlit + 5K users + $350K MRR + content flywheel proven",Future
+Series B,$25M-$50M,$150M-$300M,Month 36+,"Media empire scale + global + M&A","TV Season 1 aired + 50K users + $4M MRR + international",Future
+
+=== TAB 7: ALL 18 CONTENT PROPERTIES ===
+#,Property,Type,Format,Episodes/Year,Budget,Revenue Y1,Launch Month,Phase,Status
+1,The Deal Stage (Competition),TV,Streaming 60min,10,$11-17M,$47M,Month 15,Phase 4,Development
+2,Deal or No Deal Stage,TV,Network 30min,20,$6-10M,$25M,Month 18,Phase 5,Concept
+3,The Agency (Docuseries),TV,Streaming 45min,8,$8-10.5M,$15M,Month 20,Phase 5,Concept
+4,Brand vs Brand (Draft),TV,Streaming 60min,10,$9-13M,$20M,Month 22,Phase 6,Concept
+5,The Comeback (Redemption),TV,Streaming 45min,8,$6-9M,$12M,Month 24,Phase 6,Concept
+6,Deal Stage Live (Weekly),TV,Live 60min,30,$3-5M,$18M,Month 20,Phase 5,Concept
+7,Deal Stage Contenders,YouTube,Series 18min,8,$175-450K,$600K,Month 6,Phase 3,Pre-Production
+8,The $100K Challenge,YouTube,Standalone 15min,12,$192K,$400K,Month 9,Phase 3,Concept
+9,Rate My Deal,YouTube,Weekly 25min,50,$700K,$1.5M,Month 8,Phase 3,Concept
+10,First Deal,YouTube,Bi-weekly 30min,24,$384K,$500K,Month 10,Phase 3,Concept
+11,Deal Stage Academy,YouTube,Course 22min,12,$120K,$300K,Month 7,Phase 3,Concept
+12,The Blind Deal,YouTube,Series 20min,8,$200K,$350K,Month 12,Phase 3,Concept
+13,The Deal Stage Podcast,Podcast,Weekly 55min,52,$249K,$1.56M,Month 3,Phase 2,Pre-Production
+14,Deal Drops,Podcast,Daily 10min,260,$132K,$435K,Month 5,Phase 2,Concept
+15,The Negotiation,Podcast,Weekly 40min,52,$292K,$827K,Month 8,Phase 2,Concept
+16,Creator Confessions,Podcast,Weekly 35min,52,$137K,$435K,Month 10,Phase 2,Concept
+17,The Other Side,Podcast,Weekly 45min,52,$180K,$800K,Month 9,Phase 2,Concept
+18,Deal or Disaster,Podcast,Weekly 38min,52,$155K,$600K,Month 11,Phase 2,Concept
+
+=== TAB 8: PLATFORM STATUS ===
+Metric,Current,Target Month 3,Target Month 6,Target Month 12,Target Month 24
+Total Pages,61,61,63,65,70
+Pages Live,61,61,63,65,70
+Bugs Open,4,0,0,0,0
+Bugs Fixed,8,12,12,12,12
+AI Agents Working,29/32,32/32,32/32,32/32,32/32
+Social OAuth (Real),0/88,5/88,13/88,30/88,50/88
+Database Tables,57,57,60,65,70
+Edge Functions,70+,70+,75+,80+,90+
+Users,2,500,2000,5000,50000
+Deals Completed,8,50,250,1000,15000
+Uptime,—,99.5%,99.9%,99.9%,99.95%
+
+=== TAB 9: LEGAL CHECKLIST ===
+Item,Status,Priority,Cost,Deadline,Owner
+LLC Formation,✅ Done,—,Done,Done,Founder
+EIN / Tax ID,✅ Done,—,Done,Done,Founder
+Terms of Service,✅ Live,—,Done,Done,Legal
+Privacy Policy,✅ Live,—,Done,Done,Legal
+GDPR Page,✅ Live,—,Done,Done,Legal
+Cookie Policy,✅ Live,—,Done,Done,Legal
+Business Bank Account,❌ Not Done,1,$0,Week 1,Founder
+Trademark — DealStage,❌ Not Filed,1,$275-$400,Month 1,Legal
+Trademark — The Deal Stage (show),❌ Not Filed,1,$275-$400,Month 1,Legal
+WGA Format Registration,❌ NOT FILED — URGENT,1,$25,THIS WEEK,Legal
+Copyright Registration,❌ Not Filed,2,$65,Month 1,Legal
+D&O Insurance,❌ Not Started,2,$2-5K/yr,Month 6,Legal
+E&O Insurance,❌ Not Started,3,$3-8K/yr,Month 12,Legal
+Cyber Insurance,❌ Not Started,2,$1-3K/yr,Month 6,Legal
+Contractor Agreement Template,❌ Not Started,1,$500-1K,Month 1,Legal
+Employment Agreement Template,❌ Not Started,1,$500-1K,Month 2,Legal
+IP Assignment Agreement,❌ Not Started,1,$500,Month 1,Legal
+409A Valuation,❌ Not Started,2,$3-5K,Before options,Legal
+ESOP Plan,❌ Not Started,2,$2-5K,Month 2,Legal
+Cap Table (Carta),❌ Not Started,1,$0-100/mo,Month 1,Finance
+
+=== TAB 10: IMMEDIATE ACTION ITEMS (THIS WEEK) ===
+#,Action,Impact,Effort,Cost,Owner,Deadline
+1,Add Vercel payment method,CRITICAL — site goes down,$0 (just add card),CTO,TODAY
+2,Register WGA format IP,CRITICAL — protects $100M+ asset,20 minutes,$25,Legal,THIS WEEK
+3,Enable Gemini API in Google Cloud,Low — 3 agents affected,10 minutes,$0,CTO,THIS WEEK
+4,Open business bank account,High — can't receive investment,1 hour,$0,Founder,THIS WEEK
+5,File DealStage trademark,High — protect brand name,30 minutes,$275,Legal,THIS WEEK
+6,Complete 18 blank pitch deck fields,CRITICAL — can't raise without it,2-3 hours,$0,CEO,THIS WEEK
+7,Set up bookkeeping (QuickBooks),Medium — track expenses,1 hour,$25/mo,Finance,THIS WEEK
+8,Post CTO job listing,High — can't scale without tech lead,1 hour,$0,CEO,THIS WEEK
+9,Invite 20 beta users to platform,High — need real usage data,2 hours,$0,Growth,THIS WEEK
+10,Set up Google Workspace (email),Medium — professional email,30 minutes,$6/user/mo,CEO,THIS WEEK
