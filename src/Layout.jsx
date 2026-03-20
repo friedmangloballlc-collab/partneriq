@@ -230,10 +230,11 @@ export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
-  const { canAccess, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
+  const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
   const { theme } = useTheme();
   const [upgradeModal, setUpgradeModal] = useState(false);
   const [lockedFeature, setLockedFeature] = useState("");
+  const [lockedTier, setLockedTier] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -296,6 +297,7 @@ export default function Layout({ children, currentPageName }) {
                 if (isLocked) {
                   e.preventDefault();
                   setLockedFeature(item.name);
+                  setLockedTier(getRequiredTier(item.page));
                   setUpgradeModal(true);
                   return;
                 }
@@ -467,7 +469,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
         </main>
       </div>
-      <UpgradeModal isOpen={upgradeModal} onClose={() => setUpgradeModal(false)} featureName={lockedFeature} />
+      <UpgradeModal isOpen={upgradeModal} onClose={() => setUpgradeModal(false)} featureName={lockedFeature} requiredTier={lockedTier} />
     </div>
   );
 }

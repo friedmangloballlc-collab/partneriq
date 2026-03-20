@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight, X, Crown } from "lucide-react";
 
-export default function UpgradeModal({ isOpen, onClose, featureName }) {
+export default function UpgradeModal({ isOpen, onClose, featureName, requiredTier }) {
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -54,7 +54,9 @@ export default function UpgradeModal({ isOpen, onClose, featureName }) {
           textAlign: "center", lineHeight: 1.6, marginBottom: "1.5rem",
         }}>
           <span style={{ color: "#c4a24a", fontWeight: 500 }}>{featureName || "This feature"}</span> is available on paid plans.
-          Your 7-day trial has ended — upgrade to continue using premium features.
+          {requiredTier
+            ? `This feature requires the ${requiredTier} plan or higher.`
+            : "Your 7-day trial has ended — upgrade to continue using premium features."}
         </p>
 
         <div style={{
