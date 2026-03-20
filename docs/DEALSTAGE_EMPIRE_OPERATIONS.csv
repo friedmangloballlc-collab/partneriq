@@ -1,0 +1,377 @@
+SHEET 1: COMPANY OVERVIEW,,,,
+Field,Value,,,
+Company Name,DealStage LLC,,,
+Website,www.thedealstage.com,,,
+Founded,2024,,,
+Headquarters,"New York, NY",,,
+Entity Type,LLC (Delaware),,,
+Mission,"Make talent-brand partnerships data-driven, transparent, and fair",,,
+Stage,Pre-Seed / Seed,,,
+Employees,1-5,,,
+Contractors,0,,,
+Total Headcount,1-5,,,
+Monthly Burn Rate,$15K-$25K (estimated),,,
+Runway,TBD — dependent on raise,,,
+Bank,TBD,,,
+Accounting Software,TBD,,,
+Payroll Provider,TBD,,,
+,,,,
+,,,,
+SHEET 2: ORGANIZATIONAL STRUCTURE,,,,,,,,,,
+Role,Name,Type,Start Date,Salary / Rate,Equity %,Reports To,Department,Status,Priority to Hire
+CEO / Founder,[Founder Name],Full-Time,2024,TBD,TBD,Board,Executive,Active,—
+CTO,[Open],Full-Time,TBD,$150K-$200K,2-5%,CEO,Engineering,Hiring,Immediate
+Head of Content,[Open],Full-Time,TBD,$120K-$160K,1-3%,CEO,Content,Hiring,Month 3
+Podcast Host,[Open],Full-Time,TBD,$80K-$120K,0.5-1%,Head of Content,Content,Hiring,Month 2
+Full-Stack Developer,[Open],Full-Time,TBD,$130K-$170K,1-2%,CTO,Engineering,Hiring,Month 1
+ML/AI Engineer,[Open],Full-Time,TBD,$150K-$190K,1-3%,CTO,Engineering,Hiring,Month 3
+Head of Growth/Marketing,[Open],Full-Time,TBD,$120K-$160K,1-3%,CEO,Marketing,Hiring,Month 2
+Head of Sales/Partnerships,[Open],Full-Time,TBD,$120K-$150K + commission,1-2%,CEO,Sales,Hiring,Month 3
+Video Producer,[Open],Contract,TBD,$5K-$8K/mo,—,Head of Content,Content,Hiring,Month 5
+Video Editor,[Open],Contract,TBD,$3K-$5K/mo,—,Head of Content,Content,Hiring,Month 5
+Social Media Manager,[Open],Contract,TBD,$3K-$5K/mo,—,Head of Growth,Marketing,Hiring,Month 4
+Community Manager,[Open],Part-Time,TBD,$2K-$3K/mo,—,Head of Growth,Marketing,Hiring,Month 2
+Legal Counsel,[Open],Retainer,TBD,$5K-$10K/mo,—,CEO,Legal,Hiring,Month 1
+Bookkeeper/Accountant,[Open],Contract,TBD,$1K-$2K/mo,—,CEO,Finance,Hiring,Month 1
+Executive Producer (TV),[Open],Contract,TBD,$25K-$40K/episode,—,CEO,Content,Hiring,Month 12
+Customer Success,[Open],Full-Time,TBD,$70K-$90K,0.5-1%,Head of Sales,Operations,Hiring,Month 6
+Showrunner,[Open],Contract,TBD,$25K-$40K/episode,—,EP,Content,Hiring,Month 15
+,,,,,,,,,,
+,,,,,,,,,,
+SHEET 3: REVENUE STREAMS,,,,,,,,
+Stream,Type,Current MRR,Month 6 Target,Month 12 Target,Month 24 Target,Owner,Status
+Talent Subscriptions (4 tiers),SaaS Recurring,$0,$27K,$114K,$448K,Sales,Pre-Launch
+Brand Subscriptions (4 tiers),SaaS Recurring,$0,$47K,$188K,$774K,Sales,Pre-Launch
+Agency Subscriptions (3 tiers),SaaS Recurring,$0,$70K,$280K,$1.05M,Sales,Pre-Launch
+Transaction Fees (Stripe 2.9%),Transaction,$0,$2K,$8K,$30K,Product,Active (Stripe live)
+TV Show Revenue,Media,—,—,—,$3.9M/mo (during season),EP,Development
+YouTube Revenue (all series),Media,$0,$2K,$8K,$25K,Content,Pre-Production
+Podcast Revenue (all shows),Media,$0,$5K,$20K,$60K,Content,Pre-Production
+Data Intelligence Products,Data,$0,—,$10K,$50K,Data Lead,Planned
+TOTAL,,$0,$153K,$628K,$6.34M,,
+,,,,,,,,
+,,,,,,,,
+SHEET 4: EXPENSE CATEGORIES (MONTHLY),,,,,,,,
+Category,Current Monthly,Month 6,Month 12,Month 24,Annual Run Rate (Month 24),Notes,
+Salaries (full-time),$0,$30K,$60K,$120K,$1.44M,Ramp as hires made,
+Contractors,$5K,$15K,$20K,$25K,$300K,Video + social + legal + accounting,
+Infrastructure (Supabase/Vercel/tools),$50,$200,$500,$1K,$12K,Scale with usage,
+AI Provider Costs,$10,$100,$500,$2K,$24K,Scales with AI usage,
+Stripe Fees,$0,$1K,$3K,$10K,$120K,2.9% of transaction volume,
+Content Production,$0,$15K,$30K,$50K,$600K,Podcast + YouTube,
+Marketing/Paid Ads,$0,$5K,$10K,$25K,$300K,Social + search + podcast ads,
+Legal,$2K,$5K,$5K,$8K,$96K,IP + contracts + compliance,
+Insurance,$0,$1K,$2K,$3K,$36K,D&O + E&O when needed,
+Office/Misc,$0,$1K,$2K,$3K,$36K,Co-working + supplies,
+Travel/Events,$0,$2K,$5K,$8K,$96K,Conferences + meetings,
+TOTAL,$7K,$76K,$138K,$255K,$3.06M,,
+,,,,,,,,
+,,,,,,,,
+SHEET 5: FUNDRAISING TRACKER,,,,,,,,
+Round,Target Amount,Pre-Money Valuation,Lead Investor,Status,Use of Funds,Target Close,
+Pre-Seed / Friends & Family,$250K-$500K,$2M-$4M,TBD,Planning,"Platform polish + first content + first hires",Month 1-2,
+Seed,$1.5M-$3M,$8M-$15M,TBD,Planning,"Team (5-8 hires) + content production + 18-month runway",Month 6-8,
+Series A,$8M-$15M,$40M-$80M,TBD,Future,"TV production + international + scale team to 25+",Month 18-24,
+Series B,$25M-$50M,$150M-$300M,TBD,Future,"Media empire scale + global expansion + M&A",Month 36+,
+,,,,,,,,
+,,,,,,,,
+SHEET 6: INVESTOR PIPELINE,,,,,,,,
+Investor Name,Type,Stage Focus,Status,Last Contact,Next Step,Notes,
+[TBD],VC — Creator Economy,Seed,Research,—,Identify + warm intro,,
+[TBD],VC — SaaS,Seed,Research,—,Identify + warm intro,,
+[TBD],VC — Media/Entertainment,Seed,Research,—,Identify + warm intro,,
+[TBD],Angel — Creator Economy,Pre-Seed,Research,—,Identify + outreach,,
+[TBD],Angel — Entertainment,Pre-Seed,Research,—,Identify + outreach,,
+[TBD],Strategic — Talent Agency,Seed,Research,—,Pitch as strategic LP,Night Media / WME ventures,
+[TBD],Strategic — Brand Holding,Seed,Research,—,Pitch as brand partner,WPP / Publicis ventures,
+,,,,,,,,
+,,,,,,,,
+SHEET 7: LEGAL & COMPLIANCE TRACKER,,,,,,,,
+Item,Status,Owner,Deadline,Cost,Priority,Notes,
+LLC Formation (Delaware),Done,Founder,Done,$500,—,,
+EIN / Tax ID,Done,Founder,Done,Free,—,,
+Business Bank Account,TBD,Founder,Month 1,$0,1,,
+Trademark — DealStage,Not Filed,Legal,Month 1,$275-$400,1,File with USPTO,
+Trademark — The Deal Stage (show),Not Filed,Legal,Month 1,$275-$400,1,,
+WGA Format Registration,Not Filed,Legal,Week 1,$25,1,Protects $100M+ format IP,
+Copyright Registration,Not Filed,Legal,Month 1,$65,2,Platform + content,
+Terms of Service,Live,Legal,Done,$0,—,,
+Privacy Policy,Live,Legal,Done,$0,—,,
+GDPR Compliance Page,Live,Legal,Done,$0,—,,
+Cookie Policy,Live,Legal,Done,$0,—,,
+D&O Insurance,Not Started,Legal,Month 6,$2K-$5K/yr,2,Before fundraise,
+E&O Insurance,Not Started,Legal,Month 12,$3K-$8K/yr,3,Before TV production,
+Cyber Insurance,Not Started,Legal,Month 6,$1K-$3K/yr,2,Before scale,
+Contractor Agreements Template,Not Started,Legal,Month 1,$500-$1K,1,Standard template,
+Employment Agreements Template,Not Started,Legal,Month 2,$500-$1K,1,,
+IP Assignment Agreement,Not Started,Legal,Month 1,$500,1,All employees/contractors,
+409A Valuation,Not Started,Legal,Before first option grant,$3K-$5K,2,Required for ESOP,
+ESOP Plan,Not Started,Legal,Month 2,$2K-$5K,2,10-15% option pool,
+Cap Table Setup (Carta/Pulley),Not Started,Finance,Month 1,$0-$100/mo,1,,
+Prize Bond/Escrow (TV show),Not Started,Legal,Month 14,$1.8K-$5K,3,Before TV filming,
+Contestant Agreements,Not Started,Legal,Month 14,$2K-$5K,3,Before casting,
+FTC Compliance Review,Not Started,Legal,Month 12,$5K-$10K,2,Before TV/brand deals,
+,,,,,,,,
+,,,,,,,,
+SHEET 8: QUARTERLY OKRs,,,,,,,,
+Quarter,Objective,Key Result 1,Key Result 2,Key Result 3,Owner,Status,
+Q2 2026,Platform Foundation,500 users signed up,50 deals completed on platform,Zero critical bugs in production,CEO + CTO,Active,
+Q2 2026,Content Launch,Podcast launched with 4 banked episodes,2K downloads/episode by end of quarter,Host hired and producing weekly,Head of Content,Active,
+Q3 2026,Prove the Flywheel,YouTube Season 1 launched (8 episodes),50K views on best-performing episode,500 platform signups from content,Head of Content + Growth,Planned,
+Q3 2026,Revenue Start,$50K MRR from subscriptions,10 brand partners signed,First data intelligence report published,Sales Lead,Planned,
+Q4 2026,Scale Content,4 podcast shows running weekly,3 YouTube series in production,25K podcast downloads/episode avg,Head of Content,Planned,
+Q4 2026,TV Development,Sizzle reel completed,3 production company meetings,1 agency package in progress,CEO + EP,Planned,
+Q1 2027,Fundraise,Seed round closed ($1.5M-$3M),5000+ platform users,$350K+ MRR,CEO,Planned,
+Q2 2027,TV Greenlight,TV show greenlit by network/streamer,12 contestants cast,8 brand partners committed for Season 1,EP,Planned,
+,,,,,,,,
+,,,,,,,,
+SHEET 9: VENDOR & TOOL REGISTRY,,,,,,,,
+Vendor,Category,Purpose,Monthly Cost,Contract Type,Status,Owner,Renewal Date
+Supabase,Backend,Database + Auth + Edge Functions + Storage,$0 (free tier),Pay-as-you-go,Active,CTO,—
+Vercel,Hosting,Frontend + CDN + Serverless,$0 (trial — 12 days left),Monthly,Active — URGENT,CTO,Immediate
+Stripe,Payments,Escrow + Subscriptions,2.9% + 30c/txn,Pay-as-you-go,Active,Finance,—
+Resend,Email,Transactional emails,$0 (free tier),Pay-as-you-go,Active,CTO,—
+Anthropic,AI,Claude Sonnet (COMPLEX agents),~$3/M tokens,Pay-as-you-go,Active,CTO,—
+DeepSeek,AI,DeepSeek V3 (STANDARD agents),~$0.28/M tokens,Pay-as-you-go,Active,CTO,—
+Groq,AI,Llama 3.3 (FAST fallback),~$0.05/M tokens,Pay-as-you-go,Active,CTO,—
+Google,AI,Gemini Flash (FREE agents),$0,Free,API Disabled — Fix Needed,CTO,—
+GitHub,Code,Repository (private),$0 (free tier),Monthly,Active,CTO,—
+Google Workspace,Business,Email + Docs + Calendar,$6-$12/user/mo,Monthly,Not Set Up,CEO,—
+Slack,Communication,Team chat,$0 (free),Monthly,Not Set Up,CEO,—
+Notion/Confluence,Knowledge,Wiki + docs + SOPs,$0-$10/user/mo,Monthly,Not Set Up,CEO,—
+Carta/Pulley,Equity,Cap table management,$0-$100/mo,Annual,Not Set Up,Finance,—
+QuickBooks/Xero,Accounting,Bookkeeping + invoicing,$25-$50/mo,Monthly,Not Set Up,Finance,—
+Gusto/Rippling,Payroll,Payroll + benefits + HR,$40+/mo,Monthly,Not Set Up,HR,—
+Figma,Design,UI/UX design,$0-$12/user/mo,Monthly,Not Set Up,Design,—
+Riverside.fm,Podcast,Remote recording,$15-$24/mo,Monthly,Not Set Up,Content,—
+Descript,Editing,Podcast + video editing,$24-$33/mo,Monthly,Not Set Up,Content,—
+Canva,Design,Thumbnails + social graphics,$0-$12.99/mo,Monthly,Not Set Up,Content,—
+Calendly,Scheduling,Meeting scheduling,$0 (free tier),Monthly,Not Set Up,Sales,—
+,,,,,,,,
+,,,,,,,,
+SHEET 10: WEEKLY MEETING CADENCE,,,,,,,,
+Meeting,Day,Time,Duration,Attendees,Purpose,Format,
+All-Hands Standup,Monday,9:00 AM,15 min,Everyone,Week priorities + blockers,Async OK via Slack,
+Product Sync,Tuesday,10:00 AM,30 min,CEO + CTO + Product,Feature priorities + bugs + releases,Video call,
+Content Review,Wednesday,10:00 AM,45 min,CEO + Content Lead + Host,Content pipeline + episode review + metrics,Video call,
+Sales/Growth Check,Thursday,10:00 AM,30 min,CEO + Growth + Sales,Pipeline + signups + conversion + marketing,Video call,
+Friday Wrap,Friday,3:00 PM,15 min,Everyone,Weekly wins + weekend plans,Async OK via Slack,
+Board Update,Monthly (last Friday),2:00 PM,60 min,CEO + Board/Advisors,Metrics + fundraise + strategic decisions,Video call,
+OKR Review,Quarterly (last week),All day,Half day,Everyone,Review OKRs + set next quarter,In-person preferred,
+,,,,,,,,
+,,,,,,,,
+SHEET 11: 90-DAY SPRINT PLAN (FIRST 90 DAYS),,,,,,,,
+Week,Platform,Content,Business,Legal/Finance,Hiring
+1,Fix Vercel payment + Gemini API,Identify podcast host candidates,Pitch deck — complete 18 blank fields,Register WGA format IP ($25) + trademark filing,Post CTO job listing
+2,Get first 20 beta users (invite only),Podcast host interviews,Create 1-page investor teaser,Set up business bank account + bookkeeper,Post Full-Stack Developer listing
+3,Integrate Phyllo for real social OAuth,Hire podcast host,Identify 10 angel investors,Contractor agreement template,Interview CTO candidates
+4,Platform QA — fix any user-reported bugs,Record first 4 podcast episodes (bank),Begin angel outreach,Cap table setup (Carta),Interview developer candidates
+5,Launch referral program,Podcast logo + branding + intro music,First 5 investor meetings,IP assignment agreements for all team,Make CTO offer
+6,100 users milestone,PODCAST LAUNCH (Spotify + Apple + YouTube),Investor follow-ups + term sheet discussions,ESOP plan setup,Make developer offer
+7,Recruit first 5 brand partners,Podcast Episodes 5-6 + first TikTok clips,First brand partner meetings,Employment agreements,Hire community manager
+8,250 users milestone,Launch Deal Drops (daily podcast),Brand partner proposals sent,Legal review of brand contracts,Post Head of Content listing
+9,First 100 deals completed on platform,Plan YouTube Season 1 casting,3 brand partners signed,D&O insurance quote,Interview Head of Content
+10,Platform feature sprint based on user feedback,Cast 8 YouTube contestants,Seed deck v2 with real metrics,Cyber insurance setup,Interview Growth Lead
+11,500 users milestone,Begin YouTube filming,Seed round term sheet target,Review all compliance docs,Make Head of Content offer
+12,Product-market fit indicators measured,YouTube filming continues,Close pre-seed or start seed,409A valuation if issuing options,Full team of 5-8 in place
+MILESTONE (End of Week 13):,500 users + 150 deals + podcast live + YouTube filming + 3 brands signed + team of 5-8 in place,,,,,
+,,,,,,,,
+,,,,,,,,
+SHEET 12: KEY METRICS DASHBOARD (CEO VIEW),,,,,,,,
+Metric,Current,Week Target,Month Target,Quarter Target,Year Target,Status,
+Platform Users,2,50,500,2000,5000,RED — Need users,
+Paying Subscribers,0,0,50,300,1000,RED — Pre-launch,
+MRR,$0,$0,$15K,$90K,$350K,RED — Pre-launch,
+Deals Completed,8,15,50,250,1000,YELLOW — Early,
+Podcast Episodes Published,0,0,4,16,52,RED — Not launched,
+YouTube Episodes Published,0,0,0,8,20,RED — Not launched,
+Brand Partners,0,0,2,5,15,RED — Need outreach,
+Team Size,1-2,1-2,3-5,5-8,8-12,YELLOW — Hiring,
+Cash in Bank,TBD,TBD,TBD,TBD,TBD,RED — Need to track,
+Runway (months),TBD,—,—,18+,18+,RED — Need to track,
+NPS Score,—,—,40,50,60,GREY — Not measured yet,
+AI Agents Working,29/32,32/32,32/32,32/32,32/32,YELLOW — Gemini needs fix,
+,,,,,,,,
+,,,,,,,,
+SHEET 13: SUBSCRIPTION PRICING MODEL,,,,,,,,
+Tier,User Type,Monthly Price,Annual Price (20% off),Included Features,Target User,Deals Allowed / Month,
+Starter,Talent,$29,$278,"Profile + 5 deal pitches/mo + basic analytics","Micro-influencer (10K-100K followers)",5,
+Pro,Talent,$79,$758,"Unlimited pitches + advanced analytics + deal templates","Mid-tier creator (100K-500K followers)",Unlimited,
+Elite,Talent,$149,$1430,"Everything + AI match score + priority discovery + deal room","Top creator (500K+ followers)",Unlimited + Priority,
+Enterprise,Talent,Custom,Custom,"White-glove + API access + team seats + custom reporting","Agencies managing talent",Unlimited + API,
+Starter,Brand,$99,$950,"5 talent searches/mo + campaign dashboard + basic match","Startup / SMB brand",5,
+Pro,Brand,$249,$2390,"Unlimited search + AI recommendations + contract templates","Growth-stage brand",Unlimited,
+Elite,Brand,$499,$4790,"Everything + exclusive talent access + dedicated success rep","Enterprise brand",Unlimited + Exclusive,
+Enterprise,Brand,Custom,Custom,"Full platform API + multi-brand + custom integrations","Holding company / agency buying on behalf",Unlimited + API,
+Starter,Agency,$299,$2870,"Up to 10 talent profiles + deal tracking + basic analytics","Boutique agency (under 20 talent)",10 talent,
+Pro,Agency,$599,$5750,"Up to 50 talent + advanced deal room + white-label reports","Mid-size agency (20-100 talent)",50 talent,
+Enterprise,Agency,Custom,Custom,"Unlimited talent + full API + co-branded platform + dedicated team","Large agency (100+ talent)",Unlimited + API,
+,,,,,,,,
+,,,,,,,,
+SHEET 14: CONTENT CALENDAR FRAMEWORK,,,,,,,,
+Show / Series,Format,Cadence,Platform,Length,Target Audience,Season Structure,Status
+The Deal Stage Podcast (flagship),Interview / Deep Dive,Weekly,Spotify + Apple + YouTube,45-60 min,Talent + brands + agencies,Evergreen — no seasons,Pre-Production
+Deal Drops,Short-form daily audio,Daily,Spotify + Apple,5-10 min,Creator economy insiders,Evergreen,Planned
+The Data Drop,Data / Trends report,Weekly,YouTube + LinkedIn,10-15 min,Brand marketers + agencies,Evergreen,Planned
+Creator Court,Debate / Panel show,Bi-weekly,YouTube,20-30 min,Creators + industry,Evergreen,Planned
+The Deal Stage (TV),Reality competition,Annual season,Netflix / Hulu / Prime / Peacock,60 min/ep,Mass audience (18-45),12 episodes + reunion,Development
+DealStage Academy,Educational series,Weekly,YouTube,10-20 min,Aspiring creators + new brands,Evergreen,Planned
+Brand vs. Creator,Short-form drama/documentary,Weekly,TikTok + YouTube Shorts,60-90 sec,Gen Z + Millennials,Evergreen,Planned
+,,,,,,,,
+,,,,,,,,
+SHEET 15: TV SHOW PRODUCTION MILESTONES,,,,,,,,
+Milestone,Target Date,Owner,Cost Estimate,Dependencies,Status,
+Format IP Protection (WGA),Week 1,Legal,$25,None,Not Started,
+Pitch Deck for TV (format bible),Month 1,CEO,Internal,Brand guidelines,Not Started,
+Sizzle Reel (3-5 min),Month 4,EP + Video Producer,$15K-$30K,EP hired,Not Started,
+Executive Producer attached,Month 3,CEO,—,Outreach list built,Not Started,
+Agency / Entertainment Lawyer,Month 1,Legal,$500-$1K/mo,Legal retainer,Not Started,
+Network/Streamer Pitch Meetings (first round),Month 6,CEO + EP,Travel budget,Sizzle reel done,Not Started,
+Production Company Partner,Month 8,CEO + EP,—,Pitch meetings done,Not Started,
+Pilot script / Treatment finalized,Month 9,Showrunner,$10K-$20K,Showrunner hired,Not Started,
+Network/Streamer deal term sheet,Month 12,Legal,Legal fees,Pitch accepted,Not Started,
+Series order confirmed,Month 15,Legal/EP,—,Deal signed,Not Started,
+Casting open (talent + brands),Month 14,Casting Director,$5K-$10K,Series confirmed,Not Started,
+Production start,Month 16,Showrunner + EP,$2M-$5M/episode,Full greenlight,Not Started,
+Post-production / edit,Month 18,Editor + EP,$500K-$1M/episode,Production complete,Not Started,
+Network delivery / air date,Month 20,EP,—,Post complete,Not Started,
+Season 1 revenue begins,Month 21,Finance,—,Airing,Not Started,
+,,,,,,,,
+,,,,,,,,
+SHEET 16: BRAND PARTNERSHIP PIPELINE,,,,,,,,
+Brand Name,Category,Tier Interest,Contact Name,Contact Role,Status,Pitch Date,Deal Value Est.,Notes
+[Target Brand 1],DTC / Consumer,Pro,TBD,CMO / VP Marketing,Research,—,$25K-$50K/campaign,Ideal: DTC brand with creator program
+[Target Brand 2],Fashion / Apparel,Elite,TBD,Brand Partnerships,Research,—,$50K-$100K/campaign,Strong creator ecosystem
+[Target Brand 3],Tech / SaaS,Pro,TBD,Head of Influencer,Research,—,$20K-$40K/campaign,Need verified ROI data
+[Target Brand 4],CPG / Food & Bev,Pro,TBD,Marketing Director,Research,—,$15K-$30K/campaign,High volume potential
+[Target Brand 5],Finance / Fintech,Elite,TBD,CMO,Research,—,$75K-$150K/campaign,Premium CPM category
+[Target Brand 6],Beauty / Wellness,Pro,TBD,Influencer Manager,Research,—,$20K-$50K/campaign,Heavy creator ecosystem usage
+[Target Brand 7],Gaming / Entertainment,Starter,TBD,Partnerships Lead,Research,—,$10K-$25K/campaign,Early adopter potential
+[Target Brand 8],Travel / Lifestyle,Pro,TBD,Brand Manager,Research,—,$30K-$60K/campaign,Seasonal + aspirational content
+,,,,,,,,
+,,,,,,,,
+SHEET 17: TALENT ACQUISITION PIPELINE,,,,,,,,
+Creator Name,Category,Followers (est.),Platform,Status,Outreach Date,Subscription Tier Fit,Notes
+[Target Creator 1],Business / Finance,500K+,YouTube + LinkedIn,Research,—,Elite,Ideal flagship user — data-driven
+[Target Creator 2],Lifestyle,1M+,Instagram + TikTok,Research,—,Elite,High deal volume
+[Target Creator 3],Creator Economy,250K,Twitter/X + YouTube,Research,—,Pro,Industry insider — good for credibility
+[Target Creator 4],Fashion,150K,Instagram,Research,—,Pro,Brand deal heavy vertical
+[Target Creator 5],Tech / AI,75K,YouTube,Research,—,Starter,Early adopter mindset
+[Target Creator 6],Fitness,300K,TikTok + Instagram,Research,—,Pro,Brand partnership heavy
+[Target Creator 7],Podcast host,50K,Spotify + YouTube,Research,—,Starter,Platform evangelist potential
+[Target Creator 8],Food / Cooking,200K,YouTube + TikTok,Research,—,Pro,High brand deal frequency
+,,,,,,,,
+,,,,,,,,
+SHEET 18: PLATFORM FEATURE ROADMAP,,,,,,,,
+Feature,Priority,Quarter,Status,Owner,Dependencies,User Benefit,
+User Authentication (email + OAuth),P0,Q1 2026,Live,CTO,Supabase,Core access,
+Creator Profile Builder,P0,Q1 2026,Live,CTO,Auth,Discoverability,
+Brand Profile Builder,P0,Q1 2026,Live,CTO,Auth,Discovery + outreach,
+Deal Submission Flow,P0,Q1 2026,Live,CTO,Profiles,Core transaction,
+Escrow Payment (Stripe),P0,Q1 2026,Live,CTO,Stripe,Trust + safety,
+Subscription Billing (Stripe),P0,Q2 2026,In Progress,CTO,Stripe,Revenue,
+AI Deal Match Score,P1,Q2 2026,Planned,CTO + ML Eng,ML Engineer hired,Core value prop,
+Analytics Dashboard (Creator),P1,Q2 2026,Planned,CTO,Data pipeline,Retention,
+Analytics Dashboard (Brand),P1,Q2 2026,Planned,CTO,Data pipeline,Retention,
+Real Social OAuth (Phyllo),P1,Q2 2026,Planned,CTO,Phyllo API,Data accuracy,
+Deal Room (messaging + contracts),P1,Q3 2026,Planned,CTO,Legal templates,Workflow,
+Agency Multi-Seat Dashboard,P2,Q3 2026,Planned,CTO,Agency tier live,Agency revenue,
+Public Creator Discovery Page,P2,Q3 2026,Planned,CTO,Profiles + SEO,Growth,
+Data Intelligence Reports,P2,Q4 2026,Planned,Data Lead,Data pipeline,New revenue stream,
+Mobile App (iOS + Android),P3,Q1 2027,Planned,CTO,React Native,Retention + growth,
+API Access (Enterprise),P3,Q2 2027,Planned,CTO,Auth + rate limiting,Enterprise revenue,
+White-Label Platform,P3,Q3 2027,Planned,CTO,Core stable,Agency enterprise,
+,,,,,,,,
+,,,,,,,,
+SHEET 19: RISK REGISTER,,,,,,,,
+Risk,Category,Likelihood,Impact,Severity,Mitigation,Owner,Status
+Vercel trial expires — platform goes down,Infrastructure,HIGH,CRITICAL,CRITICAL,Pay immediately — upgrade plan,CTO,Active — Urgent
+Gemini API disabled — AI agents degraded,Technical,HIGH,MEDIUM,HIGH,Fix API key + enable billing or swap to fallback,CTO,Active
+No CTO hired — tech progress stalls,Hiring,MEDIUM,HIGH,HIGH,Post job + use interim contractor,CEO,Active
+Platform gets hacked before security audit,Security,LOW,CRITICAL,HIGH,Add pen test to Month 2 roadmap,CTO,Planned
+Competitor launches similar product,Market,MEDIUM,HIGH,HIGH,Accelerate content flywheel + lock in early adopters,CEO,Monitoring
+Fundraise takes longer than expected — cash out,Financial,MEDIUM,CRITICAL,CRITICAL,Keep burn ultra-low + identify bridge options,CEO,Active
+TV show format stolen before IP protection,Legal,MEDIUM,CRITICAL,CRITICAL,File WGA today + engage entertainment lawyer,Legal,Active — Urgent
+FTC influencer disclosure enforcement,Regulatory,LOW,HIGH,MEDIUM,Build compliance into deal flow from day 1,Legal,Planned
+Key hire leaves — single point of failure,HR,MEDIUM,HIGH,HIGH,Document all systems + no single point of failure,CEO,Ongoing
+Stripe account flagged — payments frozen,Financial,LOW,HIGH,MEDIUM,Keep account in good standing + have backup processor,Finance,Monitoring
+Platform data breach — user data exposed,Security,LOW,CRITICAL,HIGH,SOC2 roadmap + cyber insurance + data minimization,CTO,Planned
+Content creator partner NDA breach,Legal,LOW,MEDIUM,LOW,Standard NDAs for all partnerships,Legal,Planned
+,,,,,,,,
+,,,,,,,,
+SHEET 20: FINANCIAL MODEL ASSUMPTIONS,,,,,,,,
+Assumption,Value,Notes,Source,
+Average Talent Subscription MRR per user,$79,Assumes Pro tier adoption,Model estimate,
+Average Brand Subscription MRR per user,$249,Assumes Pro tier adoption,Model estimate,
+Average Agency Subscription MRR per user,$599,Assumes Pro tier adoption,Model estimate,
+Monthly User Growth Rate (Month 1-6),50%,Aggressive — content-driven,Assumption,
+Monthly User Growth Rate (Month 7-12),25%,Normalizing after content launch,Assumption,
+Monthly User Growth Rate (Month 13-24),15%,Maturing growth,Assumption,
+Talent:Brand:Agency User Split,70:20:10,Talent-heavy early,Assumption,
+Free-to-Paid Conversion Rate,10%,Industry benchmark,Industry data,
+Monthly Churn Rate,3%,B2B SaaS benchmark,Industry data,
+Average Deals per Platform User per Month,2,Based on current 8 deals / 2 users,Actual data,
+Average Deal Value (platform),TBD,Need real data,Actual data,
+Transaction Fee Revenue (% of GMV),2.9%,Stripe standard,Stripe,
+Content Subscriber Growth (YouTube),20% MoM,Standard creator growth,Assumption,
+Podcast Download Growth,25% MoM,Early podcast growth,Assumption,
+TV Show License Fee (per episode),$300K-$800K,Standard US network,Industry data,
+TV Show Production Cost (per episode),$2M-$5M,Reality competition budget,Industry data,
+TV Season Brand Integration Value,$30M-$60M total,12-episode season,Model estimate,
+,,,,,,,,
+,,,,,,,,
+SHEET 21: COMMUNICATIONS & BRAND GUIDELINES,,,,,,,,
+Element,Specification,Notes,
+Brand Name,DealStage / The Deal Stage,Platform = DealStage | TV = The Deal Stage,
+Tagline,Where talent meets capital — transparently,Working tagline — refine with brand team,
+Brand Voice,Direct. Data-driven. Empowering. No fluff.,Avoid buzzwords like synergy / leverage,
+Primary Color,TBD — confirm with designer,,
+Secondary Color,TBD,,
+Font (Heading),TBD,,
+Font (Body),TBD,,
+Logo Usage,TBD — brand guide needed,,
+Social Handle — Instagram,@thedealstage,Check availability,
+Social Handle — TikTok,@thedealstage,Check availability,
+Social Handle — Twitter/X,@thedealstage,Check availability,
+Social Handle — LinkedIn,DealStage LLC,Company page,
+Social Handle — YouTube,@thedealstage,Check availability,
+Press Email,press@thedealstage.com,Set up in Google Workspace,
+Investor Email,investors@thedealstage.com,Set up in Google Workspace,
+Support Email,hello@thedealstage.com,Set up in Google Workspace,
+,,,,,,,,
+,,,,,,,,
+SHEET 22: ADVISOR BOARD TRACKER,,,,,,,,
+Advisor Name,Expertise,Equity (Options),Commitment,Status,Value to DealStage,Intro Source
+[Open],Creator Economy / Talent Management,0.25-0.5%,2-4 hrs/mo,Seeking,Industry credibility + network,,
+[Open],Brand Marketing / CMO,0.25-0.5%,2-4 hrs/mo,Seeking,Brand partner intros,,
+[Open],SaaS / B2B Growth,0.25-0.5%,2-4 hrs/mo,Seeking,Go-to-market expertise,,
+[Open],TV / Entertainment,0.25-0.5%,2-4 hrs/mo,Seeking,TV production credibility + network,,
+[Open],VC / Fundraising,0.25-0.5%,2-4 hrs/mo,Seeking,Investor intros + term sheet guidance,,
+[Open],Legal / IP / Entertainment Law,0.25-0.5%,2-4 hrs/mo,Seeking,Legal strategy + network,,
+,,,,,,,,
+,,,,,,,,
+SHEET 23: DATA & ANALYTICS INFRASTRUCTURE,,,,,,,,
+Data Source,Type,Frequency,Owner,Tool,Purpose,Status
+Platform user signups,Product,Real-time,CTO,Supabase,Growth tracking,Active
+Deal completions,Product,Real-time,CTO,Supabase,Revenue + engagement,Active
+Subscription payments,Financial,Real-time,Finance,Stripe,MRR tracking,Active (no paying users yet)
+Social media followers (Phyllo),Third-party,Daily sync,CTO,Phyllo API,Creator verification,Planned
+Podcast downloads,Media,Weekly,Content,Spotify for Podcasters + Apple,Content performance,Not started
+YouTube views + subscribers,Media,Daily,Content,YouTube Studio,Content performance,Not started
+Email open + click rates,Marketing,Per send,Marketing,Resend analytics,Email performance,Planned
+Website traffic + conversion,Marketing,Daily,Growth,Google Analytics 4,Acquisition tracking,Not set up
+App error + uptime monitoring,Technical,Real-time,CTO,Vercel + Supabase logs,Reliability,Active
+AI agent usage + cost,Technical,Daily,CTO,Anthropic + OpenAI dashboards,Cost control,Active
+NPS surveys,Customer Success,Quarterly,CS Lead,Typeform or Delighted,Satisfaction,Not started
+Churn reasons,Customer Success,Per event,CS Lead,CRM,Retention,Not started
+,,,,,,,,
+,,,,,,,,
+SHEET 24: EXIT STRATEGY SCENARIOS,,,,,,,,
+Scenario,Type,Timeline,Estimated Valuation,Acquirer Profile,Trigger,
+Strategic acquisition by talent agency,M&A,Year 3-5,$200M-$500M,"WME, CAA, UTA, Night Media","Platform has 50K+ users + proven deal flow",
+Strategic acquisition by media company,M&A,Year 4-6,$300M-$700M,"Endeavor, Disney, Warner Bros Discovery","TV show is hit + platform synergy",
+Strategic acquisition by brand holding company,M&A,Year 4-6,$200M-$500M,"WPP, Publicis, Omnicom","Data intelligence product is high value",
+IPO,Public Market,Year 6-8,$1B+,Public markets,SaaS + media revenue at scale,
+Merger with complementary platform,M&A,Year 3-5,$150M-$400M,"AspireIQ, Grin, Creator.co","Platform consolidation",
+Private equity recapitalization,PE,Year 5-7,TBD,PE firm,Profitable + scalable — founder liquidity,
+,,,,,,,,
