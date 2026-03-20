@@ -1,0 +1,217 @@
+SHEET 1: PLATFORM FEATURES BY ROLE
+Page,Route,Talent,Brand,Agency,Admin,Status,Priority,Completion %,Notes
+Dashboard,/Dashboard,✅,✅,✅,✅,Live,1,100%,Role-adaptive panels
+My Profile,/TalentProfile,✅,❌,❌,✅,Live,1,90%,Needs media kit auto-generation
+My Opportunities,/BrandDashboard,✅,✅,❌,✅,Live,1,85%,
+Connect Accounts,/ConnectAccounts,✅,✅,✅,✅,Live,1,70%,OAuth simulated — needs Phyllo
+Marketplace,/Marketplace,✅,✅,✅,✅,Live,1,90%,
+Match Engine,/MatchEngine,✅,✅,✅,✅,Live,1,85%,10-factor scoring working
+Talent Discovery,/TalentDiscovery,❌,✅,✅,✅,Live,1,85%,
+Browse Brands,/Brands,✅,❌,✅,✅,Live,2,80%,
+Contact Finder,/ContactFinder,✅,✅,✅,✅,Live,1,80%,
+Outreach,/Outreach,✅,✅,✅,✅,Live,1,75%,AI generate fixed
+Sequences,/SequenceBuilder,✅,✅,✅,✅,Live,1,75%,AI generate fixed
+Warm Intro Network,/WarmIntroNetwork,✅,✅,✅,✅,Live,2,70%,
+Demographic Targeting,/DemographicTargeting,✅,✅,✅,✅,Live,2,80%,
+Deal Pipeline,/Partnerships,✅,✅,✅,✅,Live,1,90%,Deck upload + AI matching added
+Deal Analytics,/DealAnalytics,✅,✅,✅,✅,Live,2,80%,
+Deal Comparison,/DealComparison,✅,✅,✅,✅,Live,2,75%,
+Bundle Deals,/BundleDeals,✅,✅,✅,✅,Live,2,70%,
+Contract Templates,/ContractTemplates,✅,✅,✅,✅,Live,1,80%,AI suggest fixed
+Approvals,/Approvals,❌,✅,✅,✅,Live,2,75%,
+Campaign Briefs,/CampaignBriefGenerator,❌,✅,✅,✅,Live,2,80%,AI generate fixed
+Market Intelligence,/MarketIntelligence,✅,✅,✅,✅,Live,2,75%,
+Spend Prediction,/BrandSpendPrediction,❌,✅,✅,✅,Live,3,70%,
+ROI Simulator,/SimulationEngine,❌,✅,✅,✅,Live,2,80%,Monte Carlo client-side
+Talent Analytics,/TalentAnalytics,✅,✅,✅,✅,Live,2,80%,
+Talent Revenue,/TalentRevenue,✅,❌,✅,✅,Live,1,80%,
+Pitch Deck Builder,/PitchDeckBuilder,✅,✅,✅,✅,Live,2,75%,AI generate fixed
+Deck Library,/DeckLibrary,✅,✅,✅,✅,Live,3,70%,
+Data Room (Talent),/TalentDataRoom,✅,❌,❌,✅,Live,2,80%,NDA-gated
+Data Room (Brand),/BrandDataRoom,❌,✅,❌,✅,Live,2,80%,NDA-gated
+Data Room (Agency),/AgencyDataRoom,❌,❌,✅,✅,Live,2,80%,NDA-gated
+AI Command Center,/AICommandCenter,✅,✅,✅,✅,Live,2,85%,Response parsing fixed
+AI Agents Hub,/AIAgentsHub,✅,✅,✅,✅,Live,2,80%,32 agents configured
+Custom Reports,/CustomReports,❌,✅,✅,✅,Live,3,70%,
+Analytics,/Analytics,❌,✅,✅,✅,Live,2,80%,
+Event Management,/EventManagement,❌,✅,❌,✅,Live,3,70%,
+Master Calendar,/MasterCalendar,✅,✅,✅,✅,Live,1,95%,486 events seeded
+Culture Calendar,/CultureCalendar,✅,✅,✅,✅,Live,2,90%,
+Pitch Competition,/PitchCompetition,❌,✅,✅,✅,Live,3,65%,
+Deal Score Leaderboard,/DealScoreLeaderboard,❌,❌,❌,✅,Live,3,70%,
+Referrals,/Referrals,✅,✅,✅,✅,Live,2,75%,
+Notifications,/Notifications,✅,✅,✅,✅,Live,1,85%,
+Teams,/Teams,❌,✅,✅,✅,Live,3,70%,
+Connect Accounts,/ConnectAccounts,✅,✅,✅,✅,Live,1,70%,ID verification added
+Integrations,/Integrations,❌,✅,✅,✅,Live,3,65%,UI only — no real connections yet
+Subscriptions,/SubscriptionManagement,✅,✅,✅,✅,Live,1,80%,Stripe integration
+Billing,/BillingHistory,✅,✅,✅,✅,Live,1,75%,
+Settings,/Settings,✅,✅,✅,✅,Live,1,90%,Theme switcher + manager invite
+Manager Setup,/ManagerSetup,Manager only,❌,❌,✅,Live,2,80%,New manager role
+Admin Dashboard,/AdminDashboard,❌,❌,❌,✅,Live,1,85%,
+Data Manager,/AdminDataManager,❌,❌,❌,✅,Live,1,85%,Expanded fields
+System Health,/SystemHealth,❌,❌,❌,✅,Live,3,80%,
+AI Analytics,/AIAnalytics,❌,❌,❌,✅,Live,3,75%,
+System Architecture,/SystemArchitecture,❌,❌,❌,✅,Live,3,70%,
+Platform Overview,/PlatformOverview,❌,✅,❌,✅,Live,3,70%,
+Data Import/Export,/DataImportExport,❌,✅,✅,✅,Live,3,65%,
+NotFound,/404,✅,✅,✅,✅,Live,1,100%,Branded 404
+CheckEmail,/check-email,✅,✅,✅,✅,Live,1,100%,
+
+SHEET 2: SUBSCRIPTION REVENUE MODEL
+Role,Plan,Price Monthly,Price Annual (20% off),Target Subs Month 6,Target Subs Month 12,Target Subs Month 24,MRR Month 6,MRR Month 12,MRR Month 24
+Talent,Starter (Free),$0,$0,500,2000,8000,$0,$0,$0
+Talent,Rising,$99,$79,100,400,1500,$9900,$39600,$148500
+Talent,Pro,$249,$199,50,200,800,$12450,$49800,$199200
+Talent,Elite,$499,$399,10,50,200,$4990,$24950,$99800
+Brand,Explorer (Free),$0,$0,200,800,3000,$0,$0,$0
+Brand,Growth,$499,$399,30,120,500,$14970,$59880,$249500
+Brand,Scale,"$1,299","$1,039",15,60,250,$19485,$77940,$324750
+Brand,Enterprise (Custom),"$2,500+","$2,000+",5,20,80,$12500,$50000,$200000
+Agency,Starter,"$2,499","$1,999",10,40,150,$24990,$99960,$374850
+Agency,Pro,"$4,999","$3,999",5,20,75,$24995,$99980,$374925
+Agency,Enterprise (Custom),"$9,999+","$7,999+",2,8,30,$19998,$79992,$299970
+Manager,Free,$0,$0,20,100,500,$0,$0,$0
+TOTALS,,,,947,3818,15085,$144278,$582102,"$2,271,495"
+
+SHEET 3: AI AGENT STATUS
+Agent Name,Tier,Provider,Cache TTL,Status,Last Tested,Notes
+partnership_predictor,COMPLEX,Anthropic (Claude),None,✅ Working,2026-03-19,Fixed agent_name routing
+pricing_optimizer,COMPLEX,Anthropic (Claude),None,✅ Working,2026-03-19,
+contract_intelligence,COMPLEX,Anthropic (Claude),6 hours,✅ Working,2026-03-19,Fixed agent_name routing
+negotiation_coach,COMPLEX,Anthropic (Claude),None,✅ Working,2026-03-19,
+executive_briefing,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+ai_command_center,STANDARD,DeepSeek V3,None,✅ Working,2026-03-19,Response parsing fixed
+campaign_generator,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+outreach_generator,STANDARD,DeepSeek V3,None,✅ Working,2026-03-19,
+creative_direction,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+smart_alerts,STANDARD,DeepSeek V3,30 min,✅ Working,2026-03-19,
+deal_patterns,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+content_effectiveness,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+outreach_forecast,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+success_factors,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+post_mortem,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+talent_trajectory,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+competitor_intel,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+audience_overlap,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+revenue_forecast,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+relationship_health,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+brand_safety,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,Fixed agent_name routing
+trend_prediction,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+roster_optimization,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+attribution,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+compliance,STANDARD,DeepSeek V3,6 hours,✅ Working,2026-03-19,
+invoice_reconciliation,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+bulk_ops,STANDARD,DeepSeek V3,None,✅ Working,2026-03-19,
+partnership_simulator,STANDARD,DeepSeek V3,None,✅ Working,2026-03-19,
+deal_scorer,STANDARD,DeepSeek V3,1 hour,✅ Working,2026-03-19,
+agent_performance,FREE,Gemini Flash,1 hour,⚠️ Gemini API disabled,2026-03-19,Needs Google Cloud API enabled
+content_localizer,FREE,Gemini Flash,24 hours,⚠️ Gemini API disabled,2026-03-19,Needs Google Cloud API enabled
+data_extractor,FREE,Gemini Flash,24 hours,⚠️ Gemini API disabled,2026-03-19,Needs Google Cloud API enabled
+
+SHEET 4: SOCIAL PLATFORM INTEGRATION STATUS (Top 30)
+Platform,Category,Connection Type,OAuth Ready,API Ready,Status,Priority,Notes
+Instagram,Photo/Content,OAuth (Meta),❌ Needs Meta approval,✅,Not Connected,1,2-4 week Meta review
+TikTok,Content,API/OAuth hybrid,❌ Needs TikTok approval,✅,Not Connected,1,1-2 week approval
+YouTube,Content,OAuth (Google),✅ Instant,✅,Ready to Build,1,Fastest to implement
+Facebook,Content,OAuth (Meta),❌ Needs Meta approval,✅,Not Connected,1,Same as Instagram
+Twitter/X,Writers,OAuth (paid),❌ $100/mo API,✅,Not Connected,2,$100/mo Basic tier
+LinkedIn,Writers,OAuth,❌ Needs approval,✅,Not Connected,2,1-2 week approval
+Spotify,Music,OAuth,✅ Instant,✅,Ready to Build,1,
+Twitch,Gaming,OAuth,✅ Instant,✅,Ready to Build,1,
+Discord,Gaming,OAuth,✅ Instant,✅,Ready to Build,1,
+Reddit,Content,OAuth,✅ Instant,✅,Ready to Build,2,
+Pinterest,Photo,OAuth,✅ Needs approval,✅,Not Connected,2,1-2 week approval
+Snapchat,Content,OAuth,❌ Needs Snap Kit approval,✅,Not Connected,2,1-2 week approval
+Threads,Content,OAuth (Meta),❌ Same as Instagram,✅,Not Connected,1,
+Bluesky,Content,OAuth,✅ Instant,✅,Ready to Build,3,
+Patreon,Writers,OAuth,✅ Instant,✅,Ready to Build,2,
+SoundCloud,Music,OAuth,✅ Instant,✅,Ready to Build,2,
+Medium,Writers,OAuth,✅ Instant,✅,Ready to Build,3,
+Dribbble,Design,OAuth,✅ Instant,✅,Ready to Build,3,
+Etsy,Design,OAuth,✅ Instant,✅,Ready to Build,3,
+Strava,Fitness,OAuth,✅ Instant,✅,Ready to Build,3,
+Beehiiv,Writers,OAuth,✅ Instant,✅,Ready to Build,3,
+ConvertKit,Writers,OAuth,✅ Instant,✅,Ready to Build,3,
+Mixcloud,Music,OAuth,✅ Instant,✅,Ready to Build,3,
+DeviantArt,Photo,OAuth,✅ Instant,✅,Ready to Build,3,
+Dailymotion,Content,OAuth,✅ Instant,✅,Ready to Build,3,
+OnlyFans,Content,No API,❌,❌,Manual Verification,4,No public API
+Substack,Writers,No API,❌,❌,Manual Verification,3,No public API
+Kick,Gaming,No API,❌,❌,Manual Verification,4,No public API
+Cameo,Actors,No API,❌,❌,Manual Verification,4,No public API
+LTK,Fashion,No API,❌,❌,Manual Verification,3,No public API
+
+SHEET 5: TECH STACK INVENTORY
+Service,Category,Purpose,Monthly Cost,Annual Cost,Status,Contract,Notes
+Supabase,Backend,Database + Auth + Edge Functions + Storage,$25,$300,Active,Free tier,May need Pro at scale ($25/mo)
+Vercel,Hosting,Frontend hosting + CDN + Serverless,$0,$0,Active,Free trial (13 days left),Need Pro ($20/mo) or Team ($100/mo)
+Stripe,Payments,Escrow + Subscriptions + Connect,2.9% + 30¢/txn,Variable,Active,Pay-as-you-go,Live keys configured
+Resend,Email,Transactional + welcome emails,$0,$0,Active,Free tier,3000 emails/mo free
+Anthropic,AI Provider,Claude Sonnet (COMPLEX tier agents),~$3/M tokens,Variable,Active,Pay-as-you-go,Working
+DeepSeek,AI Provider,DeepSeek V3 (STANDARD tier agents),~$0.28/M tokens,Variable,Active,Pay-as-you-go,Working
+Google,AI Provider,Gemini Flash (FREE tier agents),$0,Free,⚠️ API Disabled,$0,Needs API enabled in Google Cloud
+Groq,AI Provider,Llama 3.3 (FAST tier fallback),~$0.05/M tokens,Variable,Active,Pay-as-you-go,Working
+Google Fonts,Fonts,Cormorant Garamond + Instrument Sans + Mono,$0,$0,Active,Free,3 font families
+GitHub,Code,Repository (now private),$0,$0,Active,Free tier,Private repo
+Sentry,Error Tracking,Error monitoring (planned),$0,$0,Not Configured,Free tier,DSN placeholder in code
+Google Analytics,Analytics,Website analytics (planned),$0,$0,Not Configured,Free,Placeholder in index.html
+Phyllo,Social OAuth,Social platform verification (planned),$0.10-0.50/connection,Variable,Not Connected,Pay-as-you-go,Edge function stub created
+TOTAL CURRENT,,,,~$50/mo estimate,,,,Mostly free tiers
+
+SHEET 6: DATABASE TABLES (Key Entities)
+Table,Rows,Purpose,Key Fields,Status
+profiles,2,User accounts,id email role plan created_at,Active
+talents,8,Talent profiles,name email category status verification_boost,Active
+brands,5,Brand companies,name domain industry company_size annual_budget,Active
+partnerships,8,Deal pipeline,title brand_name talent_name status deal_value match_score,Active
+culture_events,486,Master calendar,year month event_name category tier location,Active — fully seeded
+conferences,36,Trade shows,conference_name industry_focus location attendees,Active — seeded
+mega_events,16,Major events,event_name year dates global_reach,Active — seeded
+decision_makers,0,Brand contacts,full_name role_title brand_name email linkedin_url,Empty — needs data
+connected_platforms,0,Social connections,talent_id platform auth_method verified followers,Empty — needs Phyllo
+platform_catalog,88,Available platforms,name slug category auth_type oauth_provider,Active — 88 platforms
+activities,0,Activity feed,,,Empty
+approval_items,0,Approval queue,,,Empty
+outreach_sequences,0,Email sequences,,,Empty
+deal_scores,0,Deal scoring,,,Empty
+escrow_payments,0,Payment escrow,,,Empty
+ai_usage_logs,~50,AI usage tracking,provider model tokens_used cost,Active
+
+SHEET 7: BUG/ISSUE TRACKER
+Issue,Severity,Status,File,Description,Fix Applied
+base44.integrations crash,Critical,✅ Fixed,6 pages,TypeError on AI features,Replaced with base44.functions.invoke
+OAuth login broken,High,✅ Fixed,Login.jsx,Raw URL bypass SDK,Replaced with supabase.auth.signInWithOAuth
+Welcome email unreachable,High,✅ Fixed,Onboarding.jsx,Code after early return,Moved before check-email redirect
+AICommandCenter response,High,✅ Fixed,AICommandCenter.jsx,Wrong response envelope,res.data.success
+Anthropic model ID,High,✅ Fixed,router.ts,Invalid model name,claude-sonnet-4-5
+Contact.jsx crash,Medium,✅ Fixed,Contact.jsx,HeadphonesIcon wrong name,Changed to Headphones
+Skeleton case sensitivity,Medium,✅ Fixed,App.jsx,Skeleton vs skeleton,Lowercase import
+Login auth header,High,✅ Fixed,Login.jsx,Raw JWT shown to users,Raw fetch + sanitization
+Gemini API disabled,Low,⚠️ Open,,Needs API enabled in Google Cloud,3 FREE tier agents affected
+Platform catalog may be empty,Medium,⚠️ Open,,No seed script for new deploys,88 rows exist in current DB
+Social OAuth simulated,High,⚠️ Open,ConnectAccounts.jsx,No real OAuth — username only,Needs Phyllo integration
+Vercel trial expiring,Medium,⚠️ Open,,13 days left on free trial,Need to add payment method
+
+SHEET 8: FEATURE GATE TIERS
+Page,Free (Tier 0),Rising/Growth (Tier 1),Pro/Scale (Tier 2),Elite/Enterprise (Tier 3),Notes
+Dashboard,✅ Full,✅,✅,✅,
+My Profile,✅ Basic,✅,✅,✅,
+Connect Accounts,✅ 2 platforms,✅ 5 platforms,✅ Unlimited,✅,
+Marketplace,✅ Browse only,✅ Full,✅,✅,
+Match Engine,❌ Locked,✅ Basic (top 5),✅ Full 10-factor,✅ Auto-matching,#1 upgrade driver
+Contact Finder,❌ Locked,❌ Locked,✅ Full,✅,Tier 2 feature
+Outreach,❌ Locked,✅ 15 messages/mo,✅ Unlimited,✅,
+Sequences,❌ Locked,❌ Locked,✅ Full,✅,Tier 2 feature
+Deal Pipeline,✅ 1 deal,✅ 5 deals,✅ 20 deals,✅ Unlimited,
+AI Command Center,❌ Locked,❌ Locked,✅ Full,✅,Tier 2 — expensive to run
+AI Agents Hub,❌ Locked,❌ Locked,✅ Full,✅,Tier 2
+Market Intelligence,❌ Locked,❌ Locked,✅ Full,✅,Proprietary data
+Pitch Deck Builder,❌ Locked,❌ Locked,✅ Full,✅,AI costs
+Data Room,❌ Locked,❌ Locked,✅ Full,✅,Sensitive intelligence
+Integrations,❌ Locked,❌ Locked,❌ Locked,✅ Full,Tier 3 — enterprise
+Teams,❌ Locked,❌ Locked,✅ 10 seats,✅ Unlimited,
+Referrals,✅ Full,✅,✅,✅,Never gate — viral growth
+Notifications,✅ Full,✅,✅,✅,Core UX
+Settings,✅ Full,✅,✅,✅,Core UX
+Billing,✅ Full,✅,✅,✅,Core UX
