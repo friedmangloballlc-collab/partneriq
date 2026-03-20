@@ -769,4 +769,579 @@ _DealStage: The intelligence layer the partnership economy has been missing._
 _Document Version: 1.0_
 _Prepared for: DealStage Platform Documentation_
 _Date: March 2026_
+
+---
+
+# PART 2: THREE ADDITIONAL USER JOURNEYS
+
+---
+
+# VERSION A: THE CINEMATIC VERSION (CONTINUED)
+
+_These three journeys expand the DealStage story beyond the individual creator and the individual brand. They show what happens when the intelligence layer meets scale — the manager who is drowning in complexity, the micro-creator who was told she was too small, and the enterprise brand that discovered its entire program was built on a lie._
+
+---
+
+## JOURNEY 4A: THE MANAGER
+
+# Alex's Story: From Chaos to Control
+
+---
+
+### THE BEFORE
+
+The 11 PM text comes from Destiny, one of Alex's eight clients.
+
+"Hey, did Nourish Bar ever get back to us? I think they went with someone else."
+
+Alex stares at the phone. Nourish Bar. Nourish Bar. The name is familiar in the way that something familiar becomes when it has been buried under 200 other things. Alex opens four different apps in sequence — Gmail, a notes app, a shared Google Doc titled "CLIENT DEALS MASTER LIST v7 FINAL FINAL" (created at 2 AM three months ago and already three versions out of date), and a DM thread somewhere in Instagram that may or may not still be the active conversation. It takes eleven minutes to piece together the answer: Nourish Bar sent a follow-up email six days ago. Alex missed it. The deal window closed four days ago.
+
+Destiny doesn't need to know this tonight. Nobody does. Alex types back: "Checking on it — talk tomorrow." Sets the phone down. Picks it up again.
+
+Eight clients. Eight sets of brand relationships. Eight sets of content schedules, deliverable deadlines, contract renewal dates, exclusivity windows, and rate histories. Eight social media profiles across four platforms each. The math of managing this without the right infrastructure is not addition. It is multiplication. Destiny's misses are not Destiny's fault. Destiny has a manager. The manager is supposed to make sure nothing falls through the cracks.
+
+Something always falls through the cracks.
+
+Alex has been a talent manager for six years, starting at a mid-size agency before going independent four years ago to take a 20% commission instead of a salary. The decision made sense on paper: eight creators generating a collective $800,000 annually in brand deals means $160,000 in commissions. That is more than the agency was paying. What the math didn't account for was the overhead — not financial overhead, but cognitive overhead. The spreadsheets. The inbox chaos. The version history of "FINAL FINAL" documents. The WhatsApp groups for each client that have become the primary deal tracking system by accident. The fact that Alex knows every one of these eight people personally, manages their careers with genuine care and expertise, and is simultaneously completely incapable of remembering which version of the Luminex contract was the signed one.
+
+This is not a time management problem. It is an infrastructure problem. And it is becoming a business problem. Last quarter, three deals stalled because Alex was slow to follow up. One client — Marcus, the fitness creator with the most commercial potential in the portfolio — had a conversation with another management company last month. He didn't leave. But he had the conversation. Alex knows why.
+
+The problem is not the talent. The problem is not the relationships. The problem is not the deals. The problem is that managing eight creator businesses simultaneously using text messages, email, and a shared Google Doc is like trying to run an airline with sticky notes.
+
+---
+
+### THE DISCOVERY
+
+The conversation that changes everything happens at a coffee meeting with a brand partnerships director at a mid-size wellness company. They are talking about why a deal for one of Alex's clients fell apart — the brand wanted 30-day content windows, the client's schedule only allowed 45-day windows, and by the time Alex realized the gap and tried to negotiate, the brand had moved to another creator.
+
+"Have you tried DealStage?" the brand director asks. "We've been using the brand side for six months. It's — I don't know how to describe it. It's like having a contracts person and a data analyst and a relationship manager all in one system."
+
+Alex has heard of DealStage but dismissed it as "another creator tool." Creators use creator tools. Managers use whatever they can cobble together.
+
+"It has an agency plan," the brand director says. "You can manage multiple creator profiles on a single dashboard. See all your deal pipelines at once. Get contract alerts. Match scores for your whole roster."
+
+That night, Alex creates a DealStage account and imports the first two client profiles.
+
+The match scores load.
+
+And something unexpected happens: the AI surfaces three brand matches for Destiny — a DTC skincare brand, a supplement company, and a sustainable fashion label — that Alex has never considered. Not because they're obscure brands. Because Alex didn't know their current targeting criteria included Destiny's audience profile. The engagement quality score for Destiny's audience in the 25-34 women's health category is 9.2 out of 10. That score means something to brands that Alex couldn't communicate before because Alex didn't have the data to back it up.
+
+---
+
+### THE TRANSFORMATION
+
+Within 30 days, all eight client profiles are in DealStage. The data migration takes two full days of focused work — it is not painless — but what emerges on the other side is something Alex has never had: a complete, real-time picture of eight creator businesses simultaneously.
+
+The unified dashboard becomes the operating system. Every morning at 8 AM, Alex reviews the dashboard for 20 minutes. What deals are in pipeline. What deals are awaiting response. What contracts have upcoming renewal dates. What match scores have changed overnight (DealStage updates match scores daily as brand criteria shift). What brands have recently opened up partnerships in categories relevant to the roster. Twenty minutes. That is the entire administrative overhead of a 20-minute daily review. Everything else is relationship management and creative judgment — the work Alex is actually good at.
+
+The contract alert system eliminates the Nourish Bar situation entirely. Every deal has a follow-up reminder. Every contract has a renewal alert. Every exclusivity period has a calendar flag. The system remembers everything so Alex doesn't have to.
+
+The match score system changes how Alex approaches brand outreach. Before DealStage, outreach was opportunistic — Alex reached out to brands that seemed like logical fits based on category and aesthetic. Now, outreach is data-driven. The AI identifies which brands are actively evaluating creators in each client's category, what their current targeting criteria are, and how well each client's audience quality and content profile align. Alex now reaches out to brands with a specific data point to lead with: "Destiny's audience has a 9.2 engagement quality score in the women's health category, and her audience demographics match your current target exactly. Here's her DealStage profile."
+
+The response rate to outreach triples. Not because Alex got better at pitching. Because the pitch is now backed by data that the brand's own team can verify.
+
+---
+
+### THE RESULT
+
+Six months after onboarding all eight clients to DealStage, Alex's roster has closed $1.2 million in brand deals — up from $800,000 the previous year. That is a 50% increase in collective deal volume. But the number that matters most to Alex is not the revenue total. It is the number zero: zero missed follow-up windows. Zero expired deal opportunities. Zero "I think they went with someone else" texts at 11 PM.
+
+Marcus didn't have another management conversation. He signed a two-year management extension.
+
+Destiny found out about those three new brand matches the AI surfaced. The DTC skincare brand became a six-month deal. The supplement company is in final negotiation. The sustainable fashion label is scheduled for Q3.
+
+Alex's commission income for the year is projected to reach $240,000 — a 50% increase over the prior year with the same eight clients and no additional management overhead. The increase came entirely from the efficiency of DealStage's infrastructure: deals that would have been missed are now closed, brands that would have been invisible are now in pipeline, and contracts that would have expired are now renewed.
+
+The 11 PM texts still come. But now they almost always say something different. "Did you see that DealStage just surfaced a new match for me?" "That brand follow-up went through — they're interested." "My match score just hit 91. What should I do?"
+
+Alex answers them in two minutes. Because the answer is already in the dashboard.
+
+---
+
+## JOURNEY 5A: THE MICRO-CREATOR
+
+# Priya's Story: From 5K Followers to a $10K Deal
+
+---
+
+### THE BEFORE
+
+The account says "Not enough data."
+
+Priya has refreshed the analytics page four times in the past ten minutes. The sponsorship platform — not DealStage, a different one, an older one that every creator YouTube tutorial mentions — requires a minimum of 10,000 followers to even generate a profile. Priya has 5,200. She is, by the platform's definition, below the threshold of commercial relevance.
+
+The frustrating thing is that this is not new information. Priya has known about the 10K threshold since she started her TikTok account 14 months ago. She has been building toward it. The fitness and nutrition content is good — she knows it's good because she gets comments from people saying it changed their routine, they lost twelve pounds following her advice, they finally understand how to read a nutrition label. The comments are specific. They are grateful. They keep coming back.
+
+The account isn't growing fast enough. 5,200 followers at 14 months means she will hit 10K in another year, maybe, if the algorithm keeps being reasonably kind. By the time she hits 10K, she will be 22 years old and will have been creating content for over two years before a single brand has been willing to talk to her.
+
+This is what Priya means when she tells her roommate that the creator economy is "rigged for already-famous people." The follower minimum is not a quality filter — she knows creators with 200K followers who get 300 likes per post, and she averages 800 likes on her 5K account. The minimum is a lazy proxy for value that systematically excludes everyone who is building something genuine but hasn't yet had the algorithmic luck of viral traction.
+
+Priya is a junior at a state university, studying nutrition and dietetics. She is not a full-time creator. She is not expecting to make a living from brand deals. What she wants, specifically and modestly, is one brand deal — any brand deal — that validates what she is building. That tells the algorithm and the brands and herself that the thing she is creating has commercial value.
+
+She downloads DealStage on a Thursday night because a girl in her dietetics program mentioned it in passing: "It doesn't have a follower minimum. Something about engagement quality." Priya creates a profile in 12 minutes.
+
+---
+
+### THE DISCOVERY
+
+The match score loads at 7.3 out of 10.
+
+Priya doesn't know what 7.3 means yet. She clicks the "What does my score mean?" explainer. She reads it twice. She reads the audience quality breakdown more carefully.
+
+Her engagement rate is 16.2%. The platform's benchmark for her category (nutrition and wellness, micro-creator tier) is 4.1%. She is posting four times per week and getting four times the engagement of creators who are three to four times her size. The audience demographic data (pulled from her TikTok account, which she connected during signup) shows: 72% of her followers are women aged 22-34, concentrated in the top three income brackets for her geographic area, with a high proportion of viewers in the "health-conscious consumer" behavioral category.
+
+A comment the AI surfaces in its audience analysis hits differently than the numbers: "Your audience has 3.4x higher purchase intent in the wellness supplement and functional food categories than the average creator in your tier."
+
+3.4 times higher. With 5,200 followers.
+
+The match score algorithm is not impressed by Priya's follower count. It is impressed by what her followers do. And what they do, apparently, is pay attention and buy things.
+
+---
+
+### THE FIRST MATCH
+
+Four days after creating her DealStage profile, a match notification arrives. A DTC brand — BalanceFuel, a women's nutrition supplement company that launched 18 months ago — has a "92% audience alignment" match with Priya's profile. Their targeting criteria: women aged 22-34, engagement rate above 6%, health-conscious audience with purchase intent in the functional food category, authentic educational content style.
+
+Priya meets every criterion except one: they have a minimum of 8,000 followers in their typical deal structure.
+
+She reads that line and almost closes the app.
+
+Then she reads the AI's notation below it: "Based on engagement quality and audience purchase intent metrics, your profile outperforms the typical 8,000-follower creator in this category's commercial metrics. DealStage recommends making contact. Suggested approach: lead with audience quality data."
+
+Priya writes the pitch on a Saturday morning. Not a template. Her own words, with the DealStage data woven in:
+
+"Hi — my name is Priya, I'm a nutrition student and TikTok creator focused on science-backed wellness content for women my age. I know you typically work with larger accounts, and I'm 5,200 followers. But here's what the data shows about my audience: 16.2% engagement rate, 72% women 22-34, 3.4x average purchase intent in functional nutrition. My audience is small and it is exceptionally engaged. I think that's worth a conversation. Would you be open to a 20-minute call?"
+
+She sends it through DealStage's outreach tool. She puts her phone face-down on her desk so she won't obsessively check it.
+
+Three days later, BalanceFuel's partnerships manager responds: "Would love to chat. Can you do Tuesday at 2 PM?"
+
+---
+
+### THE TRANSFORMATION
+
+The call goes 40 minutes, not 20. The partnerships manager has looked at Priya's DealStage profile before the call, which means she already understands the data before Priya has to explain it. The conversation is not about justifying why a small account deserves attention. It is about whether Priya's audience is the right audience for a 3-month trial partnership.
+
+The deal: 4 TikTok videos over 3 months, featuring BalanceFuel's new women's performance protein in Priya's recipe and meal prep content. Total compensation: $2,000. Usage rights: DTC organic repurposing on BalanceFuel's own social channels.
+
+Two thousand dollars. Priya's first brand deal.
+
+She deposits the first check, then immediately opens DealStage to update her deal history. The AI recalculates her match score. It goes from 7.3 to 8.1. The completed deal data — the brand category, the rate per post, the campaign performance — feeds back into the algorithm and improves her commercial profile for future matching.
+
+The BalanceFuel content performs well. Very well. The four posts generate an average of 22% engagement — higher than Priya's baseline — because the brand fit is genuine and her audience trusts her recommendation. BalanceFuel's partnerships manager emails at the end of Month 3: "These posts drove measurable DTC purchases. We'd like to discuss a longer partnership."
+
+The second deal: 6 months, 8 pieces of content, $8,000. Plus performance bonuses if any piece of content drives 100+ tracked sales.
+
+Three months after that, performance bonuses kick in. Total compensation from the BalanceFuel relationship over 9 months: $12,400.
+
+Priya is 21 years old. She has 14,200 TikTok followers. She has earned $12,400 from a single brand relationship that started when she had 5,200 followers and was told by every other platform that she was too small to matter.
+
+Her DealStage match score is 8.9.
+
+---
+
+### THE LESSON
+
+What happened to Priya is not an anomaly. It is the logical result of a platform that evaluates audience quality instead of audience size. The creator economy's follower-count fixation is a lagging indicator of commercial value — it measures the output of past algorithmic events, not the present quality of a creator's relationship with their audience. A creator with 5,000 engaged, specific, commercially active followers in a high-purchase-intent category is commercially more valuable than a creator with 50,000 passive, algorithmically acquired followers who scroll past sponsored content without engagement.
+
+DealStage doesn't know about Priya's follower count. DealStage knows about her audience. That is a different kind of intelligence — and for Priya, it was the difference between irrelevance and a career.
+
+---
+
+## JOURNEY 6A: THE ENTERPRISE BRAND
+
+# The CMO's Story: From $10M Waste to $10M ROI
+
+---
+
+### THE BEFORE
+
+The agency presents the annual influencer marketing recap on a Thursday morning in January.
+
+$10.2 million spent. 847 creators activated. 2.3 billion impressions delivered.
+
+The CMO of Hartwell Consumer Products — a Fortune 500 CPG company with a portfolio of eleven household and personal care brands — looks at the slide. She has been looking at this same type of slide for four years. Every year, the impressions number goes up. Every year, the sales attribution methodology is different from the previous year's methodology. Every year, the agency recommends increasing the influencer budget by 15-20% because "the channel is underinvested relative to category benchmarks."
+
+She asks the question she has asked three times before: "Can you show me the direct relationship between these 847 creators and sales lift in the relevant SKUs?"
+
+The agency presents four slides of correlation analysis. They are careful, in the way that people are careful when they are about to be questioned, to say "directional" and "indicative" and "subject to attribution modeling assumptions."
+
+"That's not what I asked," she says. "I asked for the direct relationship between these creators and sales lift."
+
+The room is quiet in a particular way.
+
+The honest answer — the answer nobody in this room is going to say out loud — is that nobody knows. The agency has a model. The model makes assumptions. The assumptions are calibrated to produce results that justify the budget. The actual relationship between 847 creators posting about Hartwell's products and the movement of product off shelves at Target and Walmart and Kroger is unmeasured, unmeasurable with their current methodology, and possibly not there at all.
+
+$10.2 million. Possibly not there at all.
+
+The CMO has suspected this for two years. She has not had the data to prove it, the alternative to propose, or the political capital to unilaterally restructure a program that the agency — a vendor relationship of six years — would fight fiercely to protect.
+
+What she has is a new Head of Digital Marketing, hired six months ago, who has been using DealStage at his previous company and will not stop talking about it.
+
+---
+
+### THE DISCOVERY
+
+The DealStage enterprise demo takes 90 minutes and is attended by the CMO, the Head of Digital, the VP of Media, and three brand managers from Hartwell's largest three product categories.
+
+The DealStage enterprise account executive shows two things that no agency has ever shown this room:
+
+First: an engagement quality analysis of Hartwell's current 847 creators, run against DealStage's proprietary engagement authenticity scoring. The analysis takes 48 hours because the API processing takes time. The result is delivered by email before the 90-minute follow-up call: 312 of the 847 creators — 37% of Hartwell's active influencer roster — have DealStage engagement quality scores below 3.5 out of 10. Engagement quality below 3.5 correlates strongly with purchased followers, bot-inflated engagement, or audience demographic mismatch. Of the $10.2 million in influencer spend, approximately $3.8 million was flowing to creators whose audience engagement was not commercially meaningful.
+
+Second: a sample brand-to-creator match analysis for Hartwell's top three product categories, showing the AI-identified highest-match creators currently not in Hartwell's program — creators with engagement quality scores above 7.0, audience demographics precisely aligned with Hartwell's target shopper profiles, and content styles that match Hartwell's brand guidelines. The sample shows 80 creators DealStage recommends who are not in Hartwell's current roster. None of them are particularly large. None of them have hundreds of thousands of followers. All of them have significantly higher audience quality scores than 37% of Hartwell's current creators.
+
+The CMO looks at the engagement quality report for a long time.
+
+"If we removed the 37% with scores below 3.5 and reallocated that budget to the 80 you're recommending — what does the model project?"
+
+The DealStage account executive is careful here: "We don't project sales lift. What we project is the change in qualified reach — the size of your commercially relevant audience, defined as people with demonstrated purchase intent in your categories. The 847 creators are generating 2.3 billion impressions. Of those, approximately 847 million are from audiences with meaningful purchase intent based on engagement quality and demographic alignment. If you restructure toward DealStage-matched creators, the same $10.2 million would generate approximately 1.9 billion qualified impressions — fewer total impressions, but more than twice the commercially relevant reach."
+
+Fewer impressions. More than twice the commercial relevance.
+
+The CMO signs the enterprise contract before leaving the meeting.
+
+---
+
+### THE TRANSFORMATION
+
+The DealStage enterprise onboarding takes 6 weeks and involves 30 members of Hartwell's marketing, procurement, legal, and brand management teams. Every step is managed through a dedicated DealStage enterprise implementation specialist who has run this process nine times before with Fortune 500 clients.
+
+Week 1-2: Data import. All 847 current creator contracts, relationships, and performance data are imported into DealStage's enterprise portal. The engagement quality audit runs automatically. The 312 below-threshold creators are flagged.
+
+Week 3: The restructuring conversation. The CMO presents the engagement quality findings internally. The procurement and legal teams review the contract status of the 312 flagged creators — 187 have contracts expiring within 90 days and can be allowed to run off without breach. 125 have longer-term contracts that require active termination decisions.
+
+Week 4: The agency conversation. The agency is informed of the restructuring plan. They push back. The CMO presents the engagement quality data. The agency's own reporting has never surfaced engagement quality at the creator level — only aggregate campaign metrics. The agency cannot rebut specific creator engagement quality data with aggregate impressions statistics. The restructuring proceeds.
+
+Week 5-6: Rebuilding the roster. DealStage's enterprise matching tool identifies 180 new creator candidates across Hartwell's eleven brand categories. The Head of Digital personally reviews the top 80 recommended matches. 55 are prioritized for outreach. 42 respond. 38 execute initial deals through the DealStage platform, with contracts managed and stored in the enterprise portal.
+
+---
+
+### THE RESULT
+
+Twelve months after restructuring, Hartwell's influencer program looks completely different from the year before:
+
+- 535 active creators (down from 847) — the program is smaller by count but larger by quality
+- Total spend: $9.8 million (slightly reduced from $10.2M, as the lower-quality contract runoffs freed some budget)
+- Qualified reach (audiences with demonstrable purchase intent): 1.87 billion (up from 847 million — a 121% increase)
+- Engagement quality average across the roster: 7.2 (up from 5.1 — the legacy average including the 37% low-quality creators)
+- Brand safety incidents (brand mentions associated with controversy or misaligned content): 2 (down from 18 in the prior year — the low-quality creator segment was over-represented in brand safety incidents)
+- Agency-attributed "directional sales lift": not measured (the agency relationship was restructured; DealStage became the measurement system)
+- DealStage ROI dashboard attributed impact (based on direct click-through, tracked coupon code redemption, and retailer co-sell data): $39.2 million in trackable sales influence across 6 of Hartwell's 11 brands
+
+The $10M that was producing 847 million qualified impressions and an unknown sales impact is now producing 1.87 billion qualified impressions and $39.2 million in attributable sales influence.
+
+That is 400% ROI on a restructured program with less spend than the year before.
+
+The agency's annual review presentation is no longer about impressions.
+
+The CMO presents the DealStage results to Hartwell's board as a case study in data-driven marketing efficiency. The CFO asks three questions. All three are answered with specific numbers from the DealStage dashboard. For the first time in four years, nobody in the board meeting asks for the attribution methodology footnotes.
+
+The numbers speak for themselves.
+
+---
+
+# VERSION B: THE DATA-DRIVEN CASE STUDY VERSION
+
+---
+
+## JOURNEY 4B: THE MANAGER — CASE STUDY FORMAT
+
+**"From Chaos to Control: How a Talent Manager Increased Client Revenue 50% Without Adding Staff"**
+
+---
+
+### Company Profile
+
+| Field              | Data                                      |
+| ------------------ | ----------------------------------------- |
+| User Type          | Talent Manager / Agency (solo operation)  |
+| Name               | Alex Chen, Apex Creator Management        |
+| Clients Managed    | 8 professional creators                   |
+| Prior Tools        | Gmail, Google Sheets, WhatsApp, Notes app |
+| DealStage Plan     | Agency Pro ($499/month)                   |
+| Date of Onboarding | Month 1                                   |
+| Case Study Period  | 6 months post-onboarding                  |
+
+---
+
+### Before State: Key Metrics
+
+| Metric                                             | Pre-DealStage |
+| -------------------------------------------------- | ------------- |
+| Annual portfolio deal volume                       | $800,000      |
+| Missed deal opportunities (estimated, 6 months)    | 11            |
+| Average response time to inbound brand inquiries   | 4.2 days      |
+| Percentage of contracts with tracked renewal dates | 23%           |
+| Client satisfaction score (informal survey)        | 6.8/10        |
+| Commission income (annual)                         | $160,000      |
+| Hours per week on administrative/tracking tasks    | 18-22 hours   |
+
+---
+
+### After State: Key Metrics (6 months post-onboarding)
+
+| Metric                                             | Post-DealStage | Change |
+| -------------------------------------------------- | -------------- | ------ |
+| Annual portfolio deal volume (annualized)          | $1,200,000     | +50%   |
+| Missed deal opportunities                          | 0              | -100%  |
+| Average response time to inbound brand inquiries   | 1.1 days       | -74%   |
+| Percentage of contracts with tracked renewal dates | 100%           | +334%  |
+| Client satisfaction score                          | 9.1/10         | +34%   |
+| Commission income (annual, projected)              | $240,000       | +50%   |
+| Hours per week on administrative/tracking tasks    | 4-6 hours      | -73%   |
+
+---
+
+### ROI Calculation
+
+| Item                                                                           | Value        |
+| ------------------------------------------------------------------------------ | ------------ |
+| DealStage Agency Pro subscription (6 months)                                   | $2,994       |
+| Additional commission revenue (6-month period)                                 | $40,000      |
+| Estimated value of time recovered (16 hrs/week x 26 weeks x $75/hr equivalent) | $31,200      |
+| **Total attributable value created**                                           | **$71,200**  |
+| **ROI**                                                                        | **2,279%**   |
+| **Payback period**                                                             | **2.2 days** |
+
+---
+
+### Before/After Comparison: Operational Workflow
+
+| Workflow Element                     | Before DealStage            | After DealStage                       |
+| ------------------------------------ | --------------------------- | ------------------------------------- |
+| Deal pipeline visibility             | Fragmented across 4 apps    | Unified dashboard, all 8 clients      |
+| Contract renewal tracking            | Manual, frequently missed   | Automated alerts, 100% tracked        |
+| Brand outreach strategy              | Intuition-based             | AI match score-guided                 |
+| Pitch data used in outreach          | None                        | Engagement quality + match score      |
+| Response to brand inquiries          | Email/DM, no system         | DealStage inbox, prioritized          |
+| Client performance reporting         | Manual monthly export       | Real-time dashboard, shareable        |
+| New brand opportunity identification | Reactive (brands reach out) | Proactive (AI surfaces matches daily) |
+
+---
+
+### Key Insight
+
+Alex's case demonstrates a frequently overlooked value driver of DealStage for the management segment: the platform does not just improve the efficiency of existing deal activities. It changes the nature of the deals being pursued. By surfacing AI-matched brands that Alex had no prior relationship with, DealStage expanded the addressable deal universe for each client — adding deals that would never have existed under the previous system, regardless of how efficient the existing workflow was.
+
+---
+
+## JOURNEY 5B: THE MICRO-CREATOR — CASE STUDY FORMAT
+
+**"From Below the Threshold to $10,000: How a 5K-Follower Creator Closed a Deal Nobody Else Would Give Her"**
+
+---
+
+### Creator Profile
+
+| Field                    | Data                             |
+| ------------------------ | -------------------------------- |
+| Name                     | Priya Nair                       |
+| Platform                 | TikTok (primary)                 |
+| Niche                    | Nutrition and wellness education |
+| Follower Count at Signup | 5,200                            |
+| Prior Brand Deals        | 0                                |
+| DealStage Plan           | Creator Starter ($49/month)      |
+| Date of Onboarding       | Month 1                          |
+| Case Study Period        | 9 months post-onboarding         |
+
+---
+
+### Before State: Key Metrics
+
+| Metric                                       | Pre-DealStage                |
+| -------------------------------------------- | ---------------------------- |
+| Followers                                    | 5,200                        |
+| Engagement rate                              | 16.2%                        |
+| Category average engagement rate             | 4.1%                         |
+| Brand deals completed (lifetime)             | 0                            |
+| Annual brand deal income                     | $0                           |
+| Platform access (minimum follower platforms) | Denied (below 10K threshold) |
+| Audience purchase intent score               | Not measured                 |
+
+---
+
+### After State: Key Metrics (9 months post-onboarding)
+
+| Metric                             | Post-DealStage (9 months)       | Change                            |
+| ---------------------------------- | ------------------------------- | --------------------------------- |
+| Followers                          | 14,200                          | +173%                             |
+| Engagement rate                    | 14.8% (sustained)               | -1.4 pts (expected with growth)   |
+| Brand deals completed              | 3                               | +3                                |
+| Longest brand partnership          | BalanceFuel (ongoing, 9 months) | First deal became retained client |
+| Total brand deal income (9 months) | $12,400                         | From $0                           |
+| DealStage match score              | 8.9                             | From 7.3 at signup                |
+| Audience purchase intent score     | 3.4x category average           | Surfaced by DealStage at signup   |
+
+---
+
+### Deal History and ROI
+
+| Deal              | Brand                 | Duration     | Value       | Notes                                    |
+| ----------------- | --------------------- | ------------ | ----------- | ---------------------------------------- |
+| Deal 1            | BalanceFuel           | 3 months     | $2,000      | First deal; 4 TikTok posts               |
+| Deal 2            | BalanceFuel (renewal) | 6 months     | $8,000      | Renewal after strong performance         |
+| Performance bonus | BalanceFuel           | Q2           | $2,400      | 100+ tracked sales attributed to content |
+| **Total**         |                       | **9 months** | **$12,400** |                                          |
+
+| Item                                   | Value        |
+| -------------------------------------- | ------------ |
+| DealStage subscription cost (9 months) | $441         |
+| Total brand deal income                | $12,400      |
+| **Net ROI**                            | **2,712%**   |
+| **Payback period**                     | **1.1 days** |
+
+---
+
+### Before/After Comparison: Creator Commercial Position
+
+| Factor                         | Before DealStage           | After DealStage                                           |
+| ------------------------------ | -------------------------- | --------------------------------------------------------- |
+| Access to brand deal platforms | Denied (follower minimums) | Accepted and matched                                      |
+| Pitch data available           | None                       | Engagement quality, audience purchase intent, match score |
+| Outreach strategy              | Cold DMs, no data          | AI-matched outreach with data-led pitch                   |
+| Brand perception               | "Too small"                | "High-value niche audience"                               |
+| Deal negotiation position      | No leverage                | Data-supported rate justification                         |
+| Repeat business                | N/A                        | 100% retention (BalanceFuel ongoing)                      |
+
+---
+
+### Key Insight
+
+Priya's case is the single most important commercial argument DealStage can make to the micro-creator segment: follower count is not the predictor of commercial value that the market treats it as. Engagement quality, audience purchase intent, and content-brand alignment are better predictors of commercial performance. DealStage's matching algorithm detects these factors independent of follower count. The 5,200-follower creator with a 16.2% engagement rate in a high-purchase-intent category is a better commercial proposition for a targeted DTC brand than a 50,000-follower creator with 3.1% engagement and a diffuse audience demographic.
+
+The implication for platform acquisition: the micro-creator segment (10K-100K followers) is the largest numerically underserved segment in the creator economy's commercial infrastructure. DealStage is the first platform whose value proposition is specifically optimized for this segment.
+
+---
+
+## JOURNEY 6B: THE ENTERPRISE BRAND — CASE STUDY FORMAT
+
+**"From $10M in Untracked Spend to $39M in Attributable ROI: How Hartwell Consumer Products Restructured Their Influencer Program"**
+
+---
+
+### Company Profile
+
+| Field                                | Data                                                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------- |
+| Company                              | Hartwell Consumer Products (Fortune 500 CPG)                                       |
+| Annual Influencer Budget             | $10.2 million                                                                      |
+| Active Creator Count (pre-DealStage) | 847                                                                                |
+| DealStage Plan                       | Enterprise (custom pricing, $7,500/month)                                          |
+| Team Members Onboarded               | 30                                                                                 |
+| Primary Use Cases                    | Roster quality audit, brand-creator matching, contract management, ROI measurement |
+| Case Study Period                    | 12 months                                                                          |
+
+---
+
+### Before State: Key Metrics
+
+| Metric                                                       | Pre-DealStage                      |
+| ------------------------------------------------------------ | ---------------------------------- |
+| Annual influencer spend                                      | $10,200,000                        |
+| Active creator count                                         | 847                                |
+| Average engagement quality score (roster)                    | 5.1/10                             |
+| Percentage of creators below quality threshold (score < 3.5) | 37% (312 creators)                 |
+| Estimated spend on low-quality creators                      | $3,800,000                         |
+| Qualified reach (commercially relevant impressions)          | 847,000,000                        |
+| Attributable sales impact                                    | Not measurable                     |
+| Brand safety incidents                                       | 18 (prior 12 months)               |
+| ROI measurement methodology                                  | "Directional" correlation modeling |
+
+---
+
+### After State: Key Metrics (12 months post-restructuring)
+
+| Metric                                              | Post-DealStage                           | Change                |
+| --------------------------------------------------- | ---------------------------------------- | --------------------- |
+| Annual influencer spend                             | $9,800,000                               | -$400,000             |
+| Active creator count                                | 535                                      | -37%                  |
+| Average engagement quality score (roster)           | 7.2/10                                   | +41%                  |
+| Percentage of creators below quality threshold      | 4% (22 creators, in wind-down)           | -87%                  |
+| Qualified reach (commercially relevant impressions) | 1,870,000,000                            | +121%                 |
+| Attributable sales impact                           | $39,200,000 (tracked)                    | First time measurable |
+| Brand safety incidents                              | 2                                        | -89%                  |
+| ROI                                                 | 400% (on $9.8M spend, $39.2M attributed) | First measurable ROI  |
+
+---
+
+### Program Restructuring Timeline
+
+| Phase                    | Duration             | Action                               | Outcome                                             |
+| ------------------------ | -------------------- | ------------------------------------ | --------------------------------------------------- |
+| Engagement Quality Audit | Weeks 1-2            | DealStage audits all 847 creators    | 312 flagged below threshold                         |
+| Internal Presentation    | Week 3               | CMO presents findings to leadership  | Restructuring approved                              |
+| Contract Review          | Week 4               | Legal reviews 312 flagged contracts  | 187 allow natural expiration; 125 require decisions |
+| Agency Restructuring     | Week 4               | Agency briefed on new model          | Scope and methodology revised                       |
+| New Creator Matching     | Weeks 5-6            | DealStage matches 180 new candidates | 38 contracts executed                               |
+| Platform Onboarding      | Weeks 1-6 (parallel) | 30 team members trained              | Full enterprise deployment                          |
+| First Measurement Cycle  | Month 3              | DealStage ROI dashboard goes live    | First attributable data                             |
+| 12-Month Review          | Month 12             | Board presentation                   | $39.2M attributed ROI documented                    |
+
+---
+
+### Cost-Benefit Analysis
+
+| Item                                                | Value                        |
+| --------------------------------------------------- | ---------------------------- |
+| DealStage Enterprise subscription (12 months)       | $90,000                      |
+| Implementation and onboarding costs                 | $25,000 (internal team time) |
+| **Total DealStage investment**                      | **$115,000**                 |
+| Budget recovered from low-quality creator wind-down | $3,800,000                   |
+| Attributable sales impact (tracked)                 | $39,200,000                  |
+| **Total value generated**                           | **$43,000,000**              |
+| **ROI on DealStage investment**                     | **37,300%**                  |
+
+---
+
+### Before/After Comparison: Program Quality Indicators
+
+| Indicator                   | Before DealStage                   | After DealStage                                     |
+| --------------------------- | ---------------------------------- | --------------------------------------------------- |
+| Measurement methodology     | Agency correlation model           | Direct attribution via DealStage + retailer co-sell |
+| Roster quality              | Mixed (37% below threshold)        | High (96% above threshold)                          |
+| Brand safety incident rate  | 2.1% of active creators            | 0.4% of active creators                             |
+| New creator sourcing        | Agency-curated shortlists          | AI-matched, quality-scored pipeline                 |
+| Contract management         | Agency-managed, limited visibility | Enterprise dashboard, full visibility               |
+| Category-level ROI by brand | Not available                      | Real-time by brand and SKU                          |
+| Time to onboard new creator | 3-4 weeks (agency process)         | 5-7 days (DealStage workflow)                       |
+
+---
+
+### Key Insight
+
+Hartwell's case illustrates the enterprise segment's primary pain point with DealStage precision: at scale, the quality signal gets diluted. A program of 847 creators managed by an agency operating on impression-based incentives will systematically fail to self-correct because the agency's performance metrics (impressions, CPM, reach) do not penalize engagement quality problems. The agency earns the same margin on a creator with a 3.0 engagement quality score as on a creator with an 8.5 score, so there is no structural incentive to curate for quality.
+
+DealStage's engagement quality audit surfaces the problem that Hartwell's existing infrastructure could not detect — not because the data wasn't there, but because the measurement system wasn't designed to look for it. This is the enterprise platform's core value proposition: not just better tools for doing the same thing, but a fundamentally different measurement framework that reveals what the previous system was hiding.
+
+---
+
+## SUGGESTIONS TO MAKE IT BETTER
+
+**1. Add Video Script Versions of Each Journey — Website and YouTube Testimonial Format**
+
+Each user journey is currently a written narrative — powerful for reading, but not designed for the most important distribution channels in 2026: YouTube, TikTok, and website landing pages. Convert each journey into a 90-second to 3-minute video script in testimonial format. The script structure: 15 seconds of the user stating their before state in their own words, 30 seconds of showing the platform doing the work (screenshare), 30 seconds of the outcome stated simply and specifically, 15 seconds of the user's verdict. These scripts are ready for live actor testimonials (casting for each user archetype), animated explainer video, or founder-narrated versions for the DealStage website's homepage. The video versions expand each journey's reach from readers to viewers — a 10x audience multiplier.
+
+**2. Create 1-Page PDF Summaries for Each Journey — Sales Team Enablement**
+
+Every enterprise sales conversation benefits from leave-behind materials that are both memorable and fast to read. A one-page PDF for each user journey — professional design, key metrics highlighted, before/after comparison visible at a glance, one quote from the user — is the most practical sales enablement asset DealStage can produce. The PDF is distributed by every DealStage sales rep at the end of a first meeting. It is attached to every enterprise proposal email. It is included in every conference packet. It is the document that the CMO who attended the demo shows to the CFO who wasn't there. It does not need to tell the whole story. It needs to make the case in 60 seconds of reading time.
+
+**3. Add Industry-Specific Journeys — Fashion, Sports, Music, Food, Tech**
+
+The six journeys currently documented (3 from Version 1.0, 3 from this document) cover the platform's three user roles broadly. But DealStage's commercial segmentation is also organized by industry vertical, and different industries have radically different brand deal mechanics, pain points, and ROI narratives. A fashion creator's journey is different from a sports creator's journey — the brands are different, the deal terms are different, the measurement metrics are different, and the obstacles are different. Creating 5 industry-specific journeys would give the DealStage sales team a precisely matched story for every major prospect category. Target verticals: fashion/beauty (the largest creator deal category by volume), sports and fitness (the highest average deal value per creator), music/entertainment (the most complex rights and usage considerations), food and hospitality (the fastest-growing DTC brand category), and B2B tech (an underserved creator niche with very high audience quality).
+
+**4. Create a "Day in the Life" Format — Hour-by-Hour Platform Usage**
+
+The user journey documents show what changes over months and years. A complementary "Day in the Life" format shows what changes hour by hour — the specific moments in a single workday where DealStage replaces friction with efficiency. "At 8 AM, Alex opens the DealStage dashboard. In 12 minutes, she knows the status of every active deal across all 8 clients. At 8:12 AM, she sees a new brand match notification for Destiny. By 8:30 AM, the pitch is drafted and scheduled for delivery at 10 AM Destiny's time zone. At 9:45 AM, a contract renewal alert fires for Marcus — the renewal is due in 14 days. Alex sets a call for tomorrow." This format is ideal for website homepage use (it shows the product in action in a timeline that feels real and fast) and for onboarding materials (it sets expectations for new users about how to build DealStage into their daily workflow).
+
+**5. Add Failure Stories — The Cost of Inaction**
+
+The most persuasive moment in any sales conversation is not the success story. It is the cost of the alternative. What happens to a creator who does NOT use DealStage? The missed deal they couldn't see. The rate they accepted because they didn't have benchmark data. The brand relationship that went to a competitor because they didn't know how to lead with their engagement quality. A dedicated "failure story" section — told in the same narrative depth as the success journeys but from the perspective of a creator who lost deals, left money on the table, or was systematically undervalued because they lacked the data DealStage provides — is the most commercially persuasive content DealStage can produce. These stories do not need to be cautionary tales. They need to be honest documentaries about the economics of operating in the creator economy without information. The reader finishes the failure story and immediately thinks: that is exactly what has been happening to me. And then they sign up.
+
+---
+
+_Part 2 Journeys and Suggestions prepared for DealStage LLC — www.thedealstage.com_
+_Appended to Version 1.0 — March 2026_
+
+---
+
 _Classification: Internal/Investor/Marketing Use_

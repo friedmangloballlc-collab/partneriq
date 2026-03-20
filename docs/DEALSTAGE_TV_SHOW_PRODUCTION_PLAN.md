@@ -1460,4 +1460,418 @@ All three functions are built and tested in the pre-production phase (Months 9-1
 
 ---
 
+# PART II: EXPANDED PRODUCTION DETAILS
+
+---
+
+## EXPANSION: DETAILED CREW BIOS AND HIRING PROFILES
+
+### The Crew That Makes the Show
+
+Hiring the right production team is as critical as any platform decision DealStage will make. The crew translates the blueprint into broadcast-ready television. A wrong hire at the showrunner level can sink the season. A right hire at the story producer level can find the narrative gold buried in 300 hours of footage. These are the key hire profiles and the standards each must meet.
+
+---
+
+**THE SHOWRUNNER**
+
+The showrunner is the creative leader of the entire production. They are responsible for the season arc, each episode's narrative structure, the tone and pacing of the show, the relationship between the contestants and the audience, and the coherence of the DealStage brand message across every episode. They report to the DealStage Chief Content Officer and have final creative authority on the show subject to DealStage brand standards.
+
+Profile: The ideal showrunner has led at least one full season of a competition or docucompetition format that aired on a major network or streaming platform. Their prior work demonstrates fluency in both the documentary tradition (real people, real stakes, observational filmmaking) and the competition format (challenge design, elimination structure, narrative pacing across a season arc). Shows whose showrunner DNA aligns with what The Deal Stage needs: The Profit (CNBC) — business education wrapped in real stakes, real people; Follow the Rules (HBO) — a docucompetition that used data to tell human stories; Making the Cut (Amazon Prime) — a high-production fashion competition that served both entertainment and commerce goals simultaneously.
+
+The showrunner must understand and respect the DealStage platform. They are not just making a competition show — they are making a show that must also function as a platform demonstration. Every episode must leave the viewer understanding more about what DealStage does than they did at the start. This is a dual mandate the showrunner embraces, not tolerates.
+
+Compensation: $25,000-$40,000 per episode (8 episodes = $200,000-$320,000 per season). For a showrunner stepping down from a premium cable credit, this is below market. The compelling offer is equity participation in DealStage LLC (0.1-0.25% vested over 4 seasons) and the creative opportunity to build a franchise from the ground floor.
+
+---
+
+**THE DIRECTOR**
+
+The Deal Stage employs 2-3 directors across the season, with a lead director handling 5 of the 8 episodes for visual consistency. The additional directors handle the more location-dependent episodes (if any filming occurs outside the primary studio).
+
+Visual style requirement: The director must be comfortable straddling two distinct visual languages within the same episode. For human moments — contestant backstories, emotional war room conversations, elimination sequences — the visual language is documentary: handheld camera, natural light where possible, intimate close-ups that feel like the camera is barely there. For data and AI moments — the match score reveal, the visualization wall sequences, the judge deliberation — the visual language is sharp, graphic, slightly cool in temperature, and precisely framed. These two languages must coexist seamlessly without jarring tonal whiplash.
+
+Comparable shows whose directing style aligns with this approach: Top Chef (Bravo) — manages to be both intimate and visually dynamic, with a distinctly different visual register for the kitchen competition vs. the judges' table; Jiro Dreams of Sushi — precision and warmth co-existing without contradiction; The Last Dance (ESPN) — documentary that uses archival and interview footage in a way that never loses emotional texture while telling a complex competitive narrative.
+
+Directors are hired episode-by-episode with preference given to directors who have worked in both long-form documentary and competition format. DGA rates apply.
+
+Compensation: $15,000-$22,000 per episode (DGA scale + premium for tech-forward show requirements). Lead director receives an additional $10,000 executive production fee for season-long visual consistency work.
+
+---
+
+**THE STORY PRODUCER**
+
+Story producers are the show's narrative architects. They spend weeks with contestants before and during filming, finding the threads of human story buried in hours of unstructured footage. The story producer for The Deal Stage has a unique dual responsibility: they must find compelling personal narratives (the comeback, the underdog, the mentor relationship) AND they must identify moments where the DealStage platform data reveals something surprising, counterintuitive, or emotionally resonant.
+
+This second responsibility — platform narrative — is rare in a story producer's job description and requires specific training. The story producer works directly with the DealStage Technical Producer (see below) to understand what the data shows and to develop story angles around data moments. "The AI gave this contestant a 94 match score with a brand they'd written off as out of reach — and they almost didn't pitch" is a story producer's discovery, not a writer's invention.
+
+Profile: Prior story producer credits on at least one full competition season. Experience working with non-actor subjects (real people on camera, not performers). Comfort with data and technology content — the ability to translate a numerical metric into a human story. Ideal prior experience: Undercover Boss (CBS), Shark Tank, The Profit.
+
+The show employs 4 story producers per season (one per 3 contestants, roughly). Each story producer manages all shooting, logging, and narrative development for their assigned contestants from the first filming day through the cut of each episode.
+
+Compensation: $5,000-$8,000 per episode, 8-episode season = $40,000-$64,000 per story producer. Senior story producer (the team lead who coordinates with the showrunner) receives $8,000-$12,000 per episode.
+
+---
+
+**THE DEALSTAGE TECHNICAL PRODUCER (NEW ROLE)**
+
+This role does not exist in traditional television production. DealStage creates it specifically for this show. The Technical Producer is the bridge between DealStage's engineering team and the production team. They are on set every filming day. They are responsible for:
+
+- Managing the production-environment build of the DealStage platform on set (contestants use a real but isolated version of the platform — the Technical Producer ensures it is functional, accurate, and broadcast-ready at all times)
+- Briefing the director and showrunner on what the data shows before each filming day ("Today's match score reveal will show that Contestant A's fit with Brand X dropped from 91 to 78 since last week because Brand X tightened their engagement rate requirement — here is how to stage the moment")
+- Ensuring the Visualization Wall displays are accurate, legible at broadcast scale, and properly formatted for the episode's narrative requirements
+- Working with post-production to ensure AI visualization animations are technically accurate and not misleading
+- Providing a daily "data brief" to story producers showing what the platform data is revealing about each contestant, so story producers can develop narrative angles around real data moments
+- Managing the QR code and second-screen integration layer (the Viewer Integration Layer described in the existing document)
+
+This role requires a candidate who is fluent in both technology (they must understand the DealStage platform deeply, including its API and data architecture) and production (they must speak the language of a film set and understand broadcast requirements). It is not a standard tech hire and not a standard production hire — it is a new category.
+
+Compensation: $180,000-$240,000 per year (full-time DealStage employee, not a freelance production hire). This person is on staff year-round, spending pre-season months building and testing the production environment, and post-season months improving the integration for the following season.
+
+---
+
+**ESTIMATED SALARIES — ALL KEY POSITIONS**
+
+| Role                           | Per-Episode Rate             | Season Total (8 Episodes) | Notes                        |
+| ------------------------------ | ---------------------------- | ------------------------- | ---------------------------- |
+| Showrunner                     | $25,000-$40,000/ep           | $200,000-$320,000         | + equity option              |
+| Lead Director                  | $20,000-$28,000/ep           | $160,000-$224,000         | DGA scale + premium          |
+| Additional Directors (x2)      | $15,000-$20,000/ep           | $45,000-$60,000 each      | 3 episodes each              |
+| Senior Story Producer          | $10,000-$12,000/ep           | $80,000-$96,000           |                              |
+| Story Producers (x3)           | $6,000-$8,000/ep             | $48,000-$64,000 each      |                              |
+| DealStage Technical Producer   | $180,000-$240,000/yr         | Annual salary             | Full-time staff              |
+| Executive Producer (DealStage) | Internal                     | Internal                  | Oversight, no production fee |
+| Line Producer                  | $12,000-$16,000/ep           | $96,000-$128,000          | Manages below-the-line       |
+| Director of Photography (Lead) | $8,000-$12,000/ep            | $64,000-$96,000           |                              |
+| Editor (Lead)                  | $6,000-$9,000/ep             | $48,000-$72,000           |                              |
+| Casting Director               | $80,000-$120,000/season flat | $80,000-$120,000          | Flat fee                     |
+
+Total above-the-line creative talent cost (estimated): $1,000,000-$1,400,000 per season.
+
+---
+
+## EXPANSION: SET DESIGN
+
+### The Physical World of "The Deal Stage"
+
+The show's sets are not decorative choices — they are narrative tools. Each space communicates a different emotional register and reinforces a different facet of the DealStage brand identity. The set design brief is premised on a single design principle: intelligence made visible. Every set should feel like a place where data and human judgment coexist, where the future of commerce is being decided in real time.
+
+---
+
+**THE DEAL STAGE — Main Competition Set**
+
+The Deal Stage is the primary set — the arena where challenges are completed, pitches are delivered, and winners are declared. It is designed to feel simultaneously intimate and monumental: small enough that the contestant's vulnerability is palpable, large enough that the stakes feel significant.
+
+Physical description: A raised central platform (the "stage" — 30 feet wide, 15 feet deep, elevated 18 inches above the studio floor) with a clean, dark hardwood surface. The platform is framed on three sides by a curved LED wall: floor-to-ceiling, seamless, capable of displaying any background from abstract data visualizations to stylized brand environments to a simple dark gradient. The LED wall is The Deal Stage's most important visual tool — it transforms the set's emotional register with every episode based on the challenge theme.
+
+The Podiums: Three contestant podiums arranged in a slight arc, each with a built-in touchscreen displaying the contestant's live DealStage dashboard. The podiums are clean, backlit in the DealStage brand color (a deep electric blue shifting to white at the top), and camera-ready from every angle.
+
+The Judges' Table: Positioned stage-left, at a 45-degree angle to the contestant podiums, so judges are visible in the same frame as contestants during key moments. The table surface is transparent tempered glass with embedded LED elements showing a live feed of the DealStage platform interface — judges appear to sit atop a sea of data. Three chairs, each individually lit to ensure flattering broadcast-quality footage of the judges' faces.
+
+The Reveal Screen: Directly behind the contestant podiums, a single massive screen (20 feet wide, 12 feet tall) displays the AI match score reveal at the episode's climactic moment. This screen is center-stage, perfectly framed for a wide shot that captures the contestant's reaction alongside the data revelation. The reveal screen is the show's most iconic visual element — it is the moment viewers come back for every episode.
+
+Lighting Design: The Deal Stage uses a two-mode lighting system. For pitches and deliberations: warm, golden-hour tones that make faces human and conversations feel real. For data reveals and AI moments: the lighting shifts to a cooler, more clinical blue-white spectrum with dramatic underlighting on the LED wall and a subtle shift in the contestant podium backlight. The audience feels the tonal shift viscerally — warmth gives way to precision, story gives way to data, and then the human reaction brings warmth back.
+
+---
+
+**THE DATA ROOM**
+
+The Data Room is the show's most dramatic secondary set — a sealed space where the AI reveal is prepared and where judges deliberate before the climactic moment. It is not used by contestants. It is the show's "control room" — the place where data is sovereign.
+
+Physical description: Approximately 400 square feet, with no natural light. The walls are floor-to-ceiling data screens displaying live DealStage dashboards, real-time social metrics, AI match score calculations in progress, and abstract data visualizations. The screens are arranged at angles, not flat against the walls — they lean inward slightly, creating a sense of being surrounded by information. The color temperature throughout is cool: blue-white, with accent lighting in DealStage electric blue. There are no warm tones in the Data Room.
+
+The Analysis Table: A single rectangular table in the center of the room, inset with a touchscreen surface. The judges use this table during deliberation — they can pull up any contestant's DealStage data, compare match scores, review deal history, and run new queries on the platform in real time. The table's screen is mirrored to the surrounding wall displays when the camera is rolling for wide shots.
+
+Sound Design: The Data Room has a distinct ambient soundscape — a low, barely perceptible hum of cooling systems and a subtle digital pulse that underscores the sense of computational activity. When a judge touches the table to reveal a match score, a distinctive tonal sound effect plays — the same sound every episode, building recognition and Pavlovian anticipation in the audience over the course of the season.
+
+Camera Setup: Two fixed cameras (wide and medium) plus one handheld operator in the Data Room. The space is intentionally tight for cameras — the closeness creates intensity. Judges in the Data Room are shot with harder, more contrasty lighting than anywhere else on set, emphasizing the weight of the decisions being made.
+
+---
+
+**THE WAR ROOM**
+
+The War Room is the contestants' workspace — where they access DealStage between challenges, strategize, build their pitches, and have the unguarded conversations that become the show's best storytelling moments. The War Room is the show's most human space, by design.
+
+Physical description: Open plan, approximately 800 square feet, designed to feel like a premium co-working space that also happens to have 12 workstations all running DealStage dashboards. Individual stations are arranged in a horseshoe configuration so contestants face slightly inward toward each other — enabling the spontaneous conversation and alliance-building that makes great reality television. Each station has a monitor displaying the contestant's live DealStage profile, a notebook, and a brand portfolio binder containing the episode's brand challenge materials.
+
+The Collaboration Zone: A central table in the horseshoe's open end where contestants gather for group moments. This is where arguments break out, alliances form, and the most candid exchanges happen. The table seats all 12 contestants — or however many remain in later episodes. The empty seats as the season progresses are a visual reminder of the stakes.
+
+DealStage Branding: Unlike the clinical Data Room, the War Room has visible DealStage brand presence that feels motivational rather than clinical. The DealStage wordmark appears in large format on one wall (not a screen — a physical installation, backlit). Screens throughout the room display the DealStage platform in real time. A "current season leaderboard" display shows each contestant's cumulative deal score in real time — contestants can see exactly where they stand, which creates constant competitive awareness.
+
+Lighting: Warm but functional. The War Room should feel like the best office any of these creators has ever worked in — aspirational, premium, but not intimidating. Natural light simulation from window panels on the far wall.
+
+Camera Setup: 12 fixed wide-angle cameras (one per workstation, unobtrusive) plus 2 roving operators for group moments. The War Room is a surveillance-style set — contestants know the cameras are there, but the cameras are small and positioned to feel ambient rather than intrusive. This produces more natural behavior than traditional documentary setups.
+
+---
+
+**BACKSTAGE INTERVIEW AREA**
+
+The confessional equivalent for The Deal Stage — a dedicated space where contestants deliver their direct-to-camera commentary after challenges, eliminations, and key moments. Unlike traditional reality TV confessionals (which feel like afterthoughts), this space is designed with the same care as the primary sets.
+
+Physical description: A single armchair in front of a shallow-depth, slightly out-of-focus background displaying an abstracted DealStage data visualization. The background is not a screen — it is a printed backlit panel, which gives it a more premium, editorial feel than a digital display. The lighting is warm on the contestant's face, cool in the background — a visual echo of the show's dual themes (human and data). A small DealStage branded monitor is visible in the lower right corner of the frame, showing the contestant's current match score — a reminder that even in this intimate moment, the data is present.
+
+The interview area is also used for post-elimination exit interviews (longer form, more emotional) and for judge commentary segments that are too informal for the formal Judges' Table setup.
+
+---
+
+**SET LAYOUT OVERVIEW**
+
+```
+STUDIO FLOOR PLAN (CONCEPTUAL)
+
+[BACKSTAGE INTERVIEW]    [WARDROBE / MAKEUP]
+        |                        |
+        |________________________|
+                    |
+        [THE WAR ROOM — CONTESTANT WORKSPACE]
+                    |
+         [TRANSITION CORRIDOR — filmed]
+                    |
+        [THE DEAL STAGE — MAIN ARENA]
+                    |
+              [SIDE EXITS]
+                    |
+              [DATA ROOM]
+                  (accessible via separate corridor,
+                   not visible from War Room)
+```
+
+The physical separation of the Data Room from the War Room is intentional and dramaturgically important: contestants cannot hear or see what is happening in the Data Room while judges deliberate. The distance creates tension. The contestant on the stage, waiting for the AI reveal, does not know what the judges see. The audience sees both. That asymmetry of information is the show's most powerful emotional mechanic.
+
+---
+
+## EXPANSION: POST-PRODUCTION DETAIL
+
+### AI Visualization Style Guide
+
+The DealStage AI match score is the show's signature visual element — the moment every episode builds toward. How it looks on screen must be consistent, instantly recognizable, and designed so that a viewer who has seen one episode knows exactly what is happening when the visualization appears, regardless of which episode they are watching.
+
+**Color System**
+The DealStage on-screen color system uses a 5-level gradient tied to match score ranges:
+
+- 90-100: Platinum White to Electric Blue (the "perfect match" spectrum)
+- 75-89: Electric Blue to Deep Indigo (strong match)
+- 60-74: Indigo to Amber (moderate match)
+- 45-59: Amber to Burnt Orange (weak match)
+- Below 45: Burnt Orange to Charcoal (poor match)
+
+The color gradient is applied to all on-screen data elements — numbers, bars, graphs, and the circular "Match Score Ring" (the show's primary visual icon: a ring that fills from 0 to the match score value in a clockwise animation, with the final score appearing in the center).
+
+**The Match Score Ring Animation**
+The Match Score Ring is the show's most iconic visual. It appears at the climactic moment of each episode and must be animated identically every time to build ritual recognition. The animation sequence:
+
+1. Black screen, silence (0.5 seconds)
+2. The ring outline appears in Platinum White (0.3 seconds)
+3. The ring begins filling clockwise, slowly at first, then accelerating — the fill speed increases as the score approaches the final value (2.0-3.5 seconds total, depending on score)
+4. The ring completes its fill (if the score is, say, 87, the ring fills 87% of the way) with a brief "snap" animation at the final position (0.2 seconds)
+5. The score number appears in the center of the ring in large type (0.5 second dissolve)
+6. The color shifts to the appropriate score tier color (0.3 seconds)
+7. Hold for 2 seconds
+8. Secondary data elements appear around the ring: brand category fit, audience alignment score, engagement quality metric (each appears with a 0.3-second delay between them)
+
+Total animation duration: 5-8 seconds. The sound design during this animation is the "Match Score Reveal" sound (see Sound Design section).
+
+**Typography**
+All on-screen text uses a proprietary typeface derived from the DealStage platform's brand typography: a geometric sans-serif with clean terminals that reads well at all sizes on 4K displays. Display sizes (score numbers, brand names): 96-120pt. Supporting data (category labels, comparison metrics): 32-48pt. Fine print (data sourcing, update timestamps): 18pt. All text is white or electric blue on dark backgrounds. No red. No green. The monochromatic palette with single-accent blue is clean, premium, and instantly recognizable as DealStage.
+
+---
+
+### Music Strategy
+
+The Deal Stage uses a hybrid music approach: a custom original score for the show's primary emotional and dramatic moments, combined with licensed tracks for montage sequences, contestant backstory segments, and end-of-episode moments.
+
+**Original Score**
+The show commissions an original score from a composer with experience in both documentary film and technology-adjacent commercial media. The score must do two things simultaneously: create human emotional resonance (the kind of score that makes you feel something when a contestant gets eliminated or closes their first deal) and suggest technological intelligence (a subtle electronic undercurrent that reminds the viewer they are watching something powered by AI, not just human instinct). Reference scores: the electronic-organic hybrid approach of Trent Reznor and Atticus Ross's work on The Social Network; the warmth and precision of Disasterpeace's work on atmospheric indie games; Hans Zimmer's Interstellar score for the combination of human scale and technological vastness.
+
+Key score cues that require original composition:
+
+- The "DealStage Theme" (opening sequence, 45 seconds): Electric and propulsive. Immediately signals "this is a show about commerce, competition, and intelligence."
+- The "Data Room" cue (whenever judges enter the Data Room, whenever the visualization wall activates): Cool, precise, faintly ominous. Signals that the data is about to reveal something significant.
+- The "Match Score Reveal" cue (synchronized with the ring animation): Begins minimally, builds to a peak at the ring's completion, then resolves — either triumphantly or with tension depending on the score revealed. This cue is mixed in three versions: high score (triumphant), mid score (ambivalent), low score (tense).
+- The "Elimination" cue (contestant exit): Genuinely emotional. No percussion. A solo instrument (piano or a bowed string) carrying the human weight of departure.
+- The "Deal Closed" cue (contestant successfully closes a brand deal on camera): Euphoric, but not cheesy. The kind of music that makes the audience lean forward in their seat.
+
+**Licensed Music**
+Licensed tracks are used for: contestant intro montages (each contestant gets a track that defines their character — musical shorthand for the audience), city/location establishing shots if filming extends beyond the studio, and social clip content where a recognizable track drives virality. The music supervisor targets tracks with strong existing cultural associations in the creator economy and business worlds: emerging artists whose sound is premium without being inaccessible, independent labels with straightforward licensing terms.
+
+---
+
+### Color Grading Approach
+
+The color grading strategy for The Deal Stage uses two distinct "looks" that transition between each other within episodes based on the emotional and narrative register of each scene.
+
+**The Human Look (warm moments)**
+Applied to: War Room conversations, backstory segments, contestant interviews, elimination sequences, any moment where the human story is primary. Characteristics: warm shadows (pulling slightly toward amber), lifted blacks (softer contrast, more detail in shadows), slightly desaturated skin tones (more natural, less hyper-real). Reference look: the warm, documentary-influenced color of Chef's Table (Netflix) — premium but intimate, never clinical.
+
+**The Data Look (technology moments)**
+Applied to: Data Room sequences, Match Score reveals, Visualization Wall close-ups, any moment where the AI and data are the primary subject. Characteristics: cool shadows (pulling toward blue), crushed blacks (high contrast, deep shadows), slightly enhanced blues and whites. The transition from Human Look to Data Look happens within the episode as the data reveal approaches — a subtle shift that the audience feels emotionally before they consciously register it. Reference look: the precise, cool color palette of Ex Machina (2014) or the HBO Silicon Valley title sequence — intelligence made visual.
+
+---
+
+### Graphics Package
+
+The show's on-screen graphics package is built by DealStage's design team in partnership with a broadcast motion graphics specialist. The package includes:
+
+**Lower Thirds**
+Standard lower third format: contestant name (large, DealStage typeface), category/niche (smaller, secondary typeface), follower count (right-aligned numeric with platform icon). For judges: name and title. For brand representatives: name, brand name, and logo. Lower thirds appear and disappear with a horizontal wipe from left — DealStage electric blue wipe line.
+
+**Score Reveals (non-Ring animations)**
+Episode challenge scores, individual brand fit percentages, and engagement quality metrics all use a consistent card format: a rectangular panel with the metric name at the top, the number in large central type, and a thin progress bar showing the number's position relative to the season's maximum and minimum. Cards slide in from the bottom of the frame and dissolve out.
+
+**The Timer**
+Challenge sequences use a countdown timer in the upper right corner of the frame: circular, styled consistently with the Match Score Ring (same proportions, same color system), counting down the remaining challenge time. The timer shifts from electric blue to amber at 30% remaining and to burnt orange at 10% remaining, creating urgency without explicit narration.
+
+**Contestant Stats Card**
+Each contestant gets a standardized "stats card" that appears at the beginning of their first featured sequence in each episode: profile photo, name, DealStage Match Score (current), Deal Count (cumulative), and a single-line "current goal" (updated each episode by the story producer). The stats card is the visual equivalent of a sports broadcast's player intro graphic — it gives the audience immediate context and orientation.
+
+---
+
+### Sound Design
+
+Sound design for The Deal Stage is a strategic element, not a finishing touch. The show develops three proprietary sound signatures that become culturally recognizable by Season 2:
+
+**The Match Score Reveal Sound**
+A 5-8 second audio event synchronized precisely with the ring animation. It begins with a soft digital pulse (the ring outline appearing), builds through a rising harmonic sweep (the ring filling), reaches a peak note precisely when the ring snaps to its final position, and resolves into either a major chord (high score) or a suspended chord (low score) as the number appears. This sound is the show's most important audio asset — it should be as recognizable as the Law & Order "dun dun" or the Jeopardy think music. Trademarked and licensed for use in all marketing, podcast, and social materials.
+
+**The Deal Closed Chime**
+A 2-second audio event that plays whenever a deal is officially confirmed on camera. Clean, bright, slightly electronic. Think: a more sophisticated version of the "level up" sound in a video game, but designed for broadcast. This sound plays identically in every episode, every season. Viewers will come to associate it with success, and the Pavlovian association builds through the season.
+
+**The Elimination Tone**
+A single, low note — held for 3 seconds — that plays at the moment of elimination announcement. Not melodramatic. Not a sting. A long, resonant tone that creates space for the audience to feel the moment without the music telling them how to feel. After the tone, silence. Then the contestant's final walk, with only ambient sound.
+
+---
+
+## EXPANSION: LEGAL AND COMPLIANCE DEEP DIVE
+
+### FTC Requirements for Prize Shows
+
+"The Deal Stage" involves real prize money (real brand deal revenue), real on-camera brand integrations, and real contestants who may promote both the show and the DealStage platform to their social audiences. Each of these elements triggers FTC disclosure requirements that must be built into every layer of the production.
+
+**Prize Disclosure**
+All prize values must be disclosed to contestants before signing. The participation agreement includes a complete prize schedule: the total prize pool, the per-episode deal value targets, the finale grand prize structure, and the tax implications (all prizes are reportable income). The production company does not obscure or delay this disclosure — FTC guidelines for prize promotion require that all material terms be disclosed clearly and early. Any on-air promotion of prize values must state the approximate retail value (ARV) in the same communication.
+
+**Brand Integration Disclosure**
+Because "The Deal Stage" features integrated brand partners whose products and deals are woven into the show's format (not segregated into commercial breaks), each episode must include: a standard "Program Contains Paid Advertising" notation in the episode's title card or end card, verbal acknowledgment by the host at the start of any branded challenge segment ("Today's challenge is sponsored by [Brand]"), and on-screen super text during any brand logo display in a challenge context. The DealStage Legal team reviews every episode's cut for compliance before delivery to the network or streaming platform.
+
+**Contestant Social Media FTC Compliance**
+Contestants posting about the show, about DealStage, or about any brand partners on their personal social channels must follow FTC influencer disclosure guidelines. The show's social media protocol (described in the casting section) includes mandatory disclosure language for each post type. The production company provides contestants with a one-page FTC compliance guide specific to their show obligations, updated annually to reflect any FTC guidance changes.
+
+---
+
+### Contestant Employment Status — Independent Contractors
+
+Contestants are classified as independent contractors, not employees. This classification must be defensible under the IRS and applicable state law tests (particularly California's AB5 framework, which applies if the show films in California). Key factors supporting independent contractor status:
+
+- Contestants perform creative services (their own brand pitches, their own social content) that are integral to their own independent creator business, not to DealStage's core business
+- Contestants set their own work schedule between challenges (they are not directed on a day-to-day basis by DealStage or the production company outside of scheduled filming days)
+- Contestants are permitted to, and do, continue their own brand deal activities during the show (subject to sponsor conflict restrictions)
+- Contestants receive a single Form 1099 for their stipend and any prize earnings — not a W-2
+
+The production company's entertainment labor counsel reviews the classification annually. If regulatory changes make contractor classification untenable (particularly in California), the alternative structure is a loan-out arrangement where each contestant is engaged through their own business entity (LLC or S-Corp), which is more defensible under independent business tests.
+
+---
+
+### Brand Deal Contracts — Real Deals Signed on Camera
+
+The show's most legally distinctive feature is that the brand deals closed on camera are real commercial contracts — not simulated for entertainment. This requires careful legal architecture:
+
+**The Deal Facilitation Agreement**
+Before any brand partner appears on the show, they sign a Deal Facilitation Agreement with DealStage LLC. This agreement: establishes DealStage as the facilitating platform (not a party to the deal itself), specifies the deal terms that the brand is authorized to offer on camera (minimum deal value, content deliverables, usage rights, exclusivity parameters), commits the brand to honoring any deal closed on camera within those parameters, and includes a prize insurance requirement (see below).
+
+**On-Camera Contract Execution**
+When a contestant closes a deal on camera, the sequence is: verbal agreement confirmed on camera, followed by a 48-hour paper review period (contestants sign nothing on camera — the verbal agreement is documented, and the formal contract is executed off-camera within 48 hours). This protects contestants from being pressured into signing binding documents in the emotional heat of a filming moment. The formal contract mirrors exactly the deal terms agreed on camera. No changes to material terms are permitted in the paper contract phase.
+
+**DealStage Platform as the Deal of Record**
+All deals closed on the show are recorded in the DealStage platform's deal management system. This is both a brand moment (the platform is visibly the place where the deal lives) and a legal record. The DealStage platform entry is time-stamped and includes all material terms — it functions as an admissible digital record if any dispute arises about deal terms.
+
+---
+
+### Music Licensing for Social Clips
+
+Social clips from The Deal Stage are the show's primary top-of-funnel marketing tool — but music licensing for social distribution is complex and cannot be treated as an afterthought.
+
+**The Problem**
+Sync licenses negotiated for the broadcast version of the show cover the specific platform and territory of original broadcast. They do not automatically cover: clips posted to Instagram Reels, TikTok, or YouTube Shorts; international streaming distribution; user-generated content that includes show clips; or podcast clips featuring show audio. Each of these use cases requires a separate license or the use of music that is pre-cleared for social distribution.
+
+**The Solution: A Two-Track Music System**
+For all music that appears in social clips (roughly the top 30% of musical moments in the show), the music supervisor negotiates a social distribution license at the time of the original sync license. The cost premium for this extended license is approximately 20-40% above the standard broadcast-only rate. This cost is budgeted as a fixed line item in the post-production music budget.
+
+For music that is not pre-cleared for social (deeper cuts in the licensed music catalog), the editor creates social clip versions using only the original score or silence, avoiding any licensed track. The original score is owned by DealStage LLC under a work-for-hire agreement with the composer — it is cleared for unlimited distribution without additional licensing fees.
+
+**TikTok and Instagram Specific**
+TikTok maintains its own commercial music library with pre-cleared tracks for brand accounts. For DealStage's TikTok distribution, the social team uses only TikTok Commercial Music Library tracks or DealStage's original score. Instagram has a similar business music library. The social media manager maintains a current list of pre-cleared tracks approved for each platform.
+
+---
+
+### International Distribution Rights Clearance
+
+Before any international territory streaming deal or format license is signed, DealStage's entertainment counsel conducts a rights clearance audit covering:
+
+- Music sync rights for each territory (broadcast sync licenses often exclude international territories by default; each additional territory requires an addendum or separate license)
+- Contestant likeness rights for the specific territories (the participation agreement grants worldwide rights, but some jurisdictions — particularly EU member states — require explicit GDPR-compliant consent for data processing associated with digital distribution)
+- Brand integration rights (brand partners' logos and identities appearing in international broadcasts may require their separate consent and possibly local regulatory compliance review)
+- Archival footage rights (if the show uses any third-party footage — social media clips, news footage, historical content — the clearance status of that footage for international distribution must be confirmed separately)
+
+International distribution deals are executed with territory-by-territory rights schedules attached to the master distribution agreement, specifying exactly which rights (broadcast, streaming, download, clips, social) are granted for each territory and for what term.
+
+---
+
+### Insurance Requirements
+
+The Deal Stage production requires a comprehensive insurance program covering multiple categories of risk:
+
+**Production Insurance (Standard)**
+Commercial general liability ($5M per occurrence, $10M aggregate), workers' compensation for all production employees, equipment insurance (full replacement value for all cameras, lighting, and technology equipment on set), auto liability for production vehicles, and errors and omissions (E&O) coverage for the completed show.
+
+**Prize Insurance**
+Because the show's prizes include real brand deal revenue that depends on third-party performance (the brand must actually pay the deal), the production company carries prize insurance underwritten by a specialty entertainment insurer. Coverage: the production company is indemnified if a brand partner fails to fulfill a deal closed on camera, up to the total prize value of that deal. The prize insurance premium is approximately 3-5% of total prize pool value.
+
+**E&O Insurance**
+Errors and omissions insurance covers the production against claims arising from: defamation (a contestant or brand representative claiming on-camera statements were false and damaging), privacy violation (a contestant or third party claiming unauthorized use of their likeness or private information), intellectual property infringement (claims that the show's format, music, or graphics infringe existing IP). E&O is required by most networks and streaming platforms as a condition of license. Coverage: $5M per occurrence, $10M aggregate. Retroactive date: the first day of principal photography.
+
+**Cyber Liability**
+Because the show involves the collection and display of real social media data, financial information, and platform analytics from real creators, cyber liability insurance is required. Coverage: $2M per occurrence for data breach, unauthorized access, and privacy regulatory investigation costs.
+
+---
+
+## WHAT WOULD MAKE THIS 10X BETTER
+
+**1. Create a "Second Screen" Experience**
+
+While the main show airs, DealStage pushes live data to viewers who have the app open on their phone. Viewers see the same match score data the judges see — in real time, before the on-screen reveal. This creates an insider experience for app users (they know the score before the contestants do) and drives millions of app downloads in the weeks surrounding premiere. The second screen experience is the show's most powerful platform conversion tool because it works hardest exactly when the audience is most engaged — during a live broadcast moment.
+
+**2. Film in Multiple Cities for Variety and Reach**
+
+The core studio format is strong, but inserting 2-3 location-based episodes per season creates visual variety and regional connection. An episode filmed in Atlanta (with local Atlanta creators and brands) generates local press coverage, local creator community excitement, and social content specific to a market DealStage wants to penetrate. A New York episode features the New York fashion and media creator community. A Miami episode taps into the Latin creator market. Location episodes cost approximately 40% more than studio episodes but generate disproportionate organic media coverage in each market.
+
+**3. Include "At Home" Segments Showing Contestants' Real Lives**
+
+Between filming days, each contestant is followed by a one-person crew capturing their actual life — their home studio, their editing setup, their family, their neighborhood. These 90-second "at home" segments, inserted at the beginning of each episode, give the audience a relationship with contestants that is impossible to build purely on a competition set. The audience root hardest for people they know. Knowing where someone comes from — the apartment they are fighting to stay in, the family they are fighting for, the community they represent — is what creates the emotional investment that makes great television.
+
+**4. Partner with a Major Podcast Network for the Companion Podcast**
+
+iHeart Media, Spotify Studios, and Wondery each have distribution infrastructure that reaches tens of millions of podcast listeners. A co-production deal with one of these networks for The Deal Stage Podcast would provide: distribution at scale from day one (no slow audience build), co-marketing support from a major media brand, production resources and studio access, and advertising sales infrastructure that can monetize the podcast far faster than an independent launch. The trade-off is sharing revenue and some creative control — but for a first-year podcast entering a crowded market, the distribution advantage is worth the cost.
+
+**5. Create a Fantasy League Where Viewers Draft Contestants**
+
+Before Season 1 premieres, DealStage launches "Deal Draft" — a fantasy league where viewers draft a team of 4 contestants. Points are awarded based on deal values closed, challenge wins, and fan vote performance. The league runs for the full season, with weekly leaderboard updates posted by DealStage on all social channels. The fantasy league does three things: it drives appointment viewing (you need to watch to track your team's performance), it drives DealStage app downloads (the league is managed through the app), and it generates weekly social content for DealStage that is user-driven and organic.
+
+**6. Release All Contestant DealStage Profiles Publicly**
+
+With contestant consent, DealStage publishes each contestant's full platform profile — match scores, category strengths, engagement quality, deal history (anonymized) — to the DealStage public platform before the season premieres. This turns every contestant into a research subject for the show's analytically inclined audience. Viewers who dive deep into the data develop stronger opinions, stronger allegiances, and stronger social media voices about the show. It also demonstrates DealStage's platform capabilities more vividly than any marketing copy can — because the data is real, and real data is the most compelling product demo available.
+
+**7. Live Reunion Special After the Finale**
+
+Two weeks after the finale airs, a 60-minute live reunion special streams on DealStage's YouTube channel and is embedded on the DealStage platform. The reunion features all 12 contestants, the judges, and an audience of 500 DealStage platform users selected through a lottery. The reunion covers: where each contestant's deals from the show have gone (real deal performance updates), audience questions, a surprise guest announcement (a major brand making an unsolicited offer to a contestant the audience loved), and a Season 2 cast member reveal. The reunion special is the season's final content moment and generates a spike of social engagement as the audience processes the full season's arc.
+
+**8. "Where Are They Now" Web Series — 6 Months Later**
+
+Six months after the finale airs, DealStage releases a 6-episode YouTube mini-series following up with 6 of the 12 contestants. Where are they now? Did the brand deals from the show hold? Did they close new deals using DealStage? What changed about their career? This mini-series serves as: authentic long-form testimonial content for the DealStage platform, audience re-engagement ahead of Season 2 casting announcements, and a proof-of-concept that the show's outcomes are real and lasting — not manufactured for a single episode. The "Where Are They Now" series is the show's most effective platform marketing asset because it documents real outcomes over time.
+
+---
+
+_Part II Expansions prepared by DealStage Production Development Team_
+_Appended to Version 1.0 — March 2026_
+
+---
+
 _This document represents a comprehensive production plan based on industry standard practices, comparable format analysis, and the DealStage platform's commercial framework. All budget figures are estimates based on 2025-2026 production market rates. License fee projections are based on publicly reported comparable deals. Brand partner revenue projections are based on existing DealStage commercial relationships and market analysis._
