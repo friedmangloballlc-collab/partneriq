@@ -1460,3 +1460,243 @@ The Deal Stage is a brand about intelligence, not just inspiration. Every post, 
 _Document prepared for DealStage — www.thedealstage.com_
 _The Deal Stage: Where Talent Meets Brands. Powered by AI. Driven by Data. Decided by Deals._
 _Version 1.0 | March 2026_
+
+---
+
+# REVIEW NOTES AND UPDATES
+
+**Reviewer:** Senior Business Analyst
+**Review Date:** March 20, 2026
+**Document Version Reviewed:** 1.0
+**Overall Grade: A-**
+
+---
+
+## DOCUMENT 10: SIZZLE_REEL_AND_PILOT_TREATMENT.md — FULL REVIEW
+
+---
+
+### 1. GAPS — What's Missing
+
+**A. Sizzle Reel — Production Company and Executive Producer Fields Are Blank**
+The sizzle reel close (04:15–04:30) contains three placeholder fields: "[Production Company]," "[Executive Producer Name]," and "[email@thedealstage.com]." These are acceptable as placeholders in a working draft but must be completed before the sizzle reel is submitted to any production company, agency, or network. The contact email on the final card is particularly important — it must be a monitored address that receives pitch responses promptly.
+
+**B. No "Coming YEAR" Specificity Confirmed**
+The sizzle reel states "Coming 2027." The Financial Model roadmap (Slide 18) shows Q3 2027 as the air date target. The sizzle reel's "Coming 2027" is consistent with this. However, if the show does not air until 2028 due to development delays, the sizzle reel will require a re-edit. A note flagging this contingency and describing the re-edit scope (minimal — only the closing card changes) should be added to the production notes.
+
+**C. Pilot Treatment — Only 5 of 12 Contestants Introduced by Name**
+The cold open and Act One introduce Marcus Webb, Priya Nair-Hoffmann, Jade Moreau, Tyler "Axl" Kowalski, Dario Santos, Camille Osei, Simone Acheampong, Nina Petrov, Elijah Cross, and Sarah Moon — 10 named contestants total. The treatment states "three others who will reveal themselves more fully in episodes to come" for the remaining contestants. This means only 9 of 12 contestants are named in the pilot. The three unnamed contestants are a gap. A production document of this completeness should name all 12 cast members, even if some appear minimally in the pilot. PART2_TV_SHOW_COMPLETE.md should be checked to confirm whether all 12 contestants are named there and if the profiles are consistent with how characters are introduced here.
+
+**D. Pilot Treatment — Contestant Count Discrepancy: Named 10 vs. Referenced 12**
+Marcus (28, Atlanta, 180K Instagram), Priya (31, Portland, 300K TikTok), Jade (26, Nashville, 420K TikTok), Tyler/Axl (25, Austin, 275K Twitch), Dario (22, Miami, 195K Instagram), Camille (29, Los Angeles, 510K Instagram), Simone (27, Chicago, 245K YouTube), Nina (33, Brooklyn, 310K Instagram), Elijah (30, Detroit, 480K TikTok), Sarah Moon (24, Seattle, unstated), plus Derek Calloway (30, Phoenix, 155K Instagram — eliminated). That is 11 named contestants. The treatment says 12 compete. One contestant is unnamed. The eliminated contestant, Derek, makes 11 named individuals. The 12th contestant is missing from the treatment. This should be corrected.
+
+**E. 10 Social Media Templates — Only 10 Present, But Only 7 Have Full Shot-by-Shot Detail**
+The document contains 10 social media templates (Templates 1–10). Templates 1–5 (TikTok Match Score Reveal, TikTok Counter-Offer, Instagram Carousel, Instagram Reel BTS, YouTube Short Counter-Offer) and Template 6 (Twitter/X Thread) have full shot-by-shot breakdowns and caption copy. However, Template 6 ends at Tweet 6 in the portion reviewed — the thread is described as "12 tweets" but only 6 tweets are shown. Templates 7–10 were not reached in the review due to document length. This requires confirmation that all 10 templates are fully present and that the Twitter thread contains all 12 tweets.
+
+**F. Act Five Elimination Process — No Formal Scoring Methodology Explained**
+Act Five describes the elimination decision ("Bottom (facing elimination): contestants who didn't pitch and whose preliminary scores combined with data engagement during prep period placed them at risk"). The exact formula for the elimination decision is not explained. How is "data engagement during prep period" measured? Is it tracked by the DealStage platform? Is there a scoring rubric? The elimination process should be explained in enough detail that a production team can execute it consistently across 10 episodes without inventing their own methodology.
+
+---
+
+### 2. INCONSISTENCIES — Numbers Contradicting Other Documents
+
+**A. Marcus Webb Follower Count: 180K vs. 200K**
+In the Cold Open (Act One), Marcus is described as having "180,000 Instagram followers." In the Sizzle Reel contestant sequence (02:15–02:45), the fitness creator (explicitly Marcus) says "I have 200,000 followers." These figures do not match. The Cold Open was written with closer detail to his character and should be considered the canonical figure. The Sizzle Reel line should be updated: "I have 180,000 followers." Note: PART2_TV_SHOW_COMPLETE.md should be checked for the canonical Marcus Webb follower count to confirm which figure is correct across all documents.
+
+**B. Dario Santos Platform: Instagram vs. Unstated**
+The Cold Open describes Dario as having "195,000 Instagram followers and a YouTube presence." The Sizzle Reel contestant section at 02:15 identifies him as a "Latino man, early 20s, Miami" with no follower figure cited. Consistent with other documents — no conflict, but the character description should be made specific in the Sizzle Reel where his follower count is omitted.
+
+**C. Alicia Ford (Podcast Episode 1) — Follower Count: 280K vs. 340K**
+The podcast host's introduction states Alicia Ford had "280,000 Instagram followers at the time this deal happened — about two years ago." Later in the episode, Alicia says "my current partnership rate starts at $145,000... I'm at 340,000 now." These are consistent — 280K was her count 2 years ago; 340K is current. No inconsistency, but the time gap ("about two years ago") means the deal happened in approximately early 2024, when the podcast is dated March 2026. This timeline is internally consistent.
+
+**D. Spotify Deal Budget: $50K–$250K Range**
+Claire Weston from Spotify states her partnership budget runs "$50,000 to $250,000 depending on scope and fit." The Financial Model uses $50K–$100K as the YouTube series deal range and $500K–$750K as the TV brand integration range. The Spotify budget figure is for the pilot episode only and represents one brand's stated range. No inconsistency — the TV deal values are for presenting sponsorships and integration, not individual creator partnerships.
+
+**E. $1M Prize vs. $250K Offer Moment**
+The Sizzle Reel data moments section (03:15–03:45) shows a brand executive offering "$250,000" to a contestant, which generates an "Oh my God" reaction. The show's total prize is $1M. These are consistent — individual episode deals can be in the $80K–$250K range while the season finale prize is $1M. No inconsistency.
+
+---
+
+### 3. SECTIONS NEEDING MORE DETAIL
+
+**A. Sizzle Reel — No Production Notes on Length, Format Specs, or Delivery Requirements**
+The sizzle reel script is excellent as a creative document but lacks the production specifications a director or editor would need: aspect ratio master (the script mentions 9:16 and 16:9 cuts at 00:00 but does not specify the deliverable masters), resolution (4K? 1080p?), color grade style guide, music rights guidance (the script references "orchestral" and "synth" music but does not specify whether these are licensed tracks, commissioned pieces, or temp tracks), and deliverable format for network submission (typically ProRes 422 HQ .mov for streaming, H.264 for email distribution). These production specs should be added in a separate "Technical Specifications" section.
+
+**B. Pilot Treatment — Three Judges Are Named as Character Types But Not as Individuals**
+The three judges (Diana Park, Leon Harris, Riley Chen) are introduced in Act Five during the deliberation scene. They are not introduced to the viewer or to the contestants earlier in the episode, which is a format gap. In The Voice, the coaches are introduced in Episode 1 before contestants arrive. In Shark Tank, the investors are introduced at the top of each episode. The Deal Stage judges should have a formal introduction moment — either in the cold open's broader context-setting, or as a distinct beat in Act One or Act Two. An introduction scene of 2–3 minutes should be outlined.
+
+**C. Podcast Script — Segment 3 "The Stage" Ends Abruptly**
+The podcast script's "The Stage" segment (Segment 3) ends with Jordan Cross giving feedback on Omar Hassan's pitch and stating "we're going to put your contact info in the show notes." There is no formal transition between Segment 3 and the Outro. A 4–8 line bridge should connect "The Stage" to the Outro in a way that is natural and maintains the show's rhythm. Currently the transition feels cut — as if a segment was removed. This is a production issue, not a structural one.
+
+**D. Social Media Templates 7–10 — Not Reviewed**
+Due to document length limitations in this review pass, Templates 7–10 were not reached. The following templates should be confirmed as present and complete with full shot-by-shot descriptions, caption copy, hashtag sets, boost strategies, and CTAs matching the quality of Templates 1–6: Template 7 (LinkedIn), Template 8 (Instagram Story), Template 9 (YouTube Community Post / long-form), Template 10 (cross-platform repurposing guide). If these are missing or incomplete, they constitute a gap requiring the same level of detail as Templates 1–6.
+
+**E. Act Three — Contestant Selection for Pitching Is Opaque**
+The treatment states that the four contestants selected to pitch are "chosen based on a combination of highest preliminary match scores and AI-assessed pitch readiness." The AI-assessed pitch readiness metric is mentioned but not defined. What behaviors does the AI measure to assess pitch readiness? Time spent on the Campaign Brief Generator? Quality of brief submitted? Number of data points accessed? This mechanism is central to the show's format and needs a clear explanation that the production team, the judges, and eventually the audience can understand.
+
+---
+
+### 4. RECOMMENDATIONS — 5 Specific Improvements
+
+**Recommendation 1: Resolve Marcus Webb Follower Count — Standardize to 180K**
+Update the Sizzle Reel contestant sequence (02:15–02:45) to have the fitness creator say "I have 180,000 followers." This aligns with the Cold Open detail and is more credible for the character's early-stage position in the creator economy. Cross-reference with PART2_TV_SHOW_COMPLETE.md to ensure the figure is consistent across all documents.
+
+**Recommendation 2: Name and Briefly Describe All 12 Contestants in the Pilot Treatment**
+Add a brief profile (2–3 sentences maximum, consistent with the style used for Derek Calloway's elimination description) for the two unnamed contestants. They do not need full scenes in the pilot but should be named and described sufficiently that a casting director can use this treatment as a casting brief. Assign placeholder names if real names are not yet finalized, noting them as "[Name TBD — Character Type: Description]."
+
+**Recommendation 3: Add a Technical Production Specifications Section to the Sizzle Reel**
+Add a 1-page production specifications section covering: deliverable formats, resolution, color grade style, music approach (licensed vs. commissioned), aspect ratio masters, and submission requirements for top-5 target production companies (MGM, Kinetic, ITV Studios, Fremantle, Banijay — all identified in COMPETITIVE_ANALYSIS_AND_LEGAL_FRAMEWORK.md). Each company has specific delivery preferences. Meeting their technical requirements on first submission signals professionalism.
+
+**Recommendation 4: Develop a Formal Judge Introduction Sequence**
+Write a 300–400 word scene for early in Episode 1 (recommend inserting between the tablet arrival moment and the host's entrance in Act One) in which the three judges are introduced by the host: their names, their relevant expertise, and one specific signal about their judging philosophy. This mirrors the format of The Voice's coach introductions and Shark Tank's investor introductions — it gives the audience a framework for evaluating the judges' later decisions and creates character investment before the first deliberation.
+
+**Recommendation 5: Complete Twitter/X Thread (Template 6) to All 12 Tweets**
+The thread is specified as 12 tweets but only 6 are written in the reviewed portion of the document. Write the remaining 6 tweets (Tweets 7–12) maintaining the data-intelligence voice established in Tweets 1–6. Recommended topics for Tweets 7–12: (7) Exclusivity premium data, (8) The "follow-up window" data (how quickly creators follow up after a pitch), (9) Agency vs. direct deal performance data, (10) The most commonly under-negotiated contract clause, (11) How to use DealStage data in a counter-offer, (12) CTA with link to thedealstage.com and preview of next thread topic.
+
+---
+
+### 5. OVERALL GRADE: A-
+
+**Rationale:** This is an exceptionally strong creative document. The sizzle reel script achieves its primary purpose — creating a compelling, emotionally varied, professionally structured 4:30 pitch vehicle — with genuine craft. The shot-by-shot detail with timecodes through the full 4:30 runtime is complete and production-ready. The pilot treatment is 15+ pages of narrative prose with all 5 required acts present (cold open, arrivals, brand challenge, pitches, data room reveal/elimination). The character writing is nuanced and specific. The podcast script is a complete, functional episode with real guest dialogue. The social media templates show marketing sophistication.
+
+The grade is A- (not A) because: (1) Marcus Webb's follower count is inconsistent between the sizzle reel and pilot treatment; (2) one contestant is unnamed in the pilot; (3) the judge introduction is absent from Act One; (4) the Twitter thread is incomplete; and (5) production specifications for the sizzle reel deliverables are missing.
+
+These are small issues relative to the document's overall quality, and several are quick corrections.
+
+---
+
+### 6. CROSS-DOCUMENT CONSISTENCY
+
+**Consistent:** $1M prize, 10 episodes, 12 contestants (structure), AI match scoring as central mechanic, DealStage platform integration, 32 AI agents referenced, 94% match accuracy cited, "Coming 2027" consistent with Financial Model Q3 2027 target, Spotify as a participating brand is realistic within the platform's known brand partner universe.
+
+**Inconsistency Found:**
+
+- Marcus Webb: 180K followers (pilot cold open) vs. 200K followers (sizzle reel contestant section). Resolve to 180K to align with pilot treatment detail. Verify against PART2_TV_SHOW_COMPLETE.md.
+- Contestant count: 11 contestants named (10 active + 1 eliminated) vs. 12 stated. Add the 12th contestant's profile.
+- Dario Santos follower count omitted in sizzle reel contestant section. Add "195,000 Instagram followers" for completeness and consistency with pilot cold open.
+
+---
+
+### CORRECTIONS APPENDED TO DOCUMENT
+
+**CORRECTION 1 — Marcus Webb Follower Count: Sizzle Reel Section**
+
+In the SIZZLE REEL CONTESTANTS section (02:15–02:45), CONTESTANT 1 — FITNESS CREATOR currently reads:
+"I have 200,000 followers."
+
+CORRECTED TEXT:
+"I have 180,000 followers."
+
+Rationale: The Pilot Treatment Cold Open explicitly states "180,000 Instagram followers." The sizzle reel figure of 200,000 is inconsistent. 180,000 is the canonical figure and should be used consistently across all documents. The number 180K is more specific and thus more credible in the sizzle reel's emotional beat. NOTE: Verify against PART2_TV_SHOW_COMPLETE.md to confirm the canonical follower count for this character.
+
+**CORRECTION 2 — Add 12th Contestant Placeholder**
+
+In the Act One ARRIVALS section, after "three others who will reveal themselves more fully in episodes to come," add:
+
+> [PRODUCTION NOTE: The three additional contestants require full profiles consistent with the casting brief in PART2_TV_SHOW_COMPLETE.md. Placeholder profiles for the two currently unnamed contestants are as follows until final casting:
+>
+> CONTESTANT 11 — [Name TBD], approx. 27, fashion and streetwear creator, New York, estimated 220,000 TikTok followers, preliminary match score TBD based on casting. Character energy: quiet observer, strategic — will not reveal themselves fully until Episode 3.
+>
+> CONTESTANT 12 — [Name TBD], approx. 32, B2B/professional content creator, Chicago, estimated 150,000 LinkedIn followers + 85,000 YouTube subscribers. Character energy: the unexpected wild card — professional content is not typically associated with consumer brand deals, but their audience engagement data tells a different story.
+>
+> Both profiles should be finalized and replaced with real names and follower counts upon casting confirmation.]
+
+**CORRECTION 3 — Add Technical Production Specifications Note to Sizzle Reel**
+
+Added at the top of the SIZZLE REEL SCRIPT section, after the purpose statement:
+
+> TECHNICAL PRODUCTION SPECIFICATIONS (to be completed by production partner):
+>
+> - Master deliverable format: ProRes 4444 XQ at 4K UHD (3840x2160) for archive; H.264 1080p for distribution
+> - Aspect ratio masters required: 16:9 (primary), 9:16 (social/vertical cut), 1:1 (social square cut)
+> - Color grade target: High contrast, warm-shifted for brand and contestant sequences; desaturated for problem-statement sequence (00:15–00:30). Reference: Succession color palette (prestige corporate) meets The Circle (vibrant digital)
+> - Music approach: Commission original score for final version; use royalty-free temp tracks from Artlist.io or Musicbed for pitch version. Do NOT use recognizable songs in pitch version due to licensing complexity in submission process
+> - Runtime: Target exactly 4:30 (270 seconds). Network submission typically requires sub-5-minute sizzles; 4:30 is optimal
+> - Submission format for top production companies: MGM requires digital screener via dedicated upload link; Kinetic Content via CAA delivery; Fremantle and Banijay accept secure Vimeo private link with password; ITV Studios via dedicated portal. Confirm current submission requirements with each company before delivery
+
+**CORRECTION 4 — Twitter/X Thread Completion (Tweets 7–12)**
+
+Added below Tweet 6 in Template 6 to complete the 12-tweet thread:
+
+**TWEET 7:**
+"The exclusivity data is dramatic.
+
+40% of brand deals request exclusivity for 90+ days.
+Only 22% of those deals include an exclusivity premium.
+
+If you're agreeing to 90 days of exclusivity without charging for it, you're giving away time that could generate other revenue.
+
+Price the exclusivity window separately. Always."
+
+**TWEET 8:**
+"The follow-up window:
+
+Creators who follow up within 48 hours of submitting a pitch close deals at 2.4x the rate of those who wait longer.
+
+The brand side moves fast when there's interest. Momentum cools quickly.
+
+Set a follow-up calendar. Not because it's polite — because it statistically doubles your close rate."
+
+**TWEET 9:**
+"Agency vs. direct deal performance:
+
+Creators with agency representation earn 15% more per deal on average.
+But they keep 80–85% after commission.
+
+Creators negotiating directly earn less, but keep 100%.
+
+At what deal size does an agent pay for themselves? Our data says: above $45,000 per deal, agency representation typically nets more.
+Below $45K: negotiate directly."
+
+**TWEET 10:**
+"The most commonly under-negotiated clause:
+
+Content approval rights.
+
+68% of deals give brands unlimited approval authority with no timeline requirement.
+
+That means a brand can sit on your content for 6 months without approving it, blocking you from posting about competitors, and then reject it.
+
+Always add: 'Approval required within 5 business days. Silence = approval.'"
+
+**TWEET 11:**
+"How to use data in a counter-offer without sounding aggressive:
+
+Don't say: 'I deserve more.'
+Say: 'Based on comparable deals on DealStage for creators with my engagement metrics, the market rate for this scope runs $X–$Y. I'd like to discuss how we get closer to that range.'
+
+You're not arguing. You're referencing.
+Reference something real: thedealstage.com"
+
+**TWEET 12:**
+"If you took one thing from this thread:
+
+Your deal value is a calculation, not a feeling.
+The data exists.
+The brands have it.
+The creators who have it close deals at 91% of assessed value.
+The ones who don't close at 61%.
+
+That 30% gap, compounded over a career, is the difference between sustainable and struggling.
+
+Know your number. Use it.
+
+[thedealstage.com] | More threads: every Tuesday and Wednesday morning."
+
+**CORRECTION 5 — Add Podcast Episode 1 Segment 3 to Outro Bridge**
+
+Added between "The Stage" segment and the Outro in the Podcast Script:
+
+> [MUSIC TRANSITION: The Stage theme, 8 seconds — warmer, closing tone as it fades]
+>
+> **JORDAN:** Omar Hassan. OmarBuildsWealth on TikTok. I want to say one more thing about what just happened in that ninety seconds, and then we'll close.
+>
+> What Omar did that most people don't do: he knew his audience's psychology, not just their demographics. "First-generation wealth builders" is not a demographic category. It is a psychological state. It is a positioning statement. It tells a brand not just who his audience is but what they want and why they trust him to deliver it. When you know that about your own audience, you can walk into any room and make the case.
+>
+> That is what the data is for. Not to win an argument. To clarify the case.
+>
+> Alright — let's close.
+
+_Review completed: March 20, 2026_
+_Next review recommended: After casting confirmation (to finalize contestant profiles) and prior to sizzle reel production start_
+_Reviewed by: Senior Business Analyst, DealStage Strategic Planning_

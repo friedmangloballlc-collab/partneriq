@@ -1875,3 +1875,146 @@ _Appended to Version 1.0 — March 2026_
 ---
 
 _This document represents a comprehensive production plan based on industry standard practices, comparable format analysis, and the DealStage platform's commercial framework. All budget figures are estimates based on 2025-2026 production market rates. License fee projections are based on publicly reported comparable deals. Brand partner revenue projections are based on existing DealStage commercial relationships and market analysis._
+
+---
+
+# REVIEW NOTES AND UPDATES
+
+_Appended by Business Analysis Review — March 2026_
+
+---
+
+## GAPS
+
+**GAP 1: Season 2 and 3 Budget Projections Absent**
+The production plan is comprehensive for Season 1 but does not model Seasons 2 and 3. Investors and streaming partners will want to see how the budget evolves. Season 2 typically benefits from 10-15% efficiency gains (established crew relationships, reused set infrastructure, brand partners renewing at higher rates). A one-page Season 2-3 projection table is missing.
+
+**GAP 2: Contingency Allocation by Department Not Specified**
+The contingency budget is stated as $1,725,000 (approximately 8% of total production costs before marketing and contingency). The document does not specify how this contingency is allocated by department or under what conditions it is released. Industry standard practice is to define a contingency release protocol with the executive producer and line producer approval thresholds.
+
+**GAP 3: Distribution Strategy for International Markets**
+The production plan addresses the US streaming market (Netflix, Amazon, Hulu) but does not address international distribution — either as a co-production deal, territory licensing, or format sale. Competition formats like this (The Apprentice, Dragon's Den) generate significant international format licensing revenue. This represents an unquantified upside that should at minimum be acknowledged with a placeholder estimate.
+
+**GAP 4: Post-Production Vendor Selection Not Addressed**
+Section 7 (Post-Production) details the post workflow thoroughly but does not address vendor selection criteria, preferred post houses, or estimated turnaround time per episode for the editorial team. For a show with a 2-month post window and 10 episodes, the post calendar is tight and the document should specify episode lock dates relative to the premiere date.
+
+**GAP 5: Diversity, Equity and Inclusion (DEI) Casting Framework**
+The casting section defines the 12 contestant archetypes (Rookie Creator, Veteran Creator, etc.) but does not include a DEI framework for how casting will ensure representation across gender, race, geography, and creator vertical. Streaming platforms in 2026 require explicit DEI casting commitments at the pitch stage. This is a material gap for a Netflix/Amazon pitch package.
+
+**GAP 6: Insurance and Legal Framework**
+The budget does not itemize production insurance (E&O, general liability, equipment, weather contingency) or legal fees (contestant agreements, music licensing, IP clearances, format protection). These are standard budget line items that are absent from the current breakdown.
+
+---
+
+## INCONSISTENCIES
+
+**INCONSISTENCY 1: Prize Structure vs. Above-the-Line Budget**
+The grand prize is stated as $1,000,000 offset by the Tier 1 Title Sponsor fee of $2,000,000 — implying the prize is fully funded by the sponsor. However, the above-the-line budget does not explicitly show the prize as a line item, and it is unclear whether the $1M prize appears in the contestant/talent budget or is treated as a pass-through from the brand partner. The financial treatment needs clarification to avoid confusion in the budget summary.
+FIX: Add a explicit note in the prize structure section stating: "The $1,000,000 grand prize is a pass-through from the Tier 1 Title Sponsor fee and does not appear as a net production cost. It is shown in the brand partner revenue section as an offset."
+
+**INCONSISTENCY 2: Episode Count — "10 Episodes" vs References to "12 Episodes"**
+The budget is built around 10 production episodes, which matches the Season 1 format. However, two narrative sections reference "12 contestants competing over the season" and "12 episodes" in describing the arc. If there are 12 contestants and 10 episodes, the episode count needs to be reconciled (do 2 contestants get eliminated in a double-elimination episode? Is there a 2-part finale?). This ambiguity should be resolved.
+FIX: Clarify the episode structure. Recommend: 10 competition episodes + 1 reunion/finale special = 11 episodes total, or confirm 10 episodes with double eliminations in Episodes 1 and 2.
+
+**INCONSISTENCY 3: Timeline Math — 16 Months Does Not Sum to 16**
+The production timeline lists eight phases of 2 months each = 16 months total. However, phases 3 and 4 (brand deal negotiation and casting) are listed as occurring in parallel in the narrative, which would compress the timeline to 14 months. The document should clarify whether phases are sequential or parallel, and present the timeline as a Gantt-style breakdown rather than a simple list.
+FIX: Revise the timeline section to show which phases are sequential vs. parallel. The realistic production-start-to-premiere timeline for a show of this scope is 12-18 months, so both 14-month and 16-month scenarios are valid — but the document should commit to one.
+
+**INCONSISTENCY 4: Marketing Budget Scope**
+The marketing budget of $2,490,000 is described in one section as "network and streaming platform marketing support" and in another section as "DealStage-funded marketing." These are two very different things. Streaming platforms typically fund their own marketing for originals. If this budget is streaming-platform-funded, it should not appear as a DealStage production cost. If DealStage is funding supplemental marketing, the scope and channels need to be defined.
+FIX: Clarify whether the $2.49M marketing budget is (a) funded by the streaming platform as part of the license deal, (b) funded by DealStage out-of-pocket, or (c) shared. Adjust the net production cost figure accordingly.
+
+---
+
+## SECTIONS NEEDING MORE DETAIL
+
+**SECTION 1: Streaming Platform Pitch Strategy**
+The document references Netflix, Amazon, and Hulu as target platforms but does not detail the pitch strategy. Which platform is approached first? Is this a simultaneous submission or sequential? Who are the key creative executives at each platform for unscripted competition content? This section should include: pitch package components, target executive contacts by platform, and a decision timeline.
+
+**SECTION 2: Contestant Acquisition and NDA/Legal Structure**
+The casting section describes how contestants are sourced but does not address the legal structure. Contestants are DealStage users — meaning they have an existing commercial relationship with the platform. The appearance fee, IP rights to their story, non-disparagement terms, and prize tax implications must be addressed. This is particularly important given that contestants' deals from the show are used as DealStage marketing material.
+
+**SECTION 3: Revenue Waterfall Under Each Streaming Scenario**
+The document presents three streaming scenarios (Conservative $15M, Moderate $25M, Aggressive $40M) but does not show a revenue waterfall under each scenario — i.e., what DealStage nets after production costs ($21.76M), what the investor return looks like, and what the break-even scenario is. A simple waterfall table would make this section investment-grade.
+
+**SECTION 4: Crew Rates vs. Union Scale**
+The crew budget of $3.8M covers 85+ positions. The document does not specify whether crew rates are based on SAG-AFTRA, DGA, WGA, or IATSE scale, or whether this is a non-union production. This is a critical distinction: union productions have minimum rates, pension/health contributions (~25-30% on top of rate), and work rule requirements that significantly affect budget. If this is a union production, the crew budget may be understated.
+
+**SECTION 5: On-Platform Integration Details**
+The show's core premise is that contestants use the DealStage platform during competition. The production plan describes this at a high level but does not specify: how the AI Match Engine results are visualized on-screen, what happens if a contestant's DealStage deal falls through during filming, how platform data is shared with production for storytelling purposes, and the data use consent structure with contestants and brands.
+
+---
+
+## OUTDATED INFORMATION
+
+**OUTDATED 1: Streaming Deal Comparables**
+The document cites Netflix paying $4M per episode for comparable unscripted competition formats. The streaming market in 2025-2026 has contracted from 2021-2022 peaks. Original content budgets across major streamers have been reduced 15-25% from peak. The $4M/episode comparable may be high. A more conservative current benchmark for premium competition unscripted is $2M-$3.5M per episode for a first-season show from an unproven format. The working assumption of $3M/episode ($30M conservative deal) should be revised to $2.5M/episode ($25M) as the base case, consistent with the Financial Models document.
+FIX: Update comparables to reflect 2025-2026 market rates. Revise working assumption to $2.5M/episode = $25M base case to align with FINANCIAL_MODELS_AND_PITCH_DECK.md.
+
+**OUTDATED 2: Creator Economy Competition Show Landscape**
+The competitive analysis references several shows as the competitive set. Since the original draft, Netflix launched additional creator economy content and several competition formats have premiered or been cancelled. The competitive landscape section should be refreshed with 2025-2026 data.
+
+**OUTDATED 3: Production Cost Inflation**
+The budget uses 2025-2026 production market rates per the document's own disclaimer, which is appropriate. However, several individual line items (specifically location fees in Los Angeles and above-the-line talent rates for experienced unscripted showrunners) have increased 8-12% since 2024 due to post-strike market normalization. The total production budget may need a 5-8% uplift to remain realistic.
+
+---
+
+## RECOMMENDATIONS
+
+**RECOMMENDATION 1: Add a Revenue Waterfall Table**
+Create a simple table showing: Production Cost ($21.76M), Streaming Deal (Conservative $15M / Moderate $25M / Aggressive $40M), Brand Partner Revenue ($8.5M), Prize Offset ($1M), Net Position per scenario. This is the most critical missing financial element for investor and streaming partner conversations.
+
+**RECOMMENDATION 2: Resolve Episode Count and Eliminate Structure**
+Commit to a definitive episode count (recommend 10 competition episodes + 1 two-hour finale = 11 episodes) and specify the elimination structure explicitly. This should appear in Section 1 of the production plan and all subsequent references should use the same number.
+
+**RECOMMENDATION 3: Add Union/Non-Union Decision and Its Budget Impact**
+Add a single section addressing the production's union status. If union, add a note that crew budget includes union fringes (~25-30% on top of stated rates) and confirm the current $3.8M reflects that. If non-union, note the associated risks (crew poaching, credibility with network partners). This is a decision that affects both budget accuracy and platform pitch viability.
+
+**RECOMMENDATION 4: Develop a DEI Casting Commitment Section**
+Add a half-page DEI casting commitment that defines representation targets across the 12 contestant slots: gender balance, racial/ethnic diversity, geographic diversity (not all LA/NYC), and creator vertical diversity (fitness, beauty, finance, food, gaming, lifestyle). Netflix and Amazon both require this as part of the pitch package.
+
+**RECOMMENDATION 5: Add International Format Licensing Placeholder**
+Add a single paragraph in the revenue section acknowledging international format licensing as an upside scenario. Competition formats with strong IP (as The Deal Stage has) typically generate $500K-$2M per territory in format fees. Even a conservative estimate of 3 international territories at $750K each = $2.25M in additional Season 1 revenue that is currently not modeled.
+
+---
+
+## OVERALL GRADE: A-
+
+**Rationale:** DEALSTAGE_TV_SHOW_PRODUCTION_PLAN.md is the most technically complete document in the reviewed set. All 12 sections are present and substantively developed. The budget at $21,760,500 is internally consistent across all line items. The 85+ crew positions demonstrate genuine production expertise. The 16-month timeline is realistic for a show of this scope. The streaming comparables and brand partner tier structure are well-researched and aligned with industry standards. The document earns an A- rather than a full A for the following reasons: (1) The episode count/elimination structure inconsistency (10 vs 12) is a material ambiguity in a production plan. (2) The marketing budget funding source is unclear, which could misstate the net production cost. (3) The absence of a revenue waterfall table means a reader cannot quickly determine the deal economics. (4) Union status and its budget impact is not addressed. These are all fixable issues that do not undermine the document's overall quality — they are gaps that need filling before this plan is presented to streaming executives or production finance partners.
+
+---
+
+## CORRECTIONS AND EXPANSIONS
+
+### Correction 1: Clarify Prize as Pass-Through
+
+In the budget section, add a note that the $1,000,000 grand prize is funded by the Tier 1 Title Sponsor and represents a pass-through — it is not a net production cost to DealStage. Net brand partner revenue after prize = $8.5M - $1M = $7.5M, or alternatively, the prize is included in the sponsor's $2M fee and the show merely facilitates the payout.
+
+### Correction 2: Align Episode Count
+
+Standardize all episode references to "10 competition episodes" throughout the document. If a reunion/finale special is planned, designate it as Episode 11 (bonus/special) and note that the streaming deal covers 10 primary episodes. Resolve all "12 episodes" references by specifying what happens in episodes where multiple eliminations occur.
+
+### Correction 3: Update Streaming Base Case to $25M
+
+Revise the working base case from "Conservative $30M ($3M/episode)" to "Base Case $25M ($2.5M/episode)" to align with FINANCIAL_MODELS_AND_PITCH_DECK.md. Retain the Aggressive scenario at $40M ($4M/episode) as the upside. Define a new Conservative scenario at $15M ($1.5M/episode) as the downside protection figure.
+
+### Expansion 1: Revenue Waterfall by Scenario
+
+| Revenue/Cost Item                  | Conservative    | Base Case        | Aggressive       |
+| ---------------------------------- | --------------- | ---------------- | ---------------- |
+| Streaming License Fee              | $15,000,000     | $25,000,000      | $40,000,000      |
+| Brand Partner Revenue              | $8,500,000      | $8,500,000       | $8,500,000       |
+| Grand Prize (pass-through, offset) | ($1,000,000)    | ($1,000,000)     | ($1,000,000)     |
+| **Total Revenue**                  | **$22,500,000** | **$32,500,000**  | **$47,500,000**  |
+| Total Production Cost              | ($21,760,500)   | ($21,760,500)    | ($21,760,500)    |
+| **Net Position (Season 1)**        | **+$739,500**   | **+$10,739,500** | **+$25,739,500** |
+
+Note: The Conservative scenario produces a near-breakeven outcome on Season 1. The investment thesis depends on: (a) platform subscriber growth driven by the show, (b) brand partner uplift in Season 2 from proven viewership, and (c) Season 2-3 production efficiency gains (estimated 10-15% cost reduction). Seasons 2 and 3 are where the production becomes highly profitable.
+
+### Expansion 2: International Format Licensing (New Revenue Line)
+
+Competition formats with proprietary technology integration (as The Deal Stage has with the DealStage AI platform) command premium format licensing fees in international markets. Conservative estimate for 3 international territory licenses (UK, Australia, Germany or France) at $750K per territory = $2,250,000 additional revenue per season starting Season 2. This figure is not included in the Season 1 revenue waterfall above but should be modeled as a Year 2 revenue line in the financial model.
+
+---
+
+_Review completed March 2026. All corrections should be applied in Version 2.0 of this production plan. This review notes section serves as the authoritative record of identified issues and approved resolutions._

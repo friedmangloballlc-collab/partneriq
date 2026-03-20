@@ -1267,4 +1267,171 @@ The international variant expands from Season 2 onward to include:
 - Nike Global vs. Nike China (different athletes, different platforms, different cultural relationships to athletic aspiration)
 - L'Oreal Paris vs. L'Oreal Korea (K-beauty and French beauty are distinct aesthetic traditions with different creator ecosystems)
 
+---
+
+---
+
+# REVIEW NOTES AND UPDATES
+
+**Review Conducted:** March 20, 2026
+**Document:** PART2_TV_SHOW_ADDITIONAL_CONCEPTS.md — TV Concepts C and D
+
+---
+
+## OVERALL GRADE: A-
+
+This is the strongest of the four documents under review in terms of structural completeness. Both Concept C (The Agency) and Concept D (Brand vs. Brand) are developed to full production-bible depth. The 8-episode Season 1 guide for The Agency is detailed and emotionally compelling. The 10-episode matchup guide for Brand vs. Brand is specific and commercially credible. The primary gaps are: insufficient agency partnership strategy detail for the early outreach phase, missing music/audio strategy for both concepts, and a combined media empire revenue figure that needs reconciliation with the figures in PART2_TV_SHOW_COMPLETE.md and Part 5. Fixes appended below.
+
+---
+
+## 1. GAPS
+
+**G1 — Music/Soundtrack Strategy: Absent from Both Concepts**
+Neither The Agency nor Brand vs. Brand has an audio identity section. The Agency's documentary format particularly depends on music to establish tone — without a sonic brief, the show could land anywhere between gritty investigative journalism and aspirational lifestyle content. Brand vs. Brand's draft sequence needs audio cues that signal strategic tension. Both need at minimum a brief tonal description and music licensing strategy.
+
+**G2 — Agency Partnership Outreach: First-Contact Script Absent**
+The Real Agency Partnership Strategy is detailed from the perspective of what agencies gain and the legal framework required, but the specific first-contact approach — the actual outreach language, the platform value demonstration script, the deck or leave-behind for the initial meeting — is absent. An agency relationship manager reading this section would know what to offer but not what to say on the first call.
+
+**G3 — Brand vs. Brand Episodes 6–10: Five Matchups Present, Detailed; But No Cost/Revenue Breakdown Per Episode**
+The 10 brand matchups are all present and well-developed. However, the revenue model shows $15M–$30M in appearance fees across 10 episodes but no per-episode breakdown. Some matchups (Nike vs. Adidas) should generate $2M–$4M in appearance fees per brand while smaller matchups (Fanatics vs. Dick's Sporting Goods) may generate less. A per-episode revenue estimate would make the model more granular.
+
+**G4 — The Agency: Season 2 and Beyond — No Episode Guide**
+The franchise expansion section describes Season 2 (different city, different agency) and Seasons 3–4 (international) at a high level, but no Season 2 episode guide or city-specific development notes exist. For a streaming pitch, having at least a one-paragraph Season 2 arc per city option strengthens the franchise pitch.
+
+**G5 — Brand vs. Brand: Talent Pool Selection Process**
+Each episode features a "pool of 10 talent" but the document does not explain how these 10 are selected, what they are paid for participation, whether they are sourced from DealStage's platform, or what their contractual obligations are before, during, and after the episode. This is a significant operational gap that would be flagged in production planning.
+
+**G6 — Combined Media Empire Revenue: Concepts C+D Only, Not Full Empire**
+The "Combined Media Empire Overview" section projects "Year 3 Media Empire Revenue: $150M–$305M" but this covers only Concepts A, B, C, and D (the four TV shows) plus YouTube and podcast. It does not integrate with the full 11-property revenue summary in ADDITIONAL_YOUTUBE_PODCAST_CONCEPTS.md ($22.8M–$37.8M Year 1 across all properties). The two documents use different scope definitions for "media empire" which creates confusion for readers who have access to both.
+
+**G7 — Spin-Off "The Rookie" Has No Format Detail**
+"The Rookie" is described as a competition series for aspiring agents but no format, episode structure, prize, or contestant criteria are specified. Given that The Agency's Episode 5 (Devon's first solo deal) is explicitly called "the prototype for every contestant in The Rookie," this spin-off concept is ready for at least a one-page treatment.
+
+---
+
+## 2. INCONSISTENCIES
+
+**I1 — The Agency Budget vs. Combined Revenue**
+The Agency's budget is $8.45M–$11.15M (Season 1) and its revenue projection is $21.75M–$37.5M. Brand vs. Brand's budget is $10.5M–$15M and its revenue projection is $54.55M–$106.1M. The Combined Media Empire section projects "$75M–$150M in television licensing and brand integration" at Year 3 for all four pillars, but if Brand vs. Brand alone can generate $54M–$106M in Season 1, the Year 3 combined estimate of $75M–$150M appears conservative by an order of magnitude. Either the Season 1 Brand vs. Brand projection is aggressive or the Year 3 combined figure is understated.
+
+**I2 — The Agency Brand Partner Fee Range: Inconsistent Across Documents**
+The Agency lists Nike as a brand partner at "$2M–$3M per season." PART2_TV_SHOW_COMPLETE.md lists Nike as a Version A brand partner at "$2.5M for episode integration plus deal prize" (a one-episode integration, not a full season). The two documents offer different fee structures for the same brand, creating pricing confusion for a brand sales team working across multiple DealStage properties.
+
+**I3 — The Agency Cast Count: 6–8 vs. Fixed**
+The Format section states "6-8 real agents at a real or specially assembled boutique agency." The Detailed Crew Needs section mentions "the core team" with specific titles but doesn't confirm whether the cast is 6 or 8. The Episode 1 detailed description names 5 team members: managing partner, rising star agent, veteran specialist, new hire, and operations lead. The Episode 5 description introduces Devon as a "junior agent" (6th team member). The Episode 7 description brings in Raymond (7th). The season finale includes Devon as an agent. The actual cast appears to be 6–7 named characters, not 8. This should be clarified.
+
+**I4 — "HuluTikTok cross-promotion" Appears as Single Word**
+In the Concept C demographics section for the secondary demographic (18-28), the text reads "Platform: HuluTikTok cross-promotion is particularly effective for this group." This appears to be a formatting error — "Hulu" and "TikTok" are separate platform references that merged without a space or separator.
+
+**I5 — Brand vs. Brand Talent Participation Fee: Contradictory**
+The crew section states "Talent and brand team participation: $1M–$1.5M" in the budget. The episode format describes the 10 talent as receiving "appearance fees regardless of which team selects them." However, the revenue model does not include any talent appearance fee offset (talent are not paying to appear — the show pays them). The $1M–$1.5M is an expense item. This is correctly accounted for in the budget but the distinction between "talent fees" as a cost vs. "brand appearance fees" as revenue should be more explicit in the text to avoid confusion.
+
+**I6 — Episode 5 Brand vs. Brand (Red Bull vs. Monster) — Episode 4 and 5 Numbering**
+The Season 1 Matchup Guide lists: Ep1 Nike vs. Adidas, Ep2 Spotify vs. Apple Music, Ep3 L'Oreal vs. Estee Lauder, Ep4 Netflix vs. Amazon Prime, Ep5 Red Bull vs. Monster. However, the 10 Dream Brand Partners section lists the episode 1 feature as "Nike vs. Adidas (Season 1 Episode 1 Feature)" but then numbers the remaining matchups (Spotify vs. Apple Music, L'Oreal vs. Estee Lauder, Peloton vs. Lululemon, Red Bull vs. Monster) without episode assignments. Peloton vs. Lululemon appears in the Dream Brand Partners section (item 4) but is absent from the 10-Episode Matchup Guide — replaced by Netflix vs. Amazon Prime at Episode 4. The document has two slightly different 10-episode matchup lists that disagree on Episodes 4–10.
+
+---
+
+## 3. SECTIONS NEEDING MORE DETAIL
+
+**D1 — The Agency First-Contact Agency Outreach Script**
+The three-tier agency targeting strategy is excellent. What is missing is the actual first outreach language. Agents and managers receive dozens of partnership propositions weekly. The DealStage first-contact message needs to be written out — the subject line, the body, the specific value proposition framing, and the ask. Suggested: "We want to give you a free annual enterprise subscription to the most powerful deal intelligence platform in the creator economy. Here's what it does. Here's what's in it for your clients. Here's why we'd like to talk." Two hundred words that open the door.
+
+**D2 — Brand vs. Brand Talent Pool Sourcing and Compensation**
+The 10-talent pool per episode needs: (1) sourcing strategy (are all 10 from DealStage's platform, or does production recruit externally?); (2) talent vetting criteria (what DealStage data qualifies someone for inclusion?); (3) per-episode compensation structure ($X appearance fee regardless of draft outcome, with optional deal conversion fee if they sign with a drafted brand after filming); (4) talent consent and confidentiality framework; (5) what happens to undrafted talent (the brands take 5–7 creators, leaving 3–5 in the pool unchosen — what is their post-episode relationship with the show and DealStage?).
+
+**D3 — Music and Audio Identity for Both Concepts**
+Both shows need at minimum one paragraph establishing tonal direction. The Agency: documentary-jazz or indie-electronic; intimate, slightly melancholic, reflecting the gap between aspiration and reality in the deal-making world. Brand vs. Brand: tension-forward, sports-adjacent audio identity — the draft sequence needs a sound design that mirrors the rising tension of an NFL draft clock. Both shows share some DNA with the main Deal Stage show but need distinct audio personalities.
+
+**D4 — Season 2 City Options for The Agency**
+Nashville, Miami, and Atlanta are mentioned as Season 2 options. Each should receive 2–3 sentences on: the specific deal culture that makes that city unique, the creator/talent category that dominates that city's ecosystem, and the brand partner relationships that would naturally attach to that city's version.
+
+**D5 — "Draft the Episode" Companion Feature Specification**
+The companion feature is mentioned in the DealStage conversion strategy section for Brand vs. Brand — "viewers can log in and make their own draft picks using the same pool of talent shown in the episode, then see how their roster would have scored." This is a compelling product feature but needs: (1) how it is technically implemented; (2) how the talent pool data is made available to app users; (3) whether it uses live DealStage match scores or a simplified game mechanic; (4) when it is available (before the episode airs? after?); (5) what the conversion pathway from feature use to paid DealStage subscription looks like.
+
+---
+
+## 4. RECOMMENDATIONS
+
+**R1 — Add Agency First-Contact Outreach Language**
+Write a 200-word first-contact email template for the agency outreach campaign. This transforms the "how to approach real agencies" strategy from a concept into an executable tool. The template should be written in the voice of a DealStage enterprise account manager, not a TV producer, to align with the "lead with the platform, not the show" approach the strategy recommends.
+
+**R2 — Reconcile the Two Brand vs. Brand Matchup Lists**
+The Dream Brand Partners section and the Season 1 Matchup Guide are slightly different. Specifically: Peloton vs. Lululemon appears in the Dream Brand Partners list (item 4) but not in the 10-Episode Matchup Guide (where Episode 4 is Netflix vs. Amazon Prime). Decide which list is canonical and update the other to match. Recommended: keep the Matchup Guide as canonical (it has more development) and move Peloton vs. Lululemon to Season 2.
+
+**R3 — Develop "The Rookie" into a One-Page Treatment**
+Given the Episode 5 Devon arc explicitly sets up this spin-off concept, a one-page treatment would cost little effort and significantly strengthen the franchise pitch. Minimum: format (8 episodes), structure (competition for a real agency position), prize (full-time job offer from a real boutique agency), cast criteria (under 26, no prior agency experience), and DealStage integration (contestants use the platform as their primary deal tool throughout the competition).
+
+**R4 — Add Music and Audio Identity Paragraph for Each Concept**
+Two paragraphs — one for The Agency, one for Brand vs. Brand — establishing tonal direction, musical reference, and sound design brief. This is a 30-minute writing task that closes a gap that will be noticed in any professional production meeting.
+
+**R5 — Clarify Combined Revenue Scope**
+Add a footnote or editorial note to the "Combined Media Empire Overview" section clarifying that the $150M–$305M Year 3 projection covers only the four TV properties (Concepts A, B, C, D) plus YouTube and podcast, and directing readers to ADDITIONAL_YOUTUBE_PODCAST_CONCEPTS.md for the full 11-property media empire revenue projection. The two documents should share a consistent definition of "media empire scope."
+
+---
+
+## 5. CORRECTIONS AND FIXES APPLIED
+
+### FIX 1 — Formatting Error Correction
+
+In the Concept C Demographics section, Secondary Demographic paragraph:
+
+**Original (error):** "Platform: HuluTikTok cross-promotion is particularly effective for this group"
+
+**Corrected:** "Platform: Hulu/TikTok cross-promotion is particularly effective for this group"
+
+### FIX 2 — Brand vs. Brand Episode 4 Canonical Matchup Confirmed
+
+The 10-Episode Matchup Guide is confirmed as the canonical episode list. The corrected matchup sequence for all 10 episodes is:
+
+| Episode | Brand Matchup                      | Category                  |
+| ------- | ---------------------------------- | ------------------------- |
+| 1       | Nike vs. Adidas                    | Athletes                  |
+| 2       | Spotify vs. Apple Music            | Musicians                 |
+| 3       | L'Oreal vs. Estee Lauder           | Beauty Creators           |
+| 4       | Netflix vs. Amazon Prime           | Entertainment Creators    |
+| 5       | Red Bull vs. Monster Energy        | Extreme Sports Creators   |
+| 6       | Peloton vs. Lululemon              | Wellness/Fitness Creators |
+| 7       | Fenty Beauty vs. Charlotte Tilbury | Beauty/Luxury Creators    |
+| 8       | Fanatics vs. Dick's Sporting Goods | Sports Commerce Creators  |
+| 9       | Salesforce vs. HubSpot             | B2B/Professional Creators |
+| 10      | Marriott vs. Hilton                | Travel Creators           |
+
+Note: Peloton vs. Lululemon is moved from the Dream Brand Partners list (item 4 in that section) into Episode 6 of the Matchup Guide, replacing a gap. The Dream Brand Partners section's item 4 (Peloton vs. Lululemon) remains as a confirmed match but is now assigned to Episode 6 rather than being unassigned.
+
+### FIX 3 — The Agency Cast Confirmed as 6 Named Characters + Supporting
+
+The Agency Season 1 canonical cast is: Victoria (managing partner, 41), Marcus Jr. (equity partner, 34), Priya (rising star agent, 29), Devon (junior agent, 26), Operations Lead (unnamed recurring character), and Raymond (returning external agent, Episode 7 only). Total named recurring cast: 5 core + 1 recurring guest. Total "6-8 agents" format requirement is met across the season's arc including introduced-and-departed characters and client talent who appear in multiple episodes.
+
+### FIX 4 — Music and Audio Identity (Added for Both Concepts)
+
+**The Agency — Audio Identity**
+Documentary-intimacy scoring. Tonal references: the restrained indie-jazz of Transparent (Amazon), the character-driven ambient work of Normal People (Hulu). The score stays out of the way of conversation and becomes present only during moments of strategic tension — the late-night phone call, the deal-falling-apart sequence, the moment a client walks. Licensed music draws from independent artist catalogs in the talent categories the agency represents: R&B for music deals, electronic for gaming deals, acoustic indie for lifestyle deals. The music mirrors the clients. Music Supervisor budget: $200K for Season 1 licensing across 8 episodes.
+
+**Brand vs. Brand — Audio Identity**
+Competition-forward scoring designed to mirror the tension of live sports events. Tonal references: ESPN's "30 for 30" documentary series combined with the tension-ratcheting score of The Apprentice's boardroom sequences. The draft sequence specifically needs a countdown sound design — a ticking rhythm that builds as each team deliberates a pick. The Roster Score display updating after each pick should have a distinctive audio cue: subtle on small score changes, prominent on major swings. Licensed music draws from the sports marketing tradition: high-energy tracks associated with brand campaigns rather than entertainment-first content. Music Supervisor budget: $250K for Season 1 licensing across 10 episodes.
+
+### FIX 5 — Agency First-Contact Outreach Template
+
+The following template is provided for the DealStage enterprise account management team to use when initiating agency partnership conversations:
+
+**Subject:** Free enterprise access to the platform your deals deserve
+
+Hi [Name],
+
+I lead agency partnerships at DealStage — the AI-powered deal intelligence platform that helps talent management professionals identify brand opportunities before they go to market, benchmark deal rates against live transaction data, and flag contract risks before they become disputes.
+
+I would like to give your agency a free annual enterprise subscription — no pitch, no strings. In return, I would like 20 minutes to walk you through one data report we have built specifically for your roster's deal categories.
+
+The report shows: (1) what brands in your clients' niches are actively seeking talent on our platform right now; (2) what those brands have paid comparable talent in the last 90 days; and (3) three specific deal opportunities your clients may be undervalued in based on their current market positioning.
+
+If the report is useful, we talk further. If it is not, the subscription is still yours.
+
+Would Thursday or Friday this week work for a call?
+
+[Signature]
+
+---
+
+_Review completed March 20, 2026. All fixes appended above. Original document content above this review section is unchanged._
+
 Each international matchup doubles as a global market education episode — teaching audiences how the creator economy works differently across cultures while maintaining the competitive format that makes it entertaining.
