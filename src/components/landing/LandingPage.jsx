@@ -894,9 +894,9 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <li className="ds-nav-item">
               <button className="ds-nav-link">For Brands <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               <div className="ds-dropdown">
-                <a href="/features/talent-discovery" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
-                <a href="/features/deal-pipeline" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
-                <a href="/Analytics" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
+                <a href="/features/browse-talent" className="ds-drop-item"><div className="ds-drop-icon">🔍</div><div><div className="ds-drop-title">Browse Talent</div><div className="ds-drop-desc">Search all talent categories</div></div></a>
+                <a href="/features/send-deals" className="ds-drop-item"><div className="ds-drop-icon">🤝</div><div><div className="ds-drop-title">Send Deals</div><div className="ds-drop-desc">Proposal and contract tools</div></div></a>
+                <a href="/features/campaign-analytics" className="ds-drop-item"><div className="ds-drop-icon">📊</div><div><div className="ds-drop-title">Campaign Analytics</div><div className="ds-drop-desc">Track performance and ROI</div></div></a>
                 <a href="/features/integrations" className="ds-drop-item"><div className="ds-drop-icon">🔗</div><div><div className="ds-drop-title">Integrations</div><div className="ds-drop-desc">Connect 88+ platforms and tools</div></div></a>
               </div>
             </li>
@@ -910,12 +910,12 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 <a href="/features/payments" className="ds-drop-item"><div className="ds-drop-icon">💰</div><div><div className="ds-drop-title">Payments</div><div className="ds-drop-desc">Invoicing and commission splits</div></div></a>
               </div>
             </li>
-            {/* For Talent (discovery) dropdown */}
+            {/* For Managers dropdown */}
             <li className="ds-nav-item">
-              <button className="ds-nav-link">For Creators <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+              <button className="ds-nav-link">For Managers <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{marginLeft:4}}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               <div className="ds-dropdown">
-                <a href="/features/talent-discovery" className="ds-drop-item"><div className="ds-drop-icon">⭐</div><div><div className="ds-drop-title">Get Discovered</div><div className="ds-drop-desc">Brands come to you</div></div></a>
-                <a href="/features/deal-pipeline" className="ds-drop-item"><div className="ds-drop-icon">💼</div><div><div className="ds-drop-title">Manage Deals</div><div className="ds-drop-desc">Your pipeline in one place</div></div></a>
+                <a href="/features/manage-talent" className="ds-drop-item"><div className="ds-drop-icon">⭐</div><div><div className="ds-drop-title">Manage Talent</div><div className="ds-drop-desc">Full control of your roster</div></div></a>
+                <a href="/features/manage-deals" className="ds-drop-item"><div className="ds-drop-icon">💼</div><div><div className="ds-drop-title">Manage Deals</div><div className="ds-drop-desc">All deals across your clients</div></div></a>
                 <a href="/features/payments" className="ds-drop-item"><div className="ds-drop-icon">💲</div><div><div className="ds-drop-title">Get Paid Fast</div><div className="ds-drop-desc">Secure, on-time payments</div></div></a>
               </div>
             </li>
@@ -1374,7 +1374,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <div>
             <div className="ds-footer-col-title">Product</div>
             <ul className="ds-footer-links">
-              <li><a href="/features/talent-discovery">Talent discovery</a></li>
+              <li><a href="/features/browse-talent">Browse talent</a></li>
               <li><a href="/features/deal-pipeline">Deal pipeline</a></li>
               <li><a href="/features/media-kits">Media kits</a></li>
               <li><a href="/features/payments">Payments</a></li>

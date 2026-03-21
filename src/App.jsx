@@ -34,6 +34,11 @@ const FeatureDealPipeline = React.lazy(() => import("./pages/FeatureDealPipeline
 const FeatureMediaKits = React.lazy(() => import("./pages/FeatureMediaKits"));
 const FeaturePayments = React.lazy(() => import("./pages/FeaturePayments"));
 const FeatureIntegrations = React.lazy(() => import("./pages/FeatureIntegrations"));
+const FeatureCampaignAnalytics = React.lazy(() => import("./pages/FeatureCampaignAnalytics"));
+const FeatureSendDeals = React.lazy(() => import("./pages/FeatureSendDeals"));
+const FeatureManageDeals = React.lazy(() => import("./pages/FeatureManageDeals"));
+const FeatureBrowseTalent = React.lazy(() => import("./pages/FeatureBrowseTalent"));
+const FeatureManageTalent = React.lazy(() => import("./pages/FeatureManageTalent"));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -176,6 +181,11 @@ const AuthenticatedApp = () => {
     '/features/media-kits': <Suspense fallback={<div>Loading...</div>}><FeatureMediaKits /></Suspense>,
     '/features/payments': <Suspense fallback={<div>Loading...</div>}><FeaturePayments /></Suspense>,
     '/features/integrations': <Suspense fallback={<div>Loading...</div>}><FeatureIntegrations /></Suspense>,
+    '/features/campaign-analytics': <Suspense fallback={<div>Loading...</div>}><FeatureCampaignAnalytics /></Suspense>,
+    '/features/send-deals': <Suspense fallback={<div>Loading...</div>}><FeatureSendDeals /></Suspense>,
+    '/features/manage-deals': <Suspense fallback={<div>Loading...</div>}><FeatureManageDeals /></Suspense>,
+    '/features/browse-talent': <Suspense fallback={<div>Loading...</div>}><FeatureBrowseTalent /></Suspense>,
+    '/features/manage-talent': <Suspense fallback={<div>Loading...</div>}><FeatureManageTalent /></Suspense>,
   };
   if (Object.prototype.hasOwnProperty.call(publicMarketingRoutes, location.pathname)) {
     const element = publicMarketingRoutes[location.pathname];

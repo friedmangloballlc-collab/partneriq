@@ -19,6 +19,7 @@ const rolePages = {
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals', 'DeckLibrary',
     'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
+    'FeatureCampaignAnalytics', 'FeatureSendDeals', 'FeatureManageDeals', 'FeatureBrowseTalent', 'FeatureManageTalent',
   ]),
   brand: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -33,6 +34,7 @@ const rolePages = {
     'ContactFinder', 'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals', 'DeckLibrary',
     'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
+    'FeatureCampaignAnalytics', 'FeatureSendDeals', 'FeatureManageDeals', 'FeatureBrowseTalent', 'FeatureManageTalent',
   ]),
   talent: new Set([
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
@@ -45,6 +47,7 @@ const rolePages = {
     'WarmIntroNetwork', 'PitchCompetition', 'BundleDeals',
     'ContractTemplates', 'Referrals',
     'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
+    'FeatureCampaignAnalytics', 'FeatureSendDeals', 'FeatureManageDeals', 'FeatureBrowseTalent', 'FeatureManageTalent',
   ]),
   manager: new Set([
     'ManagerSetup',
