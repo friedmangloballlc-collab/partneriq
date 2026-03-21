@@ -214,9 +214,16 @@ const AuthenticatedApp = () => {
     </Routes>;
   }
 
-  // Redirect to onboarding (landing) if not authenticated
+  // Unknown public URL → show branded 404
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    // Known entry points redirect to landing; everything else is a 404
+    const knownEntryPaths = ['/Dashboard', '/Settings', '/Notifications'];
+    const isKnownAppRoute = knownEntryPaths.some(p => location.pathname.startsWith(p)) ||
+      Object.keys(Pages).some(p => `/${p}` === location.pathname);
+    if (isKnownAppRoute) {
+      return <Navigate to="/login" replace />;
+    }
+    return <Routes><Route path="*" element={<Suspense fallback={<div />}><NotFound /></Suspense>} /></Routes>;
   }
 
   return <AuthenticatedRoutes authError={authError} />;
