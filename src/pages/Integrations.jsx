@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import React, { useState } from "react";
+import { useAuth } from "@/lib/AuthContext";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -333,14 +333,12 @@ function CollapsibleSection({ title, icon: Icon, color, count, children }) {
 
 export default function Integrations() {
   const [search, setSearch] = useState("");
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [connected, toggleConnected] = useConnectedPlatforms();
   const [modalIntegration, setModalIntegration] = useState(null);
   const q = search.toLowerCase();
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  // User provided by AuthContext
 
   const openModal = (integration) => setModalIntegration(integration);
   const closeModal = () => setModalIntegration(null);

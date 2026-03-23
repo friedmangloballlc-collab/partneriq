@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Users, Plus, Crown, Shield, Eye, Trash2, Mail, MoreHorizontal,
@@ -39,7 +40,7 @@ const ROLE_ICONS = {
 };
 
 export default function Teams() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [showCreateTeam, setShowCreateTeam] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
@@ -48,7 +49,7 @@ export default function Teams() {
   const [invite, setInvite] = useState({ member_email: "", member_name: "", role: "deal_manager" });
   const [activeTab, setActiveTab] = useState("members");
 
-  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
+  // User provided by AuthContext (replaces redundant base44.auth.me call)
 
   const queryClient = useQueryClient();
 

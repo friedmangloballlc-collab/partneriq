@@ -45,9 +45,9 @@ const signupSchema = z.object({
 
 // ─── Inline field error component ───────────────────────────────────────────
 
-function FieldError({ message }) {
+function FieldError({ message, id }) {
   if (!message) return null;
-  return <p className="mt-1 text-xs text-red-400">{message}</p>;
+  return <p id={id} role="alert" className="mt-1 text-xs text-red-400">{message}</p>;
 }
 
 export default function Login() {

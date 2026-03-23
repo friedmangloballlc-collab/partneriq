@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  CheckCircle2, XCircle, Clock, AlertTriangle, Eye, Edit, RotateCcw, Shield, Settings
+  CheckCircle2, XCircle, Clock, AlertTriangle, Edit, Shield, Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { format, formatDistance } from "date-fns";
+import { formatDistance } from "date-fns";
 import ApprovalActions from "@/components/approvals/ApprovalActions";
 import QueueViewSelector from "@/components/approvals/QueueViewSelector";
 import ApprovalWorkflowSettings from "@/components/approvals/ApprovalWorkflowSettings";
@@ -35,13 +32,13 @@ const statusConfig = {
 };
 
 export default function Approvals() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [view, setView] = useState("standard"); // Queue view mode
   const [showSettings, setShowSettings] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [workflowSettings, setWorkflowSettings] = useState(null);
 
-  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
+  // User provided by AuthContext (replaces redundant base44.auth.me call)
 
   const queryClient = useQueryClient();
   const { data: items = [], isLoading } = useQuery({

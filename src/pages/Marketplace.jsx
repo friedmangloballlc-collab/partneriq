@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import { createPageUrl } from "@/utils";
@@ -33,7 +34,7 @@ const OPP_STATUS_COLORS = {
 };
 
 export default function Marketplace() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("browse");
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -47,9 +48,7 @@ export default function Marketplace() {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  // User provided by AuthContext
 
   const { data: opportunities, isLoading } = useQuery({
     queryKey: ["opportunities", filters, searchTerm],

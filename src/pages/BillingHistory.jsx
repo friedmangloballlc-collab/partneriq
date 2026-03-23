@@ -1,19 +1,15 @@
 import React from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Loader2, Download, AlertCircle } from "lucide-react";
-import { format } from "date-fns";
+import { Card, CardContent } from "@/components/ui/card";
+import { Loader2, AlertCircle } from "lucide-react";
 import BillingHistoryTable from "@/components/billing/BillingHistoryTable";
 
 export default function BillingHistory() {
-  const [userEmail, setUserEmail] = React.useState(null);
-
-  React.useEffect(() => {
-    base44.auth.me().then(user => setUserEmail(user.email));
-  }, []);
+  const { user } = useAuth();
+  const userEmail = user?.email;
 
   const { data: talentHistory = [], isLoading: talentLoading } = useQuery({
     queryKey: ["billing-history", "talent"],

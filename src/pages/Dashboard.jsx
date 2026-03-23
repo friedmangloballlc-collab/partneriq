@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -383,17 +384,8 @@ function DashboardContent({ user }) {
 }
 
 export default function Dashboard() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    base44.auth.me()
-      .then(u => {
-        if (!u) navigate(createPageUrl("Onboarding"));
-        else setUser(u);
-      })
-      .catch(() => navigate(createPageUrl("Onboarding")));
-  }, [navigate]);
 
   if (!user) {
     return (

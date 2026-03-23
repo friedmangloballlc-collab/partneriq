@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -101,7 +101,7 @@ function FieldError({ message }) {
 }
 
 export default function CreateOpportunity() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   // Checkbox arrays are kept as local state because they aren't standard RHF inputs
   const [requiredPlatforms, setRequiredPlatforms] = useState([]);
@@ -130,9 +130,7 @@ export default function CreateOpportunity() {
     },
   });
 
-  React.useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  // User provided by AuthContext
 
   const mutation = useMutation({
     mutationFn: async (data) => {

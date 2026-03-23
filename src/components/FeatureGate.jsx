@@ -17,13 +17,16 @@ export default function FeatureGate({ children, locked, featureName }) {
         }}>
           {children}
         </div>
-        {/* Lock overlay */}
-        <div
+        {/* Lock overlay — accessible button */}
+        <button
           onClick={() => setShowModal(true)}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setShowModal(true); } }}
+          aria-label={`Upgrade to unlock ${featureName || "this feature"}`}
           style={{
             position: "absolute", inset: 0, display: "flex", flexDirection: "column",
             alignItems: "center", justifyContent: "center", cursor: "pointer",
             background: "rgba(8,8,7,0.3)", borderRadius: 12, zIndex: 10,
+            border: "none", padding: 0,
           }}
         >
           <div style={{
@@ -33,7 +36,7 @@ export default function FeatureGate({ children, locked, featureName }) {
             display: "flex", alignItems: "center", justifyContent: "center",
             marginBottom: "0.75rem",
           }}>
-            <Lock size={22} style={{ color: "#c4a24a" }} />
+            <Lock size={22} style={{ color: "#c4a24a" }} aria-hidden="true" />
           </div>
           <p style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "0.85rem", fontWeight: 500, color: "#f5f0e6", marginBottom: "0.25rem" }}>
             Premium Feature
@@ -41,7 +44,7 @@ export default function FeatureGate({ children, locked, featureName }) {
           <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", color: "rgba(245,240,230,0.35)", letterSpacing: "0.04em" }}>
             Click to upgrade
           </p>
-        </div>
+        </button>
       </div>
       <UpgradeModal isOpen={showModal} onClose={() => setShowModal(false)} featureName={featureName} />
     </>

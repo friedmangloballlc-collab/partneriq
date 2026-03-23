@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -40,14 +41,12 @@ const statusColors = {
 };
 
 export default function BrandDashboard() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [closeDialogOpen, setCloseDialogOpen] = useState(false);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  // User provided by AuthContext
 
   const { data: opportunities = [], isLoading } = useQuery({
     queryKey: ["brand-opportunities", user?.email],
