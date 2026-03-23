@@ -317,149 +317,178 @@ function useTyping(text, active, delay = 0, charDelay = 30) {
   return typed;
 }
 
-// ─── SCENE 0: Intro — Stage to Star ──────────────────────────────────────────
+// ─── SCENE 0: Intro — Spotlight → Person → Logo ─────────────────────────────
 function Scene0({ active }) {
   const [phase, setPhase] = useState(0);
   useEffect(() => {
     if (!active) { setPhase(0); return; }
-    const t1 = setTimeout(() => setPhase(1), 300);   // Stage appears
-    const t2 = setTimeout(() => setPhase(2), 1200);  // Spotlight on
-    const t3 = setTimeout(() => setPhase(3), 2200);  // Stage morphs to star
-    const t4 = setTimeout(() => setPhase(4), 3200);  // Handshake + text
-    const t5 = setTimeout(() => setPhase(5), 4000);  // Tagline
+    const t1 = setTimeout(() => setPhase(1), 200);   // Spotlight beam appears
+    const t2 = setTimeout(() => setPhase(2), 900);   // Person silhouette revealed
+    const t3 = setTimeout(() => setPhase(3), 1800);  // Person glows + particles
+    const t4 = setTimeout(() => setPhase(4), 2700);  // Everything dissolves to logo
+    const t5 = setTimeout(() => setPhase(5), 3500);  // Narration text appears
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
   }, [active]);
 
   return (
     <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-      {/* Background glow */}
+
+      {/* Ambient glow — grows with each phase */}
       <div style={{
-        position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)",
-        width: 300, height: 300, borderRadius: "50%",
-        background: `radial-gradient(circle, rgba(212,176,78,${phase >= 2 ? 0.15 : 0}) 0%, transparent 70%)`,
-        transition: "all 1s ease",
+        position: "absolute", top: "35%", left: "50%", transform: "translate(-50%, -50%)",
+        width: phase >= 3 ? 500 : phase >= 1 ? 200 : 0, height: phase >= 3 ? 500 : phase >= 1 ? 200 : 0,
+        borderRadius: "50%",
+        background: `radial-gradient(circle, rgba(212,176,78,${phase >= 3 ? 0.18 : phase >= 1 ? 0.08 : 0}) 0%, transparent 70%)`,
+        transition: "all 1.2s ease",
         pointerEvents: "none",
       }} />
 
-      {/* Stage / Star SVG */}
+      {/* PHASE 1-3: Spotlight + Person on Stage */}
       <div style={{
-        position: "relative", width: 120, height: 120, marginBottom: 24,
-        animation: phase >= 1 ? "aw-fade-in 0.8s ease both" : "none",
-        opacity: phase >= 1 ? 1 : 0,
+        position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+        opacity: phase >= 1 && phase < 4 ? 1 : 0,
+        transition: phase >= 4 ? "opacity 0.8s ease, transform 0.8s ease" : "opacity 0.8s ease",
+        ...(phase >= 4 ? { transform: "translate(-50%, -50%) scale(0.5)", filter: "blur(8px)" } : {}),
       }}>
-        <svg viewBox="0 0 120 120" width="120" height="120" style={{
-          transition: "all 1s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          transform: phase >= 3 ? "scale(1.1) rotate(15deg)" : "scale(1) rotate(0deg)",
-        }}>
-          {/* Stage base — morphs to star */}
-          {phase < 3 ? (
-            <>
-              {/* Stage floor */}
-              <ellipse cx="60" cy="85" rx="50" ry="12" fill="none" stroke={DS.gold} strokeWidth="1.5" opacity="0.6" />
-              <ellipse cx="60" cy="85" rx="50" ry="12" fill={`rgba(212,176,78,0.08)`} />
-              {/* Stage curtains */}
-              <path d="M15 20 Q15 50 20 80" stroke={DS.gold} strokeWidth="1" fill="none" opacity="0.4" />
-              <path d="M105 20 Q105 50 100 80" stroke={DS.gold} strokeWidth="1" fill="none" opacity="0.4" />
-              {/* Curtain top bar */}
-              <line x1="10" y1="20" x2="110" y2="20" stroke={DS.gold} strokeWidth="1.5" opacity="0.5" />
-              {/* Spotlight beam */}
-              <path d="M60 0 L40 75 L80 75 Z" fill={`rgba(212,176,78,${phase >= 2 ? 0.08 : 0})`}
-                style={{ transition: "fill 0.8s ease" }} />
-              {/* Person on stage */}
-              <circle cx="60" cy="60" r="8" fill="none" stroke={DS.gold} strokeWidth="1.5"
-                style={{ opacity: phase >= 2 ? 1 : 0.3, transition: "opacity 0.6s" }} />
-              <line x1="60" y1="68" x2="60" y2="82" stroke={DS.gold} strokeWidth="1.5"
-                style={{ opacity: phase >= 2 ? 1 : 0.3, transition: "opacity 0.6s" }} />
-            </>
-          ) : (
-            <>
-              {/* 5-point star */}
-              <polygon
-                points="60,8 72,42 108,42 78,64 88,98 60,78 32,98 42,64 12,42 48,42"
-                fill="none"
-                stroke="url(#starGrad)"
-                strokeWidth="2"
-                strokeLinejoin="round"
-                style={{
-                  animation: "aw-scale-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both",
-                  filter: "drop-shadow(0 0 12px rgba(212,176,78,0.4))",
-                }}
-              />
-              <polygon
-                points="60,8 72,42 108,42 78,64 88,98 60,78 32,98 42,64 12,42 48,42"
-                fill="url(#starFill)"
-                opacity="0.15"
-                style={{ animation: "aw-scale-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both" }}
-              />
-              {/* Handshake icon inside star */}
-              {phase >= 4 && (
-                <g style={{ animation: "aw-check-pop 0.5s ease both" }}>
-                  <text x="60" y="62" textAnchor="middle" fontSize="28" style={{ filter: "drop-shadow(0 0 6px rgba(212,176,78,0.5))" }}>🤝</text>
-                </g>
-              )}
-              <defs>
-                <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={DS.gold} />
-                  <stop offset="100%" stopColor={DS.amber} />
-                </linearGradient>
-                <linearGradient id="starFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={DS.gold} />
-                  <stop offset="100%" stopColor={DS.amber} />
-                </linearGradient>
-              </defs>
-            </>
+        <svg viewBox="0 0 200 200" width="180" height="180">
+          {/* Spotlight cone from top */}
+          <path d="M100 0 L65 140 L135 140 Z"
+            fill={`rgba(212,176,78,${phase >= 1 ? 0.06 : 0})`}
+            style={{ transition: "fill 0.8s ease" }} />
+          <path d="M100 0 L75 140 L125 140 Z"
+            fill={`rgba(212,176,78,${phase >= 1 ? 0.04 : 0})`}
+            style={{ transition: "fill 0.8s ease" }} />
+
+          {/* Spotlight source */}
+          <circle cx="100" cy="6" r="6"
+            fill={phase >= 1 ? DS.gold : "transparent"}
+            opacity={phase >= 1 ? 0.7 : 0}
+            style={{ transition: "all 0.5s ease", filter: "blur(2px)" }} />
+
+          {/* Stage floor */}
+          <ellipse cx="100" cy="155" rx="60" ry="10"
+            fill="none" stroke={DS.gold} strokeWidth="1"
+            opacity={phase >= 1 ? 0.4 : 0}
+            style={{ transition: "opacity 0.6s ease" }} />
+          <ellipse cx="100" cy="155" rx="60" ry="10"
+            fill="rgba(212,176,78,0.04)"
+            opacity={phase >= 1 ? 1 : 0}
+            style={{ transition: "opacity 0.6s ease" }} />
+
+          {/* Person silhouette — fades in with spotlight */}
+          <g opacity={phase >= 2 ? 1 : 0} style={{ transition: "opacity 0.7s ease" }}>
+            {/* Head */}
+            <circle cx="100" cy="95" r="12"
+              fill={phase >= 3 ? "rgba(212,176,78,0.15)" : "none"}
+              stroke={DS.gold} strokeWidth="1.5"
+              style={{ transition: "fill 0.6s ease", filter: phase >= 3 ? `drop-shadow(0 0 8px rgba(212,176,78,0.5))` : "none" }} />
+            {/* Body */}
+            <line x1="100" y1="107" x2="100" y2="135" stroke={DS.gold} strokeWidth="1.5" strokeLinecap="round"
+              style={{ filter: phase >= 3 ? `drop-shadow(0 0 6px rgba(212,176,78,0.4))` : "none" }} />
+            {/* Arms */}
+            <line x1="100" y1="115" x2="82" y2="128" stroke={DS.gold} strokeWidth="1.5" strokeLinecap="round"
+              style={{ filter: phase >= 3 ? `drop-shadow(0 0 6px rgba(212,176,78,0.4))` : "none" }} />
+            <line x1="100" y1="115" x2="118" y2="128" stroke={DS.gold} strokeWidth="1.5" strokeLinecap="round"
+              style={{ filter: phase >= 3 ? `drop-shadow(0 0 6px rgba(212,176,78,0.4))` : "none" }} />
+            {/* Legs */}
+            <line x1="100" y1="135" x2="88" y2="152" stroke={DS.gold} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="100" y1="135" x2="112" y2="152" stroke={DS.gold} strokeWidth="1.5" strokeLinecap="round" />
+          </g>
+
+          {/* Glow ring around person in phase 3 */}
+          {phase >= 3 && (
+            <circle cx="100" cy="120" r="35" fill="none" stroke={DS.gold} strokeWidth="0.5"
+              opacity="0.4" style={{ animation: "aw-glow-pulse 1.5s ease infinite" }} />
           )}
         </svg>
 
-        {/* Sparkles around star */}
-        {phase >= 3 && [0, 1, 2, 3, 4].map(i => (
+        {/* Sparkle particles around person */}
+        {phase >= 3 && [0,1,2,3,4,5,6,7].map(i => (
           <div key={i} style={{
             position: "absolute",
-            top: `${20 + Math.sin(i * 1.26) * 45}%`,
-            left: `${20 + Math.cos(i * 1.26) * 45}%`,
-            width: 6, height: 6, borderRadius: "50%",
-            background: i % 2 === 0 ? DS.gold : DS.amber,
-            animation: `aw-sparkle 1.2s ease ${i * 0.15}s both`,
+            top: `${30 + Math.sin(i * 0.785) * 35}%`,
+            left: `${30 + Math.cos(i * 0.785) * 35}%`,
+            width: i % 2 === 0 ? 5 : 3, height: i % 2 === 0 ? 5 : 3,
+            borderRadius: "50%",
+            background: i % 3 === 0 ? DS.gold : i % 3 === 1 ? DS.amber : DS.goldLight,
+            animation: `aw-sparkle 1s ease ${i * 0.1}s both`,
             pointerEvents: "none",
           }} />
         ))}
       </div>
 
-      {/* Title text */}
+      {/* PHASE 4+: Logo appears */}
       <div style={{
-        textAlign: "center",
-        opacity: phase >= 3 ? 1 : 0,
-        transform: phase >= 3 ? "translateY(0)" : "translateY(12px)",
-        transition: "all 0.8s ease",
+        opacity: phase >= 4 ? 1 : 0,
+        transform: phase >= 4 ? "scale(1)" : "scale(0.6)",
+        transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
+        position: "relative", zIndex: 2,
       }}>
+        {/* Logo image */}
+        <img
+          src="/brand/logos/04_logo_transparent_ondark.png"
+          alt="DealStage"
+          style={{
+            height: 52,
+            filter: "drop-shadow(0 0 20px rgba(212,176,78,0.3))",
+          }}
+        />
+
+        {/* Gold divider line */}
         <div style={{
-          ...S.serif,
-          fontSize: "1.6rem",
-          fontWeight: 700,
-          ...S.goldText,
-          letterSpacing: "-0.02em",
-          marginBottom: 8,
+          width: phase >= 5 ? 120 : 0,
+          height: 1,
+          background: `linear-gradient(90deg, transparent, ${DS.gold}, transparent)`,
+          transition: "width 0.6s ease 0.2s",
+        }} />
+
+        {/* Narration text */}
+        <div style={{
+          textAlign: "center",
+          opacity: phase >= 5 ? 1 : 0,
+          transform: phase >= 5 ? "translateY(0)" : "translateY(10px)",
+          transition: "all 0.7s ease",
         }}>
-          The Deal Stage
+          <div style={{
+            ...S.serif,
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            fontStyle: "italic",
+            ...S.goldText,
+            letterSpacing: "-0.01em",
+            lineHeight: 1.4,
+            marginBottom: 6,
+          }}>
+            Every star deserves a stage.
+          </div>
+          <div style={{
+            ...S.serif,
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            fontStyle: "italic",
+            ...S.goldText,
+            letterSpacing: "-0.01em",
+            lineHeight: 1.4,
+          }}>
+            Every deal starts here.
+          </div>
         </div>
       </div>
 
-      {/* Subtitle */}
-      <div style={{
-        textAlign: "center",
-        opacity: phase >= 5 ? 1 : 0,
-        transform: phase >= 5 ? "translateY(0)" : "translateY(8px)",
-        transition: "all 0.6s ease",
-      }}>
-        <div style={{
-          ...S.sans,
-          fontSize: "0.85rem",
-          color: "rgba(245,240,230,0.50)",
-          letterSpacing: "0.03em",
-        }}>
-          Where talent meets brands
-        </div>
-      </div>
+      {/* Ambient sparkles during logo phase */}
+      {phase >= 4 && [0,1,2,3,4,5].map(i => (
+        <div key={`s${i}`} style={{
+          position: "absolute",
+          top: `${15 + Math.random() * 60}%`,
+          left: `${10 + Math.random() * 80}%`,
+          width: 3, height: 3, borderRadius: "50%",
+          background: i % 2 === 0 ? DS.gold : DS.amber,
+          opacity: 0.4,
+          animation: `aw-float 2s ease ${i * 0.3}s infinite`,
+          pointerEvents: "none",
+        }} />
+      ))}
     </div>
   );
 }
