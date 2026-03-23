@@ -930,23 +930,22 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           </div>
         </nav>
 
-        {/* ── TALENT TYPE TICKER ABOVE HERO ───────────────────────────── */}
-        <div className="ds-ticker-wrap" style={{ borderBottom: "none", borderTop: "none" }}>
-          <div className="ds-ticker">
-            {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
-              "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
-              <span key={`ht${i}`} className="ds-ticker-item">
-                {item} <span className="ds-ticker-sep">&#9670;</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
         {/* ── HERO ────────────────────────────────────────────────────────── */}
         <div className="ds-hero">
           <div className="ds-hero-glow-l" />
           <div className="ds-hero-glow-r" />
           <div className="ds-hero-top">
+            {/* Scrolling talent type ticker */}
+            <div style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)", overflow: "hidden", marginBottom: "1.5rem" }}>
+              <div className="ds-ticker">
+                {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
+                  "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
+                  <span key={`ht${i}`} className="ds-ticker-item">
+                    {item} <span className="ds-ticker-sep">&#9670;</span>
+                  </span>
+                ))}
+              </div>
+            </div>
             <div className="ds-hero-badge">
               <div className="ds-badge-dot" />
               Now live — talent &amp; brands welcome
