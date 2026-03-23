@@ -50,7 +50,7 @@ const rolePages = {
     'FeatureCampaignAnalytics', 'FeatureSendDeals', 'FeatureManageDeals', 'FeatureBrowseTalent', 'FeatureManageTalent',
   ]),
   manager: new Set([
-    'ManagerSetup',
+    'ManagerSetup', 'ManagerProfile',
     'Dashboard', 'PlatformOverview', 'AIFeatures', 'AIAgentsHub', 'AICommandCenter',
     'Marketplace', 'TalentProfile', 'MasterCalendar', 'CultureCalendar',
     'MarketIntelligence', 'BrandSpendPrediction', 'Brands', 'Partnerships', 'DealAnalytics', 'DealComparison', 'DealScoreLeaderboard', 'TalentDataRoom', 'BrandDataRoom', 'AgencyDataRoom', 'DealDetail',

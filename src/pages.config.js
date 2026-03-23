@@ -73,6 +73,7 @@ const PAGES = {
     "GDPR": lazy(() => import('./pages/GDPR')),
     "Demo": lazy(() => import('./pages/Demo')),
     "ManagerSetup": lazy(() => import('./pages/ManagerSetup')),
+    "ManagerProfile": lazy(() => import('./pages/ManagerProfile')),
 };
 
 export { PAGES };

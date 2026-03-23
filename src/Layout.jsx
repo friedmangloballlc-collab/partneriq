@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
   Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2,
-  Lock, Crown
+  Lock, Crown, Star
 } from "lucide-react";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
 import { useTheme } from "@/hooks/useTheme";
@@ -174,6 +174,7 @@ const roleNavItems = {
   manager: [
     // ── Home ──
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "My Talent", icon: Star, page: "ManagerProfile" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },

@@ -7,6 +7,7 @@ const TRIAL_DAYS = 7;
 const TALENT_TIERS = { free: 0, rising: 1, pro: 2, elite: 3 };
 const BRAND_TIERS  = { free: 0, growth: 1, scale: 2, enterprise: 3 };
 const AGENCY_TIERS = { agency_starter: 1, agency_pro: 2, agency_enterprise: 3 };
+const MANAGER_TIERS = { manager_single: 1, manager_pro: 2, manager_enterprise: 3 };
 
 // ─── Pages available at each tier per role ───
 // Tier 0 = Free, Tier 1 = Rising/Growth/AgencyStarter, Tier 2 = Pro/Scale/AgencyPro, Tier 3 = Elite/Enterprise
@@ -116,7 +117,7 @@ function getTierLevel(role, plan) {
   if (role === "talent") return TALENT_TIERS[plan] ?? 0;
   if (role === "brand")  return BRAND_TIERS[plan]  ?? 0;
   if (role === "agency") return AGENCY_TIERS[plan]  ?? 1;
-  if (role === "manager") return TALENT_TIERS[plan] ?? 0;
+  if (role === "manager") return MANAGER_TIERS[plan] ?? TALENT_TIERS[plan] ?? 0;
   return 0;
 }
 

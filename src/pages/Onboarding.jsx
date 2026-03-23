@@ -274,12 +274,74 @@ const PLANS_BY_ROLE = {
       btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
     },
   ],
+
+  manager: [
+    {
+      key: "manager_single",
+      title: "Single Talent",
+      price: "$149",
+      period: "/ month",
+      badge: "Most Popular",
+      features: [
+        "Manage 1 talent profile",
+        "Full deal pipeline & negotiations",
+        "AI Match Engine for your artist",
+        "Outreach & sequence automation",
+        "Contact Finder & Warm Intros",
+        "Revenue tracking & commission splits",
+        "Contract templates & e-sign",
+        "Demographic targeting",
+      ],
+      cta: "Start Managing",
+      color: "border-violet-500",
+      btnClass: "bg-violet-600 hover:bg-violet-700 text-white"
+    },
+    {
+      key: "manager_pro",
+      title: "Multi-Talent",
+      price: "$349",
+      period: "/ month",
+      badge: null,
+      features: [
+        "Everything in Single Talent, plus:",
+        "Manage up to 5 talent profiles",
+        "AI Pitch Deck Generation per talent",
+        "Market Intelligence & Data Room",
+        "AI Command Center (32 agents)",
+        "Cross-talent analytics & reporting",
+        "Bundle deal creation",
+        "Priority support",
+      ],
+      cta: "Start Multi-Talent",
+      color: "border-violet-500",
+      btnClass: "bg-violet-600 hover:bg-violet-700 text-white"
+    },
+    {
+      key: "manager_enterprise",
+      title: "Manager Enterprise",
+      price: "Custom",
+      period: "starting at $799/mo",
+      badge: null,
+      features: [
+        "Everything in Multi-Talent, plus:",
+        "Unlimited talent profiles",
+        "White-label client portal",
+        "API access & integrations",
+        "Custom analytics dashboards",
+        "Dedicated success manager & SLA",
+      ],
+      cta: "Contact Sales",
+      color: "border-slate-600",
+      btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
+    },
+  ],
 };
 
 const LABEL_MAP = {
   talent: { name: "Stage Name / Brand", namePlaceholder: "Your name or creator brand", title: "Content Niche / Category", titlePlaceholder: "e.g. Fitness, Tech, Lifestyle" },
   brand: { name: "Company Name", namePlaceholder: "Your company name", title: "Your Job Title", titlePlaceholder: "e.g. VP Marketing, Partnership Lead" },
-  agency: { name: "Agency Name", namePlaceholder: "Your agency name", title: "Your Role", titlePlaceholder: "e.g. Talent Manager, Agency Director" }
+  agency: { name: "Agency Name", namePlaceholder: "Your agency name", title: "Your Role", titlePlaceholder: "e.g. Talent Manager, Agency Director" },
+  manager: { name: "Your Full Name", namePlaceholder: "Your legal name", title: "Your Title", titlePlaceholder: "e.g. Personal Manager, Career Manager" }
 };
 
 const PLATFORM_STATS = [
@@ -789,7 +851,7 @@ export default function Onboarding() {
                   </button>
                 );
               })}
-              <button onClick={() => { if (selectedRole) setStep(selectedRole === "manager" ? 4 : 3); }} disabled={!selectedRole} style={{
+              <button onClick={() => { if (selectedRole) setStep(3); }} disabled={!selectedRole} style={{
                 marginTop: "1rem", width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
                 background: selectedRole ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.07)",
                 color: selectedRole ? "#1c1b19" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
@@ -841,7 +903,7 @@ export default function Onboarding() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
 
               {/* Plan selector — compact horizontal pills with billing toggle */}
-              {selectedRole !== "manager" && selectedRole && PLANS_BY_ROLE[selectedRole] && (
+              {selectedRole && PLANS_BY_ROLE[selectedRole] && (
                 <div>
                   <div className="ob-billing-toggle-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                     <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
