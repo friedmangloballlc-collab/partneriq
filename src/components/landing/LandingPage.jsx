@@ -287,7 +287,8 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const observerRef = useRef(null);
-  const { theme } = useTheme();
+  const { theme, themeKey } = useTheme();
+  const isPearl = themeKey === "pearl";
   const isMobile = useIsMobile();
 
   // Scroll-based nav shadow
@@ -317,22 +318,22 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
 
         :root {
-          --ds-bg: #1c1b19;
-          --ds-bg2: #232220;
-          --ds-bg3: #2a2826;
-          --ds-bg4: #1d1d19;
-          --ds-bg5: #242420;
-          --ds-border: rgba(255,248,220,0.07);
-          --ds-border2: rgba(255,248,220,0.13);
-          --ds-border3: rgba(255,248,220,0.22);
-          --ds-cream: #f5f0e6;
-          --ds-cream2: rgba(245,240,230,0.56);
-          --ds-cream3: rgba(245,240,230,0.28);
-          --ds-cream4: rgba(245,240,230,0.14);
+          --ds-bg: ${isPearl ? "#faf5eb" : "#1c1b19"};
+          --ds-bg2: ${isPearl ? "#ffffff" : "#232220"};
+          --ds-bg3: ${isPearl ? "#f3ede0" : "#2a2826"};
+          --ds-bg4: ${isPearl ? "#f5efe3" : "#1d1d19"};
+          --ds-bg5: ${isPearl ? "#efe8da" : "#242420"};
+          --ds-border: ${isPearl ? "rgba(180,160,120,0.15)" : "rgba(255,248,220,0.07)"};
+          --ds-border2: ${isPearl ? "rgba(180,160,120,0.25)" : "rgba(255,248,220,0.13)"};
+          --ds-border3: ${isPearl ? "rgba(180,160,120,0.35)" : "rgba(255,248,220,0.22)"};
+          --ds-cream: ${isPearl ? "#1c1b19" : "#f5f0e6"};
+          --ds-cream2: ${isPearl ? "rgba(28,27,25,0.60)" : "rgba(245,240,230,0.56)"};
+          --ds-cream3: ${isPearl ? "rgba(28,27,25,0.40)" : "rgba(245,240,230,0.28)"};
+          --ds-cream4: ${isPearl ? "rgba(28,27,25,0.20)" : "rgba(245,240,230,0.14)"};
           --ds-gold: #d4b04e;
           --ds-gold2: #d9b96a;
-          --ds-gold-dim: rgba(212,176,78,0.11);
-          --ds-gold-dim2: rgba(212,176,78,0.18);
+          --ds-gold-dim: ${isPearl ? "rgba(212,176,78,0.10)" : "rgba(212,176,78,0.11)"};
+          --ds-gold-dim2: ${isPearl ? "rgba(212,176,78,0.15)" : "rgba(212,176,78,0.18)"};
           --ds-amber: #e07b18;
           --ds-amber2: #f09040;
           --ds-amber-dim: rgba(224,123,24,0.12);
@@ -389,16 +390,16 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-nav-link svg { opacity: 0.5; transition: transform 0.2s; }
         .ds-nav-item { position: relative; height: 100%; display: flex; align-items: center; }
         .ds-nav-item:hover .ds-nav-link svg { transform: rotate(180deg); opacity: 1; }
-        .ds-dropdown { position: absolute; top: 100%; left: 0; background: var(--ds-bg2); border: 0.5px solid rgba(255,248,220,0.13); border-radius: 10px; padding: 0.75rem; min-width: 240px; opacity: 0; pointer-events: none; transform: translateY(6px); transition: all 0.18s; z-index: 300; }
+        .ds-dropdown { position: absolute; top: 100%; left: 0; background: var(--ds-bg2); border: 0.5px solid var(--ds-border2); border-radius: 10px; padding: 0.75rem; min-width: 240px; opacity: 0; pointer-events: none; transform: translateY(6px); transition: all 0.18s; z-index: 300; }
         .ds-nav-item:hover .ds-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
         .ds-drop-item { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.65rem 0.75rem; border-radius: 6px; text-decoration: none; transition: background 0.15s; cursor: pointer; color: inherit; }
-        .ds-drop-item:hover { background: rgba(255,248,220,0.04); }
+        .ds-drop-item:hover { background: var(--ds-gold-dim); }
         .ds-drop-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
         .ds-drop-title { font-size: 0.82rem; font-weight: 500; color: var(--ds-cream); margin-bottom: 0.1rem; }
-        .ds-drop-desc { font-size: 0.7rem; color: rgba(245,240,230,0.4); line-height: 1.4; }
+        .ds-drop-desc { font-size: 0.7rem; color: var(--ds-cream3); line-height: 1.4; }
         .ds-nav-badge { font-size: 0.58rem; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); color: #1c1b19; border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 500; margin-left: 0.5rem; }
-        .ds-btn-demo { font-size: 0.82rem; font-weight: 400; color: var(--ds-cream); border: 0.5px solid rgba(255,248,220,0.13); border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
-        .ds-btn-demo:hover { border-color: rgba(255,248,220,0.22); background: rgba(245,240,230,0.04); }
+        .ds-btn-demo { font-size: 0.82rem; font-weight: 400; color: var(--ds-cream); border: 0.5px solid var(--ds-border2); border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
+        .ds-btn-demo:hover { border-color: var(--ds-border3); background: var(--ds-gold-dim); }
         .ds-nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
         .ds-btn-ghost {
           font-family: var(--ds-sans); font-size: 0.82rem; color: var(--ds-cream3);
@@ -478,7 +479,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           padding: 0.85rem 2rem; cursor: pointer; text-decoration: none; display: inline-block;
           transition: border-color 0.2s, color 0.2s, background 0.2s;
         }
-        .ds-btn-hero-secondary:hover { border-color: var(--ds-border3); color: var(--ds-cream); background: rgba(245,240,230,0.03); }
+        .ds-btn-hero-secondary:hover { border-color: var(--ds-border3); color: var(--ds-cream); background: var(--ds-gold-dim); }
         .ds-hero-note {
           font-family: var(--ds-mono); font-size: 0.65rem; color: var(--ds-cream3);
           letter-spacing: 0.06em; animation: dsf 0.6s ease forwards 0.65s; opacity: 0;
@@ -541,7 +542,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-ui-pill { font-size: 0.55rem; font-family: var(--ds-mono); letter-spacing: 0.05em; padding: 0.1rem 0.45rem; border-radius: 100px; text-transform: uppercase; }
         .ds-pill-active { background: var(--ds-amber-dim2); color: var(--ds-amber2); border: 0.5px solid rgba(224,123,24,0.25); }
         .ds-pill-review { background: var(--ds-gold-dim); color: var(--ds-gold2); border: 0.5px solid rgba(212,176,78,0.2); }
-        .ds-pill-new { background: rgba(245,240,230,0.06); color: var(--ds-cream3); border: 0.5px solid var(--ds-border2); }
+        .ds-pill-new { background: var(--ds-gold-dim); color: var(--ds-cream3); border: 0.5px solid var(--ds-border2); }
         .ds-ui-right { border-left: 0.5px solid var(--ds-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
         .ds-ui-revenue-card { background: var(--ds-bg3); border: 0.5px solid var(--ds-border); border-radius: 8px; padding: 1rem; }
         .ds-ui-rev-label { font-family: var(--ds-mono); font-size: 0.62rem; color: var(--ds-cream3); letter-spacing: 0.06em; margin-bottom: 0.4rem; }
@@ -640,7 +641,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         }
         .ds-plan-btn:hover { opacity: 0.88; transform: translateY(-1px); }
         .ds-plan-btn.outline { background: none; border: 0.5px solid var(--ds-border2); color: var(--ds-cream2); }
-        .ds-plan-btn.outline:hover { border-color: var(--ds-border3); color: var(--ds-cream); background: rgba(245,240,230,0.04); }
+        .ds-plan-btn.outline:hover { border-color: var(--ds-border3); color: var(--ds-cream); background: var(--ds-gold-dim); }
 
         /* COMPARISON TABLE */
         .ds-comp-table { width: 100%; border-collapse: collapse; margin-top: 3rem; }
@@ -1136,10 +1137,10 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: !billingAnnual ? "var(--ds-cream)" : "var(--ds-cream3)", letterSpacing: "0.04em" }}>Monthly</span>
                 <button
                   onClick={() => setBillingAnnual(!billingAnnual)}
-                  style={{ width: 40, height: 22, borderRadius: 11, border: "none", cursor: "pointer", position: "relative", transition: "background 0.2s", background: billingAnnual ? "var(--ds-ga)" : "rgba(255,248,220,0.1)" }}
+                  style={{ width: 40, height: 22, borderRadius: 11, border: "none", cursor: "pointer", position: "relative", transition: "background 0.2s", background: billingAnnual ? "var(--ds-ga)" : "var(--ds-gold-dim)" }}
                   aria-label="Toggle annual billing"
                 >
-                  <div style={{ position: "absolute", top: 3, left: billingAnnual ? 21 : 3, width: 16, height: 16, borderRadius: "50%", background: billingAnnual ? "#1c1b19" : "rgba(245,240,230,0.5)", transition: "left 0.2s" }} />
+                  <div style={{ position: "absolute", top: 3, left: billingAnnual ? 21 : 3, width: 16, height: 16, borderRadius: "50%", background: billingAnnual ? "var(--ds-bg)" : "var(--ds-cream2)", transition: "left 0.2s" }} />
                 </button>
                 <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: billingAnnual ? "var(--ds-cream)" : "var(--ds-cream3)", letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                   Annual
@@ -1521,7 +1522,7 @@ function FeatureMockup({ type }) {
         {[
           { init: "NK", name: "Nike × Jordan Reeves", sub: "Athlete · 60 days", amt: "$85,000", status: "Active", pill: { bg: "var(--ds-amber-dim2)", color: "var(--ds-amber2)" } },
           { init: "SP", name: "Spotify × Mia Chen", sub: "Creator · Ongoing", amt: "$12,500", status: "In review", pill: { bg: "var(--ds-gold-dim)", color: "var(--ds-gold2)" } },
-          { init: "LV", name: "Louis Vuitton × Zara Ali", sub: "Model · 2 weeks", amt: "$34,000", status: "New", pill: { bg: "rgba(245,240,230,0.06)", color: "var(--ds-cream3)" } },
+          { init: "LV", name: "Louis Vuitton × Zara Ali", sub: "Model · 2 weeks", amt: "$34,000", status: "New", pill: { bg: "var(--ds-gold-dim)", color: "var(--ds-cream3)" } },
         ].map((d) => (
           <div key={d.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.6rem 0.7rem", background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 7 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
