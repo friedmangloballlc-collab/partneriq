@@ -1163,8 +1163,8 @@ export default function Onboarding() {
           {/* Numbers strip */}
           <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto border-t border-white/5 pt-8">
             <div className="text-center">
-              <p className="text-xl font-black text-white">10M+</p>
-              <p className="text-[11px] text-slate-500 mt-0.5">Profiles Indexed</p>
+              <p className="text-xl font-black text-white">Growing</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Talent Network</p>
             </div>
             <div className="text-center border-x border-white/5">
               <p className="text-xl font-black text-white">$2B+</p>
@@ -1213,7 +1213,7 @@ export default function Onboarding() {
                 step: "02",
                 icon: Brain,
                 title: "AI Matches You with Perfect Partners",
-                desc: "Our 50+ AI agents analyze 10M+ profiles across 146 industries to surface the highest-compatibility matches with 94% accuracy.",
+                desc: "Our 50+ AI agents analyze an expanding talent database across 146 industries to surface the highest-compatibility matches using multi-factor scoring.",
                 color: "from-violet-500 to-violet-600",
                 glow: "shadow-violet-500/20"
               },
@@ -1274,7 +1274,7 @@ export default function Onboarding() {
                 gradient: "from-indigo-500 to-violet-600",
                 glow: "shadow-indigo-500/20",
                 title: "AI Match Engine",
-                desc: "40+ weighted signals. 94% accuracy. Finds your highest-compatibility partners across 10M+ profiles in seconds."
+                desc: "40+ weighted signals. Multi-factor AI scoring. Finds your highest-compatibility partners across our growing network in seconds."
               },
               {
                 icon: Layers,
@@ -1379,7 +1379,7 @@ export default function Onboarding() {
                 gradient: "from-indigo-500 to-blue-600",
                 accent: "text-indigo-400",
                 points: [
-                  "Search 10M+ verified talent profiles",
+                  "Search our growing verified talent network",
                   "AI recommendations with score cards",
                   "Campaign ROI simulation (10K scenarios)",
                   "Automated outreach sequences",
