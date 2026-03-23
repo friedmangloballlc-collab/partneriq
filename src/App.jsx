@@ -16,14 +16,14 @@ import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import CreatorCalculator from '@/pages/CreatorCalculator';
 import Pricing from '@/pages/Pricing';
-import About from '@/pages/About';
-import Blog from '@/pages/Blog';
-import Careers from '@/pages/Careers';
-import Contact from '@/pages/Contact';
-import Customers from '@/pages/Customers';
-import CookiePolicy from '@/pages/CookiePolicy';
-import GDPR from '@/pages/GDPR';
-import Demo from '@/pages/Demo';
+const About = React.lazy(() => import('@/pages/About'));
+const Blog = React.lazy(() => import('@/pages/Blog'));
+const Careers = React.lazy(() => import('@/pages/Careers'));
+const Contact = React.lazy(() => import('@/pages/Contact'));
+const Customers = React.lazy(() => import('@/pages/Customers'));
+const CookiePolicy = React.lazy(() => import('@/pages/CookiePolicy'));
+const GDPR = React.lazy(() => import('@/pages/GDPR'));
+const Demo = React.lazy(() => import('@/pages/Demo'));
 import AuthCallback from '@/pages/AuthCallback';
 import ResetPassword from '@/pages/ResetPassword';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
@@ -174,14 +174,14 @@ const AuthenticatedApp = () => {
   }
   // Public marketing routes (no auth needed)
   const publicMarketingRoutes = {
-    '/About': <About />,
-    '/Blog': <Blog />,
-    '/Careers': <Careers />,
-    '/Contact': <Contact />,
-    '/Customers': <Customers />,
-    '/CookiePolicy': <CookiePolicy />,
-    '/GDPR': <GDPR />,
-    '/Demo': <Demo />,
+    '/About': <Suspense fallback={<div />}><About /></Suspense>,
+    '/Blog': <Suspense fallback={<div />}><Blog /></Suspense>,
+    '/Careers': <Suspense fallback={<div />}><Careers /></Suspense>,
+    '/Contact': <Suspense fallback={<div />}><Contact /></Suspense>,
+    '/Customers': <Suspense fallback={<div />}><Customers /></Suspense>,
+    '/CookiePolicy': <Suspense fallback={<div />}><CookiePolicy /></Suspense>,
+    '/GDPR': <Suspense fallback={<div />}><GDPR /></Suspense>,
+    '/Demo': <Suspense fallback={<div />}><Demo /></Suspense>,
     '/features/talent-discovery': <Suspense fallback={<div>Loading...</div>}><FeatureTalentDiscovery /></Suspense>,
     '/features/deal-pipeline': <Suspense fallback={<div>Loading...</div>}><FeatureDealPipeline /></Suspense>,
     '/features/media-kits': <Suspense fallback={<div>Loading...</div>}><FeatureMediaKits /></Suspense>,

@@ -33,7 +33,7 @@ const T = {
 /* ─────────────────────────────────────────────
    FONT FACE INJECTION
 ───────────────────────────────────────────── */
-const fontImport = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');`;
+const fontImport = ''; // Fonts loaded globally via index.html
 
 /* ─────────────────────────────────────────────
    INLINE STYLE HELPERS

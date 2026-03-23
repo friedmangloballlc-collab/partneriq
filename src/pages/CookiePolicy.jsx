@@ -270,7 +270,6 @@ export default function CookiePolicy() {
     >
       <SEO title="Cookie Policy" description="How Dealstage uses cookies and how to manage your preferences" />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@300;400;500&display=swap');
         .ck-cookie-card:hover { border-color: #2a271f !important; }
         .ck-accordion-hd:hover { background: #141310 !important; }
         .ck-tp-row:hover td { background: #12110e !important; }

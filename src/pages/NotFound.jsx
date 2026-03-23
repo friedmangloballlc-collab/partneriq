@@ -16,7 +16,7 @@ export default function NotFound() {
       justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif",
       position: "relative", overflow: "hidden",
     }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
+      <style>{`
         @keyframes float404 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
         @keyframes pulseGlow { 0%,100%{opacity:0.3} 50%{opacity:0.6} }
         @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }

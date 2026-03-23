@@ -181,7 +181,6 @@ export default function Customers() {
     >
       <SEO title="Customer Stories" description="See how top brands, talent, and agencies use Dealstage to close better deals" />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@300;400;500&display=swap');
 
         .cs-case-tab:hover { background: #1a1814 !important; }
         .cs-case-tab.active { background: #1a1814 !important; border-color: #d4b04e !important; }

@@ -315,7 +315,6 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
     <>
       {/* ── GOOGLE FONTS + GLOBAL STYLES ── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
 
         :root {
           --ds-bg: ${isPearl ? "#faf5eb" : "#1c1b19"};

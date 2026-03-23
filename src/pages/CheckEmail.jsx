@@ -25,7 +25,6 @@ export default function CheckEmail() {
       <SEO title="Check Your Email" description="Verify your email to complete your Dealstage account setup" />
       <div style={{ minHeight: "100vh", background: "#1c1b19", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
         @media (max-width: 480px) {
           .ce-resend-btn { width: 100% !important; justify-content: center !important; }
           .ce-steps-box { padding: 1rem !important; }

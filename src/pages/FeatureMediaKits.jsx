@@ -32,7 +32,7 @@ const T = {
   borderAlt: "rgba(212,176,78,0.10)",
 };
 
-const fontImport = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@400;500&display=swap');`;
+const fontImport = ''; // Fonts loaded globally via index.html
 
 const serif = { fontFamily: "'Cormorant Garamond', Georgia, serif" };
 const sans  = { fontFamily: "'Instrument Sans', system-ui, sans-serif" };
