@@ -41,7 +41,7 @@ const THEMES = {
     gold: "#d4b04e",
     amber: "#e07b18",
     goldDim: "rgba(212,176,78,0.12)",
-    sidebar: "#1c1b19",
+    sidebar: "#121110",
     sidebarText: "#f5f0e6",
     cardBg: "#ffffff",
     inputBg: "#ffffff",

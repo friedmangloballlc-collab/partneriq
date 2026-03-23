@@ -56,14 +56,14 @@ body {
     --chart-4: 220 65% 50%; /* blue */
     --chart-5: 280 60% 55%; /* purple */
     --radius: 0.625rem;
-    /* Sidebar stays dark on both themes */
-    --sidebar-background: 40 4% 10%; /* #1c1b19 — warm dark slate */
+    /* Sidebar stays dark on pearl theme */
+    --sidebar-background: 40 4% 7%; /* #121110 — dark sidebar */
     --sidebar-foreground: 40 15% 80%;
     --sidebar-primary: 43 55% 52%; /* gold */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 40 4% 14%; /* #252320 — warm hover */
+    --sidebar-accent: 40 4% 12%;
     --sidebar-accent-foreground: 40 15% 85%;
-    --sidebar-border: 40 4% 16%; /* #2a2826 */
+    --sidebar-border: 40 4% 14%;
     --sidebar-ring: 43 55% 52%;
   }
 
