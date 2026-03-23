@@ -381,12 +381,12 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-nav-logo span { background: var(--ds-ga-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .ds-nav-links { display: flex; align-items: center; gap: 0; list-style: none; height: 100%; margin: 0; padding: 0; }
         .ds-nav-link {
-          font-size: 0.82rem; color: var(--ds-cream3); text-decoration: none;
+          font-size: 0.82rem; color: ${isPearl ? "var(--ds-cream)" : "var(--ds-cream3)"}; text-decoration: none;
           letter-spacing: 0.01em; transition: color 0.2s; padding: 0 0.9rem;
           height: 56px; display: flex; align-items: center; white-space: nowrap;
-          background: none; border: none; cursor: pointer; font-family: var(--ds-sans);
+          background: none; border: none; cursor: pointer; font-family: var(--ds-sans); font-weight: ${isPearl ? "400" : "300"};
         }
-        .ds-nav-link:hover { color: var(--ds-cream); }
+        .ds-nav-link:hover { color: var(--ds-gold); }
         .ds-nav-link svg { opacity: 0.5; transition: transform 0.2s; }
         .ds-nav-item { position: relative; height: 100%; display: flex; align-items: center; }
         .ds-nav-item:hover .ds-nav-link svg { transform: rotate(180deg); opacity: 1; }
@@ -398,15 +398,15 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-drop-title { font-size: 0.82rem; font-weight: 500; color: var(--ds-cream); margin-bottom: 0.1rem; }
         .ds-drop-desc { font-size: 0.7rem; color: var(--ds-cream3); line-height: 1.4; }
         .ds-nav-badge { font-size: 0.58rem; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); color: #1c1b19; border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 500; margin-left: 0.5rem; }
-        .ds-btn-demo { font-size: 0.82rem; font-weight: 400; color: var(--ds-cream); border: 0.5px solid var(--ds-border2); border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
-        .ds-btn-demo:hover { border-color: var(--ds-border3); background: var(--ds-gold-dim); }
+        .ds-btn-demo { font-size: 0.82rem; font-weight: ${isPearl ? "500" : "400"}; color: ${isPearl ? "var(--ds-gold)" : "var(--ds-cream)"}; border: 0.5px solid ${isPearl ? "var(--ds-gold)" : "var(--ds-border2)"}; border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
+        .ds-btn-demo:hover { border-color: var(--ds-amber); color: var(--ds-amber); background: var(--ds-gold-dim); }
         .ds-nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
         .ds-btn-ghost {
-          font-family: var(--ds-sans); font-size: 0.82rem; color: var(--ds-cream3);
+          font-family: var(--ds-sans); font-size: 0.82rem; color: ${isPearl ? "var(--ds-cream)" : "var(--ds-cream3)"}; font-weight: ${isPearl ? "500" : "300"};
           background: none; border: none; cursor: pointer; text-decoration: none;
           transition: color 0.2s; white-space: nowrap;
         }
-        .ds-btn-ghost:hover { color: var(--ds-cream); }
+        .ds-btn-ghost:hover { color: var(--ds-gold); }
         .ds-btn-trial {
           font-family: var(--ds-sans); font-size: 0.82rem; font-weight: 500;
           color: #1c1b19; border: none; border-radius: 5px; padding: 0.45rem 1.1rem;
