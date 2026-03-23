@@ -17,12 +17,12 @@ import {
 } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
-  gold: "#c4a24a",
+  bg: "#1c1b19",
+  gold: "#d4b04e",
   amber: "#e07b18",
   cream: "#f5f0e6",
-  surface: "#0f0f0d",
-  border: "rgba(196,162,74,0.15)",
+  surface: "#232220",
+  border: "rgba(212,176,78,0.15)",
   muted: "rgba(245,240,230,0.45)",
 };
 
@@ -177,7 +177,7 @@ function CategoryBadge({ label }) {
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         backgroundClip: "text",
-        border: `1px solid rgba(196,162,74,0.3)`,
+        border: `1px solid rgba(212,176,78,0.3)`,
         borderRadius: "4px",
         padding: "3px 8px",
         display: "inline-block",
@@ -202,15 +202,15 @@ function ArticleCard({ article, delay }) {
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(32px)",
         transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms`,
-        background: hovered ? "rgba(196,162,74,0.04)" : COLORS.surface,
-        border: `1px solid ${hovered ? "rgba(196,162,74,0.28)" : COLORS.border}`,
+        background: hovered ? "rgba(212,176,78,0.04)" : COLORS.surface,
+        border: `1px solid ${hovered ? "rgba(212,176,78,0.28)" : COLORS.border}`,
         borderRadius: "12px",
         padding: "28px",
         display: "flex",
         flexDirection: "column",
         gap: "14px",
         cursor: "pointer",
-        boxShadow: hovered ? "0 8px 32px rgba(196,162,74,0.08)" : "none",
+        boxShadow: hovered ? "0 8px 32px rgba(212,176,78,0.08)" : "none",
         transition: `all 0.3s ease`,
       }}
     >
@@ -221,7 +221,7 @@ function ArticleCard({ article, delay }) {
             width: 32,
             height: 32,
             borderRadius: "8px",
-            background: "rgba(196,162,74,0.08)",
+            background: "rgba(212,176,78,0.08)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -350,10 +350,10 @@ export default function Blog() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #080807; }
-        ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #1c1b19; }
+        ::-webkit-scrollbar-thumb { background: rgba(212,176,78,0.3); border-radius: 3px; }
         @media (max-width: 768px) {
           .bl-nav-links { display: none !important; }
           .bl-nav { padding: 0 16px !important; }
@@ -369,7 +369,7 @@ export default function Blog() {
           right: "-100px",
           width: "600px",
           height: "600px",
-          background: `radial-gradient(circle, rgba(196,162,74,0.055) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, rgba(212,176,78,0.055) 0%, transparent 70%)`,
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -397,8 +397,8 @@ export default function Blog() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                background: "rgba(196,162,74,0.07)",
-                border: `1px solid rgba(196,162,74,0.2)`,
+                background: "rgba(212,176,78,0.07)",
+                border: `1px solid rgba(212,176,78,0.2)`,
                 borderRadius: "100px",
                 padding: "6px 16px",
                 marginBottom: "28px",
@@ -486,7 +486,7 @@ export default function Blog() {
                     background: active
                       ? `linear-gradient(135deg, ${COLORS.gold}, ${COLORS.amber})`
                       : "transparent",
-                    border: `1px solid ${active ? "transparent" : "rgba(196,162,74,0.2)"}`,
+                    border: `1px solid ${active ? "transparent" : "rgba(212,176,78,0.2)"}`,
                     borderRadius: "100px",
                     padding: "8px 20px",
                     cursor: "pointer",
@@ -516,11 +516,11 @@ export default function Blog() {
         </div>
 
         {/* Product CTA */}
-        <div style={{ maxWidth: 800, margin: "0 auto 4rem", textAlign: "center", padding: "3rem 2rem", background: "rgba(196,162,74,0.04)", border: "0.5px solid rgba(196,162,74,0.15)", borderRadius: 16 }}>
+        <div style={{ maxWidth: 800, margin: "0 auto 4rem", textAlign: "center", padding: "3rem 2rem", background: "rgba(212,176,78,0.04)", border: "0.5px solid rgba(212,176,78,0.15)", borderRadius: 16 }}>
           <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Ready to put these insights into action?</h3>
           <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.45)", marginBottom: "1.5rem", lineHeight: 1.7 }}>Join 2,400+ professionals already closing better deals on Dealstage. Start free — no credit card required.</p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="/Onboarding" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Start free trial</a>
+            <a href="/Onboarding" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Start free trial</a>
             <a href="/Demo" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, border: "0.5px solid rgba(255,248,220,0.13)", background: "none", color: "rgba(245,240,230,0.5)", fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>See interactive demo</a>
           </div>
         </div>
@@ -529,8 +529,8 @@ export default function Blog() {
         <FadeSection>
           <div
             style={{
-              background: "rgba(196,162,74,0.04)",
-              border: `1px solid rgba(196,162,74,0.18)`,
+              background: "rgba(212,176,78,0.04)",
+              border: `1px solid rgba(212,176,78,0.18)`,
               borderRadius: "20px",
               padding: "64px 48px",
               textAlign: "center",
@@ -547,7 +547,7 @@ export default function Blog() {
                 transform: "translate(-50%,-50%)",
                 width: "600px",
                 height: "300px",
-                background: `radial-gradient(ellipse, rgba(196,162,74,0.06) 0%, transparent 70%)`,
+                background: `radial-gradient(ellipse, rgba(212,176,78,0.06) 0%, transparent 70%)`,
                 pointerEvents: "none",
               }}
             />
@@ -558,12 +558,12 @@ export default function Blog() {
                   width: 48,
                   height: 48,
                   borderRadius: "12px",
-                  background: "rgba(196,162,74,0.1)",
+                  background: "rgba(212,176,78,0.1)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   margin: "0 auto 20px",
-                  border: `1px solid rgba(196,162,74,0.2)`,
+                  border: `1px solid rgba(212,176,78,0.2)`,
                 }}
               >
                 <Mail size={20} color={COLORS.gold} />
@@ -630,7 +630,7 @@ export default function Blog() {
                       flex: 1,
                       minWidth: "220px",
                       background: "rgba(255,255,255,0.04)",
-                      border: `1px solid rgba(196,162,74,0.25)`,
+                      border: `1px solid rgba(212,176,78,0.25)`,
                       borderRadius: "8px",
                       padding: "12px 18px",
                       fontFamily: FONTS.body,

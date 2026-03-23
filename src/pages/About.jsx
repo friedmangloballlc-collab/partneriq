@@ -17,17 +17,17 @@ import {
    THEME TOKENS
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
 };
 
 /* ─────────────────────────────────────────────
@@ -182,10 +182,10 @@ const PILLARS = [
 ];
 
 const LEADERS = [
-  { initials: "AK", name: "Alex Kim",       role: "Chief Executive Officer",  bg: "linear-gradient(135deg, #c4a24a 0%, #e07b18 100%)" },
-  { initials: "SR", name: "Sofia Reyes",    role: "Chief Technology Officer",  bg: "linear-gradient(135deg, #8a6f2e 0%, #c4a24a 100%)" },
-  { initials: "JT", name: "Jordan Torres",  role: "VP of Product",             bg: "linear-gradient(135deg, #e07b18 0%, #c4a24a 100%)" },
-  { initials: "ML", name: "Maya Laurent",   role: "VP of Growth",              bg: "linear-gradient(135deg, #c4a24a 0%, #8a6f2e 100%)" },
+  { initials: "AK", name: "Alex Kim",       role: "Chief Executive Officer",  bg: "linear-gradient(135deg, #d4b04e 0%, #e07b18 100%)" },
+  { initials: "SR", name: "Sofia Reyes",    role: "Chief Technology Officer",  bg: "linear-gradient(135deg, #8a6f2e 0%, #d4b04e 100%)" },
+  { initials: "JT", name: "Jordan Torres",  role: "VP of Product",             bg: "linear-gradient(135deg, #e07b18 0%, #d4b04e 100%)" },
+  { initials: "ML", name: "Maya Laurent",   role: "VP of Growth",              bg: "linear-gradient(135deg, #d4b04e 0%, #8a6f2e 100%)" },
 ];
 
 const TIMELINE = [
@@ -239,13 +239,13 @@ export default function About() {
             position: "absolute", top: "-120px", left: "50%",
             transform: "translateX(-50%)",
             width: 680, height: 480,
-            background: `radial-gradient(ellipse at center, rgba(196,162,74,0.13) 0%, rgba(224,123,24,0.07) 40%, transparent 70%)`,
+            background: `radial-gradient(ellipse at center, rgba(212,176,78,0.13) 0%, rgba(224,123,24,0.07) 40%, transparent 70%)`,
             pointerEvents: "none",
           }} />
           <div style={{
             position: "absolute", top: 60, left: "20%",
             width: 320, height: 320,
-            background: `radial-gradient(ellipse, rgba(196,162,74,0.06) 0%, transparent 70%)`,
+            background: `radial-gradient(ellipse, rgba(212,176,78,0.06) 0%, transparent 70%)`,
             pointerEvents: "none",
           }} />
           <div style={{
@@ -271,7 +271,7 @@ export default function About() {
                 borderRadius: 100,
                 padding: "6px 18px",
                 marginBottom: 32,
-                background: "rgba(196,162,74,0.06)",
+                background: "rgba(212,176,78,0.06)",
               }}>
                 <Sparkles size={12} color={T.amber} />
                 About DealStage
@@ -330,7 +330,7 @@ export default function About() {
                     alignItems: "center",
                     gap: 8,
                     background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`,
-                    color: "#080807",
+                    color: "#1c1b19",
                     fontWeight: 500,
                     fontSize: 14,
                     padding: "12px 28px",
@@ -357,7 +357,7 @@ export default function About() {
                     borderRadius: 8,
                     textDecoration: "none",
                     letterSpacing: "0.02em",
-                    background: "rgba(196,162,74,0.04)",
+                    background: "rgba(212,176,78,0.04)",
                   }}
                 >
                   Visit thedealstage.com
@@ -376,7 +376,7 @@ export default function About() {
               border: `1px solid ${T.border}`,
               borderRadius: 16,
               padding: "56px 48px",
-              background: `radial-gradient(ellipse at 30% 50%, rgba(196,162,74,0.07) 0%, rgba(224,123,24,0.04) 40%, transparent 70%), ${T.bgCard}`,
+              background: `radial-gradient(ellipse at 30% 50%, rgba(212,176,78,0.07) 0%, rgba(224,123,24,0.04) 40%, transparent 70%), ${T.bgCard}`,
               textAlign: "center",
             }}>
               <SectionLabel>Our Mission</SectionLabel>
@@ -523,8 +523,8 @@ export default function About() {
                       width: 48,
                       height: 48,
                       borderRadius: 12,
-                      background: "rgba(196,162,74,0.12)",
-                      border: `1px solid rgba(196,162,74,0.25)`,
+                      background: "rgba(212,176,78,0.12)",
+                      border: `1px solid rgba(212,176,78,0.25)`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -609,13 +609,13 @@ export default function About() {
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "0 auto 20px",
-                    boxShadow: `0 0 0 3px rgba(196,162,74,0.18), 0 8px 32px rgba(196,162,74,0.12)`,
+                    boxShadow: `0 0 0 3px rgba(212,176,78,0.18), 0 8px 32px rgba(212,176,78,0.12)`,
                   }}>
                     <span style={{
                       ...serif,
                       fontSize: 26,
                       fontWeight: 700,
-                      color: "#080807",
+                      color: "#1c1b19",
                       letterSpacing: "0.02em",
                     }}>
                       {leader.initials}
@@ -676,7 +676,7 @@ export default function About() {
               top: 0,
               bottom: 0,
               width: 1,
-              background: `linear-gradient(180deg, ${T.gold}, rgba(196,162,74,0.1))`,
+              background: `linear-gradient(180deg, ${T.gold}, rgba(212,176,78,0.1))`,
               opacity: 0.3,
             }} />
 
@@ -703,7 +703,7 @@ export default function About() {
                         height: 14,
                         borderRadius: "50%",
                         background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`,
-                        boxShadow: `0 0 12px rgba(196,162,74,0.4)`,
+                        boxShadow: `0 0 12px rgba(212,176,78,0.4)`,
                         flexShrink: 0,
                       }} />
                     </div>
@@ -799,8 +799,8 @@ export default function About() {
                       width: 56,
                       height: 56,
                       borderRadius: "50%",
-                      background: "rgba(196,162,74,0.10)",
-                      border: `1px solid rgba(196,162,74,0.22)`,
+                      background: "rgba(212,176,78,0.10)",
+                      border: `1px solid rgba(212,176,78,0.22)`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -891,8 +891,8 @@ export default function About() {
                     width: 52,
                     height: 52,
                     borderRadius: 10,
-                    background: `linear-gradient(135deg, rgba(196,162,74,0.15) 0%, rgba(224,123,24,0.10) 100%)`,
-                    border: `1px solid rgba(196,162,74,0.2)`,
+                    background: `linear-gradient(135deg, rgba(212,176,78,0.15) 0%, rgba(224,123,24,0.10) 100%)`,
+                    border: `1px solid rgba(212,176,78,0.2)`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -933,7 +933,7 @@ export default function About() {
               border: `1px solid ${T.border}`,
               borderRadius: 20,
               padding: "72px 40px",
-              background: `radial-gradient(ellipse at 50% 0%, rgba(196,162,74,0.11) 0%, rgba(224,123,24,0.06) 40%, transparent 70%), ${T.bgCard}`,
+              background: `radial-gradient(ellipse at 50% 0%, rgba(212,176,78,0.11) 0%, rgba(224,123,24,0.06) 40%, transparent 70%), ${T.bgCard}`,
               position: "relative",
               overflow: "hidden",
             }}>
@@ -982,14 +982,14 @@ export default function About() {
                     alignItems: "center",
                     gap: 8,
                     background: `linear-gradient(135deg, ${T.gold} 0%, ${T.amber} 100%)`,
-                    color: "#080807",
+                    color: "#1c1b19",
                     fontWeight: 500,
                     fontSize: 15,
                     padding: "14px 32px",
                     borderRadius: 9,
                     textDecoration: "none",
                     letterSpacing: "0.02em",
-                    boxShadow: `0 4px 24px rgba(196,162,74,0.28)`,
+                    boxShadow: `0 4px 24px rgba(212,176,78,0.28)`,
                   }}
                 >
                   Start for Free <ArrowRight size={16} />
@@ -1008,7 +1008,7 @@ export default function About() {
                     borderRadius: 9,
                     textDecoration: "none",
                     letterSpacing: "0.02em",
-                    background: "rgba(196,162,74,0.04)",
+                    background: "rgba(212,176,78,0.04)",
                   }}
                 >
                   Contact Sales

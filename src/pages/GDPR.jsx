@@ -18,12 +18,12 @@ import {
 } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
+  bg: "#1c1b19",
   bgCard: "#0f0e0c",
   surface: "#12110e",
   border: "#1e1c18",
-  borderGold: "#c4a24a",
-  gold: "#c4a24a",
+  borderGold: "#d4b04e",
+  gold: "#d4b04e",
   goldLight: "#d4b56a",
   amber: "#e07b18",
   cream: "#f5f0e6",
@@ -326,7 +326,7 @@ export default function GDPR() {
             height: 500,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(196,162,74,0.06) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(212,176,78,0.06) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -337,8 +337,8 @@ export default function GDPR() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(196,162,74,0.07)",
-              border: `1px solid rgba(196,162,74,0.2)`,
+              background: "rgba(212,176,78,0.07)",
+              border: `1px solid rgba(212,176,78,0.2)`,
               borderRadius: 100,
               padding: "5px 14px",
               marginBottom: 28,
@@ -498,8 +498,8 @@ export default function GDPR() {
                       width: 40,
                       height: 40,
                       borderRadius: 10,
-                      background: "rgba(196,162,74,0.1)",
-                      border: `1px solid rgba(196,162,74,0.2)`,
+                      background: "rgba(212,176,78,0.1)",
+                      border: `1px solid rgba(212,176,78,0.2)`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1074,8 +1074,8 @@ export default function GDPR() {
                 height: 52,
                 borderRadius: 12,
                 background:
-                  "linear-gradient(135deg, rgba(196,162,74,0.2) 0%, rgba(224,123,24,0.2) 100%)",
-                border: `1px solid rgba(196,162,74,0.3)`,
+                  "linear-gradient(135deg, rgba(212,176,78,0.2) 0%, rgba(224,123,24,0.2) 100%)",
+                border: `1px solid rgba(212,176,78,0.3)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1215,8 +1215,8 @@ export default function GDPR() {
                     width: 40,
                     height: 40,
                     borderRadius: "50%",
-                    background: "rgba(196,162,74,0.1)",
-                    border: `1px solid rgba(196,162,74,0.3)`,
+                    background: "rgba(212,176,78,0.1)",
+                    border: `1px solid rgba(212,176,78,0.3)`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -1267,8 +1267,8 @@ export default function GDPR() {
           <div
             style={{
               marginTop: 36,
-              background: "rgba(196,162,74,0.05)",
-              border: `1px solid rgba(196,162,74,0.2)`,
+              background: "rgba(212,176,78,0.05)",
+              border: `1px solid rgba(212,176,78,0.2)`,
               borderRadius: 12,
               padding: "24px",
             }}

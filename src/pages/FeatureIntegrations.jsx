@@ -17,17 +17,17 @@ import {
    THEME
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
 };
 
 const fontImport = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@400;500&display=swap');`;
@@ -128,7 +128,7 @@ const CATEGORY_COLORS = {
   Calendar:   { bg: "rgba(34,197,94,0.1)",   text: "#22c55e",  border: "rgba(34,197,94,0.2)"   },
   CRM:        { bg: "rgba(245,158,11,0.1)",  text: "#f59e0b",  border: "rgba(245,158,11,0.2)"  },
   Comms:      { bg: "rgba(236,72,153,0.1)",  text: "#ec4899",  border: "rgba(236,72,153,0.2)"  },
-  Automation: { bg: "rgba(196,162,74,0.1)",  text: T.gold,     border: T.border                },
+  Automation: { bg: "rgba(212,176,78,0.1)",  text: T.gold,     border: T.border                },
 };
 
 function IntegrationGrid() {
@@ -142,7 +142,7 @@ function IntegrationGrid() {
         <span style={{ ...mono, fontSize: 11, color: T.creamDim, marginLeft: 12, opacity: 0.6 }}>dealstage.app / settings / integrations</span>
         <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
           <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(34,197,94,0.1)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.2)" }}>7 CONNECTED</span>
-          <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(196,162,74,0.1)", color: T.gold, border: `1px solid ${T.borderAlt}` }}>88 TOTAL</span>
+          <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(212,176,78,0.1)", color: T.gold, border: `1px solid ${T.borderAlt}` }}>88 TOTAL</span>
         </div>
       </div>
 
@@ -154,7 +154,7 @@ function IntegrationGrid() {
             <span>Search integrations...</span>
           </div>
           {["All", "Social", "CRM", "Automation"].map((tab, i) => (
-            <span key={i} style={{ ...mono, fontSize: 11, padding: "7px 14px", borderRadius: 6, background: i === 0 ? "rgba(196,162,74,0.12)" : "transparent", border: `1px solid ${i === 0 ? T.border : T.borderAlt}`, color: i === 0 ? T.gold : T.creamDim, cursor: "pointer", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>
+            <span key={i} style={{ ...mono, fontSize: 11, padding: "7px 14px", borderRadius: 6, background: i === 0 ? "rgba(212,176,78,0.12)" : "transparent", border: `1px solid ${i === 0 ? T.border : T.borderAlt}`, color: i === 0 ? T.gold : T.creamDim, cursor: "pointer", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>
               {tab}
             </span>
           ))}
@@ -206,7 +206,7 @@ function IntegrationGrid() {
         </div>
 
         {/* Footer Row */}
-        <div style={{ marginTop: 20, padding: "14px 16px", background: "rgba(196,162,74,0.04)", border: `1px solid ${T.borderAlt}`, borderRadius: 8, display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ marginTop: 20, padding: "14px 16px", background: "rgba(212,176,78,0.04)", border: `1px solid ${T.borderAlt}`, borderRadius: 8, display: "flex", alignItems: "center", gap: 10 }}>
           <Zap size={14} style={{ color: T.gold, flexShrink: 0 }} />
           <span style={{ ...sans, fontSize: 13, color: T.creamDim }}>
             Don't see your tool? <span style={{ color: T.gold, cursor: "pointer" }}>Request an integration</span> or connect via our <span style={{ color: T.gold, cursor: "pointer" }}>Webhook API</span>.
@@ -227,7 +227,7 @@ export default function FeatureIntegrations() {
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         @media (max-width: 768px) {
           .fp-nav-links { display: none !important; }
           .fp-nav { padding: 0 16px !important; }
@@ -277,8 +277,8 @@ export default function FeatureIntegrations() {
               { role: "88 Platforms", text: "Every major social network verified and synced" },
               { role: "API Access", text: "Build custom workflows with webhooks and Zapier" },
             ].map(item => (
-              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
-                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(212,176,78,0.2)", background: "rgba(212,176,78,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#d4b04e", fontWeight: 500 }}>{item.role}:</span> {item.text}
               </div>
             ))}
           </div>
@@ -314,7 +314,7 @@ export default function FeatureIntegrations() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                   <Icon size={22} style={{ color: T.gold }} />
                 </div>
                 <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 10 }}>{title}</h3>
@@ -330,9 +330,9 @@ export default function FeatureIntegrations() {
       {/* TESTIMONIAL */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
         <Fade>
-          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #d4b04e", background: "rgba(212,176,78,0.03)", borderRadius: "0 8px 8px 0" }}>
             <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"Connecting our CRM and social platforms took 10 minutes. Everything just syncs automatically."</p>
-            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— Operations Lead, Select Management</p>
+            <p style={{ fontSize: "0.75rem", color: "#d4b04e", fontFamily: "'Instrument Mono', monospace" }}>— Operations Lead, Select Management</p>
           </div>
         </Fade>
       </section>
@@ -359,7 +359,7 @@ export default function FeatureIntegrations() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
         <Fade>
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(196,162,74,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(212,176,78,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
             <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap" }}>
               {[["88", "Verified Platforms"], ["12", "CRM Integrations"], ["Real-time", "Sync"]].map(([val, lbl], i) => (
                 <div key={i} style={{ textAlign: "center" }}>

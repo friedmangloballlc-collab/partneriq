@@ -12,7 +12,7 @@ export default function NotFound() {
     <>
     <SEO title="Page Not Found | DealStage" description="The page you're looking for doesn't exist" />
     <div style={{
-      minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center",
+      minHeight: "100vh", background: "#1c1b19", display: "flex", alignItems: "center",
       justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif",
       position: "relative", overflow: "hidden",
     }}>
@@ -22,15 +22,15 @@ export default function NotFound() {
         @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
         @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
         .ds-404-btn { transition: all 0.2s ease; }
-        .ds-404-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(196,162,74,0.15); }
-        .ds-404-primary:hover { box-shadow: 0 4px 24px rgba(196,162,74,0.35); }
+        .ds-404-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212,176,78,0.15); }
+        .ds-404-primary:hover { box-shadow: 0 4px 24px rgba(212,176,78,0.35); }
       `}</style>
 
       {/* Background glow effects */}
       <div style={{
         position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, -50%)",
         width: 500, height: 500, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(196,162,74,0.06) 0%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(212,176,78,0.06) 0%, transparent 70%)",
         animation: "pulseGlow 4s ease-in-out infinite", pointerEvents: "none",
       }} />
 
@@ -44,7 +44,7 @@ export default function NotFound() {
         <div style={{ animation: "float404 3s ease-in-out infinite", marginBottom: "1.5rem" }}>
           <span style={{
             fontFamily: "'Cormorant Garamond', serif", fontSize: "9rem", fontWeight: 700,
-            background: "linear-gradient(135deg, #c4a24a 0%, #e07b18 50%, #c4a24a 100%)",
+            background: "linear-gradient(135deg, #d4b04e 0%, #e07b18 50%, #d4b04e 100%)",
             backgroundSize: "200% auto", animation: "shimmer 3s linear infinite",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
             lineHeight: 1, display: "block", letterSpacing: "-0.02em",
@@ -71,12 +71,12 @@ export default function NotFound() {
         {attemptedPath && attemptedPath !== "/" && (
           <div style={{
             display: "inline-block", padding: "0.4rem 1rem", borderRadius: 20,
-            background: "rgba(196,162,74,0.08)", border: "0.5px solid rgba(196,162,74,0.15)",
+            background: "rgba(212,176,78,0.08)", border: "0.5px solid rgba(212,176,78,0.15)",
             marginBottom: "2rem", animation: "fadeInUp 0.5s ease-out 0.3s both",
           }}>
             <span style={{
               fontFamily: "'Instrument Mono', monospace", fontSize: "0.75rem",
-              color: "rgba(196,162,74,0.6)", letterSpacing: "0.02em",
+              color: "rgba(212,176,78,0.6)", letterSpacing: "0.02em",
             }}>
               {attemptedPath}
             </span>
@@ -99,8 +99,8 @@ export default function NotFound() {
 
           <button className="ds-404-btn ds-404-primary" onClick={() => navigate("/")} style={{
             display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.75rem 1.5rem",
-            borderRadius: 10, border: "none", background: "linear-gradient(135deg, #c4a24a, #e07b18)",
-            color: "#080807", fontSize: "0.85rem", fontWeight: 600, cursor: "pointer",
+            borderRadius: 10, border: "none", background: "linear-gradient(135deg, #d4b04e, #e07b18)",
+            color: "#1c1b19", fontSize: "0.85rem", fontWeight: 600, cursor: "pointer",
             fontFamily: "'Instrument Sans', sans-serif",
           }}>
             <Home size={16} /> Homepage
@@ -127,10 +127,10 @@ export default function NotFound() {
             { label: "Contact", path: "/Contact" },
           ].map((link) => (
             <a key={link.path} href={link.path} style={{
-              fontSize: "0.8rem", color: "rgba(196,162,74,0.45)", textDecoration: "none",
+              fontSize: "0.8rem", color: "rgba(212,176,78,0.45)", textDecoration: "none",
               fontFamily: "'Instrument Sans', sans-serif", transition: "color 0.2s",
-            }} onMouseOver={(e) => e.target.style.color = "rgba(196,162,74,0.8)"}
-               onMouseOut={(e) => e.target.style.color = "rgba(196,162,74,0.45)"}>
+            }} onMouseOver={(e) => e.target.style.color = "rgba(212,176,78,0.8)"}
+               onMouseOut={(e) => e.target.style.color = "rgba(212,176,78,0.45)"}>
               {link.label}
             </a>
           ))}

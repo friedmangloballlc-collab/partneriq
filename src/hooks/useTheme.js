@@ -6,23 +6,23 @@ const THEMES = {
     label: "Primary Dark",
     logo: "/brand/logos/04_logo_transparent_ondark.png",
     mark: "/brand/marks/10_mark_transparent.png",
-    bg: "#080807",
-    bg2: "#0f0f0d",
-    bg3: "#161613",
-    surface: "rgba(255,248,220,0.03)",
-    border: "rgba(255,248,220,0.07)",
-    border2: "rgba(255,248,220,0.13)",
+    bg: "#1c1b19",
+    bg2: "#232220",
+    bg3: "#2a2826",
+    surface: "rgba(255,248,220,0.05)",
+    border: "rgba(255,248,220,0.09)",
+    border2: "rgba(255,248,220,0.15)",
     text: "#f5f0e6",
-    textMuted: "rgba(245,240,230,0.56)",
+    textMuted: "rgba(245,240,230,0.60)",
     textDim: "rgba(245,240,230,0.28)",
-    gold: "#c4a24a",
+    gold: "#d4b04e",
     amber: "#e07b18",
-    goldDim: "rgba(196,162,74,0.11)",
-    sidebar: "#0a0a09",
+    goldDim: "rgba(212,176,78,0.13)",
+    sidebar: "#121110",
     sidebarText: "#f5f0e6",
-    cardBg: "rgba(255,248,220,0.03)",
-    inputBg: "rgba(255,248,220,0.03)",
-    inputBorder: "rgba(255,248,220,0.1)",
+    cardBg: "rgba(255,248,220,0.05)",
+    inputBg: "rgba(255,248,220,0.05)",
+    inputBorder: "rgba(255,248,220,0.12)",
   },
   gradient: {
     key: "gradient",
@@ -60,7 +60,7 @@ export function useTheme() {
     try { localStorage.setItem("ds-theme", themeKey); } catch {}
     // Apply theme to body for global CSS vars
     const root = document.documentElement;
-    root.style.setProperty("--ds-theme-bg", theme.bg.startsWith("linear") ? "#080807" : theme.bg);
+    root.style.setProperty("--ds-theme-bg", theme.bg.startsWith("linear") ? "#1c1b19" : theme.bg);
     root.style.setProperty("--ds-theme-text", theme.text);
     root.style.setProperty("--ds-theme-gold", theme.gold);
   }, [themeKey, theme]);

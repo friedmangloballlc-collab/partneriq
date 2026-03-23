@@ -317,9 +317,9 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
 
         :root {
-          --ds-bg: #080807;
-          --ds-bg2: #0f0f0d;
-          --ds-bg3: #161613;
+          --ds-bg: #1c1b19;
+          --ds-bg2: #232220;
+          --ds-bg3: #2a2826;
           --ds-bg4: #1d1d19;
           --ds-bg5: #242420;
           --ds-border: rgba(255,248,220,0.07);
@@ -329,15 +329,15 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           --ds-cream2: rgba(245,240,230,0.56);
           --ds-cream3: rgba(245,240,230,0.28);
           --ds-cream4: rgba(245,240,230,0.14);
-          --ds-gold: #c4a24a;
+          --ds-gold: #d4b04e;
           --ds-gold2: #d9b96a;
-          --ds-gold-dim: rgba(196,162,74,0.11);
-          --ds-gold-dim2: rgba(196,162,74,0.18);
+          --ds-gold-dim: rgba(212,176,78,0.11);
+          --ds-gold-dim2: rgba(212,176,78,0.18);
           --ds-amber: #e07b18;
           --ds-amber2: #f09040;
           --ds-amber-dim: rgba(224,123,24,0.12);
           --ds-amber-dim2: rgba(224,123,24,0.2);
-          --ds-ga: linear-gradient(135deg, #c4a24a 0%, #e07b18 100%);
+          --ds-ga: linear-gradient(135deg, #d4b04e 0%, #e07b18 100%);
           --ds-ga-text: linear-gradient(90deg, #d9b96a 0%, #f09040 100%);
           --ds-serif: 'Cormorant Garamond', Georgia, serif;
           --ds-sans: 'Instrument Sans', system-ui, sans-serif;
@@ -396,7 +396,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-drop-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
         .ds-drop-title { font-size: 0.82rem; font-weight: 500; color: var(--ds-cream); margin-bottom: 0.1rem; }
         .ds-drop-desc { font-size: 0.7rem; color: rgba(245,240,230,0.4); line-height: 1.4; }
-        .ds-nav-badge { font-size: 0.58rem; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); color: #080807; border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 500; margin-left: 0.5rem; }
+        .ds-nav-badge { font-size: 0.58rem; background: linear-gradient(135deg, var(--ds-gold), var(--ds-amber)); color: #1c1b19; border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 500; margin-left: 0.5rem; }
         .ds-btn-demo { font-size: 0.82rem; font-weight: 400; color: var(--ds-cream); border: 0.5px solid rgba(255,248,220,0.13); border-radius: 5px; padding: 0.45rem 1rem; background: none; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; white-space: nowrap; font-family: var(--ds-sans); }
         .ds-btn-demo:hover { border-color: rgba(255,248,220,0.22); background: rgba(245,240,230,0.04); }
         .ds-nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
@@ -408,7 +408,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-btn-ghost:hover { color: var(--ds-cream); }
         .ds-btn-trial {
           font-family: var(--ds-sans); font-size: 0.82rem; font-weight: 500;
-          color: #080807; border: none; border-radius: 5px; padding: 0.45rem 1.1rem;
+          color: #1c1b19; border: none; border-radius: 5px; padding: 0.45rem 1.1rem;
           background: var(--ds-ga); cursor: pointer; text-decoration: none;
           transition: opacity 0.2s, transform 0.15s; white-space: nowrap;
         }
@@ -421,7 +421,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         }
         .ds-hero-glow-l {
           position: absolute; top: 5%; left: -15%; width: 700px; height: 600px;
-          background: radial-gradient(ellipse, rgba(196,162,74,0.055) 0%, transparent 65%);
+          background: radial-gradient(ellipse, rgba(212,176,78,0.055) 0%, transparent 65%);
           pointer-events: none;
         }
         .ds-hero-glow-r {
@@ -466,7 +466,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           animation: dsf 0.6s ease forwards 0.55s; opacity: 0;
         }
         .ds-btn-hero-primary {
-          font-family: var(--ds-sans); font-size: 0.9rem; font-weight: 500; color: #080807;
+          font-family: var(--ds-sans); font-size: 0.9rem; font-weight: 500; color: #1c1b19;
           border: none; border-radius: 7px; padding: 0.85rem 2rem; background: var(--ds-ga);
           cursor: pointer; text-decoration: none; display: inline-block;
           transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
@@ -503,7 +503,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           color: var(--ds-cream3); padding: 0.3rem 0.7rem; border-radius: 4px;
           cursor: pointer; border: none; background: none; transition: background 0.15s, color 0.15s;
         }
-        .ds-ui-tab.active { background: var(--ds-ga); color: #080807; font-weight: 500; }
+        .ds-ui-tab.active { background: var(--ds-ga); color: #1c1b19; font-weight: 500; }
         .ds-ui-body { display: grid; grid-template-columns: 200px 1fr 260px; height: 360px; }
         .ds-ui-sidebar { border-right: 0.5px solid var(--ds-border); padding: 1rem 0; display: flex; flex-direction: column; gap: 0.1rem; }
         .ds-ui-nav-item {
@@ -516,7 +516,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-ui-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
         .ds-ui-title { font-family: var(--ds-serif); font-size: 1.1rem; font-weight: 500; color: var(--ds-cream); }
         .ds-ui-add-btn {
-          font-family: var(--ds-mono); font-size: 0.62rem; background: var(--ds-ga); color: #080807;
+          font-family: var(--ds-mono); font-size: 0.62rem; background: var(--ds-ga); color: #1c1b19;
           border: none; border-radius: 4px; padding: 0.3rem 0.7rem; cursor: pointer; letter-spacing: 0.04em;
         }
         .ds-ui-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
@@ -532,7 +532,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-ui-avatar {
           width: 28px; height: 28px; border-radius: 6px; background: var(--ds-ga);
           display: flex; align-items: center; justify-content: center;
-          font-size: 0.55rem; font-weight: 500; font-family: var(--ds-mono); color: #080807; flex-shrink: 0;
+          font-size: 0.55rem; font-weight: 500; font-family: var(--ds-mono); color: #1c1b19; flex-shrink: 0;
         }
         .ds-ui-deal-name { font-size: 0.75rem; font-weight: 500; color: var(--ds-cream); }
         .ds-ui-deal-brand { font-size: 0.62rem; color: var(--ds-cream3); font-family: var(--ds-mono); }
@@ -540,7 +540,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-ui-deal-amt { font-family: var(--ds-mono); font-size: 0.78rem; color: var(--ds-cream); margin-bottom: 0.15rem; }
         .ds-ui-pill { font-size: 0.55rem; font-family: var(--ds-mono); letter-spacing: 0.05em; padding: 0.1rem 0.45rem; border-radius: 100px; text-transform: uppercase; }
         .ds-pill-active { background: var(--ds-amber-dim2); color: var(--ds-amber2); border: 0.5px solid rgba(224,123,24,0.25); }
-        .ds-pill-review { background: var(--ds-gold-dim); color: var(--ds-gold2); border: 0.5px solid rgba(196,162,74,0.2); }
+        .ds-pill-review { background: var(--ds-gold-dim); color: var(--ds-gold2); border: 0.5px solid rgba(212,176,78,0.2); }
         .ds-pill-new { background: rgba(245,240,230,0.06); color: var(--ds-cream3); border: 0.5px solid var(--ds-border2); }
         .ds-ui-right { border-left: 0.5px solid var(--ds-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
         .ds-ui-revenue-card { background: var(--ds-bg3); border: 0.5px solid var(--ds-border); border-radius: 8px; padding: 1rem; }
@@ -599,7 +599,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-feature-body { font-size: 0.9rem; color: var(--ds-cream2); line-height: 1.8; margin-bottom: 1.5rem; }
         .ds-feature-bullets { display: flex; flex-direction: column; gap: 0.6rem; }
         .ds-feature-bullet { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.85rem; color: var(--ds-cream2); }
-        .ds-bullet-dot { width: 16px; height: 16px; border-radius: 4px; background: var(--ds-ga); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; font-size: 0.55rem; color: #080807; }
+        .ds-bullet-dot { width: 16px; height: 16px; border-radius: 4px; background: var(--ds-ga); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; font-size: 0.55rem; color: #1c1b19; }
         .ds-feature-panel { background: var(--ds-bg2); border: 0.5px solid var(--ds-border2); border-radius: 12px; padding: 1.5rem; overflow: hidden; min-height: 280px; display: flex; flex-direction: column; gap: 0.75rem; }
 
         /* HOW IT WORKS */
@@ -609,7 +609,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           padding: 0.6rem 1.5rem; background: none; border: none; cursor: pointer; color: var(--ds-cream3);
           transition: background 0.15s, color 0.15s;
         }
-        .ds-tab-btn.active { background: var(--ds-ga); color: #080807; font-weight: 500; }
+        .ds-tab-btn.active { background: var(--ds-ga); color: #1c1b19; font-weight: 500; }
         .ds-hiw-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
         .ds-hiw-step { background: var(--ds-bg3); border: 0.5px solid var(--ds-border); border-radius: 12px; padding: 2rem; }
         .ds-hiw-num { font-family: var(--ds-serif); font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 1rem; background: var(--ds-ga-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -624,8 +624,8 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-pricing-grid-cols[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
         .ds-plan-card { background: var(--ds-bg3); border: 0.5px solid var(--ds-border); border-radius: 12px; padding: 2rem; position: relative; transition: border-color 0.2s; }
         .ds-plan-card:hover { border-color: var(--ds-border2); }
-        .ds-plan-card.popular { border-color: rgba(196,162,74,0.35); background: linear-gradient(135deg, var(--ds-bg3) 0%, rgba(196,162,74,0.04) 100%); }
-        .ds-plan-badge { font-family: var(--ds-mono); font-size: 0.58rem; background: var(--ds-ga); color: #080807; border-radius: 3px; padding: 0.1rem 0.5rem; letter-spacing: 0.06em; position: absolute; top: 1.25rem; right: 1.25rem; }
+        .ds-plan-card.popular { border-color: rgba(212,176,78,0.35); background: linear-gradient(135deg, var(--ds-bg3) 0%, rgba(212,176,78,0.04) 100%); }
+        .ds-plan-badge { font-family: var(--ds-mono); font-size: 0.58rem; background: var(--ds-ga); color: #1c1b19; border-radius: 3px; padding: 0.1rem 0.5rem; letter-spacing: 0.06em; position: absolute; top: 1.25rem; right: 1.25rem; }
         .ds-plan-title { font-family: var(--ds-serif); font-size: 1.25rem; font-weight: 700; color: var(--ds-cream); margin-bottom: 0.5rem; }
         .ds-plan-price { font-family: var(--ds-serif); font-size: 2.5rem; font-weight: 700; color: var(--ds-cream); line-height: 1; letter-spacing: -0.03em; }
         .ds-plan-price span { font-size: 0.85rem; font-weight: 400; color: var(--ds-cream3); font-family: var(--ds-sans); margin-left: 0.25rem; }
@@ -636,7 +636,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-plan-btn {
           width: 100%; font-family: var(--ds-sans); font-size: 0.88rem; font-weight: 500;
           padding: 0.75rem; border-radius: 7px; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
-          border: none; background: var(--ds-ga); color: #080807;
+          border: none; background: var(--ds-ga); color: #1c1b19;
         }
         .ds-plan-btn:hover { opacity: 0.88; transform: translateY(-1px); }
         .ds-plan-btn.outline { background: none; border: 0.5px solid var(--ds-border2); color: var(--ds-cream2); }
@@ -716,7 +716,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           padding: 8rem 3rem; text-align: center; position: relative; overflow: hidden;
           border-top: 0.5px solid var(--ds-border);
         }
-        .ds-cta-glow-l { position: absolute; bottom: -30%; left: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(196,162,74,0.06) 0%, transparent 65%); pointer-events: none; }
+        .ds-cta-glow-l { position: absolute; bottom: -30%; left: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(212,176,78,0.06) 0%, transparent 65%); pointer-events: none; }
         .ds-cta-glow-r { position: absolute; bottom: -30%; right: -10%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(224,123,24,0.06) 0%, transparent 65%); pointer-events: none; }
         .ds-cta-title { font-family: var(--ds-serif); font-size: clamp(2.75rem,5.5vw,5rem); font-weight: 700; line-height: 1.0; letter-spacing: -0.03em; color: var(--ds-cream); max-width: 660px; margin: 0 auto 1.25rem; }
         .ds-cta-title em { font-style: italic; background: var(--ds-ga-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -765,7 +765,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         .ds-mobile-nav-cta {
           width: 100%; font-family: var(--ds-sans); font-size: 0.9rem; font-weight: 500;
           padding: 0.85rem; border-radius: 7px; cursor: pointer; text-align: center;
-          background: var(--ds-ga); color: #080807; border: none; text-decoration: none;
+          background: var(--ds-ga); color: #1c1b19; border: none; text-decoration: none;
           display: block;
         }
         .ds-mobile-nav-login {
@@ -1112,7 +1112,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           <AnimatedWalkthrough />
           <p className="ds-video-label" style={{ marginTop: "1.5rem" }}>
             Want to try it yourself?{" "}
-            <a href="/Demo" style={{ color: "var(--ds-gold2)", textDecoration: "none", borderBottom: "0.5px solid rgba(196,162,74,0.35)", paddingBottom: 1, transition: "border-color 0.2s" }}>
+            <a href="/Demo" style={{ color: "var(--ds-gold2)", textDecoration: "none", borderBottom: "0.5px solid rgba(212,176,78,0.35)", paddingBottom: 1, transition: "border-color 0.2s" }}>
               Interactive demo &#8594;
             </a>
           </p>
@@ -1139,11 +1139,11 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                   style={{ width: 40, height: 22, borderRadius: 11, border: "none", cursor: "pointer", position: "relative", transition: "background 0.2s", background: billingAnnual ? "var(--ds-ga)" : "rgba(255,248,220,0.1)" }}
                   aria-label="Toggle annual billing"
                 >
-                  <div style={{ position: "absolute", top: 3, left: billingAnnual ? 21 : 3, width: 16, height: 16, borderRadius: "50%", background: billingAnnual ? "#080807" : "rgba(245,240,230,0.5)", transition: "left 0.2s" }} />
+                  <div style={{ position: "absolute", top: 3, left: billingAnnual ? 21 : 3, width: 16, height: 16, borderRadius: "50%", background: billingAnnual ? "#1c1b19" : "rgba(245,240,230,0.5)", transition: "left 0.2s" }} />
                 </button>
                 <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: billingAnnual ? "var(--ds-cream)" : "var(--ds-cream3)", letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                   Annual
-                  {billingAnnual && <span style={{ fontSize: "0.58rem", background: "var(--ds-ga)", color: "#080807", borderRadius: 3, padding: "0.1rem 0.4rem", fontWeight: 600 }}>Save 20%</span>}
+                  {billingAnnual && <span style={{ fontSize: "0.58rem", background: "var(--ds-ga)", color: "#1c1b19", borderRadius: 3, padding: "0.1rem 0.4rem", fontWeight: 600 }}>Save 20%</span>}
                 </span>
               </div>
             </div>
@@ -1163,7 +1163,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                     </div>
                     {isPaid && (
                       <div style={{ marginTop: "0.5rem", marginBottom: "0.25rem" }}>
-                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>7-day free trial</span>
+                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(212,176,78,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>7-day free trial</span>
                       </div>
                     )}
                     <hr className="ds-plan-divider" />
@@ -1336,7 +1336,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                         <span style={{ fontFamily: "var(--ds-mono)", color: "var(--ds-gold2)" }}>{deal.amt}</span>
                       </div>
                     ))}
-                    <div style={{ marginTop: "auto", background: "var(--ds-ga)", borderRadius: 8, padding: "0.6rem", textAlign: "center", fontFamily: "var(--ds-mono)", fontSize: "0.65rem", color: "#080807", cursor: "pointer" }}>
+                    <div style={{ marginTop: "auto", background: "var(--ds-ga)", borderRadius: 8, padding: "0.6rem", textAlign: "center", fontFamily: "var(--ds-mono)", fontSize: "0.65rem", color: "#1c1b19", cursor: "pointer" }}>
                       View all deals &#8594;
                     </div>
                   </div>
@@ -1435,7 +1435,7 @@ function FeatureMockup({ type }) {
             <div style={{ fontFamily: "var(--ds-serif)", fontSize: "1.1rem", fontWeight: 500, color: "var(--ds-cream)" }}>Zara Ali</div>
             <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.25rem" }}>
               {["Fashion", "Beauty", "Lifestyle"].map((t) => (
-                <span key={t} style={{ fontSize: "0.6rem", fontFamily: "var(--ds-mono)", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.18)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>{t}</span>
+                <span key={t} style={{ fontSize: "0.6rem", fontFamily: "var(--ds-mono)", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(212,176,78,0.18)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>{t}</span>
               ))}
             </div>
           </div>
@@ -1455,7 +1455,7 @@ function FeatureMockup({ type }) {
           </div>
         ))}
         <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
-          <button style={{ flex: 1, fontFamily: "var(--ds-mono)", fontSize: "0.65rem", background: "var(--ds-ga)", color: "#080807", border: "none", borderRadius: 5, padding: "0.55rem", cursor: "pointer", letterSpacing: "0.04em" }}>Send to brand</button>
+          <button style={{ flex: 1, fontFamily: "var(--ds-mono)", fontSize: "0.65rem", background: "var(--ds-ga)", color: "#1c1b19", border: "none", borderRadius: 5, padding: "0.55rem", cursor: "pointer", letterSpacing: "0.04em" }}>Send to brand</button>
           <button style={{ flex: 1, fontFamily: "var(--ds-mono)", fontSize: "0.65rem", background: "none", color: "var(--ds-cream2)", border: "0.5px solid var(--ds-border2)", borderRadius: 5, padding: "0.55rem", cursor: "pointer", letterSpacing: "0.04em" }}>Export PDF</button>
         </div>
       </div>
@@ -1471,7 +1471,7 @@ function FeatureMockup({ type }) {
         </div>
         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
           {["All", "Athletes", "Creators", "Musicians", "Speakers"].map((f, i) => (
-            <span key={f} style={{ fontFamily: "var(--ds-mono)", fontSize: "0.68rem", color: i === 0 ? "var(--ds-gold2)" : "var(--ds-cream3)", background: i === 0 ? "var(--ds-gold-dim)" : "var(--ds-bg3)", border: `0.5px solid ${i === 0 ? "rgba(196,162,74,0.3)" : "var(--ds-border)"}`, borderRadius: 6, padding: "0.3rem 0.75rem", cursor: "pointer", letterSpacing: "0.04em" }}>{f}</span>
+            <span key={f} style={{ fontFamily: "var(--ds-mono)", fontSize: "0.68rem", color: i === 0 ? "var(--ds-gold2)" : "var(--ds-cream3)", background: i === 0 ? "var(--ds-gold-dim)" : "var(--ds-bg3)", border: `0.5px solid ${i === 0 ? "rgba(212,176,78,0.3)" : "var(--ds-border)"}`, borderRadius: 6, padding: "0.3rem 0.75rem", cursor: "pointer", letterSpacing: "0.04em" }}>{f}</span>
           ))}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
@@ -1482,7 +1482,7 @@ function FeatureMockup({ type }) {
             <div key={c.name} style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 10, overflow: "hidden" }}>
               <div style={{ height: 90, background: "var(--ds-bg4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2rem", position: "relative" }}>
                 <span dangerouslySetInnerHTML={{ __html: c.icon }} />
-                <span style={{ position: "absolute", top: "0.5rem", right: "0.5rem", fontFamily: "var(--ds-mono)", fontSize: "0.55rem", background: "var(--ds-ga)", color: "#080807", borderRadius: 3, padding: "0.1rem 0.4rem", letterSpacing: "0.05em" }}>Verified</span>
+                <span style={{ position: "absolute", top: "0.5rem", right: "0.5rem", fontFamily: "var(--ds-mono)", fontSize: "0.55rem", background: "var(--ds-ga)", color: "#1c1b19", borderRadius: 3, padding: "0.1rem 0.4rem", letterSpacing: "0.05em" }}>Verified</span>
               </div>
               <div style={{ padding: "0.75rem" }}>
                 <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--ds-cream)", marginBottom: 2 }}>{c.name}</div>
@@ -1494,7 +1494,7 @@ function FeatureMockup({ type }) {
               </div>
               <div style={{ padding: "0.5rem 0.75rem", borderTop: "0.5px solid var(--ds-border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.72rem", color: "var(--ds-cream2)" }}>From <strong style={{ color: "var(--ds-amber2)" }}>{c.rate}</strong></span>
-                <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.6rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 4, padding: "0.2rem 0.5rem", cursor: "pointer", letterSpacing: "0.04em" }}>View profile</span>
+                <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.6rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(212,176,78,0.2)", borderRadius: 4, padding: "0.2rem 0.5rem", cursor: "pointer", letterSpacing: "0.04em" }}>View profile</span>
               </div>
             </div>
           ))}
@@ -1508,7 +1508,7 @@ function FeatureMockup({ type }) {
       <div style={base}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
           <span style={{ fontFamily: "var(--ds-serif)", fontSize: "1rem", fontWeight: 500, color: "var(--ds-cream)" }}>Deal Pipeline</span>
-          <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", background: "var(--ds-ga)", color: "#080807", borderRadius: 4, padding: "0.25rem 0.6rem", cursor: "pointer" }}>+ New Deal</span>
+          <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", background: "var(--ds-ga)", color: "#1c1b19", borderRadius: 4, padding: "0.25rem 0.6rem", cursor: "pointer" }}>+ New Deal</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.65rem" }}>
           {[["$248K", "Pipeline"], ["24", "Active"], ["96%", "Closed"]].map(([v, l]) => (
@@ -1525,7 +1525,7 @@ function FeatureMockup({ type }) {
         ].map((d) => (
           <div key={d.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.6rem 0.7rem", background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 7 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <div style={{ width: 26, height: 26, borderRadius: 6, background: "var(--ds-ga)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.5rem", fontFamily: "var(--ds-mono)", color: "#080807", flexShrink: 0 }}>{d.init}</div>
+              <div style={{ width: 26, height: 26, borderRadius: 6, background: "var(--ds-ga)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.5rem", fontFamily: "var(--ds-mono)", color: "#1c1b19", flexShrink: 0 }}>{d.init}</div>
               <div>
                 <div style={{ fontSize: "0.72rem", fontWeight: 500, color: "var(--ds-cream)" }}>{d.name}</div>
                 <div style={{ fontSize: "0.6rem", color: "var(--ds-cream3)", fontFamily: "var(--ds-mono)" }}>{d.sub}</div>
@@ -1598,7 +1598,7 @@ function FeatureMockup({ type }) {
     return (
       <div style={base}>
         <div style={{ fontFamily: "var(--ds-serif)", fontSize: "1rem", fontWeight: 500, color: "var(--ds-cream)" }}>AI Match Engine</div>
-        <div style={{ background: "linear-gradient(135deg, var(--ds-bg3) 0%, rgba(196,162,74,0.06) 100%)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 8, padding: "1rem" }}>
+        <div style={{ background: "linear-gradient(135deg, var(--ds-bg3) 0%, rgba(212,176,78,0.06) 100%)", border: "0.5px solid rgba(212,176,78,0.2)", borderRadius: 8, padding: "1rem" }}>
           <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.6rem", color: "var(--ds-gold2)", letterSpacing: "0.06em", marginBottom: "0.5rem" }}>TOP MATCH · 97% COMPATIBILITY</div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <div style={{ width: 36, height: 36, borderRadius: 8, background: "var(--ds-ga)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>🏆</div>

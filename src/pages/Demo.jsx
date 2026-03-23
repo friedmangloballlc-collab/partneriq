@@ -4,16 +4,16 @@ import SEO from "@/components/SEO";
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
 const T = {
-  bg: "#080807",
+  bg: "#1c1b19",
   bgAlt: "#0f0e0c",
   bgCard: "#111109",
   bgCardHover: "#161612",
-  border: "rgba(196,162,74,0.15)",
-  borderMid: "rgba(196,162,74,0.3)",
-  gold: "#c4a24a",
+  border: "rgba(212,176,78,0.15)",
+  borderMid: "rgba(212,176,78,0.3)",
+  gold: "#d4b04e",
   goldLight: "#d4b56a",
-  goldDim: "rgba(196,162,74,0.12)",
-  goldDimMid: "rgba(196,162,74,0.2)",
+  goldDim: "rgba(212,176,78,0.12)",
+  goldDimMid: "rgba(212,176,78,0.2)",
   amber: "#e07b18",
   cream: "#f5f0e6",
   creamDim: "rgba(245,240,230,0.6)",
@@ -55,7 +55,7 @@ const Pill = ({ children, color = T.gold, bg }) => (
       letterSpacing: "0.08em",
       textTransform: "uppercase",
       color,
-      background: bg || `rgba(196,162,74,0.12)`,
+      background: bg || `rgba(212,176,78,0.12)`,
       border: `1px solid ${color}30`,
       borderRadius: 4,
       padding: "2px 8px",
@@ -254,7 +254,7 @@ const Screen1 = () => {
               key={t.name}
               onClick={() => setActive(i)}
               style={{
-                background: active === i ? `rgba(196,162,74,0.07)` : T.bgCard,
+                background: active === i ? `rgba(212,176,78,0.07)` : T.bgCard,
                 border: `1px solid ${active === i ? T.borderMid : T.border}`,
                 borderRadius: 10,
                 padding: "12px 14px",
@@ -426,7 +426,7 @@ const Screen1 = () => {
               width: 72,
               height: 72,
               borderRadius: "50%",
-              background: `conic-gradient(${T.gold} ${talents[active].score}%, rgba(196,162,74,0.1) 0%)`,
+              background: `conic-gradient(${T.gold} ${talents[active].score}%, rgba(212,176,78,0.1) 0%)`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -1403,7 +1403,7 @@ const Screen6 = () => {
           fontFamily: fonts.mono,
           fontSize: 13,
           letterSpacing: "0.2em",
-          color: "rgba(196,162,74,0.06)",
+          color: "rgba(212,176,78,0.06)",
           fontWeight: 700,
           textTransform: "uppercase",
           pointerEvents: "none",
@@ -1419,7 +1419,7 @@ const Screen6 = () => {
         {ndaBanner && (
           <div
             style={{
-              background: "linear-gradient(135deg, rgba(196,162,74,0.1), rgba(224,123,24,0.08))",
+              background: "linear-gradient(135deg, rgba(212,176,78,0.1), rgba(224,123,24,0.08))",
               border: `1px solid ${T.borderMid}`,
               borderRadius: 10,
               padding: "12px 16px",
@@ -1655,27 +1655,27 @@ export default function Demo() {
         }
 
         @keyframes lineGlow {
-          0%, 100% { box-shadow: 0 0 6px rgba(196,162,74,0.3); }
-          50% { box-shadow: 0 0 16px rgba(196,162,74,0.7); }
+          0%, 100% { box-shadow: 0 0 6px rgba(212,176,78,0.3); }
+          50% { box-shadow: 0 0 16px rgba(212,176,78,0.7); }
         }
 
         .demo-cta-primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 32px rgba(196,162,74,0.35) !important;
+          box-shadow: 0 8px 32px rgba(212,176,78,0.35) !important;
         }
 
         .demo-cta-secondary:hover {
-          background: rgba(196,162,74,0.08) !important;
-          border-color: rgba(196,162,74,0.5) !important;
+          background: rgba(212,176,78,0.08) !important;
+          border-color: rgba(212,176,78,0.5) !important;
         }
 
         .screen-tab:hover {
-          background: rgba(196,162,74,0.08) !important;
+          background: rgba(212,176,78,0.08) !important;
         }
 
         .tour-nav-btn:hover {
-          background: rgba(196,162,74,0.12) !important;
-          border-color: rgba(196,162,74,0.4) !important;
+          background: rgba(212,176,78,0.12) !important;
+          border-color: rgba(212,176,78,0.4) !important;
         }
 
         @media (max-width: 768px) {
@@ -1707,7 +1707,7 @@ export default function Demo() {
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(196,162,74,0.06) 0%, transparent 70%)",
+              "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(212,176,78,0.06) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -1718,8 +1718,8 @@ export default function Demo() {
             position: "absolute",
             inset: 0,
             backgroundImage: `
-              linear-gradient(rgba(196,162,74,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(196,162,74,0.04) 1px, transparent 1px)
+              linear-gradient(rgba(212,176,78,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,176,78,0.04) 1px, transparent 1px)
             `,
             backgroundSize: "80px 80px",
             pointerEvents: "none",
@@ -1818,7 +1818,7 @@ export default function Demo() {
               fontWeight: 700,
               cursor: "pointer",
               transition: "all 0.25s cubic-bezier(0.4,0,0.2,1)",
-              boxShadow: `0 4px 20px rgba(196,162,74,0.2)`,
+              boxShadow: `0 4px 20px rgba(212,176,78,0.2)`,
             }}
           >
             Start the Tour
@@ -1919,7 +1919,7 @@ export default function Demo() {
             border: `1px solid ${T.border}`,
             borderRadius: 20,
             overflow: "hidden",
-            boxShadow: `0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(196,162,74,0.08)`,
+            boxShadow: `0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,176,78,0.08)`,
           }}
         >
           {/* Tab bar */}
@@ -2156,7 +2156,7 @@ export default function Demo() {
       <section
         style={{
           padding: "80px 24px 100px",
-          background: `linear-gradient(180deg, ${T.bg} 0%, rgba(196,162,74,0.04) 50%, ${T.bg} 100%)`,
+          background: `linear-gradient(180deg, ${T.bg} 0%, rgba(212,176,78,0.04) 50%, ${T.bg} 100%)`,
         }}
       >
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
@@ -2227,7 +2227,7 @@ export default function Demo() {
                 position: "absolute",
                 inset: 0,
                 background:
-                  "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(196,162,74,0.08) 0%, transparent 70%)",
+                  "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212,176,78,0.08) 0%, transparent 70%)",
                 pointerEvents: "none",
               }}
             />
@@ -2292,7 +2292,7 @@ export default function Demo() {
                   fontWeight: 700,
                   cursor: "pointer",
                   transition: "all 0.25s cubic-bezier(0.4,0,0.2,1)",
-                  boxShadow: `0 4px 20px rgba(196,162,74,0.25)`,
+                  boxShadow: `0 4px 20px rgba(212,176,78,0.25)`,
                 }}
               >
                 Start Free Trial

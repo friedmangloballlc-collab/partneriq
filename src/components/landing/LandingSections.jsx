@@ -15,13 +15,13 @@ export function FAQSection() {
   const [open, setOpen] = useState(null);
   return (
     <div style={{ padding: "6rem 2rem", maxWidth: 800, margin: "0 auto" }}>
-      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#c4a24a", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ Frequently asked</p>
+      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#d4b04e", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ Frequently asked</p>
       <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05, color: "#f5f0e6", marginBottom: "2rem" }}>
         Questions? <em style={{ fontStyle: "italic", background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Answers.</em>
       </h2>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
         {FAQ_DATA.map((item, i) => (
-          <div key={i} style={{ border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 10, overflow: "hidden", background: open === i ? "#0f0f0d" : "transparent", transition: "background 0.2s" }}>
+          <div key={i} style={{ border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 10, overflow: "hidden", background: open === i ? "#232220" : "transparent", transition: "background 0.2s" }}>
             <button onClick={() => setOpen(open === i ? null : i)} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.1rem 1.5rem", background: "none", border: "none", cursor: "pointer", color: "#f5f0e6", fontFamily: "'Instrument Sans', sans-serif", fontSize: "0.95rem", fontWeight: 500, textAlign: "left" }}>
               {item.q}
               <ChevronDown style={{ width: 18, height: 18, opacity: 0.4, transform: open === i ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
@@ -51,7 +51,7 @@ const COMPARE_ROWS = [
 ];
 
 function CompareCell({ val }) {
-  if (val === true) return <Check style={{ width: 18, height: 18, color: "#c4a24a" }} />;
+  if (val === true) return <Check style={{ width: 18, height: 18, color: "#d4b04e" }} />;
   if (val === false) return <X style={{ width: 18, height: 18, opacity: 0.2, color: "#f5f0e6" }} />;
   return <span style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.4)" }}>{val}</span>;
 }
@@ -59,7 +59,7 @@ function CompareCell({ val }) {
 export function ComparisonSection() {
   return (
     <div style={{ padding: "6rem 2rem", maxWidth: 900, margin: "0 auto" }}>
-      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#c4a24a", textTransform: "uppercase", marginBottom: "1.25rem", textAlign: "center" }}>/ Why Deal Stage</p>
+      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#d4b04e", textTransform: "uppercase", marginBottom: "1.25rem", textAlign: "center" }}>/ Why Deal Stage</p>
       <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05, color: "#f5f0e6", marginBottom: "2.5rem", textAlign: "center" }}>
         Compare and <em style={{ fontStyle: "italic", background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>decide</em>
       </h2>
@@ -68,7 +68,7 @@ export function ComparisonSection() {
           <thead>
             <tr>
               <th style={{ textAlign: "left", padding: "1rem", fontSize: "0.75rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", fontWeight: 400, borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>Feature</th>
-              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.8rem", fontWeight: 600, color: "#c4a24a", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>Deal Stage</th>
+              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.8rem", fontWeight: 600, color: "#d4b04e", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>Deal Stage</th>
               <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.8rem", fontWeight: 400, color: "rgba(245,240,230,0.4)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>Traditional Agencies</th>
               <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.8rem", fontWeight: 400, color: "rgba(245,240,230,0.4)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>Spreadsheets</th>
             </tr>
@@ -100,9 +100,9 @@ export function SecurityBadges() {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", padding: "3rem 2rem", maxWidth: 900, margin: "0 auto" }}>
       {badges.map((b, i) => (
-        <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "1rem 1.25rem", border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 10, background: "#0f0f0d" }}>
-          <div style={{ width: 36, height: 36, borderRadius: 8, background: "linear-gradient(135deg, rgba(196,162,74,0.15), rgba(224,123,24,0.15))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <b.icon style={{ width: 18, height: 18, color: "#c4a24a" }} />
+        <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "1rem 1.25rem", border: "0.5px solid rgba(255,248,220,0.07)", borderRadius: 10, background: "#232220" }}>
+          <div style={{ width: 36, height: 36, borderRadius: 8, background: "linear-gradient(135deg, rgba(212,176,78,0.15), rgba(224,123,24,0.15))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <b.icon style={{ width: 18, height: 18, color: "#d4b04e" }} />
           </div>
           <div>
             <p style={{ fontSize: "0.8rem", fontWeight: 500, color: "#f5f0e6" }}>{b.label}</p>
@@ -118,15 +118,15 @@ export function SecurityBadges() {
 export function VideoDemoSection() {
   return (
     <div style={{ padding: "6rem 2rem", textAlign: "center", borderTop: "0.5px solid rgba(255,248,220,0.07)", borderBottom: "0.5px solid rgba(255,248,220,0.07)" }}>
-      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#c4a24a", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ See it in action</p>
+      <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#d4b04e", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ See it in action</p>
       <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05, color: "#f5f0e6", marginBottom: "1rem" }}>
         Watch Deal Stage <em style={{ fontStyle: "italic", background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>work</em>
       </h2>
       <p style={{ fontSize: "0.95rem", color: "rgba(245,240,230,0.56)", maxWidth: 480, margin: "0 auto 2.5rem", lineHeight: 1.8 }}>See how talent, brands, and agencies use Deal Stage to discover partners, close deals, and grow revenue.</p>
-      <div style={{ maxWidth: 720, margin: "0 auto", aspectRatio: "16/9", background: "#0f0f0d", border: "0.5px solid rgba(255,248,220,0.13)", borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(196,162,74,0.05), rgba(224,123,24,0.05))" }} />
-        <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1, boxShadow: "0 8px 32px rgba(224,123,24,0.3)" }}>
-          <Play style={{ width: 28, height: 28, color: "#080807", marginLeft: 3 }} />
+      <div style={{ maxWidth: 720, margin: "0 auto", aspectRatio: "16/9", background: "#232220", border: "0.5px solid rgba(255,248,220,0.13)", borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(212,176,78,0.05), rgba(224,123,24,0.05))" }} />
+        <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg, #d4b04e, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1, boxShadow: "0 8px 32px rgba(224,123,24,0.3)" }}>
+          <Play style={{ width: 28, height: 28, color: "#1c1b19", marginLeft: 3 }} />
         </div>
         <span style={{ position: "absolute", bottom: 20, fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", color: "rgba(245,240,230,0.4)", letterSpacing: "0.06em" }}>2:00 · Product walkthrough</span>
       </div>
@@ -144,7 +144,7 @@ export function MobileAppSection() {
   return (
     <div style={{ padding: "6rem 2rem", maxWidth: 1000, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
       <div>
-        <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#c4a24a", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ Coming soon</p>
+        <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#d4b04e", textTransform: "uppercase", marginBottom: "1.25rem" }}>/ Coming soon</p>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 700, lineHeight: 1.05, color: "#f5f0e6", marginBottom: "1rem" }}>
           Deal Stage <em style={{ fontStyle: "italic", background: "linear-gradient(90deg, #d9b96a, #f09040)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>on the go</em>
         </h2>
@@ -152,8 +152,8 @@ export function MobileAppSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           {features.map((f, i) => (
             <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-              <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                <f.icon style={{ width: 18, height: 18, color: "#c4a24a" }} />
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                <f.icon style={{ width: 18, height: 18, color: "#d4b04e" }} />
               </div>
               <div>
                 <p style={{ fontSize: "0.85rem", fontWeight: 500, color: "#f5f0e6", marginBottom: 2 }}>{f.title}</p>
@@ -163,7 +163,7 @@ export function MobileAppSection() {
           ))}
         </div>
       </div>
-      <div style={{ aspectRatio: "9/16", maxHeight: 500, background: "#0f0f0d", border: "0.5px solid rgba(255,248,220,0.13)", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto" }}>
+      <div style={{ aspectRatio: "9/16", maxHeight: 500, background: "#232220", border: "0.5px solid rgba(255,248,220,0.13)", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto" }}>
         <div style={{ textAlign: "center" }}>
           <Smartphone style={{ width: 48, height: 48, color: "rgba(245,240,230,0.15)", marginBottom: 12 }} />
           <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.6rem", color: "rgba(245,240,230,0.25)", letterSpacing: "0.08em" }}>iOS & Android<br />Coming Q3 2026</p>

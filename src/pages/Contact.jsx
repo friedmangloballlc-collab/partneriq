@@ -15,12 +15,12 @@ import {
 } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
-  gold: "#c4a24a",
+  bg: "#1c1b19",
+  gold: "#d4b04e",
   amber: "#e07b18",
   cream: "#f5f0e6",
-  surface: "#0f0f0d",
-  border: "rgba(196,162,74,0.15)",
+  surface: "#232220",
+  border: "rgba(212,176,78,0.15)",
   muted: "rgba(245,240,230,0.45)",
 };
 
@@ -111,8 +111,8 @@ function SectionLabel({ icon: Icon, children }) {
         display: "inline-flex",
         alignItems: "center",
         gap: "8px",
-        background: "rgba(196,162,74,0.07)",
-        border: `1px solid rgba(196,162,74,0.2)`,
+        background: "rgba(212,176,78,0.07)",
+        border: `1px solid rgba(212,176,78,0.2)`,
         borderRadius: "100px",
         padding: "6px 16px",
         marginBottom: "24px",
@@ -149,10 +149,10 @@ function ContactCard({ card, delay }) {
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms, border-color 0.25s ease, box-shadow 0.25s ease`,
         background: COLORS.surface,
-        border: `1px solid ${hovered ? "rgba(196,162,74,0.3)" : COLORS.border}`,
+        border: `1px solid ${hovered ? "rgba(212,176,78,0.3)" : COLORS.border}`,
         borderRadius: "16px",
         padding: "32px",
-        boxShadow: hovered ? "0 8px 40px rgba(196,162,74,0.08)" : "none",
+        boxShadow: hovered ? "0 8px 40px rgba(212,176,78,0.08)" : "none",
         display: "flex",
         flexDirection: "column",
         gap: "16px",
@@ -163,11 +163,11 @@ function ContactCard({ card, delay }) {
           width: 46,
           height: 46,
           borderRadius: "11px",
-          background: `linear-gradient(135deg, rgba(196,162,74,0.15), rgba(224,123,24,0.08))`,
+          background: `linear-gradient(135deg, rgba(212,176,78,0.15), rgba(224,123,24,0.08))`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          border: `1px solid rgba(196,162,74,0.2)`,
+          border: `1px solid rgba(212,176,78,0.2)`,
         }}
       >
         <Icon size={20} color={COLORS.gold} />
@@ -289,7 +289,7 @@ function FaqItem({ faq, index }) {
 const inputStyle = {
   width: "100%",
   background: "rgba(255,255,255,0.03)",
-  border: `1px solid rgba(196,162,74,0.2)`,
+  border: `1px solid rgba(212,176,78,0.2)`,
   borderRadius: "10px",
   padding: "13px 16px",
   fontFamily: FONTS.body,
@@ -322,7 +322,7 @@ export default function Contact() {
   };
 
   const getFocusStyle = (field) =>
-    focusedField === field ? { borderColor: "rgba(196,162,74,0.55)" } : {};
+    focusedField === field ? { borderColor: "rgba(212,176,78,0.55)" } : {};
 
   return (
     <div
@@ -336,12 +336,12 @@ export default function Contact() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #080807; }
-        ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #1c1b19; }
+        ::-webkit-scrollbar-thumb { background: rgba(212,176,78,0.3); border-radius: 3px; }
         input::placeholder, textarea::placeholder, select::placeholder { color: rgba(245,240,230,0.28); }
-        select option { background: #0f0f0d; color: #f5f0e6; }
+        select option { background: #232220; color: #f5f0e6; }
         @media (max-width: 768px) {
           .ct-form-layout { grid-template-columns: 1fr !important; }
           .ct-field-row { grid-template-columns: 1fr !important; }
@@ -359,7 +359,7 @@ export default function Contact() {
           right: "-150px",
           width: "600px",
           height: "600px",
-          background: `radial-gradient(circle, rgba(196,162,74,0.05) 0%, transparent 65%)`,
+          background: `radial-gradient(circle, rgba(212,176,78,0.05) 0%, transparent 65%)`,
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -445,7 +445,7 @@ export default function Contact() {
         <div
           style={{
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(196,162,74,0.18), transparent)`,
+            background: `linear-gradient(90deg, transparent, rgba(212,176,78,0.18), transparent)`,
             marginBottom: "96px",
           }}
         />
@@ -480,8 +480,8 @@ export default function Contact() {
             {submitted ? (
               <div
                 style={{
-                  background: "rgba(196,162,74,0.05)",
-                  border: `1px solid rgba(196,162,74,0.25)`,
+                  background: "rgba(212,176,78,0.05)",
+                  border: `1px solid rgba(212,176,78,0.25)`,
                   borderRadius: "16px",
                   padding: "48px",
                   textAlign: "center",
@@ -492,12 +492,12 @@ export default function Contact() {
                     width: 52,
                     height: 52,
                     borderRadius: "50%",
-                    background: "rgba(196,162,74,0.1)",
+                    background: "rgba(212,176,78,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "0 auto 20px",
-                    border: `1px solid rgba(196,162,74,0.25)`,
+                    border: `1px solid rgba(212,176,78,0.25)`,
                   }}
                 >
                   <CheckCircle size={24} color={COLORS.gold} />
@@ -727,8 +727,8 @@ export default function Contact() {
                   style={{
                     height: "200px",
                     background: `
-                      linear-gradient(rgba(196,162,74,0.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(196,162,74,0.03) 1px, transparent 1px),
+                      linear-gradient(rgba(212,176,78,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(212,176,78,0.03) 1px, transparent 1px),
                       #0a0a08
                     `,
                     backgroundSize: "32px 32px",
@@ -779,7 +779,7 @@ export default function Contact() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        boxShadow: `0 0 24px rgba(196,162,74,0.4)`,
+                        boxShadow: `0 0 24px rgba(212,176,78,0.4)`,
                       }}
                     >
                       <MapPin size={16} color={COLORS.bg} />
@@ -800,7 +800,7 @@ export default function Contact() {
                       width: 80,
                       height: 80,
                       borderRadius: "50%",
-                      border: `1px solid rgba(196,162,74,0.2)`,
+                      border: `1px solid rgba(212,176,78,0.2)`,
                       top: "50%",
                       left: "50%",
                       transform: "translate(-50%, -58%)",
@@ -812,7 +812,7 @@ export default function Contact() {
                       width: 120,
                       height: 120,
                       borderRadius: "50%",
-                      border: `1px solid rgba(196,162,74,0.08)`,
+                      border: `1px solid rgba(212,176,78,0.08)`,
                       top: "50%",
                       left: "50%",
                       transform: "translate(-50%, -55%)",
@@ -828,11 +828,11 @@ export default function Contact() {
                         width: 34,
                         height: 34,
                         borderRadius: "8px",
-                        background: "rgba(196,162,74,0.08)",
+                        background: "rgba(212,176,78,0.08)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        border: `1px solid rgba(196,162,74,0.15)`,
+                        border: `1px solid rgba(212,176,78,0.15)`,
                       }}
                     >
                       <Building2 size={16} color={COLORS.gold} />
@@ -880,8 +880,8 @@ export default function Contact() {
             <FadeSection delay={200}>
               <div
                 style={{
-                  background: "rgba(196,162,74,0.04)",
-                  border: `1px solid rgba(196,162,74,0.15)`,
+                  background: "rgba(212,176,78,0.04)",
+                  border: `1px solid rgba(212,176,78,0.15)`,
                   borderRadius: "12px",
                   padding: "20px 24px",
                   display: "flex",
@@ -933,7 +933,7 @@ export default function Contact() {
         <div
           style={{
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(196,162,74,0.18), transparent)`,
+            background: `linear-gradient(90deg, transparent, rgba(212,176,78,0.18), transparent)`,
             marginBottom: "72px",
           }}
         />

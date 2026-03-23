@@ -13,12 +13,12 @@ import {
 } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
+  bg: "#1c1b19",
   bgCard: "#0f0e0c",
   bgCardHover: "#141310",
   border: "#1e1c18",
-  borderGold: "#c4a24a",
-  gold: "#c4a24a",
+  borderGold: "#d4b04e",
+  gold: "#d4b04e",
   goldLight: "#d4b56a",
   amber: "#e07b18",
   cream: "#f5f0e6",
@@ -38,7 +38,7 @@ const caseStudies = [
     initials: "N",
     company: "Nike",
     partner: "Jordan Reeves",
-    gradient: "linear-gradient(135deg, #c4a24a 0%, #e07b18 100%)",
+    gradient: "linear-gradient(135deg, #d4b04e 0%, #e07b18 100%)",
     badge: "Brand + Athlete",
     badgeColor: "#e07b18",
     title: "How Nike found their perfect athlete partner in 48 hours",
@@ -60,9 +60,9 @@ const caseStudies = [
     initials: "S",
     company: "Spotify",
     partner: "Creator Network",
-    gradient: "linear-gradient(135deg, #1db954 0%, #c4a24a 100%)",
+    gradient: "linear-gradient(135deg, #1db954 0%, #d4b04e 100%)",
     badge: "Brand + Creators",
-    badgeColor: "#c4a24a",
+    badgeColor: "#d4b04e",
     title: "Spotify's podcast creator campaign scaled to 50 partnerships",
     quote:
       "We needed to move fast and sign 50 creators across three podcast verticals in under 60 days. Dealstage's outreach sequences and automated contract workflows made it possible without growing our team.",
@@ -82,7 +82,7 @@ const caseStudies = [
     initials: "W",
     company: "Wasserman",
     partner: "Agency Operations",
-    gradient: "linear-gradient(135deg, #6366f1 0%, #c4a24a 100%)",
+    gradient: "linear-gradient(135deg, #6366f1 0%, #d4b04e 100%)",
     badge: "Agency",
     badgeColor: "#9333ea",
     title: "How Wasserman manages 200+ talent deals from one dashboard",
@@ -184,9 +184,9 @@ export default function Customers() {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@300;400;500&display=swap');
 
         .cs-case-tab:hover { background: #1a1814 !important; }
-        .cs-case-tab.active { background: #1a1814 !important; border-color: #c4a24a !important; }
+        .cs-case-tab.active { background: #1a1814 !important; border-color: #d4b04e !important; }
         .cs-cta-btn:hover { background: linear-gradient(135deg, #d4b56a 0%, #f08b28 100%) !important; transform: translateY(-2px); }
-        .cs-company-chip:hover { color: #c4a24a !important; border-color: #c4a24a !important; }
+        .cs-company-chip:hover { color: #d4b04e !important; border-color: #d4b04e !important; }
         .cs-metric-card { transition: transform 0.2s; }
         .cs-metric-card:hover { transform: translateY(-2px); }
         * { box-sizing: border-box; }
@@ -213,8 +213,8 @@ export default function Customers() {
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            background: "rgba(196,162,74,0.08)",
-            border: `1px solid rgba(196,162,74,0.25)`,
+            background: "rgba(212,176,78,0.08)",
+            border: `1px solid rgba(212,176,78,0.25)`,
             borderRadius: 100,
             padding: "6px 16px",
             marginBottom: 32,
@@ -571,8 +571,8 @@ export default function Customers() {
                     style={{
                       position: "relative",
                       padding: "20px 24px",
-                      background: "rgba(196,162,74,0.05)",
-                      border: `1px solid rgba(196,162,74,0.15)`,
+                      background: "rgba(212,176,78,0.05)",
+                      border: `1px solid rgba(212,176,78,0.15)`,
                       borderRadius: 10,
                       marginBottom: 24,
                     }}

@@ -21,7 +21,7 @@ const getPasswordStrength = (pw) => {
   if (/[^A-Za-z0-9]/.test(pw)) score++;
   if (score <= 1) return { level: 1, label: "Weak", color: "#ef4444" };
   if (score <= 2) return { level: 2, label: "Fair", color: "#f59e0b" };
-  if (score <= 3) return { level: 3, label: "Good", color: "#c4a24a" };
+  if (score <= 3) return { level: 3, label: "Good", color: "#d4b04e" };
   return { level: 4, label: "Strong", color: "#22c55e" };
 };
 
@@ -241,17 +241,17 @@ export default function Login() {
   ];
 
   return (
-    <div className="login-outer min-h-screen flex items-center justify-center p-4" style={{ background: "#080807", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
+    <div className="login-outer min-h-screen flex items-center justify-center p-4" style={{ background: "#1c1b19", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
       <SEO title="Sign In" description="Sign in to your Dealstage account" />
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <style>{`
         .login-card { background: rgba(255,248,220,0.02) !important; border-color: rgba(255,248,220,0.07) !important; }
         .login-card input { background: rgba(255,248,220,0.03) !important; border-color: rgba(255,248,220,0.1) !important; color: #f5f0e6 !important; }
-        .login-card button[type="submit"] { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
-        .login-card .text-indigo-400, .login-card .text-indigo-300 { color: #c4a24a !important; }
-        .login-card .bg-gradient-to-r { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
-        .login-card .border-indigo-500 { border-color: rgba(196,162,74,0.4) !important; }
-        .login-card .bg-indigo-500\\/10 { background: rgba(196,162,74,0.08) !important; }
+        .login-card button[type="submit"] { background: linear-gradient(135deg, #d4b04e, #e07b18) !important; color: #1c1b19 !important; }
+        .login-card .text-indigo-400, .login-card .text-indigo-300 { color: #d4b04e !important; }
+        .login-card .bg-gradient-to-r { background: linear-gradient(135deg, #d4b04e, #e07b18) !important; color: #1c1b19 !important; }
+        .login-card .border-indigo-500 { border-color: rgba(212,176,78,0.4) !important; }
+        .login-card .bg-indigo-500\\/10 { background: rgba(212,176,78,0.08) !important; }
         @media (max-width: 480px) {
           .login-card { padding: 1.5rem !important; }
           .login-outer { padding: 0.75rem !important; }
@@ -285,8 +285,8 @@ export default function Login() {
               {serverError}
               {mode === "signup" && serverError.toLowerCase().includes("already") && (
                 <div className="mt-2 flex gap-3">
-                  <button onClick={() => switchMode("login")} className="text-xs underline" style={{ color: "#c4a24a" }}>Sign in instead</button>
-                  <button onClick={() => switchMode("magiclink")} className="text-xs underline" style={{ color: "#c4a24a" }}>Reset password</button>
+                  <button onClick={() => switchMode("login")} className="text-xs underline" style={{ color: "#d4b04e" }}>Sign in instead</button>
+                  <button onClick={() => switchMode("magiclink")} className="text-xs underline" style={{ color: "#d4b04e" }}>Reset password</button>
                 </div>
               )}
             </div>
@@ -461,7 +461,7 @@ export default function Login() {
                 <FieldError message={errors.password?.message} />
                 {mode === "login" && (
                   <div className="mt-1 text-right">
-                    <button type="button" onClick={() => switchMode("forgot")} className="text-xs text-slate-500 hover:text-slate-300 transition-colors" style={{ color: "#c4a24a" }}>
+                    <button type="button" onClick={() => switchMode("forgot")} className="text-xs text-slate-500 hover:text-slate-300 transition-colors" style={{ color: "#d4b04e" }}>
                       Forgot password?
                     </button>
                   </div>

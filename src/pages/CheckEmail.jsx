@@ -23,7 +23,7 @@ export default function CheckEmail() {
   return (
     <>
       <SEO title="Check Your Email" description="Verify your email to complete your Dealstage account setup" />
-      <div style={{ minHeight: "100vh", background: "#080807", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
+      <div style={{ minHeight: "100vh", background: "#1c1b19", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem", fontFamily: "'Instrument Sans', system-ui, sans-serif", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap');
         @media (max-width: 480px) {
@@ -38,8 +38,8 @@ export default function CheckEmail() {
         <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 48, margin: "0 auto 2.5rem" }} />
 
         {/* Email icon */}
-        <div style={{ width: 72, height: 72, borderRadius: 18, background: "linear-gradient(135deg, rgba(196,162,74,0.12), rgba(224,123,24,0.12))", border: "0.5px solid rgba(196,162,74,0.2)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
-          <Mail size={32} style={{ color: "#c4a24a" }} />
+        <div style={{ width: 72, height: 72, borderRadius: 18, background: "linear-gradient(135deg, rgba(212,176,78,0.12), rgba(224,123,24,0.12))", border: "0.5px solid rgba(212,176,78,0.2)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
+          <Mail size={32} style={{ color: "#d4b04e" }} />
         </div>
 
         <h1 className="ce-heading" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Check your email</h1>
@@ -48,7 +48,7 @@ export default function CheckEmail() {
           We sent a confirmation link to
         </p>
         {email && (
-          <p style={{ fontSize: "1rem", color: "#c4a24a", fontWeight: 500, marginBottom: "1.5rem", fontFamily: "'Instrument Mono', monospace", wordBreak: "break-all", overflowWrap: "break-word" }}>{email}</p>
+          <p style={{ fontSize: "1rem", color: "#d4b04e", fontWeight: 500, marginBottom: "1.5rem", fontFamily: "'Instrument Mono', monospace", wordBreak: "break-all", overflowWrap: "break-word" }}>{email}</p>
         )}
         <p style={{ fontSize: "0.85rem", color: "rgba(245,240,230,0.35)", lineHeight: 1.7, marginBottom: "2rem" }}>
           Click the link in your email to verify your account and get started. The link expires in 24 hours.
@@ -62,7 +62,7 @@ export default function CheckEmail() {
             { num: "3", text: "Start using Dealstage", done: false },
           ].map((step, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.5rem 0", borderBottom: i < 2 ? "0.5px solid rgba(255,248,220,0.05)" : "none" }}>
-              <div style={{ width: 24, height: 24, borderRadius: "50%", background: step.done ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", fontWeight: 600, color: step.done ? "#080807" : "rgba(245,240,230,0.3)", fontFamily: "'Instrument Mono', monospace", flexShrink: 0 }}>
+              <div style={{ width: 24, height: 24, borderRadius: "50%", background: step.done ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.07)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", fontWeight: 600, color: step.done ? "#1c1b19" : "rgba(245,240,230,0.3)", fontFamily: "'Instrument Mono', monospace", flexShrink: 0 }}>
                 {step.done ? <CheckCircle2 size={14} /> : step.num}
               </div>
               <span style={{ fontSize: "0.82rem", color: step.done ? "#f5f0e6" : "rgba(245,240,230,0.4)" }}>{step.text}</span>
@@ -83,7 +83,7 @@ export default function CheckEmail() {
 
         <div style={{ marginTop: "1rem" }}>
           <button onClick={() => navigate("/login")} style={{
-            background: "none", border: "none", color: "#c4a24a", fontSize: "0.8rem",
+            background: "none", border: "none", color: "#d4b04e", fontSize: "0.8rem",
             cursor: "pointer", fontFamily: "'Instrument Sans', sans-serif",
             display: "inline-flex", alignItems: "center", gap: "0.4rem",
           }}>

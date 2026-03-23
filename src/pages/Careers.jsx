@@ -23,12 +23,12 @@ import {
 } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
-  gold: "#c4a24a",
+  bg: "#1c1b19",
+  gold: "#d4b04e",
   amber: "#e07b18",
   cream: "#f5f0e6",
-  surface: "#0f0f0d",
-  border: "rgba(196,162,74,0.15)",
+  surface: "#232220",
+  border: "rgba(212,176,78,0.15)",
   muted: "rgba(245,240,230,0.45)",
 };
 
@@ -168,8 +168,8 @@ function SectionLabel({ children }) {
         display: "inline-flex",
         alignItems: "center",
         gap: "8px",
-        background: "rgba(196,162,74,0.07)",
-        border: `1px solid rgba(196,162,74,0.2)`,
+        background: "rgba(212,176,78,0.07)",
+        border: `1px solid rgba(212,176,78,0.2)`,
         borderRadius: "100px",
         padding: "6px 16px",
         marginBottom: "24px",
@@ -204,10 +204,10 @@ function ValueCard({ value, delay }) {
         transform: visible ? "translateY(0)" : "translateY(28px)",
         transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms, box-shadow 0.3s ease, border-color 0.3s ease`,
         background: COLORS.surface,
-        border: `1px solid ${hovered ? "rgba(196,162,74,0.3)" : COLORS.border}`,
+        border: `1px solid ${hovered ? "rgba(212,176,78,0.3)" : COLORS.border}`,
         borderRadius: "16px",
         padding: "32px",
-        boxShadow: hovered ? "0 8px 40px rgba(196,162,74,0.08)" : "none",
+        boxShadow: hovered ? "0 8px 40px rgba(212,176,78,0.08)" : "none",
       }}
     >
       <div
@@ -215,12 +215,12 @@ function ValueCard({ value, delay }) {
           width: 44,
           height: 44,
           borderRadius: "10px",
-          background: `linear-gradient(135deg, rgba(196,162,74,0.15), rgba(224,123,24,0.08))`,
+          background: `linear-gradient(135deg, rgba(212,176,78,0.15), rgba(224,123,24,0.08))`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           marginBottom: "20px",
-          border: `1px solid rgba(196,162,74,0.2)`,
+          border: `1px solid rgba(212,176,78,0.2)`,
         }}
       >
         <Icon size={20} color={COLORS.gold} />
@@ -261,7 +261,7 @@ function BenefitCard({ benefit, delay }) {
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
-        background: "rgba(196,162,74,0.03)",
+        background: "rgba(212,176,78,0.03)",
         border: `1px solid ${COLORS.border}`,
         borderRadius: "12px",
         padding: "24px",
@@ -275,12 +275,12 @@ function BenefitCard({ benefit, delay }) {
           width: 36,
           height: 36,
           borderRadius: "8px",
-          background: "rgba(196,162,74,0.08)",
+          background: "rgba(212,176,78,0.08)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
-          border: `1px solid rgba(196,162,74,0.15)`,
+          border: `1px solid rgba(212,176,78,0.15)`,
         }}
       >
         <Icon size={16} color={COLORS.gold} />
@@ -328,8 +328,8 @@ function JobRow({ job, delay }) {
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
         transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms, background 0.2s ease, border-color 0.2s ease`,
-        background: hovered ? "rgba(196,162,74,0.04)" : "transparent",
-        border: `1px solid ${hovered ? "rgba(196,162,74,0.25)" : COLORS.border}`,
+        background: hovered ? "rgba(212,176,78,0.04)" : "transparent",
+        border: `1px solid ${hovered ? "rgba(212,176,78,0.25)" : COLORS.border}`,
         borderRadius: "12px",
         padding: "22px 28px",
         display: "flex",
@@ -407,7 +407,7 @@ function JobRow({ job, delay }) {
           background: hovered
             ? `linear-gradient(135deg, ${COLORS.gold}, ${COLORS.amber})`
             : "transparent",
-          border: `1px solid ${hovered ? "transparent" : "rgba(196,162,74,0.3)"}`,
+          border: `1px solid ${hovered ? "transparent" : "rgba(212,176,78,0.3)"}`,
           borderRadius: "8px",
           padding: "9px 20px",
           fontFamily: FONTS.body,
@@ -442,10 +442,10 @@ export default function Careers() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #080807; }
-        ::-webkit-scrollbar-thumb { background: rgba(196,162,74,0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #1c1b19; }
+        ::-webkit-scrollbar-thumb { background: rgba(212,176,78,0.3); border-radius: 3px; }
         @media (max-width: 768px) {
           .cr-perks-grid { grid-template-columns: 1fr !important; }
           .cr-jobs-grid { grid-template-columns: 1fr !important; }
@@ -462,7 +462,7 @@ export default function Careers() {
           right: "-200px",
           width: "700px",
           height: "700px",
-          background: `radial-gradient(circle, rgba(196,162,74,0.05) 0%, transparent 65%)`,
+          background: `radial-gradient(circle, rgba(212,176,78,0.05) 0%, transparent 65%)`,
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -490,8 +490,8 @@ export default function Careers() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                background: "rgba(196,162,74,0.07)",
-                border: `1px solid rgba(196,162,74,0.2)`,
+                background: "rgba(212,176,78,0.07)",
+                border: `1px solid rgba(212,176,78,0.2)`,
                 borderRadius: "100px",
                 padding: "6px 16px",
                 marginBottom: "28px",
@@ -590,7 +590,7 @@ export default function Careers() {
         <div
           style={{
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(196,162,74,0.18), transparent)`,
+            background: `linear-gradient(90deg, transparent, rgba(212,176,78,0.18), transparent)`,
             marginBottom: "96px",
           }}
         />
@@ -630,7 +630,7 @@ export default function Careers() {
         <div
           style={{
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(196,162,74,0.18), transparent)`,
+            background: `linear-gradient(90deg, transparent, rgba(212,176,78,0.18), transparent)`,
             marginBottom: "96px",
           }}
         />
@@ -670,7 +670,7 @@ export default function Careers() {
         <div
           style={{
             height: "1px",
-            background: `linear-gradient(90deg, transparent, rgba(196,162,74,0.18), transparent)`,
+            background: `linear-gradient(90deg, transparent, rgba(212,176,78,0.18), transparent)`,
             marginBottom: "96px",
           }}
         />
@@ -710,8 +710,8 @@ export default function Careers() {
         <FadeSection>
           <div
             style={{
-              background: "rgba(196,162,74,0.04)",
-              border: `1px solid rgba(196,162,74,0.18)`,
+              background: "rgba(212,176,78,0.04)",
+              border: `1px solid rgba(212,176,78,0.18)`,
               borderRadius: "16px",
               padding: "44px",
               textAlign: "center",

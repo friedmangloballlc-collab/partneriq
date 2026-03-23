@@ -3,12 +3,12 @@ import SEO from "@/components/SEO";
 import { Cookie, Shield, Settings, BarChart3, Target, ChevronDown, ChevronUp, Mail } from "lucide-react";
 
 const COLORS = {
-  bg: "#080807",
+  bg: "#1c1b19",
   bgCard: "#0f0e0c",
   surface: "#12110e",
   border: "#1e1c18",
-  borderGold: "#c4a24a",
-  gold: "#c4a24a",
+  borderGold: "#d4b04e",
+  gold: "#d4b04e",
   goldLight: "#d4b56a",
   amber: "#e07b18",
   cream: "#f5f0e6",
@@ -290,8 +290,8 @@ export default function CookiePolicy() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(196,162,74,0.07)",
-              border: `1px solid rgba(196,162,74,0.2)`,
+              background: "rgba(212,176,78,0.07)",
+              border: `1px solid rgba(212,176,78,0.2)`,
               borderRadius: 100,
               padding: "5px 14px",
               marginBottom: 28,
@@ -823,8 +823,8 @@ export default function CookiePolicy() {
 
           <div
             style={{
-              background: "rgba(196,162,74,0.06)",
-              border: `1px solid rgba(196,162,74,0.2)`,
+              background: "rgba(212,176,78,0.06)",
+              border: `1px solid rgba(212,176,78,0.2)`,
               borderRadius: 10,
               padding: "20px 24px",
               marginTop: 20,
@@ -899,8 +899,8 @@ export default function CookiePolicy() {
                 width: 44,
                 height: 44,
                 borderRadius: 10,
-                background: "rgba(196,162,74,0.1)",
-                border: `1px solid rgba(196,162,74,0.25)`,
+                background: "rgba(212,176,78,0.1)",
+                border: `1px solid rgba(212,176,78,0.25)`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

@@ -13,17 +13,17 @@ import {
    THEME
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
 };
 
 /* ─────────────────────────────────────────────
@@ -183,7 +183,7 @@ function OutreachMockup() {
               <div style={{ ...sans, fontSize: 14, fontWeight: 600, color: T.cream }}>Sarah Chen</div>
               <div style={{ ...mono, fontSize: 11, color: T.creamDim }}>Influencer Marketing Manager · Nike</div>
             </div>
-            <div style={{ ...mono, fontSize: 10, padding: "4px 10px", borderRadius: 20, background: "rgba(196,162,74,0.12)", border: `1px solid ${T.border}`, color: T.gold }}>VERIFIED</div>
+            <div style={{ ...mono, fontSize: 10, padding: "4px 10px", borderRadius: 20, background: "rgba(212,176,78,0.12)", border: `1px solid ${T.border}`, color: T.gold }}>VERIFIED</div>
           </div>
 
           {/* Message Area */}
@@ -215,7 +215,7 @@ function OutreachMockup() {
               <div key={i} style={{ display: "flex", gap: 12, position: "relative" }}>
                 {/* Line connector */}
                 {i < SEQUENCE_STEPS.length - 1 && (
-                  <div style={{ position: "absolute", left: 11, top: 24, width: 2, height: "calc(100% - 8px)", background: `rgba(196,162,74,0.15)` }} />
+                  <div style={{ position: "absolute", left: 11, top: 24, width: 2, height: "calc(100% - 8px)", background: `rgba(212,176,78,0.15)` }} />
                 )}
                 {/* Dot */}
                 <div style={{
@@ -223,8 +223,8 @@ function OutreachMockup() {
                   background: step.status === "sent"
                     ? `linear-gradient(135deg, ${T.gold}, ${T.amber})`
                     : step.status === "pending"
-                    ? "rgba(196,162,74,0.2)"
-                    : "rgba(196,162,74,0.1)",
+                    ? "rgba(212,176,78,0.2)"
+                    : "rgba(212,176,78,0.1)",
                   border: step.status !== "sent" ? `1px solid ${T.border}` : "none",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
@@ -240,7 +240,7 @@ function OutreachMockup() {
           </div>
 
           {/* Response Rate Badge */}
-          <div style={{ background: "rgba(196,162,74,0.06)", border: `1px solid ${T.border}`, borderRadius: 10, padding: "14px", marginTop: 8 }}>
+          <div style={{ background: "rgba(212,176,78,0.06)", border: `1px solid ${T.border}`, borderRadius: 10, padding: "14px", marginTop: 8 }}>
             <div style={{ ...mono, fontSize: 10, color: T.creamDim, marginBottom: 4 }}>PREDICTED RESPONSE RATE</div>
             <div style={{ ...serif, fontSize: 28, fontWeight: 700, color: T.gold }}>68%</div>
             <div style={{ ...mono, fontSize: 10, color: T.amber }}>vs 12% cold email avg</div>
@@ -261,7 +261,7 @@ export default function FeatureSendDeals() {
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         @media (max-width: 768px) {
           .fp-nav-links { display: none !important; }
           .fp-nav { padding: 0 16px !important; }
@@ -311,8 +311,8 @@ export default function FeatureSendDeals() {
               { role: "For Talent", text: "Send polished pitches that actually land in front of decision-makers" },
               { role: "For Agencies", text: "Automate outreach across your entire client and talent roster" },
             ].map(item => (
-              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
-                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(212,176,78,0.2)", background: "rgba(212,176,78,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#d4b04e", fontWeight: 500 }}>{item.role}:</span> {item.text}
               </div>
             ))}
           </div>
@@ -356,7 +356,7 @@ export default function FeatureSendDeals() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                   <Icon size={22} style={{ color: T.gold }} />
                 </div>
                 <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 10 }}>{title}</h3>
@@ -372,9 +372,9 @@ export default function FeatureSendDeals() {
       {/* TESTIMONIAL */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
         <Fade>
-          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #d4b04e", background: "rgba(212,176,78,0.03)", borderRadius: "0 8px 8px 0" }}>
             <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"Our response rate went from 12% to 68%. The AI knows exactly what brands want to hear."</p>
-            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— Creator with 180K followers</p>
+            <p style={{ fontSize: "0.75rem", color: "#d4b04e", fontFamily: "'Instrument Mono', monospace" }}>— Creator with 180K followers</p>
           </div>
         </Fade>
       </section>
@@ -403,7 +403,7 @@ export default function FeatureSendDeals() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
         <Fade>
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(196,162,74,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(212,176,78,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
             <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>68%</div>
             <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>average response rate on DealStage outreach (vs 12% cold email)</p>
             <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>ACROSS ALL OUTREACH CAMPAIGNS ON THE PLATFORM</p>

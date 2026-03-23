@@ -16,17 +16,17 @@ import {
    THEME
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
 };
 
 /* ─────────────────────────────────────────────
@@ -194,7 +194,7 @@ function SearchMockup() {
             padding: "14px 16px 14px 48px",
             fontSize: 14,
             color: T.cream,
-            boxShadow: `0 0 0 3px rgba(196,162,74,0.08)`,
+            boxShadow: `0 0 0 3px rgba(212,176,78,0.08)`,
           }}>
             {query}
             <span style={{ display: "inline-block", width: 2, height: 14, background: T.gold, marginLeft: 4, animation: "blink 1s step-end infinite", verticalAlign: "middle" }} />
@@ -207,7 +207,7 @@ function SearchMockup() {
         {/* Filter Chips */}
         <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
           {activeFilters.map((f, i) => (
-            <span key={i} style={{ ...mono, fontSize: 11, padding: "5px 12px", borderRadius: 20, background: "rgba(196,162,74,0.12)", border: `1px solid ${T.border}`, color: T.gold, letterSpacing: "0.05em" }}>
+            <span key={i} style={{ ...mono, fontSize: 11, padding: "5px 12px", borderRadius: 20, background: "rgba(212,176,78,0.12)", border: `1px solid ${T.border}`, color: T.gold, letterSpacing: "0.05em" }}>
               {f} ×
             </span>
           ))}
@@ -228,7 +228,7 @@ function SearchMockup() {
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {TALENT_RESULTS.map((t, i) => (
             <div key={i} style={{
-              background: i === 0 ? "rgba(196,162,74,0.06)" : T.bgCardAlt,
+              background: i === 0 ? "rgba(212,176,78,0.06)" : T.bgCardAlt,
               border: `1px solid ${i === 0 ? T.border : T.borderAlt}`,
               borderRadius: 10,
               padding: "16px 18px",
@@ -269,7 +269,7 @@ function SearchMockup() {
               {/* Platforms */}
               <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
                 {t.platforms.map((p, pi) => (
-                  <span key={pi} style={{ ...mono, fontSize: 10, padding: "3px 7px", borderRadius: 4, background: "rgba(196,162,74,0.1)", color: T.goldDim, border: `1px solid ${T.borderAlt}` }}>{p}</span>
+                  <span key={pi} style={{ ...mono, fontSize: 10, padding: "3px 7px", borderRadius: 4, background: "rgba(212,176,78,0.1)", color: T.goldDim, border: `1px solid ${T.borderAlt}` }}>{p}</span>
                 ))}
               </div>
               <ChevronRight size={16} style={{ color: T.goldDim, flexShrink: 0 }} />
@@ -293,8 +293,8 @@ export default function FeatureTalentDiscovery() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         @keyframes blink { 50% { opacity: 0; } }
         @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-        @keyframes pulse-gold { 0%,100% { box-shadow: 0 0 0 0 rgba(196,162,74,0.3); } 50% { box-shadow: 0 0 0 12px rgba(196,162,74,0); } }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        @keyframes pulse-gold { 0%,100% { box-shadow: 0 0 0 0 rgba(212,176,78,0.3); } 50% { box-shadow: 0 0 0 12px rgba(212,176,78,0); } }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         @media (max-width: 768px) {
           .fp-nav-links { display: none !important; }
           .fp-nav { padding: 0 16px !important; }
@@ -346,8 +346,8 @@ export default function FeatureTalentDiscovery() {
               { role: "For Talent", text: "Get discovered by top brands looking for your niche" },
               { role: "For Agencies", text: "Source talent across 12+ categories for any client brief" },
             ].map(item => (
-              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
-                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(212,176,78,0.2)", background: "rgba(212,176,78,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#d4b04e", fontWeight: 500 }}>{item.role}:</span> {item.text}
               </div>
             ))}
           </div>
@@ -390,7 +390,7 @@ export default function FeatureTalentDiscovery() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                   <Icon size={22} style={{ color: T.gold }} />
                 </div>
                 <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 10 }}>{title}</h3>
@@ -406,9 +406,9 @@ export default function FeatureTalentDiscovery() {
       {/* TESTIMONIAL */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
         <Fade>
-          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #d4b04e", background: "rgba(212,176,78,0.03)", borderRadius: "0 8px 8px 0" }}>
             <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"We found our ideal athlete partner in under 48 hours. The AI matching is incredibly accurate."</p>
-            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— Marketing Director, Nike</p>
+            <p style={{ fontSize: "0.75rem", color: "#d4b04e", fontFamily: "'Instrument Mono', monospace" }}>— Marketing Director, Nike</p>
           </div>
         </Fade>
       </section>
@@ -490,7 +490,7 @@ export default function FeatureTalentDiscovery() {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
                 <span style={{ fontSize: 24 }}>{group.icon}</span>
                 <h3 style={{ ...sans, fontSize: 18, fontWeight: 600, color: T.gold }}>{group.group}</h3>
-                <span style={{ ...mono, fontSize: 11, color: T.creamDim, background: "rgba(196,162,74,0.08)", padding: "3px 10px", borderRadius: 100 }}>{group.types.length} types</span>
+                <span style={{ ...mono, fontSize: 11, color: T.creamDim, background: "rgba(212,176,78,0.08)", padding: "3px 10px", borderRadius: 100 }}>{group.types.length} types</span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
                 {group.types.map((t) => (
@@ -536,7 +536,7 @@ export default function FeatureTalentDiscovery() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
         <Fade>
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(196,162,74,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(212,176,78,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
             <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>94%</div>
             <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>match accuracy across 10 weighted scoring factors</p>
             <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>VERIFIED ACROSS 12,000+ TALENT PROFILES</p>

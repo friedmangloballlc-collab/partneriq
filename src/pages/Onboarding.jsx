@@ -484,7 +484,7 @@ const getPasswordStrength = (pw) => {
   if (/[^A-Za-z0-9]/.test(pw)) score++;
   if (score <= 1) return { level: 1, label: "Weak", color: "#ef4444" };
   if (score <= 2) return { level: 2, label: "Fair", color: "#f59e0b" };
-  if (score <= 3) return { level: 3, label: "Good", color: "#c4a24a" };
+  if (score <= 3) return { level: 3, label: "Good", color: "#d4b04e" };
   return { level: 4, label: "Strong", color: "#22c55e" };
 };
 
@@ -667,30 +667,30 @@ export default function Onboarding() {
 
   // Step 2+: Show the signup flow (gold theme matching landing page)
   return (
-    <div className="min-h-screen antialiased" style={{ scrollBehavior: "smooth", background: "#080807", color: "#f5f0e6", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
+    <div className="min-h-screen antialiased" style={{ scrollBehavior: "smooth", background: "#1c1b19", color: "#f5f0e6", fontFamily: "'Instrument Sans', system-ui, sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Instrument+Sans:wght@300;400;500&family=Instrument+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <style>{`
         /* Gold theme overrides for signup flow */
-        .min-h-screen { background: #080807 !important; }
-        .bg-slate-950, .bg-gradient-to-b, .bg-gradient-to-br { background: #080807 !important; }
-        .from-indigo-500, .from-indigo-600, .bg-indigo-600, .bg-indigo-500 { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; }
+        .min-h-screen { background: #1c1b19 !important; }
+        .bg-slate-950, .bg-gradient-to-b, .bg-gradient-to-br { background: #1c1b19 !important; }
+        .from-indigo-500, .from-indigo-600, .bg-indigo-600, .bg-indigo-500 { background: linear-gradient(135deg, #d4b04e, #e07b18) !important; }
         .hover\\:bg-indigo-700:hover, .hover\\:bg-indigo-600:hover { background: linear-gradient(135deg, #b39340, #d07015) !important; }
         .text-indigo-400, .text-indigo-300, .text-violet-400 { color: #d9b96a !important; }
-        .text-indigo-600, .text-indigo-500 { color: #c4a24a !important; }
-        .border-indigo-500, .border-indigo-500\\/20 { border-color: rgba(196,162,74,0.3) !important; }
-        .bg-indigo-500\\/10, .bg-indigo-500\\/15 { background: rgba(196,162,74,0.1) !important; }
-        .shadow-indigo-500\\/20, .shadow-indigo-500\\/25, .shadow-indigo-500\\/30 { box-shadow: 0 4px 24px rgba(196,162,74,0.15) !important; }
+        .text-indigo-600, .text-indigo-500 { color: #d4b04e !important; }
+        .border-indigo-500, .border-indigo-500\\/20 { border-color: rgba(212,176,78,0.3) !important; }
+        .bg-indigo-500\\/10, .bg-indigo-500\\/15 { background: rgba(212,176,78,0.1) !important; }
+        .shadow-indigo-500\\/20, .shadow-indigo-500\\/25, .shadow-indigo-500\\/30 { box-shadow: 0 4px 24px rgba(212,176,78,0.15) !important; }
         .from-violet-400, .to-violet-400, .from-violet-500, .to-violet-500 { color: #f09040; }
         .bg-gradient-to-r.from-indigo-400 { background: linear-gradient(90deg, #d9b96a, #f09040) !important; -webkit-background-clip: text !important; }
-        .ring-indigo-500 { --tw-ring-color: rgba(196,162,74,0.5) !important; }
+        .ring-indigo-500 { --tw-ring-color: rgba(212,176,78,0.5) !important; }
         /* Buttons */
-        button[class*="bg-indigo"], a[class*="bg-indigo"] { background: linear-gradient(135deg, #c4a24a, #e07b18) !important; color: #080807 !important; }
+        button[class*="bg-indigo"], a[class*="bg-indigo"] { background: linear-gradient(135deg, #d4b04e, #e07b18) !important; color: #1c1b19 !important; }
         /* Cards on dark bg */
         .bg-white\\/5, .bg-white\\/10 { background: rgba(245,240,230,0.03) !important; }
         .border-white\\/10, .border-white\\/5 { border-color: rgba(255,248,220,0.07) !important; }
         /* Emerald to gold */
-        .from-emerald-500, .bg-emerald-500, .text-emerald-400 { color: #c4a24a !important; }
-        .bg-emerald-50, .bg-emerald-500\\/10 { background: rgba(196,162,74,0.1) !important; }
+        .from-emerald-500, .bg-emerald-500, .text-emerald-400 { color: #d4b04e !important; }
+        .bg-emerald-50, .bg-emerald-500\\/10 { background: rgba(212,176,78,0.1) !important; }
         /* Plan pills mobile grid */
         @media (max-width: 640px) {
           .plan-pills-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; }
@@ -724,8 +724,8 @@ export default function Onboarding() {
             <div key={label} className="flex items-center gap-2">
               <div style={{
                 width: 24, height: 24, borderRadius: "50%", fontSize: "0.65rem", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center",
-                background: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
-                color: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "#080807" : "rgba(245,240,230,0.3)",
+                background: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "#1c1b19" : "rgba(245,240,230,0.3)",
                 fontFamily: "'Instrument Mono', monospace",
               }}>{i + 1}</div>
               <span style={{ fontSize: "0.75rem", color: (i === 0 && step >= 2) || (i === 1 && step >= 4) ? "#f5f0e6" : "rgba(245,240,230,0.25)", fontFamily: "'Instrument Sans', sans-serif" }}>{label}</span>
@@ -751,7 +751,7 @@ export default function Onboarding() {
             {(step === 2 || step >= 4) && (
               <div className="md:hidden" style={{ display: "flex", justifyContent: "center", marginBottom: "1rem", gap: "0.5rem" }}>
                 {[1, 2].map(i => (
-                  <div key={i} style={{ width: 32, height: 4, borderRadius: 2, background: (step === 2 && i === 1) || (step >= 4 && i <= 2) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.1)", transition: "background 0.3s" }} />
+                  <div key={i} style={{ width: 32, height: 4, borderRadius: 2, background: (step === 2 && i === 1) || (step >= 4 && i <= 2) ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.1)", transition: "background 0.3s" }} />
                 ))}
               </div>
             )}
@@ -772,34 +772,34 @@ export default function Onboarding() {
                 return (
                   <button key={role.key} onClick={() => setSelectedRole(role.key)} style={{
                     display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem",
-                    border: isSelected ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.07)",
-                    borderRadius: 12, background: isSelected ? "rgba(196,162,74,0.08)" : "transparent",
+                    border: isSelected ? "1.5px solid #d4b04e" : "0.5px solid rgba(255,248,220,0.07)",
+                    borderRadius: 12, background: isSelected ? "rgba(212,176,78,0.08)" : "transparent",
                     cursor: "pointer", textAlign: "left", width: "100%", transition: "all 0.2s",
                   }}>
-                    <div style={{ width: 48, height: 48, borderRadius: 10, background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <Icon style={{ width: 22, height: 22, color: "#080807" }} />
+                    <div style={{ width: 48, height: 48, borderRadius: 10, background: "linear-gradient(135deg, #d4b04e, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Icon style={{ width: 22, height: 22, color: "#1c1b19" }} />
                     </div>
                     <div>
                       <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{role.title}</p>
                       <p style={{ fontSize: "0.78rem", color: "rgba(245,240,230,0.4)" }}>{role.desc}</p>
                     </div>
-                    <div style={{ marginLeft: "auto", width: 20, height: 20, borderRadius: "50%", border: isSelected ? "none" : "1.5px solid rgba(255,248,220,0.15)", background: isSelected ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      {isSelected && <CheckCircle2 style={{ width: 20, height: 20, color: "#080807" }} />}
+                    <div style={{ marginLeft: "auto", width: 20, height: 20, borderRadius: "50%", border: isSelected ? "none" : "1.5px solid rgba(255,248,220,0.15)", background: isSelected ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      {isSelected && <CheckCircle2 style={{ width: 20, height: 20, color: "#1c1b19" }} />}
                     </div>
                   </button>
                 );
               })}
               <button onClick={() => { if (selectedRole) setStep(selectedRole === "manager" ? 4 : 3); }} disabled={!selectedRole} style={{
                 marginTop: "1rem", width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
-                background: selectedRole ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
-                color: selectedRole ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
+                background: selectedRole ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: selectedRole ? "#1c1b19" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
                 cursor: selectedRole ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
                 transition: "all 0.2s",
               }}>
                 Continue <ArrowRight style={{ width: 16, height: 16, display: "inline", verticalAlign: "middle", marginLeft: 6 }} />
               </button>
               <p style={{ textAlign: "center", fontSize: "0.75rem", color: "rgba(245,240,230,0.25)", marginTop: "0.5rem" }}>
-                Already have an account? <a href="/login" style={{ color: "#c4a24a", textDecoration: "none" }}>Log in</a>
+                Already have an account? <a href="/login" style={{ color: "#d4b04e", textDecoration: "none" }}>Log in</a>
               </p>
             </div>
           )}
@@ -811,16 +811,16 @@ export default function Onboarding() {
                 {(PLANS_BY_ROLE[selectedRole] || []).map((plan) => (
                   <button key={plan.key} onClick={() => { setSelectedPlan(plan.key); setStep(4); }} style={{
                     display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem",
-                    border: plan.badge ? "1.5px solid rgba(196,162,74,0.4)" : "0.5px solid rgba(255,248,220,0.07)",
-                    borderRadius: 12, background: plan.badge ? "rgba(196,162,74,0.06)" : "transparent",
+                    border: plan.badge ? "1.5px solid rgba(212,176,78,0.4)" : "0.5px solid rgba(255,248,220,0.07)",
+                    borderRadius: 12, background: plan.badge ? "rgba(212,176,78,0.06)" : "transparent",
                     cursor: "pointer", textAlign: "left", width: "100%", transition: "all 0.2s", position: "relative",
                   }}>
-                    {plan.badge && <span style={{ position: "absolute", top: -10, right: 16, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.6rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 4, fontFamily: "'Instrument Mono', monospace" }}>{plan.badge}</span>}
+                    {plan.badge && <span style={{ position: "absolute", top: -10, right: 16, background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", fontSize: "0.6rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 4, fontFamily: "'Instrument Mono', monospace" }}>{plan.badge}</span>}
                     <div>
                       <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{plan.title}</p>
                       <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)" }}>{plan.features?.slice(0, 2).join(" · ")}</p>
                       {plan.key !== "free" && plan.price !== "Custom" && (
-                        <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", background: "rgba(196,162,74,0.1)", border: "0.5px solid rgba(196,162,74,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>7-day free trial</span>
+                        <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#d4b04e", background: "rgba(212,176,78,0.1)", border: "0.5px solid rgba(212,176,78,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>7-day free trial</span>
                       )}
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -847,10 +847,10 @@ export default function Onboarding() {
                     <label style={{ fontSize: "0.7rem", color: "rgba(245,240,230,0.4)", fontFamily: "'Instrument Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Select plan</label>
                     {/* Billing cycle toggle */}
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(255,248,220,0.04)", border: "0.5px solid rgba(255,248,220,0.08)", borderRadius: 8, padding: "0.2rem" }}>
-                      <button onClick={() => setBillingCycle("monthly")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "monthly" ? "rgba(196,162,74,0.18)" : "transparent", color: billingCycle === "monthly" ? "#d9b96a" : "rgba(245,240,230,0.35)" }}>Monthly</button>
-                      <button onClick={() => setBillingCycle("annual")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "annual" ? "rgba(196,162,74,0.18)" : "transparent", color: billingCycle === "annual" ? "#d9b96a" : "rgba(245,240,230,0.35)", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                      <button onClick={() => setBillingCycle("monthly")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "monthly" ? "rgba(212,176,78,0.18)" : "transparent", color: billingCycle === "monthly" ? "#d9b96a" : "rgba(245,240,230,0.35)" }}>Monthly</button>
+                      <button onClick={() => setBillingCycle("annual")} style={{ padding: "0.25rem 0.65rem", borderRadius: 6, fontSize: "0.65rem", fontFamily: "'Instrument Mono', monospace", border: "none", cursor: "pointer", transition: "all 0.15s", background: billingCycle === "annual" ? "rgba(212,176,78,0.18)" : "transparent", color: billingCycle === "annual" ? "#d9b96a" : "rgba(245,240,230,0.35)", display: "flex", alignItems: "center", gap: "0.3rem" }}>
                         Annual
-                        {billingCycle === "annual" && <span style={{ fontSize: "0.5rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", borderRadius: 2, padding: "0.05rem 0.3rem", fontWeight: 600 }}>-20%</span>}
+                        {billingCycle === "annual" && <span style={{ fontSize: "0.5rem", background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", borderRadius: 2, padding: "0.05rem 0.3rem", fontWeight: 600 }}>-20%</span>}
                       </button>
                     </div>
                   </div>
@@ -863,22 +863,22 @@ export default function Onboarding() {
                       return (
                         <button key={plan.key} onClick={() => setSelectedPlan(plan.key)} style={{
                           padding: "0.6rem 1rem", borderRadius: 8, fontSize: "0.8rem", fontWeight: 500, cursor: "pointer",
-                          border: selectedPlan === plan.key ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.1)",
-                          background: selectedPlan === plan.key ? "rgba(196,162,74,0.12)" : "transparent",
+                          border: selectedPlan === plan.key ? "1.5px solid #d4b04e" : "0.5px solid rgba(255,248,220,0.1)",
+                          background: selectedPlan === plan.key ? "rgba(212,176,78,0.12)" : "transparent",
                           color: selectedPlan === plan.key ? "#d9b96a" : "rgba(245,240,230,0.5)",
                           fontFamily: "'Instrument Sans', sans-serif", transition: "all 0.15s", position: "relative",
                         }}>
                           {plan.title} <span style={{ fontFamily: "'Instrument Mono', monospace", marginLeft: 4, fontSize: "0.7rem", opacity: 0.6 }}>{displayPrice}</span>
-                          {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
+                          {plan.badge && <span style={{ position: "absolute", top: -6, right: -4, background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", fontSize: "0.5rem", fontWeight: 600, padding: "0.1rem 0.4rem", borderRadius: 3 }}>★</span>}
                           {plan.key !== "free" && plan.price !== "Custom" && (
-                            <span style={{ display: "block", fontSize: "0.55rem", fontFamily: "'Instrument Mono', monospace", color: "#c4a24a", marginTop: 2, opacity: 0.8 }}>7-day trial</span>
+                            <span style={{ display: "block", fontSize: "0.55rem", fontFamily: "'Instrument Mono', monospace", color: "#d4b04e", marginTop: 2, opacity: 0.8 }}>7-day trial</span>
                           )}
                         </button>
                       );
                     })}
                   </div>
                   {billingCycle === "annual" && (
-                    <p style={{ fontSize: "0.62rem", color: "rgba(196,162,74,0.7)", fontFamily: "'Instrument Mono', monospace", marginTop: 6 }}>Annual pricing shown · billed as one payment · Save 20%</p>
+                    <p style={{ fontSize: "0.62rem", color: "rgba(212,176,78,0.7)", fontFamily: "'Instrument Mono', monospace", marginTop: 6 }}>Annual pricing shown · billed as one payment · Save 20%</p>
                   )}
                 </div>
               )}
@@ -945,26 +945,26 @@ export default function Onboarding() {
 
               <button onClick={handleComplete} disabled={saving || !name || !email || !password} style={{
                 width: "100%", padding: "0.85rem", borderRadius: 8, border: "none",
-                background: (name && email && password) ? "linear-gradient(135deg, #c4a24a, #e07b18)" : "rgba(255,248,220,0.07)",
-                color: (name && email && password) ? "#080807" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
+                background: (name && email && password) ? "linear-gradient(135deg, #d4b04e, #e07b18)" : "rgba(255,248,220,0.07)",
+                color: (name && email && password) ? "#1c1b19" : "rgba(245,240,230,0.25)", fontWeight: 600, fontSize: "0.9rem",
                 cursor: (name && email && password) ? "pointer" : "not-allowed", fontFamily: "'Instrument Sans', sans-serif",
               }}>
                 {saving ? "Creating account..." : (selectedPlan && selectedPlan !== "free") ? "Continue to Payment" : "Get Started Free"}
               </button>
 
               <p style={{ textAlign: "center", fontSize: "0.7rem", color: "rgba(245,240,230,0.25)", marginTop: "0.25rem" }}>
-                No credit card required · Free plan available · <a href="/login" style={{ color: "#c4a24a", textDecoration: "none" }}>Already have an account?</a>
+                No credit card required · Free plan available · <a href="/login" style={{ color: "#d4b04e", textDecoration: "none" }}>Already have an account?</a>
               </p>
 
               {/* Social proof */}
               <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}>
                 <div style={{ display: "flex", gap: "-0.5rem" }}>
                   {["NK", "SP", "MC", "ZA", "JR"].map((init, i) => (
-                    <div key={init} style={{ width: 28, height: 28, borderRadius: "50%", background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem", fontWeight: 600, color: "#080807", border: "2px solid #080807", marginLeft: i > 0 ? "-6px" : 0, fontFamily: "'Instrument Mono', monospace" }}>{init}</div>
+                    <div key={init} style={{ width: 28, height: 28, borderRadius: "50%", background: "linear-gradient(135deg, #d4b04e, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem", fontWeight: 600, color: "#1c1b19", border: "2px solid #1c1b19", marginLeft: i > 0 ? "-6px" : 0, fontFamily: "'Instrument Mono', monospace" }}>{init}</div>
                   ))}
                 </div>
                 <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)", textAlign: "center" }}>
-                  <span style={{ color: "#c4a24a", fontWeight: 500 }}>2,400+ professionals</span> already on Dealstage
+                  <span style={{ color: "#d4b04e", fontWeight: 500 }}>2,400+ professionals</span> already on Dealstage
                 </p>
               </div>
             </div>
@@ -2039,7 +2039,7 @@ export default function Onboarding() {
           FINAL CTA SECTION
       ══════════════════════════════════════════════ */}
       {/* ── NEW SECTIONS: Video Demo, Comparison, FAQ, Security, Mobile ── */}
-      <div style={{ background: "#080807", color: "#f5f0e6" }}>
+      <div style={{ background: "#1c1b19", color: "#f5f0e6" }}>
         <VideoDemoSection />
         <ComparisonSection />
         <SecurityBadges />

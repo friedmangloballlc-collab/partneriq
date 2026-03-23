@@ -8,14 +8,14 @@ const TRANSITION_MS = 400;
 
 // ─── SHARED DESIGN SYSTEM ─────────────────────────────────────────────────────
 const DS = {
-  bg: "#080807",
-  bgCard: "#0f0f0d",
-  gold: "#c4a24a",
+  bg: "#1c1b19",
+  bgCard: "#232220",
+  gold: "#d4b04e",
   goldLight: "#d9b96a",
   amber: "#e07b18",
   cream: "#f5f0e6",
   green: "#4ade80",
-  border: "rgba(196,162,74,0.18)",
+  border: "rgba(212,176,78,0.18)",
   borderFaint: "rgba(245,240,230,0.07)",
 };
 
@@ -58,7 +58,7 @@ const S = {
     borderRadius: 10,
   },
   cardGold: {
-    background: `linear-gradient(135deg, ${DS.bgCard} 0%, rgba(196,162,74,0.06) 100%)`,
+    background: `linear-gradient(135deg, ${DS.bgCard} 0%, rgba(212,176,78,0.06) 100%)`,
     border: `0.5px solid ${DS.border}`,
     borderRadius: 10,
   },
@@ -127,8 +127,8 @@ const STYLES = `
     100% { opacity: 0; transform: translateY(40px) rotate(360deg) scale(0.4); }
   }
   @keyframes aw-pulse-glow {
-    0%,100% { box-shadow: 0 0 8px rgba(196,162,74,0.3); }
-    50%     { box-shadow: 0 0 18px rgba(196,162,74,0.65), 0 0 32px rgba(224,123,24,0.2); }
+    0%,100% { box-shadow: 0 0 8px rgba(212,176,78,0.3); }
+    50%     { box-shadow: 0 0 18px rgba(212,176,78,0.65), 0 0 32px rgba(224,123,24,0.2); }
   }
   @keyframes aw-bar-grow {
     from { transform: scaleY(0); }
@@ -155,8 +155,8 @@ const STYLES = `
     to   { opacity: 1; transform: scale(1); }
   }
   @keyframes aw-role-glow {
-    0%,100% { box-shadow: 0 0 0 0 rgba(196,162,74,0); border-color: rgba(196,162,74,0.18); }
-    50%     { box-shadow: 0 0 20px rgba(196,162,74,0.4), 0 0 40px rgba(196,162,74,0.15); border-color: rgba(196,162,74,0.7); }
+    0%,100% { box-shadow: 0 0 0 0 rgba(212,176,78,0); border-color: rgba(212,176,78,0.18); }
+    50%     { box-shadow: 0 0 20px rgba(212,176,78,0.4), 0 0 40px rgba(212,176,78,0.15); border-color: rgba(212,176,78,0.7); }
   }
 
   /* Scene transition wrapper */
@@ -367,18 +367,18 @@ function Scene1({ active }) {
               opacity: phase >= 1 ? 1 : 0,
               transform: phase >= 1 ? "translateY(0)" : "translateY(16px)",
               transition: `all 0.45s ease ${i * 120}ms`,
-              border: isSelected ? `1px solid rgba(196,162,74,0.6)` : `0.5px solid ${DS.borderFaint}`,
+              border: isSelected ? `1px solid rgba(212,176,78,0.6)` : `0.5px solid ${DS.borderFaint}`,
               background: isSelected
-                ? `linear-gradient(135deg, #0f0f0d 0%, rgba(196,162,74,0.1) 100%)`
+                ? `linear-gradient(135deg, #232220 0%, rgba(212,176,78,0.1) 100%)`
                 : DS.bgCard,
               animation: isSelected ? "aw-role-glow 1.5s ease infinite" : "none",
-              boxShadow: isSelected ? "0 0 20px rgba(196,162,74,0.25)" : "none",
+              boxShadow: isSelected ? "0 0 20px rgba(212,176,78,0.25)" : "none",
             }}>
               <div style={{ fontSize: "1.4rem", marginBottom: "0.4rem" }}>{r.icon}</div>
               <div style={{ fontSize: "0.82rem", fontWeight: 600, color: isSelected ? DS.goldLight : DS.cream }}>{r.label}</div>
               <div style={{ ...S.mono, fontSize: "0.55rem", color: "rgba(245,240,230,0.4)", marginTop: 3, letterSpacing: "0.04em" }}>{r.sub}</div>
               {isSelected && (
-                <div style={{ marginTop: "0.5rem", width: 18, height: 18, borderRadius: "50%", background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0.5rem auto 0", animation: "aw-check-pop 0.4s ease" }}>
+                <div style={{ marginTop: "0.5rem", width: 18, height: 18, borderRadius: "50%", background: "linear-gradient(135deg, #d4b04e, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0.5rem auto 0", animation: "aw-check-pop 0.4s ease" }}>
                   <span style={{ fontSize: "0.55rem", color: DS.bg }}>✓</span>
                 </div>
               )}
@@ -414,7 +414,7 @@ function Scene1({ active }) {
           ))}
         </div>
         <div style={{
-          background: "linear-gradient(135deg, #c4a24a, #e07b18)",
+          background: "linear-gradient(135deg, #d4b04e, #e07b18)",
           borderRadius: 8,
           padding: "0.6rem",
           textAlign: "center",
@@ -438,7 +438,7 @@ function Scene1({ active }) {
           bottom: "2rem",
           left: "50%",
           transform: "translateX(-50%)",
-          background: "linear-gradient(135deg, #0f0f0d, rgba(74,222,128,0.08))",
+          background: "linear-gradient(135deg, #232220, rgba(74,222,128,0.08))",
           border: "0.5px solid rgba(74,222,128,0.35)",
           borderRadius: 10,
           padding: "0.65rem 1.4rem",
@@ -624,7 +624,7 @@ function Scene2({ active }) {
             right: "4%",
             top: "50%",
             transform: "translateY(-50%)",
-            background: "linear-gradient(135deg, #0f0f0d, rgba(74,222,128,0.1))",
+            background: "linear-gradient(135deg, #232220, rgba(74,222,128,0.1))",
             border: "0.5px solid rgba(74,222,128,0.4)",
             borderRadius: 10,
             padding: "0.65rem 0.9rem",
@@ -707,7 +707,7 @@ function Scene3({ active }) {
           flexShrink: 0,
         }}>
           <div style={{ ...S.cardGold, padding: "0.9rem", height: "100%", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-            <div style={{ ...S.mono, fontSize: "0.52rem", color: "rgba(196,162,74,0.8)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Campaign Brief</div>
+            <div style={{ ...S.mono, fontSize: "0.52rem", color: "rgba(212,176,78,0.8)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Campaign Brief</div>
             <div style={{ ...S.serif, fontSize: "0.95rem", fontWeight: 700, color: DS.cream, lineHeight: 1.2 }}>Nike Air Max<br />Summer 2026</div>
             {[["Budget", "$80–100K"], ["Category", "Athletes"], ["Audience", "18–34 M/F"], ["Reach", "1M+ followers"]].map(([k, v]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.65rem" }}>
@@ -749,7 +749,7 @@ function Scene3({ active }) {
               transform: showTalents[i] ? "translateX(0)" : "translateX(20px)",
               transition: `all 0.5s cubic-bezier(0.34,1.1,0.64,1) ${i * 0.1}s`,
               border: i === 0 ? `0.5px solid ${DS.border}` : `0.5px solid ${DS.borderFaint}`,
-              background: i === 0 ? `linear-gradient(135deg, #0f0f0d, rgba(196,162,74,0.07))` : DS.bgCard,
+              background: i === 0 ? `linear-gradient(135deg, #232220, rgba(212,176,78,0.07))` : DS.bgCard,
             }}>
               <div style={{ width: 30, height: 30, borderRadius: 8, background: `linear-gradient(135deg, ${DS.gold}, ${DS.amber})`, display: "flex", alignItems: "center", justifyContent: "center", ...S.mono, fontSize: "0.56rem", color: DS.bg, fontWeight: 600, flexShrink: 0 }}>{t.init}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
@@ -839,14 +839,14 @@ function Scene4({ active }) {
         transition: "all 0.5s ease",
       }}>
         <div style={{ ...S.cardGold, padding: "0.85rem 1rem", display: "flex", alignItems: "center", gap: "0.85rem" }}>
-          <div style={{ width: 42, height: 42, borderRadius: 10, background: "linear-gradient(135deg, #c4a24a, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", ...S.mono, fontSize: "0.65rem", color: DS.bg, fontWeight: 700, flexShrink: 0 }}>SC</div>
+          <div style={{ width: 42, height: 42, borderRadius: 10, background: "linear-gradient(135deg, #d4b04e, #e07b18)", display: "flex", alignItems: "center", justifyContent: "center", ...S.mono, fontSize: "0.65rem", color: DS.bg, fontWeight: 700, flexShrink: 0 }}>SC</div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: "0.85rem", fontWeight: 600, color: DS.cream }}>Sarah Chen</div>
             <div style={{ ...S.mono, fontSize: "0.58rem", color: "rgba(245,240,230,0.5)" }}>VP Marketing · Nike APAC</div>
             <div style={{ ...S.mono, fontSize: "0.54rem", color: "rgba(245,240,230,0.3)", marginTop: 2 }}>sarah.chen@nike.com</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ ...S.mono, fontSize: "0.52rem", color: "rgba(196,162,74,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>Warm lead</div>
+            <div style={{ ...S.mono, fontSize: "0.52rem", color: "rgba(212,176,78,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>Warm lead</div>
             <div style={{ ...S.mono, fontSize: "0.58rem", color: "rgba(245,240,230,0.4)", marginTop: 2 }}>68% open rate</div>
           </div>
         </div>
@@ -875,7 +875,7 @@ function Scene4({ active }) {
         </div>
         {showSend && (
           <div style={{
-            background: "linear-gradient(135deg, #c4a24a, #e07b18)",
+            background: "linear-gradient(135deg, #d4b04e, #e07b18)",
             borderRadius: 7,
             padding: "0.5rem 1rem",
             textAlign: "center",
@@ -898,7 +898,7 @@ function Scene4({ active }) {
           position: "absolute",
           bottom: "1.5rem",
           right: "1rem",
-          background: "linear-gradient(135deg, #0f0f0d, rgba(196,162,74,0.1))",
+          background: "linear-gradient(135deg, #232220, rgba(212,176,78,0.1))",
           border: `0.5px solid ${DS.border}`,
           borderRadius: 10,
           padding: "0.75rem 1rem",
@@ -906,7 +906,7 @@ function Scene4({ active }) {
           alignItems: "center",
           gap: "0.7rem",
           animation: "aw-notification-in 0.5s cubic-bezier(0.34,1.2,0.64,1) forwards",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(196,162,74,0.12)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,176,78,0.12)",
           zIndex: 20,
           maxWidth: "80%",
         }}>
@@ -994,7 +994,7 @@ function Scene5({ active }) {
               ${(pipelineValue / 1000000).toFixed(2)}M
             </div>
           </div>
-          <div style={{ ...S.mono, fontSize: "0.6rem", background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: DS.bg, borderRadius: 5, padding: "0.25rem 0.6rem", flexShrink: 0 }}>+ New</div>
+          <div style={{ ...S.mono, fontSize: "0.6rem", background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: DS.bg, borderRadius: 5, padding: "0.25rem 0.6rem", flexShrink: 0 }}>+ New</div>
         </div>
       </div>
 
@@ -1026,9 +1026,9 @@ function Scene5({ active }) {
                     ? `0.5px solid ${DS.border}`
                     : `0.5px solid ${DS.borderFaint}`,
                   background: deal.arrived
-                    ? "linear-gradient(135deg, #0f0f0d, rgba(74,222,128,0.07))"
+                    ? "linear-gradient(135deg, #232220, rgba(74,222,128,0.07))"
                     : deal.hot
-                    ? `linear-gradient(135deg, #0f0f0d, rgba(196,162,74,0.06))`
+                    ? `linear-gradient(135deg, #232220, rgba(212,176,78,0.06))`
                     : DS.bgCard,
                   animation: deal.arrived ? "aw-card-float 0.5s ease" : "none",
                   position: "relative",
@@ -1302,7 +1302,7 @@ function Scene7({ active }) {
           position: "absolute",
           bottom: "1.5rem",
           right: "1rem",
-          background: `linear-gradient(135deg, #0f0f0d, rgba(196,162,74,0.1))`,
+          background: `linear-gradient(135deg, #232220, rgba(212,176,78,0.1))`,
           border: `0.5px solid ${DS.border}`,
           borderRadius: 10,
           padding: "0.7rem 1rem",
@@ -1419,7 +1419,7 @@ function Scene8({ active }) {
               borderRadius: 2,
               width: `${(progressStep / steps.length) * 100}%`,
               transition: "width 0.6s cubic-bezier(0.34,1.1,0.64,1)",
-              boxShadow: `0 0 8px rgba(196,162,74,0.5)`,
+              boxShadow: `0 0 8px rgba(212,176,78,0.5)`,
             }} />
           </div>
         </div>
@@ -1437,7 +1437,7 @@ function Scene8({ active }) {
       {/* Success state */}
       {showSuccess && (
         <div style={{
-          background: `linear-gradient(135deg, #0f0f0d, rgba(74,222,128,0.1))`,
+          background: `linear-gradient(135deg, #232220, rgba(74,222,128,0.1))`,
           border: "0.5px solid rgba(74,222,128,0.45)",
           borderRadius: 12,
           padding: "0.9rem 1.5rem",
@@ -1616,7 +1616,7 @@ export default function AnimatedWalkthrough() {
         <div style={{
           position: "absolute",
           inset: 0,
-          background: `radial-gradient(ellipse 60% 50% at 50% 100%, rgba(196,162,74,0.04) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212,176,78,0.04) 0%, transparent 70%)`,
           pointerEvents: "none",
           zIndex: 0,
         }} />
@@ -1647,7 +1647,7 @@ export default function AnimatedWalkthrough() {
                   border: "none",
                   cursor: "pointer",
                   background: i === currentScene
-                    ? "linear-gradient(135deg, #c4a24a, #e07b18)"
+                    ? "linear-gradient(135deg, #d4b04e, #e07b18)"
                     : "rgba(255,248,220,0.05)",
                   color: i === currentScene ? DS.bg : "rgba(245,240,230,0.4)",
                   fontWeight: i === currentScene ? 600 : 400,

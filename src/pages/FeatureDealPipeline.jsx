@@ -14,17 +14,17 @@ import {
    THEME
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
 };
 
 const fontImport = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,700&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Mono:wght@400;500&display=swap');`;
@@ -151,7 +151,7 @@ function KanbanMockup() {
         <span style={{ ...mono, fontSize: 11, color: T.creamDim, marginLeft: 12, opacity: 0.6 }}>dealstage.app / pipeline</span>
         <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
           <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.2)" }}>9 ACTIVE DEALS</span>
-          <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(196,162,74,0.1)", color: T.gold, border: `1px solid ${T.borderAlt}` }}>$578K PIPELINE</span>
+          <span style={{ ...mono, fontSize: 10, padding: "3px 10px", borderRadius: 4, background: "rgba(212,176,78,0.1)", color: T.gold, border: `1px solid ${T.borderAlt}` }}>$578K PIPELINE</span>
         </div>
       </div>
 
@@ -214,7 +214,7 @@ export default function FeatureDealPipeline() {
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         @media (max-width: 768px) {
           .fp-nav-links { display: none !important; }
           .fp-nav { padding: 0 16px !important; }
@@ -264,8 +264,8 @@ export default function FeatureDealPipeline() {
               { role: "For Talent", text: "Never lose track of a deal — see every offer in one pipeline" },
               { role: "For Agencies", text: "Manage 200+ deals across clients from a single dashboard" },
             ].map(item => (
-              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
-                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(212,176,78,0.2)", background: "rgba(212,176,78,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#d4b04e", fontWeight: 500 }}>{item.role}:</span> {item.text}
               </div>
             ))}
           </div>
@@ -301,7 +301,7 @@ export default function FeatureDealPipeline() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                   <Icon size={22} style={{ color: T.gold }} />
                 </div>
                 <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 10 }}>{title}</h3>
@@ -317,9 +317,9 @@ export default function FeatureDealPipeline() {
       {/* TESTIMONIAL */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
         <Fade>
-          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #d4b04e", background: "rgba(212,176,78,0.03)", borderRadius: "0 8px 8px 0" }}>
             <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"We manage 200+ talent deals from one dashboard. The pipeline visibility changed everything."</p>
-            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— Head of Partnerships, Wasserman</p>
+            <p style={{ fontSize: "0.75rem", color: "#d4b04e", fontFamily: "'Instrument Mono', monospace" }}>— Head of Partnerships, Wasserman</p>
           </div>
         </Fade>
       </section>
@@ -341,11 +341,11 @@ export default function FeatureDealPipeline() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
             {/* Left: Upload mockup */}
             <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: 32, position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at top left, rgba(196,162,74,0.05), transparent 60%)", pointerEvents: "none" }} />
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at top left, rgba(212,176,78,0.05), transparent 60%)", pointerEvents: "none" }} />
               <div style={{ ...mono, fontSize: 11, color: T.goldDim, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 20 }}>Upload Your Campaign Deck</div>
 
               {/* Drop zone */}
-              <div style={{ border: `2px dashed ${T.border}`, borderRadius: 12, padding: "40px 24px", textAlign: "center", marginBottom: 24, background: "rgba(196,162,74,0.02)" }}>
+              <div style={{ border: `2px dashed ${T.border}`, borderRadius: 12, padding: "40px 24px", textAlign: "center", marginBottom: 24, background: "rgba(212,176,78,0.02)" }}>
                 <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
                 <p style={{ ...sans, fontSize: 14, color: T.cream, fontWeight: 500, marginBottom: 4 }}>Drag & drop your deck here</p>
                 <p style={{ ...sans, fontSize: 12, color: T.creamDim }}>PDF, PPTX, or DOCX · Max 50MB</p>
@@ -356,7 +356,7 @@ export default function FeatureDealPipeline() {
               <div style={{ ...mono, fontSize: 11, color: T.goldDim, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>AI Extracts From Your Deck</div>
               {["Campaign objectives & KPIs", "Target audience demographics", "Budget range & timeline", "Brand tone & creative direction", "Preferred talent categories"].map((item, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < 4 ? `1px solid ${T.borderAlt}` : "none" }}>
-                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "rgba(196,162,74,0.12)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "rgba(212,176,78,0.12)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <span style={{ fontSize: 10, color: T.gold }}>✓</span>
                   </div>
                   <span style={{ ...sans, fontSize: 13, color: T.cream }}>{item}</span>

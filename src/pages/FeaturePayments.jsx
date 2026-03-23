@@ -18,17 +18,17 @@ import {
    THEME
 ───────────────────────────────────────────── */
 const T = {
-  bg:        "#080807",
+  bg:        "#1c1b19",
   bgCard:    "#0e0d0b",
   bgCardAlt: "#121109",
-  gold:      "#c4a24a",
+  gold:      "#d4b04e",
   goldLight: "#d4b86a",
   goldDim:   "#8a6f2e",
   amber:     "#e07b18",
   cream:     "#f5f0e6",
   creamDim:  "#b8b0a0",
-  border:    "rgba(196,162,74,0.18)",
-  borderAlt: "rgba(196,162,74,0.10)",
+  border:    "rgba(212,176,78,0.18)",
+  borderAlt: "rgba(212,176,78,0.10)",
   green:     "#22c55e",
   greenDim:  "rgba(34,197,94,0.12)",
   yellow:    "#f59e0b",
@@ -163,7 +163,7 @@ function PaymentsDashboard() {
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {RECENT_PAYMENTS.map((p, i) => (
                 <div key={i} style={{ background: T.bgCardAlt, border: `1px solid ${T.borderAlt}`, borderRadius: 9, padding: "12px 14px", display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(196,162,74,0.12)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(212,176,78,0.12)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <CreditCard size={14} style={{ color: T.gold }} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -192,7 +192,7 @@ function PaymentsDashboard() {
                   <div style={{ ...sans, fontSize: 13, fontWeight: 700, color: T.cream, flexShrink: 0 }}>{s.amount}</div>
                 </div>
               ))}
-              <div style={{ padding: "10px 14px", background: "rgba(196,162,74,0.04)", borderTop: `1px solid ${T.borderAlt}` }}>
+              <div style={{ padding: "10px 14px", background: "rgba(212,176,78,0.04)", borderTop: `1px solid ${T.borderAlt}` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ ...mono, fontSize: 10, color: T.creamDim }}>TOTAL SCHEDULED</span>
                   <span style={{ ...sans, fontSize: 14, fontWeight: 700, color: T.gold }}>$188,000</span>
@@ -222,7 +222,7 @@ export default function FeaturePayments() {
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::selection { background: rgba(196,162,74,0.25); color: #f5f0e6; }
+        ::selection { background: rgba(212,176,78,0.25); color: #f5f0e6; }
         @media (max-width: 768px) {
           .fp-nav-links { display: none !important; }
           .fp-nav { padding: 0 16px !important; }
@@ -273,8 +273,8 @@ export default function FeaturePayments() {
               { role: "For Brands", text: "Pay talent securely with milestone-based releases" },
               { role: "For Agencies", text: "Auto-split commissions across your roster" },
             ].map(item => (
-              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(196,162,74,0.2)", background: "rgba(196,162,74,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
-                <span style={{ color: "#c4a24a", fontWeight: 500 }}>{item.role}:</span> {item.text}
+              <div key={item.role} style={{ padding: "0.6rem 1.25rem", borderRadius: 8, border: "0.5px solid rgba(212,176,78,0.2)", background: "rgba(212,176,78,0.04)", fontSize: "0.78rem", color: "rgba(245,240,230,0.5)" }}>
+                <span style={{ color: "#d4b04e", fontWeight: 500 }}>{item.role}:</span> {item.text}
               </div>
             ))}
           </div>
@@ -310,7 +310,7 @@ export default function FeaturePayments() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.gold; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(196,162,74,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(212,176,78,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                   <Icon size={22} style={{ color: T.gold }} />
                 </div>
                 <h3 style={{ ...sans, fontSize: 16, fontWeight: 600, color: T.cream, marginBottom: 10 }}>{title}</h3>
@@ -326,9 +326,9 @@ export default function FeaturePayments() {
       {/* TESTIMONIAL */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px 0" }}>
         <Fade>
-          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #c4a24a", background: "rgba(196,162,74,0.03)", borderRadius: "0 8px 8px 0" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto", padding: "2rem", textAlign: "center", borderLeft: "2px solid #d4b04e", background: "rgba(212,176,78,0.03)", borderRadius: "0 8px 8px 0" }}>
             <p style={{ fontStyle: "italic", fontSize: "1rem", color: "rgba(245,240,230,0.6)", lineHeight: 1.8, marginBottom: "0.75rem" }}>"Average payment time dropped from 45 days to under 3. The escrow system builds real trust."</p>
-            <p style={{ fontSize: "0.75rem", color: "#c4a24a", fontFamily: "'Instrument Mono', monospace" }}>— CFO, Endeavor</p>
+            <p style={{ fontSize: "0.75rem", color: "#d4b04e", fontFamily: "'Instrument Mono', monospace" }}>— CFO, Endeavor</p>
           </div>
         </Fade>
       </section>
