@@ -56,14 +56,14 @@ body {
     --chart-4: 220 65% 50%; /* blue */
     --chart-5: 280 60% 55%; /* purple */
     --radius: 0.625rem;
-    /* Sidebar stays dark for premium contrast */
-    --sidebar-background: 40 4% 7%; /* #121110 — dark sidebar */
-    --sidebar-foreground: 40 15% 80%;
+    /* Sidebar matches pearl theme */
+    --sidebar-background: 38 30% 92%; /* #f3ede0 — deeper cream */
+    --sidebar-foreground: 30 10% 10%; /* #1c1b19 — dark text */
     --sidebar-primary: 43 55% 52%; /* gold */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 30 6% 12%;
-    --sidebar-accent-foreground: 40 15% 85%;
-    --sidebar-border: 30 6% 14%;
+    --sidebar-accent: 38 35% 88%; /* #ebe3d3 — warm hover */
+    --sidebar-accent-foreground: 30 10% 10%;
+    --sidebar-border: 35 20% 82%; /* warm golden border */
     --sidebar-ring: 43 55% 52%;
   }
 
