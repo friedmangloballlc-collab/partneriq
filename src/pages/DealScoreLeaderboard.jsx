@@ -114,7 +114,7 @@ function TalentCard({ talent, rank }) {
       {/* Avatar */}
       <Avatar className="w-10 h-10 flex-shrink-0">
         {talent.avatar_url ? (
-          <img src={talent.avatar_url} alt={name} className="rounded-full object-cover w-full h-full" />
+          <img src={talent.avatar_url} alt={name} className="rounded-full object-cover w-full h-full" width={40} height={40} loading="lazy" />
         ) : (
           <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold">
             {getInitials(name)}

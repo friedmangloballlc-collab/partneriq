@@ -34,7 +34,7 @@ export default function CheckEmail() {
 
       <div style={{ maxWidth: 440, width: "100%", textAlign: "center", boxSizing: "border-box" }}>
         {/* Logo */}
-        <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 48, margin: "0 auto 2.5rem" }} />
+        <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 48, margin: "0 auto 2.5rem" }} width={190} height={48} fetchPriority="high" />
 
         {/* Email icon */}
         <div style={{ width: 72, height: 72, borderRadius: 18, background: "linear-gradient(135deg, rgba(212,176,78,0.12), rgba(224,123,24,0.12))", border: "0.5px solid rgba(212,176,78,0.2)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>

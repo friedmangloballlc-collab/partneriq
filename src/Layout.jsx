@@ -309,9 +309,9 @@ export default function Layout({ children, currentPageName }) {
       {/* Logo */}
       <div className={`flex items-center h-16 px-4 border-b border-white/5 ${collapsed && !mobile ? "justify-center" : "gap-3"}`}>
         {collapsed && !mobile ? (
-          <img src="/brand/marks/10_mark_transparent.png" alt="D" style={{ height: 34 }} />
+          <img src="/brand/marks/10_mark_transparent.png" alt="D" style={{ height: 34 }} width={34} height={34} fetchPriority="high" />
         ) : (
-          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
+          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} fetchPriority="high" />
         )}
         {mobile && (
           <button onClick={() => setMobileOpen(false)} className="ml-auto text-slate-400 hover:text-white" aria-label="Close navigation menu">

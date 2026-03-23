@@ -865,7 +865,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         <div className={`ds-mobile-nav-overlay${mobileNavOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Navigation menu">
           <div className="ds-mobile-nav-header">
             <a href="/" style={{ display: "flex", alignItems: "center" }} onClick={() => setMobileNavOpen(false)}>
-              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
+              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} loading="lazy" />
             </a>
             <button className="ds-mobile-menu-btn" onClick={() => setMobileNavOpen(false)} aria-label="Close menu">✕</button>
           </div>
@@ -886,7 +886,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         {/* ── NAV ─────────────────────────────────────────────────────────── */}
         <nav className={`ds-nav${navScrolled ? " scrolled" : ""}`} style={isMobile ? { padding: "0 1rem", height: 52 } : {}}>
           <a href="/" className="ds-nav-logo" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 42 }} />
+            <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 42 }} width={165} height={42} fetchPriority="high" />
           </a>
           <button className="ds-mobile-menu-btn" style={{ display: isMobile ? "flex" : "none", alignItems: "center", justifyContent: "center", minWidth: 44, minHeight: 44 }} onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>☰</button>
           <ul className="ds-nav-links" style={isMobile ? { display: "none" } : {}}>
@@ -1329,7 +1329,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 <div className="ds-phone-frame">
                   <div className="ds-phone-screen">
                     <div className="ds-phone-header">
-                      <div className="ds-phone-logo"><img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 20 }} /></div>
+                      <div className="ds-phone-logo"><img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 20 }} width={78} height={20} loading="lazy" /></div>
                       <div className="ds-phone-notif" />
                     </div>
                     <div className="ds-phone-card">
@@ -1377,7 +1377,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         <footer className="ds-footer" style={isMobile ? { gridTemplateColumns: "1fr", gap: "2rem", padding: "2rem 1.25rem" } : {}}>
           <div>
             <a href="/" className="ds-footer-logo" style={{ display: "flex", alignItems: "center" }}>
-              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="Dealstage" style={{ height: 36 }} />
+              <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} loading="lazy" />
             </a>
             <p className="ds-footer-tagline">The platform where talent meets brands and deals get done.</p>
             <p style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-cream3)", marginTop: "1.5rem" }}>&copy; 2026 DealStage LLC</p>

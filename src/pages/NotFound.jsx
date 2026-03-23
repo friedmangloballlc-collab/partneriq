@@ -37,7 +37,7 @@ export default function NotFound() {
       <div style={{ maxWidth: 520, width: "100%", textAlign: "center", position: "relative", zIndex: 1 }}>
         {/* Logo */}
         <div style={{ animation: "fadeInUp 0.5s ease-out" }}>
-          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 48, margin: "0 auto 2.5rem" }} />
+          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 48, margin: "0 auto 2.5rem" }} width={190} height={48} fetchPriority="high" />
         </div>
 
         {/* Floating 404 */}

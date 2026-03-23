@@ -223,7 +223,7 @@ export default function ManagerProfile() {
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-primary/20">
                 {avatarPreview ? (
-                  <img src={avatarPreview} alt="Artist" className="w-full h-full object-cover" />
+                  <img src={avatarPreview} alt="Artist" className="w-full h-full object-cover" width={96} height={96} loading="lazy" />
                 ) : (
                   <User className="w-10 h-10 text-muted-foreground" />
                 )}
