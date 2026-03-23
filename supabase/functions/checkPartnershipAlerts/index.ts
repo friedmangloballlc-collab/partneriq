@@ -18,20 +18,34 @@ Deno.serve(async (req) => {
     const partnerships = await base44.asServiceRole.entities.Partnership.list('-updated_date', 200);
     const created = [];
 
+    // Batch-fetch all relevant notifications upfront to avoid N+1 queries
+    const [staleNotifs, negotiationNotifs] = await Promise.all([
+      base44.asServiceRole.entities.Notification.filter({ trigger_event: 'competitor_deal_expiring' }, '-created_date', 500),
+      base44.asServiceRole.entities.Notification.filter({ trigger_event: 'major_announcement' }, '-created_date', 500),
+    ]);
+
+    // Index by reference_id for O(1) lookup
+    const staleByRef: Record<string, any[]> = {};
+    for (const n of staleNotifs) {
+      if (!staleByRef[n.reference_id]) staleByRef[n.reference_id] = [];
+      staleByRef[n.reference_id].push(n);
+    }
+    const negotiationByRef: Record<string, any[]> = {};
+    for (const n of negotiationNotifs) {
+      if (!negotiationByRef[n.reference_id]) negotiationByRef[n.reference_id] = [];
+      negotiationByRef[n.reference_id].push(n);
+    }
+
     for (const p of partnerships) {
       const updatedAt = new Date(p.updated_date);
-      const daysSinceUpdate = (now - updatedAt) / (1000 * 60 * 60 * 24);
+      const daysSinceUpdate = (now.getTime() - updatedAt.getTime()) / (1000 * 60 * 60 * 24);
 
       // --- Stale deal alert (7+ days with no movement, not in terminal stages) ---
       const terminalStages = ['completed', 'churned', 'contracted', 'active'];
       if (!terminalStages.includes(p.status) && daysSinceUpdate >= 7) {
-        // Avoid duplicate: check if we already sent this alert recently
-        const existing = await base44.asServiceRole.entities.Notification.filter({
-          reference_id: p.id,
-          trigger_event: 'competitor_deal_expiring',
-        });
+        const existing = staleByRef[p.id] || [];
         const recentAlert = existing.find(n => {
-          const age = (now - new Date(n.created_date)) / (1000 * 60 * 60 * 24);
+          const age = (now.getTime() - new Date(n.created_date).getTime()) / (1000 * 60 * 60 * 24);
           return age < 7;
         });
 
@@ -57,12 +71,9 @@ Deno.serve(async (req) => {
 
       // --- Negotiation warning (3+ days stuck negotiating) ---
       if (p.status === 'negotiating' && daysSinceUpdate >= 3) {
-        const existing = await base44.asServiceRole.entities.Notification.filter({
-          reference_id: p.id,
-          trigger_event: 'major_announcement',
-        });
+        const existing = negotiationByRef[p.id] || [];
         const recentAlert = existing.find(n => {
-          const age = (now - new Date(n.created_date)) / (1000 * 60 * 60 * 24);
+          const age = (now.getTime() - new Date(n.created_date).getTime()) / (1000 * 60 * 60 * 24);
           return age < 3;
         });
 

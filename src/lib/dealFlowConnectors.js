@@ -94,18 +94,16 @@ export async function getIndustryGuide(supabase, industry) {
  * @returns {Promise<{sent:number, replied:number, contracted:number, replyRate:number, contractRate:number}>}
  */
 export async function getOutreachConversionMetrics(supabase) {
-  const { data: emails } = await supabase
-    .from('outreach_emails')
-    .select('status')
-    .limit(2000);
+  // Use parallel count queries instead of fetching 2000 rows
+  const [sentRes, repliedRes, contractedRes] = await Promise.all([
+    supabase.from('outreach_emails').select('id', { count: 'exact', head: true }).in('status', ['sent', 'replied', 'contracted']),
+    supabase.from('outreach_emails').select('id', { count: 'exact', head: true }).in('status', ['replied', 'contracted']),
+    supabase.from('outreach_emails').select('id', { count: 'exact', head: true }).eq('status', 'contracted'),
+  ]);
 
-  if (!emails || emails.length === 0) {
-    return { sent: 0, replied: 0, contracted: 0, replyRate: 0, contractRate: 0 };
-  }
-
-  const sent = emails.filter(e => ['sent', 'replied', 'contracted'].includes(e.status)).length;
-  const replied = emails.filter(e => ['replied', 'contracted'].includes(e.status)).length;
-  const contracted = emails.filter(e => e.status === 'contracted').length;
+  const sent = sentRes.count || 0;
+  const replied = repliedRes.count || 0;
+  const contracted = contractedRes.count || 0;
 
   return {
     sent,
@@ -131,7 +129,7 @@ export async function getPipelineSummary(supabase) {
   const { data: partnerships } = await supabase
     .from('partnerships')
     .select('status, deal_value')
-    .limit(1000);
+    .limit(500);
 
   if (!partnerships || partnerships.length === 0) {
     return { pipelineValue: 0, closedRevenue: 0, totalDeals: 0, winRate: 0, activeCount: 0, negotiatingCount: 0 };
