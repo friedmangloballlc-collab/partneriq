@@ -34,7 +34,7 @@ import {
   X,
   Handshake,
 } from "lucide-react";
-import jsPDF from "jspdf";
+// jsPDF dynamically imported in generatePDF to reduce bundle size
 
 // ── Template definitions ──────────────────────────────────────────────────────
 
@@ -438,7 +438,8 @@ ${f.brandName || "[BRAND NAME]"}`,
 
 // ── Utility helpers ───────────────────────────────────────────────────────────
 
-function generatePDF(template, fields, contractText) {
+async function generatePDF(template, fields, contractText) {
+  const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const margin = 60;
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -637,8 +638,8 @@ Return only valid JSON with no explanation.`,
     setStep("preview");
   };
 
-  const handleDownloadPDF = () => {
-    generatePDF(template, fields, contractText);
+  const handleDownloadPDF = async () => {
+    await generatePDF(template, fields, contractText);
     toast({ title: "PDF downloaded", description: `${template.name} saved to your device.` });
   };
 

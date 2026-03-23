@@ -1,7 +1,6 @@
-import jsPDF from "jspdf";
-
 /**
  * Generates a watermarked PDF document with the viewer's name on every page.
+ * jsPDF is dynamically imported to avoid bundling ~800KB upfront.
  *
  * @param {Object} opts
  * @param {string}   opts.title       - Document title shown in the header
@@ -12,7 +11,8 @@ import jsPDF from "jspdf";
  * @param {string}   [opts.subtitle]  - Optional subtitle below the title
  * @returns {jsPDF}  The constructed jsPDF document (not yet saved)
  */
-export function generateWatermarkedPDF({ title, content = [], viewerName, viewerEmail, subtitle }) {
+export async function generateWatermarkedPDF({ title, content = [], viewerName, viewerEmail, subtitle }) {
+  const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   const PAGE_W = 210;
   const PAGE_H = 297;

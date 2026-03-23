@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, Image, Loader2 } from "lucide-react";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
+// html2canvas and jsPDF dynamically imported in export handlers
 
 export default function ExportPanel({ dashboardRef, selectedData, onClose }) {
   const [exporting, setExporting] = useState(false);
@@ -12,13 +11,17 @@ export default function ExportPanel({ dashboardRef, selectedData, onClose }) {
   const exportToPDF = async () => {
     setExporting(true);
     try {
+      const [{ jsPDF }, { default: html2canvas }] = await Promise.all([
+        import("jspdf"),
+        import("html2canvas"),
+      ]);
       const element = dashboardRef.current;
       const canvas = await html2canvas(element, {
         backgroundColor: "#ffffff",
         scale: 2,
       });
 
-      const pdf = new jsPDF({
+      const pdf = new jsPDF({  // jsPDF from dynamic import above
         orientation: "portrait",
         unit: "mm",
         format: "a4",
@@ -88,6 +91,7 @@ export default function ExportPanel({ dashboardRef, selectedData, onClose }) {
   const exportToPNG = async () => {
     setExporting(true);
     try {
+      const { default: html2canvas } = await import("html2canvas");
       const element = dashboardRef.current;
       const canvas = await html2canvas(element, {
         backgroundColor: "#ffffff",

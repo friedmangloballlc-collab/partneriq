@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import jsPDF from "jspdf";
+// jsPDF dynamically imported in handleGeneratePDF to reduce bundle size
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -134,7 +134,8 @@ export default function ProofOfPerformance({ deal }) {
   });
 
   // ── PDF Generator ───────────────────────────────────────────────────────────
-  const handleGeneratePDF = () => {
+  const handleGeneratePDF = async () => {
+    const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     const W = 210;
     const marginX = 18;

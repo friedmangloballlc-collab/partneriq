@@ -14,7 +14,7 @@ import {
   Sparkles, FileText, Download, Loader2, Target, Lightbulb,
   BarChart3, Quote, ChevronDown, ChevronUp, RefreshCw,
 } from "lucide-react";
-import jsPDF from "jspdf";
+// jsPDF dynamically imported in generateCaseStudyPDF
 import { useToast } from "@/components/ui/use-toast";
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -33,7 +33,8 @@ function fmtDate(d) {
 
 // ── PDF generator ─────────────────────────────────────────────────────────────
 
-function generateCaseStudyPDF({ deal, caseStudy }) {
+async function generateCaseStudyPDF({ deal, caseStudy }) {
+  const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   const PAGE_W  = 210;
   const MARGIN  = 18;
@@ -197,8 +198,8 @@ function CaseStudyCard({ deal, caseStudy, onRegenerate, generating }) {
   const [expanded, setExpanded] = useState(true);
   const { toast } = useToast();
 
-  const handleDownloadPDF = () => {
-    const doc = generateCaseStudyPDF({ deal, caseStudy });
+  const handleDownloadPDF = async () => {
+    const doc = await generateCaseStudyPDF({ deal, caseStudy });
     const slug = (deal.brand_name || "campaign").toLowerCase().replace(/\s+/g, "-");
     doc.save(`case-study-${slug}-${new Date().toISOString().slice(0, 10)}.pdf`);
     toast({ title: "PDF downloaded", description: "Case study PDF saved successfully." });
