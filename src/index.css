@@ -68,38 +68,38 @@ body {
   }
 
   .dark {
-    /* Same as root — both themes are pearl/light */
-    --background: 38 45% 95%; /* #faf5eb — warm pearl */
-    --foreground: 30 10% 10%; /* #1c1b19 — warm dark text */
-    --card: 0 0% 100%; /* #ffffff — pure white cards */
-    --card-foreground: 30 10% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 30 10% 10%;
-    --primary: 43 55% 52%; /* #d4b04e — bright gold */
-    --primary-foreground: 30 10% 10%;
-    --secondary: 38 30% 92%; /* #f3ede0 — deeper cream */
-    --secondary-foreground: 30 10% 20%;
-    --muted: 38 25% 91%; /* #efe8da */
-    --muted-foreground: 30 10% 40%;
+    /* Dealstage dark theme — warm dark slate */
+    --background: 40 4% 10%; /* #1c1b19 — warm dark slate */
+    --foreground: 40 20% 93%; /* #f0ebe0 — warm cream text */
+    --card: 40 4% 13%; /* #232220 — cards on dark */
+    --card-foreground: 40 20% 93%;
+    --popover: 40 4% 13%;
+    --popover-foreground: 40 20% 93%;
+    --primary: 43 55% 52%; /* #d4b04e — gold */
+    --primary-foreground: 40 4% 10%;
+    --secondary: 40 4% 16%; /* #2a2826 */
+    --secondary-foreground: 40 15% 85%;
+    --muted: 40 4% 16%;
+    --muted-foreground: 40 10% 55%;
     --accent: 33 80% 49%; /* #e07b18 — amber */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --accent-foreground: 40 20% 93%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 35 20% 82%; /* warm golden border */
-    --input: 35 18% 80%;
+    --border: 40 4% 19%; /* #302e2a — warm border */
+    --input: 40 4% 19%;
     --ring: 43 55% 52%;
     --chart-1: 43 55% 52%;
     --chart-2: 33 80% 49%;
-    --chart-3: 160 55% 40%;
-    --chart-4: 220 65% 50%;
-    --chart-5: 280 60% 55%;
-    --sidebar-background: 40 4% 10%; /* #1c1b19 — dark sidebar */
+    --chart-3: 160 60% 45%;
+    --chart-4: 220 70% 55%;
+    --chart-5: 280 65% 60%;
+    --sidebar-background: 40 4% 7%; /* #121110 — darker sidebar */
     --sidebar-foreground: 40 15% 85%;
     --sidebar-primary: 43 55% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 40 4% 14%;
+    --sidebar-accent: 40 4% 12%;
     --sidebar-accent-foreground: 40 15% 85%;
-    --sidebar-border: 40 4% 16%;
+    --sidebar-border: 40 4% 14%;
     --sidebar-ring: 43 55% 52%;
   }
 }
