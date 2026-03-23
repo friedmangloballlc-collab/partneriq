@@ -930,6 +930,18 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           </div>
         </nav>
 
+        {/* ── TALENT TYPE TICKER ABOVE HERO ───────────────────────────── */}
+        <div className="ds-ticker-wrap" style={{ borderBottom: "none", borderTop: "none" }}>
+          <div className="ds-ticker">
+            {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
+              "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
+              <span key={`ht${i}`} className="ds-ticker-item">
+                {item} <span className="ds-ticker-sep">&#9670;</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* ── HERO ────────────────────────────────────────────────────────── */}
         <div className="ds-hero">
           <div className="ds-hero-glow-l" />
