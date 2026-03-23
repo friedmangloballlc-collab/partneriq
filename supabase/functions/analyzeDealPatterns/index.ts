@@ -8,10 +8,10 @@ Deno.serve(async (req) => {
     if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     const [partnerships, sequences, emails, notes] = await Promise.all([
-      base44.entities.Partnership.list('-created_date', 500),
-      base44.entities.OutreachSequence.list('-created_date', 200),
-      base44.entities.OutreachEmail.list('-created_date', 300),
-      base44.entities.DealNote.list('-created_date', 200),
+      base44.entities.Partnership.list('-created_date', 100),
+      base44.entities.OutreachSequence.list('-created_date', 50),
+      base44.entities.OutreachEmail.list('-created_date', 100),
+      base44.entities.DealNote.list('-created_date', 50),
     ]);
 
     if (partnerships.length === 0) {

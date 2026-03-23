@@ -8,11 +8,11 @@ Deno.serve(async (req) => {
     if (!user) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     const [partnerships, sequences, rateBenchmarks, roiBenchmarks, allMetrics] = await Promise.all([
-      base44.entities.Partnership.list('-created_date', 500),
-      base44.entities.OutreachSequence.list('-created_date', 200),
-      base44.entities.RateBenchmark.list('-created_date', 100),
-      base44.entities.ROIBenchmark.list('-created_date', 100),
-      base44.entities.OutreachMetrics.list('-created_date', 200),
+      base44.entities.Partnership.list('-created_date', 100),
+      base44.entities.OutreachSequence.list('-created_date', 50),
+      base44.entities.RateBenchmark.list('-created_date', 20),
+      base44.entities.ROIBenchmark.list('-created_date', 20),
+      base44.entities.OutreachMetrics.list('-created_date', 50),
     ]);
 
     // ── Partnership stats ──────────────────────────────────────────────────────

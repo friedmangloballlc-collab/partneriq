@@ -172,6 +172,10 @@ const AuthenticatedApp = () => {
   if (location.pathname === '/Pricing' || location.pathname === '/pricing') {
     return <Routes><Route path={location.pathname} element={<Pricing />} /></Routes>;
   }
+  if (location.pathname === '/FAQ' || location.pathname === '/faq') {
+    const FAQ = React.lazy(() => import('@/pages/FAQ'));
+    return <Routes><Route path={location.pathname} element={<Suspense fallback={<div />}><FAQ /></Suspense>} /></Routes>;
+  }
   // Public marketing routes (no auth needed)
   const publicMarketingRoutes = {
     '/About': <Suspense fallback={<div />}><About /></Suspense>,

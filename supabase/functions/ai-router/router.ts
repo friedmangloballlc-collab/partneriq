@@ -143,8 +143,19 @@ export async function routeRequest(
   systemPrompt: string | undefined,
   maxTokens: number,
   temperature: number,
+  allowedProviders?: string[],
 ): Promise<RouteResult> {
-  const providers = TIER_PROVIDERS[tier] || TIER_PROVIDERS.STANDARD;
+  const baseProviders = TIER_PROVIDERS[tier] || TIER_PROVIDERS.STANDARD;
+  // Filter by subscription-tier allowed providers if specified
+  const providers = allowedProviders
+    ? baseProviders.filter((p) => {
+        const base = p.split('_')[0]; // 'anthropic_haiku' -> 'anthropic'
+        return allowedProviders.includes(p) || allowedProviders.includes(base);
+      })
+    : baseProviders;
+  if (providers.length === 0) {
+    throw new Error(`No AI providers available for your subscription tier. Please upgrade.`);
+  }
   const start = Date.now();
   const errors: string[] = [];
 

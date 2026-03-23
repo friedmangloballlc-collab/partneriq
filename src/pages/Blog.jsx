@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { supabase } from "@/api/supabaseClient";
 import SEO from "@/components/SEO";
 import {
   BookOpen,
@@ -329,13 +330,29 @@ export default function Blog() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeError, setSubscribeError] = useState("");
 
   const filtered =
     activeFilter === "All" ? articles : articles.filter((a) => a.category === activeFilter);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email.trim()) setSubscribed(true);
+    if (!email.trim()) return;
+    setSubscribing(true);
+    setSubscribeError("");
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .upsert({ email: email.trim(), subscribed_at: new Date().toISOString(), source: 'blog' }, { onConflict: 'email' });
+      if (error) throw error;
+      setSubscribed(true);
+    } catch (err) {
+      setSubscribeError("Something went wrong. Please try again.");
+      console.error("Newsletter subscribe error:", err);
+    } finally {
+      setSubscribing(false);
+    }
   };
 
   return (

@@ -11,10 +11,32 @@ import { getHealthStatus } from './circuit-breaker.ts';
 
 // Rate limits by subscription plan (daily requests)
 const TIER_LIMITS: Record<string, number> = {
-  free: 25,
-  starter: 200,
-  pro: 1000,
+  free: 10,
+  starter: 50,
+  rising: 100,
+  growth: 200,
+  pro: 500,
+  scale: 1000,
+  elite: 2000,
   enterprise: Infinity,
+  agency_starter: 1000,
+  agency_pro: 2000,
+  agency_enterprise: Infinity,
+};
+
+// AI provider restrictions by tier — controls cost
+const TIER_PROVIDERS: Record<string, string[]> = {
+  free: ['groq', 'gemini'],
+  starter: ['groq', 'gemini', 'deepseek'],
+  rising: ['groq', 'gemini', 'deepseek'],
+  growth: ['groq', 'gemini', 'deepseek'],
+  pro: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  scale: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  elite: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  enterprise: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_starter: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_pro: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_enterprise: ['groq', 'gemini', 'deepseek', 'anthropic'],
 };
 
 // Response cache (in-memory, per-isolate)
@@ -278,6 +300,9 @@ Deno.serve(async (req) => {
       }
     }
 
+    // === Determine allowed providers for this subscription tier ===
+    const allowedProviders = TIER_PROVIDERS[user_tier] ?? TIER_PROVIDERS.free;
+
     // === Route to provider ===
     const fullPrompt = context ? `${prompt}\n\nContext:\n${context}` : prompt;
     const result = await routeRequest(
@@ -286,6 +311,7 @@ Deno.serve(async (req) => {
       agent.systemPrompt,
       agent.maxTokens,
       agent.temperature,
+      allowedProviders,
     );
 
     // === Cache response ===
