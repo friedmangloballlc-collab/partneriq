@@ -181,11 +181,11 @@ const PILLARS = [
   },
 ];
 
-const LEADERS = [
-  { initials: "AK", name: "Alex Kim",       role: "Chief Executive Officer",  bg: "linear-gradient(135deg, #d4b04e 0%, #e07b18 100%)" },
-  { initials: "SR", name: "Sofia Reyes",    role: "Chief Technology Officer",  bg: "linear-gradient(135deg, #8a6f2e 0%, #d4b04e 100%)" },
-  { initials: "JT", name: "Jordan Torres",  role: "VP of Product",             bg: "linear-gradient(135deg, #e07b18 0%, #d4b04e 100%)" },
-  { initials: "ML", name: "Maya Laurent",   role: "VP of Growth",              bg: "linear-gradient(135deg, #d4b04e 0%, #8a6f2e 100%)" },
+const OPEN_ROLES = [
+  { icon: "CTO", title: "Chief Technology Officer", desc: "Lead our AI infrastructure, platform architecture, and engineering culture.", bg: "linear-gradient(135deg, #d4b04e 0%, #e07b18 100%)" },
+  { icon: "HC", title: "Head of Content", desc: "Shape creator-economy storytelling and platform content strategy.", bg: "linear-gradient(135deg, #8a6f2e 0%, #d4b04e 100%)" },
+  { icon: "HS", title: "Head of Sales", desc: "Build and lead enterprise sales for brand and agency partnerships.", bg: "linear-gradient(135deg, #e07b18 0%, #d4b04e 100%)" },
+  { icon: "HE", title: "Head of Engineering", desc: "Own product delivery and grow a world-class engineering team.", bg: "linear-gradient(135deg, #d4b04e 0%, #8a6f2e 100%)" },
 ];
 
 const TIMELINE = [
@@ -202,14 +202,7 @@ const VALUES = [
   { icon: Star,       title: "Excellence",    body: "We hold every feature to Fortune 500 standards. Strong deal close rates aren't luck — they're design." },
 ];
 
-const INVESTORS = [
-  { label: "Apex Ventures",       abbr: "AV" },
-  { label: "Meridian Capital",    abbr: "MC" },
-  { label: "Lighthouse Fund",     abbr: "LF" },
-  { label: "Vantage Point",       abbr: "VP" },
-  { label: "Cornerstone Partners", abbr: "CP" },
-  { label: "Solaris Growth",      abbr: "SG" },
-];
+// Investors section uses honest "in conversations" framing — no fake names
 
 /* ═══════════════════════════════════════════════════════════
    ABOUT PAGE
@@ -566,22 +559,26 @@ export default function About() {
 
         <GoldRule />
 
-        {/* ── LEADERSHIP TEAM ───────────────────────────────── */}
+        {/* ── JOIN THE TEAM ───────────────────────────────── */}
         <Section>
           <Fade>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <SectionLabel>Leadership Team</SectionLabel>
+              <SectionLabel>The Team</SectionLabel>
               <h2 style={{
                 ...serif,
                 fontSize: "clamp(30px, 4vw, 50px)",
                 fontWeight: 700,
                 color: T.cream,
-                margin: 0,
+                margin: "0 0 16px",
                 lineHeight: 1.15,
               }}>
-                The people behind{" "}
-                <em style={{ fontStyle: "italic", color: T.gold }}>the deal</em>
+                Founded by{" "}
+                <em style={{ fontStyle: "italic", color: T.gold }}>deep expertise</em>
               </h2>
+              <p style={{ fontSize: 16, fontWeight: 300, color: T.creamDim, maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
+                DealStage is built by a team with deep roots in AI, the creator economy, and
+                enterprise SaaS. We're growing — and looking for exceptional people to join us.
+              </p>
             </div>
           </Fade>
 
@@ -590,7 +587,7 @@ export default function About() {
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: 20,
           }}>
-            {LEADERS.map((leader, i) => (
+            {OPEN_ROLES.map((role, i) => (
               <Fade key={i} delay={i * 80}>
                 <div style={{
                   background: T.bgCard,
@@ -598,49 +595,28 @@ export default function About() {
                   borderRadius: 16,
                   padding: "36px 28px",
                   textAlign: "center",
+                  position: "relative",
+                  overflow: "hidden",
                 }}>
-                  {/* Avatar */}
+                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: role.bg, opacity: 0.7 }} />
                   <div style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: "50%",
-                    background: leader.bg,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    width: 80, height: 80, borderRadius: "50%",
+                    background: "rgba(212,176,78,0.10)", border: "1px solid rgba(212,176,78,0.25)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
                     margin: "0 auto 20px",
-                    boxShadow: `0 0 0 3px rgba(212,176,78,0.18), 0 8px 32px rgba(212,176,78,0.12)`,
                   }}>
-                    <span style={{
-                      ...serif,
-                      fontSize: 26,
-                      fontWeight: 700,
-                      color: "#1c1b19",
-                      letterSpacing: "0.02em",
-                    }}>
-                      {leader.initials}
-                    </span>
+                    <span style={{ ...serif, fontSize: 20, fontWeight: 700, color: T.gold }}>{role.icon}</span>
                   </div>
-
-                  <div style={{
-                    ...serif,
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: T.cream,
-                    marginBottom: 6,
+                  <div style={{ ...mono, fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: T.amber, marginBottom: 8 }}>Now Hiring</div>
+                  <div style={{ ...serif, fontSize: 18, fontWeight: 700, color: T.cream, marginBottom: 12, lineHeight: 1.25 }}>{role.title}</div>
+                  <p style={{ fontSize: 13, fontWeight: 300, color: T.creamDim, lineHeight: 1.7, margin: "0 0 20px" }}>{role.desc}</p>
+                  <Link to="/Careers" style={{
+                    display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 500,
+                    color: T.gold, textDecoration: "none", border: `1px solid ${T.border}`, borderRadius: 6,
+                    padding: "7px 16px", background: "rgba(212,176,78,0.06)", ...mono, letterSpacing: "0.08em",
                   }}>
-                    {leader.name}
-                  </div>
-
-                  <div style={{
-                    ...mono,
-                    fontSize: 10,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    color: T.gold,
-                  }}>
-                    {leader.role}
-                  </div>
+                    View Role <ArrowRight size={12} />
+                  </Link>
                 </div>
               </Fade>
             ))}
@@ -837,88 +813,50 @@ export default function About() {
 
         <GoldRule />
 
-        {/* ── BACKED BY ─────────────────────────────────────── */}
+        {/* ── STRATEGIC INVESTMENT ──────────────────────────── */}
         <Section style={{ padding: "80px 24px" }}>
           <Fade>
-            <div style={{ textAlign: "center", marginBottom: 48 }}>
-              <SectionLabel>Backed By</SectionLabel>
+            <div style={{
+              border: `1px solid ${T.border}`,
+              borderRadius: 16,
+              padding: "64px 48px",
+              background: `radial-gradient(ellipse at 60% 40%, rgba(212,176,78,0.07) 0%, rgba(224,123,24,0.04) 50%, transparent 70%), ${T.bgCard}`,
+              textAlign: "center",
+            }}>
+              <SectionLabel>Strategic Investment</SectionLabel>
               <h2 style={{
                 ...serif,
                 fontSize: "clamp(26px, 3.5vw, 40px)",
                 fontWeight: 700,
                 color: T.cream,
-                margin: "0 0 12px",
+                margin: "0 0 20px",
+                lineHeight: 1.2,
               }}>
-                Trusted by forward-thinking investors
+                Founding Investors
               </h2>
               <p style={{
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: 300,
                 color: T.creamDim,
-                maxWidth: 420,
-                margin: "0 auto",
+                maxWidth: 520,
+                margin: "0 auto 32px",
+                lineHeight: 1.75,
               }}>
-                Leading venture firms who believe the future of partnerships
-                is data-driven and AI-powered.
+                We're currently in conversations with strategic investors who share our vision
+                for democratizing partnership intelligence. Interested in learning more?
               </p>
-            </div>
-          </Fade>
-
-          <Fade delay={100}>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-              gap: 12,
-              maxWidth: 820,
-              margin: "0 auto",
-            }}>
-              {INVESTORS.map((inv, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: T.bgCard,
-                    border: `1px solid ${T.borderAlt}`,
-                    borderRadius: 10,
-                    padding: "24px 20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  {/* Placeholder logo */}
-                  <div style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 10,
-                    background: `linear-gradient(135deg, rgba(212,176,78,0.15) 0%, rgba(224,123,24,0.10) 100%)`,
-                    border: `1px solid rgba(212,176,78,0.2)`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}>
-                    <span style={{
-                      ...mono,
-                      fontSize: 13,
-                      fontWeight: 500,
-                      color: T.gold,
-                      letterSpacing: "0.05em",
-                    }}>
-                      {inv.abbr}
-                    </span>
-                  </div>
-                  <span style={{
-                    ...sans,
-                    fontSize: 12,
-                    fontWeight: 400,
-                    color: T.creamDim,
-                    textAlign: "center",
-                    lineHeight: 1.4,
-                  }}>
-                    {inv.label}
-                  </span>
-                </div>
-              ))}
+              <a
+                href="mailto:hello@thedealstage.com"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  background: `linear-gradient(135deg, ${T.gold}, ${T.amber})`,
+                  color: "#1c1b19", fontWeight: 500, fontSize: 14,
+                  padding: "12px 28px", borderRadius: 8, textDecoration: "none",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Contact Us <ArrowRight size={15} />
+              </a>
             </div>
           </Fade>
         </Section>
