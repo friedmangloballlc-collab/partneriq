@@ -1,5 +1,39 @@
 User-agent: *
 Allow: /
+
+# Block authenticated app routes
+Disallow: /Dashboard
+Disallow: /AdminDashboard
+Disallow: /AdminDataManager
+Disallow: /Settings
+Disallow: /BillingHistory
+Disallow: /Analytics
+Disallow: /Approvals
+Disallow: /Partnerships
+Disallow: /Marketplace
+Disallow: /TalentDiscovery
+Disallow: /TalentProfile
+Disallow: /TalentAnalytics
+Disallow: /TalentRevenue
+Disallow: /BrandDashboard
+Disallow: /MasterCalendar
+Disallow: /Outreach
+Disallow: /SequenceBuilder
+Disallow: /MatchEngine
+Disallow: /DealDetail
+Disallow: /DealAnalytics
+Disallow: /Teams
+Disallow: /Integrations
+Disallow: /Notifications
+Disallow: /SubscriptionManagement
+Disallow: /ConnectAccounts
+Disallow: /login
+Disallow: /Onboarding
+Disallow: /check-email
+Disallow: /auth/callback
+Disallow: /reset-password
+
+# Block API and functions
 Disallow: /api/
 Disallow: /functions/
 

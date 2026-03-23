@@ -161,9 +161,9 @@ const companies = [
 ];
 
 const stats = [
-  { value: "840+", label: "Active Organizations" },
-  { value: "$48M+", label: "Deals Closed" },
-  { value: "96%", label: "Close Rate" },
+  { value: "Growing", label: "Organizations" },
+  { value: "Early Access", label: "Platform Stage" },
+  { value: "Strong", label: "Close Rate" },
   { value: "4.9/5", label: "Satisfaction" },
 ];
 
@@ -1014,7 +1014,7 @@ export default function Customers() {
               lineHeight: 1.65,
             }}
           >
-            Join 840+ organizations already closing better deals on Dealstage.
+            Join the organizations already closing better deals on DealStage.
             Start free, no credit card required.
           </p>
           <button

@@ -273,7 +273,7 @@ export default function FeatureDealPipeline() {
 
         <Fade delay={320}>
           <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 56, flexWrap: "wrap" }}>
-            {[["$48M+", "Deals Facilitated"], ["4", "Pipeline Stages"], ["96%", "Deal Close Rate"]].map(([val, lbl], i) => (
+            {[["Growing", "Deals Facilitated"], ["4", "Pipeline Stages"], ["Strong", "Close Rate"]].map(([val, lbl], i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{ ...serif, fontSize: 30, fontWeight: 700, color: T.gold }}>{val}</div>
                 <div style={{ ...mono, fontSize: 11, color: T.creamDim, letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 4 }}>{lbl}</div>
@@ -408,7 +408,7 @@ export default function FeatureDealPipeline() {
           <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
             {[
               { val: "< 30 sec", label: "Deck analysis time" },
-              { val: "94%", label: "Match accuracy" },
+              { val: "AI", label: "Match scoring" },
               { val: "100%", label: "Within your budget" },
             ].map(({ val, label }, i) => (
               <div key={i} style={{ textAlign: "center" }}>
@@ -445,9 +445,9 @@ export default function FeatureDealPipeline() {
         <Fade>
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(224,123,24,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
-            <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>$48M+</div>
-            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>in deals facilitated through Dealstage</p>
-            <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>ACROSS 840+ BRANDS AND AGENCIES</p>
+            <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>AI</div>
+            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>powered deal management from pitch to payment</p>
+            <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>FOUNDING MEMBERS AND GROWING</p>
           </div>
         </Fade>
       </section>

@@ -151,10 +151,10 @@ function SectionLabel({ children }) {
    DATA
 ───────────────────────────────────────────── */
 const STATS = [
-  { value: "12K+",  label: "Talent Profiles" },
-  { value: "$48M",  label: "Deals Facilitated" },
-  { value: "840+",  label: "Brands & Agencies" },
-  { value: "96%",   label: "Deal Close Rate" },
+  { value: "Growing",  label: "Talent Network" },
+  { value: "Early",  label: "Access Stage" },
+  { value: "Founding",  label: "Members" },
+  { value: "Strong",   label: "Close Rate" },
 ];
 
 const PILLARS = [
@@ -191,15 +191,15 @@ const LEADERS = [
 const TIMELINE = [
   { year: "2024",    label: "Q4 · Founded",         desc: "DealStage LLC incorporated. Core AI infrastructure and matching algorithms developed." },
   { year: "Q1 2025", label: "Beta Launch",           desc: "Closed beta with 40 curated brands and 200 talent profiles. First $1M in deals facilitated." },
-  { year: "Q2 2026", label: "Public Launch",         desc: "Platform opens to all users. 840+ brands and agencies onboard within the first 60 days." },
-  { year: "Q3 2026", label: "10K Users Milestone",  desc: "12,000 active talent profiles. $48M in total deals facilitated across 32 categories." },
+  { year: "Q2 2026", label: "Public Launch",         desc: "Platform opens to all users. Brands and agencies onboard as founding members." },
+  { year: "Q3 2026", label: "Growth Milestone",  desc: "Expanding active talent profiles and deals facilitated across 32 categories." },
 ];
 
 const VALUES = [
   { icon: Lightbulb, title: "Innovation",    body: "We build technology the industry has never seen, pushing the frontier of what AI can do for partnerships." },
   { icon: Eye,        title: "Transparency",  body: "Every data point, every recommendation, every deal stage is visible to every party who needs to see it." },
   { icon: Scale,      title: "Fairness",      body: "Our algorithms are audited for bias. Talent, brands, and agencies are treated as equal first-class users." },
-  { icon: Star,       title: "Excellence",    body: "We hold every feature to Fortune 500 standards. 96% deal close rate isn't luck — it's design." },
+  { icon: Star,       title: "Excellence",    body: "We hold every feature to Fortune 500 standards. Strong deal close rates aren't luck — they're design." },
 ];
 
 const INVESTORS = [
@@ -970,7 +970,7 @@ export default function About() {
                 margin: "0 auto 40px",
                 lineHeight: 1.7,
               }}>
-                Join 12,000+ talent, brands, and agencies who have made
+                Join the growing community of talent, brands, and agencies who have made
                 DealStage the intelligence layer of their partnership strategy.
               </p>
 

@@ -9,6 +9,35 @@ Deno.serve(async (req) => {
 
     const { action, partnership_id, escrow_id, amount, milestone, condition, currency } = await req.json();
 
+    // ── Authorization: verify user is a party to the partnership ──────────
+    if (['release_payment', 'refund', 'check_conditions'].includes(action)) {
+      let partnershipToCheck = partnership_id || null;
+
+      // For escrow-based actions, look up the partnership from the escrow record
+      if (!partnershipToCheck && escrow_id) {
+        const { data: escrowRecord } = await base44.supabase
+          .from('escrow_payments')
+          .select('partnership_id')
+          .eq('id', escrow_id)
+          .single();
+        partnershipToCheck = escrowRecord?.partnership_id;
+      }
+
+      if (partnershipToCheck) {
+        const { data: partnershipRecord } = await base44.supabase
+          .from('partnerships')
+          .select('created_by')
+          .eq('id', partnershipToCheck)
+          .single();
+
+        if (!partnershipRecord || (partnershipRecord.created_by !== user.id && user.role !== 'admin')) {
+          return new Response(JSON.stringify({ error: 'Forbidden: you are not authorized for this partnership' }), {
+            status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+      }
+    }
+
     // ── create_hold ──────────────────────────────────────────────────────────
     if (action === 'create_hold') {
       if (!partnership_id || !amount) {
@@ -115,13 +144,10 @@ Return a JSON array of results.`;
         }
       });
 
-      // Auto-update condition_met flag based on AI analysis
+      // Return AI analysis as recommendations only — human must explicitly approve releases
       const results = result.results || [];
-      for (const r of results) {
-        if (r.escrow_id && r.condition_met) {
-          await base44.entities.EscrowPayment.update(r.escrow_id, { condition_met: true });
-        }
-      }
+      // NOTE: AI recommendations are advisory. Do NOT auto-update condition_met.
+      // The user must review and manually release escrow payments.
 
       return new Response(JSON.stringify({ success: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }

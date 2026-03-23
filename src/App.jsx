@@ -23,6 +23,8 @@ import Customers from '@/pages/Customers';
 import CookiePolicy from '@/pages/CookiePolicy';
 import GDPR from '@/pages/GDPR';
 import Demo from '@/pages/Demo';
+import AuthCallback from '@/pages/AuthCallback';
+import ResetPassword from '@/pages/ResetPassword';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
@@ -204,6 +206,14 @@ const AuthenticatedApp = () => {
         <Route path="/check-email" element={<Suspense fallback={<div />}><CheckEmail /></Suspense>} />
       </Routes>
     );
+  }
+
+  if (location.pathname === '/auth/callback') {
+    return <Routes><Route path="/auth/callback" element={<AuthCallback />} /></Routes>;
+  }
+
+  if (location.pathname === '/reset-password') {
+    return <Routes><Route path="/reset-password" element={<ResetPassword />} /></Routes>;
   }
 
   if (location.pathname === '/' || location.pathname === '/Onboarding') {

@@ -435,7 +435,7 @@ export default function SmartNextSteps({ user: propUser, onboardingStep: propSte
           "Our AI Match Engine uses 10 weighted factors to find your ideal brand or talent partners.",
         ctaLabel: "Run Match Engine",
         href: createPageUrl("MatchEngine"),
-        badge: "94% match accuracy",
+        badge: "AI-powered matching",
       });
     }
 

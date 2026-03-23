@@ -183,7 +183,7 @@ function TalentGridMockup() {
         <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#febc2e" }} />
         <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28c840" }} />
         <span style={{ ...mono, fontSize: 11, color: T.creamDim, marginLeft: 12, opacity: 0.6 }}>dealstage.app / browse</span>
-        <div style={{ marginLeft: "auto", ...mono, fontSize: 11, color: T.gold }}>12,000+ verified profiles</div>
+        <div style={{ marginLeft: "auto", ...mono, fontSize: 11, color: T.gold }}>thousands of verified profiles</div>
       </div>
 
       {/* Filter Bar */}
@@ -199,7 +199,7 @@ function TalentGridMockup() {
             {cat}
           </span>
         ))}
-        <span style={{ ...mono, fontSize: 11, color: T.creamDim, marginLeft: "auto" }}>12,000+ results</span>
+        <span style={{ ...mono, fontSize: 11, color: T.creamDim, marginLeft: "auto" }}>thousands of results</span>
       </div>
 
       {/* Grid */}
@@ -259,7 +259,7 @@ function TalentGridMockup() {
 export default function FeatureBrowseTalent() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
-      <SEO title="Browse Talent" description="Browse 12,000+ verified creators, athletes, musicians, and performers. Filter by audience, engagement, niche, and budget." />
+      <SEO title="Browse Talent" description="Browse thousands of verified creators, athletes, musicians, and performers. Filter by audience, engagement, niche, and budget." />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -296,7 +296,7 @@ export default function FeatureBrowseTalent() {
         </Fade>
         <Fade delay={120}>
           <p style={{ ...sans, fontSize: "clamp(16px, 2.2vw, 20px)", color: T.creamDim, lineHeight: 1.7, maxWidth: 640, margin: "0 auto 40px" }}>
-            Browse 12,000+ verified creators, athletes, musicians, and performers. Filter by audience, engagement, niche, and budget — find your perfect match in minutes.
+            Browse thousands of verified creators, athletes, musicians, and performers. Filter by audience, engagement, niche, and budget — find your perfect match in minutes.
           </p>
         </Fade>
         <Fade delay={220}>
@@ -323,7 +323,7 @@ export default function FeatureBrowseTalent() {
         {/* Hero stats */}
         <Fade delay={320}>
           <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 56, flexWrap: "wrap" }}>
-            {[["12K+", "Verified Profiles"], ["45", "Categories"], ["20 min", "To Find Your Match"]].map(([val, lbl], i) => (
+            {[["Growing", "Verified Profiles"], ["45", "Categories"], ["20 min", "To Find Your Match"]].map(([val, lbl], i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{ ...serif, fontSize: 30, fontWeight: 700, color: T.gold }}>{val}</div>
                 <div style={{ ...mono, fontSize: 11, color: T.creamDim, letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 4 }}>{lbl}</div>
@@ -407,7 +407,7 @@ export default function FeatureBrowseTalent() {
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(212,176,78,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
             <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>45</div>
-            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>talent categories, 12,000+ verified profiles, all searchable in seconds</p>
+            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>talent categories, thousands of verified profiles, all searchable in seconds</p>
             <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>ATHLETES · CREATORS · MUSICIANS · MODELS · CHEFS · PODCASTERS AND MORE</p>
           </div>
         </Fade>
@@ -423,7 +423,7 @@ export default function FeatureBrowseTalent() {
             Your next partner is already here
           </h2>
           <p style={{ ...sans, fontSize: 17, color: T.creamDim, marginBottom: 40, lineHeight: 1.65, maxWidth: 480, margin: "0 auto 40px" }}>
-            Browse 12,000+ verified talent profiles across every category. Find your match in minutes, not months.
+            Browse thousands of verified talent profiles across every category. Find your match in minutes, not months.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <CTAButton primary to="/Onboarding">Start browsing talent <ArrowRight size={15} /></CTAButton>

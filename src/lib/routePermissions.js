@@ -78,11 +78,22 @@ const rolePages = {
 
 /**
  * Check if a user role can access a given page.
- * Admin can always access everything. Unknown roles get admin access.
+ * Admin can access everything. Unknown roles are denied by default.
+ * Public pages (About, Blog, etc.) are accessible to all authenticated users.
  */
+const publicPages = new Set([
+  'About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo',
+  'FeatureCampaignAnalytics', 'FeatureSendDeals', 'FeatureManageDeals', 'FeatureBrowseTalent', 'FeatureManageTalent',
+]);
+
 export function canAccessPage(role, pageName) {
-  if (!role || role === 'admin' || role === 'user') return true;
+  // Public pages accessible to all authenticated users
+  if (publicPages.has(pageName)) return true;
+  // Admin has full access
+  if (role === 'admin') return true;
+  // Unknown, missing, or generic 'user' role — deny by default
+  if (!role || role === 'user') return false;
   const allowed = rolePages[role];
-  if (!allowed) return true; // unknown role = full access
+  if (!allowed) return false; // unknown role = deny
   return allowed.has(pageName);
 }

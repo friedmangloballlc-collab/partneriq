@@ -330,7 +330,7 @@ Return the top 5 matches.`;
 
   return (
     <div className="space-y-8">
-      <SEO title="Match Engine" description="AI-powered matching with 94% accuracy across 10 weighted scoring factors" />
+      <SEO title="Match Engine" description="AI-powered matching with multi-factor scoring across 10 weighted dimensions" />
       <ContextualTip
         tipId="match_engine_tip"
         title="How the Match Engine works"

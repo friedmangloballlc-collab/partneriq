@@ -119,7 +119,7 @@ export default function TalentDiscovery() {
     <div className="space-y-5">
       <ContextualTip
         tipId="talent_discovery_tip"
-        title="Search 10M+ creator profiles"
+        title="Search our growing creator network"
         description="Use the filters panel to narrow by niche, platform, follower tier, engagement rate, and brand safety score. Click any creator card to see full analytics, then hit 'Match' to run the AI engine."
         color="indigo"
       />

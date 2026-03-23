@@ -422,7 +422,7 @@ export default function FeatureCampaignAnalytics() {
             Stop guessing. Start knowing.
           </h2>
           <p style={{ ...sans, fontSize: 17, color: T.creamDim, marginBottom: 40, lineHeight: 1.65, maxWidth: 480, margin: "0 auto 40px" }}>
-            Join 840+ brands and agencies who track campaign ROI with DealStage analytics.
+            Join the brands and agencies who track campaign ROI with DealStage analytics.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <CTAButton primary to="/Onboarding">Start tracking campaigns <ArrowRight size={15} /></CTAButton>

@@ -137,7 +137,7 @@ const CAPABILITIES = [
   {
     Icon: Sparkles,
     title: "AI-Powered Search",
-    desc: "Natural language queries. Describe the talent you need and our engine surfaces the best matches from 12,000+ verified profiles using semantic understanding.",
+    desc: "Natural language queries. Describe the talent you need and our engine surfaces the best matches from thousands of verified profiles using semantic understanding.",
   },
   {
     Icon: ShieldCheck,
@@ -287,7 +287,7 @@ function SearchMockup() {
 export default function FeatureTalentDiscovery() {
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.cream, overflowX: "hidden" }}>
-      <SEO title="Talent Discovery" description="Search 12,000+ verified talent profiles across athletes, creators, musicians, and more" />
+      <SEO title="Talent Discovery" description="Search thousands of verified talent profiles across athletes, creators, musicians, and more" />
       <style>{`
         ${fontImport}
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -329,7 +329,7 @@ export default function FeatureTalentDiscovery() {
         </Fade>
         <Fade delay={120}>
           <p style={{ ...sans, fontSize: "clamp(16px, 2.2vw, 20px)", color: T.creamDim, lineHeight: 1.7, maxWidth: 640, margin: "0 auto 40px" }}>
-            Search 12,000+ verified profiles across athletes, creators, musicians, speakers, models, and more — with AI that understands what you're actually looking for.
+            Search thousands of verified profiles across athletes, creators, musicians, speakers, models, and more — with AI that understands what you're actually looking for.
           </p>
         </Fade>
         <Fade delay={220}>
@@ -356,7 +356,7 @@ export default function FeatureTalentDiscovery() {
         {/* Hero badge */}
         <Fade delay={320}>
           <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 56, flexWrap: "wrap" }}>
-            {[["12K+", "Verified Profiles"], ["88", "Platforms"], ["94%", "Match Accuracy"]].map(([val, lbl], i) => (
+            {[["Growing", "Verified Profiles"], ["88", "Platforms"], ["AI", "Match Scoring"]].map(([val, lbl], i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{ ...serif, fontSize: 30, fontWeight: 700, color: T.gold }}>{val}</div>
                 <div style={{ ...mono, fontSize: 11, color: T.creamDim, letterSpacing: "0.12em", textTransform: "uppercase", marginTop: 4 }}>{lbl}</div>
@@ -537,9 +537,9 @@ export default function FeatureTalentDiscovery() {
         <Fade>
           <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, padding: "56px 40px", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(212,176,78,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
-            <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>94%</div>
-            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>match accuracy across 10 weighted scoring factors</p>
-            <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>VERIFIED ACROSS 12,000+ TALENT PROFILES</p>
+            <div style={{ ...serif, fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 700, color: T.gold, marginBottom: 16 }}>AI</div>
+            <p style={{ ...sans, fontSize: "clamp(16px, 2vw, 20px)", color: T.cream, fontWeight: 500, marginBottom: 8 }}>multi-factor scoring across 10 weighted dimensions</p>
+            <p style={{ ...mono, fontSize: 12, color: T.creamDim, letterSpacing: "0.1em" }}>VERIFIED ACROSS OUR GROWING TALENT NETWORK</p>
           </div>
         </Fade>
       </section>
@@ -554,7 +554,7 @@ export default function FeatureTalentDiscovery() {
             Start discovering talent
           </h2>
           <p style={{ ...sans, fontSize: 17, color: T.creamDim, marginBottom: 40, lineHeight: 1.65, maxWidth: 480, margin: "0 auto 40px" }}>
-            Join 840+ brands and agencies finding the right partners faster than ever.
+            Join the brands and agencies finding the right partners faster than ever.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <CTAButton primary to="/Onboarding">Start discovering talent <ArrowRight size={15} /></CTAButton>

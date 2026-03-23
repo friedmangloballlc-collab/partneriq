@@ -258,7 +258,7 @@ const FEATURES = [
     title: "The right brand, found",
     titleEm: "automatically",
     body: "Our AI engine scores compatibility between talent and brands across 10 factors — audience fit, deal history, category alignment, and more.",
-    bullets: ["94% match accuracy across 10 weighted scoring factors", "Auto-suggestions based on pipeline and goals", "Warm intro paths via relationship graph"],
+    bullets: ["Multi-factor AI match scoring across 10 weighted dimensions", "Auto-suggestions based on pipeline and goals", "Warm intro paths via relationship graph"],
     mockup: "ai",
     reverse: true,
   },
@@ -1051,10 +1051,10 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
 
         {/* ── STATS ───────────────────────────────────────────────────────── */}
         <div className="ds-stats" style={isMobile ? { gridTemplateColumns: "repeat(2, 1fr)" } : {}}>
-          <div className="ds-stat-cell"><div className="ds-stat-num">12<span>k+</span></div><div className="ds-stat-lbl">Talent profiles</div></div>
-          <div className="ds-stat-cell"><div className="ds-stat-num"><span>$</span>48M</div><div className="ds-stat-lbl">Deals facilitated</div></div>
-          <div className="ds-stat-cell"><div className="ds-stat-num">840<span>+</span></div><div className="ds-stat-lbl">Brands &amp; agencies</div></div>
-          <div className="ds-stat-cell"><div className="ds-stat-num">96<span>%</span></div><div className="ds-stat-lbl">Deal close rate</div></div>
+          <div className="ds-stat-cell"><div className="ds-stat-num">32<span>+</span></div><div className="ds-stat-lbl">Industries covered</div></div>
+          <div className="ds-stat-cell"><div className="ds-stat-num">50<span>+</span></div><div className="ds-stat-lbl">AI agents</div></div>
+          <div className="ds-stat-cell"><div className="ds-stat-num">10<span>+</span></div><div className="ds-stat-lbl">Match factors</div></div>
+          <div className="ds-stat-cell"><div className="ds-stat-num">Early<span> Access</span></div><div className="ds-stat-lbl">Join founding members</div></div>
         </div>
 
         {/* ── TICKER ──────────────────────────────────────────────────────── */}
@@ -1223,7 +1223,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
                 ["Deal pipeline & task tracking", true, "Partial", false],
                 ["Built-in contracts & e-signatures", true, false, false],
                 ["Automated media kit generation", true, false, false],
-                ["AI talent matching (94% accuracy)", true, false, false],
+                ["AI talent matching (multi-factor scoring)", true, false, false],
                 ["Stripe payments & invoicing", true, false, false],
                 ["12+ talent categories", true, "Limited", false],
                 ["Real-time brand notifications", true, false, false],
@@ -1523,7 +1523,7 @@ function FeatureMockup({ type }) {
           <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", background: "var(--ds-ga)", color: "#1c1b19", borderRadius: 4, padding: "0.25rem 0.6rem", cursor: "pointer" }}>+ New Deal</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.65rem" }}>
-          {[["$248K", "Pipeline"], ["24", "Active"], ["96%", "Closed"]].map(([v, l]) => (
+          {[["$248K", "Pipeline"], ["24", "Active"], ["High", "Close Rate"]].map(([v, l]) => (
             <div key={l} style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 7, padding: "0.65rem" }}>
               <div style={{ fontFamily: "var(--ds-mono)", fontSize: "0.95rem", fontWeight: 500, background: "var(--ds-ga-text)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{v}</div>
               <div style={{ fontSize: "0.6rem", color: "var(--ds-cream3)", fontFamily: "var(--ds-mono)", letterSpacing: "0.04em" }}>{l}</div>
@@ -1587,7 +1587,7 @@ function FeatureMockup({ type }) {
       <div style={base}>
         <div style={{ fontFamily: "var(--ds-serif)", fontSize: "1rem", fontWeight: 500, color: "var(--ds-cream)" }}>Performance Overview</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "0.65rem" }}>
-          {[["96%", "Close Rate"], ["$248K", "Pipeline"], ["24", "Active Deals"], ["34%", "YoY Growth"]].map(([v, l]) => (
+          {[["Strong", "Close Rate"], ["$248K", "Pipeline"], ["24", "Active Deals"], ["34%", "YoY Growth"]].map(([v, l]) => (
             <div key={l} style={{ background: "var(--ds-bg3)", border: "0.5px solid var(--ds-border)", borderRadius: 7, padding: "0.85rem" }}>
               <div style={{ fontFamily: "var(--ds-mono)", fontSize: "1.1rem", fontWeight: 500, background: "var(--ds-ga-text)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{v}</div>
               <div style={{ fontSize: "0.62rem", color: "var(--ds-cream3)", fontFamily: "var(--ds-mono)", letterSpacing: "0.04em", marginTop: "0.15rem" }}>{l}</div>

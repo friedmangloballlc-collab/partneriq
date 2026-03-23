@@ -345,28 +345,28 @@ const LABEL_MAP = {
 };
 
 const PLATFORM_STATS = [
-  { value: "10M+", label: "Profiles Indexed" },
-  { value: "94%", label: "Match Accuracy" },
+  { value: "Growing", label: "Talent Network" },
+  { value: "AI-Powered", label: "Match Scoring" },
   { value: "50+", label: "AI Agents" },
   { value: "32", label: "Industries" }
 ];
 
 const KEY_METRICS = [
-  { label: "System Uptime", value: "99.95%", desc: "< 4.4 hours downtime/year" },
+  { label: "Infrastructure", value: "Enterprise", desc: "Fault-tolerant, auto-recovering architecture" },
   { label: "Agent Concurrency", value: "50+", desc: "Running simultaneously across 12 agent types" },
   { label: "Fault Recovery", value: "< 30s", desc: "Automatic failover and task reassignment" },
-  { label: "Match Accuracy", value: "94%", desc: "AI recommendation precision validated" },
+  { label: "Match Scoring", value: "AI-Powered", desc: "10-factor weighted compatibility scoring" },
   { label: "Human Approval", value: "100%", desc: "All outbound requires human review" },
   { label: "Data Sources", value: "50+", desc: "Social, marketplace, public data" },
   { label: "Categories Covered", value: "32", desc: "Universal partnership categories" },
-  { label: "Profiles Indexed", value: "10M+", desc: "Searchable talent profiles" },
-  { label: "Daily Data Updates", value: "5M+", desc: "Metrics refreshed daily" }
+  { label: "Profiles", value: "Growing", desc: "Expanding talent database across 32 industries" },
+  { label: "Daily Data Updates", value: "Active", desc: "Metrics refreshed continuously" }
 ];
 
 const CAPABILITIES = [
-  { icon: Users, color: "bg-indigo-50 text-indigo-600", title: "AI-Powered Talent Discovery", desc: "Search 10M+ profiles with semantic understanding and natural language queries" },
-  { icon: Brain, color: "bg-purple-50 text-purple-600", title: "Intelligent Matching", desc: "94% accuracy connecting brands with ideal talent using 10-factor weighted scoring" },
-  { icon: TrendingUp, color: "bg-emerald-50 text-emerald-600", title: "Predictive Analytics", desc: "Forecast talent trajectory 6–18 months ahead with 78% accuracy" },
+  { icon: Users, color: "bg-indigo-50 text-indigo-600", title: "AI-Powered Talent Discovery", desc: "Search our growing network with semantic understanding and natural language queries" },
+  { icon: Brain, color: "bg-purple-50 text-purple-600", title: "Intelligent Matching", desc: "Multi-factor AI scoring connecting brands with ideal talent using 10 weighted dimensions" },
+  { icon: TrendingUp, color: "bg-emerald-50 text-emerald-600", title: "Predictive Analytics", desc: "Forecast talent trajectory 6-18 months ahead using AI trend analysis" },
   { icon: BarChart3, color: "bg-blue-50 text-blue-600", title: "Partnership Simulation", desc: "Monte Carlo modeling with 10,000 scenarios predicts campaign ROI before spend" },
   { icon: Network, color: "bg-rose-50 text-rose-600", title: "Relationship Graph", desc: "Neo4j-powered mapping of industry relationships for warm intro paths" },
   { icon: Layers, color: "bg-amber-50 text-amber-600", title: "Auto Pitch Deck Generation", desc: "Custom 12-section decks generated in <5 minutes per deal" },
@@ -1074,7 +1074,7 @@ export default function Onboarding() {
           {/* Animated stats strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 max-w-3xl mx-auto mb-16 py-6 border-y border-white/5">
             <AnimatedStat value="50+" label="AI Agents" />
-            <AnimatedStat value="94%" label="Match Accuracy" />
+            <AnimatedStat value="AI" label="Match Scoring" />
             <AnimatedStat value="486" label="Culture Events" />
             <AnimatedStat value="88" label="Verified Platforms" />
           </div>

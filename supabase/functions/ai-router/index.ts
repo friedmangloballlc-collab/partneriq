@@ -62,14 +62,31 @@ Deno.serve(async (req) => {
     }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   }
 
-  // === Diagnose endpoint — test each provider individually with full error detail ===
+  // === Diagnose endpoint — admin-only, test each provider individually ===
   if (action === 'diagnose') {
+    // Require admin authentication
+    const diagAuthHeader = req.headers.get('Authorization') || '';
+    const diagToken = diagAuthHeader.replace('Bearer ', '');
+    const diagSupabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+    const { data: { user: diagUser } } = await diagSupabase.auth.getUser(diagToken);
+    if (!diagUser) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
+        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    const { data: diagProfile } = await diagSupabase.from('profiles').select('role').eq('id', diagUser.id).single();
+    if (!diagProfile || diagProfile.role !== 'admin') {
+      return new Response(JSON.stringify({ error: 'Admin role required' }), {
+        status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const results: Record<string, any> = {};
 
     // Test Anthropic
     try {
       const key = Deno.env.get('ANTHROPIC_API_KEY') || '';
-      results.anthropic = { key_set: !!key, key_prefix: key.slice(0, 10) + '...', key_length: key.length };
+      results.anthropic = { key_set: !!key };
       // Try multiple models to find one available on this account
       let anthropicResp: Response | null = null;
       for (const m of ['claude-sonnet-4-5', 'claude-3-5-sonnet-20241022', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307']) {
@@ -98,7 +115,7 @@ Deno.serve(async (req) => {
     // Test DeepSeek
     try {
       const key = Deno.env.get('DEEPSEEK_API_KEY') || '';
-      results.deepseek = { key_set: !!key, key_prefix: key.slice(0, 6) + '...', key_length: key.length };
+      results.deepseek = { key_set: !!key };
       const resp = await fetch('https://api.deepseek.com/chat/completions', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -118,7 +135,7 @@ Deno.serve(async (req) => {
     // Test Gemini — try multiple model names
     try {
       const key = Deno.env.get('GEMINI_API_KEY') || '';
-      results.gemini = { key_set: !!key, key_prefix: key.slice(0, 6) + '...', key_length: key.length };
+      results.gemini = { key_set: !!key };
       const geminiModels = ['gemini-2.0-flash-exp', 'gemini-2.0-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-flash-8b', 'gemini-pro'];
       let found = false;
       for (const m of geminiModels) {
@@ -153,7 +170,7 @@ Deno.serve(async (req) => {
     // Test Groq
     try {
       const key = Deno.env.get('GROQ_API_KEY') || '';
-      results.groq = { key_set: !!key, key_prefix: key.slice(0, 6) + '...', key_length: key.length };
+      results.groq = { key_set: !!key };
       const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -182,7 +199,7 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { agent: agentName, prompt, context, user_id, user_tier, stream, skip_cache } = body;
+    const { agent: agentName, prompt, context, stream, skip_cache } = body;
 
     if (!agentName || !prompt) {
       return new Response(JSON.stringify({ error: 'agent and prompt are required' }), {
@@ -190,32 +207,55 @@ Deno.serve(async (req) => {
       });
     }
 
+    // === JWT Authentication: verify caller identity ===
+    const authHeader = req.headers.get('Authorization') || '';
+    const jwtToken = authHeader.replace('Bearer ', '');
+    const supabaseAuth = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    );
+    const { data: { user: authedUser }, error: authError } = await supabaseAuth.auth.getUser(jwtToken);
+    if (authError || !authedUser) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
+        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    const user_id = authedUser.id;
+
+    // === Server-side tier lookup: never trust client-provided tier ===
+    let user_tier = 'free';
+    try {
+      const { data: sub } = await supabaseAuth
+        .from('user_subscriptions')
+        .select('tier')
+        .eq('user_id', user_id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+      if (sub?.tier) user_tier = sub.tier;
+    } catch { /* default to free tier */ }
+
     // Get agent config
     const agent = getAgent(agentName);
 
     // === Rate limiting ===
-    if (user_id && user_tier) {
-      const limit = TIER_LIMITS[user_tier] ?? TIER_LIMITS.free;
-      if (limit !== Infinity) {
-        const supabase = createClient(
-          Deno.env.get('SUPABASE_URL')!,
-          Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-        );
-        const today = new Date().toISOString().slice(0, 10);
-        const { count } = await supabase
-          .from('ai_usage_logs')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', user_id)
-          .gte('created_at', `${today}T00:00:00Z`);
+    const limit = TIER_LIMITS[user_tier] ?? TIER_LIMITS.free;
+    if (limit !== Infinity) {
+      const today = new Date().toISOString().slice(0, 10);
+      const { count } = await supabaseAuth
+        .from('ai_usage_logs')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user_id)
+        .gte('created_at', `${today}T00:00:00Z`);
 
-        if ((count || 0) >= limit) {
-          return new Response(JSON.stringify({
-            error: 'Daily AI request limit reached',
-            limit,
-            tier: user_tier,
-            upgrade_url: '/SubscriptionManagement',
-          }), { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-        }
+      if ((count || 0) >= limit) {
+        return new Response(JSON.stringify({
+          error: 'Daily AI request limit reached',
+          limit,
+          tier: user_tier,
+          upgrade_url: '/SubscriptionManagement',
+        }), { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
       }
     }
 

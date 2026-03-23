@@ -1655,7 +1655,7 @@ const SCENE_NARRATIONS = [
   "Every star deserves a stage. Every deal starts here.",
   "Pick your role. Choose your plan. Start for free.",
   "Connect your platforms. See your real stats verified instantly.",
-  "Our AI analyzes 10 factors to find matches with 94% accuracy.",
+  "Our AI analyzes 10 factors to find high-accuracy matches.",
   "AI writes personalized pitches. 68% response rate vs 12% cold email.",
   "Track every deal from pitch to payment in one pipeline.",
   "AI scans contracts for red flags. Sign with confidence.",

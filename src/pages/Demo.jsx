@@ -218,7 +218,7 @@ const Screen1 = () => {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <span style={{ fontFamily: fonts.body, fontSize: 13, color: T.creamFaint, flex: 1 }}>
-            Search 12,000+ verified talent...
+            Search verified talent profiles...
           </span>
           <Pill>12,847 results</Pill>
         </div>
@@ -2172,7 +2172,7 @@ export default function Demo() {
           >
             {[
               { value: "2 min", label: "Average tour time", icon: "⏱" },
-              { value: "94%", label: "AI match accuracy", icon: "🎯" },
+              { value: "AI", label: "Multi-factor matching", icon: "🎯" },
               { value: "5 min", label: "Average setup time", icon: "⚡" },
             ].map((stat) => (
               <div

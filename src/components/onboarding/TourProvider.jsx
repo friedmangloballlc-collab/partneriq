@@ -38,7 +38,7 @@ const TOUR_STEPS = {
     },
     {
       title: "Discover Talent",
-      description: "Search 10M+ verified creator profiles with advanced filters — niche, followers, engagement rate, location and more.",
+      description: "Search our growing network of verified creator profiles with advanced filters — niche, followers, engagement rate, location and more.",
       target: null,
       page: "TalentDiscovery",
       position: "center",

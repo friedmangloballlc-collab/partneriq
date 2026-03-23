@@ -1,6 +1,6 @@
 {
-  "name": "Dealstage",
-  "short_name": "Dealstage",
+  "name": "DealStage",
+  "short_name": "DealStage",
   "description": "AI-powered partnership intelligence platform",
   "start_url": "/",
   "display": "standalone",

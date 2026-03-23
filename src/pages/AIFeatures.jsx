@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Zap, TrendingUp, Mic, BarChart3, Network, DollarSign,
   Lightbulb, Eye, Shield, CheckCircle2, AlertTriangle,
-  Brain, Target, Layers, GitBranch, Activity, FileText, Palette, Clock, Trophy
+  Brain, FileText, Palette, Clock, Trophy
 } from "lucide-react";
 import PostCampaignAnalysis from "@/components/campaigns/PostCampaignAnalysis";
 import SuccessFactorAnalysis from "@/components/campaigns/SuccessFactorAnalysis";
@@ -83,7 +83,7 @@ const SIM_METHODOLOGY = [
 
 // ── Section 11: Graph Intelligence ───────────────────────────────────────────
 const GRAPH_NODES = [
-  { type: "Talent",  count: "10M+",  props: "Name, tier, category, platforms", update: "Daily" },
+  { type: "Talent",  count: "Growing",  props: "Name, tier, category, platforms", update: "Daily" },
   { type: "Brand",   count: "500K+", props: "Name, industry, size, budget",    update: "Weekly" },
   { type: "Agency",  count: "50K+",  props: "Name, type, roster size, specializations", update: "Weekly" },
   { type: "Contact", count: "2M+",   props: "Name, title, company, email",     update: "Weekly" },
