@@ -1,13 +1,13 @@
 import React from "react";
 import { useTheme } from "@/hooks/useTheme";
-import { Check, Moon, Sparkles } from "lucide-react";
+import { Check, Moon, Sun } from "lucide-react";
 
 export default function ThemeSwitcher({ compact = false }) {
   const { themeKey, setTheme, themes } = useTheme();
 
   const options = [
-    { key: "dark", icon: Moon, preview: { bg: "#080807", accent: "#c4a24a", text: "#f5f0e6" } },
-    { key: "gradient", icon: Sparkles, preview: { bg: "linear-gradient(135deg, #c4a24a, #e07b18)", accent: "#1a1a18", text: "#1a1a18" } },
+    { key: "dark", icon: Moon, preview: { bg: "#1c1b19", accent: "#d4b04e", text: "#f5f0e6" } },
+    { key: "pearl", icon: Sun, preview: { bg: "#faf5eb", accent: "#d4b04e", text: "#1c1b19" } },
   ];
 
   if (compact) {
@@ -18,7 +18,7 @@ export default function ThemeSwitcher({ compact = false }) {
           return (
             <button key={opt.key} onClick={() => setTheme(opt.key)} title={themes[opt.key].label}
               style={{
-                width: 28, height: 28, borderRadius: 6, border: active ? "2px solid #c4a24a" : "1px solid rgba(255,248,220,0.15)",
+                width: 28, height: 28, borderRadius: 6, border: active ? "2px solid #d4b04e" : "1px solid rgba(255,248,220,0.15)",
                 background: opt.preview.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.2s", transform: active ? "scale(1.1)" : "scale(1)",
               }}>
@@ -39,8 +39,8 @@ export default function ThemeSwitcher({ compact = false }) {
           <button key={opt.key} onClick={() => setTheme(opt.key)}
             style={{
               flex: 1, padding: "1rem", borderRadius: 10, cursor: "pointer",
-              border: active ? "1.5px solid #c4a24a" : "0.5px solid rgba(255,248,220,0.1)",
-              background: active ? "rgba(196,162,74,0.08)" : "transparent",
+              border: active ? "1.5px solid #d4b04e" : "0.5px solid rgba(255,248,220,0.1)",
+              background: active ? "rgba(212,176,78,0.08)" : "transparent",
               display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
               transition: "all 0.2s",
             }}>
@@ -54,14 +54,14 @@ export default function ThemeSwitcher({ compact = false }) {
               {active && (
                 <div style={{
                   position: "absolute", top: 4, right: 4, width: 16, height: 16, borderRadius: "50%",
-                  background: "#c4a24a", display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "#d4b04e", display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
-                  <Check size={10} color="#080807" />
+                  <Check size={10} color="#1c1b19" />
                 </div>
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <Icon size={14} style={{ color: active ? "#c4a24a" : "rgba(245,240,230,0.4)" }} />
+              <Icon size={14} style={{ color: active ? "#d4b04e" : "rgba(245,240,230,0.4)" }} />
               <span style={{
                 fontSize: "0.75rem", fontWeight: active ? 500 : 400,
                 color: active ? "#f5f0e6" : "rgba(245,240,230,0.4)",
