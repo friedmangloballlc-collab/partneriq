@@ -1623,7 +1623,7 @@ const SCENE_TABS = [
 ];
 
 const SCENE_NARRATIONS = [
-  "Every deal starts on a stage. We turn talent into stars.",
+  "Every star deserves a stage. Every deal starts here.",
   "Pick your role. Choose your plan. Start for free.",
   "Connect your platforms. See your real stats verified instantly.",
   "Our AI analyzes 10 factors to find matches with 94% accuracy.",
