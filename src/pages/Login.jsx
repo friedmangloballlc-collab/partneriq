@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2 } from "lucide-react";
+import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -237,6 +237,7 @@ export default function Login() {
   const roles = [
     { value: "brand", label: "Brand", icon: Building2, desc: "I represent a brand or company" },
     { value: "talent", label: "Creator/Talent", icon: User, desc: "I'm an influencer or content creator" },
+    { value: "manager", label: "Manager", icon: UserCheck, desc: "I manage a talent's career and deals" },
     { value: "agency", label: "Agency", icon: Building2, desc: "I manage talent or brands" },
   ];
 
