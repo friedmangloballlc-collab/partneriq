@@ -58,8 +58,14 @@ export function useTheme() {
 
   useEffect(() => {
     try { localStorage.setItem("ds-theme", themeKey); } catch {}
-    // Apply theme to body for global CSS vars
     const root = document.documentElement;
+    // Toggle Tailwind dark mode class
+    if (themeKey === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    // Apply theme to body for global CSS vars
     root.style.setProperty("--ds-theme-bg", theme.bg);
     root.style.setProperty("--ds-theme-text", theme.text);
     root.style.setProperty("--ds-theme-gold", theme.gold);
