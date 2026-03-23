@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const SCENE_DURATION = 5000;
-const TOTAL_SCENES = 8;
+const TOTAL_SCENES = 9;
 const TICK = 50;
 const TRANSITION_MS = 400;
 
@@ -315,6 +315,153 @@ function useTyping(text, active, delay = 0, charDelay = 30) {
   }, [active, text]);
 
   return typed;
+}
+
+// ─── SCENE 0: Intro — Stage to Star ──────────────────────────────────────────
+function Scene0({ active }) {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    if (!active) { setPhase(0); return; }
+    const t1 = setTimeout(() => setPhase(1), 300);   // Stage appears
+    const t2 = setTimeout(() => setPhase(2), 1200);  // Spotlight on
+    const t3 = setTimeout(() => setPhase(3), 2200);  // Stage morphs to star
+    const t4 = setTimeout(() => setPhase(4), 3200);  // Handshake + text
+    const t5 = setTimeout(() => setPhase(5), 4000);  // Tagline
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
+  }, [active]);
+
+  return (
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+      {/* Background glow */}
+      <div style={{
+        position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)",
+        width: 300, height: 300, borderRadius: "50%",
+        background: `radial-gradient(circle, rgba(212,176,78,${phase >= 2 ? 0.15 : 0}) 0%, transparent 70%)`,
+        transition: "all 1s ease",
+        pointerEvents: "none",
+      }} />
+
+      {/* Stage / Star SVG */}
+      <div style={{
+        position: "relative", width: 120, height: 120, marginBottom: 24,
+        animation: phase >= 1 ? "aw-fade-in 0.8s ease both" : "none",
+        opacity: phase >= 1 ? 1 : 0,
+      }}>
+        <svg viewBox="0 0 120 120" width="120" height="120" style={{
+          transition: "all 1s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          transform: phase >= 3 ? "scale(1.1) rotate(15deg)" : "scale(1) rotate(0deg)",
+        }}>
+          {/* Stage base — morphs to star */}
+          {phase < 3 ? (
+            <>
+              {/* Stage floor */}
+              <ellipse cx="60" cy="85" rx="50" ry="12" fill="none" stroke={DS.gold} strokeWidth="1.5" opacity="0.6" />
+              <ellipse cx="60" cy="85" rx="50" ry="12" fill={`rgba(212,176,78,0.08)`} />
+              {/* Stage curtains */}
+              <path d="M15 20 Q15 50 20 80" stroke={DS.gold} strokeWidth="1" fill="none" opacity="0.4" />
+              <path d="M105 20 Q105 50 100 80" stroke={DS.gold} strokeWidth="1" fill="none" opacity="0.4" />
+              {/* Curtain top bar */}
+              <line x1="10" y1="20" x2="110" y2="20" stroke={DS.gold} strokeWidth="1.5" opacity="0.5" />
+              {/* Spotlight beam */}
+              <path d="M60 0 L40 75 L80 75 Z" fill={`rgba(212,176,78,${phase >= 2 ? 0.08 : 0})`}
+                style={{ transition: "fill 0.8s ease" }} />
+              {/* Person on stage */}
+              <circle cx="60" cy="60" r="8" fill="none" stroke={DS.gold} strokeWidth="1.5"
+                style={{ opacity: phase >= 2 ? 1 : 0.3, transition: "opacity 0.6s" }} />
+              <line x1="60" y1="68" x2="60" y2="82" stroke={DS.gold} strokeWidth="1.5"
+                style={{ opacity: phase >= 2 ? 1 : 0.3, transition: "opacity 0.6s" }} />
+            </>
+          ) : (
+            <>
+              {/* 5-point star */}
+              <polygon
+                points="60,8 72,42 108,42 78,64 88,98 60,78 32,98 42,64 12,42 48,42"
+                fill="none"
+                stroke="url(#starGrad)"
+                strokeWidth="2"
+                strokeLinejoin="round"
+                style={{
+                  animation: "aw-scale-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+                  filter: "drop-shadow(0 0 12px rgba(212,176,78,0.4))",
+                }}
+              />
+              <polygon
+                points="60,8 72,42 108,42 78,64 88,98 60,78 32,98 42,64 12,42 48,42"
+                fill="url(#starFill)"
+                opacity="0.15"
+                style={{ animation: "aw-scale-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both" }}
+              />
+              {/* Handshake icon inside star */}
+              {phase >= 4 && (
+                <g style={{ animation: "aw-check-pop 0.5s ease both" }}>
+                  <text x="60" y="62" textAnchor="middle" fontSize="28" style={{ filter: "drop-shadow(0 0 6px rgba(212,176,78,0.5))" }}>🤝</text>
+                </g>
+              )}
+              <defs>
+                <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={DS.gold} />
+                  <stop offset="100%" stopColor={DS.amber} />
+                </linearGradient>
+                <linearGradient id="starFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={DS.gold} />
+                  <stop offset="100%" stopColor={DS.amber} />
+                </linearGradient>
+              </defs>
+            </>
+          )}
+        </svg>
+
+        {/* Sparkles around star */}
+        {phase >= 3 && [0, 1, 2, 3, 4].map(i => (
+          <div key={i} style={{
+            position: "absolute",
+            top: `${20 + Math.sin(i * 1.26) * 45}%`,
+            left: `${20 + Math.cos(i * 1.26) * 45}%`,
+            width: 6, height: 6, borderRadius: "50%",
+            background: i % 2 === 0 ? DS.gold : DS.amber,
+            animation: `aw-sparkle 1.2s ease ${i * 0.15}s both`,
+            pointerEvents: "none",
+          }} />
+        ))}
+      </div>
+
+      {/* Title text */}
+      <div style={{
+        textAlign: "center",
+        opacity: phase >= 3 ? 1 : 0,
+        transform: phase >= 3 ? "translateY(0)" : "translateY(12px)",
+        transition: "all 0.8s ease",
+      }}>
+        <div style={{
+          ...S.serif,
+          fontSize: "1.6rem",
+          fontWeight: 700,
+          ...S.goldText,
+          letterSpacing: "-0.02em",
+          marginBottom: 8,
+        }}>
+          The Deal Stage
+        </div>
+      </div>
+
+      {/* Subtitle */}
+      <div style={{
+        textAlign: "center",
+        opacity: phase >= 5 ? 1 : 0,
+        transform: phase >= 5 ? "translateY(0)" : "translateY(8px)",
+        transition: "all 0.6s ease",
+      }}>
+        <div style={{
+          ...S.sans,
+          fontSize: "0.85rem",
+          color: "rgba(245,240,230,0.50)",
+          letterSpacing: "0.03em",
+        }}>
+          Where talent meets brands
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // ─── SCENE 1: Sign Up in 30 Seconds ──────────────────────────────────────────
@@ -1464,6 +1611,7 @@ function Scene8({ active }) {
 
 // ─── SCENE CONFIG ─────────────────────────────────────────────────────────────
 const SCENE_TABS = [
+  { label: "Intro" },
   { label: "Sign Up" },
   { label: "Connect" },
   { label: "AI Match" },
@@ -1475,6 +1623,7 @@ const SCENE_TABS = [
 ];
 
 const SCENE_NARRATIONS = [
+  "Every deal starts on a stage. We turn talent into stars.",
   "Pick your role. Choose your plan. Start for free.",
   "Connect your platforms. See your real stats verified instantly.",
   "Our AI analyzes 10 factors to find matches with 94% accuracy.",
@@ -1485,7 +1634,7 @@ const SCENE_NARRATIONS = [
   "Escrow-protected payments. Get paid on time, every time.",
 ];
 
-const SCENE_COMPONENTS = [Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8];
+const SCENE_COMPONENTS = [Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8];
 
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function AnimatedWalkthrough() {
