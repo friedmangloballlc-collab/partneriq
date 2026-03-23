@@ -236,7 +236,7 @@ export default function Login() {
 
   const roles = [
     { value: "brand", label: "Brand", icon: Building2, desc: "I represent a brand or company" },
-    { value: "talent", label: "Creator/Talent", icon: User, desc: "I'm an influencer or content creator" },
+    { value: "talent", label: "Talent", icon: User, desc: "I am talent" },
     { value: "manager", label: "Manager", icon: UserCheck, desc: "I manage a talent's career and deals" },
     { value: "agency", label: "Agency", icon: Building2, desc: "I manage talent or brands" },
   ];
