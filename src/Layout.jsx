@@ -275,6 +275,19 @@ export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
+
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  // Escape key closes mobile menu
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") setMobileOpen(false); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
   const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
   const { theme } = useTheme();
   const [upgradeModal, setUpgradeModal] = useState(false);
@@ -304,11 +317,13 @@ export default function Layout({ children, currentPageName }) {
     manager: "bg-violet-500/10 text-violet-400 border-violet-500/20",
   };
 
-  const Sidebar = ({ mobile = false }) => (
-    <div className={`flex flex-col h-full bg-[#0c0c0b] border-r border-white/[0.06] ${mobile ? "w-72" : collapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
+  const Sidebar = ({ mobile = false, forceCollapsed = false }) => {
+    const effectiveCollapsed = forceCollapsed || collapsed;
+    return (
+    <div className={`flex flex-col h-full bg-[#0c0c0b] border-r border-white/[0.06] ${mobile ? "w-72" : effectiveCollapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
       {/* Logo */}
-      <div className={`flex items-center h-16 px-4 border-b border-white/5 ${collapsed && !mobile ? "justify-center" : "gap-3"}`}>
-        {collapsed && !mobile ? (
+      <div className={`flex items-center h-16 px-4 border-b border-white/5 ${effectiveCollapsed && !mobile ? "justify-center" : "gap-3"}`}>
+        {effectiveCollapsed && !mobile ? (
           <img src="/brand/marks/10_mark_transparent.png" alt="D" style={{ height: 34 }} width={34} height={34} fetchPriority="high" />
         ) : (
           <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} fetchPriority="high" />
@@ -321,7 +336,7 @@ export default function Layout({ children, currentPageName }) {
       </div>
 
       {/* Role badge */}
-      {(!collapsed || mobile) && (
+      {(!effectiveCollapsed || mobile) && (
         <div className="px-4 py-3 space-y-1">
           <Badge variant="outline" className={`${roleColors[userRole]} text-[10px] uppercase tracking-wider w-full justify-center py-1`}>
             {userRole === "manager" ? "Manager Portal" : `${userRole} Portal`}
@@ -340,7 +355,7 @@ export default function Layout({ children, currentPageName }) {
           const isLocked = !canAccess(item.page);
           return (
             <React.Fragment key={item.page}>
-              {item.section && (!collapsed || mobile) && idx > 0 && (
+              {item.section && (!effectiveCollapsed || mobile) && idx > 0 && (
                 <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">{item.section}</p>
               )}
             <Link
@@ -362,16 +377,16 @@ export default function Layout({ children, currentPageName }) {
                     ? "text-slate-600 hover:text-slate-500 hover:bg-white/3 cursor-pointer"
                     : "text-slate-400 hover:text-white hover:bg-white/5"
                 }
-                ${collapsed && !mobile ? "justify-center" : ""}
+                ${effectiveCollapsed && !mobile ? "justify-center" : ""}
               `}
             >
-              {isActive && !collapsed && !mobile && null}
+              {isActive && !effectiveCollapsed && !mobile && null}
               <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-[#c4a24a]" : isLocked ? "text-slate-700" : "text-slate-400 group-hover:text-slate-300"}`} />
-              {(!collapsed || mobile) && <span>{item.name}</span>}
-              {(!collapsed || mobile) && isLocked && (
+              {(!effectiveCollapsed || mobile) && <span>{item.name}</span>}
+              {(!effectiveCollapsed || mobile) && isLocked && (
                 <Lock size={12} style={{ color: "rgba(245,240,230,0.2)", marginLeft: "auto", flexShrink: 0 }} />
               )}
-              {item.page === "Approvals" && pendingApprovals > 0 && (!collapsed || mobile) && !isLocked && (
+              {item.page === "Approvals" && pendingApprovals > 0 && (!effectiveCollapsed || mobile) && !isLocked && (
                 <span className="ml-auto bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                   {pendingApprovals > 9 ? "9+" : pendingApprovals}
                 </span>
@@ -383,23 +398,23 @@ export default function Layout({ children, currentPageName }) {
       </nav>
 
       {/* Theme switcher (expanded only) */}
-      {(!collapsed || mobile) && (
+      {(!effectiveCollapsed || mobile) && (
         <div className="px-4 pb-2">
           <ThemeSwitcher compact />
         </div>
       )}
 
       {/* User section */}
-      <div className={`p-3 border-t border-white/5 ${collapsed && !mobile ? "flex justify-center" : ""}`}>
+      <div className={`p-3 border-t border-white/5 ${effectiveCollapsed && !mobile ? "flex justify-center" : ""}`}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button aria-label="User menu" className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${collapsed && !mobile ? "justify-center px-0" : ""}`}>
+            <button aria-label="User menu" className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${effectiveCollapsed && !mobile ? "justify-center px-0" : ""}`}>
               <Avatar className="w-8 h-8 flex-shrink-0">
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
-              {(!collapsed || mobile) && (
+              {(!effectiveCollapsed || mobile) && (
                 <div className="flex-1 text-left min-w-0">
                   <p className="text-sm text-white font-medium truncate">{user?.full_name || "User"}</p>
                   <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
@@ -422,7 +437,7 @@ export default function Layout({ children, currentPageName }) {
       {/* Collapse toggle (desktop only) */}
       {!mobile && (
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => { if (!forceCollapsed) setCollapsed(!collapsed); }}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-50"
         >
@@ -431,17 +446,23 @@ export default function Layout({ children, currentPageName }) {
       )}
     </div>
   );
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Desktop sidebar */}
+      {/* Tablet sidebar (md-lg): collapsed icon rail */}
+      <div className="hidden md:flex lg:hidden relative flex-shrink-0 w-[72px]">
+        <Sidebar forceCollapsed />
+      </div>
+
+      {/* Desktop sidebar (lg+): full width, collapsible */}
       <div className="hidden lg:flex relative flex-shrink-0">
         <Sidebar />
       </div>
 
-      {/* Mobile overlay */}
+      {/* Mobile overlay (below md) */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
+        <div className="md:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="relative z-10">
             <Sidebar mobile />
@@ -454,7 +475,7 @@ export default function Layout({ children, currentPageName }) {
         {/* Top bar */}
         <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4 bg-card border-b border-border" style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
+            <button onClick={() => setMobileOpen(true)} className="md:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
             <h1 className="text-lg font-semibold hidden sm:block text-foreground">{

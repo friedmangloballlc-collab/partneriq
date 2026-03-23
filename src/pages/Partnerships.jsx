@@ -215,6 +215,8 @@ export default function Partnerships() {
           <ListSkeleton count={6} />
         )
       ) : view === "pipeline" ? (
+        <div className="relative">
+        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none md:hidden z-10" style={{ background: "linear-gradient(to left, var(--background, white), transparent)" }} />
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 lg:-mx-8 lg:px-8 snap-x snap-mandatory scroll-smooth">
           {pipelineStages.map(stage => {
             const stageDeals = filtered.filter(p => p.status === stage.key);
@@ -278,6 +280,7 @@ export default function Partnerships() {
               </div>
             );
           })}
+        </div>
         </div>
       ) : filtered.length === 0 ? (
         <EmptyState

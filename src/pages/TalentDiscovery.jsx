@@ -38,7 +38,7 @@ export default function TalentDiscovery() {
   const debouncedSearch = useDebounce(search, 300);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [viewMode, setViewMode] = useState("grid");
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(typeof window !== 'undefined' ? window.innerWidth > 768 : true);
   const [selectedTalent, setSelectedTalent] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
