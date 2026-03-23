@@ -934,21 +934,21 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         <div className="ds-hero">
           <div className="ds-hero-glow-l" />
           <div className="ds-hero-glow-r" />
+          {/* Scrolling talent type ticker — right below nav, above hero content */}
+          <div style={{ width: "100%", overflow: "hidden", paddingTop: 4, paddingBottom: 4, borderBottom: `0.5px solid var(--ds-border)` }}>
+            <div className="ds-ticker">
+              {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
+                "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
+                <span key={`ht${i}`} className="ds-ticker-item">
+                  {item} <span className="ds-ticker-sep">&#9670;</span>
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="ds-hero-top">
             <div className="ds-hero-badge">
               <div className="ds-badge-dot" />
               Now live — talent &amp; brands welcome
-            </div>
-            {/* Scrolling talent type ticker */}
-            <div style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)", overflow: "hidden", margin: "1.2rem 0 1.2rem calc(-50vw + 50%)" }}>
-              <div className="ds-ticker">
-                {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
-                  "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
-                  <span key={`ht${i}`} className="ds-ticker-item">
-                    {item} <span className="ds-ticker-sep">&#9670;</span>
-                  </span>
-                ))}
-              </div>
             </div>
             <h1 className="ds-hero-headline">
               The platform powering<br /><em>talent-brand deals</em>
