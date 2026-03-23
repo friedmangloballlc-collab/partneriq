@@ -79,47 +79,48 @@ const roleNavItems = {
   ],
   brand: [
     // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
+    { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
     // ── Find Talent ──
-    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery" },
+    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Find Talent" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Campaigns ──
-    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
+    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
     // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
+    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder", section: "Content" },
     { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
     // ── Reports ──
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "Analytics", icon: BarChart3, page: "Analytics", section: "Reports" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     { name: "Data Room", icon: Database, page: "BrandDataRoom" },
     // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter", section: "AI" },
     { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar", section: "Calendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
     { name: "Event Management", icon: Calendar, page: "EventManagement" },
     // ── Account ──
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts", section: "Account" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
@@ -333,13 +334,16 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
-        {navItems.map(item => {
+        {navItems.map((item, idx) => {
           const isActive = currentPageName === item.page;
           const Icon = item.icon;
           const isLocked = !canAccess(item.page);
           return (
+            <React.Fragment key={item.page}>
+              {item.section && (!collapsed || mobile) && idx > 0 && (
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">{item.section}</p>
+              )}
             <Link
-              key={item.page}
               to={isLocked ? "#" : createPageUrl(item.page)}
               onClick={(e) => {
                 if (isLocked) {
@@ -373,6 +377,7 @@ export default function Layout({ children, currentPageName }) {
                 </span>
               )}
             </Link>
+            </React.Fragment>
           );
         })}
       </nav>
@@ -452,7 +457,11 @@ export default function Layout({ children, currentPageName }) {
             <button onClick={() => setMobileOpen(true)} className="lg:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
-            <h1 className="text-lg font-semibold hidden sm:block text-foreground">{currentPageName}</h1>
+            <h1 className="text-lg font-semibold hidden sm:block text-foreground">{
+              // Show the friendly nav item name, or convert PascalCase to spaced words
+              navItems.find(n => n.page === currentPageName)?.name
+              || currentPageName?.replace(/([A-Z])/g, ' $1').trim()
+            }</h1>
             {userRole === "manager" && (
               <Badge variant="outline" className="bg-violet-50 text-violet-600 border-violet-200 text-[10px] ml-2 hidden sm:flex">
                 Managing Talent
