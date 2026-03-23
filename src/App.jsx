@@ -15,6 +15,7 @@ import Onboarding from '@/pages/Onboarding';
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import CreatorCalculator from '@/pages/CreatorCalculator';
+import Pricing from '@/pages/Pricing';
 import About from '@/pages/About';
 import Blog from '@/pages/Blog';
 import Careers from '@/pages/Careers';
@@ -167,6 +168,9 @@ const AuthenticatedApp = () => {
   }
   if (location.pathname === '/calculator') {
     return <Routes><Route path="/calculator" element={<CreatorCalculator />} /></Routes>;
+  }
+  if (location.pathname === '/Pricing' || location.pathname === '/pricing') {
+    return <Routes><Route path={location.pathname} element={<Pricing />} /></Routes>;
   }
   // Public marketing routes (no auth needed)
   const publicMarketingRoutes = {
