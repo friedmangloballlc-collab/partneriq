@@ -73,13 +73,6 @@ Deno.serve(async (req) => {
       status: 'healthy',
       providers: health,
       cache_size: responseCache.size,
-      keys_configured: {
-        ANTHROPIC_API_KEY: !!Deno.env.get('ANTHROPIC_API_KEY'),
-        DEEPSEEK_API_KEY: !!Deno.env.get('DEEPSEEK_API_KEY'),
-        GEMINI_API_KEY: !!Deno.env.get('GEMINI_API_KEY'),
-        GROQ_API_KEY: !!Deno.env.get('GROQ_API_KEY'),
-        OPENAI_API_KEY: !!Deno.env.get('OPENAI_API_KEY'),
-      },
       timestamp: new Date().toISOString(),
     }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   }

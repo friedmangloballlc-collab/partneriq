@@ -9,29 +9,57 @@ Deno.serve(async (req) => {
 
     const { action, partnership_id, escrow_id, amount, milestone, condition, currency } = await req.json();
 
-    // ── Authorization: verify user is a party to the partnership ──────────
+    // ── Authorization: role-specific checks per action ─────────────────────
     if (['release_payment', 'refund', 'check_conditions'].includes(action)) {
-      let partnershipToCheck = partnership_id || null;
 
-      // For escrow-based actions, look up the partnership from the escrow record
-      if (!partnershipToCheck && escrow_id) {
-        const { data: escrowRecord } = await base44.supabase
-          .from('escrow_payments')
-          .select('partnership_id')
-          .eq('id', escrow_id)
+      // Refund is admin-only — reject non-admins immediately
+      if (action === 'refund') {
+        // Look up the user's role from the database, not from the request
+        const { data: callerProfile } = await base44.supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
           .single();
-        partnershipToCheck = escrowRecord?.partnership_id;
+        if (!callerProfile || callerProfile.role !== 'admin') {
+          return new Response(JSON.stringify({ error: 'Forbidden: only admins can issue refunds' }), {
+            status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
       }
 
-      if (partnershipToCheck) {
+      // For release_payment and check_conditions, verify the caller owns the partnership (brand owner)
+      if (action === 'release_payment' || action === 'check_conditions') {
+        let partnershipToCheck = partnership_id || null;
+
+        // For escrow-based actions, look up the partnership from the escrow record
+        if (!partnershipToCheck && escrow_id) {
+          const { data: escrowRecord } = await base44.supabase
+            .from('escrow_payments')
+            .select('partnership_id')
+            .eq('id', escrow_id)
+            .single();
+          if (!escrowRecord) {
+            return new Response(JSON.stringify({ error: 'Escrow record not found' }), {
+              status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" }
+            });
+          }
+          partnershipToCheck = escrowRecord.partnership_id;
+        }
+
+        if (!partnershipToCheck) {
+          return new Response(JSON.stringify({ error: 'Could not determine partnership for authorization' }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
         const { data: partnershipRecord } = await base44.supabase
           .from('partnerships')
           .select('created_by')
           .eq('id', partnershipToCheck)
           .single();
 
-        if (!partnershipRecord || (partnershipRecord.created_by !== user.id && user.role !== 'admin')) {
-          return new Response(JSON.stringify({ error: 'Forbidden: you are not authorized for this partnership' }), {
+        if (!partnershipRecord || partnershipRecord.created_by !== user.id) {
+          return new Response(JSON.stringify({ error: 'Forbidden: only the brand owner of this partnership can perform this action' }), {
             status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" }
           });
         }

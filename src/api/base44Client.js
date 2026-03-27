@@ -207,11 +207,28 @@ const auth = {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) throw new Error('Not authenticated');
 
+    // Whitelist of fields users are allowed to update about themselves.
+    // Critically, 'role' is excluded to prevent privilege escalation.
+    const ALLOWED_FIELDS = [
+      'full_name', 'company_name', 'job_title', 'phone',
+      'avatar_url', 'bio', 'website', 'location', 'onboarding_completed',
+    ];
+    const sanitized = {};
+    for (const key of ALLOWED_FIELDS) {
+      if (key in data) {
+        sanitized[key] = data[key];
+      }
+    }
+
+    if (Object.keys(sanitized).length === 0) {
+      throw new Error('No valid fields to update');
+    }
+
     const { error } = await supabase
       .from('profiles')
-      .upsert({ id: user.id, updated_at: new Date().toISOString(), ...data });
+      .upsert({ id: user.id, updated_at: new Date().toISOString(), ...sanitized });
     if (error) throw error;
-    return data;
+    return sanitized;
   },
 
   async logout(redirectUrl) {
