@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -26,8 +27,13 @@ export default function OptimalPricingPanel({ partnershipId }) {
   const runAnalysis = async () => {
     setLoading(true);
     setPricing(null);
-    const res = await base44.functions.invoke("recommendOptimalPricing", { partnership_id: partnershipId });
-    setPricing(res.data.pricing);
+    try {
+      const res = await base44.functions.invoke("recommendOptimalPricing", { partnership_id: partnershipId });
+      setPricing(res.data.pricing);
+    } catch (err) {
+      console.error("Optimal pricing analysis failed:", err);
+      alert(formatAIError(err));
+    }
     setLoading(false);
   };
 

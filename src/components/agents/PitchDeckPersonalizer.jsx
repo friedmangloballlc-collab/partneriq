@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Loader2,
   Presentation,
@@ -77,7 +78,7 @@ export default function PitchDeckPersonalizer() {
       if (response.error) throw new Error(response.error);
       setResult(response.pitch_deck);
     } catch (err) {
-      setError(err?.message || "Failed to generate pitch deck.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

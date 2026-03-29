@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Trophy,
   RefreshCw,
@@ -102,7 +103,7 @@ export default function DealLeaderboard() {
         setError(response?.data?.error || "Failed to fetch leaderboard scores.");
       }
     } catch (err) {
-      setError(err?.message || "An unexpected error occurred.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

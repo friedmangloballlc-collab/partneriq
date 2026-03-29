@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -38,8 +39,13 @@ export default function PerformanceBenchmarking() {
   const run = async () => {
     setLoading(true);
     setResult(null);
-    const res = await base44.functions.invoke("benchmarkPerformance", {});
-    setResult(res.data);
+    try {
+      const res = await base44.functions.invoke("benchmarkPerformance", {});
+      setResult(res.data);
+    } catch (err) {
+      console.error("Performance benchmarking failed:", err);
+      alert(formatAIError(err));
+    }
     setLoading(false);
   };
 

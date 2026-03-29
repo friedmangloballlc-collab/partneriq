@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Sparkles, Loader2, Brain, TrendingUp, AlertTriangle, CheckCircle2,
-  Zap, ArrowRight, Shield, FileText, Eye, Users, Target, MessageSquare,
+  Zap, ArrowRight, Shield, FileText, Users, Target, MessageSquare,
   Flame, BarChart3, PieChart, DollarSign, Scale, Palette, Search,
-  ChevronDown, ChevronUp, Play, Clock, Link2, GitMerge, Database,
+  ChevronDown, ChevronUp, Play, Clock, GitMerge, Database,
   Trophy, Mail, Bell, Briefcase, LineChart, Globe, FlaskConical,
   Layers2, Activity, Webhook
 } from "lucide-react";
@@ -395,7 +396,7 @@ function AgentPanel({ agent }) {
       if (res.data?.error) setError(res.data.error);
       else setAnalysis(res.data?.analysis);
     } catch (e) {
-      setError(e.message || "Failed to run agent");
+      setError(formatAIError(e));
     }
     setLoading(false);
   };

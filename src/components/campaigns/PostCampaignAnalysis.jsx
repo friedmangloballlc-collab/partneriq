@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -60,9 +61,15 @@ export default function PostCampaignAnalysis() {
     if (!selectedId) return;
     setLoading(true);
     setAnalysis(null);
-    const res = await base44.functions.invoke("analyzeCampaignPostMortem", { partnership_id: selectedId });
-    setAnalysis(res.data.analysis);
-    setDealTitle(res.data.deal_title);
+    try {
+      const res = await base44.functions.invoke("analyzeCampaignPostMortem", { partnership_id: selectedId });
+      setAnalysis(res.data.analysis);
+      setDealTitle(res.data.deal_title);
+    } catch (err) {
+      console.error("Post-campaign analysis failed:", err);
+      setAnalysis(null);
+      alert(formatAIError(err));
+    }
     setLoading(false);
   };
 

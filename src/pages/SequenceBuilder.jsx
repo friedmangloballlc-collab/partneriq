@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Plus, Trash2, Sparkles, Play, Pause, Mail, Save, Loader2,
@@ -114,8 +115,9 @@ export default function SequenceBuilder() {
   const generateStep = async (i) => {
     setGenerating(i);
     const step = steps[i];
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt: `Generate a compelling ${step.email_type.replace(/_/g, " ")} email for a brand-talent partnership outreach sequence.
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt: `Generate a compelling ${step.email_type.replace(/_/g, " ")} email for a brand-talent partnership outreach sequence.
 
 Context:
 - Sender: ${form.my_name || "the sender"} from ${form.my_company || "our company"}
@@ -129,14 +131,18 @@ Requirements:
 - Keep body under 150 words, professional but warm
 - End with a clear, low-friction CTA
 - Subject should be specific, not generic`,
-      response_json_schema: {
-        type: "object",
-        properties: { subject: { type: "string" }, body: { type: "string" } }
-      }
-    });
-    if (error) throw error;
-    updateStep(i, { ...step, subject: result.subject, body: result.body });
-    setGenerating(null);
+        response_json_schema: {
+          type: "object",
+          properties: { subject: { type: "string" }, body: { type: "string" } }
+        }
+      });
+      if (error) throw error;
+      updateStep(i, { ...step, subject: result.subject, body: result.body });
+    } catch (err) {
+      alert(formatAIError(err));
+    } finally {
+      setGenerating(null);
+    }
   };
 
   const handleSave = (status = "draft") => {

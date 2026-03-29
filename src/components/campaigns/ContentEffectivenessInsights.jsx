@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,11 +38,15 @@ export default function ContentEffectivenessInsights() {
     setLoading(true);
     setResult(null);
     setError(null);
-    const res = await base44.functions.invoke("analyzeContentEffectiveness", {});
-    if (res.data?.error) {
-      setError(res.data.error);
-    } else {
-      setResult(res.data);
+    try {
+      const res = await base44.functions.invoke("analyzeContentEffectiveness", {});
+      if (res.data?.error) {
+        setError(res.data.error);
+      } else {
+        setResult(res.data);
+      }
+    } catch (err) {
+      setError(formatAIError(err));
     }
     setLoading(false);
   };

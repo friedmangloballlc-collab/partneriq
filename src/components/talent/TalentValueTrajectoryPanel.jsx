@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -80,8 +81,13 @@ export default function TalentValueTrajectoryPanel({ talent }) {
     if (!talent?.id) return;
     setLoading(true);
     setPrediction(null);
-    const res = await base44.functions.invoke("predictTalentValueTrajectory", { talent_id: talent.id });
-    setPrediction(res.data.prediction);
+    try {
+      const res = await base44.functions.invoke("predictTalentValueTrajectory", { talent_id: talent.id });
+      setPrediction(res.data.prediction);
+    } catch (err) {
+      console.error("Talent trajectory prediction failed:", err);
+      alert(formatAIError(err));
+    }
     setLoading(false);
   };
 

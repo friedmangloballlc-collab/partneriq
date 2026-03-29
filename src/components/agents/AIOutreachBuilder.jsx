@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery } from "@tanstack/react-query";
 import {
   Mail,
@@ -245,7 +246,7 @@ export default function AIOutreachBuilder() {
         setError(response.error || "Failed to generate outreach sequence");
       }
     } catch (err) {
-      setError(err?.message || "An error occurred while generating the sequence");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Play,
   CheckCircle2,
@@ -211,7 +212,7 @@ export default function AgentChains() {
         [chainKey]: {
           ...prev[chainKey],
           running: false,
-          error: err?.message || "Chain execution failed",
+          error: formatAIError(err),
           expanded: true,
         },
       }));

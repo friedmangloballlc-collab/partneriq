@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -369,9 +370,14 @@ export default function CaseStudyGenerator() {
         // Fallback: generate a smart template from deal data
         setCaseStudy(generateFallbackCaseStudy(selectedDeal, customContext));
       }
-    } catch {
-      // Always fall back gracefully — generate from deal data
-      setCaseStudy(generateFallbackCaseStudy(selectedDeal, customContext));
+    } catch (err) {
+      // If it's an AI limit error, show it; otherwise fall back gracefully
+      const msg = formatAIError(err);
+      if (msg !== err?.message) {
+        setError(msg);
+      } else {
+        setCaseStudy(generateFallbackCaseStudy(selectedDeal, customContext));
+      }
     }
 
     setGenerating(false);

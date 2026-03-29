@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Sparkles, Loader2, Trophy, AlertTriangle, Lightbulb,
-  TrendingUp, Target, CheckCircle2, Shield, Info, ArrowRight
+  TrendingUp, Target, Shield, Info, ArrowRight
 } from "lucide-react";
 
 const IMPACT_CONFIG = {
@@ -30,14 +31,18 @@ export default function SuccessFactorAnalysis() {
     setLoading(true);
     setAnalysis(null);
     setStats(null);
-    const res = await base44.functions.invoke("identifySuccessFactors", {});
-    if (res.data.error) {
-      alert(res.data.error);
-      setLoading(false);
-      return;
+    try {
+      const res = await base44.functions.invoke("identifySuccessFactors", {});
+      if (res.data.error) {
+        alert(res.data.error);
+        setLoading(false);
+        return;
+      }
+      setAnalysis(res.data.analysis);
+      setStats(res.data.stats);
+    } catch (err) {
+      alert(formatAIError(err));
     }
-    setAnalysis(res.data.analysis);
-    setStats(res.data.stats);
     setLoading(false);
   };
 

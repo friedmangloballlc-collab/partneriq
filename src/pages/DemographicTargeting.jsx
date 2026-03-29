@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -523,7 +524,7 @@ export default function DemographicTargetingPage() {
                     setCampaignBrief(response.data);
                   } catch (error) {
                     console.error("Campaign generation failed:", error);
-                    alert("Failed to generate campaign");
+                    alert(formatAIError(error));
                   } finally {
                     setCampaignLoading(false);
                   }

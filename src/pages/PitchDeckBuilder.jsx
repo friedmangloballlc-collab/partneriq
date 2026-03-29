@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery } from "@tanstack/react-query";
 import {
   Layers, Sparkles, Loader2, Download, ChevronLeft, ChevronRight,
@@ -76,8 +77,9 @@ export default function PitchDeckBuilder() {
     const simMap = { summary: "a brief simulation summary", full: "a full simulation report with technical depth", exclude: "no simulation data" };
     const wordLimit = customOptions.deckLength === "brief" ? 100 : customOptions.deckLength === "comprehensive" ? 350 : 200;
 
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt: `Generate the "${section.title}" slide content for a partnership pitch deck.
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt: `Generate the "${section.title}" slide content for a partnership pitch deck.
 
 Partnership: ${selectedDeal.title}
 Brand: ${selectedDeal.brand_name || "N/A"}
@@ -97,18 +99,22 @@ CUSTOMIZATION SETTINGS:
 
 Write compelling, specific slide content for the "${section.title}" section following the customization settings above.
 Use bullet points where appropriate. Under ${wordLimit} words.`,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          headline: { type: "string" },
-          content: { type: "string" },
-          key_points: { type: "array", items: { type: "string" } }
+        response_json_schema: {
+          type: "object",
+          properties: {
+            headline: { type: "string" },
+            content: { type: "string" },
+            key_points: { type: "array", items: { type: "string" } }
+          }
         }
-      }
-    });
-    if (error) throw error;
-    setSlides(prev => ({ ...prev, [sectionId]: result }));
-    setGeneratingSlide(null);
+      });
+      if (error) throw error;
+      setSlides(prev => ({ ...prev, [sectionId]: result }));
+    } catch (err) {
+      alert(formatAIError(err));
+    } finally {
+      setGeneratingSlide(null);
+    }
   };
 
   const generateAll = async () => {

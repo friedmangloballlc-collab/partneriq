@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -142,7 +143,7 @@ Return as JSON with this exact structure:
 
       setMediaKit(parsed);
     } catch (err) {
-      setError(err.message || "Failed to generate media kit. Please try again.");
+      setError(formatAIError(err));
     } finally {
       setIsGenerating(false);
     }

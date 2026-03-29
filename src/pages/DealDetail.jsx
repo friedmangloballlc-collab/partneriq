@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useAuth } from "@/lib/AuthContext";
 import InternationalDealSupport from "@/components/deals/InternationalDealSupport";
 import EscrowPanel from "@/components/deals/EscrowPanel";
@@ -13,13 +14,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
 import {
   ArrowLeft,
   CheckCircle2,
-  Circle,
   Clock,
   DollarSign,
   FileText,
@@ -31,13 +30,11 @@ import {
   Zap,
   TrendingUp,
   Brain,
-  Handshake,
   Calendar,
   AlertCircle,
   Loader2,
   ChevronDown,
   ChevronUp,
-  ExternalLink,
 } from "lucide-react";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -591,7 +588,7 @@ function AIAgentButtons({ deal }) {
       setResults((prev) => ({ ...prev, [agent.key]: data?.analysis || data?.result || data?.message || "Analysis complete." }));
       toast({ title: `${agent.label} complete`, description: "Results ready below." });
     } catch (err) {
-      toast({ title: "Agent error", description: err.message, variant: "destructive" });
+      toast({ title: "Agent error", description: formatAIError(err), variant: "destructive" });
     } finally {
       setLoadingAgent(null);
     }

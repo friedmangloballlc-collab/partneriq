@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Mail, Send, Plus, Sparkles, Clock, CheckCircle2, Eye, Reply, AlertCircle, Loader2, ChevronDown, ChevronUp, BookOpen
@@ -86,8 +87,9 @@ export default function Outreach() {
 
   const handleGenerateAI = async () => {
     setGenerating(true);
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt: `Generate a professional and personalized partnership outreach email.
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt: `Generate a professional and personalized partnership outreach email.
 Recipient: ${newEmail.to_name || "Decision Maker"}
 Email: ${newEmail.to_email}
 Type: ${newEmail.email_type.replace(/_/g, " ")}
@@ -99,17 +101,21 @@ Write a compelling, concise email that:
 - Includes a clear call to action
 - Is professional but conversational
 - Is under 200 words`,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          subject: { type: "string" },
-          body: { type: "string" }
+        response_json_schema: {
+          type: "object",
+          properties: {
+            subject: { type: "string" },
+            body: { type: "string" }
+          }
         }
-      }
-    });
-    if (error) throw error;
-    setNewEmail(prev => ({ ...prev, subject: result.subject, body: result.body, ai_generated: true }));
-    setGenerating(false);
+      });
+      if (error) throw error;
+      setNewEmail(prev => ({ ...prev, subject: result.subject, body: result.body, ai_generated: true }));
+    } catch (err) {
+      alert(formatAIError(err));
+    } finally {
+      setGenerating(false);
+    }
   };
 
   const handleSubmitForApproval = (emailId) => {

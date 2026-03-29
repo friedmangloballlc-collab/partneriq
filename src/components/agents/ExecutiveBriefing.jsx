@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   FileText,
   TrendingUp,
@@ -140,7 +141,7 @@ export default function ExecutiveBriefing() {
         setError("Unexpected response format.");
       }
     } catch (err) {
-      setError(err?.message || "Failed to generate briefing.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

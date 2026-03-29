@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Bell,
   BellRing,
@@ -20,7 +21,6 @@ import {
   Settings,
   Filter,
   Eye,
-  EyeOff,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -128,7 +128,7 @@ export default function SmartNotifications() {
         setError(response?.error || "Failed to generate alerts.");
       }
     } catch (err) {
-      setError(err?.message || "Failed to fetch smart alerts.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

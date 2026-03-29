@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useAuth } from "@/lib/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -625,8 +626,8 @@ Return only valid JSON with no explanation.`,
         setFields((prev) => ({ ...prev, ...suggested }));
         toast({ title: "AI suggestions applied", description: "Fields filled with suggested values." });
       }
-    } catch {
-      toast({ title: "AI suggestion failed", description: "Fill in the fields manually.", variant: "destructive" });
+    } catch (err) {
+      toast({ title: "AI suggestion failed", description: formatAIError(err), variant: "destructive" });
     } finally {
       setLoadingAI(false);
     }

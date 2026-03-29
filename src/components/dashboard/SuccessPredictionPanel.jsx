@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -36,9 +37,14 @@ export default function SuccessPredictionPanel({ partnerships = [] }) {
     if (!selectedId) return;
     setLoading(true);
     setPrediction(null);
-    const res = await base44.functions.invoke("predictPartnershipSuccess", { partnership_id: selectedId });
-    setPrediction(res.data.prediction);
-    setPartnershipTitle(res.data.partnership_title);
+    try {
+      const res = await base44.functions.invoke("predictPartnershipSuccess", { partnership_id: selectedId });
+      setPrediction(res.data.prediction);
+      setPartnershipTitle(res.data.partnership_title);
+    } catch (err) {
+      console.error("Success prediction failed:", err);
+      alert(formatAIError(err));
+    }
     setLoading(false);
   };
 

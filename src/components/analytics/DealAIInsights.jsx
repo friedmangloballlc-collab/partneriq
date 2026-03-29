@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,9 +24,13 @@ export default function DealAIInsights() {
     setLoading(true);
     setError(null);
     setAnalysis(null);
-    const res = await base44.functions.invoke("analyzeDealPatterns", {});
-    if (res.data?.error) setError(res.data.error);
-    else setAnalysis(res.data?.analysis);
+    try {
+      const res = await base44.functions.invoke("analyzeDealPatterns", {});
+      if (res.data?.error) setError(res.data.error);
+      else setAnalysis(res.data?.analysis);
+    } catch (err) {
+      setError(formatAIError(err));
+    }
     setLoading(false);
   };
 

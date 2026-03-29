@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { formatAIError } from "@/components/AILimitBanner";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Search, Users, Sparkles, Loader2, Mail, Linkedin, Phone, ExternalLink,
-  PlusCircle, Info, Building2, ShieldCheck, Star, AlertCircle
+  PlusCircle, Info, Building2, ShieldCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -182,7 +183,7 @@ export default function ContactFinder() {
     } catch (err) {
       toast({
         title: "Extraction failed",
-        description: err?.message || "AI extraction failed. Please try again.",
+        description: formatAIError(err),
         variant: "destructive",
       });
     } finally {

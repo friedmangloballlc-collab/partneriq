@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import { useQuery } from "@tanstack/react-query";
 import {
   Sparkles, Loader2, Copy, CheckCircle2, ChevronDown, ChevronUp,
@@ -100,54 +101,59 @@ TALENT:
 
 Generate a detailed, actionable campaign brief with the following sections. Be specific, creative, and tailored to this exact pairing.`;
 
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          campaign_title: { type: "string", description: "A compelling campaign name" },
-          executive_summary: { type: "string", description: "2-3 sentence overview of the campaign opportunity" },
-          campaign_goals: {
-            type: "array",
-            items: { type: "string" },
-            description: "3-5 specific, measurable campaign goals"
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            campaign_title: { type: "string", description: "A compelling campaign name" },
+            executive_summary: { type: "string", description: "2-3 sentence overview of the campaign opportunity" },
+            campaign_goals: {
+              type: "array",
+              items: { type: "string" },
+              description: "3-5 specific, measurable campaign goals"
+            },
+            target_audience: {
+              type: "array",
+              items: { type: "string" },
+              description: "3-5 detailed target audience segments with demographics and psychographics"
+            },
+            key_messaging: {
+              type: "array",
+              items: { type: "string" },
+              description: "4-6 core messages and talking points for the campaign"
+            },
+            creative_directions: {
+              type: "array",
+              items: { type: "string" },
+              description: "4-6 specific, creative content concepts and directions"
+            },
+            content_formats: {
+              type: "array",
+              items: { type: "string" },
+              description: "3-5 recommended content formats with platform-specific suggestions"
+            },
+            kpis: {
+              type: "array",
+              items: { type: "string" },
+              description: "4-6 key performance indicators to track campaign success with target benchmarks"
+            },
+            estimated_reach: { type: "string", description: "Estimated total reach and impressions" },
+            recommended_duration: { type: "string", description: "Suggested campaign duration and timeline" },
+            budget_allocation: { type: "string", description: "Suggested budget split across content types" },
           },
-          target_audience: {
-            type: "array",
-            items: { type: "string" },
-            description: "3-5 detailed target audience segments with demographics and psychographics"
-          },
-          key_messaging: {
-            type: "array",
-            items: { type: "string" },
-            description: "4-6 core messages and talking points for the campaign"
-          },
-          creative_directions: {
-            type: "array",
-            items: { type: "string" },
-            description: "4-6 specific, creative content concepts and directions"
-          },
-          content_formats: {
-            type: "array",
-            items: { type: "string" },
-            description: "3-5 recommended content formats with platform-specific suggestions"
-          },
-          kpis: {
-            type: "array",
-            items: { type: "string" },
-            description: "4-6 key performance indicators to track campaign success with target benchmarks"
-          },
-          estimated_reach: { type: "string", description: "Estimated total reach and impressions" },
-          recommended_duration: { type: "string", description: "Suggested campaign duration and timeline" },
-          budget_allocation: { type: "string", description: "Suggested budget split across content types" },
-        },
-        required: ["campaign_title", "executive_summary", "campaign_goals", "target_audience", "key_messaging", "creative_directions", "kpis"]
-      }
-    });
-    if (error) throw error;
+          required: ["campaign_title", "executive_summary", "campaign_goals", "target_audience", "key_messaging", "creative_directions", "kpis"]
+        }
+      });
+      if (error) throw error;
 
-    setBrief(result);
-    setLoading(false);
+      setBrief(result);
+    } catch (err) {
+      alert(formatAIError(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyBrief = () => {

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Play,
   Loader2,
@@ -176,7 +177,7 @@ export default function BulkAgentOps() {
         setError(response?.data?.error || "Bulk analysis failed.");
       }
     } catch (err) {
-      setError(err?.message || "An error occurred running bulk analysis.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   BarChart3,
   Trophy,
@@ -493,7 +494,7 @@ export default function AgentAnalytics() {
         setAnalytics(data.analytics);
       }
     } catch (err) {
-      setError(err.message || "Failed to analyze agent performance");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

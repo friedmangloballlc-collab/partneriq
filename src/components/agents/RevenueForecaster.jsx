@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   TrendingUp,
-  TrendingDown,
   DollarSign,
   BarChart3,
   Target,
@@ -116,7 +116,7 @@ export default function RevenueForecaster() {
         setError(response?.data?.error || "Failed to generate forecast");
       }
     } catch (err) {
-      setError(err?.message || "An error occurred while generating the forecast");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

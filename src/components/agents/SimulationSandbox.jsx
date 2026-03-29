@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import {
   Play,
   Loader2,
@@ -257,7 +258,7 @@ export default function SimulationSandbox() {
         setError(result?.error || "Simulation returned no results.");
       }
     } catch (err) {
-      setError(err?.message || "Simulation failed.");
+      setError(formatAIError(err));
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
+import { formatAIError } from "@/components/AILimitBanner";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -120,38 +121,43 @@ Perform a deep analysis:
 4. Suggest an outreach strategy for each.
 Return top 5 suggestions with detailed reasoning.`;
 
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          opportunity_summary: { type: "string" },
-          ideal_talent_profile: { type: "string" },
-          suggestions: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: { type: "string" },
-                name: { type: "string" },
-                score: { type: "number" },
-                why_ideal: { type: "string" },
-                unique_strengths: { type: "array", items: { type: "string" } },
-                potential_risks: { type: "string" },
-                outreach_strategy: { type: "string" },
-                partnership_type: { type: "string" },
-                estimated_roi: { type: "string" },
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            opportunity_summary: { type: "string" },
+            ideal_talent_profile: { type: "string" },
+            suggestions: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "string" },
+                  name: { type: "string" },
+                  score: { type: "number" },
+                  why_ideal: { type: "string" },
+                  unique_strengths: { type: "array", items: { type: "string" } },
+                  potential_risks: { type: "string" },
+                  outreach_strategy: { type: "string" },
+                  partnership_type: { type: "string" },
+                  estimated_roi: { type: "string" },
+                }
               }
-            }
-          },
-          market_insight: { type: "string" }
+            },
+            market_insight: { type: "string" }
+          }
         }
-      }
-    });
-    if (error) throw error;
+      });
+      if (error) throw error;
 
-    setProactiveSuggestions(result);
-    setLoadingSuggestions(false);
+      setProactiveSuggestions(result);
+    } catch (err) {
+      toast({ title: "AI suggestion failed", description: formatAIError(err), variant: "destructive" });
+    } finally {
+      setLoadingSuggestions(false);
+    }
   };
 
   const handleRunMatch = async () => {
@@ -181,33 +187,38 @@ ${JSON.stringify(pool.slice(0, 10).map(b => ({ id: b.id, name: b.name, industry:
 For each match, provide a score (0-100), reasoning, and recommended partnership type.
 Return the top 5 matches.`;
 
-    const { data: result, error } = await base44.functions.invoke("ai-router", {
-      prompt,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          matches: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: { type: "string" },
-                name: { type: "string" },
-                score: { type: "number" },
-                reasoning: { type: "string" },
-                partnership_type: { type: "string" },
-                strengths: { type: "array", items: { type: "string" } },
+    try {
+      const { data: result, error } = await base44.functions.invoke("ai-router", {
+        prompt,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            matches: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "string" },
+                  name: { type: "string" },
+                  score: { type: "number" },
+                  reasoning: { type: "string" },
+                  partnership_type: { type: "string" },
+                  strengths: { type: "array", items: { type: "string" } },
+                }
               }
-            }
-          },
-          summary: { type: "string" }
+            },
+            summary: { type: "string" }
+          }
         }
-      }
-    });
-    if (error) throw error;
+      });
+      if (error) throw error;
 
-    setMatchResults(result);
-    setMatching(false);
+      setMatchResults(result);
+    } catch (err) {
+      toast({ title: "Match failed", description: formatAIError(err), variant: "destructive" });
+    } finally {
+      setMatching(false);
+    }
   };
 
   const handleCreatePartnership = async (match) => {
