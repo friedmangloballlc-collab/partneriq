@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Search, X, Loader } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
-export default function GlobalSearch() {
+const GlobalSearch = forwardRef(function GlobalSearch(props, ref) {
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputRef.current?.focus();
+    },
+  }));
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState(null);
@@ -15,21 +22,25 @@ export default function GlobalSearch() {
   const { data: industries = [] } = useQuery({
     queryKey: ["industries"],
     queryFn: () => base44.entities.IndustryGuide.list(),
+    enabled: isOpen,
   });
 
   const { data: cultureEvents = [] } = useQuery({
     queryKey: ["cultureEvents"],
     queryFn: () => base44.entities.CultureEvent.list(),
+    enabled: isOpen,
   });
 
   const { data: megaEvents = [] } = useQuery({
     queryKey: ["megaEvents"],
     queryFn: () => base44.entities.MegaEvent.list(),
+    enabled: isOpen,
   });
 
   const { data: demographics = [] } = useQuery({
     queryKey: ["demographics"],
     queryFn: () => base44.entities.DemographicSegment.list(),
+    enabled: isOpen,
   });
 
   useEffect(() => {
@@ -92,11 +103,13 @@ export default function GlobalSearch() {
       <div className="relative">
         <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
         <input
+          ref={inputRef}
           type="text"
           placeholder="Search industries, events, demographics..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => setIsOpen(true)}
+          aria-label="Global search"
           className="w-full pl-10 pr-10 py-2 border border-slate-300 rounded-lg text-sm bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
         />
         {searchTerm && (
@@ -203,4 +216,6 @@ export default function GlobalSearch() {
       )}
     </div>
   );
-}
+});
+
+export default GlobalSearch;

@@ -36,6 +36,32 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-radix': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-toast',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-switch',
+            '@radix-ui/react-slider',
+            '@radix-ui/react-scroll-area',
+          ],
+          'vendor-recharts': ['recharts'],
+          'vendor-sentry': ['@sentry/react'],
+          'vendor-stripe': ['@stripe/react-stripe-js', '@stripe/stripe-js', 'stripe'],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
