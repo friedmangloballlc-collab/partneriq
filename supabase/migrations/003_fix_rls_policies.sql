@@ -1,5 +1,5 @@
 -- ============================================================
--- 003: Fix RLS Policies — Correct User-Scoped Policies
+-- 003: Fix RLS Policies — Correct User-Scoped Policies (v3)
 -- ============================================================
 --
 -- SECURITY MIGRATION
