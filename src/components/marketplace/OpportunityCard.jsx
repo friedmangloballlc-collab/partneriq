@@ -2,8 +2,9 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, DollarSign, Users, Zap } from "lucide-react";
-import { fitColorClass } from "@/lib/qualityScore";
+import { Calendar, DollarSign, Users, Zap, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 const contractTypeColors = {
   sponsorship: "bg-blue-100 text-blue-800",
@@ -22,7 +23,7 @@ const formatBudget = (min, max) => {
   return `Up to $${parseInt(max).toLocaleString()}`;
 };
 
-export default function OpportunityCard({ opportunity, userRole, onApply, fitPercent }) {
+export default function OpportunityCard({ opportunity, userRole, onApply, fitPercent, isPaidPlan = true }) {
   const platforms = Array.isArray(opportunity.required_platforms)
     ? opportunity.required_platforms
     : typeof opportunity.required_platforms === 'string'
@@ -116,9 +117,17 @@ export default function OpportunityCard({ opportunity, userRole, onApply, fitPer
 
         {/* Apply Button */}
         {userRole !== "brand" && userRole !== "admin" && (
-          <Button onClick={onApply} className="w-full gap-2">
-            <Zap className="w-4 h-4" /> Apply Now
-          </Button>
+          isPaidPlan ? (
+            <Button onClick={onApply} className="w-full gap-2">
+              <Zap className="w-4 h-4" /> Apply Now
+            </Button>
+          ) : (
+            <Button asChild variant="outline" className="w-full gap-2 border-amber-300 text-amber-700 hover:bg-amber-50">
+              <Link to={createPageUrl("SubscriptionManagement")}>
+                <Lock className="w-4 h-4" /> Upgrade to Apply
+              </Link>
+            </Button>
+          )
         )}
       </CardContent>
     </Card>

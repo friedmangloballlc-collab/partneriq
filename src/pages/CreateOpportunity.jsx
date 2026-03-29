@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
-import { useMutation } from "@tanstack/react-query";
+import { useFeatureGate } from "@/hooks/useFeatureGate";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { useForm, Controller } from "react-hook-form";
@@ -130,7 +131,16 @@ export default function CreateOpportunity() {
     },
   });
 
-  // User provided by AuthContext
+  const { isPaidPlan } = useFeatureGate();
+  const FREE_OPPORTUNITY_LIMIT = 3;
+
+  const { data: existingOpportunities = [] } = useQuery({
+    queryKey: ["my-opportunities-count", user?.email],
+    queryFn: () => user?.email ? base44.entities.MarketplaceOpportunity.filter({ created_by: user.email }) : [],
+    enabled: !!user?.email,
+  });
+
+  const atFreeLimit = !isPaidPlan && existingOpportunities.length >= FREE_OPPORTUNITY_LIMIT;
 
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -176,6 +186,23 @@ export default function CreateOpportunity() {
       <Link to={createPageUrl("Marketplace")} className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700">
         <ArrowLeft className="w-4 h-4" /> Back to Marketplace
       </Link>
+
+      {atFreeLimit && (
+        <Card className="border-amber-200 bg-amber-50">
+          <CardContent className="flex items-center gap-3 py-4">
+            <Lock className="w-5 h-5 text-amber-600 flex-shrink-0" />
+            <div>
+              <p className="font-medium text-amber-900">Free plan limit reached</p>
+              <p className="text-sm text-amber-700">
+                You've used all {FREE_OPPORTUNITY_LIMIT} opportunities on the free plan.{" "}
+                <Link to={createPageUrl("SubscriptionManagement")} className="underline font-medium">
+                  Upgrade to create unlimited opportunities
+                </Link>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
@@ -385,10 +412,10 @@ export default function CreateOpportunity() {
               </Button>
               <Button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={mutation.isPending || atFreeLimit}
                 className="flex-1"
               >
-                {mutation.isPending ? "Creating..." : "Create Opportunity"}
+                {atFreeLimit ? "Upgrade to Create More" : mutation.isPending ? "Creating..." : "Create Opportunity"}
               </Button>
             </div>
           </form>

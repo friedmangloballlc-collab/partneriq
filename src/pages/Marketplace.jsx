@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
+import { useFeatureGate } from "@/hooks/useFeatureGate";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import { createPageUrl } from "@/utils";
@@ -35,6 +36,7 @@ const OPP_STATUS_COLORS = {
 
 export default function Marketplace() {
   const { user } = useAuth();
+  const { isPaidPlan } = useFeatureGate();
   const [activeTab, setActiveTab] = useState("browse");
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -210,6 +212,7 @@ export default function Marketplace() {
                   key={opp.id}
                   opportunity={opp}
                   userRole={user.role}
+                  isPaidPlan={isPaidPlan}
                   onApply={() => navigate(createPageUrl(`OpportunityDetail?id=${opp.id}`))}
                   fitPercent={isTalentRole && talentProfile ? calculateFitPercent(talentProfile, opp) : undefined}
                 />
