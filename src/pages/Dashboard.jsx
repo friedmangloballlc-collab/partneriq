@@ -178,18 +178,19 @@ function DashboardContent({ user }) {
   });
 
   // Resolve values: prefer RPC summary, fall back to individual query results
-  const resolvedTalents    = summary ? (summary.total_talents    ?? 0)  : talents;
-  const resolvedBrands     = summary ? (summary.total_brands     ?? 0)  : brands;
-  const resolvedActivities = summary ? (summary.recent_activities ?? []) : activities;
-  const resolvedApprovals  = summary ? (summary.pending_approvals ?? 0)  : approvals;
+  const resolvedTalents    = summary ? (summary.total_talents    ?? 0)  : (Array.isArray(talents) ? talents.length : (talents ?? 0));
+  const resolvedBrands     = summary ? (summary.total_brands     ?? 0)  : (Array.isArray(brands) ? brands.length : (brands ?? 0));
+  const resolvedActivities = summary ? (Array.isArray(summary.recent_activities) ? summary.recent_activities : []) : (Array.isArray(activities) ? activities : []);
+  const resolvedApprovals  = summary ? (summary.pending_approvals ?? 0)  : (Array.isArray(approvals) ? approvals.length : (approvals ?? 0));
+  const safePartnerships = Array.isArray(partnerships) ? partnerships : [];
 
   const totalDealValue = summary
     ? (summary.total_deal_value ?? 0)
-    : partnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
+    : safePartnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
 
   const activeDeals = summary
     ? (summary.active_deals ?? 0)
-    : partnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
+    : safePartnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
 
   // When using the RPC the full partnership list still comes from the fallback cache
   // so pipeline chart / top matches continue to work.  Force-enable fallback partnerships
