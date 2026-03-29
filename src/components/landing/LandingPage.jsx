@@ -1161,17 +1161,24 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <div className="ds-pricing-grid ds-pricing-grid-cols" data-cols={PRICING[pricingRole].length} style={isMobile ? { gridTemplateColumns: "1fr" } : {}}>
               {PRICING[pricingRole].map((plan) => {
                 const numericPrice = parseInt((plan.price || "").replace(/[^0-9]/g, ""), 10);
-                const annualMonthlyPrice = (billingAnnual && numericPrice) ? `$${Math.round(numericPrice * 0.8)}` : plan.price;
-                const displayPrice = (plan.price === "$0" || plan.price === "Custom") ? plan.price : annualMonthlyPrice;
                 const isPaid = plan.price !== "$0" && plan.price !== "Custom";
+                const annualTotal = (billingAnnual && isPaid && numericPrice) ? numericPrice * 10 : null;
+                const annualSavings = (billingAnnual && isPaid && numericPrice) ? numericPrice * 2 : null;
+                const displayPrice = annualTotal ? `$${annualTotal.toLocaleString()}` : plan.price;
+                const displayPeriod = annualTotal ? "/ year" : plan.period;
                 return (
                   <div key={plan.title} className={`ds-plan-card${plan.popular ? " popular" : ""}`}>
                     {plan.badge && <div className="ds-plan-badge">{plan.badge}</div>}
                     <div className="ds-plan-title">{plan.title}</div>
                     <div className="ds-plan-price">
                       {displayPrice}
-                      <span>{billingAnnual && isPaid ? "/ mo · billed annually" : plan.period}</span>
+                      <span>{displayPeriod}</span>
                     </div>
+                    {annualSavings && (
+                      <div style={{ marginTop: "0.35rem", marginBottom: "0.1rem" }}>
+                        <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "#1c1b19", background: "var(--ds-ga)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em", fontWeight: 600 }}>Save ${annualSavings.toLocaleString()}</span>
+                      </div>
+                    )}
                     {isPaid && (
                       <div style={{ marginTop: "0.5rem", marginBottom: "0.25rem" }}>
                         <span style={{ fontFamily: "var(--ds-mono)", fontSize: "0.62rem", color: "var(--ds-gold2)", background: "var(--ds-gold-dim)", border: "0.5px solid rgba(212,176,78,0.18)", borderRadius: 3, padding: "0.15rem 0.5rem", letterSpacing: "0.04em" }}>7-day free trial</span>
