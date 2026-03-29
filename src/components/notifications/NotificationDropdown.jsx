@@ -42,7 +42,7 @@ export default function NotificationDropdown() {
       color: "bg-amber-100 text-amber-600",
     })),
     ...activities.map(a => {
-      const cfg = actionIcons[a.action] || { icon: Bell, color: "bg-slate-100 text-slate-500" };
+      const cfg = actionIcons[a.action] || { icon: Bell, color: "bg-muted text-muted-foreground" };
       return {
         id: `activity-${a.id}`,
         type: "activity",
@@ -65,7 +65,7 @@ export default function NotificationDropdown() {
       <button
         onClick={() => setOpen(o => !o)}
         aria-label="Notifications"
-        className="relative w-9 h-9 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors"
+        className="relative w-9 h-9 rounded-lg border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
       >
         <Bell className="w-4 h-4" aria-hidden="true" />
         {unread > 0 && (
@@ -78,9 +78,9 @@ export default function NotificationDropdown() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-11 z-50 w-80 bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-              <span className="text-sm font-semibold text-slate-800">Notifications</span>
+          <div className="absolute right-0 top-11 z-50 w-80 bg-card rounded-2xl border border-border shadow-xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <span className="text-sm font-semibold text-foreground">Notifications</span>
               {unread > 0 && (
                 <button
                   onClick={() => setDismissed(new Set(notifications.map(n => n.id)))}
@@ -93,30 +93,30 @@ export default function NotificationDropdown() {
 
             {notifications.length === 0 ? (
               <div className="py-12 text-center">
-                <Bell className="w-8 h-8 text-slate-200 mx-auto mb-2" />
-                <p className="text-sm text-slate-400">All caught up!</p>
+                <Bell className="w-8 h-8 text-muted-foreground/30 mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">All caught up!</p>
               </div>
             ) : (
-              <div className="max-h-96 overflow-y-auto divide-y divide-slate-50">
+              <div className="max-h-96 overflow-y-auto divide-y divide-border">
                 {notifications.map(n => {
                   const Icon = n.icon;
                   return (
-                    <div key={n.id} className="flex gap-3 px-4 py-3 hover:bg-slate-50 transition-colors group">
+                    <div key={n.id} className="flex gap-3 px-4 py-3 hover:bg-muted transition-colors group">
                       <div className={`w-8 h-8 rounded-lg ${n.color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
                         <Icon className="w-3.5 h-3.5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-slate-700">{n.title}</p>
-                        <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-2">{n.description}</p>
+                        <p className="text-xs font-semibold text-foreground">{n.title}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-2">{n.description}</p>
                         {n.time && (
-                          <p className="text-[10px] text-slate-300 mt-1">
+                          <p className="text-[10px] text-muted-foreground/60 mt-1">
                             {formatDistanceToNow(new Date(n.time), { addSuffix: true })}
                           </p>
                         )}
                       </div>
                       <button
                         onClick={() => setDismissed(prev => new Set([...prev, n.id]))}
-                        className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-slate-500 transition-all self-start mt-0.5"
+                        className="opacity-0 group-hover:opacity-100 text-muted-foreground/40 hover:text-muted-foreground transition-all self-start mt-0.5"
                       >
                         <X className="w-3 h-3" />
                       </button>

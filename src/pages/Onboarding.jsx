@@ -807,6 +807,16 @@ export default function Onboarding() {
       <div className="ob-section-pad pt-20 pb-16 px-4" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <div className="ob-step-form" style={{ width: "100%", maxWidth: 560, margin: "0 auto" }}>
 
+          {/* Step progress indicator */}
+          <div className="flex items-center gap-2 mb-6">
+            {[1,2,3,4].map(s => (
+              <div key={s} className={`h-1.5 flex-1 rounded-full transition-all ${step >= s ? 'bg-gradient-to-r from-[#d4b04e] to-[#e07b18]' : 'bg-white/10'}`} />
+            ))}
+          </div>
+          <p className="text-xs text-center mb-4" style={{color: 'rgba(245,240,230,0.4)'}}>
+            Step {step} of 4{step === 1 ? ' — Welcome' : step === 2 ? ' — Choose Your Role' : step === 3 ? ' — Select Plan' : ' — Create Account'}
+          </p>
+
           {/* Step title */}
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             {/* Mobile step indicator */}

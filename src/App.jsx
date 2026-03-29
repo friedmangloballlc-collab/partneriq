@@ -10,12 +10,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'r
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import Login from '@/pages/Login';
-import Onboarding from '@/pages/Onboarding';
-import Terms from '@/pages/Terms';
-import Privacy from '@/pages/Privacy';
-import CreatorCalculator from '@/pages/CreatorCalculator';
-import Pricing from '@/pages/Pricing';
+const Login = React.lazy(() => import('@/pages/Login'));
+const Onboarding = React.lazy(() => import('@/pages/Onboarding'));
+const Terms = React.lazy(() => import('@/pages/Terms'));
+const Privacy = React.lazy(() => import('@/pages/Privacy'));
+const CreatorCalculator = React.lazy(() => import('@/pages/CreatorCalculator'));
+const Pricing = React.lazy(() => import('@/pages/Pricing'));
 const About = React.lazy(() => import('@/pages/About'));
 const Blog = React.lazy(() => import('@/pages/Blog'));
 const Careers = React.lazy(() => import('@/pages/Careers'));
@@ -179,43 +179,49 @@ const AuthenticatedApp = () => {
     );
   }
 
+  const marketingFallback = (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
+
   // Public routes: legal pages and tools (no auth needed)
   if (location.pathname === '/terms') {
-    return <Routes><Route path="/terms" element={<Terms />} /></Routes>;
+    return <Routes><Route path="/terms" element={<Suspense fallback={marketingFallback}><Terms /></Suspense>} /></Routes>;
   }
   if (location.pathname === '/privacy') {
-    return <Routes><Route path="/privacy" element={<Privacy />} /></Routes>;
+    return <Routes><Route path="/privacy" element={<Suspense fallback={marketingFallback}><Privacy /></Suspense>} /></Routes>;
   }
   if (location.pathname === '/calculator') {
-    return <Routes><Route path="/calculator" element={<CreatorCalculator />} /></Routes>;
+    return <Routes><Route path="/calculator" element={<Suspense fallback={marketingFallback}><CreatorCalculator /></Suspense>} /></Routes>;
   }
   if (location.pathname === '/Pricing' || location.pathname === '/pricing') {
-    return <Routes><Route path={location.pathname} element={<Pricing />} /></Routes>;
+    return <Routes><Route path={location.pathname} element={<Suspense fallback={marketingFallback}><Pricing /></Suspense>} /></Routes>;
   }
   if (location.pathname === '/FAQ' || location.pathname === '/faq') {
     const FAQ = React.lazy(() => import('@/pages/FAQ'));
-    return <Routes><Route path={location.pathname} element={<Suspense fallback={<div />}><FAQ /></Suspense>} /></Routes>;
+    return <Routes><Route path={location.pathname} element={<Suspense fallback={marketingFallback}><FAQ /></Suspense>} /></Routes>;
   }
   // Public marketing routes (no auth needed)
   const publicMarketingRoutes = {
-    '/About': <Suspense fallback={<div />}><About /></Suspense>,
-    '/Blog': <Suspense fallback={<div />}><Blog /></Suspense>,
-    '/Careers': <Suspense fallback={<div />}><Careers /></Suspense>,
-    '/Contact': <Suspense fallback={<div />}><Contact /></Suspense>,
-    '/Customers': <Suspense fallback={<div />}><Customers /></Suspense>,
-    '/CookiePolicy': <Suspense fallback={<div />}><CookiePolicy /></Suspense>,
-    '/GDPR': <Suspense fallback={<div />}><GDPR /></Suspense>,
-    '/Demo': <Suspense fallback={<div />}><Demo /></Suspense>,
-    '/features/talent-discovery': <Suspense fallback={<div>Loading...</div>}><FeatureTalentDiscovery /></Suspense>,
-    '/features/deal-pipeline': <Suspense fallback={<div>Loading...</div>}><FeatureDealPipeline /></Suspense>,
-    '/features/media-kits': <Suspense fallback={<div>Loading...</div>}><FeatureMediaKits /></Suspense>,
-    '/features/payments': <Suspense fallback={<div>Loading...</div>}><FeaturePayments /></Suspense>,
-    '/features/integrations': <Suspense fallback={<div>Loading...</div>}><FeatureIntegrations /></Suspense>,
-    '/features/campaign-analytics': <Suspense fallback={<div>Loading...</div>}><FeatureCampaignAnalytics /></Suspense>,
-    '/features/send-deals': <Suspense fallback={<div>Loading...</div>}><FeatureSendDeals /></Suspense>,
-    '/features/manage-deals': <Suspense fallback={<div>Loading...</div>}><FeatureManageDeals /></Suspense>,
-    '/features/browse-talent': <Suspense fallback={<div>Loading...</div>}><FeatureBrowseTalent /></Suspense>,
-    '/features/manage-talent': <Suspense fallback={<div>Loading...</div>}><FeatureManageTalent /></Suspense>,
+    '/About': <Suspense fallback={marketingFallback}><About /></Suspense>,
+    '/Blog': <Suspense fallback={marketingFallback}><Blog /></Suspense>,
+    '/Careers': <Suspense fallback={marketingFallback}><Careers /></Suspense>,
+    '/Contact': <Suspense fallback={marketingFallback}><Contact /></Suspense>,
+    '/Customers': <Suspense fallback={marketingFallback}><Customers /></Suspense>,
+    '/CookiePolicy': <Suspense fallback={marketingFallback}><CookiePolicy /></Suspense>,
+    '/GDPR': <Suspense fallback={marketingFallback}><GDPR /></Suspense>,
+    '/Demo': <Suspense fallback={marketingFallback}><Demo /></Suspense>,
+    '/features/talent-discovery': <Suspense fallback={marketingFallback}><FeatureTalentDiscovery /></Suspense>,
+    '/features/deal-pipeline': <Suspense fallback={marketingFallback}><FeatureDealPipeline /></Suspense>,
+    '/features/media-kits': <Suspense fallback={marketingFallback}><FeatureMediaKits /></Suspense>,
+    '/features/payments': <Suspense fallback={marketingFallback}><FeaturePayments /></Suspense>,
+    '/features/integrations': <Suspense fallback={marketingFallback}><FeatureIntegrations /></Suspense>,
+    '/features/campaign-analytics': <Suspense fallback={marketingFallback}><FeatureCampaignAnalytics /></Suspense>,
+    '/features/send-deals': <Suspense fallback={marketingFallback}><FeatureSendDeals /></Suspense>,
+    '/features/manage-deals': <Suspense fallback={marketingFallback}><FeatureManageDeals /></Suspense>,
+    '/features/browse-talent': <Suspense fallback={marketingFallback}><FeatureBrowseTalent /></Suspense>,
+    '/features/manage-talent': <Suspense fallback={marketingFallback}><FeatureManageTalent /></Suspense>,
   };
   if (Object.prototype.hasOwnProperty.call(publicMarketingRoutes, location.pathname)) {
     const element = publicMarketingRoutes[location.pathname];
@@ -225,7 +231,7 @@ const AuthenticatedApp = () => {
   // Public routes: onboarding (landing) and login
   if (location.pathname === '/login') {
     if (isAuthenticated) return <Navigate to="/Dashboard" replace />;
-    return <Routes><Route path="/login" element={<Login />} /></Routes>;
+    return <Routes><Route path="/login" element={<Suspense fallback={marketingFallback}><Login /></Suspense>} /></Routes>;
   }
 
   if (location.pathname === '/check-email') {
@@ -247,8 +253,8 @@ const AuthenticatedApp = () => {
   if (location.pathname === '/' || location.pathname === '/Onboarding') {
     if (isAuthenticated) return <Navigate to="/Dashboard" replace />;
     return <Routes>
-      <Route path="/" element={<Onboarding />} />
-      <Route path="/Onboarding" element={<Onboarding />} />
+      <Route path="/" element={<Suspense fallback={marketingFallback}><Onboarding /></Suspense>} />
+      <Route path="/Onboarding" element={<Suspense fallback={marketingFallback}><Onboarding /></Suspense>} />
     </Routes>;
   }
 
