@@ -996,3 +996,20 @@ grant select, insert, update, delete on all tables in schema public to service_r
 -- Ensure future tables are also accessible
 alter default privileges in schema public grant select, insert, update, delete on tables to anon, authenticated;
 alter default privileges in schema public grant select, insert, update, delete on tables to service_role;
+
+-- ============================================================
+-- ADDITIONAL TABLES (defined in migrations, not repeated here)
+-- ============================================================
+-- 005: email_connections
+-- 006: platform_catalog, connected_platforms, data_room_entries,
+--      data_room_access, decision_makers, deal_scores, escrow_payments,
+--      bundle_deals, deal_disputes, deck_library, pitch_competitions,
+--      ai_usage_logs, referrals, talent_types, talent_revenue_streams,
+--      talent_revenue_matrix
+-- 008: newsletter_subscribers
+-- 009: (indexes only)
+-- 010: audit_logs, partnership_stage_history
+-- 011: ai_rate_limits
+-- 012: contracts, notification_preferences, analytics_daily_snapshots
+-- 013: (triggers only)
+-- 014: (triggers only)
