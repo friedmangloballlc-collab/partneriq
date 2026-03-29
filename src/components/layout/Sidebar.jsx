@@ -81,7 +81,7 @@ const Sidebar = React.memo(function Sidebar({
         {mobile && (
           <button
             onClick={() => setMobileOpen(false)}
-            className="ml-auto text-slate-400 hover:text-white"
+            className="ml-auto text-muted-foreground hover:text-foreground"
             aria-label="Close navigation menu"
           >
             <X className="w-5 h-5" aria-hidden="true" />
@@ -99,7 +99,7 @@ const Sidebar = React.memo(function Sidebar({
             {userRole === "manager" ? "Manager Portal" : `${userRole} Portal`}
           </Badge>
           {userRole === "manager" && (
-            <p className="text-[10px] text-slate-500 text-center truncate">Managing talent</p>
+            <p className="text-[10px] text-muted-foreground text-center truncate">Managing talent</p>
           )}
         </div>
       )}
@@ -157,7 +157,7 @@ const Sidebar = React.memo(function Sidebar({
                 effectiveCollapsed && !mobile ? (
                   <div className="border-t border-white/5 my-1.5" />
                 ) : (
-                  <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest px-3 pt-4 pb-1 select-none">
                     {item.section}
                   </p>
                 )
@@ -224,7 +224,7 @@ const Sidebar = React.memo(function Sidebar({
                   <p className="text-sm text-white font-medium truncate">
                     {user?.full_name || "User"}
                   </p>
-                  <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
+                  <p className="text-[11px] text-muted-foreground truncate">{user?.email}</p>
                 </div>
               )}
             </button>
@@ -252,7 +252,7 @@ const Sidebar = React.memo(function Sidebar({
             if (!forceCollapsed) setCollapsed(!collapsed);
           }}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-50"
+          className="absolute -right-3 top-20 w-6 h-6 bg-card border border-border rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors z-50"
         >
           {collapsed ? (
             <ChevronRight className="w-3 h-3" aria-hidden="true" />

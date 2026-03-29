@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import NavigationTracker from '@/lib/NavigationTracker'
-import { pagesConfig } from './pages.config'
+import { pagesConfig, PAGES } from './pages.config'
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
@@ -16,14 +16,6 @@ const Terms = React.lazy(() => import('@/pages/Terms'));
 const Privacy = React.lazy(() => import('@/pages/Privacy'));
 const CreatorCalculator = React.lazy(() => import('@/pages/CreatorCalculator'));
 const Pricing = React.lazy(() => import('@/pages/Pricing'));
-const About = React.lazy(() => import('@/pages/About'));
-const Blog = React.lazy(() => import('@/pages/Blog'));
-const Careers = React.lazy(() => import('@/pages/Careers'));
-const Contact = React.lazy(() => import('@/pages/Contact'));
-const Customers = React.lazy(() => import('@/pages/Customers'));
-const CookiePolicy = React.lazy(() => import('@/pages/CookiePolicy'));
-const GDPR = React.lazy(() => import('@/pages/GDPR'));
-const Demo = React.lazy(() => import('@/pages/Demo'));
 import AuthCallback from '@/pages/AuthCallback';
 import ResetPassword from '@/pages/ResetPassword';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
@@ -56,14 +48,14 @@ const PUBLIC_ROUTES = [
   { paths: ['/calculator'], component: CreatorCalculator },
   { paths: ['/pricing', '/Pricing'], component: Pricing },
   { paths: ['/faq', '/FAQ'], component: React.lazy(() => import('@/pages/FAQ')) },
-  { paths: ['/About'], component: About },
-  { paths: ['/Blog'], component: Blog },
-  { paths: ['/Careers'], component: Careers },
-  { paths: ['/Contact'], component: Contact },
-  { paths: ['/Customers'], component: Customers },
-  { paths: ['/CookiePolicy'], component: CookiePolicy },
-  { paths: ['/GDPR'], component: GDPR },
-  { paths: ['/Demo'], component: Demo },
+  { paths: ['/About'], component: PAGES.About },
+  { paths: ['/Blog'], component: PAGES.Blog },
+  { paths: ['/Careers'], component: PAGES.Careers },
+  { paths: ['/Contact'], component: PAGES.Contact },
+  { paths: ['/Customers'], component: PAGES.Customers },
+  { paths: ['/CookiePolicy'], component: PAGES.CookiePolicy },
+  { paths: ['/GDPR'], component: PAGES.GDPR },
+  { paths: ['/Demo'], component: PAGES.Demo },
   { paths: ['/features/talent-discovery'], component: FeatureTalentDiscovery },
   { paths: ['/features/deal-pipeline'], component: FeatureDealPipeline },
   { paths: ['/features/media-kits'], component: FeatureMediaKits },

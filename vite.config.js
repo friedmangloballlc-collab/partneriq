@@ -3,9 +3,20 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 import path from 'path';
 
+// Bundle analysis: run `npm run analyze` to generate dist/stats.html
+// Requires rollup-plugin-visualizer: npm install -D rollup-plugin-visualizer
+const analyzePlugins = [];
+if (process.env.ANALYZE === 'true') {
+  const { visualizer } = await import('rollup-plugin-visualizer');
+  analyzePlugins.push(
+    visualizer({ open: true, filename: 'dist/stats.html', gzipSize: true, brotliSize: true })
+  );
+}
+
 export default defineConfig({
   plugins: [
     react(),
+    ...analyzePlugins,
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {

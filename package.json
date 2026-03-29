@@ -9,6 +9,7 @@
     "lint": "eslint . --quiet",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
+    "analyze": "ANALYZE=true vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "prepare": "husky"
