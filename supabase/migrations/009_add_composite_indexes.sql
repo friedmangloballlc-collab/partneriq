@@ -27,8 +27,8 @@ $$;
 CREATE INDEX IF NOT EXISTS idx_outreach_emails_status
   ON outreach_emails(status, created_at DESC);
 
-CREATE INDEX IF NOT EXISTS idx_notifications_user_read
-  ON notifications(user_email, read);
+CREATE INDEX IF NOT EXISTS idx_notifications_user_status
+  ON notifications(user_email, status);
 
 CREATE INDEX IF NOT EXISTS idx_approval_items_status
   ON approval_items(status, priority);
