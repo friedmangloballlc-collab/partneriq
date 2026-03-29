@@ -22,6 +22,15 @@
  * Special flags:
  *   public: true  — accessible to every authenticated user regardless of role/tier
  *   adminOnly: true — only accessible to admin role
+ *
+ * ─── RESTRUCTURE v2 (2026-03-29) ──────────────────────────────────────
+ * Principles:
+ *   1. Free = Hook (AI taste, basic discovery, read-only pipeline)
+ *   2. Tier 1 = Core Workflow (full pipeline, outreach, match engine)
+ *   3. Tier 2 = Competitive Advantage (analytics, intelligence, advanced AI)
+ *   4. Tier 3 = Enterprise Scale (teams, integrations, custom reports)
+ *   5. Role Parity — same feature at same tier across all roles
+ *   6. Agency Rebalanced — no more near-complete product at Tier 1
  */
 
 // Every role string the system recognises
@@ -36,6 +45,14 @@ export const PAGE_ACCESS = {
   SubscriptionManagement:  { roles: ALL_ROLES, tier: 0 },
   Onboarding:              { roles: ALL_ROLES, tier: 0 },
   Referrals:               { roles: ALL_ROLES, tier: 0 },
+  ConnectAccounts:         { roles: ALL_ROLES, tier: 0 },
+  TalentProfile:           { roles: ALL_ROLES, tier: 0 },
+  BrandDashboard:          { roles: ALL_ROLES, tier: 0 },
+  DealDetail:              { roles: ALL_ROLES, tier: 0 },
+  Approvals:               { roles: ALL_ROLES, tier: 0 },
+  AICommandCenter:         { roles: ALL_ROLES, tier: 0 },  // Free: 5 queries/month (hook)
+  Marketplace:             { roles: ALL_ROLES, tier: 0 },  // Free: browse-only
+  Brands:                  { roles: ALL_ROLES, tier: 0 },
 
   // ── Public / marketing pages ─────────────────────────────────────
   About:                       { roles: ALL_ROLES, tier: 0, public: true },
@@ -52,80 +69,59 @@ export const PAGE_ACCESS = {
   FeatureBrowseTalent:         { roles: ALL_ROLES, tier: 0, public: true },
   FeatureManageTalent:         { roles: ALL_ROLES, tier: 0, public: true },
 
-  // ── Free-tier pages with role restrictions ───────────────────────
-  ConnectAccounts:   { roles: ALL_ROLES, tier: 0 },
-  Marketplace:       { roles: ALL_ROLES, tier: 0 },
-  MasterCalendar:    { roles: ALL_ROLES, tier: 0 },
-  CultureCalendar:   { roles: ALL_ROLES, tier: 0 },
-  Partnerships:      { roles: ALL_ROLES, tier: 0 },
-  ContractTemplates: { roles: ALL_ROLES, tier: 0 },
+  // ── Tier 1: Core Workflow ────────────────────────────────────────
+  // Full pipeline, outreach, match engine, discovery — all roles same tier
+  Partnerships:        { roles: ALL_ROLES, tier: 1 },  // Deal Pipeline (was free)
+  ContractTemplates:   { roles: ALL_ROLES, tier: 1 },  // Was free
+  MasterCalendar:      { roles: ALL_ROLES, tier: 1 },  // Was free
+  CultureCalendar:     { roles: ALL_ROLES, tier: 1 },  // Was free
+  CreateOpportunity:   { roles: ALL_ROLES, tier: 1 },  // Was brand-only free
+  TalentDiscovery:     { roles: ALL_ROLES, tier: 1 },  // Was brand/agency only
+  MatchEngine:         { roles: ALL_ROLES, tier: 1 },
+  ContactFinder:       { roles: ALL_ROLES, tier: 1 },  // Role parity (was T2 for talent)
+  Outreach:            { roles: ALL_ROLES, tier: 1 },
+  TalentAnalytics:     { roles: ALL_ROLES, tier: 1 },
+  CampaignBriefGenerator: { roles: ALL_ROLES, tier: 1 },  // Was free for some roles
+  TalentRevenue:       { roles: ALL_ROLES, tier: 1 },  // Was free for talent
+  DealScoreLeaderboard: { roles: ALL_ROLES, tier: 1 }, // Was free for talent, T3 for brand
+  PitchDeckBuilder:    { roles: ALL_ROLES, tier: 1 },  // Was T2 for most
+  DeckLibrary:         { roles: ALL_ROLES, tier: 1 },  // Was T2 for most
+  AIAgentsHub:         { roles: ALL_ROLES, tier: 1 },  // T1: 1 agent (was T2)
+  CreatorCalculator:   { roles: ALL_ROLES, tier: 1 },
 
-  TalentProfile:     { roles: ['talent', 'manager', 'admin'], tier: 0 },
-  BrandDashboard:    { roles: ['talent', 'brand', 'manager', 'admin'], tier: 0 },
-  Brands:            { roles: ALL_ROLES, tier: 0 },
-  TalentRevenue:     { roles: ['talent', 'manager', 'admin'], tier: { talent: 0, manager: 0, brand: 3, _default: 0 } },
+  // ── Tier 2: Competitive Advantage ────────────────────────────────
+  // Analytics, intelligence, advanced AI, data rooms — all roles same tier
+  SequenceBuilder:      { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  WarmIntroNetwork:     { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  DemographicTargeting: { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  DealAnalytics:        { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  DealComparison:       { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  BundleDeals:          { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  MarketIntelligence:   { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  PitchCompetition:     { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  BrandSpendPrediction: { roles: ALL_ROLES, tier: 2 },  // Talent/Manager moved from T3 to T2
+  SimulationEngine:     { roles: ALL_ROLES, tier: 2 },  // Talent/Manager moved from T3 to T2
+  Analytics:            { roles: ALL_ROLES, tier: 2 },  // Normalized (was T1 brand, T3 talent)
+  EventManagement:      { roles: ALL_ROLES, tier: 2 },  // Normalized (was T2 brand, T3 talent)
+  TalentDataRoom:       { roles: ALL_ROLES, tier: 2 },  // Simplified from per-role tiers
+  BrandDataRoom:        { roles: ALL_ROLES, tier: 2 },  // Simplified
+  AgencyDataRoom:       { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
 
-  // brand gets TalentDiscovery at tier 0, agency at tier 1 (starter), talent/manager don't get it
-  TalentDiscovery:   { roles: ['brand', 'agency', 'admin'], tier: { brand: 0, agency: 1, _default: 0 } },
-
-  // brand gets CampaignBriefGenerator at tier 0; talent/agency at tier-gated
-  CampaignBriefGenerator: { roles: ALL_ROLES, tier: { brand: 0, agency: 1, talent: 0, manager: 0, _default: 0 } },
-
-  // brand gets Analytics at tier 0; talent at tier 3; agency at tier 1
-  Analytics: { roles: ALL_ROLES, tier: { brand: 0, talent: 3, manager: 3, agency: 1, _default: 0 } },
-
-  // ── Tier 1 pages ─────────────────────────────────────────────────
-  MatchEngine: { roles: ALL_ROLES, tier: { talent: 1, brand: 1, agency: 1, manager: 1, _default: 1 } },
-  Outreach:    { roles: ALL_ROLES, tier: { talent: 1, brand: 1, agency: 1, manager: 1, _default: 1 } },
-  TalentAnalytics: { roles: ALL_ROLES, tier: { talent: 1, brand: 1, agency: 1, manager: 1, _default: 1 } },
-
-  ContactFinder: { roles: ALL_ROLES, tier: { talent: 2, brand: 1, agency: 1, manager: 2, _default: 1 } },
-
-  // ── Tier 2 pages ─────────────────────────────────────────────────
-  SequenceBuilder:      { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  WarmIntroNetwork:     { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  DemographicTargeting: { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  DealAnalytics:        { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  DealComparison:       { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  BundleDeals:          { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  MarketIntelligence:   { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  PitchDeckBuilder:     { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  DeckLibrary:          { roles: ['talent', 'brand', 'agency', 'admin'], tier: { talent: 2, brand: 2, agency: 1, _default: 2 } },
-  TalentDataRoom:       { roles: ALL_ROLES, tier: { talent: 2, brand: 3, agency: 2, manager: 2, _default: 2 } },
-  AICommandCenter:      { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  AIAgentsHub:          { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-  PitchCompetition:     { roles: ALL_ROLES, tier: { talent: 2, brand: 2, agency: 1, manager: 2, _default: 2 } },
-
-  BrandSpendPrediction: { roles: ALL_ROLES, tier: { talent: 3, brand: 2, agency: 1, manager: 3, _default: 2 } },
-  SimulationEngine:     { roles: ALL_ROLES, tier: { talent: 3, brand: 2, agency: 1, manager: 3, _default: 2 } },
-
-  Approvals:        { roles: ALL_ROLES, tier: { brand: 2, agency: 1, talent: 0, manager: 0, _default: 0 } },
-  CustomReports:    { roles: ALL_ROLES, tier: { talent: 3, brand: 2, agency: 1, manager: 3, _default: 2 } },
-  BrandDataRoom:    { roles: ['brand', 'agency', 'admin'], tier: { brand: 2, agency: 2, _default: 2 } },
-  AgencyDataRoom:   { roles: ['talent', 'brand', 'agency', 'manager', 'admin'], tier: { brand: 3, agency: 1, talent: 0, manager: 0, _default: 1 } },
-
-  // brand + agency get EventManagement at tier 2; talent at tier 3
-  EventManagement:  { roles: ALL_ROLES, tier: { talent: 3, brand: 2, agency: 2, manager: 3, _default: 2 } },
-  Teams:            { roles: ALL_ROLES, tier: { talent: 3, brand: 2, agency: 1, manager: 3, _default: 2 } },
-
-  DealScoreLeaderboard: { roles: ALL_ROLES, tier: { talent: 0, brand: 3, agency: 2, manager: 0, _default: 2 } },
-
-  // brand gets CreateOpportunity at tier 0; agency at tier 1; not available for talent/manager
-  CreateOpportunity: { roles: ['brand', 'agency', 'admin'], tier: { brand: 0, agency: 1, _default: 0 } },
-  DealDetail:        { roles: ALL_ROLES, tier: 0 },
-
-  // ── Tier 3 pages ─────────────────────────────────────────────────
-  Integrations:     { roles: ALL_ROLES, tier: { talent: 3, brand: 3, agency: 1, manager: 3, _default: 3 } },
-  DataImportExport: { roles: ALL_ROLES, tier: { talent: 3, brand: 3, agency: 2, manager: 3, _default: 3 } },
-  AIFeatures:       { roles: ALL_ROLES, tier: { talent: 3, brand: 3, agency: 2, manager: 3, _default: 3 } },
-  PlatformOverview: { roles: ALL_ROLES, tier: { talent: 3, brand: 3, agency: 2, manager: 3, _default: 3 } },
+  // ── Tier 3: Enterprise Scale ─────────────────────────────────────
+  // Teams, integrations, custom reports, advanced AI — all roles same tier
+  Teams:            { roles: ALL_ROLES, tier: 3 },  // Was T1 for agency, T2 for brand
+  CustomReports:    { roles: ALL_ROLES, tier: 3 },  // Was T1 for agency, T2 for brand
+  Integrations:     { roles: ALL_ROLES, tier: 3 },  // Was T1 for agency
+  DataImportExport: { roles: ALL_ROLES, tier: 3 },
+  AIFeatures:       { roles: ALL_ROLES, tier: 3 },
+  PlatformOverview: { roles: ALL_ROLES, tier: 3 },
 
   // ── Admin-only pages ─────────────────────────────────────────────
   AdminDashboard:     { roles: ['admin'], tier: 0, adminOnly: true },
   AdminDataManager:   { roles: ['admin'], tier: 0, adminOnly: true },
   SystemHealth:       { roles: ['admin'], tier: 0, adminOnly: true },
-  AIAnalytics:        { roles: ['admin'], tier: { talent: 3, brand: 3, agency: 2, _default: 3 }, adminOnly: true },
-  SystemArchitecture: { roles: ['admin'], tier: { brand: 3, agency: 3, _default: 3 }, adminOnly: true },
+  AIAnalytics:        { roles: ['admin'], tier: 0, adminOnly: true },
+  SystemArchitecture: { roles: ['admin'], tier: 0, adminOnly: true },
 
   // ── Manager-only pages ───────────────────────────────────────────
   ManagerSetup:   { roles: ['manager', 'admin'], tier: 0 },
@@ -136,28 +132,29 @@ export const PAGE_ACCESS = {
 // These map feature names to the minimum tier per role.
 // Use `isFeatureEnabled(role, tierLevel, flagName)` to check.
 export const FEATURE_FLAGS = {
-  ai_command_center: { tier: { talent: 2, brand: 2, agency: 1, _default: 2 } },
-  bulk_outreach:     { tier: { talent: 2, brand: 2, agency: 1, _default: 2 } },
-  pitch_deck_builder:{ tier: { talent: 2, brand: 1, agency: 1, _default: 2 } },
-  direct_email_send: { tier: { talent: 2, brand: 2, agency: 1, _default: 2 } },
-  custom_reports:    { tier: { talent: 2, brand: 2, agency: 2, _default: 2 } },
-  api_access:        { tier: { talent: 3, brand: 3, agency: 3, _default: 3 } },
+  ai_command_center:  { tier: 0 },  // Available free (usage-capped)
+  ai_agents_hub:      { tier: 1 },  // 1 agent at T1, 3 at T2, unlimited T3
+  bulk_outreach:      { tier: 2 },
+  pitch_deck_builder: { tier: 1 },
+  direct_email_send:  { tier: 2 },
+  custom_reports:     { tier: 3 },
+  api_access:         { tier: 3 },
 };
 
 // ── Tier name mappings per role (for upgrade messaging) ────────────
 export const TIER_NAMES = {
   talent:  ['Starter', 'Rising', 'Pro', 'Elite'],
   brand:   ['Explorer', 'Growth', 'Scale', 'Enterprise'],
-  agency:  [null, 'Agency Starter', 'Agency Pro', 'Agency Enterprise'],
-  manager: [null, 'Single Talent', 'Multi-Talent', 'Manager Enterprise'],
+  agency:  ['Explorer', 'Agency Starter', 'Agency Pro', 'Agency Enterprise'],
+  manager: ['Explorer', 'Single Talent', 'Multi-Talent', 'Manager Enterprise'],
 };
 
 // ── Tier hierarchy per role (plan key -> tier number) ──────────────
 export const TIER_LEVELS = {
   talent:  { free: 0, rising: 1, pro: 2, elite: 3 },
   brand:   { free: 0, growth: 1, scale: 2, enterprise: 3 },
-  agency:  { agency_starter: 1, agency_pro: 2, agency_enterprise: 3 },
-  manager: { manager_single: 1, manager_pro: 2, manager_enterprise: 3 },
+  agency:  { free: 0, agency_starter: 1, agency_pro: 2, agency_enterprise: 3 },
+  manager: { free: 0, manager_single: 1, manager_pro: 2, manager_enterprise: 3 },
 };
 
 // ── Helper: resolve the minimum tier for a page given a role ───────

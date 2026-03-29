@@ -42,7 +42,7 @@ describe('canAccessPage', () => {
     });
   });
 
-  // Brand role — pages it should have
+  // Brand role
   describe('brand role — allowed pages', () => {
     it('allows brand to access Dashboard', () => {
       expect(canAccessPage('brand', 'Dashboard')).toBe(true);
@@ -59,9 +59,12 @@ describe('canAccessPage', () => {
     it('allows brand to access CreateOpportunity', () => {
       expect(canAccessPage('brand', 'CreateOpportunity')).toBe(true);
     });
+
+    it('allows brand to access AICommandCenter (free hook)', () => {
+      expect(canAccessPage('brand', 'AICommandCenter')).toBe(true);
+    });
   });
 
-  // Brand role — pages it should NOT have
   describe('brand role — restricted pages', () => {
     it('denies brand access to SystemHealth', () => {
       expect(canAccessPage('brand', 'SystemHealth')).toBe(false);
@@ -72,7 +75,7 @@ describe('canAccessPage', () => {
     });
   });
 
-  // Talent role
+  // Talent role — now has role parity
   describe('talent role — allowed pages', () => {
     it('allows talent to access TalentProfile', () => {
       expect(canAccessPage('talent', 'TalentProfile')).toBe(true);
@@ -85,6 +88,18 @@ describe('canAccessPage', () => {
     it('allows talent to access Brands', () => {
       expect(canAccessPage('talent', 'Brands')).toBe(true);
     });
+
+    it('allows talent to access TalentDiscovery (role parity)', () => {
+      expect(canAccessPage('talent', 'TalentDiscovery')).toBe(true);
+    });
+
+    it('allows talent to access CreateOpportunity (role parity)', () => {
+      expect(canAccessPage('talent', 'CreateOpportunity')).toBe(true);
+    });
+
+    it('allows talent to access AICommandCenter (free hook)', () => {
+      expect(canAccessPage('talent', 'AICommandCenter')).toBe(true);
+    });
   });
 
   describe('talent role — restricted pages', () => {
@@ -92,12 +107,8 @@ describe('canAccessPage', () => {
       expect(canAccessPage('talent', 'SystemHealth')).toBe(false);
     });
 
-    it('denies talent access to TalentDiscovery (brand/agency only)', () => {
-      expect(canAccessPage('talent', 'TalentDiscovery')).toBe(false);
-    });
-
-    it('denies talent access to CreateOpportunity', () => {
-      expect(canAccessPage('talent', 'CreateOpportunity')).toBe(false);
+    it('denies talent access to AdminDashboard', () => {
+      expect(canAccessPage('talent', 'AdminDashboard')).toBe(false);
     });
   });
 
@@ -114,6 +125,10 @@ describe('canAccessPage', () => {
     it('allows agency to access Brands', () => {
       expect(canAccessPage('agency', 'Brands')).toBe(true);
     });
+
+    it('allows agency to access AICommandCenter (free hook)', () => {
+      expect(canAccessPage('agency', 'AICommandCenter')).toBe(true);
+    });
   });
 
   describe('agency role — restricted pages', () => {
@@ -121,8 +136,23 @@ describe('canAccessPage', () => {
       expect(canAccessPage('agency', 'SystemHealth')).toBe(false);
     });
 
-    it('denies agency access to TalentProfile', () => {
-      expect(canAccessPage('agency', 'TalentProfile')).toBe(false);
+    it('denies agency access to AdminDashboard', () => {
+      expect(canAccessPage('agency', 'AdminDashboard')).toBe(false);
+    });
+  });
+
+  // Manager role
+  describe('manager role — allowed pages', () => {
+    it('allows manager to access ManagerProfile', () => {
+      expect(canAccessPage('manager', 'ManagerProfile')).toBe(true);
+    });
+
+    it('allows manager to access ManagerSetup', () => {
+      expect(canAccessPage('manager', 'ManagerSetup')).toBe(true);
+    });
+
+    it('allows manager to access TalentDiscovery (role parity)', () => {
+      expect(canAccessPage('manager', 'TalentDiscovery')).toBe(true);
     });
   });
 
@@ -151,6 +181,23 @@ describe('canAccessPage', () => {
         expect(canAccessPage('brand', page)).toBe(true);
         expect(canAccessPage('agency', page)).toBe(true);
         expect(canAccessPage(null, page)).toBe(true);
+      });
+    });
+  });
+
+  // Role parity — same feature available to all roles
+  describe('role parity', () => {
+    const parityPages = [
+      'Dashboard', 'Marketplace', 'AICommandCenter', 'Approvals',
+      'TalentDiscovery', 'CreateOpportunity', 'MatchEngine', 'ContactFinder',
+    ];
+
+    parityPages.forEach((page) => {
+      it(`${page} is accessible to all standard roles`, () => {
+        expect(canAccessPage('brand', page)).toBe(true);
+        expect(canAccessPage('talent', page)).toBe(true);
+        expect(canAccessPage('agency', page)).toBe(true);
+        expect(canAccessPage('manager', page)).toBe(true);
       });
     });
   });

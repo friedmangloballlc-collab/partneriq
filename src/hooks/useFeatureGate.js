@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/api/supabaseClient";
+import { useMemo } from "react";
+import { useAuth } from "@/lib/AuthContext";
 import {
   PAGE_ACCESS,
   TIER_NAMES,
   getPageTier,
-  isRoleAllowed,
   getTierLevel as resolveTierLevel,
 } from "@/config/pageAccess";
 
@@ -12,16 +11,10 @@ const TRIAL_DAYS = 7;
 
 // ─── Collect all pages accessible for a role at a given tier ───
 function getAccessiblePages(role, tierLevel) {
-  // Managers inherit talent page tiers
-  const effectiveRole = role === "manager" ? "talent" : role;
-
   const pages = new Set();
   for (const [pageName, entry] of Object.entries(PAGE_ACCESS)) {
-    // Check role access (use original role so manager-only pages still work)
     if (!entry.roles.includes(role) && !entry.public) continue;
-
-    // Check tier requirement using the effective role for tier lookup
-    const required = getPageTier(pageName, effectiveRole);
+    const required = getPageTier(pageName, role);
     if (tierLevel >= required) {
       pages.add(pageName);
     }
@@ -31,33 +24,13 @@ function getAccessiblePages(role, tierLevel) {
 
 // ─── Hook ───
 export function useFeatureGate() {
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { user, isLoadingAuth } = useAuth();
+  const loading = isLoadingAuth;
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        let { data, error } = await supabase
-          .from("profiles")
-          .select("plan, created_at, role")
-          .eq("id", user.id)
-          .single();
-
-        if (error && error.message?.includes("column")) {
-          const result = await supabase
-            .from("profiles")
-            .select("created_at, role")
-            .eq("id", user.id)
-            .single();
-          data = result.data;
-        }
-        setProfile(data);
-      }
-      setLoading(false);
-    };
-    loadProfile();
-  }, []);
+  const profile = useMemo(() => {
+    if (!user) return null;
+    return { role: user.role, plan: user.plan, created_at: user.created_at };
+  }, [user?.role, user?.plan, user?.created_at]);
 
   const isAdmin = profile?.role === "admin";
   const role = profile?.role || "brand";
@@ -92,10 +65,9 @@ export function useFeatureGate() {
 
   // Determine what tier a locked page requires (for upgrade messaging)
   const getRequiredTier = (pageName) => {
-    const effectiveRole = role === "manager" ? "talent" : role;
-    const required = getPageTier(pageName, effectiveRole);
+    const required = getPageTier(pageName, role);
     if (required === Infinity) return null;
-    const names = TIER_NAMES[effectiveRole] || TIER_NAMES[role];
+    const names = TIER_NAMES[role];
     if (!names) return null;
     return names[required] || null;
   };

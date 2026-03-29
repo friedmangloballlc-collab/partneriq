@@ -18,19 +18,17 @@ export const roleNavItems = {
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    // ── Users ──
-    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Users" },
+    // ── Discovery ──
+    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Discovery" },
     { name: "Brands", icon: Building2, page: "Brands" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    { name: "Teams", icon: UsersRound, page: "Teams" },
+    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Campaigns ──
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
     { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Deals ──
     { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
@@ -43,7 +41,8 @@ export const roleNavItems = {
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
+    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     { name: "Pitch Competition", icon: Layers, page: "PitchCompetition" },
     { name: "Creator Calculator", icon: TrendingUp, page: "CreatorCalculator" },
     // ── Content ──
@@ -72,6 +71,7 @@ export const roleNavItems = {
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     // ── Account ──
     { name: "Referrals", icon: Share2, page: "Referrals", section: "Account" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
@@ -82,8 +82,8 @@ export const roleNavItems = {
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
-    // ── Find Talent ──
-    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Find Talent" },
+    // ── Discovery ──
+    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Discovery" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
@@ -97,6 +97,7 @@ export const roleNavItems = {
     { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
@@ -131,42 +132,56 @@ export const roleNavItems = {
   ],
   talent: [
     // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     // ── Discovery ──
+    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Discovery" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Browse Brands", icon: Building2, page: "Brands" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    // ── Outreach ──
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
+    // ── Campaigns ──
+    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
+    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
+    { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
+    { name: "Approvals", icon: CheckSquare, page: "Approvals" },
+    // ── Intelligence ──
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
+    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Earnings ──
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue", section: "Earnings" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Data Room", icon: Database, page: "TalentDataRoom" },
+    // ── Content ──
+    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder", section: "Content" },
+    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
+    // ── Reports ──
+    { name: "Analytics", icon: BarChart3, page: "Analytics", section: "Reports" },
+    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter", section: "AI" },
     { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar", section: "Calendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
+    { name: "Event Management", icon: Calendar, page: "EventManagement" },
     // ── Account ──
+    { name: "Integrations", icon: Plug, page: "Integrations", section: "Account" },
     { name: "Referrals", icon: Share2, page: "Referrals" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
@@ -174,43 +189,57 @@ export const roleNavItems = {
   ],
   manager: [
     // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
     { name: "My Talent", icon: Star, page: "ManagerProfile" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
     // ── Discovery ──
+    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Discovery" },
     { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Browse Brands", icon: Building2, page: "Brands" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    // ── Outreach ──
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
+    // ── Campaigns ──
+    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
     { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
+    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
+    { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
+    { name: "Approvals", icon: CheckSquare, page: "Approvals" },
+    // ── Intelligence ──
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
+    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Earnings ──
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
+    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue", section: "Earnings" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Data Room", icon: Database, page: "TalentDataRoom" },
+    // ── Content ──
+    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder", section: "Content" },
+    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
+    // ── Reports ──
+    { name: "Analytics", icon: BarChart3, page: "Analytics", section: "Reports" },
+    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter", section: "AI" },
     { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar", section: "Calendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
+    { name: "Event Management", icon: Calendar, page: "EventManagement" },
     // ── Account ──
+    { name: "Integrations", icon: Plug, page: "Integrations", section: "Account" },
     { name: "Referrals", icon: Share2, page: "Referrals" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
     { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
@@ -218,47 +247,51 @@ export const roleNavItems = {
   ],
   agency: [
     // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
+    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
+    { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
     // ── Roster ──
-    { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
+    { name: "Talent Roster", icon: Users, page: "TalentDiscovery", section: "Roster" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    // ── Find Brands ──
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
+    // ── Discovery ──
+    { name: "Marketplace", icon: Zap, page: "Marketplace", section: "Discovery" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
     // ── Campaigns ──
-    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
+    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
+    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
     // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
+    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
     { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
+    { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
+    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder", section: "Content" },
     { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
     // ── Reports ──
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
+    { name: "Analytics", icon: BarChart3, page: "Analytics", section: "Reports" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
     { name: "Data Room", icon: Database, page: "AgencyDataRoom" },
     // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter", section: "AI" },
     { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
     // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
+    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar", section: "Calendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
+    { name: "Event Management", icon: Calendar, page: "EventManagement" },
     // ── Account ──
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
+    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts", section: "Account" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Referrals", icon: Share2, page: "Referrals" },
     { name: "Teams", icon: UsersRound, page: "Teams" },
