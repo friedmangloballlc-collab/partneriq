@@ -5,29 +5,37 @@ import { Check } from "lucide-react";
 
 const PLANS = {
   talent: [
-    { title: "Starter", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Basic profile & brand search", "Browse marketplace (view only)", "1 active partnership", "Connect up to 2 social accounts", "Basic earnings summary", "Master Calendar access"], cta: "Get Started Free", highlight: false },
-    { title: "Rising", price: "$99", annual: "$79", period: "/mo", badge: null, features: ["Everything in Free, plus:", "AI Match Engine (top 5 matches)", "15 outreach messages/month", "5 active partnerships", "Connect up to 5 social accounts", "Basic performance analytics", "Apply to brand campaigns"], cta: "Start Rising", highlight: false },
-    { title: "Pro", price: "$249", annual: "$199", period: "/mo", badge: "Most Popular", features: ["Everything in Rising, plus:", "Full AI Match Engine (10-factor scoring)", "Unlimited outreach & sequences", "20 active partnerships", "Contact Finder & Warm Intros", "AI Pitch Deck Generation", "Market Intelligence & Data Room", "AI Command Center (32 agents)"], cta: "Start Pro", highlight: true },
-    { title: "Elite", price: "$499", annual: "$399", period: "/mo", badge: null, features: ["Everything in Pro, plus:", "AI auto-matching with brands", "Unlimited partnerships", "Priority placement in searches", "Unlimited team seats & integrations", "Dedicated account manager", "Custom analytics & priority support"], cta: "Start Elite", highlight: false },
+    { title: "Starter", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
+    { title: "Rising", price: "$29", annual: "$24", period: "/mo", badge: null, features: ["Everything in Starter, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Pitch Deck Builder", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Rising", highlight: false },
+    { title: "Pro", price: "$79", annual: "$66", period: "/mo", badge: "Most Popular", features: ["Everything in Rising, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Pro", highlight: true },
+    { title: "Elite", price: "$199", annual: "$166", period: "/mo", badge: null, features: ["Everything in Pro, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Priority support"], cta: "Start Elite", highlight: false },
   ],
   brand: [
-    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse talent directory (limited)", "Post 1 campaign brief/month", "1 active partnership", "Basic campaign analytics", "Master Calendar access"], cta: "Get Started Free", highlight: false },
-    { title: "Growth", price: "$499", annual: "$399", period: "/mo", badge: null, features: ["Everything in Free, plus:", "Full talent search & filters", "AI Match Engine (top 10 matches)", "50 outreach messages/month", "Contact Finder (50 lookups/mo)", "15 active partnerships", "Full campaign analytics"], cta: "Start Growth", highlight: false },
-    { title: "Scale", price: "$1,299", annual: "$1,039", period: "/mo", badge: "Most Popular", features: ["Everything in Growth, plus:", "Full AI Match Engine (10-factor)", "Unlimited outreach & sequences", "100 active partnerships", "Contact Finder (unlimited)", "AI Pitch Deck & Data Room", "Market Intelligence & ROI Simulator", "AI Command Center (32 agents)", "Team collaboration (10 seats)"], cta: "Start Scale", highlight: true },
-    { title: "Enterprise", price: "Custom", annual: "Custom", period: "starting at $2,500/mo", badge: null, features: ["Everything in Scale, plus:", "AI auto-matching talent", "Unlimited partnerships & seats", "All integrations (Salesforce, HubSpot)", "White-label options", "Dedicated success manager & SLA"], cta: "Contact Sales", highlight: false },
+    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & brand profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
+    { title: "Growth", price: "$49", annual: "$41", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Growth", highlight: false },
+    { title: "Scale", price: "$149", annual: "$124", period: "/mo", badge: "Most Popular", features: ["Everything in Growth, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Scale", highlight: true },
+    { title: "Enterprise", price: "$399", annual: "$333", period: "/mo", badge: null, features: ["Everything in Scale, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Dedicated success manager", "SSO & priority support"], cta: "Start Enterprise", highlight: false },
   ],
   agency: [
-    { title: "Starter", price: "$2,499", annual: "$1,999", period: "/mo", badge: null, features: ["Manage up to 5 brands or 10 talent", "Full AI features & outreach", "AI Pitch Deck Generation", "Multi-step approval workflows", "Team collaboration (10 seats)", "Agency-level reporting"], cta: "Start Starter", highlight: false },
-    { title: "Pro", price: "$4,999", annual: "$3,999", period: "/mo", badge: "Most Popular", features: ["Manage up to 10 brands or 20 talent", "AI auto-matching across roster", "Unlimited team seats", "Custom pitch deck templates", "Cross-client analytics", "Bulk outreach coordination"], cta: "Start Pro", highlight: true },
-    { title: "Enterprise", price: "Custom", annual: "Custom", period: "$9,999+/mo", badge: null, features: ["Unlimited brands and talent", "Dedicated infrastructure", "Custom integrations & API access", "Priority support & SLA", "Strategic account management"], cta: "Contact Sales", highlight: false },
+    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & agency profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
+    { title: "Starter", price: "$99", annual: "$83", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Starter", highlight: false },
+    { title: "Pro", price: "$249", annual: "$208", period: "/mo", badge: "Most Popular", features: ["Everything in Starter, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Pro", highlight: true },
+    { title: "Enterprise", price: "$599", annual: "$499", period: "/mo", badge: null, features: ["Everything in Pro, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "White-label options", "SSO & priority support"], cta: "Start Enterprise", highlight: false },
+  ],
+  manager: [
+    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & manager profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
+    { title: "Single Talent", price: "$29", annual: "$24", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Plan", highlight: false },
+    { title: "Multi-Talent", price: "$79", annual: "$66", period: "/mo", badge: "Most Popular", features: ["Everything in Single Talent, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Plan", highlight: true },
+    { title: "Enterprise", price: "$199", annual: "$166", period: "/mo", badge: null, features: ["Everything in Multi-Talent, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Priority support"], cta: "Start Enterprise", highlight: false },
   ],
 };
 
 const FAQS = [
   { q: "Can I switch plans anytime?", a: "Yes. Upgrade or downgrade at any time. When upgrading, you get immediate access to new features. When downgrading, your current plan stays active until the end of the billing period." },
-  { q: "Is there a free trial?", a: "Every user type starts with a free tier that never expires. Paid plans include all features from the tier below, so you can explore the platform before committing." },
+  { q: "Is there a free trial?", a: "Every new account gets 7 days of full Tier 1 access — pipeline, outreach, match engine, and 50 AI queries. After 7 days, you drop to the free tier. Your data stays, you just need to upgrade to access it." },
+  { q: "What are AI queries?", a: "AI queries power the AI Command Center, Match Engine, Pitch Deck Builder, and 30+ AI agents. Free tier includes 5/month, Tier 1 gets 50/month, and Tier 2+ gets unlimited." },
   { q: "What payment methods do you accept?", a: "We accept all major credit cards through Stripe. Enterprise plans can be invoiced with NET 30 terms." },
-  { q: "Do you offer annual billing?", a: "Yes. Annual billing saves 20% compared to monthly. Toggle the switch above to see annual pricing." },
+  { q: "Do you offer annual billing?", a: "Yes. Annual billing saves ~17% compared to monthly. Toggle the switch above to see annual pricing." },
   { q: "Can I cancel anytime?", a: "Absolutely. No long-term contracts on monthly plans. Cancel anytime from your account settings." },
   { q: "What happens to my data if I downgrade?", a: "Your data is never deleted. On a lower tier, some advanced features become read-only, but all your partnerships, analytics, and history remain accessible." },
 ];
@@ -36,6 +44,7 @@ const tabs = [
   { key: "talent", label: "Talent" },
   { key: "brand", label: "Brand" },
   { key: "agency", label: "Agency" },
+  { key: "manager", label: "Manager" },
 ];
 
 export default function Pricing() {
@@ -61,7 +70,7 @@ export default function Pricing() {
           Plans that grow with you
         </h1>
         <p style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: 17, color: "rgba(245,240,230,0.6)", lineHeight: 1.6 }}>
-          Start free. Upgrade when you're ready. Every plan includes core platform access.
+          Start free with 5 AI queries/month. Upgrade when you're ready. 7-day full trial included.
         </p>
       </div>
 
