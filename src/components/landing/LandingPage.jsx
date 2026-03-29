@@ -368,11 +368,12 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
           display: flex; align-items: center; justify-content: space-between;
           padding: 0 2.5rem; height: 56px;
           border-bottom: 0.5px solid var(--ds-border);
-          backdrop-filter: blur(24px);
-          background: rgba(8,8,7,0.92);
+          backdrop-filter: blur(12px);
+          background: ${isPearl ? "rgba(250,245,235,0.92)" : "rgba(8,8,7,0.92)"};
+          ${isPearl ? "border-bottom: 1px solid rgba(180,160,120,0.15);" : ""}
           transition: box-shadow 0.3s;
         }
-        .ds-nav.scrolled { box-shadow: 0 1px 24px rgba(0,0,0,0.4); }
+        .ds-nav.scrolled { box-shadow: ${isPearl ? "0 1px 24px rgba(180,160,120,0.18)" : "0 1px 24px rgba(0,0,0,0.4)"}; }
         .ds-nav-logo {
           font-family: var(--ds-serif); font-size: 1.4rem; font-weight: 700;
           color: var(--ds-cream); text-decoration: none; letter-spacing: -0.01em; flex-shrink: 0;

@@ -314,6 +314,20 @@ export default function Layout({ children, currentPageName }) {
   const [upgradeModal, setUpgradeModal] = useState(false);
   const [lockedFeature, setLockedFeature] = useState("");
   const [lockedTier, setLockedTier] = useState(null);
+  const [trialBannerDismissed, setTrialBannerDismissed] = useState(
+    () => sessionStorage.getItem("trialBannerDismissed") === "1"
+  );
+  const [expiredBannerDismissed, setExpiredBannerDismissed] = useState(
+    () => sessionStorage.getItem("expiredBannerDismissed") === "1"
+  );
+  const dismissTrialBanner = () => {
+    sessionStorage.setItem("trialBannerDismissed", "1");
+    setTrialBannerDismissed(true);
+  };
+  const dismissExpiredBanner = () => {
+    sessionStorage.setItem("expiredBannerDismissed", "1");
+    setExpiredBannerDismissed(true);
+  };
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -534,55 +548,75 @@ export default function Layout({ children, currentPageName }) {
         {/* Gold gradient accent stripe */}
         <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
 
+        {/* Trial / expired banners — sticky so they stay visible while scrolling */}
+        {isTrialActive && !isPaidPlan && !trialBannerDismissed && (
+          <div style={{
+            position: "sticky", top: 0, zIndex: 40,
+            background: "linear-gradient(135deg, rgba(196,162,74,0.08), rgba(224,123,24,0.08))",
+            border: "0.5px solid rgba(196,162,74,0.2)",
+            borderBottom: "0.5px solid rgba(196,162,74,0.2)",
+            padding: "0.6rem 1rem",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: "0.5rem",
+            flexShrink: 0,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Crown size={14} style={{ color: "#c4a24a" }} />
+              <span className="text-sm text-foreground">
+                <span style={{ color: "#b3922e", fontWeight: 600 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <button onClick={() => navigate("/SubscriptionManagement")} style={{
+                background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                fontFamily: "'Instrument Sans', sans-serif",
+              }}>Upgrade now</button>
+              <button onClick={dismissTrialBanner} aria-label="Dismiss trial banner" style={{
+                background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
+                color: "rgba(196,162,74,0.6)", fontSize: "1rem", lineHeight: 1,
+                display: "flex", alignItems: "center",
+              }}>✕</button>
+            </div>
+          </div>
+        )}
+        {isTrialExpired && !expiredBannerDismissed && (
+          <div style={{
+            position: "sticky", top: 0, zIndex: 40,
+            background: "rgba(239,68,68,0.08)",
+            border: "0.5px solid rgba(239,68,68,0.2)",
+            borderBottom: "0.5px solid rgba(239,68,68,0.2)",
+            padding: "0.6rem 1rem",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: "0.5rem",
+            flexShrink: 0,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Lock size={14} style={{ color: "#ef4444" }} />
+              <span className="text-sm text-foreground">
+                Your trial has expired. Premium features are now locked.
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <button onClick={() => navigate("/SubscriptionManagement")} style={{
+                background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                fontFamily: "'Instrument Sans', sans-serif",
+              }}>Upgrade now</button>
+              <button onClick={dismissExpiredBanner} aria-label="Dismiss expired banner" style={{
+                background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
+                color: "rgba(239,68,68,0.6)", fontSize: "1rem", lineHeight: 1,
+                display: "flex", alignItems: "center",
+              }}>✕</button>
+            </div>
+          </div>
+        )}
+
         {/* Page content */}
         <main id="main-content" className="flex-1 overflow-y-auto bg-background">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
-            {isTrialActive && !isPaidPlan && (
-              <div style={{
-                background: "linear-gradient(135deg, rgba(196,162,74,0.08), rgba(224,123,24,0.08))",
-                border: "0.5px solid rgba(196,162,74,0.2)",
-                borderRadius: 8, padding: "0.6rem 1rem",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                flexWrap: "wrap", gap: "0.5rem",
-                margin: "0 0 1rem",
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <Crown size={14} style={{ color: "#c4a24a" }} />
-                  <span className="text-sm text-foreground">
-                    <span style={{ color: "#b3922e", fontWeight: 600 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
-                  </span>
-                </div>
-                <button onClick={() => navigate("/SubscriptionManagement")} style={{
-                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
-                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
-                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
-                  fontFamily: "'Instrument Sans', sans-serif",
-                }}>Upgrade now</button>
-              </div>
-            )}
-            {isTrialExpired && (
-              <div style={{
-                background: "rgba(239,68,68,0.08)",
-                border: "0.5px solid rgba(239,68,68,0.2)",
-                borderRadius: 8, padding: "0.6rem 1rem",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                flexWrap: "wrap", gap: "0.5rem",
-                margin: "0 0 1rem",
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <Lock size={14} style={{ color: "#ef4444" }} />
-                  <span className="text-sm text-foreground">
-                    Your trial has expired. Premium features are now locked.
-                  </span>
-                </div>
-                <button onClick={() => navigate("/SubscriptionManagement")} style={{
-                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
-                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
-                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
-                  fontFamily: "'Instrument Sans', sans-serif",
-                }}>Upgrade now</button>
-              </div>
-            )}
             <FeatureGate locked={!canAccess(currentPageName)} featureName={currentPageName?.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').trim()}>
               {children}
             </FeatureGate>
