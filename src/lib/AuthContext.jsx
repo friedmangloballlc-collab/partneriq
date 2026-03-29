@@ -18,11 +18,20 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', supabaseUser.id)
-        .single();
+      // Try to load profile — retry once after a short delay if RLS blocks the first attempt
+      let profile = null;
+      let profileError = null;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const result = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', supabaseUser.id)
+          .single();
+        profile = result.data;
+        profileError = result.error;
+        if (profile) break;
+        if (attempt === 0) await new Promise(r => setTimeout(r, 500)); // Wait 500ms before retry
+      }
 
       if (profileError || !profile) {
         // Profile query failed — could be RLS timing or genuinely missing row.
