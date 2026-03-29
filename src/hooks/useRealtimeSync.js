@@ -16,6 +16,7 @@
 import { useEffect, useRef } from 'react';
 import { supabase } from '@/api/supabaseClient';
 import { queryClientInstance } from '@/lib/query-client';
+import { useAuth } from '@/lib/AuthContext';
 
 /**
  * Map each Supabase table name to the list of React Query cache keys that
@@ -65,6 +66,9 @@ function invalidateTable(tableName) {
 }
 
 export function useRealtimeSync() {
+  const { user } = useAuth();
+  const userEmail = user?.email ?? null;
+
   const retryCountRef = useRef(0);
   const pendingTablesRef = useRef(new Set());
   const debounceTimerRef = useRef(null);
@@ -96,6 +100,12 @@ export function useRealtimeSync() {
     /**
      * Build and subscribe a single channel with one postgres_changes listener
      * per table.
+     *
+     * Row-level filters are applied where a suitable column exists:
+     *   - notifications: filtered to rows where user_email = current user
+     *   - partnerships:  no user_id column — subscribed table-wide (TODO: add
+     *       a user_id or owner_email column to partnerships so we can filter here)
+     *   - approval_items / activities: subscribed table-wide (no user column)
      */
     function subscribe() {
       if (unmounted) return;
@@ -103,9 +113,19 @@ export function useRealtimeSync() {
       let ch = supabase.channel(CHANNEL_NAME);
 
       TABLES.forEach((table) => {
+        // Apply row-level filter for notifications when we have the user email.
+        const filter =
+          table === 'notifications' && userEmail
+            ? `user_email=eq.${userEmail}`
+            : undefined;
+
+        const filterOptions = filter
+          ? { event: '*', schema: 'public', table, filter }
+          : { event: '*', schema: 'public', table };
+
         ch = ch.on(
           'postgres_changes',
-          { event: '*', schema: 'public', table },
+          filterOptions,
           (_payload) => {
             scheduleInvalidation(table);
           }
@@ -145,5 +165,5 @@ export function useRealtimeSync() {
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
       if (channel) supabase.removeChannel(channel);
     };
-  }, []); // empty deps — subscribe once per mount, never re-subscribe
+  }, [userEmail]); // re-subscribe when the authenticated user changes
 }

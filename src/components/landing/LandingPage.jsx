@@ -1063,7 +1063,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── TRUST BAR ───────────────────────────────────────────────────── */}
-        <div className="ds-trust-bar">
+        <div className="ds-trust-bar" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <span className="ds-trust-label">Trusted by leading agencies &amp; brands</span>
           <div className="ds-trust-logos">
             {["Wasserman", "WME", "CAA", "Endeavor", "Night", "Select", "Gleam", "Sixteenth"].map((name) => (
@@ -1073,7 +1073,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── STATS ───────────────────────────────────────────────────────── */}
-        <div className="ds-stats" style={isMobile ? { gridTemplateColumns: "repeat(2, 1fr)" } : {}}>
+        <div className="ds-stats" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px', ...(isMobile ? { gridTemplateColumns: "repeat(2, 1fr)" } : {}) }}>
           <div className="ds-stat-cell"><div className="ds-stat-num">32<span>+</span></div><div className="ds-stat-lbl">Industries covered</div></div>
           <div className="ds-stat-cell"><div className="ds-stat-num">50<span>+</span></div><div className="ds-stat-lbl">AI agents</div></div>
           <div className="ds-stat-cell"><div className="ds-stat-num">10<span>+</span></div><div className="ds-stat-lbl">Match factors</div></div>
@@ -1081,7 +1081,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── TICKER ──────────────────────────────────────────────────────── */}
-        <div className="ds-ticker-wrap">
+        <div className="ds-ticker-wrap" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div className="ds-ticker">
             {["Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants",
               "Athletes", "Creators", "Musicians", "Speakers", "Models", "Coaches", "Podcasters", "Chefs", "Actors", "Designers", "Gamers", "Consultants"].map((item, i) => (
@@ -1093,7 +1093,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── HOW IT WORKS ────────────────────────────────────────────────── */}
-        <div id="how-it-works" className="ds-section ds-fade">
+        <div id="how-it-works" className="ds-section ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <span className="ds-section-tag">/ How it works</span>
           <h2 className="ds-section-title">Simple for everyone<br /><em>in the deal</em></h2>
           <p className="ds-section-body" style={{ marginBottom: "2.5rem" }}>Whether you're a brand sourcing talent or a talent managing deals, Dealstage gets you from discovery to signed contract in days — not months.</p>
@@ -1113,7 +1113,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── FEATURE ROWS ────────────────────────────────────────────────── */}
-        <div id="features" className="ds-full-bleed ds-fade">
+        <div id="features" className="ds-full-bleed ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
             <span className="ds-section-tag">/ Platform features</span>
             <h2 className="ds-section-title">Everything in one place.<br /><em>Nothing left out.</em></h2>
@@ -1140,7 +1140,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── VIDEO DEMO ──────────────────────────────────────────────────── */}
-        <div className="ds-section ds-fade ds-video-section">
+        <div className="ds-section ds-fade ds-video-section" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <span className="ds-section-tag">/ Product demo</span>
           <h2 className="ds-section-title">See it in <em>2 minutes</em></h2>
           <p className="ds-section-body" style={{ maxWidth: 480, margin: "0 auto 2.5rem" }}>Watch how Dealstage connects talent to brand deals — automatically</p>
@@ -1154,7 +1154,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── PRICING ─────────────────────────────────────────────────────── */}
-        <div id="pricing" className="ds-full-bleed ds-fade">
+        <div id="pricing" className="ds-full-bleed ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
             <span className="ds-section-tag">/ Pricing</span>
             <h2 className="ds-section-title">Start free. Scale<br /><em>as you grow.</em></h2>
@@ -1233,7 +1233,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── COMPARISON TABLE ────────────────────────────────────────────── */}
-        <div className="ds-section ds-fade">
+        <div className="ds-section ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <span className="ds-section-tag">/ How we compare</span>
           <h2 className="ds-section-title">Dealstage vs the<br /><em>alternatives</em></h2>
           <p className="ds-section-body">See why top agencies and brands choose Dealstage over disconnected tools.</p>
@@ -1273,7 +1273,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-        <div id="faq" className="ds-full-bleed ds-fade">
+        <div id="faq" className="ds-full-bleed ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div style={{ maxWidth: 800, margin: "0 auto" }}>
             <span className="ds-section-tag">/ Frequently asked</span>
             <h2 className="ds-section-title">Questions we<br /><em>always hear</em></h2>
@@ -1292,7 +1292,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── SECURITY BADGES ─────────────────────────────────────────────── */}
-        <div className="ds-section ds-fade">
+        <div className="ds-section ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <span className="ds-section-tag">/ Security &amp; compliance</span>
           <h2 className="ds-section-title">Built to enterprise<br /><em>security standards</em></h2>
           <p className="ds-section-body">Your data, your deals, and your payments are protected at every layer.</p>
@@ -1321,7 +1321,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── MOBILE APP PREVIEW ──────────────────────────────────────────── */}
-        <div className="ds-full-bleed ds-fade">
+        <div className="ds-full-bleed ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
             <div className="ds-mobile-grid" style={isMobile ? { gridTemplateColumns: "1fr", gap: "2rem" } : {}}>
               <div>
@@ -1389,7 +1389,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── FINAL CTA ───────────────────────────────────────────────────── */}
-        <div className="ds-cta-section ds-fade">
+        <div className="ds-cta-section ds-fade" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
           <div className="ds-cta-glow-l" />
           <div className="ds-cta-glow-r" />
           <h2 className="ds-cta-title">Start building deals<br /><em>today</em></h2>
@@ -1405,7 +1405,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
         </div>
 
         {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-        <footer className="ds-footer" style={isMobile ? { gridTemplateColumns: "1fr", gap: "2rem", padding: "2rem 1.25rem" } : {}}>
+        <footer className="ds-footer" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px', ...(isMobile ? { gridTemplateColumns: "1fr", gap: "2rem", padding: "2rem 1.25rem" } : {}) }}>
           <div>
             <a href="/" className="ds-footer-logo" style={{ display: "flex", alignItems: "center" }}>
               <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} loading="lazy" />

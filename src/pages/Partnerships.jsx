@@ -49,7 +49,30 @@ export default function Partnerships() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => base44.entities.Partnership.update(id, data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["partnerships"] }),
+    onMutate: async ({ id, data }) => {
+      // Cancel any in-flight refetches so they don't overwrite our optimistic update.
+      await queryClient.cancelQueries({ queryKey: ["partnerships"] });
+
+      // Snapshot the current cache value so we can roll back on error.
+      const previous = queryClient.getQueryData(["partnerships"]);
+
+      // Optimistically update the cache with the new status immediately.
+      queryClient.setQueryData(["partnerships"], (old = []) =>
+        old.map((p) => (p.id === id ? { ...p, ...data } : p))
+      );
+
+      return { previous };
+    },
+    onError: (_err, _variables, context) => {
+      // Roll back to the snapshot we captured in onMutate.
+      if (context?.previous !== undefined) {
+        queryClient.setQueryData(["partnerships"], context.previous);
+      }
+    },
+    onSettled: () => {
+      // Always refetch after error or success to ensure the cache is in sync.
+      queryClient.invalidateQueries({ queryKey: ["partnerships"] });
+    },
   });
 
   const filtered = partnerships.filter(p => {
