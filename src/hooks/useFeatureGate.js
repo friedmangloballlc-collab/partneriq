@@ -50,8 +50,9 @@ export function useFeatureGate() {
   const isTrialActive = isAdmin || trialDaysLeft > 0;
   const isTrialExpired = !isAdmin && !isTrialActive && !isPaidPlan;
 
-  // During trial, users get Tier 2 access (Pro/Scale equivalent) so they can try premium features
-  const effectiveTier = isTrialActive && !isPaidPlan ? 2 : tierLevel;
+  // Reverse trial: new users get 7 days of Tier 1 access (full pipeline, outreach, match engine)
+  // so they build real workflow data before hitting the free tier paywall
+  const effectiveTier = isTrialActive && !isPaidPlan ? 1 : tierLevel;
 
   const accessiblePages = getAccessiblePages(role, isAdmin ? 99 : effectiveTier);
 
