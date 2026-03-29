@@ -287,11 +287,7 @@ export default function SmartNextSteps({ user: propUser, onboardingStep: propSte
     queryKey: ["smart-profile", user?.id],
     queryFn: async () => {
       if (!user?.id) return null;
-      const { data } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .maybeSingle();
+      const { data } = await supabase.rpc('get_my_profile').single();
       return data;
     },
     enabled: !!user?.id,

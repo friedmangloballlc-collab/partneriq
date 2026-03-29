@@ -204,7 +204,7 @@ export default function Layout({ children, currentPageName }) {
                 <span style={{ color: "#b3922e", fontWeight: 600 }}>
                   {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}
                 </span>{" "}
-                left on your free trial
+                left to try pipeline, outreach, and AI features free
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -250,7 +250,7 @@ export default function Layout({ children, currentPageName }) {
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <Lock size={14} style={{ color: "#ef4444" }} />
               <span className="text-sm text-foreground">
-                Your trial has expired. Premium features are now locked.
+                Your 7-day trial ended. Upgrade to keep your pipeline, outreach, and match engine.
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

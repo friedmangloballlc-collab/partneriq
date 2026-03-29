@@ -204,14 +204,14 @@ export default function Login() {
       // Create profile
       if (data?.id) {
         try {
-          await supabase.from("profiles").upsert({
+          await supabase.from("profiles").insert({
             id: data.id,
             email,
             full_name: fullName,
             role,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
-          });
+          }).then(() => {}).catch(() => {});
         } catch {}
       }
     } catch {

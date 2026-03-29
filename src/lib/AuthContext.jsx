@@ -23,8 +23,6 @@ export const AuthProvider = ({ children }) => {
         .rpc('get_my_profile')
         .single();
 
-      console.log('[AUTH] RPC result — role:', profile?.role, 'error:', rpcError?.message || 'none');
-
       if (rpcError || !profile) {
         // Profile doesn't exist yet — first-time OAuth user. Create one.
         const { data: newProfile } = await supabase

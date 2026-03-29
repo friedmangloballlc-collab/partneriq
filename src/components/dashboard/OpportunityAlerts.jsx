@@ -124,12 +124,8 @@ export default function OpportunityAlerts() {
     queryFn: async () => {
       if (!user?.id) return null;
 
-      // First try the profile's talent_id link
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("talent_id")
-        .eq("id", user.id)
-        .maybeSingle();
+      // Use RPC to bypass RLS
+      const { data: profile } = await supabase.rpc('get_my_profile').single();
 
       const talentId = profile?.talent_id;
       if (!talentId) return null;

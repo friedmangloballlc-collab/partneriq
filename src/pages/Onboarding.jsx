@@ -633,7 +633,7 @@ export default function Onboarding() {
       // Upsert profile in Supabase
       if (signUpData?.user) {
         try {
-          await supabase.from("profiles").upsert({
+          await supabase.from("profiles").insert({
             id: signUpData.user.id,
             email,
             full_name: name,
@@ -644,7 +644,7 @@ export default function Onboarding() {
             onboarded: true,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
-          });
+          }).then(() => {}).catch(() => {});
         } catch (e) { /* non-blocking */ }
       }
 

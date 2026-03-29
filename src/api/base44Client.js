@@ -205,13 +205,11 @@ const auth = {
     const { data: { user }, error } = await supabase.auth.getUser();
     if (error || !user) throw error || new Error('Not authenticated');
 
+    // Use SECURITY DEFINER RPC to bypass RLS race condition
     const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
+      .rpc('get_my_profile')
       .single();
 
-    // If no profile exists yet, create one from auth metadata
     if (!profile) {
       const meta = user.user_metadata || {};
       const newProfile = {
@@ -222,7 +220,7 @@ const auth = {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
-      await supabase.from('profiles').upsert(newProfile);
+      await supabase.from('profiles').insert(newProfile).catch(() => {});
       return newProfile;
     }
 
@@ -256,7 +254,8 @@ const auth = {
 
     const { error } = await supabase
       .from('profiles')
-      .upsert({ id: user.id, updated_at: new Date().toISOString(), ...sanitized });
+      .update({ updated_at: new Date().toISOString(), ...sanitized })
+      .eq('id', user.id);
     if (error) throw error;
     return sanitized;
   },
