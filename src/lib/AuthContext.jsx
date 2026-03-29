@@ -27,18 +27,21 @@ export const AuthProvider = ({ children }) => {
       if (profileError || !profile) {
         // Profile query failed — could be RLS timing or genuinely missing row.
         // Auto-create a profile if one doesn't exist (common for first-time OAuth users).
+        // Only INSERT if truly missing — never upsert, to avoid overwriting admin/role
         const { data: newProfile } = await supabase
           .from('profiles')
-          .upsert({
+          .insert({
             id: supabaseUser.id,
             email: supabaseUser.email,
             full_name: supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || '',
             role: 'brand',
             plan: 'free',
             onboarding_completed: false,
-          }, { onConflict: 'id' })
+          })
           .select()
-          .single();
+          .single()
+          .then(res => res)
+          .catch(() => ({ data: null })); // Row already exists — that's fine
 
         if (newProfile) {
           setAuthError(null);
