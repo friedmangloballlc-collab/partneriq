@@ -43,6 +43,22 @@ const TABLE_MAP: Record<string, string> = {
   EscrowPayment: 'escrow_payments',
   BundleDeal: 'bundle_deals',
   DealDispute: 'deal_disputes',
+  DeckLibrary: 'deck_library',
+  PitchCompetition: 'pitch_competitions',
+  Referral: 'referrals',
+  AIUsageLog: 'ai_usage_logs',
+  DealScore: 'deal_scores',
+  DataRoomEntry: 'data_room_entries',
+  DataRoomAccess: 'data_room_access',
+  ConnectedPlatform: 'connected_platforms',
+  PlatformCatalog: 'platform_catalog',
+  TalentType: 'talent_types',
+  TalentRevenueStream: 'talent_revenue_streams',
+  TalentRevenueMatrix: 'talent_revenue_matrix',
+  Profile: 'profiles',
+  NewsletterSubscriber: 'newsletter_subscribers',
+  ManagerProfile: 'manager_profiles',
+  DecisionMaker: 'decision_makers',
 };
 
 function getTable(name: string): string {
