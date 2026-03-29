@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, CheckSquare, Handshake, Mail, Sparkles, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "date-fns";
 
 const actionIcons = {
@@ -66,9 +64,10 @@ export default function NotificationDropdown() {
     <div className="relative">
       <button
         onClick={() => setOpen(o => !o)}
+        aria-label="Notifications"
         className="relative w-9 h-9 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-colors"
       >
-        <Bell className="w-4 h-4" />
+        <Bell className="w-4 h-4" aria-hidden="true" />
         {unread > 0 && (
           <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center">
             {unread > 9 ? "9+" : unread}

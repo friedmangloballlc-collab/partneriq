@@ -9,7 +9,7 @@ import AnimatedWalkthrough from "./AnimatedWalkthrough";
 const PRICING = {
   talent: [
     {
-      title: "Free",
+      title: "Starter",
       price: "$0",
       period: "forever",
       badge: null,
@@ -31,7 +31,7 @@ const PRICING = {
       badge: null,
       popular: false,
       features: [
-        "Everything in Free, plus:",
+        "Everything in Starter, plus:",
         "AI Match Engine (top 5 matches)",
         "15 outreach messages/month",
         "5 active partnerships",
@@ -79,7 +79,7 @@ const PRICING = {
   ],
   brand: [
     {
-      title: "Free",
+      title: "Explorer",
       price: "$0",
       period: "forever",
       badge: null,
@@ -100,7 +100,7 @@ const PRICING = {
       badge: null,
       popular: false,
       features: [
-        "Everything in Free, plus:",
+        "Everything in Explorer, plus:",
         "Full talent search & filters",
         "AI Match Engine (top 10 matches)",
         "50 outreach messages/month",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
@@ -24,25 +24,25 @@ import { Badge } from "@/components/ui/badge";
 
 const roleNavItems = {
   admin: [
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    // ── Home ──
+    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
     { name: "Admin Dashboard", icon: LayoutDashboard, page: "AdminDashboard" },
-    { name: "Data Manager", icon: Database, page: "AdminDataManager" },
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "My Profile", icon: User, page: "TalentProfile" },
     { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
+    { name: "Marketplace", icon: Zap, page: "Marketplace" },
     { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
     { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    { name: "Platform Overview", icon: Zap, page: "PlatformOverview" },
-    { name: "AI Features", icon: Brain, page: "AIFeatures" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
-    { name: "Talent", icon: Users, page: "TalentDiscovery" },
+    // ── Users ──
+    { name: "Talent", icon: Users, page: "TalentDiscovery", section: "Users" },
+    { name: "Brands", icon: Building2, page: "Brands" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    { name: "Brands", icon: Building2, page: "Brands" },
+    { name: "Teams", icon: UsersRound, page: "Teams" },
+    // ── Data ──
+    { name: "Data Manager", icon: Database, page: "AdminDataManager", section: "Data" },
+    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
+    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
+    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
     { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
     { name: "Data Room (Talent)", icon: Database, page: "TalentDataRoom" },
@@ -52,6 +52,7 @@ const roleNavItems = {
     { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
     { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
     { name: "Custom Reports", icon: Layers, page: "CustomReports" },
+    { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
     { name: "Outreach", icon: Mail, page: "Outreach" },
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
     { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
@@ -60,19 +61,24 @@ const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
-    { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
     { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
     { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    { name: "Referrals", icon: Share2, page: "Referrals" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Teams", icon: UsersRound, page: "Teams" },
-    { name: "System Health", icon: Activity, page: "SystemHealth" },
+    // ── AI ──
+    { name: "AI Features", icon: Brain, page: "AIFeatures", section: "AI" },
+    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
+    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
     { name: "AI Analytics", icon: Activity, page: "AIAnalytics" },
+    // ── Platform ──
+    { name: "Platform Overview", icon: Zap, page: "PlatformOverview", section: "Platform" },
+    { name: "System Health", icon: Activity, page: "SystemHealth" },
     { name: "Architecture", icon: Network, page: "SystemArchitecture" },
     { name: "Integrations", icon: Plug, page: "Integrations" },
     { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
+    // ── Settings ──
+    { name: "Referrals", icon: Share2, page: "Referrals", section: "Settings" },
+    { name: "Notifications", icon: Bell, page: "Notifications" },
     { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
     { name: "Billing", icon: BarChart3, page: "BillingHistory" },
     { name: "Settings", icon: Settings, page: "Settings" },
@@ -275,6 +281,7 @@ export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
+  const globalSearchRef = useRef(null);
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -287,6 +294,18 @@ export default function Layout({ children, currentPageName }) {
     const handleKey = (e) => { if (e.key === "Escape") setMobileOpen(false); };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
+  }, []);
+
+  // Cmd+K (Mac) / Ctrl+K (Windows) focuses GlobalSearch
+  useEffect(() => {
+    const handleSearchShortcut = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        globalSearchRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleSearchShortcut);
+    return () => document.removeEventListener("keydown", handleSearchShortcut);
   }, []);
   const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
   const { theme } = useTheme();
@@ -348,29 +367,12 @@ export default function Layout({ children, currentPageName }) {
       )}
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
+      <nav aria-label="Main navigation" className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
         {navItems.map((item, idx) => {
           const isActive = currentPageName === item.page;
           const Icon = item.icon;
           const isLocked = !canAccess(item.page);
-          return (
-            <React.Fragment key={item.page}>
-              {item.section && (!effectiveCollapsed || mobile) && idx > 0 && (
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">{item.section}</p>
-              )}
-            <Link
-              to={isLocked ? "#" : createPageUrl(item.page)}
-              onClick={(e) => {
-                if (isLocked) {
-                  e.preventDefault();
-                  setLockedFeature(item.name);
-                  setLockedTier(getRequiredTier(item.page));
-                  setUpgradeModal(true);
-                  return;
-                }
-                if (mobile) setMobileOpen(false);
-              }}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 group relative
+          const navItemClass = `flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 group relative
                 ${isActive
                   ? "text-white border-l-2 border-[#c4a24a] bg-[#c4a24a]/8 rounded-l-none"
                   : isLocked
@@ -378,9 +380,9 @@ export default function Layout({ children, currentPageName }) {
                     : "text-slate-400 hover:text-white hover:bg-white/5"
                 }
                 ${effectiveCollapsed && !mobile ? "justify-center" : ""}
-              `}
-            >
-              {isActive && !effectiveCollapsed && !mobile && null}
+              `;
+          const navItemContent = (
+            <>
               <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-[#c4a24a]" : isLocked ? "text-slate-700" : "text-slate-400 group-hover:text-slate-300"}`} />
               {(!effectiveCollapsed || mobile) && <span>{item.name}</span>}
               {(!effectiveCollapsed || mobile) && isLocked && (
@@ -391,7 +393,34 @@ export default function Layout({ children, currentPageName }) {
                   {pendingApprovals > 9 ? "9+" : pendingApprovals}
                 </span>
               )}
-            </Link>
+            </>
+          );
+          return (
+            <React.Fragment key={item.page}>
+              {item.section && (!effectiveCollapsed || mobile) && idx > 0 && (
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">{item.section}</p>
+              )}
+              {isLocked ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLockedFeature(item.name);
+                    setLockedTier(getRequiredTier(item.page));
+                    setUpgradeModal(true);
+                  }}
+                  className={navItemClass}
+                >
+                  {navItemContent}
+                </button>
+              ) : (
+                <Link
+                  to={createPageUrl(item.page)}
+                  onClick={() => { if (mobile) setMobileOpen(false); }}
+                  className={navItemClass}
+                >
+                  {navItemContent}
+                </Link>
+              )}
             </React.Fragment>
           );
         })}
@@ -450,6 +479,12 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-md"
+      >
+        Skip to main content
+      </a>
       {/* Tablet sidebar (md-lg): collapsed icon rail */}
       <div className="hidden md:flex lg:hidden relative flex-shrink-0 w-[72px]">
         <Sidebar forceCollapsed />
@@ -490,7 +525,7 @@ export default function Layout({ children, currentPageName }) {
             )}
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <GlobalSearch />
+            <GlobalSearch ref={globalSearchRef} />
             <NotificationDropdown />
           </div>
         </header>
@@ -498,7 +533,7 @@ export default function Layout({ children, currentPageName }) {
         <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-background">
+        <main id="main-content" className="flex-1 overflow-y-auto bg-background">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
             {isTrialActive && !isPaidPlan && (
               <div style={{

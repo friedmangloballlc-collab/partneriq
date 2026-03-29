@@ -210,6 +210,7 @@ export function useFeatureGate() {
     if (!tierMap) return null;
     for (let t = 0; t <= 3; t++) {
       if (tierMap[t] && tierMap[t].includes(pageName)) {
+        if (role === "manager") return [null, "Single Talent", "Multi-Talent", "Manager Enterprise"][t];
         if (effectiveRole === "talent") return ["Starter", "Rising", "Pro", "Elite"][t];
         if (effectiveRole === "brand")  return ["Explorer", "Growth", "Scale", "Enterprise"][t];
         if (effectiveRole === "agency") return [null, "Agency Starter", "Agency Pro", "Agency Enterprise"][t];

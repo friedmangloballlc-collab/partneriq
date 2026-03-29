@@ -54,6 +54,11 @@ const ENTITY_TABLE_MAP = {
   BundleDeal: 'bundle_deals',
   DealDispute: 'deal_disputes',
   DeckLibrary: 'deck_library',
+  PitchCompetition: 'pitch_competitions',
+  AIUsageLog: 'ai_usage_logs',
+  DataRoomAccess: 'data_room_access',
+  NewsletterSubscriber: 'newsletter_subscribers',
+  Referral: 'referrals',
 };
 
 // Apply MongoDB-style filters to a Supabase query builder

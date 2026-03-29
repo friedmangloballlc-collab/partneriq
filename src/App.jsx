@@ -124,6 +124,24 @@ const AuthenticatedRoutes = ({ authError }) => {
     <div className="p-6"><SkeletonDashboard /></div>
   );
 
+  const pageErrorFallback = ({ error, resetError }) => (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center">
+      <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mb-4">
+        <span className="text-2xl" role="img" aria-label="Warning">⚠️</span>
+      </div>
+      <h2 className="text-lg font-semibold text-slate-800 mb-2">Something went wrong on this page</h2>
+      <p className="text-sm text-slate-500 mb-5 max-w-sm">
+        {error?.message || "An unexpected error occurred. You can try reloading the page."}
+      </p>
+      <button
+        onClick={() => { resetError(); window.location.reload(); }}
+        className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+      >
+        Reload page
+      </button>
+    </div>
+  );
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/Dashboard" replace />} />
@@ -134,9 +152,11 @@ const AuthenticatedRoutes = ({ authError }) => {
           element={
             <RoleGuard pageName={path}>
               <LayoutWrapper currentPageName={path}>
-                <Suspense fallback={pageFallback}>
-                  <Page />
-                </Suspense>
+                <Sentry.ErrorBoundary fallback={pageErrorFallback}>
+                  <Suspense fallback={pageFallback}>
+                    <Page />
+                  </Suspense>
+                </Sentry.ErrorBoundary>
               </LayoutWrapper>
             </RoleGuard>
           }

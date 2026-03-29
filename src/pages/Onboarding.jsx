@@ -87,7 +87,7 @@ const PLANS_BY_ROLE = {
       period: "/ month",
       badge: null,
       features: [
-        "Everything in Free, plus:",
+        "Everything in Starter, plus:",
         "AI Match Engine (top 5 matches)",
         "15 outreach messages/month",
         "5 active partnerships",
@@ -165,7 +165,7 @@ const PLANS_BY_ROLE = {
       period: "/ month",
       badge: null,
       features: [
-        "Everything in Free, plus:",
+        "Everything in Explorer, plus:",
         "Full talent search & filters",
         "AI Match Engine (top 10 matches)",
         "50 outreach messages/month",
