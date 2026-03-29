@@ -281,14 +281,56 @@ export default function Layout({ children, currentPageName }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
+  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
+  const [showBackOnline, setShowBackOnline] = useState(false);
   const navigate = useNavigate();
   const globalSearchRef = useRef(null);
+  const mobileSidebarRef = useRef(null);
   const { logout: authLogout } = useAuth();
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  // Focus trap for mobile nav overlay
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    // Focus the sidebar container when it opens
+    const sidebar = mobileSidebarRef.current;
+    if (sidebar) {
+      sidebar.focus();
+    }
+
+    const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const handleTrapFocus = (e) => {
+      if (e.key !== "Tab") return;
+      const container = mobileSidebarRef.current;
+      if (!container) return;
+      const focusable = Array.from(container.querySelectorAll(FOCUSABLE)).filter(
+        (el) => !el.closest("[aria-hidden='true']")
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleTrapFocus);
+    return () => document.removeEventListener("keydown", handleTrapFocus);
   }, [mobileOpen]);
 
   // Escape key closes mobile menu
@@ -308,6 +350,25 @@ export default function Layout({ children, currentPageName }) {
     };
     document.addEventListener("keydown", handleSearchShortcut);
     return () => document.removeEventListener("keydown", handleSearchShortcut);
+  }, []);
+
+  // Online/offline detection
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      setShowBackOnline(true);
+      setTimeout(() => setShowBackOnline(false), 2000);
+    };
+    const handleOffline = () => {
+      setIsOnline(false);
+      setShowBackOnline(false);
+    };
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
   const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
   const { theme } = useTheme();
@@ -432,6 +493,10 @@ export default function Layout({ children, currentPageName }) {
                 <Link
                   to={createPageUrl(item.page)}
                   onClick={() => { if (mobile) setMobileOpen(false); }}
+                  onMouseEnter={() => {
+                    // Prefetch the page chunk on hover
+                    import(`../pages/${item.page}.jsx`).catch(() => {});
+                  }}
                   className={navItemClass}
                 >
                   {navItemContent}
@@ -515,7 +580,7 @@ export default function Layout({ children, currentPageName }) {
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="relative z-10">
+          <div className="relative z-10" ref={mobileSidebarRef} tabIndex={-1} style={{ outline: "none" }}>
             <Sidebar mobile />
           </div>
         </div>
@@ -547,6 +612,30 @@ export default function Layout({ children, currentPageName }) {
         </header>
         {/* Gold gradient accent stripe */}
         <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
+
+        {/* Offline banner */}
+        {(!isOnline || showBackOnline) && (
+          <div style={{
+            position: "sticky", top: 0, zIndex: 50,
+            background: !isOnline ? "rgba(245,158,11,0.12)" : "rgba(34,197,94,0.12)",
+            border: !isOnline ? "0.5px solid rgba(245,158,11,0.3)" : "0.5px solid rgba(34,197,94,0.3)",
+            padding: "0.5rem 1rem",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            gap: "0.5rem",
+            flexShrink: 0,
+          }}>
+            <span style={{
+              color: !isOnline ? "#f59e0b" : "#22c55e",
+              fontSize: "0.835rem",
+              fontWeight: 500,
+              fontFamily: "'Instrument Sans', sans-serif",
+            }}>
+              {!isOnline
+                ? "You're offline. Some features may be unavailable."
+                : "You're back online."}
+            </span>
+          </div>
+        )}
 
         {/* Trial / expired banners — sticky so they stay visible while scrolling */}
         {isTrialActive && !isPaidPlan && !trialBannerDismissed && (

@@ -32,6 +32,22 @@ export default defineConfig({
               expiration: { maxEntries: 50, maxAgeSeconds: 300 },
             },
           },
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-css',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-woff',
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
         ],
       },
     }),
