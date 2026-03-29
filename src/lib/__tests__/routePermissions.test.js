@@ -17,21 +17,28 @@ describe('canAccessPage', () => {
     });
   });
 
-  // Null / undefined role falls through to admin-level access
+  // Null / undefined / "user" role denied by default
   describe('null or undefined role', () => {
-    it('allows access when role is null', () => {
-      expect(canAccessPage(null, 'Dashboard')).toBe(true);
+    it('denies access when role is null (except public pages)', () => {
+      expect(canAccessPage(null, 'Dashboard')).toBe(false);
     });
 
-    it('allows access when role is undefined', () => {
-      expect(canAccessPage(undefined, 'Settings')).toBe(true);
+    it('denies access when role is undefined (except public pages)', () => {
+      expect(canAccessPage(undefined, 'Settings')).toBe(false);
+    });
+
+    it('allows null role to access public pages', () => {
+      expect(canAccessPage(null, 'About')).toBe(true);
     });
   });
 
-  // "user" role treated same as admin per the implementation
   describe('"user" role', () => {
-    it('allows user role to access any page', () => {
-      expect(canAccessPage('user', 'SystemArchitecture')).toBe(true);
+    it('denies user role access to non-public pages', () => {
+      expect(canAccessPage('user', 'SystemArchitecture')).toBe(false);
+    });
+
+    it('allows user role to access public pages', () => {
+      expect(canAccessPage('user', 'About')).toBe(true);
     });
   });
 
@@ -119,15 +126,32 @@ describe('canAccessPage', () => {
     });
   });
 
-  // Unknown / unrecognised roles fall back to full access
+  // Unknown roles are denied by default
   describe('unknown role', () => {
-    it('allows an unrecognised role full access (safety fallback)', () => {
-      expect(canAccessPage('superuser', 'SystemHealth')).toBe(true);
+    it('denies an unrecognised role access to non-public pages', () => {
+      expect(canAccessPage('superuser', 'SystemHealth')).toBe(false);
     });
 
-    it('allows an empty-string role full access', () => {
-      // empty string is falsy — same code path as null/undefined
-      expect(canAccessPage('', 'Settings')).toBe(true);
+    it('denies an empty-string role access to non-public pages', () => {
+      expect(canAccessPage('', 'Settings')).toBe(false);
+    });
+
+    it('allows unknown roles to access public pages', () => {
+      expect(canAccessPage('superuser', 'About')).toBe(true);
+    });
+  });
+
+  // Public pages
+  describe('public pages', () => {
+    const publicPageNames = ['About', 'Blog', 'Careers', 'Contact', 'Customers', 'CookiePolicy', 'GDPR', 'Demo'];
+
+    publicPageNames.forEach((page) => {
+      it(`allows any role to access ${page}`, () => {
+        expect(canAccessPage('talent', page)).toBe(true);
+        expect(canAccessPage('brand', page)).toBe(true);
+        expect(canAccessPage('agency', page)).toBe(true);
+        expect(canAccessPage(null, page)).toBe(true);
+      });
     });
   });
 });
