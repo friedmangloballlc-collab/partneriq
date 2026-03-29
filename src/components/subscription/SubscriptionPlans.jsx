@@ -19,8 +19,8 @@ export const TALENT_PLANS = {
   rising: {
     tier: 'rising',
     name: 'Rising',
-    monthly_price: 29,
-    annual_price: 290,
+    monthly_price: 99,
+    annual_price: 948,
     description: 'Full pipeline, outreach, and match engine',
     features: [
       'Everything in Starter plus:',
@@ -38,8 +38,8 @@ export const TALENT_PLANS = {
   pro: {
     tier: 'pro',
     name: 'Pro',
-    monthly_price: 79,
-    annual_price: 790,
+    monthly_price: 249,
+    annual_price: 2388,
     description: 'Analytics, intelligence, and advanced AI',
     features: [
       'Everything in Rising plus:',
@@ -58,8 +58,8 @@ export const TALENT_PLANS = {
   elite: {
     tier: 'elite',
     name: 'Elite',
-    monthly_price: 199,
-    annual_price: 1990,
+    monthly_price: 499,
+    annual_price: 4788,
     description: 'Teams, integrations, and enterprise scale',
     features: [
       'Everything in Pro plus:',
@@ -97,8 +97,8 @@ export const BRAND_PLANS = {
   growth: {
     tier: 'growth',
     name: 'Growth',
-    monthly_price: 49,
-    annual_price: 490,
+    monthly_price: 299,
+    annual_price: 2868,
     description: 'Full pipeline, outreach, and match engine',
     features: [
       'Everything in Explorer plus:',
@@ -116,8 +116,8 @@ export const BRAND_PLANS = {
   scale: {
     tier: 'scale',
     name: 'Scale',
-    monthly_price: 149,
-    annual_price: 1490,
+    monthly_price: 699,
+    annual_price: 6708,
     description: 'Analytics, intelligence, and advanced AI',
     features: [
       'Everything in Growth plus:',
@@ -136,8 +136,8 @@ export const BRAND_PLANS = {
   enterprise: {
     tier: 'enterprise',
     name: 'Enterprise',
-    monthly_price: 399,
-    annual_price: 3990,
+    monthly_price: 1499,
+    annual_price: 14388,
     description: 'Teams, integrations, and enterprise scale',
     features: [
       'Everything in Scale plus:',
@@ -176,8 +176,8 @@ export const AGENCY_PLANS = {
   starter: {
     tier: 'agency_starter',
     name: 'Agency Starter',
-    monthly_price: 99,
-    annual_price: 990,
+    monthly_price: 799,
+    annual_price: 7668,
     description: 'Full pipeline, outreach, and match engine',
     features: [
       'Everything in Explorer plus:',
@@ -189,14 +189,15 @@ export const AGENCY_PLANS = {
       'Pitch Deck Builder & Deck Library',
       '50 AI queries/month',
       'AI Agents Hub (1 agent)',
+      'Up to 3 team seats',
     ],
     limits: { ai_queries: 50, opportunities: 999999, team_seats: 3, integrations: 0 },
   },
   pro: {
     tier: 'agency_pro',
     name: 'Agency Pro',
-    monthly_price: 249,
-    annual_price: 2490,
+    monthly_price: 1799,
+    annual_price: 17268,
     description: 'Analytics, intelligence, and advanced AI',
     features: [
       'Everything in Agency Starter plus:',
@@ -209,15 +210,17 @@ export const AGENCY_PLANS = {
       'Full Analytics',
       'Unlimited AI queries',
       'AI Agents Hub (3 agents)',
+      'Up to 10 team seats',
+      'Up to 3 integrations',
     ],
     limits: { ai_queries: 999999, opportunities: 999999, team_seats: 10, integrations: 3 },
   },
   enterprise: {
     tier: 'agency_enterprise',
     name: 'Agency Enterprise',
-    monthly_price: 599,
-    annual_price: 5990,
-    description: 'Teams, integrations, and enterprise scale',
+    monthly_price: 3499,
+    annual_price: 33588,
+    description: 'Unlimited scale with white-label options',
     features: [
       'Everything in Agency Pro plus:',
       'Teams (unlimited seats)',
@@ -256,8 +259,8 @@ export const MANAGER_PLANS = {
   single: {
     tier: 'manager_single',
     name: 'Single Talent',
-    monthly_price: 29,
-    annual_price: 290,
+    monthly_price: 99,
+    annual_price: 948,
     description: 'Full pipeline, outreach, and match engine',
     features: [
       'Everything in Explorer plus:',
@@ -275,8 +278,8 @@ export const MANAGER_PLANS = {
   pro: {
     tier: 'manager_pro',
     name: 'Multi-Talent',
-    monthly_price: 79,
-    annual_price: 790,
+    monthly_price: 249,
+    annual_price: 2388,
     description: 'Analytics, intelligence, and advanced AI',
     features: [
       'Everything in Single Talent plus:',
@@ -295,8 +298,8 @@ export const MANAGER_PLANS = {
   enterprise: {
     tier: 'manager_enterprise',
     name: 'Manager Enterprise',
-    monthly_price: 199,
-    annual_price: 1990,
+    monthly_price: 499,
+    annual_price: 4788,
     description: 'Teams, integrations, and enterprise scale',
     features: [
       'Everything in Multi-Talent plus:',
