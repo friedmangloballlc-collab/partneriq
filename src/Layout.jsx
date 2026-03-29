@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import {
   Menu, Crown, Lock,
 } from "lucide-react";
@@ -16,13 +17,24 @@ import { roleNavItems } from "@/config/navigation";
 import Sidebar from "@/components/layout/Sidebar";
 
 export default function Layout({ children, currentPageName }) {
-  const [user, setUser] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
   const globalSearchRef = useRef(null);
   const { logout: authLogout } = useAuth();
+
+  const { data: user = null } = useQuery({
+    queryKey: ['current-user'],
+    queryFn: () => base44.auth.me(),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: pendingApprovalItems } = useQuery({
+    queryKey: ['approvals-pending-count'],
+    queryFn: () => base44.entities.ApprovalItem.filter({ status: "pending" }),
+    staleTime: 60_000,
+  });
+  const pendingApprovals = pendingApprovalItems?.length || 0;
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -70,12 +82,6 @@ export default function Layout({ children, currentPageName }) {
     setExpiredBannerDismissed(true);
   };
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-    base44.entities.ApprovalItem.filter({ status: "pending" }).then(items => {
-      setPendingApprovals(items.length);
-    }).catch(() => {});
-  }, []);
 
   if (currentPageName === "Onboarding") {
     return <>{children}</>;

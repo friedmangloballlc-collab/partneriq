@@ -47,6 +47,35 @@ const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
 
+// Single source of truth for all public routes that don't require authentication.
+// Each entry maps a pathname (or array of pathnames for case-insensitive aliases)
+// to the lazy-loaded component that should render.
+const PUBLIC_ROUTES = [
+  { paths: ['/terms'], component: Terms },
+  { paths: ['/privacy'], component: Privacy },
+  { paths: ['/calculator'], component: CreatorCalculator },
+  { paths: ['/pricing', '/Pricing'], component: Pricing },
+  { paths: ['/faq', '/FAQ'], component: React.lazy(() => import('@/pages/FAQ')) },
+  { paths: ['/About'], component: About },
+  { paths: ['/Blog'], component: Blog },
+  { paths: ['/Careers'], component: Careers },
+  { paths: ['/Contact'], component: Contact },
+  { paths: ['/Customers'], component: Customers },
+  { paths: ['/CookiePolicy'], component: CookiePolicy },
+  { paths: ['/GDPR'], component: GDPR },
+  { paths: ['/Demo'], component: Demo },
+  { paths: ['/features/talent-discovery'], component: FeatureTalentDiscovery },
+  { paths: ['/features/deal-pipeline'], component: FeatureDealPipeline },
+  { paths: ['/features/media-kits'], component: FeatureMediaKits },
+  { paths: ['/features/payments'], component: FeaturePayments },
+  { paths: ['/features/integrations'], component: FeatureIntegrations },
+  { paths: ['/features/campaign-analytics'], component: FeatureCampaignAnalytics },
+  { paths: ['/features/send-deals'], component: FeatureSendDeals },
+  { paths: ['/features/manage-deals'], component: FeatureManageDeals },
+  { paths: ['/features/browse-talent'], component: FeatureBrowseTalent },
+  { paths: ['/features/manage-talent'], component: FeatureManageTalent },
+];
+
 const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   <Layout currentPageName={currentPageName}>{children}</Layout>
   : <>{children}</>;
@@ -185,47 +214,18 @@ const AuthenticatedApp = () => {
     </div>
   );
 
-  // Public routes: legal pages and tools (no auth needed)
-  if (location.pathname === '/terms') {
-    return <Routes><Route path="/terms" element={<Suspense fallback={marketingFallback}><Terms /></Suspense>} /></Routes>;
-  }
-  if (location.pathname === '/privacy') {
-    return <Routes><Route path="/privacy" element={<Suspense fallback={marketingFallback}><Privacy /></Suspense>} /></Routes>;
-  }
-  if (location.pathname === '/calculator') {
-    return <Routes><Route path="/calculator" element={<Suspense fallback={marketingFallback}><CreatorCalculator /></Suspense>} /></Routes>;
-  }
-  if (location.pathname === '/Pricing' || location.pathname === '/pricing') {
-    return <Routes><Route path={location.pathname} element={<Suspense fallback={marketingFallback}><Pricing /></Suspense>} /></Routes>;
-  }
-  if (location.pathname === '/FAQ' || location.pathname === '/faq') {
-    const FAQ = React.lazy(() => import('@/pages/FAQ'));
-    return <Routes><Route path={location.pathname} element={<Suspense fallback={marketingFallback}><FAQ /></Suspense>} /></Routes>;
-  }
-  // Public marketing routes (no auth needed)
-  const publicMarketingRoutes = {
-    '/About': <Suspense fallback={marketingFallback}><About /></Suspense>,
-    '/Blog': <Suspense fallback={marketingFallback}><Blog /></Suspense>,
-    '/Careers': <Suspense fallback={marketingFallback}><Careers /></Suspense>,
-    '/Contact': <Suspense fallback={marketingFallback}><Contact /></Suspense>,
-    '/Customers': <Suspense fallback={marketingFallback}><Customers /></Suspense>,
-    '/CookiePolicy': <Suspense fallback={marketingFallback}><CookiePolicy /></Suspense>,
-    '/GDPR': <Suspense fallback={marketingFallback}><GDPR /></Suspense>,
-    '/Demo': <Suspense fallback={marketingFallback}><Demo /></Suspense>,
-    '/features/talent-discovery': <Suspense fallback={marketingFallback}><FeatureTalentDiscovery /></Suspense>,
-    '/features/deal-pipeline': <Suspense fallback={marketingFallback}><FeatureDealPipeline /></Suspense>,
-    '/features/media-kits': <Suspense fallback={marketingFallback}><FeatureMediaKits /></Suspense>,
-    '/features/payments': <Suspense fallback={marketingFallback}><FeaturePayments /></Suspense>,
-    '/features/integrations': <Suspense fallback={marketingFallback}><FeatureIntegrations /></Suspense>,
-    '/features/campaign-analytics': <Suspense fallback={marketingFallback}><FeatureCampaignAnalytics /></Suspense>,
-    '/features/send-deals': <Suspense fallback={marketingFallback}><FeatureSendDeals /></Suspense>,
-    '/features/manage-deals': <Suspense fallback={marketingFallback}><FeatureManageDeals /></Suspense>,
-    '/features/browse-talent': <Suspense fallback={marketingFallback}><FeatureBrowseTalent /></Suspense>,
-    '/features/manage-talent': <Suspense fallback={marketingFallback}><FeatureManageTalent /></Suspense>,
-  };
-  if (Object.prototype.hasOwnProperty.call(publicMarketingRoutes, location.pathname)) {
-    const element = publicMarketingRoutes[location.pathname];
-    return <Routes><Route path={location.pathname} element={element} /></Routes>;
+  // Public routes: legal pages, tools, and marketing (no auth needed)
+  const matchedPublicRoute = PUBLIC_ROUTES.find(r => r.paths.includes(location.pathname));
+  if (matchedPublicRoute) {
+    const Component = matchedPublicRoute.component;
+    return (
+      <Routes>
+        <Route
+          path={location.pathname}
+          element={<Suspense fallback={marketingFallback}><Component /></Suspense>}
+        />
+      </Routes>
+    );
   }
 
   // Public routes: onboarding (landing) and login
