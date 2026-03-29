@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { loadStripe } from "@stripe/stripe-js";
-import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Check, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
 import PlanCard from "@/components/subscription/PlanCard";
 import BillingHistory from "@/components/subscription/BillingHistory";
 import PaymentMethodManager from "@/components/subscription/PaymentMethodManager";
 import InvoiceList from "@/components/subscription/InvoiceList";
-import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS } from "@/components/subscription/SubscriptionPlans";
-import { useSearchParams } from "react-router-dom";
+import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS, MANAGER_PLANS } from "@/components/subscription/SubscriptionPlans";
+import { useAuth } from "@/lib/AuthContext";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "");
 
 export default function SubscriptionManagement() {
-  const [searchParams] = useSearchParams();
-  const userType = searchParams.get("user_type") || "brand";
+  const { user } = useAuth();
+  const userType = user?.role || "brand";
   const [billingCycle, setBillingCycle] = useState("monthly");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,7 +26,8 @@ export default function SubscriptionManagement() {
   const plansMap = {
     talent: TALENT_PLANS,
     brand: BRAND_PLANS,
-    agency: AGENCY_PLANS
+    agency: AGENCY_PLANS,
+    manager: MANAGER_PLANS,
   };
 
   const currentPlans = plansMap[userType] || BRAND_PLANS;
