@@ -14,12 +14,12 @@ const SESSION_KEY = 'dealstage_auto_seed_done';
 
 /** Returns true only if ALL core tables have at least one row. */
 async function allTablesPopulated() {
-  const tables = ['brands', 'talents', 'partnerships', 'activities', 'marketplace_opportunities'];
-  for (const table of tables) {
-    const { data, error } = await supabase.from(table).select('id').limit(1);
-    if (error || !data || data.length === 0) return false;
-  }
-  return true;
+  const results = await Promise.all(
+    ['brands', 'talents', 'partnerships', 'activities', 'marketplace_opportunities'].map(
+      table => supabase.from(table).select('id').limit(1)
+    )
+  );
+  return results.every(({ data, error }) => !error && data?.length > 0);
 }
 
 export function useAutoSeed() {

@@ -14,23 +14,34 @@ export const AuthProvider = ({ children }) => {
     if (!supabaseUser) {
       setUser(null);
       setIsAuthenticated(false);
+      setAuthError(null);
       return;
     }
     try {
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', supabaseUser.id)
         .single();
 
+      if (profileError || !profile) {
+        // User is authenticated with Supabase but has no profile row
+        setAuthError({ type: 'user_not_registered' });
+        setUser({ id: supabaseUser.id, email: supabaseUser.email });
+        setIsAuthenticated(true);
+        return;
+      }
+
+      setAuthError(null);
       setUser({
         id: supabaseUser.id,
         email: supabaseUser.email,
-        ...(profile || {}),
+        ...profile,
       });
       setIsAuthenticated(true);
     } catch (err) {
       console.error('Failed to load profile:', err);
+      setAuthError({ type: 'user_not_registered' });
       setUser({ id: supabaseUser.id, email: supabaseUser.email });
       setIsAuthenticated(true);
     }

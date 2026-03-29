@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
 import { useTheme } from "@/hooks/useTheme";
+import { useAuth } from "@/lib/AuthContext";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import UpgradeModal from "@/components/UpgradeModal";
 import FeatureGate from "@/components/FeatureGate";
@@ -282,6 +283,7 @@ export default function Layout({ children, currentPageName }) {
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const navigate = useNavigate();
   const globalSearchRef = useRef(null);
+  const { logout: authLogout } = useAuth();
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -456,7 +458,7 @@ export default function Layout({ children, currentPageName }) {
               <Settings className="w-4 h-4 mr-2" /> Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-red-500" aria-label="Sign out of your account">
+            <DropdownMenuItem onClick={() => authLogout()} className="text-red-500" aria-label="Sign out of your account">
               <LogOut className="w-4 h-4 mr-2" aria-hidden="true" /> Sign Out
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -516,7 +518,7 @@ export default function Layout({ children, currentPageName }) {
             <h1 className="text-lg font-semibold hidden sm:block text-foreground">{
               // Show the friendly nav item name, or convert PascalCase to spaced words
               navItems.find(n => n.page === currentPageName)?.name
-              || currentPageName?.replace(/([A-Z])/g, ' $1').trim()
+              || currentPageName?.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').trim()
             }</h1>
             {userRole === "manager" && (
               <Badge variant="outline" className="bg-violet-50 text-violet-600 border-violet-200 text-[10px] ml-2 hidden sm:flex">
@@ -581,7 +583,7 @@ export default function Layout({ children, currentPageName }) {
                 }}>Upgrade now</button>
               </div>
             )}
-            <FeatureGate locked={!canAccess(currentPageName)} featureName={currentPageName?.replace(/([A-Z])/g, ' $1').trim()}>
+            <FeatureGate locked={!canAccess(currentPageName)} featureName={currentPageName?.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').trim()}>
               {children}
             </FeatureGate>
           </div>
