@@ -56,7 +56,8 @@ export default function Layout({ children, currentPageName }) {
     return () => document.removeEventListener("keydown", handleSearchShortcut);
   }, []);
 
-  const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
+  const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan, role } = useFeatureGate();
+  const isAdmin = role === "admin";
   const { theme } = useTheme();
   const [upgradeModal, setUpgradeModal] = useState(false);
   const [lockedFeature, setLockedFeature] = useState("");
@@ -184,7 +185,7 @@ export default function Layout({ children, currentPageName }) {
         />
 
         {/* Trial / expired banners — sticky so they stay visible while scrolling */}
-        {isTrialActive && !isPaidPlan && !trialBannerDismissed && (
+        {isTrialActive && !isPaidPlan && !isAdmin && !trialBannerDismissed && (
           <div
             style={{
               position: "sticky", top: 0, zIndex: 40,
@@ -233,7 +234,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
         )}
 
-        {isTrialExpired && !expiredBannerDismissed && (
+        {isTrialExpired && !isAdmin && !expiredBannerDismissed && (
           <div
             style={{
               position: "sticky", top: 0, zIndex: 40,
