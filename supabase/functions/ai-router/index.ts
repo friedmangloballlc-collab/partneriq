@@ -24,6 +24,22 @@ const TIER_LIMITS: Record<string, number> = {
   agency_enterprise: Infinity,
 };
 
+// Map current_plan values to numeric tiers for provider access control
+// free=0, rising/growth=1, pro/scale/agency_pro=2, elite/enterprise/agency_enterprise=3
+const PLAN_TO_TIER: Record<string, number> = {
+  free: 0,
+  starter: 0,
+  rising: 1,
+  growth: 1,
+  pro: 2,
+  scale: 2,
+  agency_starter: 1,
+  agency_pro: 2,
+  elite: 3,
+  enterprise: 3,
+  agency_enterprise: 3,
+};
+
 // AI provider restrictions by tier — controls cost
 const TIER_PROVIDERS: Record<string, string[]> = {
   free: ['groq', 'gemini'],
@@ -244,33 +260,40 @@ Deno.serve(async (req) => {
     const user_id = authedUser.id;
 
     // === Server-side tier lookup: never trust client-provided tier ===
+    // The user_subscriptions table stores `current_plan` (TEXT), not `tier`.
+    // We map the plan key to both TIER_LIMITS and TIER_PROVIDERS lookups.
     let user_tier = 'free';
     try {
       const { data: sub } = await supabaseAuth
         .from('user_subscriptions')
-        .select('tier')
+        .select('current_plan')
         .eq('user_id', user_id)
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
-      if (sub?.tier) user_tier = sub.tier;
+      if (sub?.current_plan && sub.current_plan in TIER_LIMITS) {
+        user_tier = sub.current_plan;
+      }
     } catch { /* default to free tier */ }
 
     // Get agent config
     const agent = getAgent(agentName);
 
-    // === Rate limiting ===
+    // === Rate limiting (atomic upsert on ai_rate_limits table) ===
     const limit = TIER_LIMITS[user_tier] ?? TIER_LIMITS.free;
     if (limit !== Infinity) {
-      const today = new Date().toISOString().slice(0, 10);
-      const { count } = await supabaseAuth
-        .from('ai_usage_logs')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user_id)
-        .gte('created_at', `${today}T00:00:00Z`);
+      // Atomic increment: INSERT or UPDATE the daily counter in one round-trip.
+      // Returns the new request_count after incrementing.
+      const { data: rateData, error: rateError } = await supabaseAuth.rpc(
+        'increment_ai_rate_limit',
+        { p_user_id: user_id }
+      );
 
-      if ((count || 0) >= limit) {
+      // rateData is the new request_count after the upsert
+      const currentCount = rateError ? 0 : (rateData ?? 0);
+
+      if (currentCount > limit) {
         return new Response(JSON.stringify({
           error: 'Daily AI request limit reached',
           limit,
