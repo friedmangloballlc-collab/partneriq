@@ -25,9 +25,31 @@ export const AuthProvider = ({ children }) => {
         .single();
 
       if (profileError || !profile) {
-        // User is authenticated with Supabase but has no profile row
-        setAuthError({ type: 'user_not_registered' });
-        setUser({ id: supabaseUser.id, email: supabaseUser.email });
+        // Profile query failed — could be RLS timing or genuinely missing row.
+        // Auto-create a profile if one doesn't exist (common for first-time OAuth users).
+        const { data: newProfile } = await supabase
+          .from('profiles')
+          .upsert({
+            id: supabaseUser.id,
+            email: supabaseUser.email,
+            full_name: supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || '',
+            role: 'brand',
+            plan: 'free',
+            onboarding_completed: false,
+          }, { onConflict: 'id' })
+          .select()
+          .single();
+
+        if (newProfile) {
+          setAuthError(null);
+          setUser({ id: supabaseUser.id, email: supabaseUser.email, ...newProfile });
+          setIsAuthenticated(true);
+          return;
+        }
+
+        // If even the upsert failed, let them through anyway — don't block existing users
+        setAuthError(null);
+        setUser({ id: supabaseUser.id, email: supabaseUser.email, role: 'brand', plan: 'free' });
         setIsAuthenticated(true);
         return;
       }
@@ -41,8 +63,9 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     } catch (err) {
       console.error('Failed to load profile:', err);
-      setAuthError({ type: 'user_not_registered' });
-      setUser({ id: supabaseUser.id, email: supabaseUser.email });
+      // Don't block the user — let them through with defaults
+      setAuthError(null);
+      setUser({ id: supabaseUser.id, email: supabaseUser.email, role: 'brand', plan: 'free' });
       setIsAuthenticated(true);
     }
   };
