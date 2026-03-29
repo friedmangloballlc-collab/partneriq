@@ -5,6 +5,16 @@
 import { isProviderHealthy, recordSuccess, recordFailure } from './circuit-breaker.ts';
 import { type RoutingTier } from './agents.ts';
 
+/** Per-provider timeout in milliseconds */
+const PROVIDER_TIMEOUT_MS = 25_000;
+
+/** Response from an individual provider call, including optional real token counts */
+interface ProviderResponse {
+  text: string;
+  inputTokens?: number;
+  outputTokens?: number;
+}
+
 const TIER_PROVIDERS: Record<RoutingTier, string[]> = {
   COMPLEX: ['anthropic', 'deepseek', 'gemini', 'groq'],
   STANDARD: ['deepseek', 'anthropic_haiku', 'gemini', 'groq'],
@@ -14,7 +24,7 @@ const TIER_PROVIDERS: Record<RoutingTier, string[]> = {
   BATCH: ['anthropic_haiku', 'deepseek', 'gemini'],
 };
 
-async function callAnthropic(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'claude-sonnet-4-5'): Promise<string> {
+async function callAnthropic(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'claude-sonnet-4-5', signal?: AbortSignal): Promise<ProviderResponse> {
   const key = Deno.env.get('ANTHROPIC_API_KEY');
   if (!key) throw new Error('ANTHROPIC_API_KEY not set');
 
@@ -33,11 +43,17 @@ async function callAnthropic(prompt: string, systemPrompt: string | undefined, m
       method: 'POST',
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-beta': 'prompt-caching-2024-07-31', 'content-type': 'application/json' },
       body: JSON.stringify(body),
+      signal,
     });
 
     if (resp.ok) {
       const result = await resp.json();
-      return result?.content?.[0]?.text || '';
+      const text = result?.content?.[0]?.text || '';
+      return {
+        text,
+        inputTokens: result?.usage?.input_tokens,
+        outputTokens: result?.usage?.output_tokens,
+      };
     }
 
     const errText = await resp.text();
@@ -49,7 +65,7 @@ async function callAnthropic(prompt: string, systemPrompt: string | undefined, m
   throw new Error(lastError);
 }
 
-async function callDeepSeek(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'deepseek-chat'): Promise<string> {
+async function callDeepSeek(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'deepseek-chat', signal?: AbortSignal): Promise<ProviderResponse> {
   const key = Deno.env.get('DEEPSEEK_API_KEY');
   if (!key) throw new Error('DEEPSEEK_API_KEY not set');
   const messages: any[] = [];
@@ -59,13 +75,18 @@ async function callDeepSeek(prompt: string, systemPrompt: string | undefined, ma
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ model, max_tokens: maxTokens, temperature, messages }),
+    signal,
   });
   if (!resp.ok) throw new Error(`DeepSeek ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
   const result = await resp.json();
-  return result?.choices?.[0]?.message?.content || '';
+  return {
+    text: result?.choices?.[0]?.message?.content || '',
+    inputTokens: result?.usage?.prompt_tokens,
+    outputTokens: result?.usage?.completion_tokens,
+  };
 }
 
-async function callGemini(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number): Promise<string> {
+async function callGemini(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, _model?: string, signal?: AbortSignal): Promise<ProviderResponse> {
   const key = Deno.env.get('GEMINI_API_KEY');
   if (!key) throw new Error('GEMINI_API_KEY not set');
   const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
@@ -80,10 +101,15 @@ async function callGemini(prompt: string, systemPrompt: string | undefined, maxT
         contents: [{ parts: [{ text: fullPrompt }] }],
         generationConfig: { maxOutputTokens: maxTokens, temperature },
       }),
+      signal,
     });
     if (resp.ok) {
       const result = await resp.json();
-      return result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      return {
+        text: result?.candidates?.[0]?.content?.parts?.[0]?.text || '',
+        inputTokens: result?.usageMetadata?.promptTokenCount,
+        outputTokens: result?.usageMetadata?.candidatesTokenCount,
+      };
     }
     const errText = await resp.text();
     lastError = `Gemini ${resp.status} (${model}): ${errText.slice(0, 200)}`;
@@ -95,7 +121,7 @@ async function callGemini(prompt: string, systemPrompt: string | undefined, maxT
   throw new Error(lastError);
 }
 
-async function callGroq(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number): Promise<string> {
+async function callGroq(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, _model?: string, signal?: AbortSignal): Promise<ProviderResponse> {
   const key = Deno.env.get('GROQ_API_KEY');
   if (!key) throw new Error('GROQ_API_KEY not set');
   const messages: any[] = [];
@@ -105,17 +131,24 @@ async function callGroq(prompt: string, systemPrompt: string | undefined, maxTok
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: 'llama-3.3-70b-versatile', max_tokens: maxTokens, temperature, messages }),
+    signal,
   });
   if (!resp.ok) throw new Error(`Groq ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
   const result = await resp.json();
-  return result?.choices?.[0]?.message?.content || '';
+  return {
+    text: result?.choices?.[0]?.message?.content || '',
+    inputTokens: result?.usage?.prompt_tokens,
+    outputTokens: result?.usage?.completion_tokens,
+  };
 }
 
-const PROVIDER_CALLS: Record<string, (p: string, s: string | undefined, m: number, t: number) => Promise<string>> = {
-  anthropic: (p, s, m, t) => callAnthropic(p, s, m, t, 'claude-sonnet-4-5'),
-  anthropic_haiku: (p, s, m, t) => callAnthropic(p, s, m, t, 'claude-3-5-haiku-20241022'),
-  deepseek: (p, s, m, t) => callDeepSeek(p, s, m, t, 'deepseek-chat'),
-  deepseek_reasoner: (p, s, m, t) => callDeepSeek(p, s, m, t, 'deepseek-reasoner'),
+type ProviderCallFn = (p: string, s: string | undefined, m: number, t: number, model?: string, signal?: AbortSignal) => Promise<ProviderResponse>;
+
+const PROVIDER_CALLS: Record<string, ProviderCallFn> = {
+  anthropic: (p, s, m, t, _model?, signal?) => callAnthropic(p, s, m, t, 'claude-sonnet-4-5', signal),
+  anthropic_haiku: (p, s, m, t, _model?, signal?) => callAnthropic(p, s, m, t, 'claude-3-5-haiku-20241022', signal),
+  deepseek: (p, s, m, t, _model?, signal?) => callDeepSeek(p, s, m, t, 'deepseek-chat', signal),
+  deepseek_reasoner: (p, s, m, t, _model?, signal?) => callDeepSeek(p, s, m, t, 'deepseek-reasoner', signal),
   gemini: callGemini,
   groq: callGroq,
 };
@@ -135,6 +168,8 @@ export interface RouteResult {
   model: string;
   fallbackUsed: boolean;
   latencyMs: number;
+  inputTokens?: number;
+  outputTokens?: number;
 }
 
 export async function routeRequest(
@@ -170,15 +205,34 @@ export async function routeRequest(
       const callFn = PROVIDER_CALLS[providerKey];
       if (!callFn) { errors.push(`${providerKey}: no handler`); continue; }
 
-      const text = await callFn(prompt, systemPrompt, maxTokens, temperature);
+      // Per-provider timeout using AbortController
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), PROVIDER_TIMEOUT_MS);
+
+      let providerResult: ProviderResponse;
+      try {
+        providerResult = await Promise.race([
+          callFn(prompt, systemPrompt, maxTokens, temperature, undefined, controller.signal),
+          new Promise<never>((_resolve, reject) => {
+            controller.signal.addEventListener('abort', () => {
+              reject(new Error(`Provider ${providerKey} timed out after ${PROVIDER_TIMEOUT_MS / 1000}s`));
+            });
+          }),
+        ]);
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
       recordSuccess(providerKey);
 
       return {
-        text,
+        text: providerResult.text,
         provider: providerKey,
         model: PROVIDER_MODELS[providerKey] || providerKey,
         fallbackUsed: i > 0,
         latencyMs: Date.now() - start,
+        inputTokens: providerResult.inputTokens,
+        outputTokens: providerResult.outputTokens,
       };
     } catch (err) {
       const msg = (err as Error).message?.slice(0, 200);

@@ -39,6 +39,13 @@ const TIER_PROVIDERS: Record<string, string[]> = {
   agency_enterprise: ['groq', 'gemini', 'deepseek', 'anthropic'],
 };
 
+// Service-role client — shared across requests within the same isolate.
+// Safe to reuse because it uses the static service-role key, not a per-user JWT.
+const supabaseServiceClient = createClient(
+  Deno.env.get('SUPABASE_URL')!,
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+);
+
 // Response cache (in-memory, per-isolate)
 const responseCache = new Map<string, { result: string; expires: number }>();
 
@@ -82,7 +89,7 @@ Deno.serve(async (req) => {
     // Require admin authentication
     const diagAuthHeader = req.headers.get('Authorization') || '';
     const diagToken = diagAuthHeader.replace('Bearer ', '');
-    const diagSupabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+    const diagSupabase = supabaseServiceClient;
     const { data: { user: diagUser } } = await diagSupabase.auth.getUser(diagToken);
     if (!diagUser) {
       return new Response(JSON.stringify({ error: 'Authentication required' }), {
@@ -225,10 +232,9 @@ Deno.serve(async (req) => {
     // === JWT Authentication: verify caller identity ===
     const authHeader = req.headers.get('Authorization') || '';
     const jwtToken = authHeader.replace('Bearer ', '');
-    const supabaseAuth = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-    );
+    // Use the shared service-role client for auth verification and DB queries.
+    // The service-role client can verify any JWT; no need to create a new client per request.
+    const supabaseAuth = supabaseServiceClient;
     const { data: { user: authedUser }, error: authError } = await supabaseAuth.auth.getUser(jwtToken);
     if (authError || !authedUser) {
       return new Response(JSON.stringify({ error: 'Authentication required' }), {
@@ -325,11 +331,11 @@ Deno.serve(async (req) => {
 
     // === Log usage ===
     try {
-      const supabase = createClient(
-        Deno.env.get('SUPABASE_URL')!,
-        Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-      );
-      await supabase.from('ai_usage_logs').insert({
+      // Prefer real token counts from the provider when available; fall back to char/4 estimate
+      const inputTokens = result.inputTokens ?? Math.ceil(prompt.length / 4);
+      const outputTokens = result.outputTokens ?? Math.ceil(result.text.length / 4);
+
+      await supabaseServiceClient.from('ai_usage_logs').insert({
         user_id: user_id || null,
         agent: agentName,
         provider: result.provider,
@@ -338,9 +344,9 @@ Deno.serve(async (req) => {
         batch_mode: false,
         latency_ms: result.latencyMs,
         prompt_length: prompt.length,
-        input_tokens: Math.ceil(prompt.length / 4),
-        output_tokens: Math.ceil(result.text.length / 4),
-        estimated_cost_usd: estimateCost(result.provider, prompt.length, result.text.length),
+        input_tokens: inputTokens,
+        output_tokens: outputTokens,
+        estimated_cost_usd: estimateCost(result.provider, inputTokens, outputTokens),
       });
     } catch (logErr) {
       console.error('[ai-router] Usage log failed:', (logErr as Error).message);
@@ -367,9 +373,7 @@ Deno.serve(async (req) => {
   }
 });
 
-function estimateCost(provider: string, inputChars: number, outputChars: number): number {
-  const inputTokens = inputChars / 4;
-  const outputTokens = outputChars / 4;
+function estimateCost(provider: string, inputTokens: number, outputTokens: number): number {
   const rates: Record<string, [number, number]> = {
     anthropic: [3 / 1_000_000, 15 / 1_000_000],
     anthropic_haiku: [0.25 / 1_000_000, 1.25 / 1_000_000],
