@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import {
   Menu, Crown, Lock,
 } from "lucide-react";
@@ -22,13 +22,7 @@ export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const globalSearchRef = useRef(null);
-  const { logout: authLogout } = useAuth();
-
-  const { data: user = null } = useQuery({
-    queryKey: ['current-user'],
-    queryFn: () => base44.auth.me(),
-    staleTime: 5 * 60 * 1000,
-  });
+  const { logout: authLogout, user } = useAuth();
 
   const { data: pendingApprovalItems } = useQuery({
     queryKey: ['approvals-pending-count'],
