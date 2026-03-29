@@ -1,336 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { createPageUrl } from "@/utils";
 import {
-  LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
-  Sparkles, BarChart3, Settings, ChevronLeft, ChevronRight, LogOut,
-  Zap, Menu, X, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2,
-  Lock, Crown, Star
+  Menu, Crown, Lock,
 } from "lucide-react";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
 import { useTheme } from "@/hooks/useTheme";
 import { useAuth } from "@/lib/AuthContext";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import UpgradeModal from "@/components/UpgradeModal";
 import FeatureGate from "@/components/FeatureGate";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
 import GlobalSearch from "@/components/search/GlobalSearch";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
-  DropdownMenuSeparator, DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-
-const roleNavItems = {
-  admin: [
-    // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
-    { name: "Admin Dashboard", icon: LayoutDashboard, page: "AdminDashboard" },
-    { name: "My Profile", icon: User, page: "TalentProfile" },
-    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
-    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    // ── Users ──
-    { name: "Talent", icon: Users, page: "TalentDiscovery", section: "Users" },
-    { name: "Brands", icon: Building2, page: "Brands" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    { name: "Teams", icon: UsersRound, page: "Teams" },
-    // ── Data ──
-    { name: "Data Manager", icon: Database, page: "AdminDataManager", section: "Data" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
-    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
-    { name: "Data Room (Talent)", icon: Database, page: "TalentDataRoom" },
-    { name: "Data Room (Brand)", icon: Database, page: "BrandDataRoom" },
-    { name: "Data Room (Agency)", icon: Database, page: "AgencyDataRoom" },
-    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
-    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
-    { name: "Deal Score Leaderboard", icon: TrendingUp, page: "DealScoreLeaderboard" },
-    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
-    { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
-    { name: "Outreach", icon: Mail, page: "Outreach" },
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Pitch Competition", icon: Layers, page: "PitchCompetition" },
-    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    { name: "Approvals", icon: CheckSquare, page: "Approvals" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
-    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
-    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
-    { name: "Pitch Deck Generation System", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
-    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    // ── AI ──
-    { name: "AI Features", icon: Brain, page: "AIFeatures", section: "AI" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
-    { name: "AI Analytics", icon: Activity, page: "AIAnalytics" },
-    // ── Platform ──
-    { name: "Platform Overview", icon: Zap, page: "PlatformOverview", section: "Platform" },
-    { name: "System Health", icon: Activity, page: "SystemHealth" },
-    { name: "Architecture", icon: Network, page: "SystemArchitecture" },
-    { name: "Integrations", icon: Plug, page: "Integrations" },
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
-    // ── Settings ──
-    { name: "Referrals", icon: Share2, page: "Referrals", section: "Settings" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
-    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
-    { name: "Settings", icon: Settings, page: "Settings" },
-  ],
-  brand: [
-    // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Home" },
-    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
-    { name: "Create Opportunity", icon: Zap, page: "CreateOpportunity" },
-    // ── Find Talent ──
-    { name: "Talent Discovery", icon: Users, page: "TalentDiscovery", section: "Find Talent" },
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    // ── Campaigns ──
-    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator", section: "Campaigns" },
-    { name: "Outreach", icon: Mail, page: "Outreach" },
-    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships", section: "Deals" },
-    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
-    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
-    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
-    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    { name: "Approvals", icon: CheckSquare, page: "Approvals" },
-    // ── Intelligence ──
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
-    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
-    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder", section: "Content" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
-    // ── Reports ──
-    { name: "Analytics", icon: BarChart3, page: "Analytics", section: "Reports" },
-    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
-    { name: "Data Room", icon: Database, page: "BrandDataRoom" },
-    // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter", section: "AI" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar", section: "Calendar" },
-    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    { name: "Event Management", icon: Calendar, page: "EventManagement" },
-    // ── Account ──
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts", section: "Account" },
-    { name: "Integrations", icon: Plug, page: "Integrations" },
-    { name: "Referrals", icon: Share2, page: "Referrals" },
-    { name: "Teams", icon: UsersRound, page: "Teams" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
-    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
-    { name: "Settings", icon: Settings, page: "Settings" },
-  ],
-  talent: [
-    // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
-    { name: "My Profile", icon: User, page: "TalentProfile" },
-    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
-    // ── Discovery ──
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
-    { name: "Browse Brands", icon: Building2, page: "Brands" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    // ── Outreach ──
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Outreach", icon: Mail, page: "Outreach" },
-    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
-    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
-    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
-    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
-    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
-    // ── Earnings ──
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    { name: "Data Room", icon: Database, page: "TalentDataRoom" },
-    // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
-    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    // ── Account ──
-    { name: "Referrals", icon: Share2, page: "Referrals" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
-    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
-    { name: "Settings", icon: Settings, page: "Settings" },
-  ],
-  manager: [
-    // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
-    { name: "My Talent", icon: Star, page: "ManagerProfile" },
-    { name: "My Profile", icon: User, page: "TalentProfile" },
-    { name: "My Opportunities", icon: Zap, page: "BrandDashboard" },
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
-    // ── Discovery ──
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
-    { name: "Browse Brands", icon: Building2, page: "Brands" },
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    // ── Outreach ──
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Outreach", icon: Mail, page: "Outreach" },
-    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
-    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
-    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
-    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
-    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
-    // ── Earnings ──
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    { name: "Data Room", icon: Database, page: "TalentDataRoom" },
-    // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
-    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    // ── Account ──
-    { name: "Referrals", icon: Share2, page: "Referrals" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
-    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
-    { name: "Settings", icon: Settings, page: "Settings" },
-  ],
-  agency: [
-    // ── Home ──
-    { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
-    // ── Roster ──
-    { name: "Talent Roster", icon: Users, page: "TalentDiscovery" },
-    { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
-    { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
-    // ── Find Brands ──
-    { name: "Marketplace", icon: Zap, page: "Marketplace" },
-    { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
-    { name: "Contact Finder", icon: Users, page: "ContactFinder" },
-    { name: "Warm Intro Network", icon: Network, page: "WarmIntroNetwork" },
-    { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
-    // ── Campaigns ──
-    { name: "Campaign Briefs", icon: FileText, page: "CampaignBriefGenerator" },
-    { name: "Outreach", icon: Mail, page: "Outreach" },
-    { name: "Sequences", icon: GitBranch, page: "SequenceBuilder" },
-    // ── Deals ──
-    { name: "Deal Pipeline", icon: Handshake, page: "Partnerships" },
-    { name: "Deal Analytics", icon: BarChart3, page: "DealAnalytics" },
-    { name: "Deal Comparison", icon: Layers, page: "DealComparison" },
-    { name: "Bundle Deals", icon: Package, page: "BundleDeals" },
-    { name: "Contract Templates", icon: ScrollText, page: "ContractTemplates" },
-    { name: "Approvals", icon: CheckSquare, page: "Approvals" },
-    // ── Intelligence ──
-    { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence" },
-    { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
-    { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
-    // ── Content ──
-    { name: "Pitch Deck Builder", icon: Layers, page: "PitchDeckBuilder" },
-    { name: "Deck Library", icon: FolderOpen, page: "DeckLibrary" },
-    // ── Reports ──
-    { name: "Analytics", icon: BarChart3, page: "Analytics" },
-    { name: "Custom Reports", icon: Layers, page: "CustomReports" },
-    { name: "Data Room", icon: Database, page: "AgencyDataRoom" },
-    // ── AI ──
-    { name: "AI Command Center", icon: Command, page: "AICommandCenter" },
-    { name: "AI Agents Hub", icon: Bot, page: "AIAgentsHub" },
-    // ── Calendar ──
-    { name: "Master Calendar", icon: Calendar, page: "MasterCalendar" },
-    { name: "Culture Calendar", icon: Calendar, page: "CultureCalendar" },
-    // ── Account ──
-    { name: "Connect Accounts", icon: Link2, page: "ConnectAccounts" },
-    { name: "Integrations", icon: Plug, page: "Integrations" },
-    { name: "Referrals", icon: Share2, page: "Referrals" },
-    { name: "Teams", icon: UsersRound, page: "Teams" },
-    { name: "Notifications", icon: Bell, page: "Notifications" },
-    { name: "Subscriptions", icon: DollarSign, page: "SubscriptionManagement" },
-    { name: "Billing", icon: BarChart3, page: "BillingHistory" },
-    { name: "Settings", icon: Settings, page: "Settings" },
-  ],
-};
+import { roleNavItems } from "@/config/navigation";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingApprovals, setPendingApprovals] = useState(0);
-  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
-  const [showBackOnline, setShowBackOnline] = useState(false);
   const navigate = useNavigate();
   const globalSearchRef = useRef(null);
-  const mobileSidebarRef = useRef(null);
   const { logout: authLogout } = useAuth();
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
-
-  // Focus trap for mobile nav overlay
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    // Focus the sidebar container when it opens
-    const sidebar = mobileSidebarRef.current;
-    if (sidebar) {
-      sidebar.focus();
-    }
-
-    const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-    const handleTrapFocus = (e) => {
-      if (e.key !== "Tab") return;
-      const container = mobileSidebarRef.current;
-      if (!container) return;
-      const focusable = Array.from(container.querySelectorAll(FOCUSABLE)).filter(
-        (el) => !el.closest("[aria-hidden='true']")
-      );
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleTrapFocus);
-    return () => document.removeEventListener("keydown", handleTrapFocus);
   }, [mobileOpen]);
 
   // Escape key closes mobile menu
@@ -352,24 +49,6 @@ export default function Layout({ children, currentPageName }) {
     return () => document.removeEventListener("keydown", handleSearchShortcut);
   }, []);
 
-  // Online/offline detection
-  useEffect(() => {
-    const handleOnline = () => {
-      setIsOnline(true);
-      setShowBackOnline(true);
-      setTimeout(() => setShowBackOnline(false), 2000);
-    };
-    const handleOffline = () => {
-      setIsOnline(false);
-      setShowBackOnline(false);
-    };
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
   const { canAccess, getRequiredTier, isTrialActive, isTrialExpired, trialDaysLeft, isPaidPlan } = useFeatureGate();
   const { theme } = useTheme();
   const [upgradeModal, setUpgradeModal] = useState(false);
@@ -381,6 +60,7 @@ export default function Layout({ children, currentPageName }) {
   const [expiredBannerDismissed, setExpiredBannerDismissed] = useState(
     () => sessionStorage.getItem("expiredBannerDismissed") === "1"
   );
+
   const dismissTrialBanner = () => {
     sessionStorage.setItem("trialBannerDismissed", "1");
     setTrialBannerDismissed(true);
@@ -403,159 +83,23 @@ export default function Layout({ children, currentPageName }) {
 
   const userRole = user?.role || "brand";
   const navItems = roleNavItems[userRole] || roleNavItems.brand;
-  const initials = user?.full_name?.split(" ").map(n => n[0]).join("").toUpperCase() || "U";
 
-  const roleColors = {
-    admin: "bg-red-500/10 text-red-400 border-red-500/20",
-    brand: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
-    talent: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    agency: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    manager: "bg-violet-500/10 text-violet-400 border-violet-500/20",
-  };
-
-  const Sidebar = ({ mobile = false, forceCollapsed = false }) => {
-    const effectiveCollapsed = forceCollapsed || collapsed;
-    return (
-    <div className={`flex flex-col h-full bg-[#0c0c0b] border-r border-white/[0.06] ${mobile ? "w-72" : effectiveCollapsed ? "w-[72px]" : "w-64"} transition-all duration-300`}>
-      {/* Logo */}
-      <div className={`flex items-center h-16 px-4 border-b border-white/5 ${effectiveCollapsed && !mobile ? "justify-center" : "gap-3"}`}>
-        {effectiveCollapsed && !mobile ? (
-          <img src="/brand/marks/10_mark_transparent.png" alt="D" style={{ height: 34 }} width={34} height={34} fetchPriority="high" />
-        ) : (
-          <img src="/brand/logos/04_logo_transparent_ondark.png" alt="DealStage" style={{ height: 36 }} width={140} height={36} fetchPriority="high" />
-        )}
-        {mobile && (
-          <button onClick={() => setMobileOpen(false)} className="ml-auto text-slate-400 hover:text-white" aria-label="Close navigation menu">
-            <X className="w-5 h-5" aria-hidden="true" />
-          </button>
-        )}
-      </div>
-
-      {/* Role badge */}
-      {(!effectiveCollapsed || mobile) && (
-        <div className="px-4 py-3 space-y-1">
-          <Badge variant="outline" className={`${roleColors[userRole]} text-[10px] uppercase tracking-wider w-full justify-center py-1`}>
-            {userRole === "manager" ? "Manager Portal" : `${userRole} Portal`}
-          </Badge>
-          {userRole === "manager" && (
-            <p className="text-[10px] text-slate-500 text-center truncate">Managing talent</p>
-          )}
-        </div>
-      )}
-
-      {/* Nav */}
-      <nav aria-label="Main navigation" className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
-        {navItems.map((item, idx) => {
-          const isActive = currentPageName === item.page;
-          const Icon = item.icon;
-          const isLocked = !canAccess(item.page);
-          const navItemClass = `flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 group relative
-                ${isActive
-                  ? "text-white border-l-2 border-[#c4a24a] bg-[#c4a24a]/8 rounded-l-none"
-                  : isLocked
-                    ? "text-slate-600 hover:text-slate-500 hover:bg-white/3 cursor-pointer"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
-                }
-                ${effectiveCollapsed && !mobile ? "justify-center" : ""}
-              `;
-          const navItemContent = (
-            <>
-              <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-[#c4a24a]" : isLocked ? "text-slate-700" : "text-slate-400 group-hover:text-slate-300"}`} />
-              {(!effectiveCollapsed || mobile) && <span>{item.name}</span>}
-              {(!effectiveCollapsed || mobile) && isLocked && (
-                <Lock size={12} style={{ color: "rgba(245,240,230,0.2)", marginLeft: "auto", flexShrink: 0 }} />
-              )}
-              {item.page === "Approvals" && pendingApprovals > 0 && (!effectiveCollapsed || mobile) && !isLocked && (
-                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                  {pendingApprovals > 9 ? "9+" : pendingApprovals}
-                </span>
-              )}
-            </>
-          );
-          return (
-            <React.Fragment key={item.page}>
-              {item.section && (!effectiveCollapsed || mobile) && idx > 0 && (
-                <p className="text-[10px] text-slate-500 uppercase tracking-widest px-3 pt-4 pb-1 select-none">{item.section}</p>
-              )}
-              {isLocked ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setLockedFeature(item.name);
-                    setLockedTier(getRequiredTier(item.page));
-                    setUpgradeModal(true);
-                  }}
-                  className={navItemClass}
-                >
-                  {navItemContent}
-                </button>
-              ) : (
-                <Link
-                  to={createPageUrl(item.page)}
-                  onClick={() => { if (mobile) setMobileOpen(false); }}
-                  onMouseEnter={() => {
-                    // Prefetch the page chunk on hover
-                    import(`../pages/${item.page}.jsx`).catch(() => {});
-                  }}
-                  className={navItemClass}
-                >
-                  {navItemContent}
-                </Link>
-              )}
-            </React.Fragment>
-          );
-        })}
-      </nav>
-
-      {/* Theme switcher (expanded only) */}
-      {(!effectiveCollapsed || mobile) && (
-        <div className="px-4 pb-2">
-          <ThemeSwitcher compact />
-        </div>
-      )}
-
-      {/* User section */}
-      <div className={`p-3 border-t border-white/5 ${effectiveCollapsed && !mobile ? "flex justify-center" : ""}`}>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button aria-label="User menu" className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${effectiveCollapsed && !mobile ? "justify-center px-0" : ""}`}>
-              <Avatar className="w-8 h-8 flex-shrink-0">
-                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold">
-                  {initials}
-                </AvatarFallback>
-              </Avatar>
-              {(!effectiveCollapsed || mobile) && (
-                <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm text-white font-medium truncate">{user?.full_name || "User"}</p>
-                  <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
-                </div>
-              )}
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem onClick={() => navigate(createPageUrl("Settings"))}>
-              <Settings className="w-4 h-4 mr-2" /> Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => authLogout()} className="text-red-500" aria-label="Sign out of your account">
-              <LogOut className="w-4 h-4 mr-2" aria-hidden="true" /> Sign Out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-
-      {/* Collapse toggle (desktop only) */}
-      {!mobile && (
-        <button
-          onClick={() => { if (!forceCollapsed) setCollapsed(!collapsed); }}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-50"
-        >
-          {collapsed ? <ChevronRight className="w-3 h-3" aria-hidden="true" /> : <ChevronLeft className="w-3 h-3" aria-hidden="true" />}
-        </button>
-      )}
-    </div>
-  );
+  const sharedSidebarProps = {
+    collapsed,
+    setCollapsed,
+    currentPageName,
+    navItems,
+    userRole,
+    user,
+    canAccess,
+    getRequiredTier,
+    setLockedFeature,
+    setLockedTier,
+    setUpgradeModal,
+    pendingApprovals,
+    mobileOpen,
+    setMobileOpen,
+    globalSearchRef,
   };
 
   return (
@@ -566,22 +110,26 @@ export default function Layout({ children, currentPageName }) {
       >
         Skip to main content
       </a>
+
       {/* Tablet sidebar (md-lg): collapsed icon rail */}
       <div className="hidden md:flex lg:hidden relative flex-shrink-0 w-[72px]">
-        <Sidebar forceCollapsed />
+        <Sidebar {...sharedSidebarProps} forceCollapsed />
       </div>
 
       {/* Desktop sidebar (lg+): full width, collapsible */}
       <div className="hidden lg:flex relative flex-shrink-0">
-        <Sidebar />
+        <Sidebar {...sharedSidebarProps} />
       </div>
 
       {/* Mobile overlay (below md) */}
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="relative z-10" ref={mobileSidebarRef} tabIndex={-1} style={{ outline: "none" }}>
-            <Sidebar mobile />
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="relative z-10">
+            <Sidebar {...sharedSidebarProps} mobile />
           </div>
         </div>
       )}
@@ -589,18 +137,30 @@ export default function Layout({ children, currentPageName }) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0 bg-background text-foreground">
         {/* Top bar */}
-        <header className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4 bg-card border-b border-border" style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+        <header
+          className="h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4 bg-card border-b border-border"
+          style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
+        >
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setMobileOpen(true)} className="md:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1" aria-label="Open navigation menu">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="md:hidden text-muted-foreground hover:text-foreground flex items-center justify-center w-10 h-10 rounded-md -ml-1"
+              aria-label="Open navigation menu"
+            >
               <Menu className="w-5 h-5" aria-hidden="true" />
             </button>
-            <h1 className="text-lg font-semibold hidden sm:block text-foreground">{
-              // Show the friendly nav item name, or convert PascalCase to spaced words
-              navItems.find(n => n.page === currentPageName)?.name
-              || currentPageName?.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').trim()
-            }</h1>
+            <h1 className="text-lg font-semibold hidden sm:block text-foreground">
+              {navItems.find((n) => n.page === currentPageName)?.name
+                || currentPageName
+                  ?.replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+                  .replace(/([a-z])([A-Z])/g, "$1 $2")
+                  .trim()}
+            </h1>
             {userRole === "manager" && (
-              <Badge variant="outline" className="bg-violet-50 text-violet-600 border-violet-200 text-[10px] ml-2 hidden sm:flex">
+              <Badge
+                variant="outline"
+                className="bg-violet-50 text-violet-600 border-violet-200 text-[10px] ml-2 hidden sm:flex"
+              >
                 Managing Talent
               </Badge>
             )}
@@ -610,77 +170,80 @@ export default function Layout({ children, currentPageName }) {
             <NotificationDropdown />
           </div>
         </header>
-        {/* Gold gradient accent stripe */}
-        <div style={{ height: 2, background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)", opacity: 0.25, flexShrink: 0 }} />
 
-        {/* Offline banner */}
-        {(!isOnline || showBackOnline) && (
-          <div style={{
-            position: "sticky", top: 0, zIndex: 50,
-            background: !isOnline ? "rgba(245,158,11,0.12)" : "rgba(34,197,94,0.12)",
-            border: !isOnline ? "0.5px solid rgba(245,158,11,0.3)" : "0.5px solid rgba(34,197,94,0.3)",
-            padding: "0.5rem 1rem",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            gap: "0.5rem",
+        {/* Gold gradient accent stripe */}
+        <div
+          style={{
+            height: 2,
+            background: "linear-gradient(90deg, #b3922e, #e07b18, #b3922e)",
+            opacity: 0.25,
             flexShrink: 0,
-          }}>
-            <span style={{
-              color: !isOnline ? "#f59e0b" : "#22c55e",
-              fontSize: "0.835rem",
-              fontWeight: 500,
-              fontFamily: "'Instrument Sans', sans-serif",
-            }}>
-              {!isOnline
-                ? "You're offline. Some features may be unavailable."
-                : "You're back online."}
-            </span>
-          </div>
-        )}
+          }}
+        />
 
         {/* Trial / expired banners — sticky so they stay visible while scrolling */}
         {isTrialActive && !isPaidPlan && !trialBannerDismissed && (
-          <div style={{
-            position: "sticky", top: 0, zIndex: 40,
-            background: "linear-gradient(135deg, rgba(196,162,74,0.08), rgba(224,123,24,0.08))",
-            border: "0.5px solid rgba(196,162,74,0.2)",
-            borderBottom: "0.5px solid rgba(196,162,74,0.2)",
-            padding: "0.6rem 1rem",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            flexWrap: "wrap", gap: "0.5rem",
-            flexShrink: 0,
-          }}>
+          <div
+            style={{
+              position: "sticky", top: 0, zIndex: 40,
+              background: "linear-gradient(135deg, rgba(196,162,74,0.08), rgba(224,123,24,0.08))",
+              border: "0.5px solid rgba(196,162,74,0.2)",
+              borderBottom: "0.5px solid rgba(196,162,74,0.2)",
+              padding: "0.6rem 1rem",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              flexWrap: "wrap", gap: "0.5rem",
+              flexShrink: 0,
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <Crown size={14} style={{ color: "#c4a24a" }} />
               <span className="text-sm text-foreground">
-                <span style={{ color: "#b3922e", fontWeight: 600 }}>{trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}</span> left on your free trial
+                <span style={{ color: "#b3922e", fontWeight: 600 }}>
+                  {trialDaysLeft} day{trialDaysLeft !== 1 ? "s" : ""}
+                </span>{" "}
+                left on your free trial
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <button onClick={() => navigate("/SubscriptionManagement")} style={{
-                background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
-                border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
-                fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
-                fontFamily: "'Instrument Sans', sans-serif",
-              }}>Upgrade now</button>
-              <button onClick={dismissTrialBanner} aria-label="Dismiss trial banner" style={{
-                background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
-                color: "rgba(196,162,74,0.6)", fontSize: "1rem", lineHeight: 1,
-                display: "flex", alignItems: "center",
-              }}>✕</button>
+              <button
+                onClick={() => navigate("/SubscriptionManagement")}
+                style={{
+                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: "'Instrument Sans', sans-serif",
+                }}
+              >
+                Upgrade now
+              </button>
+              <button
+                onClick={dismissTrialBanner}
+                aria-label="Dismiss trial banner"
+                style={{
+                  background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
+                  color: "rgba(196,162,74,0.6)", fontSize: "1rem", lineHeight: 1,
+                  display: "flex", alignItems: "center",
+                }}
+              >
+                ✕
+              </button>
             </div>
           </div>
         )}
+
         {isTrialExpired && !expiredBannerDismissed && (
-          <div style={{
-            position: "sticky", top: 0, zIndex: 40,
-            background: "rgba(239,68,68,0.08)",
-            border: "0.5px solid rgba(239,68,68,0.2)",
-            borderBottom: "0.5px solid rgba(239,68,68,0.2)",
-            padding: "0.6rem 1rem",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            flexWrap: "wrap", gap: "0.5rem",
-            flexShrink: 0,
-          }}>
+          <div
+            style={{
+              position: "sticky", top: 0, zIndex: 40,
+              background: "rgba(239,68,68,0.08)",
+              border: "0.5px solid rgba(239,68,68,0.2)",
+              borderBottom: "0.5px solid rgba(239,68,68,0.2)",
+              padding: "0.6rem 1rem",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              flexWrap: "wrap", gap: "0.5rem",
+              flexShrink: 0,
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <Lock size={14} style={{ color: "#ef4444" }} />
               <span className="text-sm text-foreground">
@@ -688,17 +251,28 @@ export default function Layout({ children, currentPageName }) {
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <button onClick={() => navigate("/SubscriptionManagement")} style={{
-                background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
-                border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
-                fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
-                fontFamily: "'Instrument Sans', sans-serif",
-              }}>Upgrade now</button>
-              <button onClick={dismissExpiredBanner} aria-label="Dismiss expired banner" style={{
-                background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
-                color: "rgba(239,68,68,0.6)", fontSize: "1rem", lineHeight: 1,
-                display: "flex", alignItems: "center",
-              }}>✕</button>
+              <button
+                onClick={() => navigate("/SubscriptionManagement")}
+                style={{
+                  background: "linear-gradient(135deg, #c4a24a, #e07b18)", color: "#080807",
+                  border: "none", borderRadius: 5, padding: "0.35rem 0.85rem",
+                  fontSize: "0.72rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: "'Instrument Sans', sans-serif",
+                }}
+              >
+                Upgrade now
+              </button>
+              <button
+                onClick={dismissExpiredBanner}
+                aria-label="Dismiss expired banner"
+                style={{
+                  background: "none", border: "none", cursor: "pointer", padding: "0.25rem",
+                  color: "rgba(239,68,68,0.6)", fontSize: "1rem", lineHeight: 1,
+                  display: "flex", alignItems: "center",
+                }}
+              >
+                ✕
+              </button>
             </div>
           </div>
         )}
@@ -706,13 +280,25 @@ export default function Layout({ children, currentPageName }) {
         {/* Page content */}
         <main id="main-content" className="flex-1 overflow-y-auto bg-background">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
-            <FeatureGate locked={!canAccess(currentPageName)} featureName={currentPageName?.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').trim()}>
+            <FeatureGate
+              locked={!canAccess(currentPageName)}
+              featureName={currentPageName
+                ?.replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+                .replace(/([a-z])([A-Z])/g, "$1 $2")
+                .trim()}
+            >
               {children}
             </FeatureGate>
           </div>
         </main>
       </div>
-      <UpgradeModal isOpen={upgradeModal} onClose={() => setUpgradeModal(false)} featureName={lockedFeature} requiredTier={lockedTier} />
+
+      <UpgradeModal
+        isOpen={upgradeModal}
+        onClose={() => setUpgradeModal(false)}
+        featureName={lockedFeature}
+        requiredTier={lockedTier}
+      />
     </div>
   );
 }
