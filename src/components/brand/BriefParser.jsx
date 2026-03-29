@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import mammoth from "mammoth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
@@ -27,7 +26,8 @@ async function extractTextFromFile(file) {
   const ext = file.name.split(".").pop().toLowerCase();
   if (ext === "docx") {
     const arrayBuffer = await file.arrayBuffer();
-    const result = await mammoth.extractRawText({ arrayBuffer });
+    const mammoth = await import("mammoth");
+    const result = await mammoth.default.extractRawText({ arrayBuffer });
     return result.value;
   }
   // PDF: send filename/size as context; real PDF parsing requires server-side

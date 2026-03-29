@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback } from "react";
-import mammoth from "mammoth";
 import { supabase } from "@/api/supabaseClient";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -163,10 +162,11 @@ export default function ContractScanner() {
   const [loadingStage, setLoadingStage] = useState("");
   const [result, setResult] = useState(null);
 
-  // Extract text from a DOCX file via mammoth
+  // Extract text from a DOCX file via mammoth (dynamically imported)
   const extractDocx = useCallback(async (file) => {
     const arrayBuffer = await file.arrayBuffer();
-    const { value } = await mammoth.extractRawText({ arrayBuffer });
+    const mammoth = await import("mammoth");
+    const { value } = await mammoth.default.extractRawText({ arrayBuffer });
     return value;
   }, []);
 

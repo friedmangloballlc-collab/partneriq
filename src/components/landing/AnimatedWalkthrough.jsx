@@ -1671,12 +1671,15 @@ export default function AnimatedWalkthrough() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [transitionState, setTransitionState] = useState("visible"); // "visible" | "out" | "in"
   const [elapsed, setElapsed] = useState(0);
+  const [isInViewport, setIsInViewport] = useState(false);
 
   const sceneRef = useRef(0);
   const isPlayingRef = useRef(true);
   const intervalRef = useRef(null);
   const elapsedRef = useRef(null);
   const elapsedValRef = useRef(0);
+  const containerRef = useRef(null);
+  const isInViewportRef = useRef(false);
 
   const clearTimers = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -1706,18 +1709,34 @@ export default function AnimatedWalkthrough() {
     setElapsed(0);
 
     elapsedRef.current = setInterval(() => {
+      if (!isPlayingRef.current || !isInViewportRef.current) return;
       elapsedValRef.current = Math.min(elapsedValRef.current + TICK / SCENE_DURATION, 1);
       setElapsed(elapsedValRef.current);
     }, TICK);
 
     intervalRef.current = setInterval(() => {
-      if (isPlayingRef.current) {
+      if (isPlayingRef.current && isInViewportRef.current) {
         advance();
         elapsedValRef.current = 0;
         setElapsed(0);
       }
     }, SCENE_DURATION);
   }, [clearTimers, advance]);
+
+  // IntersectionObserver: pause timers when scrolled off-screen
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInViewportRef.current = entry.isIntersecting;
+        setIsInViewport(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     isPlayingRef.current = true;
@@ -1788,7 +1807,7 @@ export default function AnimatedWalkthrough() {
   return (
     <>
       <style>{STYLES}</style>
-      <div className="aw-container" style={S.container}>
+      <div ref={containerRef} className="aw-container" style={S.container}>
 
         {/* Radial background glow */}
         <div style={{

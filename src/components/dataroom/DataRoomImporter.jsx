@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
 import Papa from "papaparse";
-import mammoth from "mammoth";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
@@ -405,7 +404,8 @@ function DocTab({ roomType, onImportSuccess }) {
 
     if (ext === "docx") {
       const arrayBuffer = await file.arrayBuffer();
-      const result = await mammoth.extractRawText({ arrayBuffer });
+      const mammoth = await import("mammoth");
+      const result = await mammoth.default.extractRawText({ arrayBuffer });
       return result.value;
     }
 
