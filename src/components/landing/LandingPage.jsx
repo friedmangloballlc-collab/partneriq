@@ -287,6 +287,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const observerRef = useRef(null);
+  const firstNavLinkRef = useRef(null);
   const { theme, themeKey } = useTheme();
   const isPearl = themeKey === "pearl";
   const isMobile = useIsMobile();
@@ -297,6 +298,28 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  // Mobile nav: focus management, Escape key, body scroll lock
+  useEffect(() => {
+    if (mobileNavOpen) {
+      document.body.style.overflow = "hidden";
+      // Auto-focus the first nav link on next tick so the overlay is rendered
+      const frame = requestAnimationFrame(() => {
+        firstNavLinkRef.current && firstNavLinkRef.current.focus();
+      });
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") setMobileNavOpen(false);
+      };
+      document.addEventListener("keydown", handleKeyDown);
+      return () => {
+        cancelAnimationFrame(frame);
+        document.removeEventListener("keydown", handleKeyDown);
+        document.body.style.overflow = "";
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mobileNavOpen]);
 
   // Intersection observer for fade-in sections
   useEffect(() => {
@@ -871,7 +894,7 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
             <button className="ds-mobile-menu-btn" onClick={() => setMobileNavOpen(false)} aria-label="Close menu">✕</button>
           </div>
           <nav className="ds-mobile-nav-links">
-            <a href="#features" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Features</a>
+            <a href="#features" className="ds-mobile-nav-link" ref={firstNavLinkRef} onClick={() => setMobileNavOpen(false)}>Features</a>
             <a href="#pricing" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Pricing</a>
             <a href="#how-it-works" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>How It Works</a>
             <a href="/About" className="ds-mobile-nav-link" onClick={() => setMobileNavOpen(false)}>About</a>
