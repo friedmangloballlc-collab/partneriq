@@ -107,33 +107,47 @@ function parseSort(sortStr) {
 
 function createEntityProxy(tableName) {
   return {
-    async list(sortBy = '-created_at', page = 1, pageSize = 100) {
+    async list(sortBy = '-created_at', limitOrPage = 100, pageSize) {
       const { column, ascending } = parseSort(sortBy);
+      // Backward compat: list(sort, limit) — 2 args = old style, always return array
+      if (pageSize === undefined) {
+        const limit = limitOrPage;
+        let query = supabase.from(tableName).select('*').order(column, { ascending }).limit(limit);
+        const { data, error } = await query;
+        if (error) throw error;
+        return data || [];
+      }
+      // New style: list(sort, page, pageSize) — return paginated object
+      const page = limitOrPage;
       const from = (page - 1) * pageSize;
       const to = from + pageSize - 1;
       let query = supabase.from(tableName).select('*').order(column, { ascending }).range(from, to);
       const { data, error } = await query;
       if (error) throw error;
       const rows = data || [];
-      // Backward compatibility: when called with default args (page 1, size 100),
-      // return a plain array so existing call-sites keep working.
-      if (page === 1 && pageSize === 100) return rows;
       return { data: rows, page, pageSize, hasMore: rows.length === pageSize };
     },
 
-    async filter(filters = {}, sortBy = '-created_at', page = 1, pageSize = 100) {
+    async filter(filters = {}, sortBy = '-created_at', limitOrPage = 100, pageSize) {
       const { column, ascending } = parseSort(sortBy);
-      const from = (page - 1) * pageSize;
-      const to = from + pageSize - 1;
       let query = supabase.from(tableName).select('*').order(column, { ascending });
       query = applyFilters(query, filters);
+      // Backward compat: filter(filters, sort, limit) — 3 args = old style
+      if (pageSize === undefined) {
+        const limit = limitOrPage;
+        query = query.limit(limit);
+        const { data, error } = await query;
+        if (error) throw error;
+        return data || [];
+      }
+      // New style: filter(filters, sort, page, pageSize)
+      const page = limitOrPage;
+      const from = (page - 1) * pageSize;
+      const to = from + pageSize - 1;
       query = query.range(from, to);
       const { data, error } = await query;
       if (error) throw error;
       const rows = data || [];
-      // Backward compatibility: when called with default args (page 1, size 100),
-      // return a plain array so existing call-sites keep working.
-      if (page === 1 && pageSize === 100) return rows;
       return { data: rows, page, pageSize, hasMore: rows.length === pageSize };
     },
 
