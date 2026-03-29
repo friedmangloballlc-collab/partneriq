@@ -34,6 +34,11 @@ const FeatureSendDeals = React.lazy(() => import("./pages/FeatureSendDeals"));
 const FeatureManageDeals = React.lazy(() => import("./pages/FeatureManageDeals"));
 const FeatureBrowseTalent = React.lazy(() => import("./pages/FeatureBrowseTalent"));
 const FeatureManageTalent = React.lazy(() => import("./pages/FeatureManageTalent"));
+const ForManagers = React.lazy(() => import("./pages/ForManagers"));
+const PublicTalentProfile = React.lazy(() => import("./pages/PublicTalentProfile"));
+const CompareGrin = React.lazy(() => import("./pages/CompareGrin"));
+const CompareAspire = React.lazy(() => import("./pages/CompareAspire"));
+const CompareCreatorIQ = React.lazy(() => import("./pages/CompareCreatorIQ"));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -66,6 +71,10 @@ const PUBLIC_ROUTES = [
   { paths: ['/features/manage-deals'], component: FeatureManageDeals },
   { paths: ['/features/browse-talent'], component: FeatureBrowseTalent },
   { paths: ['/features/manage-talent'], component: FeatureManageTalent },
+  { paths: ['/for-managers'], component: ForManagers },
+  { paths: ['/vs-grin'], component: CompareGrin },
+  { paths: ['/vs-aspire'], component: CompareAspire },
+  { paths: ['/vs-creatoriq'], component: CompareCreatorIQ },
 ];
 
 const LayoutWrapper = ({ children, currentPageName }) => Layout ?
@@ -240,6 +249,15 @@ const AuthenticatedApp = () => {
 
   if (location.pathname === '/reset-password') {
     return <Routes><Route path="/reset-password" element={<ResetPassword />} /></Routes>;
+  }
+
+  // Public talent profile — dynamic route: /t/:handle (no auth required)
+  if (location.pathname.startsWith('/t/') && location.pathname.length > 3) {
+    return (
+      <Routes>
+        <Route path="/t/:handle" element={<Suspense fallback={marketingFallback}><PublicTalentProfile /></Suspense>} />
+      </Routes>
+    );
   }
 
   if (location.pathname === '/' || location.pathname === '/Onboarding') {

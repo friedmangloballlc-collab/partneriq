@@ -48,11 +48,30 @@ export default function Approvals() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => base44.entities.ApprovalItem.update(id, data),
-    onSuccess: () => {
+    onMutate: async ({ id, data }) => {
+      // Cancel any in-flight refetches so they don't overwrite the optimistic update.
+      await queryClient.cancelQueries({ queryKey: ["approval-items"] });
+
+      // Snapshot current cache for rollback on error.
+      const previous = queryClient.getQueryData(["approval-items"]);
+
+      // Optimistically apply the status change immediately.
+      queryClient.setQueryData(["approval-items"], (old = []) =>
+        old.map((item) => (item.id === id ? { ...item, ...data } : item))
+      );
+
+      return { previous };
+    },
+    onError: (_err, _variables, context) => {
+      // Roll back to the snapshot captured in onMutate.
+      if (context?.previous !== undefined) {
+        queryClient.setQueryData(["approval-items"], context.previous);
+      }
+    },
+    onSettled: () => {
+      // Always resync with the server after error or success.
       queryClient.invalidateQueries({ queryKey: ["approval-items"] });
-      setShowReview(false);
       setSelectedItem(null);
-      setReviewNotes("");
     },
   });
 

@@ -7,6 +7,7 @@ import {
 import AssigneeSelector from "@/components/partnerships/AssigneeSelector";
 import TasksPanel from "@/components/tasks/TasksPanel";
 import OutreachFramework from "@/components/outreach/OutreachFramework";
+import { UsageLimitBanner } from "@/components/subscription/UsageLimitBanner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -55,7 +56,30 @@ export default function Outreach() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => base44.entities.OutreachEmail.update(id, data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["outreach-emails"] }),
+    onMutate: async ({ id, data }) => {
+      // Cancel any in-flight refetches so they don't overwrite the optimistic update.
+      await queryClient.cancelQueries({ queryKey: ["outreach-emails"] });
+
+      // Snapshot current cache for rollback on error.
+      const previous = queryClient.getQueryData(["outreach-emails"]);
+
+      // Optimistically apply the update immediately.
+      queryClient.setQueryData(["outreach-emails"], (old = []) =>
+        old.map((email) => (email.id === id ? { ...email, ...data } : email))
+      );
+
+      return { previous };
+    },
+    onError: (_err, _variables, context) => {
+      // Roll back to the snapshot captured in onMutate.
+      if (context?.previous !== undefined) {
+        queryClient.setQueryData(["outreach-emails"], context.previous);
+      }
+    },
+    onSettled: () => {
+      // Always resync after error or success.
+      queryClient.invalidateQueries({ queryKey: ["outreach-emails"] });
+    },
   });
 
   const resetForm = () => setNewEmail({ to_email: "", to_name: "", subject: "", body: "", email_type: "initial_outreach", status: "draft" });
@@ -104,6 +128,16 @@ Write a compelling, concise email that:
 
   const filteredEmails = tab === "emails" ? emails : emails.filter(e => e.status === tab);
 
+  // Count outreach messages sent this month for plan limit nudge
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const sentThisMonth = emails.filter(e =>
+    e.status !== "draft" && e.created_date && new Date(e.created_date) >= startOfMonth
+  ).length;
+  // Plan limits: Rising = 15/mo. null means unlimited (Pro/Elite).
+  // In production this value would come from the user's subscription plan.
+  const OUTREACH_MONTHLY_LIMIT = null; // set to e.g. 15 for Rising plan users
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -115,6 +149,13 @@ Write a compelling, concise email that:
           <Plus className="w-4 h-4 mr-2" /> Compose
         </Button>
       </div>
+
+      {/* Plan usage nudge — visible at 80% of monthly outreach limit */}
+      <UsageLimitBanner
+        current={sentThisMonth}
+        limit={OUTREACH_MONTHLY_LIMIT}
+        featureName="outreach messages"
+      />
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>

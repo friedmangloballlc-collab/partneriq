@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "@/api/supabaseClient";
 
 const THEMES = {
   dark: {
@@ -51,11 +52,44 @@ const THEMES = {
 
 export function useTheme() {
   const [themeKey, setThemeKey] = useState(() => {
+    // Initial load: prefer localStorage so the theme is applied synchronously
+    // before the async profile fetch completes (avoids flash).
     try { return localStorage.getItem("ds-landing-theme") || "dark"; } catch { return "dark"; }
   });
 
   const theme = THEMES[themeKey] || THEMES.dark;
 
+  // On mount: try to read theme_preference from the authenticated user's profile
+  // and override the localStorage value if they differ.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user || cancelled) return;
+
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("theme_preference")
+          .eq("id", user.id)
+          .single();
+
+        if (cancelled) return;
+
+        const persisted = profile?.theme_preference;
+        if (persisted && THEMES[persisted] && persisted !== themeKey) {
+          setThemeKey(persisted);
+          try { localStorage.setItem("ds-landing-theme", persisted); } catch {}
+        }
+      } catch {
+        // Profile unavailable — silently fall back to localStorage value
+      }
+    })();
+    return () => { cancelled = true; };
+    // Only run once on mount
+  }, []); // eslint-disable-line
+
+  // Apply CSS variables and persist whenever the theme changes
   useEffect(() => {
     try { localStorage.setItem("ds-landing-theme", themeKey); } catch {}
     // Landing page theme is applied via the theme object directly
@@ -67,8 +101,23 @@ export function useTheme() {
     root.style.setProperty("--ds-theme-gold", theme.gold);
   }, [themeKey, theme]);
 
-  const setTheme = (key) => {
-    if (THEMES[key]) setThemeKey(key);
+  const setTheme = async (key) => {
+    if (!THEMES[key]) return;
+    setThemeKey(key);
+
+    // Persist to Supabase profiles table asynchronously
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase
+          .from("profiles")
+          .update({ theme_preference: key })
+          .eq("id", user.id);
+      }
+    } catch (err) {
+      // Non-fatal — localStorage already holds the value
+      console.warn("[useTheme] Failed to persist theme to profile:", err.message);
+    }
   };
 
   return { theme, themeKey, setTheme, themes: THEMES };

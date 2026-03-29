@@ -212,7 +212,6 @@ function ArticleCard({ article, delay }) {
         gap: "14px",
         cursor: "pointer",
         boxShadow: hovered ? "0 8px 32px rgba(212,176,78,0.08)" : "none",
-        transition: `all 0.3s ease`,
       }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>

@@ -761,7 +761,6 @@ function Scene2({ active }) {
             position: "absolute",
             left: `${p.x}%`,
             top: `${p.y}%`,
-            transform: "translate(-50%,-50%)",
             zIndex: 4,
             opacity: platformVisible[i] ? 1 : 0,
             transform: platformVisible[i]

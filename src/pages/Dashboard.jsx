@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ import DealExpiryTracker from "@/components/dashboard/DealExpiryTracker";
 import { TourProvider, useTour } from "@/components/onboarding/TourProvider";
 import ContextualTip from "@/components/onboarding/ContextualTip";
 import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
-import { seedDemoData } from "@/utils/seedDemoData";
+// seedDemoData is loaded on demand to keep the initial bundle smaller
 import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
 
@@ -43,6 +44,7 @@ function EmptyStateSeedBanner() {
     sessionStorage.removeItem('partneriq_auto_seed_done');
     const errs = [];
     try {
+      const { seedDemoData } = await import("@/utils/seedDemoData");
       await seedDemoData((p) => {
         setProgress(p);
         if (p.error) errs.push(p.error);
@@ -112,45 +114,97 @@ function DashboardContent({ user }) {
   const onboardingStep = user?.onboarding_step ?? 0;
   const showWizard = !wizardDismissed && onboardingStep < 4;
 
+  // Primary: single RPC call for all dashboard summary data
+  const { data: summary, isLoading: loadingSummary } = useQuery({
+    queryKey: ["dashboard-summary"],
+    queryFn: async () => {
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        const { data, error } = await supabase.rpc("get_dashboard_summary", {
+          p_user_email: authUser?.email || "",
+        });
+        if (error) throw error;
+        return data;
+      } catch (err) {
+        // RPC not available yet — return null so fallback queries are used
+        console.warn("[Dashboard] get_dashboard_summary RPC unavailable, using fallback queries:", err.message);
+        return null;
+      }
+    },
+    staleTime: 2 * 60 * 1000,
+  });
+
+  // Fallback individual queries — kept in sync and used when summary is null
   const { data: partnerships = [], isLoading: loadingP } = useQuery({
     queryKey: ["partnerships"],
     queryFn: () => base44.entities.Partnership.list("-created_date", 100),
+    enabled: summary === null,
   });
 
   const { data: talents = [] } = useQuery({
     queryKey: ["talents"],
     queryFn: () => base44.entities.Talent.list("-created_date", 50),
+    enabled: summary === null,
   });
 
   const { data: brands = [] } = useQuery({
     queryKey: ["brands"],
     queryFn: () => base44.entities.Brand.list("-created_date", 50),
+    enabled: summary === null,
   });
 
   const { data: activities = [], isLoading: loadingA } = useQuery({
     queryKey: ["activities"],
     queryFn: () => base44.entities.Activity.list("-created_date", 10),
+    enabled: summary === null,
   });
 
   const { data: approvals = [] } = useQuery({
     queryKey: ["approvals-pending"],
     queryFn: () => base44.entities.ApprovalItem.filter({ status: "pending" }),
+    enabled: summary === null,
   });
 
   const { data: sequences = [] } = useQuery({
     queryKey: ["sequences"],
     queryFn: () => base44.entities.OutreachSequence.list("-created_date", 20),
+    enabled: summary === null,
   });
 
   const { data: opportunities = [] } = useQuery({
     queryKey: ["opportunities-published"],
     queryFn: () => base44.entities.MarketplaceOpportunity.filter({ status: "published" }, "-created_date", 10),
+    enabled: summary === null,
   });
 
-  const totalDealValue = partnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
-  const activeDeals = partnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
+  // Resolve values: prefer RPC summary, fall back to individual query results
+  const resolvedTalents    = summary ? (summary.total_talents    ?? 0)  : talents;
+  const resolvedBrands     = summary ? (summary.total_brands     ?? 0)  : brands;
+  const resolvedActivities = summary ? (summary.recent_activities ?? []) : activities;
+  const resolvedApprovals  = summary ? (summary.pending_approvals ?? 0)  : approvals;
 
-  const topPartnerships = partnerships
+  const totalDealValue = summary
+    ? (summary.total_deal_value ?? 0)
+    : partnerships.reduce((sum, p) => sum + (p.deal_value || 0), 0);
+
+  const activeDeals = summary
+    ? (summary.active_deals ?? 0)
+    : partnerships.filter(p => ["negotiating", "contracted", "active"].includes(p.status)).length;
+
+  // When using the RPC the full partnership list still comes from the fallback cache
+  // so pipeline chart / top matches continue to work.  Force-enable fallback partnerships
+  // for components that need the full record set.
+  const { data: partnershipsFull = [] } = useQuery({
+    queryKey: ["partnerships"],
+    queryFn: () => base44.entities.Partnership.list("-created_date", 100),
+  });
+
+  const resolvedPartnerships = partnershipsFull;
+
+  const isLoading = loadingSummary || loadingP;
+  const loadingAct = summary !== null ? false : loadingA;
+
+  const topPartnerships = resolvedPartnerships
     .filter(p => p.match_score)
     .sort((a, b) => (b.match_score || 0) - (a.match_score || 0))
     .slice(0, 5);
@@ -193,7 +247,7 @@ function DashboardContent({ user }) {
       <OpportunityAlerts />
 
       {/* Empty state — show seed button when no data */}
-      {!loadingP && partnerships.length === 0 && brands.length === 0 && talents.length === 0 && (
+      {!isLoading && resolvedPartnerships.length === 0 && (summary ? summary.total_brands === 0 && summary.total_talents === 0 : brands.length === 0 && talents.length === 0) && (
         <EmptyStateSeedBanner />
       )}
 
@@ -208,18 +262,18 @@ function DashboardContent({ user }) {
       {/* Stats */}
       <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children" role="region" aria-label="Key metrics">
         {(role === "admin" || role === "agency") && (
-          <StatCard title="Total Talent" value={talents.length} icon={Users} color="violet" trend="+12%" trendUp aria-label={`Total Talent: ${talents.length}`} />
+          <StatCard title="Total Talent" value={typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length} icon={Users} color="violet" trend="+12%" trendUp aria-label={`Total Talent: ${typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length}`} />
         )}
         {(role === "admin" || role === "brand" || role === "agency") && (
-          <StatCard title="Brands" value={brands.length} icon={Building2} color="amber" trend="+8%" trendUp aria-label={`Brands: ${brands.length}`} />
+          <StatCard title="Brands" value={typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length} icon={Building2} color="amber" trend="+8%" trendUp aria-label={`Brands: ${typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length}`} />
         )}
         <StatCard title="Active Deals" value={activeDeals} subtitle="In pipeline" icon={Handshake} color="indigo" aria-label={`Active Deals: ${activeDeals} in pipeline`} />
         <StatCard title="Deal Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" trend="+23%" trendUp aria-label={`Deal Value: $${(totalDealValue / 1000).toFixed(0)}K`} />
         {(role === "admin" || role === "agency") && (
-          <StatCard title="Pending Approvals" value={approvals.length} icon={CheckSquare} color="rose" aria-label={`Pending Approvals: ${approvals.length}`} />
+          <StatCard title="Pending Approvals" value={typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length} icon={CheckSquare} color="rose" aria-label={`Pending Approvals: ${typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length}`} />
         )}
         {role === "talent" && (
-          <StatCard title="Match Score Avg" value={partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${partnerships.length ? Math.round(partnerships.reduce((s, p) => s + (p.match_score || 0), 0) / partnerships.length) : 0}`} />
+          <StatCard title="Match Score Avg" value={resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0}`} />
         )}
       </div>
 
@@ -233,28 +287,28 @@ function DashboardContent({ user }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Pipeline chart */}
         <div className="lg:col-span-2">
-          <PipelineChart partnerships={partnerships} />
+          <PipelineChart partnerships={resolvedPartnerships} />
         </div>
 
         {/* Activity feed */}
         <div>
-          <ActivityFeed activities={activities} isLoading={loadingA} />
+          <ActivityFeed activities={resolvedActivities} isLoading={loadingAct} />
         </div>
       </div>
 
       {/* Role-specific panels */}
       {role === "talent" && (
-        <TalentDashboardPanel partnerships={partnerships} opportunities={opportunities} user={user} />
+        <TalentDashboardPanel partnerships={resolvedPartnerships} opportunities={opportunities} user={user} />
       )}
       {(role === "brand" || role === "agency") && (
-        <BrandDashboardPanel partnerships={partnerships} sequences={sequences} approvals={approvals} />
+        <BrandDashboardPanel partnerships={resolvedPartnerships} sequences={sequences} approvals={Array.isArray(resolvedApprovals) ? resolvedApprovals : []} />
       )}
 
       {/* Pitch Deck Metrics */}
       <PitchDeckMetrics />
 
       {/* Success Predictor */}
-      <SuccessPredictionPanel partnerships={partnerships} />
+      <SuccessPredictionPanel partnerships={resolvedPartnerships} />
 
       {/* AI Intelligence Feed */}
       <AIAgentWidgets />

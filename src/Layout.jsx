@@ -12,6 +12,7 @@ import UpgradeModal from "@/components/UpgradeModal";
 import FeatureGate from "@/components/FeatureGate";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
 import GlobalSearch from "@/components/search/GlobalSearch";
+import { WhatsNewButton } from "@/components/WhatsNew";
 import { Badge } from "@/components/ui/badge";
 import { roleNavItems } from "@/config/navigation";
 import Sidebar from "@/components/layout/Sidebar";
@@ -173,6 +174,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <GlobalSearch ref={globalSearchRef} />
+            <WhatsNewButton />
             <NotificationDropdown />
           </div>
         </header>

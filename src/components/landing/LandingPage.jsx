@@ -886,6 +886,14 @@ export default function LandingPage({ onGetStarted, onSelectRole }) {
       <div className="ds-wrap" style={theme.bg.startsWith("linear") ? { background: theme.bg } : { backgroundColor: theme.bg }}>
 
         {/* ── MOBILE NAV OVERLAY ──────────────────────────────────────────── */}
+        {/* TODO: Replace PNG logos below with WebP versions when available.
+             Add WebP files to public/brand/logos/ (e.g. 04_logo_transparent_ondark.webp) and
+             wrap each <img> in a <picture> element with a WebP <source> for ~30% smaller payloads:
+               <picture>
+                 <source srcSet="/brand/logos/04_logo_transparent_ondark.webp" type="image/webp" />
+                 <img src="/brand/logos/04_logo_transparent_ondark.png" ... />
+               </picture>
+        */}
         <div className={`ds-mobile-nav-overlay${mobileNavOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Navigation menu">
           <div className="ds-mobile-nav-header">
             <a href="/" style={{ display: "flex", alignItems: "center" }} onClick={() => setMobileNavOpen(false)}>

@@ -54,6 +54,10 @@ const Sidebar = React.memo(function Sidebar({
       } transition-all duration-300`}
     >
       {/* Logo */}
+      {/* TODO: Replace PNG logos with WebP versions when available.
+           Use <picture> with a WebP <source> for better compression:
+           Collapsed mark: /brand/marks/10_mark_transparent.webp
+           Full logo:       /brand/logos/04_logo_transparent_ondark.webp */}
       <div
         className={`flex items-center h-16 px-4 border-b border-white/5 ${
           effectiveCollapsed && !mobile ? "justify-center" : "gap-3"
