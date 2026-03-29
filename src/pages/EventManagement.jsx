@@ -169,9 +169,13 @@ export default function EventManagement() {
       }
 
       if (eventFilters.selectedDemographics.length > 0) {
-        const eventDemos = event.audience_demographics
-          ? (typeof event.audience_demographics === 'string' ? JSON.parse(event.audience_demographics) : event.audience_demographics)
-          : [];
+        let eventDemos = [];
+        try {
+          const raw = typeof event.audience_demographics === 'string'
+            ? JSON.parse(event.audience_demographics)
+            : event.audience_demographics;
+          eventDemos = Array.isArray(raw) ? raw : [];
+        } catch { /* malformed JSON — treat as empty */ }
         const hasMatch = eventFilters.selectedDemographics.some((demoId) =>
           eventDemos.includes(demoId)
         );
