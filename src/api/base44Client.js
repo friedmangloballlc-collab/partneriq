@@ -271,9 +271,27 @@ const auth = {
   },
 };
 
-// Edge Functions wrapper
+// Functions that should NOT count against AI quota
+const NON_AI_FUNCTIONS = new Set([
+  'initializeSubscription', 'getUserSubscriptionStatus', 'getBillingHistory',
+  'getInvoices', 'exportEntityData', 'importEntityData', 'send-welcome-email',
+  'create-phyllo-token', 'manageWebhooks',
+]);
+
+// Edge Functions wrapper with AI metering
 const functions = {
+  // Set by useAIUsage hook to enable metering
+  _meterFn: null,
+
   async invoke(functionName, args = {}) {
+    // If metering is active and this is an AI function, check + track
+    if (this._meterFn && !NON_AI_FUNCTIONS.has(functionName)) {
+      const allowed = await this._meterFn(functionName);
+      if (!allowed) {
+        throw new Error('AI_LIMIT_REACHED');
+      }
+    }
+
     const { data, error } = await supabase.functions.invoke(functionName, { body: args });
     if (error) throw error;
     return { data };

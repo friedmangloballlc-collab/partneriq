@@ -16,6 +16,7 @@ import { WhatsNewButton } from "@/components/WhatsNew";
 import { Badge } from "@/components/ui/badge";
 import { roleNavItems } from "@/config/navigation";
 import Sidebar from "@/components/layout/Sidebar";
+import AIUsageGate from "@/components/AIUsageGate";
 
 export default function Layout({ children, currentPageName }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -281,6 +282,7 @@ export default function Layout({ children, currentPageName }) {
         )}
 
         {/* Page content */}
+        <AIUsageGate />
         <main id="main-content" className="flex-1 overflow-y-auto bg-background">
           <div className="p-4 lg:p-8 max-w-[1600px] mx-auto w-full">
             <FeatureGate

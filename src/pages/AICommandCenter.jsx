@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAIUsage } from "@/hooks/useAIUsage";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,10 +8,11 @@ import {
   Brain, Loader2, Send, Sparkles, ArrowRight, Command,
   History, ChevronRight, AlertTriangle, CheckCircle2, Clock,
   Zap, TrendingUp, Users, DollarSign, BarChart3, Shield,
-  MessageSquare, X, Search, Target,
+  MessageSquare, X, Search, Target, Lock,
   FileText, Flame, PieChart, Palette, Scale
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 const SUGGESTED_QUERIES = [
   { label: "Show me at-risk partnerships", icon: AlertTriangle, color: "text-amber-600 bg-amber-50 border-amber-200 hover:bg-amber-100" },
@@ -65,6 +67,7 @@ export default function AICommandCenter() {
   const [history, setHistory] = useState(loadHistory);
   const [historyOpen, setHistoryOpen] = useState(false);
   const inputRef = useRef(null);
+  const { usage, limit, remaining, atLimit } = useAIUsage();
 
   // Keyboard shortcut: Ctrl+K / Cmd+K
   useEffect(() => {
@@ -98,7 +101,11 @@ export default function AICommandCenter() {
         setError(res?.data?.error || "Unexpected response from Command Center.");
       }
     } catch (err) {
-      setError(err.message || "Failed to process your query.");
+      if (err.message === 'AI_LIMIT_REACHED') {
+        setError(`You've used all ${limit} AI queries this month. Upgrade your plan for more.`);
+      } else {
+        setError(err.message || "Failed to process your query.");
+      }
     } finally {
       setLoading(false);
     }
@@ -143,6 +150,20 @@ export default function AICommandCenter() {
           <p className="text-indigo-100 text-sm max-w-lg mx-auto">
             Ask anything about your partnerships, creators, brands, and deals. Get instant AI-powered insights routed through specialized agents.
           </p>
+          {limit !== Infinity && (
+            <div className="mt-2 flex items-center justify-center gap-2">
+              <Badge variant="outline" className="bg-white/10 text-white border-white/20 text-xs">
+                {remaining}/{limit} queries remaining this month
+              </Badge>
+              {atLimit && (
+                <Link to={createPageUrl("SubscriptionManagement")}>
+                  <Badge className="bg-amber-500 text-white text-xs cursor-pointer hover:bg-amber-600">
+                    <Lock className="w-3 h-3 mr-1" /> Upgrade for more
+                  </Badge>
+                </Link>
+              )}
+            </div>
+          )}
           <div className="mt-2 flex items-center justify-center gap-1.5 text-indigo-200 text-xs">
             <Command className="w-3 h-3" />
             <span>Press</span>
