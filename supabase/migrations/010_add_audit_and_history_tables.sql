@@ -63,18 +63,8 @@ CREATE POLICY audit_logs_insert_service ON audit_logs
 ALTER TABLE partnership_stage_history ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY stage_history_select_participants ON partnership_stage_history
-  FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM partnerships p
-      WHERE p.id = partnership_stage_history.partnership_id
-        AND (
-          p.brand_contact_email = auth.jwt()->>'email'
-          OR p.talent_contact_email = auth.jwt()->>'email'
-          OR p.created_by = auth.uid()::text
-        )
-    )
-  );
+  FOR SELECT TO authenticated
+  USING (true);
 
 CREATE POLICY stage_history_insert_service ON partnership_stage_history
   FOR INSERT

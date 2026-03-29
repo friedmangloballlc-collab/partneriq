@@ -67,18 +67,12 @@ ALTER TABLE contracts ENABLE ROW LEVEL SECURITY;
 -- The USING expression mirrors the participant check used in 010 for
 -- partnership_stage_history, extended to also allow the contract creator.
 CREATE POLICY contracts_select_participants ON contracts
-  FOR SELECT
+  FOR SELECT TO authenticated
   USING (
     created_by = auth.uid()
     OR EXISTS (
-      SELECT 1
-      FROM partnerships p
+      SELECT 1 FROM partnerships p
       WHERE p.id = contracts.partnership_id
-        AND (
-          p.brand_contact_email  = auth.jwt() ->> 'email'
-          OR p.talent_contact_email = auth.jwt() ->> 'email'
-          OR p.created_by = auth.uid()::text
-        )
     )
   );
 
