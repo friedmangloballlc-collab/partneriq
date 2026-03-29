@@ -18,25 +18,13 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      // Try to load profile — retry once after a short delay if RLS blocks the first attempt
-      let profile = null;
-      let profileError = null;
-      for (let attempt = 0; attempt < 2; attempt++) {
-        const result = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', supabaseUser.id)
-          .single();
-        profile = result.data;
-        profileError = result.error;
-        if (profile) break;
-        if (attempt === 0) await new Promise(r => setTimeout(r, 500)); // Wait 500ms before retry
-      }
+      // Use SECURITY DEFINER RPC — bypasses RLS, no race condition with auth.uid()
+      const { data: profile, error: rpcError } = await supabase
+        .rpc('get_my_profile')
+        .single();
 
-      if (profileError || !profile) {
-        // Profile query failed — could be RLS timing or genuinely missing row.
-        // Auto-create a profile if one doesn't exist (common for first-time OAuth users).
-        // Only INSERT if truly missing — never upsert, to avoid overwriting admin/role
+      if (rpcError || !profile) {
+        // Profile doesn't exist yet — first-time OAuth user. Create one.
         const { data: newProfile } = await supabase
           .from('profiles')
           .insert({
@@ -50,7 +38,7 @@ export const AuthProvider = ({ children }) => {
           .select()
           .single()
           .then(res => res)
-          .catch(() => ({ data: null })); // Row already exists — that's fine
+          .catch(() => ({ data: null }));
 
         if (newProfile) {
           setAuthError(null);
@@ -59,7 +47,7 @@ export const AuthProvider = ({ children }) => {
           return;
         }
 
-        // If even the upsert failed, let them through anyway — don't block existing users
+        // Insert failed (shouldn't happen) — let them through with defaults
         setAuthError(null);
         setUser({ id: supabaseUser.id, email: supabaseUser.email, role: 'brand', plan: 'free' });
         setIsAuthenticated(true);
@@ -75,7 +63,6 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     } catch (err) {
       console.error('Failed to load profile:', err);
-      // Don't block the user — let them through with defaults
       setAuthError(null);
       setUser({ id: supabaseUser.id, email: supabaseUser.email, role: 'brand', plan: 'free' });
       setIsAuthenticated(true);
