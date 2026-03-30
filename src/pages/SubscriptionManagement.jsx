@@ -74,7 +74,6 @@ export default function SubscriptionManagement() {
       const response = await base44.functions.invoke("initializeSubscription", {
         planTier,
         billingCycle,
-        userType
       });
 
       const stripe = await stripePromise;

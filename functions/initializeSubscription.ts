@@ -1,90 +1,108 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-import Stripe from 'npm:stripe@15.0.0';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import Stripe from "https://esm.sh/stripe@15.0.0";
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
+const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { apiVersion: "2024-04-10" });
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-Deno.serve(async (req) => {
+// Price map: role → tier → { monthly, annual }
+// These need to be replaced with actual Stripe Price IDs after creating products in Stripe Dashboard
+const PRICE_MAP: Record<string, Record<string, { monthly: string; annual: string; planKey: string }>> = {
+  talent: {
+    rising:  { monthly: "price_talent_rising_mo",  annual: "price_talent_rising_yr",  planKey: "rising" },
+    pro:     { monthly: "price_talent_pro_mo",     annual: "price_talent_pro_yr",     planKey: "pro" },
+    elite:   { monthly: "price_talent_elite_mo",   annual: "price_talent_elite_yr",   planKey: "elite" },
+  },
+  brand: {
+    growth:     { monthly: "price_brand_growth_mo",     annual: "price_brand_growth_yr",     planKey: "growth" },
+    scale:      { monthly: "price_brand_scale_mo",      annual: "price_brand_scale_yr",      planKey: "scale" },
+    enterprise: { monthly: "price_brand_enterprise_mo", annual: "price_brand_enterprise_yr", planKey: "enterprise" },
+  },
+  agency: {
+    agency_starter:    { monthly: "price_agency_starter_mo",    annual: "price_agency_starter_yr",    planKey: "agency_starter" },
+    agency_pro:        { monthly: "price_agency_pro_mo",        annual: "price_agency_pro_yr",        planKey: "agency_pro" },
+    agency_enterprise: { monthly: "price_agency_enterprise_mo", annual: "price_agency_enterprise_yr", planKey: "agency_enterprise" },
+  },
+  manager: {
+    manager_single:     { monthly: "price_manager_single_mo",     annual: "price_manager_single_yr",     planKey: "manager_single" },
+    manager_pro:        { monthly: "price_manager_pro_mo",        annual: "price_manager_pro_yr",        planKey: "manager_pro" },
+    manager_enterprise: { monthly: "price_manager_enterprise_mo", annual: "price_manager_enterprise_yr", planKey: "manager_enterprise" },
+  },
+};
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type" } });
+  }
+
   try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    // Auth
+    const authHeader = req.headers.get("authorization")?.replace("Bearer ", "");
+    if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    const { data: { user }, error: authError } = await createClient(SUPABASE_URL, authHeader).auth.getUser();
+    if (authError || !user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+    // Get user profile for role
+    const { data: profile } = await supabase.from("profiles").select("role, email, full_name").eq("id", user.id).single();
+    if (!profile) return Response.json({ error: "Profile not found" }, { status: 404 });
+
+    const { planTier, billingCycle } = await req.json();
+    const userRole = profile.role || "brand";
+
+    if (!planTier || !billingCycle) {
+      return Response.json({ error: "Missing planTier or billingCycle" }, { status: 400 });
     }
 
-    const { planTier, billingCycle, userType } = await req.json();
-
-    if (!planTier || !billingCycle || !userType) {
-      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    // Look up price
+    const roleMap = PRICE_MAP[userRole];
+    if (!roleMap || !roleMap[planTier]) {
+      return Response.json({ error: `No pricing found for ${userRole}/${planTier}` }, { status: 400 });
     }
 
-    // Get plan details
-    const plan = await base44.asServiceRole.entities.SubscriptionPlan.filter({
-      user_type: userType,
-      tier: planTier
-    });
+    const priceConfig = roleMap[planTier];
+    const priceId = billingCycle === "annual" ? priceConfig.annual : priceConfig.monthly;
 
-    if (!plan || plan.length === 0) {
-      return Response.json({ error: 'Plan not found' }, { status: 404 });
-    }
+    // Find or create Stripe customer
+    const customers = await stripe.customers.list({ email: profile.email, limit: 1 });
+    let customerId: string;
 
-    const planDetails = plan[0];
-    const priceId = billingCycle === 'annual' ? planDetails.stripe_annual_price_id : planDetails.stripe_monthly_price_id;
-
-    if (!priceId) {
-      return Response.json({ error: 'Price not configured for this plan' }, { status: 400 });
-    }
-
-    // Check if user already has subscription
-    const existingSubscription = await base44.asServiceRole.entities.UserSubscription.filter({
-      user_email: user.email,
-      user_type: userType
-    });
-
-    let customerId;
-
-    if (existingSubscription.length > 0 && existingSubscription[0].stripe_customer_id) {
-      customerId = existingSubscription[0].stripe_customer_id;
+    if (customers.data.length > 0) {
+      customerId = customers.data[0].id;
     } else {
-      // Create Stripe customer
       const customer = await stripe.customers.create({
-        email: user.email,
-        name: user.full_name,
-        metadata: {
-          user_type: userType,
-          user_email: user.email
-        }
+        email: profile.email,
+        name: profile.full_name || undefined,
+        metadata: { user_id: user.id, role: userRole },
       });
       customerId = customer.id;
     }
 
     // Create checkout session
+    const origin = req.headers.get("origin") || "https://www.thedealstage.com";
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1
-        }
-      ],
-      success_url: `${req.headers.get('origin')}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.get('origin')}/subscription-management?user_type=${userType}`,
+      mode: "subscription",
+      payment_method_types: ["card"],
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${origin}/SubscriptionManagement?success=true`,
+      cancel_url: `${origin}/SubscriptionManagement?canceled=true`,
       metadata: {
-        user_email: user.email,
-        user_type: userType,
-        plan_tier: planTier
-      }
+        user_id: user.id,
+        user_email: profile.email,
+        role: userRole,
+        plan_key: priceConfig.planKey,
+      },
     });
 
-    return Response.json({ 
-      sessionId: session.id,
-      customerId: customerId
+    return Response.json({ sessionId: session.id, customerId }, {
+      headers: { "Access-Control-Allow-Origin": "*" },
     });
 
   } catch (error) {
-    console.error('Subscription initialization error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error("initializeSubscription error:", error);
+    return Response.json({ error: error.message }, { status: 500, headers: { "Access-Control-Allow-Origin": "*" } });
   }
 });

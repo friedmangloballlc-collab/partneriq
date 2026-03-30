@@ -1,79 +1,75 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-import Stripe from 'npm:stripe@15.0.0';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import Stripe from "https://esm.sh/stripe@15.0.0";
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
+const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { apiVersion: "2024-04-10" });
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-Deno.serve(async (req) => {
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type" } });
+  }
+
   try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = req.headers.get("authorization")?.replace("Bearer ", "");
+    if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    const userClient = createClient(SUPABASE_URL, authHeader);
+    const { data: { user }, error: authError } = await userClient.auth.getUser();
+    if (authError || !user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+    const { newPlanTier, newPriceId } = await req.json();
+    if (!newPlanTier) return Response.json({ error: "Missing newPlanTier" }, { status: 400 });
+
+    // Find user's Stripe customer
+    const { data: profile } = await supabase.from("profiles").select("email, role").eq("id", user.id).single();
+    if (!profile) return Response.json({ error: "Profile not found" }, { status: 404 });
+
+    const customers = await stripe.customers.list({ email: profile.email, limit: 1 });
+    if (customers.data.length === 0) {
+      return Response.json({ error: "No Stripe customer found. Please subscribe first." }, { status: 404 });
     }
 
-    const { userType, newPlanTier } = await req.json();
+    const customerId = customers.data[0].id;
 
-    if (!userType || !newPlanTier) {
-      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    // Find active subscription
+    const subscriptions = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 1 });
+    if (subscriptions.data.length === 0) {
+      return Response.json({ error: "No active subscription found" }, { status: 404 });
     }
 
-    // Get current subscription
-    const currentSub = await base44.asServiceRole.entities.UserSubscription.filter({
-      user_email: user.email,
-      user_type: userType
-    });
+    const subscription = subscriptions.data[0];
 
-    if (currentSub.length === 0 || !currentSub[0].stripe_subscription_id) {
-      return Response.json({ error: 'No active subscription found' }, { status: 404 });
-    }
-
-    // Get new plan details
-    const newPlan = await base44.asServiceRole.entities.SubscriptionPlan.filter({
-      user_type: userType,
-      tier: newPlanTier
-    });
-
-    if (newPlan.length === 0) {
-      return Response.json({ error: 'Plan not found' }, { status: 404 });
-    }
-
-    const newPlanDetails = newPlan[0];
-    const priceId = currentSub[0].billing_cycle === 'annual' 
-      ? newPlanDetails.stripe_annual_price_id 
-      : newPlanDetails.stripe_monthly_price_id;
-
-    // Update subscription in Stripe
-    const stripeSubscription = await stripe.subscriptions.retrieve(currentSub[0].stripe_subscription_id);
-    
-    const updated = await stripe.subscriptions.update(currentSub[0].stripe_subscription_id, {
-      items: [
-        {
-          id: stripeSubscription.items.data[0].id,
-          price: priceId
-        }
-      ],
-      proration_behavior: 'create_prorations',
+    // Update subscription with new price
+    const updated = await stripe.subscriptions.update(subscription.id, {
+      items: [{
+        id: subscription.items.data[0].id,
+        price: newPriceId,
+      }],
+      proration_behavior: "create_prorations",
       metadata: {
-        ...stripeSubscription.metadata,
-        plan_tier: newPlanTier
-      }
+        ...subscription.metadata,
+        user_id: user.id,
+        plan_key: newPlanTier,
+      },
     });
 
-    // Update database
-    await base44.asServiceRole.entities.UserSubscription.update(currentSub[0].id, {
-      current_plan: newPlanTier
-    });
+    // Update profiles.plan immediately
+    await supabase
+      .from("profiles")
+      .update({ plan: newPlanTier, updated_at: new Date().toISOString() })
+      .eq("id", user.id);
 
     return Response.json({
       success: true,
-      message: 'Subscription upgraded successfully',
-      new_plan: newPlanTier,
-      next_billing_date: new Date(updated.current_period_end * 1000).toISOString()
-    });
+      plan: newPlanTier,
+      next_billing: new Date(updated.current_period_end * 1000).toISOString(),
+    }, { headers: { "Access-Control-Allow-Origin": "*" } });
 
   } catch (error) {
-    console.error('Upgrade subscription error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error("upgradeSubscription error:", error);
+    return Response.json({ error: error.message }, { status: 500, headers: { "Access-Control-Allow-Origin": "*" } });
   }
 });
