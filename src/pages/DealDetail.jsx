@@ -10,6 +10,7 @@ import EscrowPanel from "@/components/deals/EscrowPanel";
 import DisputePanel from "@/components/deals/DisputePanel";
 import ContractScanner from "@/components/deals/ContractScanner";
 import ProofOfPerformance from "@/components/deals/ProofOfPerformance";
+import DealVerification from "@/components/verification/DealVerification";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -962,6 +963,21 @@ export default function DealDetail() {
             partnershipId={dealId}
             userRole={currentUser?.role}
           />
+          {/* Deal Deliverable Verification */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm">Verify Deliverable</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <DealVerification
+                dealId={dealId}
+                creatorId={deal.talent_id || deal.creator_id}
+                brandName={deal.brand_name || ""}
+                requiredLinks={deal.required_links || []}
+              />
+            </CardContent>
+          </Card>
+
           {/* Proof of Performance — shown only when final payment is released */}
           {deal.final_payment_released && (
             <ProofOfPerformance deal={deal} />

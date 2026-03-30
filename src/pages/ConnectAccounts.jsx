@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/lib/AuthContext";
+import CreatorEnrichment from "@/components/verification/CreatorEnrichment";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -351,6 +352,9 @@ export default function ConnectAccounts() {
           </div>
         </CardContent>
       </Card>
+
+      {/* AI Profile Enrichment */}
+      <CreatorEnrichment />
 
       {/* Connected Summary */}
       {connected.length > 0 && (

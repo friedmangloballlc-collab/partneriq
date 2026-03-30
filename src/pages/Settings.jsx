@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useToast } from "@/components/ui/use-toast";
+import BrandEnrichment from "@/components/verification/BrandEnrichment";
 
 // ─── Zod schema ──────────────────────────────────────────────────────────────
 
@@ -323,6 +324,9 @@ export default function Settings() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Brand AI Enrichment — brand users only */}
+      {(user?.role === "brand" || user?.role === "agency") && <BrandEnrichment />}
 
       {/* My Manager — talent only */}
       {user?.role === "talent" && (
