@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
-  <url><loc>https://www.thedealstage.com/</loc><lastmod>2026-03-23</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.thedealstage.com/</loc><lastmod>2026-03-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
-  <!-- Marketing pages -->
-  <url><loc>https://www.thedealstage.com/About</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.thedealstage.com/Blog</loc><lastmod>2026-03-23</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.thedealstage.com/Careers</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.thedealstage.com/Contact</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/Customers</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/Demo</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.thedealstage.com/calculator</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Core marketing pages -->
+  <url><loc>https://www.thedealstage.com/pricing</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.thedealstage.com/About</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.thedealstage.com/Blog</loc><lastmod>2026-03-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.thedealstage.com/Demo</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.thedealstage.com/Contact</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/Customers</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/Careers</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.thedealstage.com/FAQ</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/calculator</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Feature pages -->
-  <url><loc>https://www.thedealstage.com/features/talent-discovery</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.thedealstage.com/features/deal-pipeline</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.thedealstage.com/features/media-kits</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/payments</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/integrations</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/campaign-analytics</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/send-deals</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/manage-deals</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/browse-talent</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.thedealstage.com/features/manage-talent</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/talent-discovery</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.thedealstage.com/features/deal-pipeline</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.thedealstage.com/features/media-kits</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/payments</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/integrations</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/campaign-analytics</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/send-deals</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/manage-deals</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/browse-talent</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/features/manage-talent</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Competitor comparison pages -->
+  <url><loc>https://www.thedealstage.com/vs-grin</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/vs-aspire</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.thedealstage.com/vs-creatoriq</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- For managers -->
+  <url><loc>https://www.thedealstage.com/for-managers</loc><lastmod>2026-03-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Legal pages -->
-  <url><loc>https://www.thedealstage.com/terms</loc><lastmod>2026-03-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.thedealstage.com/privacy</loc><lastmod>2026-03-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.thedealstage.com/CookiePolicy</loc><lastmod>2026-03-23</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://www.thedealstage.com/GDPR</loc><lastmod>2026-03-23</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.thedealstage.com/terms</loc><lastmod>2026-03-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.thedealstage.com/privacy</loc><lastmod>2026-03-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.thedealstage.com/CookiePolicy</loc><lastmod>2026-03-30</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.thedealstage.com/GDPR</loc><lastmod>2026-03-30</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
