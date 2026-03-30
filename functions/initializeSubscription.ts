@@ -10,24 +10,24 @@ const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 // These need to be replaced with actual Stripe Price IDs after creating products in Stripe Dashboard
 const PRICE_MAP: Record<string, Record<string, { monthly: string; annual: string; planKey: string }>> = {
   talent: {
-    rising:  { monthly: "price_talent_rising_mo",  annual: "price_talent_rising_yr",  planKey: "rising" },
-    pro:     { monthly: "price_talent_pro_mo",     annual: "price_talent_pro_yr",     planKey: "pro" },
-    elite:   { monthly: "price_talent_elite_mo",   annual: "price_talent_elite_yr",   planKey: "elite" },
+    rising:  { monthly: "price_1TCQCGLZgEiertANe4iXArR6",  annual: "price_1TCQCGLZgEiertANW2zyxCMl",  planKey: "rising" },
+    pro:     { monthly: "price_1TCQCHLZgEiertANaHVh7Etm",  annual: "price_1TCQCHLZgEiertANbhM0qgQ0",  planKey: "pro" },
+    elite:   { monthly: "price_1TCQCHLZgEiertANLVZor0p0",  annual: "price_1TCQCHLZgEiertANxfsX6APC",  planKey: "elite" },
   },
   brand: {
-    growth:     { monthly: "price_brand_growth_mo",     annual: "price_brand_growth_yr",     planKey: "growth" },
-    scale:      { monthly: "price_brand_scale_mo",      annual: "price_brand_scale_yr",      planKey: "scale" },
-    enterprise: { monthly: "price_brand_enterprise_mo", annual: "price_brand_enterprise_yr", planKey: "enterprise" },
+    growth:     { monthly: "price_1TCQCILZgEiertANayoe0zzJ",  annual: "price_1TCQCILZgEiertANKNvcKGe6",  planKey: "growth" },
+    scale:      { monthly: "price_1TGk9NLZgEiertAN3XbmNxiR",  annual: "price_1TCQCJLZgEiertAN7ZX5A21S",  planKey: "scale" },
+    enterprise: { monthly: "price_1TGkFDLZgEiertANnynm2YE3",  annual: "price_1TGkFpLZgEiertAN7z8baGdR",  planKey: "enterprise" },
   },
   agency: {
-    agency_starter:    { monthly: "price_agency_starter_mo",    annual: "price_agency_starter_yr",    planKey: "agency_starter" },
-    agency_pro:        { monthly: "price_agency_pro_mo",        annual: "price_agency_pro_yr",        planKey: "agency_pro" },
-    agency_enterprise: { monthly: "price_agency_enterprise_mo", annual: "price_agency_enterprise_yr", planKey: "agency_enterprise" },
+    agency_starter:    { monthly: "price_1TCQCJLZgEiertANp0VaBIlR",  annual: "price_1TCQCKLZgEiertANMK3OtXGQ",  planKey: "agency_starter" },
+    agency_pro:        { monthly: "price_1TCQCKLZgEiertAN70z2hM30",   annual: "price_1TCQCKLZgEiertAN85cHfAXd",   planKey: "agency_pro" },
+    agency_enterprise: { monthly: "price_1TCQ9MLZgEiertAN5Kcd9Gkq",   annual: "price_1TCQ9MLZgEiertANq0rPIP9B",   planKey: "agency_enterprise" },
   },
   manager: {
-    manager_single:     { monthly: "price_manager_single_mo",     annual: "price_manager_single_yr",     planKey: "manager_single" },
-    manager_pro:        { monthly: "price_manager_pro_mo",        annual: "price_manager_pro_yr",        planKey: "manager_pro" },
-    manager_enterprise: { monthly: "price_manager_enterprise_mo", annual: "price_manager_enterprise_yr", planKey: "manager_enterprise" },
+    manager_single:     { monthly: "price_1TGkROLZgEiertANOKIDZ5iI",  annual: "price_1TGkRlLZgEiertANWbg88N9p",  planKey: "manager_single" },
+    manager_pro:        { monthly: "price_1TGkS0LZgEiertANV0LCEVyR",  annual: "price_1TGkT0LZgEiertANpcme0v8x",  planKey: "manager_pro" },
+    manager_enterprise: { monthly: "price_1TGkThLZgEiertANyvhWz",     annual: "price_1TGkU0LZgEiertANZtIQ0uyC",  planKey: "manager_enterprise" },
   },
 };
 
