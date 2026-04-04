@@ -470,13 +470,23 @@ function BrandsTab() {
   const { data: brands = [], isLoading } = useQuery({
     queryKey: ["admin-brands"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("brands")
-        .select("*")
-        .order("name", { ascending: true })
-        .limit(5000);
-      if (error) throw error;
-      return data;
+      // Supabase caps at 1000 per request — fetch in chunks
+      const allBrands = [];
+      let from = 0;
+      const chunkSize = 1000;
+      while (true) {
+        const { data, error } = await supabase
+          .from("brands")
+          .select("*")
+          .order("name", { ascending: true })
+          .range(from, from + chunkSize - 1);
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+        allBrands.push(...data);
+        if (data.length < chunkSize) break;
+        from += chunkSize;
+      }
+      return allBrands;
     },
   });
 
