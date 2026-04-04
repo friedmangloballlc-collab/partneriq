@@ -23,7 +23,7 @@ async function callClaude(prompt: string): Promise<string> {
     },
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
-      max_tokens: 4000,
+      max_tokens: 8000,
       messages: [{ role: "user", content: prompt }],
     }),
   });
@@ -96,7 +96,7 @@ serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const clearExisting = body.clear_existing !== false;
-    const batchSize = body.batch_size || 10; // process N brands per run
+    const batchSize = body.batch_size || 5; // process N brands per run
     const offset = body.offset || 0;
 
     // Clear existing contacts if requested
@@ -123,20 +123,54 @@ serve(async (req) => {
 
     for (const brand of brands) {
       try {
-        const prompt = `For the real company "${brand.name}" (domain: ${brand.domain || "unknown"}, industry: ${brand.industry || "unknown"}, size: ${brand.company_size || "unknown"}), identify the most likely decision-makers who handle influencer partnerships, sponsorships, and brand collaborations.
+        const prompt = `For the real company "${brand.name}" (domain: ${brand.domain || "unknown"}, industry: ${brand.industry || "unknown"}, size: ${brand.company_size || "unknown"}), identify ALL decision-makers across every relevant department.
 
-Use your knowledge of this specific company to provide real names where you are confident they are accurate. For roles where you are not confident about the specific person, provide the role title with "likely_name" as null.
+You MUST provide contacts for EVERY one of these departments that applies to this company. Provide as many real people as you can identify. For roles where you don't know the specific person, still include the role with full_name as null.
 
-Return ONLY a valid JSON array of objects. Each object must have:
-- "full_name": the person's real full name if you are confident, or null if unsure
+DEPARTMENTS AND ROLES TO COVER:
+
+1. PARTNERSHIPS, SPONSORSHIPS, ACTIVATIONS:
+Head/VP of Partnerships, Director of Strategic Partnerships, VP of Business Development, Head of Brand Activations, Director of Sponsorships, Head of Sponsorships, VP of Sponsorship Sales, Sponsorship Manager, Chief Partnership Officer, VP of Integrated Marketing, Brand Partnerships Manager, Commercial Director, VP of Commercial Partnerships, Head of Licensing, Co-Marketing Contact
+
+2. MARKETING, BRAND:
+CMO, VP of Marketing, Marketing Director, Head of Brand Marketing, Influencer Marketing Manager, Marketing Specialist, Digital Marketing Intern
+
+3. ADVERTISING, SALES:
+VP of Sales, Head of Advertising, Chief Revenue Officer, Director of Ad Sales
+
+4. DIGITAL, SOCIAL, AUDIENCE, GROWTH:
+Head of Digital, Digital Partnerships Manager, Social Media Director, VP of Digital Strategy, Head of Audience Development, VP of Growth, Director of Audience Engagement
+
+5. CONTENT, CREATIVE:
+Creative Director, Head of Content Strategy, VP of Programming, Executive Producer, Head of Video, Video Partnerships Manager, Newsletter Editor, Head of Newsletter Partnerships
+
+6. EDITORIAL:
+Editor-in-Chief, Managing Editor, Executive Editor, Editorial Director
+
+7. COMMUNICATIONS, PR:
+Head of Communications, PR Director, VP of Public Relations
+
+8. EVENTS, BOOKING:
+Events Director, Head of Programming, VP of Events, Booking Manager, Podcast Booking, Guest Submission Contact, Speaker Bureau
+
+9. MANAGEMENT:
+CEO/Founder, General Manager, Talent Manager
+
+10. TALENT, AGENCY:
+Agent, Manager, Publicist, Talent Rep, Talent Agency Contact
+
+11. OTHER:
+Affiliate Partnerships Contact, Syndication/Licensing Contact, Client Services Director, Director of Client Relations, Head of Podcast Sales
+
+Return ONLY a valid JSON array. Each object must have:
+- "full_name": the person's real full name if confident, or null
 - "role_title": their exact job title
-- "role_tier": priority number 1-9 based on this hierarchy:
-${ROLE_CATEGORIES}
+- "role_tier": priority number 1-9 based on hierarchy above (1=partnerships, 2=marketing, etc.)
 - "email_pattern": likely email format (e.g., "firstname.lastname@domain.com") or null
-- "linkedin_url": their LinkedIn profile URL if known, or null
-- "department": which department (partnerships, marketing, digital, content, sales, communications, events, management, other)
+- "linkedin_url": their LinkedIn URL if known, or null
+- "department": one of: partnerships, marketing, advertising, digital, content, editorial, communications, events, management, talent, other
 
-Provide 3-5 contacts per company, prioritizing partnership and sponsorship roles.
+Generate 15-25 contacts per company. Cover EVERY department listed above that is relevant to this company. For large companies (enterprise), aim for 20-25. For smaller companies, 10-15.
 Only include people you believe actually work at this company based on your training data.
 Do NOT make up names — use null for likely_name if unsure.`;
 

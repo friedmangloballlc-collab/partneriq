@@ -1779,7 +1779,7 @@ export default function AdminDataManager() {
       while (hasMore) {
         const { data } = await base44.functions.invoke("populateContacts", {
           clear_existing: offset === 0,
-          batch_size: 10,
+          batch_size: 5,
           offset,
         });
         totalContacts += data?.contacts_added || 0;
@@ -1914,7 +1914,7 @@ export default function AdminDataManager() {
           <p className="text-xs text-emerald-700 mt-0.5">
             {populatingContacts
               ? `Generating contacts... ${contactResult?.progress || "starting"} — ${contactResult?.contacts_added || 0} contacts added so far`
-              : "Generate 3-5 verified decision-maker contacts per brand (partnerships, marketing, sponsorships, digital). Uses AI + GrowMeOrganic email verification."}
+              : "Generate 15-25 decision-makers per brand across all departments (partnerships, marketing, sales, digital, content, editorial, PR, events, management). AI + GMO email verification."}
           </p>
           {contactResult?.done && (
             <p className="text-xs text-emerald-800 mt-1 font-medium">
