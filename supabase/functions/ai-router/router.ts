@@ -16,12 +16,12 @@ interface ProviderResponse {
 }
 
 const TIER_PROVIDERS: Record<RoutingTier, string[]> = {
-  COMPLEX: ['anthropic', 'deepseek', 'gemini', 'groq'],
-  STANDARD: ['deepseek', 'anthropic_haiku', 'gemini', 'groq'],
-  REASONING: ['deepseek_reasoner', 'anthropic', 'gemini'],
-  FREE: ['gemini', 'deepseek', 'groq', 'anthropic_haiku'],
-  FAST: ['groq', 'deepseek', 'gemini', 'anthropic_haiku'],
-  BATCH: ['anthropic_haiku', 'deepseek', 'gemini'],
+  COMPLEX: ['anthropic', 'openai_gpt4o', 'deepseek', 'gemini'],
+  STANDARD: ['openai', 'deepseek', 'gemini', 'groq'],
+  REASONING: ['anthropic', 'deepseek_reasoner', 'openai_gpt4o', 'gemini'],
+  FREE: ['openai', 'gemini', 'deepseek', 'groq'],
+  FAST: ['openai', 'groq', 'deepseek', 'gemini'],
+  BATCH: ['openai', 'deepseek', 'gemini'],
 };
 
 async function callAnthropic(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'claude-sonnet-4-5', signal?: AbortSignal): Promise<ProviderResponse> {
@@ -142,11 +142,34 @@ async function callGroq(prompt: string, systemPrompt: string | undefined, maxTok
   };
 }
 
+async function callOpenAI(prompt: string, systemPrompt: string | undefined, maxTokens: number, temperature: number, model = 'gpt-4o-mini', signal?: AbortSignal): Promise<ProviderResponse> {
+  const key = Deno.env.get('OPENAI_API_KEY');
+  if (!key) throw new Error('OPENAI_API_KEY not set');
+  const messages: any[] = [];
+  if (systemPrompt) messages.push({ role: 'system', content: systemPrompt });
+  messages.push({ role: 'user', content: prompt });
+  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model, max_tokens: maxTokens, temperature, messages }),
+    signal,
+  });
+  if (!resp.ok) throw new Error(`OpenAI ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
+  const result = await resp.json();
+  return {
+    text: result?.choices?.[0]?.message?.content || '',
+    inputTokens: result?.usage?.prompt_tokens,
+    outputTokens: result?.usage?.completion_tokens,
+  };
+}
+
 type ProviderCallFn = (p: string, s: string | undefined, m: number, t: number, model?: string, signal?: AbortSignal) => Promise<ProviderResponse>;
 
 const PROVIDER_CALLS: Record<string, ProviderCallFn> = {
   anthropic: (p, s, m, t, _model?, signal?) => callAnthropic(p, s, m, t, 'claude-sonnet-4-5', signal),
   anthropic_haiku: (p, s, m, t, _model?, signal?) => callAnthropic(p, s, m, t, 'claude-3-5-haiku-20241022', signal),
+  openai: (p, s, m, t, _model?, signal?) => callOpenAI(p, s, m, t, 'gpt-4o-mini', signal),
+  openai_gpt4o: (p, s, m, t, _model?, signal?) => callOpenAI(p, s, m, t, 'gpt-4o', signal),
   deepseek: (p, s, m, t, _model?, signal?) => callDeepSeek(p, s, m, t, 'deepseek-chat', signal),
   deepseek_reasoner: (p, s, m, t, _model?, signal?) => callDeepSeek(p, s, m, t, 'deepseek-reasoner', signal),
   gemini: callGemini,
@@ -156,6 +179,8 @@ const PROVIDER_CALLS: Record<string, ProviderCallFn> = {
 const PROVIDER_MODELS: Record<string, string> = {
   anthropic: 'claude-sonnet-4-5',
   anthropic_haiku: 'claude-3-5-haiku-20241022',
+  openai: 'gpt-4o-mini',
+  openai_gpt4o: 'gpt-4o',
   deepseek: 'deepseek-chat',
   deepseek_reasoner: 'deepseek-reasoner',
   gemini: 'gemini-2.0-flash',
