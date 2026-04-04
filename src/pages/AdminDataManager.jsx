@@ -458,10 +458,35 @@ function parseBrandDescription(description) {
   return { description, company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
 }
 
+// Talent type → relevant brand industries mapping
+const TALENT_BRAND_MAP = {
+  "All Talents": null,
+  "Fashion Influencer": ["fashion", "apparel", "luxury", "streetwear", "jewelry", "watches", "beauty"],
+  "Beauty Creator": ["beauty", "cosmetics", "skincare", "fashion", "health"],
+  "Tech Reviewer": ["tech", "saas", "consumer electronics", "software", "gaming"],
+  "Fitness Influencer": ["fitness", "health", "sporting goods", "wellness", "activewear", "supplements"],
+  "Food Creator": ["food", "food_beverage", "restaurants", "wine_spirits", "cooking"],
+  "Travel Influencer": ["travel", "airlines", "hospitality", "outdoor_adventure", "luxury"],
+  "Gaming Creator": ["gaming", "tech", "entertainment", "esports"],
+  "Lifestyle Vlogger": ["lifestyle", "diy_home", "home", "furniture", "subscription"],
+  "Finance Educator": ["finance", "insurance", "crypto_web3", "business", "fintech"],
+  "Music Artist": ["music", "entertainment", "audio", "streaming"],
+  "Sports Athlete": ["sports", "sporting_goods", "fitness", "activewear"],
+  "Parenting Creator": ["parenting", "kids_family", "baby", "education", "family"],
+  "Pet Influencer": ["pets", "pet food", "veterinary"],
+  "Auto/Car Reviewer": ["automotive", "auto", "ev", "car"],
+  "Photography Creator": ["photography", "camera", "creative", "art_design"],
+  "Education Creator": ["education", "elearning", "edtech", "professional"],
+  "Health/Wellness": ["health", "mental_health", "pharma_otc", "wellness", "supplements"],
+  "Sustainability Advocate": ["sustainability", "clean_energy", "eco", "organic"],
+  "Real Estate Creator": ["real_estate", "property", "mortgage", "home"],
+};
+
 function BrandsTab() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [talentFilter, setTalentFilter] = useState("All Talents");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editRow, setEditRow] = useState(null);
   const [deleteRow, setDeleteRow] = useState(null);
@@ -493,13 +518,25 @@ function BrandsTab() {
   const { sorted, sortKey, sortDir, handleSort } = useSortedData(brands, "name");
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return sorted;
-    const q = search.toLowerCase();
-    return sorted.filter(b =>
-      [b.name, b.industry, b.domain, b.location, b.contact_email, b.company_size]
-        .some(v => String(v ?? "").toLowerCase().includes(q))
-    );
-  }, [sorted, search]);
+    let rows = sorted;
+    // Talent type filter
+    const industries = TALENT_BRAND_MAP[talentFilter];
+    if (industries) {
+      rows = rows.filter(b => {
+        const ind = String(b.industry ?? "").toLowerCase();
+        return industries.some(i => ind.includes(i));
+      });
+    }
+    // Search filter
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      rows = rows.filter(b =>
+        [b.name, b.industry, b.domain, b.location, b.contact_email, b.company_size]
+          .some(v => String(v ?? "").toLowerCase().includes(q))
+      );
+    }
+    return rows;
+  }, [sorted, search, talentFilter]);
 
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
@@ -645,6 +682,16 @@ function BrandsTab() {
           />
         </div>
         <div className="flex gap-2">
+          <Select value={talentFilter} onValueChange={(v) => { setTalentFilter(v); setPage(1); }}>
+            <SelectTrigger className="w-[200px] h-9 text-xs">
+              <SelectValue placeholder="All Talents" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.keys(TALENT_BRAND_MAP).map(t => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Button variant="outline" size="sm" onClick={() => downloadCSV(filtered, "brands.csv")}>
             <Download className="w-4 h-4 mr-1.5" /> Export CSV
           </Button>
