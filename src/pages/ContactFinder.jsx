@@ -191,6 +191,83 @@ export default function ContactFinder() {
     }
   };
 
+  // GMO: Find verified email for a contact
+  const [verifyingId, setVerifyingId] = useState(null);
+  const handleVerifyEmail = async (dm) => {
+    if (!dm.full_name || !dm.brand_name) {
+      toast({ title: "Need name and brand", description: "Contact must have a name and brand to verify email.", variant: "destructive" });
+      return;
+    }
+    setVerifyingId(dm.id);
+    try {
+      const nameParts = dm.full_name.trim().split(/\s+/);
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
+      const domain = dm.brand_name.trim().toLowerCase().replace(/\s+/g, "") + ".com";
+
+      const { data } = await base44.functions.invoke("gmoFindContacts", {
+        first_name: firstName,
+        last_name: lastName,
+        domain,
+      });
+
+      if (data?.email || data?.results?.email) {
+        const verifiedEmail = data.email || data.results?.email;
+        await base44.entities.DecisionMaker.update(dm.id, {
+          email: verifiedEmail,
+          email_confidence: 90,
+          source: "gmo_verified",
+        });
+        await queryClient.invalidateQueries({ queryKey: ["decision_makers"] });
+        toast({ title: "Email verified", description: `Found: ${verifiedEmail}` });
+      } else {
+        // Try website scraping as fallback
+        const { data: scrapeData } = await base44.functions.invoke("gmoFindContacts", {
+          url: `https://${domain}`,
+        });
+        if (scrapeData?.results) {
+          toast({ title: "Website scraped", description: "Check results — emails extracted from website." });
+        } else {
+          toast({ title: "No email found", description: "GMO could not verify an email for this contact." });
+        }
+      }
+    } catch (err) {
+      toast({ title: "Verification failed", description: err.message || "Something went wrong.", variant: "destructive" });
+    } finally {
+      setVerifyingId(null);
+    }
+  };
+
+  // GMO: Enrich a brand — get company info + contacts
+  const [enrichingBrand, setEnrichingBrand] = useState(false);
+  const handleEnrichBrand = async () => {
+    if (!extractBrand.trim()) {
+      toast({ title: "Brand name required", variant: "destructive" });
+      return;
+    }
+    setEnrichingBrand(true);
+    try {
+      const domain = extractBrand.trim().toLowerCase().replace(/\s+/g, "") + ".com";
+      const { data } = await base44.functions.invoke("gmoEnrichCompany", {
+        domain,
+        company_name: extractBrand.trim(),
+      });
+
+      if (data?.company) {
+        toast({
+          title: "Brand enriched",
+          description: `Found company data for ${extractBrand}. Check brand profile for details.`,
+        });
+      } else {
+        toast({ title: "No company data found", description: "Try a different brand name or domain." });
+      }
+    } catch (err) {
+      toast({ title: "Enrichment failed", description: err.message, variant: "destructive" });
+    } finally {
+      setEnrichingBrand(false);
+    }
+  };
+
   // Add to outreach: create an outreach_emails row then navigate to Outreach page
   const handleAddToOutreach = async (dm) => {
     setAddingOutreach(dm.id);
@@ -359,14 +436,25 @@ export default function ContactFinder() {
                 value={extractIndustry}
                 onChange={e => setExtractIndustry(e.target.value)}
               />
-              <Button
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-                disabled={extracting || !extractBrand.trim()}
-                onClick={handleAIExtract}
-              >
-                {extracting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
-                {extracting ? "Analyzing brand..." : "Extract Roles with AI"}
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                  disabled={extracting || !extractBrand.trim()}
+                  onClick={handleAIExtract}
+                >
+                  {extracting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
+                  {extracting ? "Analyzing..." : "AI Extract"}
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  disabled={enrichingBrand || !extractBrand.trim()}
+                  onClick={handleEnrichBrand}
+                >
+                  {enrichingBrand ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Building2 className="w-4 h-4 mr-2" />}
+                  {enrichingBrand ? "Enriching..." : "Enrich Brand"}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -511,19 +599,34 @@ export default function ContactFinder() {
                         )}
                       </div>
 
-                      {/* CTA */}
-                      <Button
-                        size="sm"
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold"
-                        disabled={addingOutreach === dm.id}
-                        onClick={() => handleAddToOutreach(dm)}
-                      >
-                        {addingOutreach === dm.id
-                          ? <Loader2 className="w-3 h-3 mr-1.5 animate-spin" />
-                          : <PlusCircle className="w-3 h-3 mr-1.5" />
-                        }
-                        Add to Outreach
-                      </Button>
+                      {/* Verify Email via GMO */}
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1 text-xs"
+                          disabled={verifyingId === dm.id}
+                          onClick={() => handleVerifyEmail(dm)}
+                        >
+                          {verifyingId === dm.id
+                            ? <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                            : <ShieldCheck className="w-3 h-3 mr-1" />
+                          }
+                          {dm.source === "gmo_verified" ? "Verified" : "Verify Email"}
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold"
+                          disabled={addingOutreach === dm.id}
+                          onClick={() => handleAddToOutreach(dm)}
+                        >
+                          {addingOutreach === dm.id
+                            ? <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                            : <PlusCircle className="w-3 h-3 mr-1" />
+                          }
+                          Outreach
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 );
