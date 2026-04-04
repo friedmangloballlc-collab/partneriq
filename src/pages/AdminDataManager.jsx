@@ -498,6 +498,51 @@ const ALL_TALENT_TYPES = [
   "Wedding Creator",
 ];
 
+function TalentTypeFilter({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const filtered = search.trim()
+    ? ALL_TALENT_TYPES.filter(t => t.toLowerCase().includes(search.toLowerCase()))
+    : ALL_TALENT_TYPES;
+
+  return (
+    <div className="relative">
+      <Button variant="outline" size="sm" onClick={() => setOpen(!open)} className="w-[220px] h-9 text-xs justify-between">
+        <span className="truncate">{value || "All Talents"}</span>
+        <ChevronDown className="w-3 h-3 ml-1 shrink-0" />
+      </Button>
+      {open && (
+        <div className="absolute top-10 left-0 z-50 w-[280px] bg-white border rounded-lg shadow-lg max-h-[400px] overflow-hidden">
+          <div className="p-2 border-b">
+            <Input
+              placeholder="Search talent types..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="h-8 text-xs"
+              autoFocus
+            />
+          </div>
+          <div className="overflow-y-auto max-h-[340px]">
+            {filtered.map(t => (
+              <button
+                key={t}
+                onClick={() => { onChange(t); setOpen(false); setSearch(""); }}
+                className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-100 transition ${value === t ? "bg-indigo-50 text-indigo-700 font-medium" : "text-slate-700"}`}
+              >
+                {t}
+              </button>
+            ))}
+            {filtered.length === 0 && (
+              <p className="px-3 py-4 text-xs text-slate-400 text-center">No talent types match "{search}"</p>
+            )}
+          </div>
+        </div>
+      )}
+      {open && <div className="fixed inset-0 z-40" onClick={() => { setOpen(false); setSearch(""); }} />}
+    </div>
+  );
+}
+
 function BrandsTab() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
@@ -697,16 +742,7 @@ function BrandsTab() {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={talentFilter} onValueChange={(v) => { setTalentFilter(v); setPage(1); }}>
-            <SelectTrigger className="w-[200px] h-9 text-xs">
-              <SelectValue placeholder="All Talents" />
-            </SelectTrigger>
-            <SelectContent>
-              {ALL_TALENT_TYPES.map(t => (
-                <SelectItem key={t} value={t}>{t}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <TalentTypeFilter value={talentFilter} onChange={(v) => { setTalentFilter(v); setPage(1); }} />
           <Button variant="outline" size="sm" onClick={() => downloadCSV(filtered, "brands.csv")}>
             <Download className="w-4 h-4 mr-1.5" /> Export CSV
           </Button>
