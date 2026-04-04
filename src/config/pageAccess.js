@@ -98,6 +98,7 @@ export const PAGE_ACCESS = {
   DealComparison:       { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
   BundleDeals:          { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
   MarketIntelligence:   { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
+  IndustryEvents:       { roles: ALL_ROLES, tier: 2 },  // Events calendar with brand sponsors
   PitchCompetition:     { roles: ALL_ROLES, tier: 2 },  // Agency moved from T1 to T2
   BrandSpendPrediction: { roles: ALL_ROLES, tier: 2 },  // Talent/Manager moved from T3 to T2
   SimulationEngine:     { roles: ALL_ROLES, tier: 2 },  // Talent/Manager moved from T3 to T2

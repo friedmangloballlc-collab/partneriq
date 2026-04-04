@@ -2,7 +2,7 @@ import {
   LayoutDashboard, Users, Building2, Handshake, Mail, CheckSquare,
   Sparkles, BarChart3, Settings,
   Zap, UsersRound, GitBranch, TrendingUp, Layers, Activity, Link2, Plug, FileText, Network, Brain, Bell, Calendar, User, Bot, Command, DollarSign, Database, FolderOpen, Package, ScrollText, Share2,
-  Star,
+  Star, Ticket,
 } from "lucide-react";
 
 export const roleNavItems = {
@@ -39,6 +39,7 @@ export const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Industry Events", icon: Ticket, page: "IndustryEvents" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
@@ -103,6 +104,7 @@ export const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Industry Events", icon: Ticket, page: "IndustryEvents" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     { name: "Talent Analytics", icon: BarChart3, page: "TalentAnalytics" },
@@ -159,6 +161,7 @@ export const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Industry Events", icon: Ticket, page: "IndustryEvents" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Earnings ──
@@ -217,6 +220,7 @@ export const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Industry Events", icon: Ticket, page: "IndustryEvents" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Earnings ──
@@ -274,6 +278,7 @@ export const roleNavItems = {
     { name: "Approvals", icon: CheckSquare, page: "Approvals" },
     // ── Intelligence ──
     { name: "Market Intelligence", icon: BarChart3, page: "MarketIntelligence", section: "Intelligence" },
+    { name: "Industry Events", icon: Ticket, page: "IndustryEvents" },
     { name: "Spend Prediction", icon: TrendingUp, page: "BrandSpendPrediction" },
     { name: "ROI Simulator", icon: TrendingUp, page: "SimulationEngine" },
     // ── Content ──

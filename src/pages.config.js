@@ -30,6 +30,7 @@ const PAGES = {
     "DealScoreLeaderboard": lazy(() => import('./pages/DealScoreLeaderboard')),
     "DemographicTargeting": lazy(() => import('./pages/DemographicTargeting')),
     "EventManagement": lazy(() => import('./pages/EventManagement')),
+    "IndustryEvents": lazy(() => import('./pages/IndustryEvents')),
     "Integrations": lazy(() => import('./pages/Integrations')),
     "MarketIntelligence": lazy(() => import('./pages/MarketIntelligence')),
     "Marketplace": lazy(() => import('./pages/Marketplace')),

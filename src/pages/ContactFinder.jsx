@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { formatAIError } from "@/components/AILimitBanner";
+import BrandSignals from "@/components/intelligence/BrandSignals";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -489,6 +490,11 @@ export default function ContactFinder() {
               Search by brand name or use AI Extract to identify likely decision-makers at any company.
             </p>
           </div>
+        )}
+
+        {/* Brand Intelligence Signals */}
+        {activeSearch && (
+          <BrandSignals brandName={activeSearch} />
         )}
 
         {decisionMakers.length > 0 && (
