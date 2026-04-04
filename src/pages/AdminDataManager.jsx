@@ -8,6 +8,7 @@
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import Papa from "papaparse";
 import {
@@ -1758,6 +1759,24 @@ function DealsTab({ brands }) {
 
 export default function AdminDataManager() {
   const [activeTab, setActiveTab] = useState("brands");
+  const [populating, setPopulating] = useState(false);
+  const [populateResult, setPopulateResult] = useState(null);
+  const queryClient = useQueryClient();
+
+  const handlePopulateBrands = async (clearExisting = true) => {
+    if (clearExisting && !confirm("This will DELETE all existing brands and replace them with real, verified companies across 15 industries. Continue?")) return;
+    setPopulating(true);
+    setPopulateResult(null);
+    try {
+      const { data } = await base44.functions.invoke("populateBrands", { clear_existing: clearExisting });
+      setPopulateResult(data);
+      queryClient.invalidateQueries({ queryKey: ["admin-brands"] });
+    } catch (err) {
+      setPopulateResult({ error: err.message });
+    } finally {
+      setPopulating(false);
+    }
+  };
 
   // Shared brands data used by Contacts and Deals dropdowns/autocomplete
   const { data: brands = [] } = useQuery({
@@ -1825,6 +1844,34 @@ export default function AdminDataManager() {
           Brands appear in Talent Discovery, contacts appear in Contact Finder, and deals appear in Partnerships.
           All changes are permanent — use caution when deleting.
         </p>
+      </div>
+
+      {/* Populate Brands */}
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+        <div className="flex-1">
+          <p className="text-sm font-medium text-indigo-900">Auto-Populate Brands</p>
+          <p className="text-xs text-indigo-700 mt-0.5">
+            {populating
+              ? "Generating real brands across 15 industries using AI + GrowMeOrganic... This takes 2-3 minutes."
+              : "Clear demo data and load ~375 real, verified brands across all 15 industries."}
+          </p>
+          {populateResult && !populateResult.error && (
+            <p className="text-xs text-emerald-700 mt-1 font-medium">
+              Done — {populateResult.total_inserted} brands added across {populateResult.industries_processed} industries.
+            </p>
+          )}
+          {populateResult?.error && (
+            <p className="text-xs text-red-700 mt-1">{populateResult.error}</p>
+          )}
+        </div>
+        <Button
+          onClick={() => handlePopulateBrands(true)}
+          disabled={populating}
+          className="bg-indigo-600 hover:bg-indigo-700 text-xs whitespace-nowrap"
+        >
+          {populating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
+          {populating ? "Populating..." : "Populate All Brands"}
+        </Button>
       </div>
 
       {/* Tabs */}
