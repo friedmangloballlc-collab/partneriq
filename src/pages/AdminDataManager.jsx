@@ -442,29 +442,28 @@ function parseBrandDescription(description) {
   return { description, company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
 }
 
-// Talent type → relevant brand industries mapping
-const TALENT_BRAND_MAP = {
-  "All Talents": null,
-  "Fashion Influencer": ["fashion", "apparel", "luxury", "streetwear", "jewelry", "watches", "beauty"],
-  "Beauty Creator": ["beauty", "cosmetics", "skincare", "fashion", "health"],
-  "Tech Reviewer": ["tech", "saas", "consumer electronics", "software", "gaming"],
-  "Fitness Influencer": ["fitness", "health", "sporting goods", "wellness", "activewear", "supplements"],
-  "Food Creator": ["food", "food_beverage", "restaurants", "wine_spirits", "cooking"],
-  "Travel Influencer": ["travel", "airlines", "hospitality", "outdoor_adventure", "luxury"],
-  "Gaming Creator": ["gaming", "tech", "entertainment", "esports"],
-  "Lifestyle Vlogger": ["lifestyle", "diy_home", "home", "furniture", "subscription"],
-  "Finance Educator": ["finance", "insurance", "crypto_web3", "business", "fintech"],
-  "Music Artist": ["music", "entertainment", "audio", "streaming"],
-  "Sports Athlete": ["sports", "sporting_goods", "fitness", "activewear"],
-  "Parenting Creator": ["parenting", "kids_family", "baby", "education", "family"],
-  "Pet Influencer": ["pets", "pet food", "veterinary"],
-  "Auto/Car Reviewer": ["automotive", "auto", "ev", "car"],
-  "Photography Creator": ["photography", "camera", "creative", "art_design"],
-  "Education Creator": ["education", "elearning", "edtech", "professional"],
-  "Health/Wellness": ["health", "mental_health", "pharma_otc", "wellness", "supplements"],
-  "Sustainability Advocate": ["sustainability", "clean_energy", "eco", "organic"],
-  "Real Estate Creator": ["real_estate", "property", "mortgage", "home"],
-};
+// All talent types on the platform
+const ALL_TALENT_TYPES = [
+  "All Talents",
+  "Fashion Influencer", "Beauty Creator", "Skincare Creator", "Streetwear Creator",
+  "Lifestyle Vlogger", "Luxury Influencer", "Mom/Family Creator", "Parenting Blogger",
+  "Tech Reviewer", "Gaming Creator", "Streamer", "Developer Creator",
+  "Fitness Influencer", "Sports Athlete", "Sports Commentator", "Yoga/Meditation Creator",
+  "Outdoor Adventure Creator", "Adventure Creator",
+  "Food Creator", "Mukbang Creator", "Nutrition Creator",
+  "Travel Influencer", "Photography Creator", "Filmmaker",
+  "Music Artist", "DJ/Producer", "Podcast Host",
+  "Finance Educator", "Crypto Creator", "Business Creator", "LinkedIn Creator", "Career Coach",
+  "Education Creator", "Student Creator", "Language Creator", "Productivity Creator",
+  "Entertainment Creator", "Comedy Creator", "Vlogger", "Unboxing Creator",
+  "Health & Wellness Creator", "Mental Health Advocate",
+  "Pet Influencer", "Auto/Car Reviewer",
+  "DIY/Home Creator", "Interior Design Creator", "Organization Creator",
+  "Art Creator", "Graphic Designer",
+  "Real Estate Creator", "Wedding Creator", "Couple Creator",
+  "Sustainability Advocate", "Community Creator",
+  "Hip-Hop Creator", "Anime/Manga Creator", "Kid Creator",
+];
 
 function BrandsTab() {
   const qc = useQueryClient();
@@ -503,12 +502,11 @@ function BrandsTab() {
 
   const filtered = useMemo(() => {
     let rows = sorted;
-    // Talent type filter
-    const industries = TALENT_BRAND_MAP[talentFilter];
-    if (industries) {
+    // Talent type filter — uses relevant_talent_types array column
+    if (talentFilter && talentFilter !== "All Talents") {
       rows = rows.filter(b => {
-        const ind = String(b.industry ?? "").toLowerCase();
-        return industries.some(i => ind.includes(i));
+        const types = b.relevant_talent_types || [];
+        return types.includes(talentFilter);
       });
     }
     // Search filter
@@ -671,7 +669,7 @@ function BrandsTab() {
               <SelectValue placeholder="All Talents" />
             </SelectTrigger>
             <SelectContent>
-              {Object.keys(TALENT_BRAND_MAP).map(t => (
+              {ALL_TALENT_TYPES.map(t => (
                 <SelectItem key={t} value={t}>{t}</SelectItem>
               ))}
             </SelectContent>
