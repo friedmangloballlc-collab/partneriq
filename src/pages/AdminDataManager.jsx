@@ -1839,15 +1839,30 @@ export default function AdminDataManager() {
   };
 
   const handlePopulateBrands = async (clearExisting = true) => {
-    if (clearExisting && !confirm("This will DELETE all existing brands and replace them with real, verified companies across 15 industries. Continue?")) return;
+    if (clearExisting && !confirm("This will DELETE all existing brands and replace them with real, verified companies across 42 industries. Takes 10-15 minutes. Continue?")) return;
     setPopulating(true);
     setPopulateResult(null);
+
+    let totalInserted = 0;
+    let offset = 0;
+    let hasMore = true;
+
     try {
-      const { data } = await base44.functions.invoke("populateBrands", { clear_existing: clearExisting });
-      setPopulateResult(data);
+      while (hasMore) {
+        const { data } = await base44.functions.invoke("populateBrands", {
+          clear_existing: clearExisting && offset === 0,
+          offset,
+          batch_size: 3,
+        });
+        totalInserted += data?.total_inserted || 0;
+        hasMore = data?.has_more || false;
+        offset = data?.next_offset || offset + 3;
+        setPopulateResult({ total_inserted: totalInserted, progress: data?.progress || "..." });
+      }
+      setPopulateResult({ total_inserted: totalInserted, done: true });
       queryClient.invalidateQueries({ queryKey: ["admin-brands"] });
     } catch (err) {
-      setPopulateResult({ error: err.message });
+      setPopulateResult({ error: err.message, total_inserted: totalInserted });
     } finally {
       setPopulating(false);
     }
@@ -1927,10 +1942,10 @@ export default function AdminDataManager() {
           <p className="text-sm font-medium text-indigo-900">Auto-Populate Brands</p>
           <p className="text-xs text-indigo-700 mt-0.5">
             {populating
-              ? "Generating real brands across 42 industries using AI + GrowMeOrganic... This takes 8-10 minutes."
+              ? `Generating brands... ${populateResult?.progress || "starting"} — ${populateResult?.total_inserted || 0} brands added`
               : "Clear demo data and load ~1,050 real, verified brands across 42 industries."}
           </p>
-          {populateResult && !populateResult.error && (
+          {populateResult?.done && (
             <p className="text-xs text-emerald-700 mt-1 font-medium">
               Done — {populateResult.total_inserted} brands added across {populateResult.industries_processed} industries.
             </p>
