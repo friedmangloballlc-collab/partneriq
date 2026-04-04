@@ -1778,7 +1778,7 @@ export default function AdminDataManager() {
   const [contactResult, setContactResult] = useState(null);
 
   const handlePopulateContacts = async () => {
-    if (!confirm("This will DELETE all existing contacts and generate 3-5 decision-makers for every brand (partnerships, marketing, digital leads). This takes 15-20 minutes. Continue?")) return;
+    if (!confirm("This will populate contacts for all 1,200 brands using GrowMeOrganic (up to 20 real contacts per brand). Takes 30-45 minutes. Continue?")) return;
     setPopulatingContacts(true);
     setContactResult(null);
 
@@ -1788,9 +1788,9 @@ export default function AdminDataManager() {
 
     try {
       while (hasMore) {
-        const { data } = await base44.functions.invoke("populateContacts", {
+        const { data } = await base44.functions.invoke("populateContactsGMO", {
           clear_existing: offset === 0,
-          batch_size: 5,
+          batch_size: 10,
           offset,
         });
         totalContacts += data?.contacts_added || 0;
