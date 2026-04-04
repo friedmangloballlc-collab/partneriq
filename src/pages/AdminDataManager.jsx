@@ -1154,8 +1154,8 @@ function ContactsTab({ brands }) {
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Personal Email</th>
                 <Th col="email_confidence" label="Conf." sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">LinkedIn</th>
-                <Th col="phone" label="Phone" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <Th col="source" label="Source" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="phone" label="Personal Phone" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <Th col="company_meta_phones" label="Company Phone" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <th className="px-4 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
@@ -1199,7 +1199,7 @@ function ContactsTab({ brands }) {
                       }
                     </td>
                     <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmt(row.phone)}</td>
-                    <td className="px-4 py-3 text-slate-500 text-xs">{fmt(srcParsed.source)}</td>
+                    <td className="px-4 py-3 text-slate-600 text-xs whitespace-nowrap">{fmt(row.company_meta_phones)}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => openEdit(row)}>
