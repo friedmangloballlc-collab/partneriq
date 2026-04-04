@@ -134,6 +134,19 @@ serve(async (req) => {
                   phone: employee.phone || null,
                   linkedin_url: typeof employee.social_url === "string" ? employee.social_url : null,
                   source: JSON.stringify({ type: "gmo_enrichment", industry }),
+                  person_first_name: employee.first_name || null,
+                  person_last_name: employee.last_name || null,
+                  person_headline: employee.headline || null,
+                  person_location: employee.location || null,
+                  person_business_email: employee.business_email || null,
+                  person_personal_email: employee.personal_email || null,
+                  person_city: employee.city || null,
+                  person_linkedin_id: employee.linkedin_id ? String(employee.linkedin_id) : null,
+                  person_company_name: employee.company_name || brand.name,
+                  company_meta_phones: employee.company_phone || null,
+                  person_picture: employee.picture || null,
+                  person_skills: Array.isArray(employee.skills) ? employee.skills.filter(Boolean) : null,
+                  person_connections: employee.connections_count || null,
                 });
                 totalContactsInserted++;
               } catch {
