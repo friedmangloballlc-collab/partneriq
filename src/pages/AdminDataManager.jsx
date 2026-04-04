@@ -442,41 +442,50 @@ function parseBrandDescription(description) {
   return { description, company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
 }
 
-// All talent types on the platform — organized by category
+// All talent types on the platform — complete list from talent matrix
 const ALL_TALENT_TYPES = [
   "All Talents",
-  // Digital Creators & Influencers
+  // 10.1 Digital Creators & Influencers
   "Stand-up Comedians", "Podcast Creators", "Twitch Streamers", "Instagram Influencers",
   "TikTok Creators", "YouTube Creators",
-  // Actors & Screen Talent
-  "TV Actors", "Film Actors", "Commercial Actors", "Child/Youth Actors",
-  "Stunt Performers",
-  // Dancers & Choreographers
-  "Ballet Dancers", "Contemporary Dancers", "Ballroom/Latin Dancers",
-  "Broadway/Musical Theater Dancers", "Backup Dancers", "Hip-Hop Dancers",
-  "Choreographers",
-  // Variety & Live Performance
-  "Magicians/Illusionists", "Circus Performers", "Mentalists", "Puppeteers",
-  // Models — Fashion & Editorial
+  // 10.2 Actors & Screen Talent
+  "TV Actors (Series Regulars)", "TV Actors (Recurring)", "TV Actors (Guest Stars)",
+  "Film Actors (Lead)", "Film Actors (Supporting)", "Film Actors (Character)",
+  "Commercial Actors", "Child/Youth Actors", "Background/Extras",
+  "Stunt Performers and Doubles", "Stand-ins and Body Doubles",
+  // 10.3 Dancers & Choreographers
+  "Ballet Dancers", "Contemporary/Modern Dancers", "Ballroom and Latin Dancers",
+  "Broadway/Musical Theater Dancers", "Backup Dancers for Tours",
+  "Hip-Hop and Urban Dancers", "Choreographers", "Dance Company Directors",
+  // 10.4 Variety & Live Performance
+  "Magicians and Illusionists", "Circus Performers", "Jugglers",
+  "Mentalists and Hypnotists", "Variety Show Acts", "Puppeteers",
+  "Ventriloquists", "Buskers and Street Performers",
+  // 10.5 Models — Fashion & Editorial
   "High Fashion Runway Models", "Designer Campaign Models", "Editorial Print Models",
-  "Haute Couture Models", "Swimwear/Lingerie Models", "Bridal Models",
-  // Models — Commercial & Specialty
+  "Fashion Week Participants", "Haute Couture Models", "Ready-to-Wear Models",
+  "Swimwear/Lingerie Models", "Bridal Models",
+  // 10.6 Models — Commercial & Specialty
   "Advertising Print Models", "Catalog Models", "E-commerce Models",
-  "Plus-size/Curve Models", "Fitness Models", "Parts Models", "Hair Models",
-  // Music Artists
+  "Stock Photography Models", "Plus-size/Curve Models", "Fitness Models",
+  "Petite Models", "Mature/Classic Models", "Parts Models (Hands, Feet, Legs, Eyes)",
+  "Hair Models",
+  // 10.7 Music Artists
   "Music Artists",
-  // Team Sports Athletes
-  "Basketball Players", "Football Players", "Baseball Players",
-  "Hockey Players", "Soccer Players",
-  // Individual Sports Athletes
-  "Golf Athletes", "Tennis Athletes", "Boxing/MMA Athletes",
-  "Track & Field Athletes", "Swimmers/Divers", "Gymnasts",
-  "Olympic Athletes", "Paralympic Athletes",
-  // Motorsports & Extreme Sports
-  "F1/IndyCar/NASCAR Drivers", "Skateboarders", "Surfers", "BMX Athletes",
-  "Esports Athletes",
-  // Sports Industry
-  "Sports Broadcasters", "Sports Analysts", "Coaches",
+  // 10.8 Team Sports Athletes
+  "Basketball (NBA)", "Basketball (WNBA)", "Basketball (International)",
+  "Football (NFL)", "Football (CFL)", "Football (European Leagues)",
+  "Baseball (MLB)", "Baseball (Minor Leagues)", "Hockey (NHL)",
+  "Soccer (MLS)", "Soccer (International)",
+  // 10.9 Individual Sports Athletes
+  "Golf (PGA, LPGA)", "Tennis (ATP, WTA)", "Boxing", "MMA",
+  "Track and Field", "Swimming and Diving", "Gymnastics",
+  "Summer Olympic Athletes", "Winter Olympic Athletes", "Paralympic Athletes",
+  // 10.10 Motorsports & Extreme Sports
+  "F1 Drivers", "IndyCar Drivers", "NASCAR Drivers",
+  "Skateboarding", "Surfing", "BMX", "Esports Athletes",
+  // 10.11 Sports Industry Professionals
+  "Sports Broadcasters", "Sports Analysts", "Team Executives", "Coaches",
   // Additional Creator Types
   "Fashion Influencer", "Beauty Creator", "Skincare Creator",
   "Lifestyle Vlogger", "Luxury Influencer", "Mom/Family Creator",
