@@ -890,12 +890,24 @@ function ContactsTab({ brands }) {
   const { data: contacts = [], isLoading } = useQuery({
     queryKey: ["admin-contacts"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("decision_makers")
-        .select("*")
-        .order("full_name", { ascending: true });
-      if (error) throw error;
-      return data;
+      // Fetch in chunks to bypass 1000 row limit
+      const all = [];
+      let from = 0;
+      const chunk = 1000;
+      while (true) {
+        const { data, error } = await supabase
+          .from("decision_makers")
+          .select("*")
+          .order("full_name", { ascending: true })
+          .range(from, from + chunk - 1);
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+        all.push(...data);
+        if (data.length < chunk) break;
+        from += chunk;
+        if (all.length >= 50000) break; // safety cap
+      }
+      return all;
     },
   });
 
