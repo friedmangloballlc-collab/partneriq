@@ -887,29 +887,37 @@ function ContactsTab({ brands }) {
   const [brandSearch, setBrandSearch] = useState("");
   const [brandDropOpen, setBrandDropOpen] = useState(false);
 
-  const { data: contacts = [], isLoading } = useQuery({
-    queryKey: ["admin-contacts"],
+  const [contactPage, setContactPage] = useState(1);
+  const contactPageSize = 100;
+  const [contactSearch, setContactSearch] = useState("");
+
+  const { data: contactCount = 0 } = useQuery({
+    queryKey: ["admin-contacts-count"],
     queryFn: async () => {
-      // Fetch in chunks to bypass 1000 row limit
-      const all = [];
-      let from = 0;
-      const chunk = 1000;
-      while (true) {
-        const { data, error } = await supabase
-          .from("decision_makers")
-          .select("*")
-          .order("full_name", { ascending: true })
-          .range(from, from + chunk - 1);
-        if (error) throw error;
-        if (!data || data.length === 0) break;
-        all.push(...data);
-        if (data.length < chunk) break;
-        from += chunk;
-        if (all.length >= 50000) break; // safety cap
-      }
-      return all;
+      const { count } = await supabase.from("decision_makers").select("id", { count: "exact", head: true });
+      return count || 0;
     },
   });
+
+  const { data: contacts = [], isLoading } = useQuery({
+    queryKey: ["admin-contacts", contactPage, contactSearch],
+    queryFn: async () => {
+      const from = (contactPage - 1) * contactPageSize;
+      let query = supabase
+        .from("decision_makers")
+        .select("*")
+        .order("full_name", { ascending: true })
+        .range(from, from + contactPageSize - 1);
+      if (contactSearch.trim()) {
+        query = query.or(`full_name.ilike.%${contactSearch.trim()}%,brand_name.ilike.%${contactSearch.trim()}%,email.ilike.%${contactSearch.trim()}%`);
+      }
+      const { data, error } = await query;
+      if (error) throw error;
+      return data || [];
+    },
+  });
+
+  const contactTotalPages = Math.ceil(contactCount / contactPageSize);
 
   const { sorted, sortKey, sortDir, handleSort } = useSortedData(contacts, "full_name");
 
@@ -927,7 +935,7 @@ function ContactsTab({ brands }) {
     return rows;
   }, [sorted, search, filterTier, filterBrand]);
 
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const paginated = contacts; // server-side paginated, already 100 rows max
 
   // Unique brands for filter
   const uniqueBrands = useMemo(() => {
@@ -1200,7 +1208,7 @@ function ContactsTab({ brands }) {
                     </td>
                     <td className="px-4 py-3 text-slate-600 whitespace-nowrap text-xs">{fmt(row.brand_name)}</td>
                     <td className="px-4 py-3 text-slate-600 text-xs">{fmt(row.email)}</td>
-                    <td className="px-4 py-3 text-slate-500 text-xs">{srcParsed.personal_email ? fmt(srcParsed.personal_email) : "—"}</td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{fmt(row.person_personal_email || srcParsed.personal_email)}</td>
                     <td className={`px-4 py-3 text-sm font-semibold ${confidenceColor(row.email_confidence)}`}>
                       {row.email_confidence != null ? `${row.email_confidence}%` : "—"}
                     </td>
@@ -1229,7 +1237,14 @@ function ContactsTab({ brands }) {
             </tbody>
           </table>
         </div>
-        <Pagination total={filtered.length} page={page} onPage={setPage} />
+        <div className="flex items-center justify-between px-4 py-3 border-t text-xs text-muted-foreground">
+          <span>Showing {((contactPage - 1) * contactPageSize) + 1}–{Math.min(contactPage * contactPageSize, contactCount)} of {contactCount.toLocaleString()}</span>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" disabled={contactPage <= 1} onClick={() => setContactPage(p => p - 1)}>Previous</Button>
+            <span className="px-2 font-medium">{contactPage} / {contactTotalPages}</span>
+            <Button variant="outline" size="sm" disabled={contactPage >= contactTotalPages} onClick={() => setContactPage(p => p + 1)}>Next</Button>
+          </div>
+        </div>
       </div>
 
       {/* Add/Edit Dialog */}
