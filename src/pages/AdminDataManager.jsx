@@ -445,47 +445,61 @@ function parseBrandDescription(description) {
 // All talent types on the platform — complete list from talent matrix
 const ALL_TALENT_TYPES = [
   "All Talents",
-  // 10.1 Digital Creators & Influencers
+  // Digital Creators & Influencers
   "Stand-up Comedians", "Podcast Creators", "Twitch Streamers", "Instagram Influencers",
   "TikTok Creators", "YouTube Creators",
-  // 10.2 Actors & Screen Talent
+  // Actors & Screen Talent
   "TV Actors (Series Regulars)", "TV Actors (Recurring)", "TV Actors (Guest Stars)",
   "Film Actors (Lead)", "Film Actors (Supporting)", "Film Actors (Character)",
   "Commercial Actors", "Child/Youth Actors", "Background/Extras",
   "Stunt Performers and Doubles", "Stand-ins and Body Doubles",
-  // 10.3 Dancers & Choreographers
+  "Voice Actors (Animation, Video Games, Audiobooks)", "Theater/Stage Actors (Non-Musical)",
+  "Opera Singers", "TV Hosts/Presenters", "Reality TV Personalities", "Radio Hosts/DJs",
+  // Dancers & Choreographers
   "Ballet Dancers", "Contemporary/Modern Dancers", "Ballroom and Latin Dancers",
   "Broadway/Musical Theater Dancers", "Backup Dancers for Tours",
   "Hip-Hop and Urban Dancers", "Choreographers", "Dance Company Directors",
-  // 10.4 Variety & Live Performance
+  "Ice Show Skaters",
+  // Variety & Live Performance
   "Magicians and Illusionists", "Circus Performers", "Jugglers",
   "Mentalists and Hypnotists", "Variety Show Acts", "Puppeteers",
-  "Ventriloquists", "Buskers and Street Performers",
-  // 10.5 Models — Fashion & Editorial
+  "Ventriloquists", "Buskers and Street Performers", "Drag Performers",
+  "Burlesque Performers", "Aerialists/Acrobats", "Rodeo Performers",
+  "Comedians (Live/Touring)",
+  // Models — Fashion & Editorial
   "High Fashion Runway Models", "Designer Campaign Models", "Editorial Print Models",
   "Fashion Week Participants", "Haute Couture Models", "Ready-to-Wear Models",
   "Swimwear/Lingerie Models", "Bridal Models",
-  // 10.6 Models — Commercial & Specialty
+  // Models — Commercial & Specialty
   "Advertising Print Models", "Catalog Models", "E-commerce Models",
   "Stock Photography Models", "Plus-size/Curve Models", "Fitness Models",
   "Petite Models", "Mature/Classic Models", "Parts Models (Hands, Feet, Legs, Eyes)",
-  "Hair Models",
-  // 10.7 Music Artists
-  "Music Artists",
-  // 10.8 Team Sports Athletes
+  "Hair Models", "Child Models", "Promotional/Brand Ambassador Models",
+  "Tattoo/Alternative Models",
+  // Music Artists
+  "Music Artists (All Genres)", "Session Musicians", "Orchestra/Classical Musicians",
+  "Conductors", "DJs/Electronic Music Performers", "Songwriters/Composers", "Music Producers",
+  // Team Sports Athletes
   "Basketball (NBA)", "Basketball (WNBA)", "Basketball (International)",
   "Football (NFL)", "Football (CFL)", "Football (European Leagues)",
   "Baseball (MLB)", "Baseball (Minor Leagues)", "Hockey (NHL)",
-  "Soccer (MLS)", "Soccer (International)",
-  // 10.9 Individual Sports Athletes
-  "Golf (PGA, LPGA)", "Tennis (ATP, WTA)", "Boxing", "MMA",
+  "Soccer (MLS)", "Soccer (International)", "Rugby", "Cricket", "Volleyball",
+  // Individual Sports Athletes
+  "Golf (PGA, LPGA)", "Tennis (ATP, WTA)", "Boxing",
+  "MMA (UFC)", "MMA (Bellator, ONE, PFL)",
   "Track and Field", "Swimming and Diving", "Gymnastics",
   "Summer Olympic Athletes", "Winter Olympic Athletes", "Paralympic Athletes",
-  // 10.10 Motorsports & Extreme Sports
+  "Wrestling/WWE (Pro Wrestling)", "Cycling (Pro Road/Track)",
+  "Triathlon/Marathon", "Weightlifting/Powerlifting",
+  "Fencing/Archery/Shooting", "Jockeys (Horse Racing)", "Professional Poker Players",
+  // Motorsports & Extreme Sports
   "F1 Drivers", "IndyCar Drivers", "NASCAR Drivers",
   "Skateboarding", "Surfing", "BMX", "Esports Athletes",
-  // 10.11 Sports Industry Professionals
+  "Skiing/Snowboarding", "Rock Climbing",
+  // Sports Industry Professionals
   "Sports Broadcasters", "Sports Analysts", "Team Executives", "Coaches",
+  // Writers & Speakers
+  "Authors/Writers", "Motivational/Public Speakers",
   // Additional Creator Types
   "Fashion Influencer", "Beauty Creator", "Skincare Creator",
   "Lifestyle Vlogger", "Luxury Influencer", "Mom/Family Creator",
