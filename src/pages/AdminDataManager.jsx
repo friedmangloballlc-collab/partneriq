@@ -473,7 +473,8 @@ function BrandsTab() {
       const { data, error } = await supabase
         .from("brands")
         .select("*")
-        .order("name", { ascending: true });
+        .order("name", { ascending: true })
+        .limit(5000);
       if (error) throw error;
       return data;
     },
@@ -1852,12 +1853,12 @@ export default function AdminDataManager() {
         const { data } = await base44.functions.invoke("populateBrands", {
           clear_existing: clearExisting && offset === 0,
           offset,
-          batch_size: 3,
+          batch_size: 10,
         });
         totalInserted += data?.total_inserted || 0;
         hasMore = data?.has_more || false;
-        offset = data?.next_offset || offset + 3;
-        setPopulateResult({ total_inserted: totalInserted, progress: data?.progress || "..." });
+        offset = data?.next_offset || offset + 10;
+        setPopulateResult({ total_inserted: totalInserted, progress: data?.progress || "...", errors: data?.errors });
       }
       setPopulateResult({ total_inserted: totalInserted, done: true });
       queryClient.invalidateQueries({ queryKey: ["admin-brands"] });
@@ -1875,7 +1876,8 @@ export default function AdminDataManager() {
       const { data, error } = await supabase
         .from("brands")
         .select("id, name")
-        .order("name", { ascending: true });
+        .order("name", { ascending: true })
+        .limit(5000);
       if (error) throw error;
       return data;
     },
@@ -1947,7 +1949,12 @@ export default function AdminDataManager() {
           </p>
           {populateResult?.done && (
             <p className="text-xs text-emerald-700 mt-1 font-medium">
-              Done — {populateResult.total_inserted} brands added across {populateResult.industries_processed} industries.
+              Done — {populateResult.total_inserted} brands added.
+            </p>
+          )}
+          {populateResult?.errors && (
+            <p className="text-xs text-red-600 mt-1">
+              Errors: {JSON.stringify(populateResult.errors).slice(0, 200)}
             </p>
           )}
           {populateResult?.error && (

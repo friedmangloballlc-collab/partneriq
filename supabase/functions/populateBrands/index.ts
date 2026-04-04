@@ -57,9 +57,15 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const clearExisting = body.clear_existing !== false;
     const offset = body.offset || 0;
-    const batchSize = body.batch_size || 2; // 2 industries per call (GMO calls take time)
+    const batchSize = body.batch_size || 10; // 10 brands per call
 
-    const allIndustries = Object.keys(BRAND_LIST);
+    // Flatten all brands into a single list with industry tag
+    const allBrands: Array<{name: string; domain: string; industry: string; company_size?: string; location?: string}> = [];
+    for (const [industry, brands] of Object.entries(BRAND_LIST)) {
+      for (const brand of brands) {
+        allBrands.push({ ...brand, industry });
+      }
+    }
 
     // Clear on first batch
     if (clearExisting && offset === 0) {
@@ -68,17 +74,14 @@ serve(async (req) => {
       console.log("[populateBrands] Cleared existing brands and contacts");
     }
 
-    const batch = allIndustries.slice(offset, offset + batchSize);
-    const hasMore = offset + batchSize < allIndustries.length;
+    const batch = allBrands.slice(offset, offset + batchSize);
+    const hasMore = offset + batchSize < allBrands.length;
     let totalBrandsInserted = 0;
     let totalContactsInserted = 0;
     const errors: string[] = [];
 
-    for (const industry of batch) {
-      const brands = BRAND_LIST[industry] || [];
-      console.log(`[populateBrands] Processing: ${industry} (${brands.length} brands)`);
-
-      for (const brand of brands) {
+    for (const brand of batch) {
+      const industry = brand.industry;
         try {
           // Call GMO to get company data + employees
           const gmoData = await enrichWithGMO(brand.domain);
@@ -99,8 +102,8 @@ serve(async (req) => {
             domain: brand.domain,
             description: descriptionJson,
             industry: emp?.company_industry || industry,
-            company_size: emp?.company_size || null,
-            location: emp?.company_address || null,
+            company_size: emp?.company_size || (brand as any).company_size || null,
+            location: emp?.company_address || (brand as any).location || null,
             contact_email: emp?.email_format || null,
             annual_budget: null,
             logo_url: null,
@@ -143,20 +146,17 @@ serve(async (req) => {
           console.error(`[populateBrands] Error ${brand.name}:`, err);
           errors.push(`${brand.name}: ${String(err)}`);
         }
-      }
-      console.log(`[populateBrands] ${industry}: done`);
     }
 
     return new Response(JSON.stringify({
       success: true,
       total_inserted: totalBrandsInserted,
       contacts_inserted: totalContactsInserted,
-      industries_processed: batch.length,
       offset,
       next_offset: hasMore ? offset + batchSize : null,
-      total_industries: allIndustries.length,
+      total_brands: allBrands.length,
       has_more: hasMore,
-      progress: `${Math.min(offset + batchSize, allIndustries.length)}/${allIndustries.length}`,
+      progress: `${Math.min(offset + batchSize, allBrands.length)}/${allBrands.length}`,
       errors: errors.length > 0 ? errors.slice(0, 10) : undefined,
     }), { headers: corsHeaders });
 
