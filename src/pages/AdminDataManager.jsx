@@ -1763,6 +1763,39 @@ export default function AdminDataManager() {
   const [populateResult, setPopulateResult] = useState(null);
   const queryClient = useQueryClient();
 
+  const [populatingContacts, setPopulatingContacts] = useState(false);
+  const [contactResult, setContactResult] = useState(null);
+
+  const handlePopulateContacts = async () => {
+    if (!confirm("This will DELETE all existing contacts and generate 3-5 decision-makers for every brand (partnerships, marketing, digital leads). This takes 15-20 minutes. Continue?")) return;
+    setPopulatingContacts(true);
+    setContactResult(null);
+
+    let totalContacts = 0;
+    let offset = 0;
+    let hasMore = true;
+
+    try {
+      while (hasMore) {
+        const { data } = await base44.functions.invoke("populateContacts", {
+          clear_existing: offset === 0,
+          batch_size: 10,
+          offset,
+        });
+        totalContacts += data?.contacts_added || 0;
+        hasMore = data?.has_more || false;
+        offset = data?.next_offset || offset + 10;
+        setContactResult({ contacts_added: totalContacts, progress: data?.progress || "..." });
+      }
+      setContactResult({ contacts_added: totalContacts, done: true });
+      queryClient.invalidateQueries({ queryKey: ["admin-contact-count"] });
+    } catch (err) {
+      setContactResult({ error: err.message, contacts_added: totalContacts });
+    } finally {
+      setPopulatingContacts(false);
+    }
+  };
+
   const handlePopulateBrands = async (clearExisting = true) => {
     if (clearExisting && !confirm("This will DELETE all existing brands and replace them with real, verified companies across 15 industries. Continue?")) return;
     setPopulating(true);
@@ -1871,6 +1904,34 @@ export default function AdminDataManager() {
         >
           {populating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
           {populating ? "Populating..." : "Populate All Brands"}
+        </Button>
+      </div>
+
+      {/* Populate Contacts */}
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+        <div className="flex-1">
+          <p className="text-sm font-medium text-emerald-900">Auto-Populate Decision Makers</p>
+          <p className="text-xs text-emerald-700 mt-0.5">
+            {populatingContacts
+              ? `Generating contacts... ${contactResult?.progress || "starting"} — ${contactResult?.contacts_added || 0} contacts added so far`
+              : "Generate 3-5 verified decision-maker contacts per brand (partnerships, marketing, sponsorships, digital). Uses AI + GrowMeOrganic email verification."}
+          </p>
+          {contactResult?.done && (
+            <p className="text-xs text-emerald-800 mt-1 font-medium">
+              Done — {contactResult.contacts_added} contacts added.
+            </p>
+          )}
+          {contactResult?.error && (
+            <p className="text-xs text-red-700 mt-1">{contactResult.error} ({contactResult.contacts_added} added before error)</p>
+          )}
+        </div>
+        <Button
+          onClick={handlePopulateContacts}
+          disabled={populatingContacts}
+          className="bg-emerald-600 hover:bg-emerald-700 text-xs whitespace-nowrap"
+        >
+          {populatingContacts ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Users className="w-4 h-4 mr-2" />}
+          {populatingContacts ? "Generating..." : "Populate Contacts"}
         </Button>
       </div>
 
