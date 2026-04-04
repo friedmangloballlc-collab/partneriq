@@ -85,7 +85,7 @@ serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const offset = body.offset || 0;
-    const batchSize = body.batch_size || 10;
+    const batchSize = body.batch_size || 3;
     const clearExisting = body.clear_existing !== false;
 
     // Clear contacts on first batch
