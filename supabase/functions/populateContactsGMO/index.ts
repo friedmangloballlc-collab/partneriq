@@ -117,17 +117,17 @@ serve(async (req) => {
 
         for (const emp of gmoData.employees.slice(0, 50)) {
           try {
-            await supabase.from("decision_makers").insert({
+            const { error: insertErr } = await supabase.from("decision_makers").insert({
               brand_name: brand.name,
               company_domain: brand.domain,
               full_name: `${emp.first_name || ""} ${emp.last_name || ""}`.trim() || "Unknown",
               role_title: emp.job_title || emp.headline || "Unknown",
               role_tier: "1",
               email: emp.business_email || null,
-              email_confidence: emp.business_email ? 0.85 : 0,
+              email_confidence: emp.business_email ? 85 : 0,
               phone: emp.phone || null,
               linkedin_url: typeof emp.social_url === "string" ? emp.social_url : null,
-              source: JSON.stringify({ type: "gmo_enrichment" }),
+              source: { type: "gmo_enrichment" },
               person_first_name: emp.first_name || null,
               person_last_name: emp.last_name || null,
               person_headline: emp.headline || null,
@@ -140,10 +140,14 @@ serve(async (req) => {
               company_meta_phones: emp.company_phone || null,
               person_picture: emp.picture || null,
               person_skills: Array.isArray(emp.skills) ? emp.skills.filter(Boolean) : null,
-              person_connections: emp.connections_count || null,
+              person_connections: emp.connections_count ? String(emp.connections_count) : null,
             });
-            totalContacts++;
-          } catch { /* skip duplicates */ }
+            if (insertErr) {
+              console.error(`[contacts] Insert failed for ${emp.first_name} at ${brand.name}:`, insertErr.message);
+            } else {
+              totalContacts++;
+            }
+          } catch (e) { console.error(`[contacts] Exception:`, e); }
         }
         console.log(`[populateContactsGMO] ${brand.name}: added contacts`);
       } catch (err) {
