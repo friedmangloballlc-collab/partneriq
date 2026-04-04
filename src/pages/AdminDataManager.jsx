@@ -188,27 +188,11 @@ function Pagination({ total, page, onPage, pageSize = PAGE_SIZE }) {
       <p className="text-xs text-slate-500">
         Showing {Math.min((page - 1) * pageSize + 1, total)}–{Math.min(page * pageSize, total)} of {total.toLocaleString()}
       </p>
-      <div className="flex gap-1">
+      <div className="flex items-center gap-2">
         <Button variant="outline" size="sm" disabled={page === 1} onClick={() => onPage(page - 1)}>
           Previous
         </Button>
-        {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-          const p = i + 1;
-          return (
-            <Button
-              key={p} variant={page === p ? "default" : "outline"} size="sm"
-              onClick={() => onPage(p)}
-              className="w-8 h-8 p-0"
-            >
-              {p}
-            </Button>
-          );
-        })}
-        {totalPages > 7 && page < totalPages && (
-          <Button variant="outline" size="sm" onClick={() => onPage(totalPages)}>
-            {totalPages}
-          </Button>
-        )}
+        <span className="text-sm font-medium text-slate-700">{page} / {totalPages}</span>
         <Button variant="outline" size="sm" disabled={page === totalPages} onClick={() => onPage(page + 1)}>
           Next
         </Button>
