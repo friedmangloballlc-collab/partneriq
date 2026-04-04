@@ -1,118 +1,133 @@
--- Migration 023: Map brands to relevant talent types
--- Adds relevant_talent_types array column and populates it based on industry
+-- Migration 023: Map brands to ALL relevant talent types
+-- Additive mapping — brands get every talent type that could be relevant
 
 ALTER TABLE brands ADD COLUMN IF NOT EXISTS relevant_talent_types TEXT[] DEFAULT '{}';
 
--- Map every industry to the talent types that are relevant
-UPDATE brands SET relevant_talent_types = CASE
-  -- Fashion & Apparel
-  WHEN lower(industry) LIKE '%fashion%' OR lower(industry) LIKE '%apparel%' OR lower(industry) LIKE '%clothing%'
-    THEN ARRAY['Fashion Influencer','Lifestyle Vlogger','Beauty Creator','Photography Creator','Streetwear Creator','Luxury Influencer','Mom/Family Creator']
-  -- Beauty & Cosmetics
-  WHEN lower(industry) LIKE '%beauty%' OR lower(industry) LIKE '%cosmetic%' OR lower(industry) LIKE '%skincare%' OR lower(industry) LIKE '%makeup%'
-    THEN ARRAY['Beauty Creator','Skincare Creator','Fashion Influencer','Lifestyle Vlogger','Mom/Family Creator','Health & Wellness Creator']
-  -- Technology
-  WHEN lower(industry) LIKE '%tech%' OR lower(industry) LIKE '%software%' OR lower(industry) LIKE '%saas%' OR lower(industry) LIKE '%computer%'
-    THEN ARRAY['Tech Reviewer','Gaming Creator','Business Creator','Education Creator','Productivity Creator','Developer Creator']
-  -- Fitness & Wellness
-  WHEN lower(industry) LIKE '%fitness%' OR lower(industry) LIKE '%wellness%' OR lower(industry) LIKE '%activewear%' OR lower(industry) LIKE '%gym%'
-    THEN ARRAY['Fitness Influencer','Health & Wellness Creator','Sports Athlete','Lifestyle Vlogger','Outdoor Adventure Creator','Yoga/Meditation Creator']
-  -- Food & Beverage
-  WHEN lower(industry) LIKE '%food%' OR lower(industry) LIKE '%beverage%' OR lower(industry) LIKE '%restaurant%' OR lower(industry) LIKE '%cooking%'
-    THEN ARRAY['Food Creator','Lifestyle Vlogger','Mom/Family Creator','Travel Influencer','Health & Wellness Creator','Mukbang Creator']
-  -- Travel & Hospitality
-  WHEN lower(industry) LIKE '%travel%' OR lower(industry) LIKE '%hospitality%' OR lower(industry) LIKE '%hotel%' OR lower(industry) LIKE '%airline%'
-    THEN ARRAY['Travel Influencer','Lifestyle Vlogger','Photography Creator','Luxury Influencer','Outdoor Adventure Creator','Food Creator','Couple Creator']
-  -- Gaming
-  WHEN lower(industry) LIKE '%gaming%' OR lower(industry) LIKE '%game%' OR lower(industry) LIKE '%esport%'
-    THEN ARRAY['Gaming Creator','Tech Reviewer','Streamer','Entertainment Creator','Anime/Manga Creator']
-  -- Lifestyle & Home
-  WHEN lower(industry) LIKE '%lifestyle%' OR lower(industry) LIKE '%home%' OR lower(industry) LIKE '%diy%' OR lower(industry) LIKE '%furniture%' OR lower(industry) LIKE '%decor%'
-    THEN ARRAY['Lifestyle Vlogger','DIY/Home Creator','Mom/Family Creator','Interior Design Creator','Organization Creator','Photography Creator']
-  -- Finance & Insurance
-  WHEN lower(industry) LIKE '%financ%' OR lower(industry) LIKE '%banking%' OR lower(industry) LIKE '%insurance%' OR lower(industry) LIKE '%invest%'
-    THEN ARRAY['Finance Educator','Business Creator','Crypto Creator','Real Estate Creator','Education Creator','Career Coach']
-  -- Education & E-Learning
-  WHEN lower(industry) LIKE '%education%' OR lower(industry) LIKE '%elearn%' OR lower(industry) LIKE '%training%'
-    THEN ARRAY['Education Creator','Business Creator','Career Coach','Student Creator','Language Creator','Productivity Creator']
-  -- Entertainment & Media
-  WHEN lower(industry) LIKE '%entertainment%' OR lower(industry) LIKE '%media%' OR lower(industry) LIKE '%streaming%' OR lower(industry) LIKE '%film%'
-    THEN ARRAY['Entertainment Creator','Comedy Creator','Podcast Host','Music Artist','Filmmaker','Vlogger']
-  -- Sports
-  WHEN lower(industry) LIKE '%sport%' AND NOT lower(industry) LIKE '%esport%'
-    THEN ARRAY['Sports Athlete','Fitness Influencer','Sports Commentator','Outdoor Adventure Creator','Lifestyle Vlogger']
-  -- Music & Audio
-  WHEN lower(industry) LIKE '%music%' OR lower(industry) LIKE '%audio%' OR lower(industry) LIKE '%record%'
-    THEN ARRAY['Music Artist','Podcast Host','Entertainment Creator','DJ/Producer','Lifestyle Vlogger']
-  -- Health & Medical
-  WHEN lower(industry) LIKE '%health%' OR lower(industry) LIKE '%medical%' OR lower(industry) LIKE '%pharma%' OR lower(industry) LIKE '%mental%'
-    THEN ARRAY['Health & Wellness Creator','Fitness Influencer','Mental Health Advocate','Yoga/Meditation Creator','Nutrition Creator','Mom/Family Creator']
-  -- Business & Professional
-  WHEN lower(industry) LIKE '%business%' OR lower(industry) LIKE '%consulting%' OR lower(industry) LIKE '%professional%' OR lower(industry) LIKE '%management%'
-    THEN ARRAY['Business Creator','Career Coach','Finance Educator','LinkedIn Creator','Podcast Host','Education Creator']
-  -- Parenting & Family
-  WHEN lower(industry) LIKE '%parent%' OR lower(industry) LIKE '%baby%' OR lower(industry) LIKE '%kid%' OR lower(industry) LIKE '%family%' OR lower(industry) LIKE '%toy%'
-    THEN ARRAY['Mom/Family Creator','Lifestyle Vlogger','Education Creator','Parenting Blogger','Kid Creator']
-  -- Pets & Animals
-  WHEN lower(industry) LIKE '%pet%' OR lower(industry) LIKE '%animal%' OR lower(industry) LIKE '%veterinar%'
-    THEN ARRAY['Pet Influencer','Lifestyle Vlogger','Comedy Creator','Mom/Family Creator']
-  -- Automotive
-  WHEN lower(industry) LIKE '%auto%' OR lower(industry) LIKE '%car%' OR lower(industry) LIKE '%vehicle%' OR lower(industry) LIKE '%motor%'
-    THEN ARRAY['Auto/Car Reviewer','Tech Reviewer','Luxury Influencer','Lifestyle Vlogger','Adventure Creator']
-  -- Real Estate
-  WHEN lower(industry) LIKE '%real estate%' OR lower(industry) LIKE '%property%' OR lower(industry) LIKE '%mortgage%'
-    THEN ARRAY['Real Estate Creator','Finance Educator','Lifestyle Vlogger','Interior Design Creator','Business Creator']
-  -- Wedding & Events
-  WHEN lower(industry) LIKE '%wedding%' OR lower(industry) LIKE '%event%' OR lower(industry) LIKE '%bridal%'
-    THEN ARRAY['Wedding Creator','Lifestyle Vlogger','Photography Creator','Fashion Influencer','Couple Creator']
-  -- Art & Design
-  WHEN lower(industry) LIKE '%art%' OR lower(industry) LIKE '%design%' OR lower(industry) LIKE '%creative%'
-    THEN ARRAY['Art Creator','Photography Creator','DIY/Home Creator','Fashion Influencer','Filmmaker','Graphic Designer']
-  -- Photography
-  WHEN lower(industry) LIKE '%photo%' OR lower(industry) LIKE '%camera%'
-    THEN ARRAY['Photography Creator','Travel Influencer','Fashion Influencer','Art Creator','Tech Reviewer','Filmmaker']
-  -- Sustainability & Clean Energy
-  WHEN lower(industry) LIKE '%sustain%' OR lower(industry) LIKE '%eco%' OR lower(industry) LIKE '%renewable%' OR lower(industry) LIKE '%solar%' OR lower(industry) LIKE '%clean%'
-    THEN ARRAY['Sustainability Advocate','Lifestyle Vlogger','Education Creator','Outdoor Adventure Creator','Health & Wellness Creator']
-  -- Crypto & Web3
-  WHEN lower(industry) LIKE '%crypto%' OR lower(industry) LIKE '%blockchain%' OR lower(industry) LIKE '%web3%' OR lower(industry) LIKE '%defi%'
-    THEN ARRAY['Crypto Creator','Finance Educator','Tech Reviewer','Business Creator','Gaming Creator']
-  -- Outdoor & Adventure
-  WHEN lower(industry) LIKE '%outdoor%' OR lower(industry) LIKE '%adventure%' OR lower(industry) LIKE '%camping%' OR lower(industry) LIKE '%hiking%'
-    THEN ARRAY['Outdoor Adventure Creator','Travel Influencer','Fitness Influencer','Photography Creator','Sports Athlete','Lifestyle Vlogger']
-  -- Luxury
-  WHEN lower(industry) LIKE '%luxury%' OR lower(industry) LIKE '%premium%'
-    THEN ARRAY['Luxury Influencer','Fashion Influencer','Travel Influencer','Lifestyle Vlogger','Photography Creator','Food Creator']
-  -- Wine & Spirits
-  WHEN lower(industry) LIKE '%wine%' OR lower(industry) LIKE '%spirit%' OR lower(industry) LIKE '%alcohol%' OR lower(industry) LIKE '%beer%' OR lower(industry) LIKE '%liquor%'
-    THEN ARRAY['Food Creator','Lifestyle Vlogger','Travel Influencer','Luxury Influencer','Entertainment Creator','Couple Creator']
-  -- Telecom
-  WHEN lower(industry) LIKE '%telecom%' OR lower(industry) LIKE '%wireless%' OR lower(industry) LIKE '%mobile%'
-    THEN ARRAY['Tech Reviewer','Lifestyle Vlogger','Business Creator','Gaming Creator','Student Creator']
-  -- Jewelry & Watches
-  WHEN lower(industry) LIKE '%jewelry%' OR lower(industry) LIKE '%watch%' OR lower(industry) LIKE '%jewel%'
-    THEN ARRAY['Fashion Influencer','Luxury Influencer','Lifestyle Vlogger','Couple Creator','Photography Creator']
-  -- Streetwear & Urban
-  WHEN lower(industry) LIKE '%streetwear%' OR lower(industry) LIKE '%urban%' OR lower(industry) LIKE '%sneaker%'
-    THEN ARRAY['Streetwear Creator','Fashion Influencer','Music Artist','Gaming Creator','Sports Athlete','Hip-Hop Creator']
-  -- Legal & Professional Services
-  WHEN lower(industry) LIKE '%legal%' OR lower(industry) LIKE '%law%'
-    THEN ARRAY['Business Creator','Career Coach','Education Creator','LinkedIn Creator','Finance Educator']
-  -- Nonprofit
-  WHEN lower(industry) LIKE '%nonprofit%' OR lower(industry) LIKE '%non-profit%' OR lower(industry) LIKE '%charity%' OR lower(industry) LIKE '%philanthrop%'
-    THEN ARRAY['Sustainability Advocate','Education Creator','Lifestyle Vlogger','Mental Health Advocate','Community Creator']
-  -- Marketing & Advertising
-  WHEN lower(industry) LIKE '%marketing%' OR lower(industry) LIKE '%advertising%'
-    THEN ARRAY['Business Creator','LinkedIn Creator','Education Creator','Tech Reviewer','Podcast Host','Career Coach']
-  -- Consumer Goods / Retail
-  WHEN lower(industry) LIKE '%consumer%' OR lower(industry) LIKE '%retail%' OR lower(industry) LIKE '%shopping%' OR lower(industry) LIKE '%ecommerce%'
-    THEN ARRAY['Lifestyle Vlogger','Fashion Influencer','Beauty Creator','Mom/Family Creator','Tech Reviewer','Unboxing Creator']
-  -- Dating & Social
-  WHEN lower(industry) LIKE '%dating%' OR lower(industry) LIKE '%social%'
-    THEN ARRAY['Lifestyle Vlogger','Comedy Creator','Couple Creator','Podcast Host','Entertainment Creator']
-  -- Default — if no match, general lifestyle
-  ELSE ARRAY['Lifestyle Vlogger','Business Creator','Education Creator']
-END;
+-- Step 1: Start with base types that ALL brands can work with
+UPDATE brands SET relevant_talent_types = ARRAY['Lifestyle Vlogger','Podcast Host','Business Creator'];
 
--- Create index for array search
+-- Step 2: Add talent types based on industry keywords (additive, not replacing)
+
+-- Fashion related
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Fashion Influencer','Beauty Creator','Photography Creator','Streetwear Creator','Luxury Influencer','Couple Creator','Mom/Family Creator','Unboxing Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%fashion%','%apparel%','%clothing%','%textile%']);
+
+-- Beauty & Cosmetics
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Beauty Creator','Skincare Creator','Fashion Influencer','Mom/Family Creator','Health & Wellness Creator','Unboxing Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%beauty%','%cosmetic%','%skincare%','%makeup%','%personal care%']);
+
+-- Technology
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Tech Reviewer','Gaming Creator','Developer Creator','Productivity Creator','Education Creator','Unboxing Creator','Student Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%tech%','%software%','%saas%','%computer%','%internet%','%information%','%electronic%']);
+
+-- Fitness & Sports
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Fitness Influencer','Sports Athlete','Health & Wellness Creator','Yoga/Meditation Creator','Outdoor Adventure Creator','Nutrition Creator','Sports Commentator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%fitness%','%sport%','%athletic%','%activewear%','%gym%','%wellness%']);
+
+-- Food & Beverage
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Food Creator','Mukbang Creator','Nutrition Creator','Travel Influencer','Mom/Family Creator','Health & Wellness Creator','Couple Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%food%','%beverage%','%restaurant%','%cooking%','%grocery%','%dairy%','%snack%']);
+
+-- Travel & Hospitality
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Travel Influencer','Photography Creator','Luxury Influencer','Outdoor Adventure Creator','Food Creator','Couple Creator','Adventure Creator','Vlogger'])
+WHERE lower(industry) LIKE ANY(ARRAY['%travel%','%hospitality%','%hotel%','%airline%','%tourism%','%resort%','%booking%']);
+
+-- Gaming & Esports
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Gaming Creator','Streamer','Tech Reviewer','Entertainment Creator','Anime/Manga Creator','Comedy Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%gaming%','%game%','%esport%']);
+
+-- Home & Lifestyle
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['DIY/Home Creator','Interior Design Creator','Organization Creator','Photography Creator','Mom/Family Creator','Couple Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%home%','%diy%','%furniture%','%decor%','%household%','%garden%']);
+
+-- Finance & Banking
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Finance Educator','Crypto Creator','Real Estate Creator','Career Coach','LinkedIn Creator','Education Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%financ%','%banking%','%insurance%','%invest%','%capital%','%accounting%']);
+
+-- Education
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Education Creator','Student Creator','Language Creator','Productivity Creator','Career Coach','Mom/Family Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%education%','%elearn%','%training%','%learning%','%university%']);
+
+-- Entertainment & Media
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Entertainment Creator','Comedy Creator','Music Artist','Filmmaker','Vlogger','DJ/Producer','Streamer'])
+WHERE lower(industry) LIKE ANY(ARRAY['%entertainment%','%media%','%streaming%','%film%','%motion picture%','%broadcast%']);
+
+-- Music
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Music Artist','DJ/Producer','Entertainment Creator','Streamer','Hip-Hop Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%music%','%audio%','%record%','%sound%']);
+
+-- Health & Medical
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Health & Wellness Creator','Mental Health Advocate','Fitness Influencer','Yoga/Meditation Creator','Nutrition Creator','Mom/Family Creator','Education Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%health%','%medical%','%pharma%','%mental%','%supplement%','%vitamin%']);
+
+-- Parenting & Kids
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Mom/Family Creator','Parenting Blogger','Kid Creator','Education Creator','Lifestyle Vlogger','Comedy Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%parent%','%baby%','%kid%','%child%','%family%','%toy%','%maternity%']);
+
+-- Pets
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Pet Influencer','Comedy Creator','Mom/Family Creator','Lifestyle Vlogger','Outdoor Adventure Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%pet%','%animal%','%veterinar%','%dog%','%cat%']);
+
+-- Automotive
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Auto/Car Reviewer','Tech Reviewer','Luxury Influencer','Adventure Creator','Vlogger','Photography Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%auto%','%car%','%vehicle%','%motor%','%electric vehicle%']);
+
+-- Real Estate
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Real Estate Creator','Finance Educator','Interior Design Creator','DIY/Home Creator','Photography Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%real estate%','%property%','%mortgage%','%construction%','%building%']);
+
+-- Art & Design & Photography
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Art Creator','Photography Creator','Graphic Designer','Filmmaker','Fashion Influencer','DIY/Home Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%art%','%design%','%creative%','%photo%','%camera%']);
+
+-- Sustainability & Clean Energy
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Sustainability Advocate','Outdoor Adventure Creator','Health & Wellness Creator','Education Creator','Community Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%sustain%','%eco%','%renewable%','%solar%','%clean%','%organic%','%green%']);
+
+-- Crypto & Web3
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Crypto Creator','Finance Educator','Tech Reviewer','Gaming Creator','Education Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%crypto%','%blockchain%','%web3%','%defi%','%nft%']);
+
+-- Luxury
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Luxury Influencer','Fashion Influencer','Travel Influencer','Photography Creator','Food Creator','Couple Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%luxury%','%premium%','%high-end%']);
+
+-- Wine & Spirits & Alcohol
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Food Creator','Luxury Influencer','Travel Influencer','Entertainment Creator','Couple Creator','Comedy Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%wine%','%spirit%','%alcohol%','%beer%','%liquor%','%cocktail%']);
+
+-- Telecom
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Tech Reviewer','Gaming Creator','Student Creator','Vlogger','Entertainment Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%telecom%','%wireless%','%mobile%','%carrier%']);
+
+-- Jewelry & Watches
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Fashion Influencer','Luxury Influencer','Couple Creator','Photography Creator','Wedding Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%jewelry%','%watch%','%jewel%','%diamond%','%accessori%']);
+
+-- Streetwear
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Streetwear Creator','Hip-Hop Creator','Music Artist','Gaming Creator','Sports Athlete','Skateboard Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%streetwear%','%urban%','%sneaker%','%skate%']);
+
+-- Marketing & Advertising
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['LinkedIn Creator','Career Coach','Education Creator','Productivity Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%marketing%','%advertising%','%agency%','%pr %','%public relation%']);
+
+-- Consumer & Retail
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Unboxing Creator','Mom/Family Creator','Fashion Influencer','Beauty Creator','Tech Reviewer'])
+WHERE lower(industry) LIKE ANY(ARRAY['%consumer%','%retail%','%shopping%','%ecommerce%','%e-commerce%']);
+
+-- Nonprofit & Social Impact
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Sustainability Advocate','Mental Health Advocate','Community Creator','Education Creator'])
+WHERE lower(industry) LIKE ANY(ARRAY['%nonprofit%','%non-profit%','%charity%','%philanthrop%','%social%','%civic%']);
+
+-- Wedding
+UPDATE brands SET relevant_talent_types = array_cat(relevant_talent_types, ARRAY['Wedding Creator','Couple Creator','Photography Creator','Fashion Influencer'])
+WHERE lower(industry) LIKE ANY(ARRAY['%wedding%','%bridal%','%event%']);
+
+-- Step 3: Remove duplicates from arrays
+UPDATE brands SET relevant_talent_types = (
+  SELECT ARRAY(SELECT DISTINCT unnest(relevant_talent_types) ORDER BY 1)
+);
+
+-- Step 4: Create GIN index for fast array searches
 CREATE INDEX IF NOT EXISTS idx_brands_talent_types ON brands USING GIN(relevant_talent_types);
