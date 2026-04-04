@@ -1789,8 +1789,8 @@ export default function AdminDataManager() {
     try {
       while (hasMore) {
         const { data } = await base44.functions.invoke("populateContactsGMO", {
-          clear_existing: offset === 0,
-          batch_size: 3,
+          clear_existing: false,
+          batch_size: 1,
           offset,
         });
         totalContacts += data?.contacts_added || 0;

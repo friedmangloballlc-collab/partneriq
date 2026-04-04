@@ -85,7 +85,7 @@ serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const offset = body.offset || 0;
-    const batchSize = body.batch_size || 3;
+    const batchSize = body.batch_size || 1;
     const clearExisting = body.clear_existing !== false;
 
     // Clear contacts on first batch
@@ -115,7 +115,7 @@ serve(async (req) => {
         const gmoData = await enrichWithGMO(brand.domain);
         if (!gmoData?.employees) continue;
 
-        for (const emp of gmoData.employees) {
+        for (const emp of gmoData.employees.slice(0, 50)) {
           try {
             await supabase.from("decision_makers").insert({
               brand_name: brand.name,
