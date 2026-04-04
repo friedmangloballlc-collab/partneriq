@@ -125,7 +125,7 @@ serve(async (req) => {
               try {
                 await supabase.from("decision_makers").insert({
                   brand_name: brand.name,
-                  brand_id: brandId,
+                  company_domain: brand.domain,
                   full_name: `${employee.first_name || ""} ${employee.last_name || ""}`.trim() || "Unknown",
                   role_title: employee.job_title || employee.headline || "Unknown",
                   role_tier: "1",
@@ -133,8 +133,7 @@ serve(async (req) => {
                   email_confidence: employee.business_email ? 0.85 : 0,
                   phone: employee.phone || null,
                   linkedin_url: typeof employee.social_url === "string" ? employee.social_url : null,
-                  source: { type: "gmo_enrichment", industry },
-                  verified: true,
+                  source: JSON.stringify({ type: "gmo_enrichment", industry }),
                 });
                 totalContactsInserted++;
               } catch {
