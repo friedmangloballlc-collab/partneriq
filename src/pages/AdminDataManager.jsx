@@ -1796,6 +1796,48 @@ export default function AdminDataManager() {
     }
   };
 
+  const [populatingIntel, setPopulatingIntel] = useState(false);
+  const [intelResult, setIntelResult] = useState(null);
+  const [populatingEvents, setPopulatingEvents] = useState(false);
+  const [eventsResult, setEventsResult] = useState(null);
+
+  const handlePopulateIntel = async () => {
+    if (!confirm("Generate brand intelligence (budget data, buying signals, hiring indicators) for all brands. Takes 20-30 minutes. Continue?")) return;
+    setPopulatingIntel(true);
+    setIntelResult(null);
+    let totalSignals = 0;
+    let offset = 0;
+    let hasMore = true;
+    try {
+      while (hasMore) {
+        const { data } = await base44.functions.invoke("populateBrandIntel", { clear_existing: offset === 0, batch_size: 5, offset });
+        totalSignals += data?.signals_added || 0;
+        hasMore = data?.has_more || false;
+        offset = data?.next_offset || offset + 5;
+        setIntelResult({ signals_added: totalSignals, progress: data?.progress || "..." });
+      }
+      setIntelResult({ signals_added: totalSignals, done: true });
+    } catch (err) {
+      setIntelResult({ error: err.message, signals_added: totalSignals });
+    } finally {
+      setPopulatingIntel(false);
+    }
+  };
+
+  const handlePopulateEvents = async () => {
+    if (!confirm("Populate industry events database with 200+ real events and brand sponsor mapping. Takes 5-8 minutes. Continue?")) return;
+    setPopulatingEvents(true);
+    setEventsResult(null);
+    try {
+      const { data } = await base44.functions.invoke("populateEvents", { clear_existing: true });
+      setEventsResult(data);
+    } catch (err) {
+      setEventsResult({ error: err.message });
+    } finally {
+      setPopulatingEvents(false);
+    }
+  };
+
   const handlePopulateBrands = async (clearExisting = true) => {
     if (clearExisting && !confirm("This will DELETE all existing brands and replace them with real, verified companies across 15 industries. Continue?")) return;
     setPopulating(true);
@@ -1932,6 +1974,42 @@ export default function AdminDataManager() {
         >
           {populatingContacts ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Users className="w-4 h-4 mr-2" />}
           {populatingContacts ? "Generating..." : "Populate Contacts"}
+        </Button>
+      </div>
+
+      {/* Populate Brand Intelligence */}
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-orange-50 border border-orange-200">
+        <div className="flex-1">
+          <p className="text-sm font-medium text-orange-900">Auto-Populate Brand Intelligence</p>
+          <p className="text-xs text-orange-700 mt-0.5">
+            {populatingIntel
+              ? `Generating buying signals... ${intelResult?.progress || "starting"} — ${intelResult?.signals_added || 0} signals added`
+              : "Generate budget data, hiring signals, campaign timing, and competitor activity for every brand."}
+          </p>
+          {intelResult?.done && <p className="text-xs text-emerald-700 mt-1 font-medium">Done — {intelResult.signals_added} signals generated.</p>}
+          {intelResult?.error && <p className="text-xs text-red-700 mt-1">{intelResult.error}</p>}
+        </div>
+        <Button onClick={handlePopulateIntel} disabled={populatingIntel} className="bg-orange-600 hover:bg-orange-700 text-xs whitespace-nowrap">
+          {populatingIntel ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Building2 className="w-4 h-4 mr-2" />}
+          {populatingIntel ? "Generating..." : "Populate Intel"}
+        </Button>
+      </div>
+
+      {/* Populate Events */}
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-purple-50 border border-purple-200">
+        <div className="flex-1">
+          <p className="text-sm font-medium text-purple-900">Auto-Populate Industry Events</p>
+          <p className="text-xs text-purple-700 mt-0.5">
+            {populatingEvents
+              ? "Generating events and mapping brand sponsors..."
+              : "Populate 200+ real industry events (VidCon, SXSW, Fashion Week, etc.) and map which brands sponsor them."}
+          </p>
+          {eventsResult?.events_added && <p className="text-xs text-emerald-700 mt-1 font-medium">Done — {eventsResult.events_added} events, {eventsResult.sponsors_mapped || 0} sponsor links.</p>}
+          {eventsResult?.error && <p className="text-xs text-red-700 mt-1">{eventsResult.error}</p>}
+        </div>
+        <Button onClick={handlePopulateEvents} disabled={populatingEvents} className="bg-purple-600 hover:bg-purple-700 text-xs whitespace-nowrap">
+          {populatingEvents ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Handshake className="w-4 h-4 mr-2" />}
+          {populatingEvents ? "Generating..." : "Populate Events"}
         </Button>
       </div>
 
