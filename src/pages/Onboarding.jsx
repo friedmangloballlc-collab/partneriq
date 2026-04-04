@@ -16,6 +16,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { FAQSection, ComparisonSection, SecurityBadges, VideoDemoSection, MobileAppSection } from "@/components/landing/LandingSections";
 import LandingPage from "@/components/landing/LandingPage";
+import { TALENT_CATEGORIES } from "@/lib/talentTypes";
 
 // ─────────────────────────────────────────────
 // DATA — unchanged from original
@@ -439,11 +440,7 @@ const BRAND_CULTURES = [
 
 const AUDIENCE_AGES = ["13–17", "18–24", "25–34", "35–44", "45–54", "55+"];
 const AUDIENCE_GENDERS = ["Female", "Male", "Non-binary", "All"];
-const AUDIENCE_INTERESTS = [
-  "Fashion & Beauty", "Fitness & Health", "Tech & Gaming", "Food & Cooking",
-  "Travel & Lifestyle", "Finance & Business", "Music & Entertainment", "Sports",
-  "Parenting & Family", "Education & Learning", "Sustainability", "Luxury"
-];
+const AUDIENCE_INTERESTS = TALENT_CATEGORIES.map(c => c.category);
 const AUDIENCE_LOCATIONS = ["United States", "United Kingdom", "Canada", "Australia", "Europe", "Latin America", "Global"];
 
 const CAMPAIGN_OBJECTIVES = [
@@ -1828,11 +1825,28 @@ export default function Onboarding() {
                 </div>
                 <div>
                   <Label className="text-slate-300 font-semibold text-sm">{labels.title}</Label>
-                  <Input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder={labels.titlePlaceholder}
-                    className="mt-1.5 bg-white/5 border-white/10 text-white placeholder:text-slate-600 h-11 rounded-xl focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500/50 transition-all" />
+                  {selectedRole === "talent" ? (
+                    <select
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className="mt-1.5 w-full bg-white/5 border border-white/10 text-white h-11 rounded-xl px-3 text-sm focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500/50 transition-all"
+                    >
+                      <option value="" disabled className="bg-slate-900 text-slate-400">Select your talent type...</option>
+                      {TALENT_CATEGORIES.map(cat => (
+                        <optgroup key={cat.category} label={cat.category} className="bg-slate-900 text-slate-300">
+                          {cat.types.map(type => (
+                            <option key={type} value={type} className="bg-slate-900 text-white">{type}</option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
+                  ) : (
+                    <Input
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder={labels.titlePlaceholder}
+                      className="mt-1.5 bg-white/5 border-white/10 text-white placeholder:text-slate-600 h-11 rounded-xl focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500/50 transition-all" />
+                  )}
                 </div>
               </div>
 

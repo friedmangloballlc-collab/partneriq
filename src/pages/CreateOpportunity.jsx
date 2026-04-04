@@ -17,9 +17,9 @@ import { createPageUrl } from "@/utils";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { TALENT_CATEGORIES } from "@/lib/talentTypes";
 
 const PLATFORMS = ["instagram", "tiktok", "youtube", "twitter", "twitch", "linkedin"];
-const NICHES = ["tech", "lifestyle", "fitness", "beauty", "gaming", "food", "travel", "fashion", "finance", "education", "entertainment", "sports", "music", "health", "business", "parenting", "pets", "automotive", "real_estate", "wedding", "art_design", "photography", "diy_home", "sustainability", "crypto_web3", "outdoor_adventure", "luxury", "saas_tools", "skincare", "streetwear", "mental_health", "airlines_travel", "hospitality", "wine_spirits", "cosmetics", "sporting_goods", "telecom", "insurance", "restaurants", "pharma_otc", "elearning", "clean_energy", "jewelry_watches"];
 const CONTRACT_TYPES = ["sponsorship", "affiliate", "ambassador", "content_creation", "partnership", "event", "other"];
 
 // ─── Zod schema ──────────────────────────────────────────────────────────────
@@ -349,17 +349,24 @@ export default function CreateOpportunity() {
               </div>
             </div>
 
-            {/* Niches */}
+            {/* Talent Types */}
             <div className="space-y-3">
-              <h3 className="font-semibold">Preferred Niches</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {NICHES.map((niche) => (
-                  <div key={niche} className="flex items-center gap-2">
-                    <Checkbox
-                      checked={requiredNiches.includes(niche)}
-                      onCheckedChange={() => toggleNiche(niche)}
-                    />
-                    <label className="text-sm capitalize cursor-pointer">{niche}</label>
+              <h3 className="font-semibold">Preferred Talent Types</h3>
+              <div className="space-y-4 max-h-72 overflow-y-auto pr-2">
+                {TALENT_CATEGORIES.map((cat) => (
+                  <div key={cat.category}>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{cat.category}</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {cat.types.map((type) => (
+                        <div key={type} className="flex items-center gap-2">
+                          <Checkbox
+                            checked={requiredNiches.includes(type)}
+                            onCheckedChange={() => toggleNiche(type)}
+                          />
+                          <label className="text-sm cursor-pointer">{type}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>

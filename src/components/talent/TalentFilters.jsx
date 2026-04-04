@@ -3,9 +3,9 @@ import { X, SlidersHorizontal } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { TALENT_CATEGORIES } from "@/lib/talentTypes";
 
 const PLATFORMS = ["instagram","tiktok","youtube","twitter","twitch","linkedin"];
-const NICHES = ["tech","lifestyle","fitness","beauty","gaming","food","travel","fashion","finance","education","entertainment","sports","music","health","business"];
 const TIERS = ["nano","micro","mid","macro","mega","celebrity"];
 const TRAJECTORIES = [
   { key: "breakout",      label: "Breakout" },
@@ -108,11 +108,18 @@ export default function TalentFilters({ filters, onChange, onReset }) {
 
       <Separator />
 
-      {/* Niche / Category */}
+      {/* Talent Type */}
       <div>
-        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Category</p>
-        <div className="flex flex-wrap gap-1.5">
-          {NICHES.map(n => <Chip key={n} label={n.charAt(0).toUpperCase()+n.slice(1)} active={filters.niche===n} onClick={()=>toggle("niche",n)} />)}
+        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Talent Type</p>
+        <div className="max-h-48 overflow-y-auto space-y-2">
+          {TALENT_CATEGORIES.map(cat => (
+            <div key={cat.category}>
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">{cat.category}</p>
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {cat.types.map(n => <Chip key={n} label={n} active={filters.niche===n} onClick={()=>toggle("niche",n)} />)}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

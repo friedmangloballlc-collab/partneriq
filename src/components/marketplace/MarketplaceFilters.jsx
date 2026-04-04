@@ -11,9 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { TALENT_CATEGORIES } from "@/lib/talentTypes";
 
 const PLATFORMS = ["instagram", "tiktok", "youtube", "twitter", "twitch", "linkedin"];
-const NICHES = ["tech", "lifestyle", "fitness", "beauty", "gaming", "food", "travel", "fashion", "finance", "education", "entertainment", "sports", "music", "health", "business"];
 const CONTRACT_TYPES = ["sponsorship", "affiliate", "ambassador", "content_creation", "partnership", "event", "other"];
 
 export default function MarketplaceFilters({ onFiltersChange }) {
@@ -146,17 +146,24 @@ export default function MarketplaceFilters({ onFiltersChange }) {
           </div>
         </div>
 
-        {/* Niches */}
+        {/* Talent Types */}
         <div className="space-y-3">
-          <Label className="font-semibold">Niches</Label>
-          <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
-            {NICHES.map((niche) => (
-              <div key={niche} className="flex items-center gap-2">
-                <Checkbox
-                  checked={filters.niches.includes(niche)}
-                  onCheckedChange={() => toggleNiche(niche)}
-                />
-                <label className="text-sm capitalize cursor-pointer">{niche}</label>
+          <Label className="font-semibold">Talent Types</Label>
+          <div className="max-h-64 overflow-y-auto space-y-3">
+            {TALENT_CATEGORIES.map((cat) => (
+              <div key={cat.category}>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">{cat.category}</p>
+                <div className="grid grid-cols-1 gap-1">
+                  {cat.types.map((type) => (
+                    <div key={type} className="flex items-center gap-2">
+                      <Checkbox
+                        checked={filters.niches.includes(type)}
+                        onCheckedChange={() => toggleNiche(type)}
+                      />
+                      <label className="text-sm cursor-pointer">{type}</label>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
