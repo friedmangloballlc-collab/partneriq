@@ -22,8 +22,8 @@ serve(async (req) => {
     if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-    const userClient = createClient(SUPABASE_URL, authHeader);
-    const { data: { user }, error: authError } = await userClient.auth.getUser();
+    
+    const { data: { user }, error: authError } = await supabase.auth.getUser(authHeader);
     if (authError || !user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();

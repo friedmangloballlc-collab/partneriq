@@ -101,18 +101,19 @@ serve(async (req) => {
     return new Response(null, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, x-client-info, apikey" } });
   }
 
+  const corsHeaders = { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" };
+
   try {
     // Admin auth check
     const authHeader = req.headers.get("authorization")?.replace("Bearer ", "");
-    if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: corsHeaders });
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-    const userClient = createClient(SUPABASE_URL, authHeader);
-    const { data: { user } } = await userClient.auth.getUser();
-    if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(authHeader);
+    if (authErr || !user) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: corsHeaders });
 
     const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
-    if (profile?.role !== "admin") return Response.json({ error: "Admin only" }, { status: 403 });
+    if (profile?.role !== "admin") return new Response(JSON.stringify({ error: "Admin only" }), { status: 403, headers: corsHeaders });
 
     const body = await req.json().catch(() => ({}));
     const clearExisting = body.clear_existing !== false;

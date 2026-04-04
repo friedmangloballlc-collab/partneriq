@@ -87,8 +87,8 @@ serve(async (req) => {
     if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-    const userClient = createClient(SUPABASE_URL, authHeader);
-    const { data: { user } } = await userClient.auth.getUser();
+    
+    const { data: { user } } = await supabase.auth.getUser(authHeader);
     if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();

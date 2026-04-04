@@ -21,8 +21,8 @@ serve(async (req) => {
     const authHeader = req.headers.get("authorization")?.replace("Bearer ", "");
     if (!authHeader) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-    const userClient = createClient(SUPABASE_URL, authHeader);
-    const { data: { user }, error: authError } = await userClient.auth.getUser();
+    
+    const { data: { user }, error: authError } = await supabase.auth.getUser(authHeader);
     if (authError || !user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
