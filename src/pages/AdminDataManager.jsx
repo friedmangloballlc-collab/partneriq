@@ -442,27 +442,51 @@ function parseBrandDescription(description) {
   return { description, company_linkedin_url: "", company_founded: "", company_type: "", company_country: "" };
 }
 
-// All talent types on the platform
+// All talent types on the platform — organized by category
 const ALL_TALENT_TYPES = [
   "All Talents",
-  "Fashion Influencer", "Beauty Creator", "Skincare Creator", "Streetwear Creator",
-  "Lifestyle Vlogger", "Luxury Influencer", "Mom/Family Creator", "Parenting Blogger",
-  "Tech Reviewer", "Gaming Creator", "Streamer", "Developer Creator",
-  "Fitness Influencer", "Sports Athlete", "Sports Commentator", "Yoga/Meditation Creator",
-  "Outdoor Adventure Creator", "Adventure Creator",
-  "Food Creator", "Mukbang Creator", "Nutrition Creator",
-  "Travel Influencer", "Photography Creator", "Filmmaker",
-  "Music Artist", "DJ/Producer", "Podcast Host",
-  "Finance Educator", "Crypto Creator", "Business Creator", "LinkedIn Creator", "Career Coach",
-  "Education Creator", "Student Creator", "Language Creator", "Productivity Creator",
-  "Entertainment Creator", "Comedy Creator", "Vlogger", "Unboxing Creator",
-  "Health & Wellness Creator", "Mental Health Advocate",
-  "Pet Influencer", "Auto/Car Reviewer",
-  "DIY/Home Creator", "Interior Design Creator", "Organization Creator",
-  "Art Creator", "Graphic Designer",
-  "Real Estate Creator", "Wedding Creator", "Couple Creator",
-  "Sustainability Advocate", "Community Creator",
-  "Hip-Hop Creator", "Anime/Manga Creator", "Kid Creator",
+  // Digital Creators & Influencers
+  "Stand-up Comedians", "Podcast Creators", "Twitch Streamers", "Instagram Influencers",
+  "TikTok Creators", "YouTube Creators",
+  // Actors & Screen Talent
+  "TV Actors", "Film Actors", "Commercial Actors", "Child/Youth Actors",
+  "Stunt Performers",
+  // Dancers & Choreographers
+  "Ballet Dancers", "Contemporary Dancers", "Ballroom/Latin Dancers",
+  "Broadway/Musical Theater Dancers", "Backup Dancers", "Hip-Hop Dancers",
+  "Choreographers",
+  // Variety & Live Performance
+  "Magicians/Illusionists", "Circus Performers", "Mentalists", "Puppeteers",
+  // Models — Fashion & Editorial
+  "High Fashion Runway Models", "Designer Campaign Models", "Editorial Print Models",
+  "Haute Couture Models", "Swimwear/Lingerie Models", "Bridal Models",
+  // Models — Commercial & Specialty
+  "Advertising Print Models", "Catalog Models", "E-commerce Models",
+  "Plus-size/Curve Models", "Fitness Models", "Parts Models", "Hair Models",
+  // Music Artists
+  "Music Artists",
+  // Team Sports Athletes
+  "Basketball Players", "Football Players", "Baseball Players",
+  "Hockey Players", "Soccer Players",
+  // Individual Sports Athletes
+  "Golf Athletes", "Tennis Athletes", "Boxing/MMA Athletes",
+  "Track & Field Athletes", "Swimmers/Divers", "Gymnasts",
+  "Olympic Athletes", "Paralympic Athletes",
+  // Motorsports & Extreme Sports
+  "F1/IndyCar/NASCAR Drivers", "Skateboarders", "Surfers", "BMX Athletes",
+  "Esports Athletes",
+  // Sports Industry
+  "Sports Broadcasters", "Sports Analysts", "Coaches",
+  // Additional Creator Types
+  "Fashion Influencer", "Beauty Creator", "Skincare Creator",
+  "Lifestyle Vlogger", "Luxury Influencer", "Mom/Family Creator",
+  "Tech Reviewer", "Gaming Creator", "Fitness Influencer",
+  "Food Creator", "Travel Influencer", "Photography Creator",
+  "Finance Educator", "Education Creator", "Health & Wellness Creator",
+  "Mental Health Advocate", "Pet Influencer", "Auto/Car Reviewer",
+  "DIY/Home Creator", "Art Creator", "Real Estate Creator",
+  "Sustainability Advocate", "Crypto Creator", "Streetwear Creator",
+  "Wedding Creator",
 ];
 
 function BrandsTab() {
