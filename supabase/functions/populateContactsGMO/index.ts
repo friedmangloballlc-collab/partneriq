@@ -115,8 +115,7 @@ serve(async (req) => {
         const gmoData = await enrichWithGMO(brand.domain);
         if (!gmoData?.employees) continue;
 
-        const relevantEmployees = gmoData.employees.filter((e: any) => isRelevantContact(e.job_title || e.headline || ""));
-        for (const emp of relevantEmployees) {
+        for (const emp of gmoData.employees) {
           try {
             await supabase.from("decision_makers").insert({
               brand_name: brand.name,
