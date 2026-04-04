@@ -7,6 +7,45 @@ const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const GMO_API_KEY = Deno.env.get("GROWMEORGANIC_API_KEY") || "";
 const GMO_BASE = "https://myapiconnect.com/api-product/incoming-webhook";
 
+// Job titles we want — lowercase for matching
+const RELEVANT_TITLES = [
+  // Partnerships, Sponsorships, Activations
+  "partnership", "sponsor", "activation", "business development", "brand partnership",
+  "strategic partner", "commercial", "licensing", "affiliate", "co-marketing",
+  "integrated marketing",
+  // Marketing, Brand
+  "cmo", "chief marketing", "vp marketing", "marketing director", "brand marketing",
+  "influencer marketing", "marketing manager", "marketing specialist", "digital marketing",
+  // Advertising, Sales
+  "vp sales", "head of advertising", "chief revenue", "ad sales", "revenue officer",
+  // Digital, Social, Audience, Growth
+  "head of digital", "digital partner", "social media director", "digital strategy",
+  "audience development", "vp growth", "growth", "audience engagement",
+  // Content, Creative
+  "creative director", "content strategy", "programming", "executive producer",
+  "podcast", "head of video", "video partner", "newsletter", "host",
+  // Editorial
+  "editor-in-chief", "managing editor", "executive editor", "editorial director",
+  "editor in chief",
+  // Communications, PR
+  "communications", "pr director", "public relations",
+  // Events, Booking
+  "events director", "head of programming", "vp events", "booking",
+  "guest submission", "speaker bureau",
+  // Management
+  "ceo", "founder", "general manager", "talent manager", "chief executive",
+  // Talent, Agency
+  "agent", "publicist", "talent rep", "talent agency",
+  // Other relevant
+  "client services", "client relations",
+];
+
+function isRelevantContact(jobTitle: string): boolean {
+  if (!jobTitle) return false;
+  const lower = jobTitle.toLowerCase();
+  return RELEVANT_TITLES.some(title => lower.includes(title));
+}
+
 async function enrichWithGMO(domain: string): Promise<any> {
   if (!GMO_API_KEY || !domain) return null;
   try {
@@ -76,7 +115,8 @@ serve(async (req) => {
         const gmoData = await enrichWithGMO(brand.domain);
         if (!gmoData?.employees) continue;
 
-        for (const emp of gmoData.employees.slice(0, 20)) {
+        const relevantEmployees = gmoData.employees.filter((e: any) => isRelevantContact(e.job_title || e.headline || ""));
+        for (const emp of relevantEmployees) {
           try {
             await supabase.from("decision_makers").insert({
               brand_name: brand.name,

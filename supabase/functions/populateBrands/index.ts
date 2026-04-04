@@ -121,7 +121,7 @@ serve(async (req) => {
 
           // Insert employees as decision_makers
           if (gmoData?.employees && brandId) {
-            for (const employee of gmoData.employees.slice(0, 20)) { // max 20 contacts per brand
+            for (const employee of gmoData.employees) { // all contacts from GMO
               try {
                 await supabase.from("decision_makers").insert({
                   brand_name: brand.name,
