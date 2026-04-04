@@ -180,13 +180,13 @@ function EmptyState({ icon: Icon, title, cta, onCta }) {
 
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
-function Pagination({ total, page, onPage }) {
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+function Pagination({ total, page, onPage, pageSize = PAGE_SIZE }) {
+  const totalPages = Math.ceil(total / pageSize);
   if (totalPages <= 1) return null;
   return (
     <div className="flex items-center justify-between px-4 py-3 border-t border-slate-100">
       <p className="text-xs text-slate-500">
-        Showing {Math.min((page - 1) * PAGE_SIZE + 1, total)}–{Math.min(page * PAGE_SIZE, total)} of {total}
+        Showing {Math.min((page - 1) * pageSize + 1, total)}–{Math.min(page * pageSize, total)} of {total.toLocaleString()}
       </p>
       <div className="flex gap-1">
         <Button variant="outline" size="sm" disabled={page === 1} onClick={() => onPage(page - 1)}>
@@ -1237,14 +1237,7 @@ function ContactsTab({ brands }) {
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-between px-4 py-3 border-t text-xs text-muted-foreground">
-          <span>Showing {((contactPage - 1) * contactPageSize) + 1}–{Math.min(contactPage * contactPageSize, contactCount)} of {contactCount.toLocaleString()}</span>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" disabled={contactPage <= 1} onClick={() => setContactPage(p => p - 1)}>Previous</Button>
-            <span className="px-2 font-medium">{contactPage} / {contactTotalPages}</span>
-            <Button variant="outline" size="sm" disabled={contactPage >= contactTotalPages} onClick={() => setContactPage(p => p + 1)}>Next</Button>
-          </div>
-        </div>
+        <Pagination total={contactCount} page={contactPage} onPage={setContactPage} pageSize={contactPageSize} />
       </div>
 
       {/* Add/Edit Dialog */}
