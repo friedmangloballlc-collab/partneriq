@@ -1852,8 +1852,8 @@ export default function AdminDataManager() {
           <p className="text-sm font-medium text-indigo-900">Auto-Populate Brands</p>
           <p className="text-xs text-indigo-700 mt-0.5">
             {populating
-              ? "Generating real brands across 15 industries using AI + GrowMeOrganic... This takes 2-3 minutes."
-              : "Clear demo data and load ~375 real, verified brands across all 15 industries."}
+              ? "Generating real brands across 30 industries using AI + GrowMeOrganic... This takes 5-8 minutes."
+              : "Clear demo data and load ~750 real, verified brands across 30 industries."}
           </p>
           {populateResult && !populateResult.error && (
             <p className="text-xs text-emerald-700 mt-1 font-medium">

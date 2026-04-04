@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const PLATFORMS = ["instagram", "tiktok", "youtube", "twitter", "twitch", "linkedin"];
-const NICHES = ["tech", "lifestyle", "fitness", "beauty", "gaming", "food", "travel", "fashion", "finance", "education", "entertainment", "sports", "music", "health", "business"];
+const NICHES = ["tech", "lifestyle", "fitness", "beauty", "gaming", "food", "travel", "fashion", "finance", "education", "entertainment", "sports", "music", "health", "business", "parenting", "pets", "automotive", "real_estate", "wedding", "art_design", "photography", "diy_home", "sustainability", "crypto_web3", "outdoor_adventure", "luxury", "saas_tools", "skincare", "streetwear", "mental_health"];
 const CONTRACT_TYPES = ["sponsorship", "affiliate", "ambassador", "content_creation", "partnership", "event", "other"];
 
 // ─── Zod schema ──────────────────────────────────────────────────────────────
