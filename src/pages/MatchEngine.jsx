@@ -108,7 +108,8 @@ Opportunity: ${JSON.stringify(opportunity)}
 
 Available Talent Pool:
 ${JSON.stringify(talents.slice(0, 20).map(t => ({
-  id: t.id, name: t.name, niche: t.niche, platform: t.primary_platform,
+  id: t.id, name: t.name, niche: t.niche, talent_type: t.job_title || t.niche,
+  platform: t.primary_platform,
   followers: t.total_followers, engagement: t.engagement_rate, tier: t.tier,
   location: t.location, rate: t.rate_per_post, brand_safety: t.brand_safety_score,
   trajectory: t.trajectory, bio: t.bio
@@ -173,7 +174,7 @@ Return top 5 suggestions with detailed reasoning.`;
 Brand: ${JSON.stringify(source)}
 
 Available Talent Pool (top 10):
-${JSON.stringify(pool.slice(0, 10).map(t => ({ id: t.id, name: t.name, niche: t.niche, platform: t.primary_platform, followers: t.total_followers, engagement: t.engagement_rate, tier: t.tier })))}
+${JSON.stringify(pool.slice(0, 10).map(t => ({ id: t.id, name: t.name, niche: t.niche, talent_type: t.job_title || t.niche, platform: t.primary_platform, followers: t.total_followers, engagement: t.engagement_rate, tier: t.tier })))}
 
 For each match, provide a score (0-100), reasoning, and recommended partnership type.
 Return the top 5 matches.`
