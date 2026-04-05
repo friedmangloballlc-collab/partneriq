@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Search, Plus, Building2, Globe, Users, MapPin, DollarSign, ExternalLink
+  Search, Plus, Building2, Globe, Users, MapPin, DollarSign
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,9 +44,30 @@ export default function Brands() {
   const [showAdd, setShowAdd] = useState(false);
   const [newBrand, setNewBrand] = useState({ name: "", domain: "", industry: "technology", company_size: "medium", description: "" });
 
+  const [page, setPage] = useState(1);
+  const PER_PAGE = 48;
+
   const { data: brands = [], isLoading, refetch } = useQuery({
     queryKey: ["brands"],
-    queryFn: () => base44.entities.Brand.list("-created_date", 200),
+    queryFn: async () => {
+      // Supabase caps at 1,000 rows per query — fetch in chunks to get all 1,200+
+      const chunks = [];
+      let from = 0;
+      const chunkSize = 1000;
+      while (true) {
+        const { data, error } = await supabase
+          .from("brands")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .range(from, from + chunkSize - 1);
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+        chunks.push(...data);
+        if (data.length < chunkSize) break;
+        from += chunkSize;
+      }
+      return chunks;
+    },
   });
 
   const filtered = brands.filter(b => {
@@ -53,6 +75,9 @@ export default function Brands() {
     if (industryFilter !== "all" && b.industry !== industryFilter) return false;
     return true;
   });
+
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const paginatedBrands = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const handleAdd = async () => {
     await base44.entities.Brand.create(newBrand);
@@ -76,9 +101,9 @@ export default function Brands() {
       <div className="flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input placeholder="Search brands..." value={search} onChange={e => setSearch(e.target.value)} className="pl-10" />
+          <Input placeholder="Search brands..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-10" />
         </div>
-        <Select value={industryFilter} onValueChange={setIndustryFilter}>
+        <Select value={industryFilter} onValueChange={v => { setIndustryFilter(v); setPage(1); }}>
           <SelectTrigger className="w-[160px]"><SelectValue placeholder="Industry" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Industries</SelectItem>
@@ -110,7 +135,7 @@ export default function Brands() {
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
-          {filtered.map(brand => {
+          {paginatedBrands.map(brand => {
             const initials = brand.name?.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2) || "B";
             return (
               <Card key={brand.id} className="border-slate-200/60 hover:shadow-md transition-all duration-300 p-5">
@@ -144,6 +169,42 @@ export default function Brands() {
               </Card>
             );
           })}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between pt-2">
+          <p className="text-xs text-slate-500">
+            Showing {(page - 1) * PER_PAGE + 1}-{Math.min(page * PER_PAGE, filtered.length)} of {filtered.length} brands
+          </p>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="outline" size="sm" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
+              className="text-xs h-8 px-3"
+            >
+              Previous
+            </Button>
+            {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+              let p;
+              if (totalPages <= 7) p = i + 1;
+              else if (page <= 4) p = i + 1;
+              else if (page >= totalPages - 3) p = totalPages - 6 + i;
+              else p = page - 3 + i;
+              return (
+                <Button key={p} variant={p === page ? "default" : "outline"} size="sm"
+                  onClick={() => setPage(p)} className="text-xs h-8 w-8 p-0">
+                  {p}
+                </Button>
+              );
+            })}
+            <Button
+              variant="outline" size="sm" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
+              className="text-xs h-8 px-3"
+            >
+              Next
+            </Button>
+          </div>
         </div>
       )}
 
