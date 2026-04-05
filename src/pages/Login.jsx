@@ -107,7 +107,7 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email: magicEmail });
+      const { error } = await supabase.auth.signInWithOtp({ email: magicEmail, options: { captchaToken: captchaToken || undefined } });
       if (error) {
         setServerError(error.message || "Failed to send magic link.");
       } else {
@@ -124,7 +124,7 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail);
+      const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail, { captchaToken: captchaToken || undefined });
       if (error) {
         setServerError(error.message || "Failed to send reset link.");
       } else {
@@ -146,7 +146,7 @@ export default function Login() {
     setServerError(null);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken: captchaToken || undefined } });
 
       if (error) {
         const attempts = failedAttempts + 1;
@@ -168,6 +168,8 @@ export default function Login() {
     } catch (err) {
       setServerError("Network error. Please check your connection and try again.");
       setLoading(false);
+      setCaptchaToken(null);
+      captchaRef.current?.resetCaptcha();
       setTimeout(() => setServerError(null), 5000);
       return;
     }
@@ -501,36 +503,36 @@ export default function Login() {
               )}
 
               {mode === "signup" && (
-                <>
-                  <label className="flex items-start gap-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={acceptedTerms}
-                      onChange={(e) => setAcceptedTerms(e.target.checked)}
-                      className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500/30"
-                    />
-                    <span className="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
-                      I agree to the{" "}
-                      <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Terms of Service</a>
-                      {" "}and{" "}
-                      <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</a>
-                    </span>
-                  </label>
-                  <div className="flex justify-center">
-                    <HCaptcha
-                      sitekey="94d0565a-6c4e-4bd2-b8a6-04ac52321aca"
-                      theme="dark"
-                      onVerify={(token) => setCaptchaToken(token)}
-                      onExpire={() => setCaptchaToken(null)}
-                      ref={captchaRef}
-                    />
-                  </div>
-                </>
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500/30"
+                  />
+                  <span className="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
+                    I agree to the{" "}
+                    <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Terms of Service</a>
+                    {" "}and{" "}
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</a>
+                  </span>
+                </label>
               )}
+
+              {/* hCaptcha — required for both login and signup */}
+              <div className="flex justify-center">
+                <HCaptcha
+                  sitekey="94d0565a-6c4e-4bd2-b8a6-04ac52321aca"
+                  theme="dark"
+                  onVerify={(token) => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                  ref={captchaRef}
+                />
+              </div>
 
               <Button
                 type="submit"
-                disabled={loading || (mode === "signup" && (!acceptedTerms || !captchaToken))}
+                disabled={loading || !captchaToken || (mode === "signup" && !acceptedTerms)}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium py-5"
               >
                 {loading ? (
