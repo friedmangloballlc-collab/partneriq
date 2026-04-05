@@ -43,12 +43,11 @@ export default function SEO({ title, description, ogTitle, ogDescription, ogImag
       setMetaTag('meta[name="twitter:image"]', "content", ogImage);
     }
 
-    // Update canonical
-    if (canonical) {
-      let link = document.querySelector('link[rel="canonical"]');
-      if (link) {
-        link.setAttribute("href", canonical);
-      }
+    // Update canonical — auto-set from current path if not explicitly provided
+    const canonicalUrl = canonical || `https://www.thedealstage.com${window.location.pathname.toLowerCase().replace(/\/$/, '') || '/'}`;
+    let link = document.querySelector('link[rel="canonical"]');
+    if (link) {
+      link.setAttribute("href", canonicalUrl);
     }
 
     return () => {

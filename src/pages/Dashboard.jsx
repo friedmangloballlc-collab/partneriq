@@ -323,23 +323,32 @@ function DashboardContent({ user }) {
         color="indigo"
       />
 
-      {/* Stats */}
-      <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children" role="region" aria-label="Key metrics">
-        {(role === "admin" || role === "agency") && (
-          <StatCard title="Total Talent" value={typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length} icon={Users} color="violet" trend="+12%" trendUp aria-label={`Total Talent: ${typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length}`} />
-        )}
-        {(role === "admin" || role === "brand" || role === "agency") && (
-          <StatCard title="Brands" value={typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length} icon={Building2} color="amber" trend="+8%" trendUp aria-label={`Brands: ${typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length}`} />
-        )}
-        <StatCard title="Active Deals" value={activeDeals} subtitle="In pipeline" icon={Handshake} color="indigo" aria-label={`Active Deals: ${activeDeals} in pipeline`} />
-        <StatCard title="Deal Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" trend="+23%" trendUp aria-label={`Deal Value: $${(totalDealValue / 1000).toFixed(0)}K`} />
-        {(role === "admin" || role === "agency") && (
-          <StatCard title="Pending Approvals" value={typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length} icon={CheckSquare} color="rose" aria-label={`Pending Approvals: ${typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length}`} />
-        )}
-        {role === "talent" && (
-          <StatCard title="Match Score Avg" value={resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0}`} />
-        )}
-      </div>
+      {/* Stats — show platform stats for new users, personal stats once they have data */}
+      {activeDeals === 0 && totalDealValue === 0 && role !== "admin" ? (
+        <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children" role="region" aria-label="Platform overview">
+          <StatCard title="Brands Available" value="1,200+" icon={Building2} color="amber" subtitle="Ready to connect" />
+          <StatCard title="Verified Contacts" value="45K+" icon={Users} color="indigo" subtitle="Decision-makers with emails" />
+          <StatCard title="Talent Categories" value="140+" icon={Sparkles} color="violet" subtitle="From NBA to TikTok" />
+          <StatCard title="AI Agents" value="30+" icon={Brain} color="emerald" subtitle="Powered by AI" />
+        </div>
+      ) : (
+        <div id="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children" role="region" aria-label="Key metrics">
+          {(role === "admin" || role === "agency") && (
+            <StatCard title="Total Talent" value={typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length} icon={Users} color="violet" trend="+12%" trendUp aria-label={`Total Talent: ${typeof resolvedTalents === "number" ? resolvedTalents : resolvedTalents.length}`} />
+          )}
+          {(role === "admin" || role === "brand" || role === "agency") && (
+            <StatCard title="Brands" value={typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length} icon={Building2} color="amber" trend="+8%" trendUp aria-label={`Brands: ${typeof resolvedBrands === "number" ? resolvedBrands : resolvedBrands.length}`} />
+          )}
+          <StatCard title="Active Deals" value={activeDeals} subtitle="In pipeline" icon={Handshake} color="indigo" aria-label={`Active Deals: ${activeDeals} in pipeline`} />
+          <StatCard title="Deal Value" value={`$${(totalDealValue / 1000).toFixed(0)}K`} icon={DollarSign} color="emerald" trend="+23%" trendUp aria-label={`Deal Value: $${(totalDealValue / 1000).toFixed(0)}K`} />
+          {(role === "admin" || role === "agency") && (
+            <StatCard title="Pending Approvals" value={typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length} icon={CheckSquare} color="rose" aria-label={`Pending Approvals: ${typeof resolvedApprovals === "number" ? resolvedApprovals : resolvedApprovals.length}`} />
+          )}
+          {role === "talent" && (
+            <StatCard title="Match Score Avg" value={resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0} icon={Sparkles} color="violet" aria-label={`Average Match Score: ${resolvedPartnerships.length ? Math.round(resolvedPartnerships.reduce((s, p) => s + (p.match_score || 0), 0) / resolvedPartnerships.length) : 0}`} />
+          )}
+        </div>
+      )}
 
       {/* Smart Next Steps — contextual guidance based on user progress */}
       <SmartNextSteps user={user} onboardingStep={onboardingStep} />
