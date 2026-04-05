@@ -601,6 +601,94 @@ const getPasswordStrength = (pw) => {
   return { level: 4, label: "Strong", color: "#22c55e" };
 };
 
+function TalentTypeSelector({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const filtered = search.trim()
+    ? TALENT_CATEGORIES.flatMap(c => c.types).filter(t => t.toLowerCase().includes(search.toLowerCase()))
+    : null;
+
+  return (
+    <div style={{ position: "relative" }}>
+      <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Your Talent Type</label>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%", padding: "0.75rem 1rem", borderRadius: 8, textAlign: "left",
+          background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)",
+          color: value ? "#f5f0e6" : "rgba(245,240,230,0.35)", fontSize: "0.875rem",
+          fontFamily: "'Instrument Sans', sans-serif", cursor: "pointer",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}
+      >
+        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value || "Select your talent type..."}</span>
+        <span style={{ fontSize: 10, opacity: 0.5 }}>▼</span>
+      </button>
+      {open && (
+        <>
+          <div style={{ position: "fixed", inset: 0, zIndex: 40 }} onClick={() => { setOpen(false); setSearch(""); }} />
+          <div style={{
+            position: "absolute", top: "100%", left: 0, right: 0, zIndex: 50, marginTop: 4,
+            background: "#1c1b19", border: "1px solid rgba(255,248,220,0.15)", borderRadius: 10,
+            maxHeight: 320, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+          }}>
+            <div style={{ padding: 8, borderBottom: "1px solid rgba(255,248,220,0.08)" }}>
+              <input
+                type="text" value={search} onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search talent types..." autoFocus
+                style={{
+                  width: "100%", padding: "8px 12px", borderRadius: 6, border: "none",
+                  background: "rgba(255,248,220,0.05)", color: "#f5f0e6", fontSize: "0.8rem",
+                  outline: "none", fontFamily: "'Instrument Sans', sans-serif",
+                }}
+              />
+            </div>
+            <div style={{ overflowY: "auto", maxHeight: 260 }}>
+              {filtered ? (
+                filtered.length === 0 ? (
+                  <div style={{ padding: "16px", textAlign: "center", color: "rgba(245,240,230,0.3)", fontSize: "0.8rem" }}>No types match "{search}"</div>
+                ) : (
+                  filtered.map(t => (
+                    <button key={t} type="button" onClick={() => { onChange(t); setOpen(false); setSearch(""); }}
+                      style={{
+                        width: "100%", textAlign: "left", padding: "8px 14px", border: "none", cursor: "pointer",
+                        background: value === t ? "rgba(196,162,74,0.15)" : "transparent",
+                        color: value === t ? "#c4a24a" : "rgba(245,240,230,0.7)", fontSize: "0.8rem",
+                        fontFamily: "'Instrument Sans', sans-serif",
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = "rgba(255,248,220,0.05)"}
+                      onMouseLeave={(e) => e.target.style.background = value === t ? "rgba(196,162,74,0.15)" : "transparent"}
+                    >{t}</button>
+                  ))
+                )
+              ) : (
+                TALENT_CATEGORIES.map(cat => (
+                  <div key={cat.category}>
+                    <div style={{ padding: "8px 14px 4px", fontSize: "0.65rem", fontWeight: 700, color: "rgba(245,240,230,0.3)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{cat.category}</div>
+                    {cat.types.map(t => (
+                      <button key={t} type="button" onClick={() => { onChange(t); setOpen(false); setSearch(""); }}
+                        style={{
+                          width: "100%", textAlign: "left", padding: "7px 14px 7px 22px", border: "none", cursor: "pointer",
+                          background: value === t ? "rgba(196,162,74,0.15)" : "transparent",
+                          color: value === t ? "#c4a24a" : "rgba(245,240,230,0.7)", fontSize: "0.8rem",
+                          fontFamily: "'Instrument Sans', sans-serif",
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = "rgba(255,248,220,0.05)"}
+                        onMouseLeave={(e) => e.target.style.background = value === t ? "rgba(196,162,74,0.15)" : "transparent"}
+                      >{t}</button>
+                    ))}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Onboarding() {
   const [step, setStep] = useState(1); // 1 = role, 2 = plan, 3 = details, 4 = brand wizard
   const [selectedRole, setSelectedRole] = useState("");
@@ -1043,24 +1131,7 @@ export default function Onboarding() {
                 <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
               </div>
               {(selectedRole === "talent" || selectedRole === "manager") && (
-                <div>
-                  <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Your Talent Type</label>
-                  <select
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: 8, background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: title ? "#f5f0e6" : "rgba(245,240,230,0.35)", fontSize: "0.875rem", outline: "none", fontFamily: "'Instrument Sans', sans-serif" }}
-                  >
-                    <option value="">Select your talent type...</option>
-                    {TALENT_CATEGORIES.map((cat) => (
-                      <optgroup key={cat.category} label={cat.category}>
-                        {cat.types.map((type) => (
-                          <option key={type} value={type}>{type}</option>
-                        ))}
-                      </optgroup>
-                    ))}
-                  </select>
-                </div>
+                <TalentTypeSelector value={title} onChange={setTitle} />
               )}
               <div>
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Email</label>
