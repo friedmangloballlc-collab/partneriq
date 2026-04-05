@@ -8,9 +8,11 @@ export default function TalentExpertiseSection({ talent }) {
     ? talent.expertise_areas.split(",").map((e) => e.trim())
     : [];
   const collaborationTypes = talent.preferred_collaboration_types
-    ? JSON.parse(talent.preferred_collaboration_types)
+    ? (() => { try { return JSON.parse(talent.preferred_collaboration_types); } catch { return []; } })()
     : [];
-  const portfolio = talent.portfolio ? JSON.parse(talent.portfolio) : [];
+  const portfolio = talent.portfolio
+    ? (() => { try { return JSON.parse(talent.portfolio); } catch { return []; } })()
+    : [];
 
   const availabilityConfig = {
     actively_looking: { bg: "bg-green-100", text: "text-green-800", label: "Actively Looking" },

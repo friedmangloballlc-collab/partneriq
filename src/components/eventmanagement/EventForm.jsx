@@ -16,7 +16,7 @@ export default function EventForm({ event, eventType, demographics, onSubmit, on
   const [selectedDemographics, setSelectedDemographics] = useState(() => {
     if (!event?.audience_demographics) return [];
     return typeof event.audience_demographics === 'string'
-      ? JSON.parse(event.audience_demographics)
+      ? (() => { try { return JSON.parse(event.audience_demographics); } catch { return []; } })()
       : event.audience_demographics;
   });
   const [showDemoSelect, setShowDemoSelect] = useState(false);

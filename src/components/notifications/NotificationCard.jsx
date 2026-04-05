@@ -36,7 +36,7 @@ export default function NotificationCard({
   const TriggerIcon = triggerConfig.icon;
 
   const actions = notification.automated_actions
-    ? JSON.parse(notification.automated_actions)
+    ? (() => { try { return JSON.parse(notification.automated_actions); } catch { return []; } })()
     : [];
 
   return (

@@ -9,7 +9,7 @@ export default function EventCard({ event, eventType, demographics, onEdit, onDe
 
   const selectedDemographics = event.audience_demographics
     ? (typeof event.audience_demographics === 'string'
-        ? JSON.parse(event.audience_demographics)
+        ? (() => { try { return JSON.parse(event.audience_demographics); } catch { return []; } })()
         : event.audience_demographics)
     : [];
   const demoNames = demographics
