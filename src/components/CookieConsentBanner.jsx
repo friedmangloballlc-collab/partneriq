@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { X, Cookie } from "lucide-react";
 
 const COOKIE_CONSENT_KEY = "dealstage_cookie_consent";
@@ -33,7 +32,7 @@ export default function CookieConsentBanner() {
             <p className="text-sm text-slate-200 font-medium mb-1">We use cookies</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               We use essential cookies to make DealStage work and analytics cookies to improve your experience.{" "}
-              <Link to="/cookie-policy" className="text-indigo-400 hover:text-indigo-300 underline">Learn more</Link>
+              <a href="/cookie-policy" className="text-indigo-400 hover:text-indigo-300 underline">Learn more</a>
             </p>
             <div className="flex items-center gap-2 mt-3">
               <button
