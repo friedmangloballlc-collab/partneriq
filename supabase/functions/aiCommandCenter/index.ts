@@ -14,12 +14,27 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'A query is required.' }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    // Fetch summary data across all key entities
+    // Fetch only the logged-in user's data — never show other users' data or seed data
+    const userId = user.id;
+    const isAdmin = user.role === 'admin';
+
+    // Admins see platform-wide data; regular users see only their own
     const [partnerships, talents, brands, activities] = await Promise.all([
-      base44.entities.Partnership.list('-created_date', 200),
-      base44.entities.Talent.list('-created_date', 200),
+      isAdmin
+        ? base44.entities.Partnership.list('-created_date', 200)
+        : base44.entities.Partnership.filter({ created_by: userId }, '-created_date', 200)
+            .catch(() => base44.entities.Partnership.filter({ user_id: userId }, '-created_date', 200))
+            .catch(() => []),
+      isAdmin
+        ? base44.entities.Talent.list('-created_date', 200)
+        : base44.entities.Talent.filter({ user_id: userId }, '-created_date', 200)
+            .catch(() => []),
+      // Brands are platform-wide reference data — all users can see them
       base44.entities.Brand.list('-created_date', 200),
-      base44.entities.Activity.list('-created_date', 50),
+      isAdmin
+        ? base44.entities.Activity.list('-created_date', 50)
+        : base44.entities.Activity.filter({ user_id: userId }, '-created_date', 50)
+            .catch(() => []),
     ]);
 
     // Compute summary statistics
@@ -60,10 +75,15 @@ AVAILABLE AI AGENTS (12 total):
 12. Compliance & Disclosure (analyzeComplianceDisclosure) - FTC/ASA compliance, disclosure requirements, compliance reports.
 `;
 
+    const hasUserData = partnerships.length > 0 || talents.length > 0;
+
     const prompt = `You are the AI Command Center for Deal Stage, an influencer/creator partnership management platform.
 A user asked: "${query}"
 
-CURRENT PLATFORM DATA:
+IMPORTANT: Only reference REAL data shown below. ${!hasUserData ? 'This user has NO partnerships, deals, or talent profiles yet. Do NOT invent or hallucinate data. If they ask about their data, tell them they haven\'t created any yet and suggest getting started.' : ''}
+${isAdmin ? 'This user is an admin viewing platform-wide data.' : 'This user is viewing only their own data.'}
+
+USER'S ACTUAL DATA:
 - Total Partnerships: ${partnerships.length}
 - Partnership Status Breakdown: ${JSON.stringify(partnershipsByStatus)}
 - Active Partnerships: ${activePartnerships.length}
@@ -72,8 +92,8 @@ CURRENT PLATFORM DATA:
 - Total Deal Value: $${totalDealValue.toLocaleString()}
 - Average Deal Value: $${avgDealValue.toFixed(0)}
 - Average Match Score: ${avgMatchScore.toFixed(1)}%
-- Total Talents: ${talents.length}
-- Total Brands: ${brands.length}
+- Total Talents in Profile: ${talents.length}
+- Brands in Database: ${brands.length}
 - Recent Activities: ${JSON.stringify(recentActivities)}
 
 ${agentsCatalog}
