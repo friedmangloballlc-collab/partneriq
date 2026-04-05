@@ -50,23 +50,21 @@ export default function Brands() {
   const { data: brands = [], isLoading, refetch } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
-      // Supabase caps at 1,000 rows per query — fetch in chunks to get all 1,200+
-      const chunks = [];
-      let from = 0;
+      // Fetch all brands in chunks (Supabase default limit is 1,000 per request)
+      const all = [];
       const chunkSize = 1000;
-      while (true) {
+      for (let from = 0; ; from += chunkSize) {
         const { data, error } = await supabase
           .from("brands")
-          .select("*")
-          .order("created_at", { ascending: false })
+          .select("*", { count: "exact" })
+          .order("name", { ascending: true })
           .range(from, from + chunkSize - 1);
-        if (error) throw error;
+        if (error) { console.error("Brands fetch error:", error); break; }
         if (!data || data.length === 0) break;
-        chunks.push(...data);
+        all.push(...data);
         if (data.length < chunkSize) break;
-        from += chunkSize;
       }
-      return chunks;
+      return all;
     },
   });
 
