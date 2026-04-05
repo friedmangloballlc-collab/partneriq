@@ -86,15 +86,9 @@ export const AuthProvider = ({ children }) => {
         plan: profile.plan,
         name: profile.full_name,
       });
-      // Identify user in Crisp live chat
+      // Hide Crisp on authenticated pages — only show on public pages
       if (window.$crisp) {
-        window.$crisp.push(['set', 'user:email', [supabaseUser.email]]);
-        if (profile.full_name) window.$crisp.push(['set', 'user:nickname', [profile.full_name]]);
-        window.$crisp.push(['set', 'session:data', [[
-          ['role', profile.role],
-          ['plan', profile.plan || 'free'],
-          ['user_id', supabaseUser.id],
-        ]]]);
+        window.$crisp.push(['do', 'chat:hide']);
       }
       // Initialize Formbricks for in-app surveys
       try {
@@ -173,6 +167,7 @@ export const AuthProvider = ({ children }) => {
     await supabase.auth.signOut();
     posthog.reset();
     try { formbricks.logout(); } catch { /* non-critical */ }
+    if (window.$crisp) window.$crisp.push(['do', 'chat:show']);
     setUser(null);
     setIsAuthenticated(false);
     if (shouldRedirect) window.location.href = '/';
