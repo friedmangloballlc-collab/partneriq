@@ -312,7 +312,7 @@ function DashboardContent({ user }) {
 
       {/* Empty state — show seed button when no data */}
       {!isLoading && resolvedPartnerships.length === 0 && (summary ? summary.total_brands === 0 && summary.total_talents === 0 : brands.length === 0 && talents.length === 0) && (
-        <EmptyStateSeedBanner />
+        {/* EmptyStateSeedBanner removed — production users should not see demo data loader */}
       )}
 
       {/* Contextual tip for new users */}
