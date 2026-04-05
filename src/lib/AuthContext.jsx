@@ -97,16 +97,18 @@ export const AuthProvider = ({ children }) => {
         ]]]);
       }
       // Initialize Formbricks for in-app surveys
-      formbricks.init({
-        environmentId: 'cmnlf1odsna3qog01283b0au7',
-        apiHost: 'https://app.formbricks.com',
-        userId: supabaseUser.id,
-        attributes: {
-          email: supabaseUser.email,
-          role: profile.role,
-          plan: profile.plan || 'free',
-        },
-      });
+      try {
+        formbricks.init({
+          environmentId: 'cmnlf1odsna3qog01283b0au7',
+          apiHost: 'https://app.formbricks.com',
+          userId: supabaseUser.id,
+          attributes: {
+            email: supabaseUser.email,
+            role: profile.role,
+            plan: profile.plan || 'free',
+          },
+        });
+      } catch { /* Formbricks init is non-critical */ }
     } catch (err) {
       console.error('Failed to load profile:', err);
       setAuthError(null);
@@ -170,7 +172,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async (shouldRedirect = true) => {
     await supabase.auth.signOut();
     posthog.reset();
-    formbricks.logout();
+    try { formbricks.logout(); } catch { /* non-critical */ }
     setUser(null);
     setIsAuthenticated(false);
     if (shouldRedirect) window.location.href = '/';
