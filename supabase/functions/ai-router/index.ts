@@ -42,17 +42,17 @@ const PLAN_TO_TIER: Record<string, number> = {
 
 // AI provider restrictions by tier — controls cost
 const TIER_PROVIDERS: Record<string, string[]> = {
-  free: ['groq', 'gemini'],
-  starter: ['groq', 'gemini', 'deepseek'],
-  rising: ['groq', 'gemini', 'deepseek'],
-  growth: ['groq', 'gemini', 'deepseek'],
-  pro: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  scale: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  elite: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  enterprise: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  agency_starter: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  agency_pro: ['groq', 'gemini', 'deepseek', 'anthropic'],
-  agency_enterprise: ['groq', 'gemini', 'deepseek', 'anthropic'],
+  free: ['openai', 'groq', 'gemini'],
+  starter: ['openai', 'groq', 'gemini', 'deepseek'],
+  rising: ['openai', 'groq', 'gemini', 'deepseek'],
+  growth: ['openai', 'groq', 'gemini', 'deepseek'],
+  pro: ['openai', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  scale: ['openai', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  elite: ['openai', 'openai_gpt4o', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  enterprise: ['openai', 'openai_gpt4o', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_starter: ['openai', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_pro: ['openai', 'openai_gpt4o', 'groq', 'gemini', 'deepseek', 'anthropic'],
+  agency_enterprise: ['openai', 'openai_gpt4o', 'groq', 'gemini', 'deepseek', 'anthropic'],
 };
 
 // Service-role client — shared across requests within the same isolate.
