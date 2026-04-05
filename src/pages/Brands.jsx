@@ -38,9 +38,12 @@ const industryColors = {
   gaming: "bg-violet-50 text-violet-700",
 };
 
+import { ALL_TALENT_TYPES } from "@/lib/talentTypes";
+
 export default function Brands() {
   const [search, setSearch] = useState("");
   const [industryFilter, setIndustryFilter] = useState("all");
+  const [talentFilter, setTalentFilter] = useState("all");
   const [showAdd, setShowAdd] = useState(false);
   const [newBrand, setNewBrand] = useState({ name: "", domain: "", industry: "technology", company_size: "medium", description: "" });
 
@@ -68,9 +71,13 @@ export default function Brands() {
     },
   });
 
+  // Build dynamic industry list from actual data
+  const industries = [...new Set(brands.map(b => b.industry).filter(Boolean))].sort();
+
   const filtered = brands.filter(b => {
     if (search && !b.name?.toLowerCase().includes(search.toLowerCase()) && !b.domain?.toLowerCase().includes(search.toLowerCase())) return false;
     if (industryFilter !== "all" && b.industry !== industryFilter) return false;
+    if (talentFilter !== "all" && !(b.relevant_talent_types || []).includes(talentFilter)) return false;
     return true;
   });
 
@@ -101,11 +108,20 @@ export default function Brands() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input placeholder="Search brands..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-10" />
         </div>
-        <Select value={industryFilter} onValueChange={v => { setIndustryFilter(v); setPage(1); }}>
-          <SelectTrigger className="w-[160px]"><SelectValue placeholder="Industry" /></SelectTrigger>
+        <Select value={talentFilter} onValueChange={v => { setTalentFilter(v); setPage(1); }}>
+          <SelectTrigger className="w-[200px]"><SelectValue placeholder="Talent Type" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Industries</SelectItem>
-            {["technology","fashion","beauty","food_beverage","automotive","finance","health_wellness","entertainment","sports","travel","education","retail","gaming","real_estate","telecom","other"].map(i => (
+            <SelectItem value="all">All Talent Types</SelectItem>
+            {ALL_TALENT_TYPES.map(t => (
+              <SelectItem key={t} value={t}>{t}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={industryFilter} onValueChange={v => { setIndustryFilter(v); setPage(1); }}>
+          <SelectTrigger className="w-[180px]"><SelectValue placeholder="Industry" /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Industries ({industries.length})</SelectItem>
+            {industries.map(i => (
               <SelectItem key={i} value={i}>{i.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>
             ))}
           </SelectContent>
