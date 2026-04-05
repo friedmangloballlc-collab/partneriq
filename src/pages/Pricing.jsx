@@ -2,32 +2,26 @@ import React, { useState } from "react";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
+import { TALENT_PLANS, BRAND_PLANS, AGENCY_PLANS, MANAGER_PLANS } from "@/components/subscription/SubscriptionPlans";
+
+function plansToCards(plans) {
+  return Object.values(plans).map((plan, i) => ({
+    title: plan.name,
+    price: plan.monthly_price === 0 ? "$0" : `$${plan.monthly_price.toLocaleString()}`,
+    annual: plan.monthly_price === 0 ? "$0" : `$${Math.round(plan.annual_price / 12).toLocaleString()}`,
+    period: plan.monthly_price === 0 ? "forever" : "/mo",
+    badge: i === 2 ? "Most Popular" : null,
+    features: plan.features || [],
+    cta: plan.monthly_price === 0 ? "Get Started Free" : `Start ${plan.name}`,
+    highlight: i === 2,
+  }));
+}
 
 const PLANS = {
-  talent: [
-    { title: "Starter", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
-    { title: "Rising", price: "$99", annual: "$79", period: "/mo", badge: null, features: ["Everything in Starter, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Pitch Deck Builder", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Rising", highlight: false },
-    { title: "Pro", price: "$249", annual: "$199", period: "/mo", badge: "Most Popular", features: ["Everything in Rising, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Pro", highlight: true },
-    { title: "Elite", price: "$499", annual: "$399", period: "/mo", badge: null, features: ["Everything in Pro, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Priority support"], cta: "Start Elite", highlight: false },
-  ],
-  brand: [
-    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & brand profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
-    { title: "Growth", price: "$299", annual: "$239", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Growth", highlight: false },
-    { title: "Scale", price: "$699", annual: "$559", period: "/mo", badge: "Most Popular", features: ["Everything in Growth, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Scale", highlight: true },
-    { title: "Enterprise", price: "$1,499", annual: "$1,199", period: "/mo", badge: null, features: ["Everything in Scale, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Dedicated success manager", "SSO & priority support"], cta: "Start Enterprise", highlight: false },
-  ],
-  agency: [
-    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & agency profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
-    { title: "Starter", price: "$799", annual: "$639", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)", "Up to 3 team seats"], cta: "Start Starter", highlight: false },
-    { title: "Pro", price: "$1,799", annual: "$1,439", period: "/mo", badge: "Most Popular", features: ["Everything in Starter, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)", "Up to 10 team seats"], cta: "Start Pro", highlight: true },
-    { title: "Enterprise", price: "$3,499", annual: "$2,799", period: "/mo", badge: null, features: ["Everything in Pro, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "White-label options", "Dedicated success manager", "SSO & priority support"], cta: "Start Enterprise", highlight: false },
-  ],
-  manager: [
-    { title: "Explorer", price: "$0", annual: "$0", period: "forever", badge: null, features: ["Browse marketplace (view only)", "5 AI queries/month", "Up to 3 opportunities", "Dashboard & manager profile", "Basic approvals"], cta: "Get Started Free", highlight: false },
-    { title: "Single Talent", price: "$99", annual: "$79", period: "/mo", badge: null, features: ["Everything in Explorer, plus:", "Full Deal Pipeline & Calendar", "Match Engine & Contact Finder", "Outreach & Campaign Briefs", "Talent Discovery", "50 AI queries/month", "AI Agents Hub (1 agent)"], cta: "Start Plan", highlight: false },
-    { title: "Multi-Talent", price: "$249", annual: "$199", period: "/mo", badge: "Most Popular", features: ["Everything in Single Talent, plus:", "Sequences & Warm Intro Network", "Deal Analytics & Comparison", "Market Intelligence & ROI Simulator", "Data Rooms & Event Management", "Unlimited AI queries", "AI Agents Hub (3 agents)"], cta: "Start Plan", highlight: true },
-    { title: "Enterprise", price: "$499", annual: "$399", period: "/mo", badge: null, features: ["Everything in Multi-Talent, plus:", "Teams (unlimited seats)", "Custom Reports & Integrations", "Data Import/Export & API access", "Unlimited AI Agents", "Priority support"], cta: "Start Enterprise", highlight: false },
-  ],
+  talent: plansToCards(TALENT_PLANS),
+  brand: plansToCards(BRAND_PLANS),
+  agency: plansToCards(AGENCY_PLANS),
+  manager: plansToCards(MANAGER_PLANS),
 };
 
 const FAQS = [
