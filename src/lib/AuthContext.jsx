@@ -56,6 +56,22 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
+      // Block banned or suspended users
+      if (profile.is_banned) {
+        setAuthError({ type: 'user_banned', message: profile.ban_reason || 'Your account has been banned.' });
+        await supabase.auth.signOut();
+        setUser(null);
+        setIsAuthenticated(false);
+        return;
+      }
+      if (profile.is_suspended) {
+        setAuthError({ type: 'user_suspended', message: profile.suspension_reason || 'Your account has been temporarily suspended.' });
+        await supabase.auth.signOut();
+        setUser(null);
+        setIsAuthenticated(false);
+        return;
+      }
+
       setAuthError(null);
       setUser({
         id: supabaseUser.id,

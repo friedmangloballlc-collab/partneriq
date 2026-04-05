@@ -8,6 +8,7 @@ import __Layout from './Layout.jsx';
 const PAGES = {
     "AdminDashboard": lazy(() => import('./pages/AdminDashboard')),
     "AdminDataManager": lazy(() => import('./pages/AdminDataManager')),
+    "AdminUserManagement": lazy(() => import('./pages/AdminUserManagement')),
     "AIAgentsHub": lazy(() => import('./pages/AIAgentsHub')),
     "AIAnalytics": lazy(() => import('./pages/AIAnalytics')),
     "AICommandCenter": lazy(() => import('./pages/AICommandCenter')),

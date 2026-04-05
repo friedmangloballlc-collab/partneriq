@@ -120,6 +120,7 @@ export const PAGE_ACCESS = {
   // ── Admin-only pages ─────────────────────────────────────────────
   AdminDashboard:     { roles: ['admin'], tier: 0, adminOnly: true },
   AdminDataManager:   { roles: ['admin'], tier: 0, adminOnly: true },
+  AdminUserManagement: { roles: ['admin'], tier: 0, adminOnly: true },
   SystemHealth:       { roles: ['admin'], tier: 0, adminOnly: true },
   AIAnalytics:        { roles: ['admin'], tier: 0, adminOnly: true },
   SystemArchitecture: { roles: ['admin'], tier: 0, adminOnly: true },

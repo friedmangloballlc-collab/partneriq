@@ -11,6 +11,7 @@ export const roleNavItems = {
     { name: "Dashboard", icon: LayoutDashboard, page: "Dashboard", section: "Admin" },
     { name: "Admin Dashboard", icon: LayoutDashboard, page: "AdminDashboard" },
     { name: "Data Manager", icon: Database, page: "AdminDataManager" },
+    { name: "User Management", icon: Users, page: "AdminUserManagement" },
     { name: "Data Import/Export", icon: Layers, page: "DataImportExport" },
     // ── Home ──
     { name: "My Profile", icon: User, page: "TalentProfile", section: "Home" },
