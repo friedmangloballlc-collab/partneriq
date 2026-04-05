@@ -39,11 +39,16 @@ const industryColors = {
 };
 
 import { ALL_TALENT_TYPES } from "@/lib/talentTypes";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function Brands() {
+  const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [industryFilter, setIndustryFilter] = useState("all");
-  const [talentFilter, setTalentFilter] = useState("all");
+  // Auto-set talent filter from user's profile (talent type / job title)
+  const userTalentType = (user?.role === "talent" || user?.role === "manager") ? (user?.title || user?.job_title || user?.niche) : null;
+  const defaultTalentFilter = userTalentType && ALL_TALENT_TYPES.includes(userTalentType) ? userTalentType : "all";
+  const [talentFilter, setTalentFilter] = useState(defaultTalentFilter);
   const [showAdd, setShowAdd] = useState(false);
   const [newBrand, setNewBrand] = useState({ name: "", domain: "", industry: "technology", company_size: "medium", description: "" });
 
