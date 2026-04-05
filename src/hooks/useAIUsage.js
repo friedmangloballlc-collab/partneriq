@@ -15,12 +15,9 @@ function getLimit(effectiveTier) {
   return AI_LIMITS[effectiveTier] ?? 5;
 }
 
-// Functions that should NOT count against AI quota
-const NON_AI_FUNCTIONS = new Set([
-  'initializeSubscription', 'getUserSubscriptionStatus', 'getBillingHistory',
-  'getInvoices', 'exportEntityData', 'importEntityData', 'send-welcome-email',
-  'create-phyllo-token', 'manageWebhooks',
-]);
+// Import the canonical NON_AI_FUNCTIONS list from base44Client
+// to avoid divergence between the two files
+import { NON_AI_FUNCTIONS } from '@/api/base44Client';
 
 export function useAIUsage() {
   const { user } = useAuth();
@@ -71,5 +68,3 @@ export function useAIUsage() {
   };
 }
 
-// Export for use in base44Client
-export { NON_AI_FUNCTIONS };

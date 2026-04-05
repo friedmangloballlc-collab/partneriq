@@ -105,7 +105,7 @@ class ErrorBoundary extends React.Component {
           </div>
           <h2 className="text-lg font-semibold text-slate-800 mb-2">Something went wrong</h2>
           <p className="text-sm text-slate-500 mb-4 max-w-sm">
-            {this.state.error?.message || 'An unexpected error occurred.'}
+            {import.meta.env.DEV ? (this.state.error?.message || 'An unexpected error occurred.') : 'An unexpected error occurred. Please try again.'}
           </p>
           <button
             onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}

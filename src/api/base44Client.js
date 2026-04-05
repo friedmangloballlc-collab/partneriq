@@ -271,8 +271,9 @@ const auth = {
   },
 };
 
-// Functions that should NOT count against AI quota
-const NON_AI_FUNCTIONS = new Set([
+// Functions that should NOT count against AI quota — single source of truth
+// Imported by useAIUsage.js to stay in sync
+export const NON_AI_FUNCTIONS = new Set([
   'initializeSubscription', 'getUserSubscriptionStatus', 'getBillingHistory',
   'getInvoices', 'exportEntityData', 'importEntityData', 'send-welcome-email',
   'create-phyllo-token', 'manageWebhooks',

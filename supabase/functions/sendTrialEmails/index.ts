@@ -129,6 +129,16 @@ function expiredEmail(name: string): EmailPayload {
 }
 
 serve(async (req) => {
+  // Auth: require CRON_SECRET to prevent unauthorized triggers
+  const CRON_SECRET = Deno.env.get("CRON_SECRET") || "";
+  const authHeader = req.headers.get("authorization")?.replace("Bearer ", "") || "";
+  if (CRON_SECRET && authHeader !== CRON_SECRET) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
