@@ -1029,7 +1029,14 @@ export default function Onboarding() {
                     {plan.badge && <span style={{ position: "absolute", top: -10, right: 16, background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", fontSize: "0.6rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 4, fontFamily: "'Instrument Mono', monospace" }}>{plan.badge}</span>}
                     <div>
                       <p style={{ fontSize: "1rem", fontWeight: 600, color: "#f5f0e6", marginBottom: 2 }}>{plan.title}</p>
-                      <p style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.35)" }}>{plan.features?.slice(0, 2).join(" · ")}</p>
+                      <div style={{ marginTop: 8 }}>
+                        {plan.features?.slice(0, 6).map((f, i) => (
+                          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, marginBottom: 4 }}>
+                            <span style={{ color: "#c4a24a", fontSize: 12, marginTop: 2 }}>✓</span>
+                            <span style={{ fontSize: 12, color: "rgba(245,240,230,0.6)", lineHeight: 1.4 }}>{f}</span>
+                          </div>
+                        ))}
+                      </div>
                       {plan.key !== "free" && plan.price !== "Custom" && (
                         <span style={{ display: "inline-block", marginTop: 4, fontSize: "0.6rem", fontFamily: "'Instrument Mono', monospace", color: "#d4b04e", background: "rgba(212,176,78,0.1)", border: "0.5px solid rgba(212,176,78,0.2)", borderRadius: 3, padding: "0.1rem 0.45rem", letterSpacing: "0.04em" }}>7-day free trial</span>
                       )}

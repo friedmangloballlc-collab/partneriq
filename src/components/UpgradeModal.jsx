@@ -1,9 +1,53 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight, X, Crown } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+
+const ROLE_STARTING_PRICE = {
+  talent: "$99/mo",
+  manager: "$99/mo",
+  brand: "$299/mo",
+  agency: "$799/mo",
+};
+
+const ROLE_BENEFITS = {
+  brand: [
+    "AI Match Engine & smart scoring",
+    "Unlimited outreach & sequences",
+    "Campaign analytics & reporting",
+    "Contact Finder & warm intros",
+    "Data Rooms & advanced analytics",
+  ],
+  agency: [
+    "Multi-client workspace management",
+    "White-label reporting & data rooms",
+    "Bulk outreach & sequence automation",
+    "AI Match Engine across all clients",
+    "Priority support & dedicated CSM",
+  ],
+  talent: [
+    "AI Match Engine & smart scoring",
+    "Unlimited outreach & sequences",
+    "Pitch Deck Generation",
+    "Data Rooms & advanced analytics",
+    "Contact Finder & warm intros",
+  ],
+  manager: [
+    "AI Match Engine & smart scoring",
+    "Unlimited outreach & sequences",
+    "Pitch Deck Generation",
+    "Data Rooms & advanced analytics",
+    "Contact Finder & warm intros",
+  ],
+};
 
 export default function UpgradeModal({ isOpen, onClose, featureName, requiredTier }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const role = user?.role ?? "talent";
+  const startingPrice = ROLE_STARTING_PRICE[role] ?? "$99/mo";
+  const benefits = ROLE_BENEFITS[role] ?? ROLE_BENEFITS.talent;
 
   if (!isOpen) return null;
 
@@ -47,7 +91,7 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredTie
           fontFamily: "'Cormorant Garamond', serif", fontSize: "1.75rem",
           fontWeight: 700, color: "#f5f0e6", textAlign: "center",
           marginBottom: "0.5rem", letterSpacing: "-0.02em",
-        }}>Upgrade to unlock</h2>
+        }}>{featureName ? `Upgrade to unlock ${featureName}` : "Upgrade to unlock"}</h2>
 
         <p style={{
           fontSize: "0.88rem", color: "rgba(245,240,230,0.45)",
@@ -55,8 +99,8 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredTie
         }}>
           <span style={{ color: "#c4a24a", fontWeight: 500 }}>{featureName || "This feature"}</span> is available on paid plans.
           {requiredTier
-            ? `This feature requires the ${requiredTier} plan or higher.`
-            : "Your 7-day trial has ended — upgrade to continue using premium features."}
+            ? ` This feature requires the ${requiredTier} plan or higher.`
+            : " Your 7-day trial has ended — upgrade to continue using premium features."}
         </p>
 
         <div style={{
@@ -65,13 +109,7 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredTie
         }}>
           <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", color: "#c4a24a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>What you get</p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-            {[
-              "AI Match Engine & smart scoring",
-              "Unlimited outreach & sequences",
-              "Pitch Deck Generation",
-              "Data Rooms & advanced analytics",
-              "Contact Finder & warm intros",
-            ].map(f => (
+            {benefits.map(f => (
               <div key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "rgba(245,240,230,0.6)" }}>
                 <Sparkles size={12} style={{ color: "#c4a24a", flexShrink: 0 }} />
                 <span>{f}</span>
@@ -94,7 +132,7 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredTie
         </button>
 
         <p style={{ textAlign: "center", fontSize: "0.7rem", color: "rgba(245,240,230,0.25)", marginTop: "0.75rem" }}>
-          Plans start at $99/mo · Cancel anytime
+          Plans start at {startingPrice} · Cancel anytime
         </p>
       </div>
     </div>
