@@ -219,7 +219,7 @@ export default function Brands() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between pt-2">
+        <div className="flex items-center justify-between pt-2 pb-20">
           <p className="text-xs text-slate-500">
             Showing {(page - 1) * PER_PAGE + 1}-{Math.min(page * PER_PAGE, filtered.length)} of {filtered.length} brands
           </p>
