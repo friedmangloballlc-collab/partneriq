@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -390,6 +391,9 @@ export default function Onboarding() {
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
   const [authError, setAuthError] = useState("");
@@ -451,7 +455,8 @@ export default function Onboarding() {
           data: {
             full_name: name,
             role: selectedRole,
-          }
+          },
+          captchaToken: captchaToken || undefined,
         }
       });
 
@@ -1694,6 +1699,31 @@ export default function Onboarding() {
                 </div>
               </div>
 
+              {/* Terms of Service acceptance */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500/30"
+                />
+                <span className="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
+                  I agree to the{" "}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Terms of Service</a>
+                  {" "}and{" "}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</a>
+                </span>
+              </label>
+              <div className="flex justify-center">
+                <HCaptcha
+                  sitekey="94d0565a-6c4e-4bd2-b8a6-04ac52321aca"
+                  theme="dark"
+                  onVerify={(token) => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                  ref={captchaRef}
+                />
+              </div>
+
               {authError && (
                 <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 flex items-center gap-2">
                   <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
@@ -1721,12 +1751,12 @@ export default function Onboarding() {
                   Back
                 </Button>
                 {selectedRole === "brand" ? (
-                  <Button onClick={() => setStep(4)} disabled={!name || !email || !password}
+                  <Button onClick={() => setStep(4)} disabled={!name || !email || !password || !acceptedTerms || !captchaToken}
                     className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-30 disabled:shadow-none">
                     Continue <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 ) : (
-                  <Button onClick={handleComplete} disabled={saving || !name || !email || !password}
+                  <Button onClick={handleComplete} disabled={saving || !name || !email || !password || !acceptedTerms || !captchaToken}
                     className="flex-1 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-30 disabled:shadow-none">
                     {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                     {saving ? "Setting up..." : "Launch Dashboard"}

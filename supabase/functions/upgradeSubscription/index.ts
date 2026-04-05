@@ -13,8 +13,38 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    const { userType, newPlanTier } = await req.json();
+    const body = await req.json();
+    const { action, userType, newPlanTier } = body;
 
+    // === Cancel subscription ===
+    if (action === 'cancel') {
+      // Find any active subscription for this user
+      const subs = await base44.asServiceRole.entities.UserSubscription.filter({ user_id: user.id });
+      const activeSub = subs.find((s: any) => s.stripe_subscription_id && s.status === 'active');
+
+      if (!activeSub) {
+        return new Response(JSON.stringify({ error: 'No active subscription found' }), { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      // Cancel at period end — user keeps access until billing cycle ends
+      await stripe.subscriptions.update(activeSub.stripe_subscription_id, {
+        cancel_at_period_end: true,
+      });
+
+      await base44.asServiceRole.entities.UserSubscription.update(activeSub.id, {
+        status: 'cancelling',
+      });
+
+      // Update profiles.plan to free
+      await base44.serviceRole.from('profiles').update({ plan: 'free' }).eq('id', user.id);
+
+      return new Response(JSON.stringify({
+        success: true,
+        message: 'Subscription will cancel at end of billing period',
+      }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    // === Upgrade subscription ===
     if (!userType || !newPlanTier) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -40,13 +70,13 @@ Deno.serve(async (req) => {
     }
 
     const newPlanDetails = newPlan[0];
-    const priceId = currentSub[0].billing_cycle === 'annual' 
-      ? newPlanDetails.stripe_annual_price_id 
+    const priceId = currentSub[0].billing_cycle === 'annual'
+      ? newPlanDetails.stripe_annual_price_id
       : newPlanDetails.stripe_monthly_price_id;
 
     // Update subscription in Stripe
     const stripeSubscription = await stripe.subscriptions.retrieve(currentSub[0].stripe_subscription_id);
-    
+
     const updated = await stripe.subscriptions.update(currentSub[0].stripe_subscription_id, {
       items: [
         {

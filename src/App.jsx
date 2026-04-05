@@ -21,6 +21,7 @@ import ResetPassword from '@/pages/ResetPassword';
 import { useAutoSeed } from '@/hooks/useAutoSeed';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { canAccessPage } from '@/lib/routePermissions';
+import CookieConsentBanner from '@/components/CookieConsentBanner';
 
 const CheckEmail = React.lazy(() => import("./pages/CheckEmail"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -294,6 +295,7 @@ function App() {
             <AuthenticatedApp />
           </Router>
           <Toaster />
+          <CookieConsentBanner />
         </QueryClientProvider>
       </AuthProvider>
     </ErrorBoundary>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff, Wand2, UserCheck } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,6 +58,11 @@ export default function Login() {
   const [serverError, setServerError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [lockoutUntil, setLockoutUntil] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
   const navigate = useNavigate();
 
 
@@ -129,6 +135,13 @@ export default function Login() {
   };
 
   const handleLogin = loginForm.handleSubmit(async ({ email, password }) => {
+    // Client-side rate limiting: lock after 5 failed attempts for 60 seconds
+    if (lockoutUntil && Date.now() < lockoutUntil) {
+      const secs = Math.ceil((lockoutUntil - Date.now()) / 1000);
+      setServerError(`Too many failed attempts. Try again in ${secs} seconds.`);
+      return;
+    }
+
     setLoading(true);
     setServerError(null);
 
@@ -136,12 +149,22 @@ export default function Login() {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
-        const msg = error.message || "Invalid email or password.";
-        setServerError(msg);
+        const attempts = failedAttempts + 1;
+        setFailedAttempts(attempts);
+        if (attempts >= 5) {
+          setLockoutUntil(Date.now() + 60000);
+          setServerError("Too many failed attempts. Please wait 60 seconds.");
+          setFailedAttempts(0);
+        } else {
+          setServerError(error.message || "Invalid email or password.");
+        }
         setLoading(false);
         setTimeout(() => setServerError(null), 5000);
         return;
       }
+
+      setFailedAttempts(0);
+      setLockoutUntil(null);
     } catch (err) {
       setServerError("Network error. Please check your connection and try again.");
       setLoading(false);
@@ -160,7 +183,7 @@ export default function Login() {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { full_name: fullName, role } },
+        options: { data: { full_name: fullName, role }, captchaToken: captchaToken || undefined },
       });
 
       if (error) {
@@ -477,9 +500,37 @@ export default function Login() {
                 </div>
               )}
 
+              {mode === "signup" && (
+                <>
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={acceptedTerms}
+                      onChange={(e) => setAcceptedTerms(e.target.checked)}
+                      className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500/30"
+                    />
+                    <span className="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
+                      I agree to the{" "}
+                      <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Terms of Service</a>
+                      {" "}and{" "}
+                      <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</a>
+                    </span>
+                  </label>
+                  <div className="flex justify-center">
+                    <HCaptcha
+                      sitekey="94d0565a-6c4e-4bd2-b8a6-04ac52321aca"
+                      theme="dark"
+                      onVerify={(token) => setCaptchaToken(token)}
+                      onExpire={() => setCaptchaToken(null)}
+                      ref={captchaRef}
+                    />
+                  </div>
+                </>
+              )}
+
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={loading || (mode === "signup" && (!acceptedTerms || !captchaToken))}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium py-5"
               >
                 {loading ? (

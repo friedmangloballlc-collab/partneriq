@@ -60,6 +60,21 @@ export default function SubscriptionManagement() {
     enabled: !!subscription?.stripe_customer_id,
   });
 
+  const [cancelling, setCancelling] = useState(false);
+
+  const handleCancelSubscription = async () => {
+    if (!confirm("Are you sure you want to cancel your subscription? You'll keep access until the end of your billing period.")) return;
+    setCancelling(true);
+    try {
+      await base44.functions.invoke("upgradeSubscription", { action: "cancel" });
+      window.location.reload();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCancelling(false);
+    }
+  };
+
   const handleSelectPlan = async (planTier) => {
     if (planTier === "free") {
       // Free tier - no Stripe needed
@@ -122,10 +137,19 @@ export default function SubscriptionManagement() {
                 </p>
               )}
             </div>
-            <div className="text-right">
+            <div className="text-right space-y-2">
               <Badge className={`text-sm py-1 px-3 ${subscription.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
                 {subscription.status === 'active' ? '✓ Active' : 'Inactive'}
               </Badge>
+              {!isOnFree && subscription.status === 'active' && (
+                <button
+                  onClick={handleCancelSubscription}
+                  disabled={cancelling}
+                  className="block text-xs text-slate-400 hover:text-red-500 transition-colors"
+                >
+                  {cancelling ? "Cancelling..." : "Cancel subscription"}
+                </button>
+              )}
             </div>
           </div>
         </div>
