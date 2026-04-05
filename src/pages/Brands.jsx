@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Search, Plus, Building2, Globe, Users, MapPin, DollarSign
+  Search, Plus, Building2, Globe, Users, MapPin, DollarSign, Linkedin, ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -172,13 +172,39 @@ export default function Brands() {
                     {brand.industry?.replace(/_/g, " ")}
                   </Badge>
                 </div>
-                {brand.description && (
-                  <p className="text-xs text-slate-500 mt-3 line-clamp-2">{brand.description}</p>
-                )}
+                {(() => {
+                  // Parse description — may be raw JSON from GMO enrichment
+                  let desc = brand.description;
+                  let linkedinUrl = brand.linkedin_url;
+                  if (desc && desc.startsWith('{')) {
+                    try {
+                      const parsed = JSON.parse(desc);
+                      desc = parsed._desc || parsed.description || '';
+                      if (!linkedinUrl) linkedinUrl = parsed._linkedin;
+                    } catch { /* keep raw desc */ }
+                  }
+                  return desc ? <p className="text-xs text-slate-500 mt-3 line-clamp-2">{desc}</p> : null;
+                })()}
                 <div className="flex items-center gap-4 mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
                   {brand.company_size && <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {brand.company_size}</span>}
                   {brand.location && <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {brand.location}</span>}
                   {brand.annual_budget && <span className="flex items-center gap-1"><DollarSign className="w-3 h-3" /> {formatBudget(brand.annual_budget)}</span>}
+                  {(() => {
+                    let url = brand.linkedin_url;
+                    if (!url && brand.description?.startsWith('{')) {
+                      try { url = JSON.parse(brand.description)._linkedin; } catch {}
+                    }
+                    return url ? (
+                      <a href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-500 hover:text-blue-600 transition-colors">
+                        <Linkedin className="w-3 h-3" /> LinkedIn
+                      </a>
+                    ) : null;
+                  })()}
+                  {brand.domain && (
+                    <a href={`https://${brand.domain}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-400 hover:text-slate-600 transition-colors ml-auto">
+                      <ExternalLink className="w-3 h-3" /> Visit
+                    </a>
+                  )}
                 </div>
               </Card>
             );
