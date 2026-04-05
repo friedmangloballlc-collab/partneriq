@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/lib/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -166,13 +167,8 @@ function TalentCard({ talent, rank }) {
 
 export default function DealScoreLeaderboard() {
   const [activeNiche, setActiveNiche] = useState("All");
-  const [isLoggedIn] = useState(() => {
-    try {
-      return !!localStorage.getItem("sb-auth-token") || !!sessionStorage.getItem("supabase.auth.token");
-    } catch {
-      return false;
-    }
-  });
+  const { user, isAuthenticated } = useAuth();
+  const isLoggedIn = isAuthenticated;
 
   const { data: talents = [], isLoading, error } = useQuery({
     queryKey: ["leaderboard-talents"],

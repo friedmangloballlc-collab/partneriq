@@ -110,6 +110,7 @@ export default function Pricing() {
       </div>
 
       {/* Plan Cards */}
+      <h2 className="sr-only">Pricing Plans</h2>
       <div style={{
         display: "grid",
         gridTemplateColumns: `repeat(${plans.length}, 1fr)`,

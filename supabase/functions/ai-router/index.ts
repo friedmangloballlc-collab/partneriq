@@ -87,7 +87,7 @@ Deno.serve(async (req) => {
   // === Health endpoint ===
   if (action === 'health') {
     const circuits = getHealthStatus();
-    const providers = ['anthropic', 'anthropic_haiku', 'deepseek', 'deepseek_reasoner', 'gemini', 'groq'];
+    const providers = ['anthropic', 'anthropic_haiku', 'deepseek', 'deepseek_reasoner', 'gemini', 'groq', 'openai', 'openai_gpt4o'];
     const health: Record<string, any> = {};
     for (const p of providers) {
       health[p] = circuits[p] || { state: 'CLOSED', failures: 0 };

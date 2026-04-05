@@ -83,9 +83,6 @@ export default function Login() {
 
   // ── Auth handlers ────────────────────────────────────────────────────────
 
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
   const handleSocialLogin = async (provider) => {
     setLoading(true);
     setServerError(null);
@@ -104,14 +101,9 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
     try {
-      const res = await fetch(`${supabaseUrl}/auth/v1/magiclink`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
-        body: JSON.stringify({ email: magicEmail }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        setServerError(data?.msg || data?.message || "Failed to send magic link.");
+      const { error } = await supabase.auth.signInWithOtp({ email: magicEmail });
+      if (error) {
+        setServerError(error.message || "Failed to send magic link.");
       } else {
         setMessage("Check your email for a magic link to sign in.");
       }
@@ -126,14 +118,9 @@ export default function Login() {
     setLoading(true);
     setServerError(null);
     try {
-      const res = await fetch(`${supabaseUrl}/auth/v1/recover`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
-        body: JSON.stringify({ email: forgotEmail }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        setServerError(data?.msg || data?.message || "Failed to send reset link.");
+      const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail);
+      if (error) {
+        setServerError(error.message || "Failed to send reset link.");
       } else {
         setMessage("Password reset link sent! Check your email.");
       }
@@ -146,31 +133,14 @@ export default function Login() {
     setServerError(null);
 
     try {
-      const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": supabaseKey,
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        const msg = data?.error_description || data?.msg || data?.message || "Invalid email or password.";
+      if (error) {
+        const msg = error.message || "Invalid email or password.";
         setServerError(msg);
         setLoading(false);
         setTimeout(() => setServerError(null), 5000);
         return;
-      }
-
-      // Set the session on the shared supabase client
-      if (data.access_token && data.refresh_token) {
-        await supabase.auth.setSession({
-          access_token: data.access_token,
-          refresh_token: data.refresh_token,
-        });
       }
     } catch (err) {
       setServerError("Network error. Please check your connection and try again.");
@@ -187,25 +157,24 @@ export default function Login() {
     setServerError(null);
 
     try {
-      const res = await fetch(`${supabaseUrl}/auth/v1/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "apikey": supabaseKey },
-        body: JSON.stringify({ email, password, data: { full_name: fullName, role } }),
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: fullName, role } },
       });
-      const data = await res.json();
 
-      if (!res.ok) {
-        setServerError(data?.msg || data?.message || "Unable to create account.");
+      if (error) {
+        setServerError(error.message || "Unable to create account.");
         setLoading(false);
         setTimeout(() => setServerError(null), 4000);
         return;
       }
 
       // Create profile
-      if (data?.id) {
+      if (data?.user?.id) {
         try {
           await supabase.from("profiles").insert({
-            id: data.id,
+            id: data.user.id,
             email,
             full_name: fullName,
             role,

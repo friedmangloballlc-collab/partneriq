@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import UpgradeModal from "./UpgradeModal";
 
 export default function FeatureGate({ children, locked, featureName }) {
@@ -9,43 +10,35 @@ export default function FeatureGate({ children, locked, featureName }) {
 
   return (
     <>
-      <div style={{ position: "relative" }}>
-        {/* Show the content but blur/dim it */}
-        <div style={{
-          filter: "blur(3px)", opacity: 0.4, pointerEvents: "none",
-          userSelect: "none", position: "relative",
-        }}>
-          {children}
-        </div>
-        {/* Lock overlay — accessible button */}
-        <button
-          onClick={() => setShowModal(true)}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setShowModal(true); } }}
-          aria-label={`Upgrade to unlock ${featureName || "this feature"}`}
-          style={{
-            position: "absolute", inset: 0, display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center", cursor: "pointer",
-            background: "rgba(8,8,7,0.3)", borderRadius: 12, zIndex: 10,
-            border: "none", padding: 0,
-          }}
-        >
-          <div style={{
-            width: 48, height: 48, borderRadius: 12,
-            background: "linear-gradient(135deg, rgba(196,162,74,0.15), rgba(224,123,24,0.15))",
-            border: "0.5px solid rgba(196,162,74,0.25)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            marginBottom: "0.75rem",
-          }}>
-            <Lock size={22} style={{ color: "#c4a24a" }} aria-hidden="true" />
+      <div className="relative">
+        {/* Show the first ~300px of content at full opacity, non-interactive */}
+        <div className="overflow-hidden" style={{ maxHeight: 300 }}>
+          <div className="pointer-events-none select-none">
+            {children}
           </div>
-          <p style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "0.85rem", fontWeight: 500, color: "#f5f0e6", marginBottom: "0.25rem" }}>
-            Premium Feature
-          </p>
-          <p style={{ fontFamily: "'Instrument Mono', monospace", fontSize: "0.65rem", color: "rgba(245,240,230,0.35)", letterSpacing: "0.04em" }}>
-            Click to upgrade
-          </p>
-        </button>
+        </div>
+
+        {/* Gradient fade from transparent to background */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent" />
+
+        {/* Upgrade prompt card */}
+        <div className="flex flex-col items-center justify-center py-8 -mt-16 relative z-10">
+          <div className="bg-card border rounded-xl p-6 shadow-lg text-center max-w-md">
+            <Lock className="w-8 h-8 mx-auto mb-3 text-amber-500" aria-hidden="true" />
+            <h3 className="font-semibold text-lg mb-1">Premium Feature</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Upgrade to unlock {featureName || "this feature"} and get full access.
+            </p>
+            <Button
+              onClick={() => setShowModal(true)}
+              className="bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+            >
+              Upgrade Now
+            </Button>
+          </div>
+        </div>
       </div>
+
       <UpgradeModal isOpen={showModal} onClose={() => setShowModal(false)} featureName={featureName} />
     </>
   );
