@@ -402,7 +402,8 @@ function JobRow({ job, delay }) {
         </div>
       </div>
 
-      <button
+      <a
+        href="mailto:careers@thedealstage.com"
         style={{
           background: hovered
             ? `linear-gradient(135deg, ${COLORS.gold}, ${COLORS.amber})`
@@ -421,10 +422,11 @@ function JobRow({ job, delay }) {
           transition: "all 0.2s ease",
           letterSpacing: "0.02em",
           whiteSpace: "nowrap",
+          textDecoration: "none",
         }}
       >
         Apply <ArrowRight size={13} />
-      </button>
+      </a>
     </div>
   );
 }

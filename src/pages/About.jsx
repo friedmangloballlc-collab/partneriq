@@ -151,10 +151,10 @@ function SectionLabel({ children }) {
    DATA
 ───────────────────────────────────────────── */
 const STATS = [
-  { value: "Growing",  label: "Talent Network" },
-  { value: "Early",  label: "Access Stage" },
-  { value: "Founding",  label: "Members" },
-  { value: "Strong",   label: "Close Rate" },
+  { value: "1,200+",  label: "Brand Partners" },
+  { value: "140+",  label: "Talent Categories" },
+  { value: "45K+",  label: "Verified Contacts" },
+  { value: "92",   label: "Platforms Supported" },
 ];
 
 const PILLARS = [

@@ -12,7 +12,6 @@ import {
   CheckCircle,
   Database,
   Mail,
-  ArrowRight,
   Clock,
   Calendar,
 } from "lucide-react";
@@ -303,23 +302,22 @@ function ArticleCard({ article, delay }) {
             {article.readTime}
           </span>
         </div>
-        <a
-          href="#"
-          onClick={(e) => e.preventDefault()}
+        <span
           style={{
             fontFamily: FONTS.body,
             fontSize: "12px",
             fontWeight: 600,
             color: COLORS.gold,
-            textDecoration: "none",
             display: "flex",
             alignItems: "center",
             gap: "4px",
             letterSpacing: "0.02em",
+            opacity: 0.5,
+            cursor: "default",
           }}
         >
-          Read more <ArrowRight size={12} />
-        </a>
+          Coming Soon
+        </span>
       </div>
     </div>
   );
@@ -533,7 +531,7 @@ export default function Blog() {
         {/* Product CTA */}
         <div style={{ maxWidth: 800, margin: "0 auto 4rem", textAlign: "center", padding: "3rem 2rem", background: "rgba(212,176,78,0.04)", border: "0.5px solid rgba(212,176,78,0.15)", borderRadius: 16 }}>
           <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 700, color: "#f5f0e6", marginBottom: "0.75rem" }}>Ready to put these insights into action?</h3>
-          <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.45)", marginBottom: "1.5rem", lineHeight: 1.7 }}>Join 2,400+ professionals already closing better deals on Dealstage. Start free — no credit card required.</p>
+          <p style={{ fontSize: "0.9rem", color: "rgba(245,240,230,0.45)", marginBottom: "1.5rem", lineHeight: 1.7 }}>Join thousands of professionals already closing better deals on Dealstage. Start free — no credit card required.</p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a href="/Onboarding" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, background: "linear-gradient(135deg, #d4b04e, #e07b18)", color: "#1c1b19", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>Start free trial</a>
             <a href="/Demo" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.85rem 2rem", borderRadius: 8, border: "0.5px solid rgba(255,248,220,0.13)", background: "none", color: "rgba(245,240,230,0.5)", fontSize: "0.9rem", textDecoration: "none", fontFamily: "'Instrument Sans', sans-serif" }}>See interactive demo</a>

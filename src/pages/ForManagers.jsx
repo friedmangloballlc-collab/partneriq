@@ -189,7 +189,7 @@ const FEATURES = [
 const TIERS = [
   {
     name: "Single Talent",
-    price: "$149",
+    price: "$99",
     period: "/mo",
     desc: "For managers representing one talent",
     highlight: false,
@@ -207,7 +207,7 @@ const TIERS = [
   },
   {
     name: "Multi-Talent",
-    price: "$349",
+    price: "$249",
     period: "/mo",
     desc: "For managers with a growing roster",
     highlight: true,
