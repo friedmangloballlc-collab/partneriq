@@ -162,7 +162,9 @@ const PLANS_BY_ROLE = {
     {
       key: "growth",
       title: "Growth",
-      price: "$499",
+      price: "$299",
+      monthly_price: 299,
+      annual: 2868,
       period: "/ month",
       badge: null,
       features: [
@@ -181,7 +183,9 @@ const PLANS_BY_ROLE = {
     {
       key: "scale",
       title: "Scale",
-      price: "$1,299",
+      price: "$699",
+      monthly_price: 699,
+      annual: 6708,
       period: "/ month",
       badge: "Most Popular",
       features: [
@@ -202,8 +206,10 @@ const PLANS_BY_ROLE = {
     {
       key: "enterprise",
       title: "Enterprise",
-      price: "Custom",
-      period: "starting at $2,500/mo",
+      price: "$1,499",
+      monthly_price: 1499,
+      annual: 14388,
+      period: "/ month",
       badge: null,
       features: [
         "Everything in Scale, plus:",
@@ -213,7 +219,7 @@ const PLANS_BY_ROLE = {
         "White-label options",
         "Dedicated success manager & SLA",
       ],
-      cta: "Contact Sales",
+      cta: "Start Enterprise",
       color: "border-slate-600",
       btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
     },
@@ -221,9 +227,29 @@ const PLANS_BY_ROLE = {
 
   agency: [
     {
+      key: "free",
+      title: "Explorer",
+      price: "$0",
+      monthly_price: 0,
+      annual: 0,
+      period: "forever",
+      badge: null,
+      features: [
+        "Browse talent directory (limited)",
+        "1 active client",
+        "Basic agency profile",
+        "Master Calendar access",
+      ],
+      cta: "Get Started Free",
+      color: "border-amber-500",
+      btnClass: "bg-white/10 hover:bg-white/20 text-white border border-white/20"
+    },
+    {
       key: "agency_starter",
       title: "Agency Starter",
-      price: "$2,499",
+      price: "$799",
+      monthly_price: 799,
+      annual: 7668,
       period: "/ month",
       badge: null,
       features: [
@@ -241,7 +267,9 @@ const PLANS_BY_ROLE = {
     {
       key: "agency_pro",
       title: "Agency Pro",
-      price: "$4,999",
+      price: "$1,799",
+      monthly_price: 1799,
+      annual: 17268,
       period: "/ month",
       badge: "Most Popular",
       features: [
@@ -259,8 +287,10 @@ const PLANS_BY_ROLE = {
     {
       key: "agency_enterprise",
       title: "Agency Enterprise",
-      price: "Custom",
-      period: "starting at $9,999/mo",
+      price: "$3,499",
+      monthly_price: 3499,
+      annual: 33588,
+      period: "/ month",
       badge: null,
       features: [
         "Up to 25 brands or 25 talent profiles",
@@ -270,7 +300,7 @@ const PLANS_BY_ROLE = {
         "Custom BI dashboards",
         "Dedicated success team & SLA",
       ],
-      cta: "Contact Sales",
+      cta: "Start Agency Enterprise",
       color: "border-slate-600",
       btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
     },
@@ -278,9 +308,29 @@ const PLANS_BY_ROLE = {
 
   manager: [
     {
+      key: "free",
+      title: "Explorer",
+      price: "$0",
+      monthly_price: 0,
+      annual: 0,
+      period: "forever",
+      badge: null,
+      features: [
+        "Manage 1 talent profile (limited)",
+        "Browse marketplace (view only)",
+        "Basic deal tracking",
+        "Master Calendar access",
+      ],
+      cta: "Get Started Free",
+      color: "border-violet-500",
+      btnClass: "bg-white/10 hover:bg-white/20 text-white border border-white/20"
+    },
+    {
       key: "manager_single",
       title: "Single Talent",
-      price: "$149",
+      price: "$99",
+      monthly_price: 99,
+      annual: 948,
       period: "/ month",
       badge: "Most Popular",
       features: [
@@ -300,7 +350,9 @@ const PLANS_BY_ROLE = {
     {
       key: "manager_pro",
       title: "Multi-Talent",
-      price: "$349",
+      price: "$249",
+      monthly_price: 249,
+      annual: 2388,
       period: "/ month",
       badge: null,
       features: [
@@ -320,8 +372,10 @@ const PLANS_BY_ROLE = {
     {
       key: "manager_enterprise",
       title: "Manager Enterprise",
-      price: "Custom",
-      period: "starting at $799/mo",
+      price: "$499",
+      monthly_price: 499,
+      annual: 4788,
+      period: "/ month",
       badge: null,
       features: [
         "Everything in Multi-Talent, plus:",
@@ -331,7 +385,7 @@ const PLANS_BY_ROLE = {
         "Custom analytics dashboards",
         "Dedicated success manager & SLA",
       ],
-      cta: "Contact Sales",
+      cta: "Start Enterprise",
       color: "border-slate-600",
       btnClass: "bg-slate-700 hover:bg-slate-800 text-white"
     },
@@ -988,6 +1042,26 @@ export default function Onboarding() {
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Full Name</label>
                 <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />
               </div>
+              {(selectedRole === "talent" || selectedRole === "manager") && (
+                <div>
+                  <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Your Talent Type</label>
+                  <select
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: 8, background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: title ? "#f5f0e6" : "rgba(245,240,230,0.35)", fontSize: "0.875rem", outline: "none", fontFamily: "'Instrument Sans', sans-serif" }}
+                  >
+                    <option value="">Select your talent type...</option>
+                    {TALENT_CATEGORIES.map((cat) => (
+                      <optgroup key={cat.category} label={cat.category}>
+                        {cat.types.map((type) => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 <label style={{ fontSize: "0.75rem", color: "rgba(245,240,230,0.5)", display: "block", marginBottom: 6 }}>Email</label>
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={{ background: "rgba(255,248,220,0.03)", border: "0.5px solid rgba(255,248,220,0.1)", color: "#f5f0e6", borderRadius: 8 }} />

@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Users, Building2, Handshake, DollarSign, CheckSquare, Sparkles, ArrowRight, Brain, Zap, FileText, PlayCircle,
-  Database, Loader2, AlertCircle
+  Database, Loader2, AlertCircle, Plus, UsersRound, Link2
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,68 @@ import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
 // seedDemoData is loaded on demand to keep the initial bundle smaller
 import { queryClientInstance } from "@/lib/query-client";
 import { Progress } from "@/components/ui/progress";
+
+function GettingStarted({ user, hasDealData }) {
+  const [dismissed, setDismissed] = useState(() => sessionStorage.getItem("ds-welcome-dismissed") === "1");
+
+  if (dismissed || hasDealData) return null;
+
+  const isTalent = user?.role === "talent" || user?.role === "manager";
+  const isBrand = user?.role === "brand";
+
+  const steps = isTalent ? [
+    { label: "Complete your profile", page: "TalentProfile", icon: Users },
+    { label: "Connect your social accounts", page: "ConnectAccounts", icon: Link2 },
+    { label: "Browse the marketplace", page: "Marketplace", icon: Zap },
+    { label: "Try the AI Command Center", page: "AICommandCenter", icon: Brain },
+  ] : isBrand ? [
+    { label: "Try the AI Command Center", page: "AICommandCenter", icon: Brain },
+    { label: "Browse talent in the marketplace", page: "Marketplace", icon: Zap },
+    { label: "Create your first opportunity", page: "CreateOpportunity", icon: Plus },
+    { label: "Search for brand contacts", page: "ContactFinder", icon: Users },
+  ] : [
+    { label: "Try the AI Command Center", page: "AICommandCenter", icon: Brain },
+    { label: "Browse the marketplace", page: "Marketplace", icon: Zap },
+    { label: "Explore talent discovery", page: "TalentDiscovery", icon: Users },
+    { label: "Set up your team", page: "Teams", icon: UsersRound },
+  ];
+
+  return (
+    <Card className="mb-6 border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50">
+      <CardContent className="py-5">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-lg font-semibold">Welcome to DealStage!</h2>
+            <p className="text-sm text-muted-foreground">Get started in 4 quick steps</p>
+          </div>
+          <button
+            onClick={() => { setDismissed(true); sessionStorage.setItem("ds-welcome-dismissed", "1"); }}
+            className="text-muted-foreground hover:text-foreground text-sm"
+          >
+            Dismiss
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {steps.map((step, i) => {
+            const Icon = step.icon;
+            return (
+              <Link
+                key={i}
+                to={createPageUrl(step.page)}
+                className="flex items-center gap-3 p-3 rounded-lg border bg-white hover:border-indigo-300 hover:shadow-sm transition"
+              >
+                <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-bold">
+                  {i + 1}
+                </div>
+                <span className="text-sm font-medium">{step.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 function EmptyStateSeedBanner() {
   const [seeding, setSeeding] = useState(false);
@@ -213,6 +275,7 @@ function DashboardContent({ user }) {
   return (
     <div className="space-y-8">
       <SEO title="Dashboard" description="Your Dealstage dashboard — deals, analytics, and AI insights" />
+      <GettingStarted user={user} hasDealData={resolvedPartnerships.length > 0} />
       {/* Onboarding wizard — shown until user completes all 4 steps */}
       {showWizard && (
         <div id="onboarding-wizard">
