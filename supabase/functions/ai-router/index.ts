@@ -248,41 +248,53 @@ Deno.serve(async (req) => {
     // === JWT Authentication: verify caller identity ===
     const authHeader = req.headers.get('Authorization') || '';
     const jwtToken = authHeader.replace('Bearer ', '');
-    // Use the shared service-role client for auth verification and DB queries.
-    // The service-role client can verify any JWT; no need to create a new client per request.
     const supabaseAuth = supabaseServiceClient;
-    const { data: { user: authedUser }, error: authError } = await supabaseAuth.auth.getUser(jwtToken);
-    if (authError || !authedUser) {
-      return new Response(JSON.stringify({ error: 'Authentication required' }), {
-        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+
+    // Check if this is an internal edge-function call using the service role key.
+    // Service keys are trusted — skip user auth but also skip per-user rate limiting.
+    const isServiceCall = jwtToken === Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    let user_id = 'system';
+
+    if (isServiceCall) {
+      // Internal call from another edge function — trusted, no rate limiting
+    } else {
+      // Normal user JWT — verify identity
+      const { data: { user: authedUser }, error: authError } = await supabaseAuth.auth.getUser(jwtToken);
+      if (authError || !authedUser) {
+        return new Response(JSON.stringify({ error: 'Authentication required' }), {
+          status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      user_id = authedUser.id;
     }
-    const user_id = authedUser.id;
 
     // === Server-side tier lookup: never trust client-provided tier ===
     // The user_subscriptions table stores `current_plan` (TEXT), not `tier`.
     // We map the plan key to both TIER_LIMITS and TIER_PROVIDERS lookups.
-    let user_tier = 'free';
-    try {
-      const { data: sub } = await supabaseAuth
-        .from('user_subscriptions')
-        .select('current_plan')
-        .eq('user_id', user_id)
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-      if (sub?.current_plan && sub.current_plan in TIER_LIMITS) {
-        user_tier = sub.current_plan;
-      }
-    } catch { /* default to free tier */ }
+    let user_tier = isServiceCall ? 'enterprise' : 'free';
+    if (!isServiceCall) {
+      try {
+        const { data: sub } = await supabaseAuth
+          .from('user_subscriptions')
+          .select('current_plan')
+          .eq('user_id', user_id)
+          .eq('status', 'active')
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single();
+        if (sub?.current_plan && sub.current_plan in TIER_LIMITS) {
+          user_tier = sub.current_plan;
+        }
+      } catch { /* default to free tier */ }
+    }
 
     // Get agent config
     const agent = getAgent(agentName);
 
     // === Rate limiting (atomic upsert on ai_rate_limits table) ===
+    // Skip rate limiting for internal service calls (already metered at the edge function level)
     const limit = TIER_LIMITS[user_tier] ?? TIER_LIMITS.free;
-    if (limit !== Infinity) {
+    if (limit !== Infinity && !isServiceCall) {
       // Atomic increment: INSERT or UPDATE the daily counter in one round-trip.
       // Returns the new request_count after incrementing.
       const { data: rateData, error: rateError } = await supabaseAuth.rpc(

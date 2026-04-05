@@ -141,6 +141,9 @@ export function createClientFromRequest(req: Request) {
   const authHeader = req.headers.get('Authorization') || '';
   const token = authHeader.replace('Bearer ', '');
 
+  // Store the user's JWT so InvokeLLM can forward it to the ai-router
+  const userJwt = token;
+
   // Service role client (bypasses RLS) — used for all data access in edge functions
   const serviceClient = createClient(url, serviceKey);
 
@@ -178,13 +181,15 @@ export function createClientFromRequest(req: Request) {
         async InvokeLLM({ prompt, response_json_schema, agent_name }: { prompt: string; response_json_schema?: any; agent_name?: string }) {
           // Route through the Universal AI Router with automatic failover
           const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-          const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
           try {
+            // Forward the user's original JWT so ai-router can authenticate and rate-limit them.
+            // Falls back to service key for internal/system calls.
+            const bearerToken = userJwt || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
             const resp = await fetch(`${supabaseUrl}/functions/v1/ai-router`, {
               method: 'POST',
               headers: {
-                'Authorization': `Bearer ${serviceKey}`,
+                'Authorization': `Bearer ${bearerToken}`,
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
@@ -207,21 +212,10 @@ export function createClientFromRequest(req: Request) {
             const text = data.result || '{}';
             try { return JSON.parse(text); } catch { return { response: text }; }
           } catch (err) {
-            console.error('[InvokeLLM] Failed:', (err as Error).message);
-            // Fallback: return structured mock if schema provided
-            if (response_json_schema?.properties) {
-              const fallback: any = {};
-              for (const [key, schema] of Object.entries(response_json_schema.properties) as any) {
-                if (schema.type === 'string') fallback[key] = `AI temporarily unavailable. Please try again.`;
-                else if (schema.type === 'number') fallback[key] = 0;
-                else if (schema.type === 'boolean') fallback[key] = false;
-                else if (schema.type === 'array') fallback[key] = [];
-                else if (schema.type === 'object') fallback[key] = {};
-                else fallback[key] = null;
-              }
-              return fallback;
-            }
-            return { response: 'AI service temporarily unavailable. Please try again in a moment.' };
+            const errorMsg = (err as Error).message;
+            console.error('[InvokeLLM] Failed:', errorMsg);
+            // Propagate error instead of hiding it behind fake data
+            throw new Error(`AI service error: ${errorMsg}`);
           }
         },
         async ExtractDataFromUploadedFile({ file_url }: { file_url: string }) {

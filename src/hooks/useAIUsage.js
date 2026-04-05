@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
+import posthog from "posthog-js";
 
 // AI query limits per effective tier
 const AI_LIMITS = {
@@ -47,6 +48,7 @@ export function useAIUsage() {
 
     const { data: newCount } = await supabase.rpc('increment_ai_usage');
     if (newCount != null) setUsage(newCount);
+    posthog.capture('ai_query', { function: functionName, usage: (newCount ?? usage) + 1, limit });
     return true;
   }, [isAdmin, usage, limit]);
 

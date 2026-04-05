@@ -2,8 +2,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import * as Sentry from '@sentry/react'
+import posthog from 'posthog-js'
 import App from '@/App.jsx'
 import '@/index.css'
+
+// Initialize PostHog analytics
+posthog.init('phc_AQXkZDKducVntafPTZfiv7NkqjtYUzJMCingF8Pek9tU', {
+  api_host: 'https://us.i.posthog.com',
+  person_profiles: 'identified_only',
+  capture_pageview: true,
+  capture_pageleave: true,
+  autocapture: true,
+});
 
 // Initialize Sentry error tracking
 const sentryDsn = import.meta.env.VITE_SENTRY_DSN;

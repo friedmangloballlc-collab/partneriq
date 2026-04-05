@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { supabase } from '@/api/supabaseClient';
+import posthog from 'posthog-js';
+import formbricks from '@formbricks/js';
 
 const AuthContext = createContext();
 
@@ -61,6 +63,34 @@ export const AuthProvider = ({ children }) => {
         ...profile,
       });
       setIsAuthenticated(true);
+      // Identify user in PostHog for analytics
+      posthog.identify(supabaseUser.id, {
+        email: supabaseUser.email,
+        role: profile.role,
+        plan: profile.plan,
+        name: profile.full_name,
+      });
+      // Identify user in Crisp live chat
+      if (window.$crisp) {
+        window.$crisp.push(['set', 'user:email', [supabaseUser.email]]);
+        if (profile.full_name) window.$crisp.push(['set', 'user:nickname', [profile.full_name]]);
+        window.$crisp.push(['set', 'session:data', [[
+          ['role', profile.role],
+          ['plan', profile.plan || 'free'],
+          ['user_id', supabaseUser.id],
+        ]]]);
+      }
+      // Initialize Formbricks for in-app surveys
+      formbricks.init({
+        environmentId: 'cmnlf1odsna3qog01283b0au7',
+        apiHost: 'https://app.formbricks.com',
+        userId: supabaseUser.id,
+        attributes: {
+          email: supabaseUser.email,
+          role: profile.role,
+          plan: profile.plan || 'free',
+        },
+      });
     } catch (err) {
       console.error('Failed to load profile:', err);
       setAuthError(null);
@@ -123,6 +153,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async (shouldRedirect = true) => {
     await supabase.auth.signOut();
+    posthog.reset();
+    formbricks.logout();
     setUser(null);
     setIsAuthenticated(false);
     if (shouldRedirect) window.location.href = '/';
