@@ -77,6 +77,10 @@ export default function SubscriptionManagement() {
       });
 
       const stripe = await stripePromise;
+      if (!stripe) {
+        setError("Payment system is not configured. Please contact support.");
+        return;
+      }
       await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
 
     } catch (err) {

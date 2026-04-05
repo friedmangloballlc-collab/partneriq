@@ -36,16 +36,16 @@ const fontStack = {
 const caseStudies = [
   {
     initials: "N",
-    company: "Nike",
+    company: "Global Sportswear Brand",
     partner: "Jordan Reeves",
     gradient: "linear-gradient(135deg, #d4b04e 0%, #e07b18 100%)",
     badge: "Brand + Athlete",
     badgeColor: "#e07b18",
-    title: "How Nike found their perfect athlete partner in 48 hours",
+    title: "How a global sportswear brand found their perfect athlete partner in 48 hours",
     quote:
       "The AI matching was unlike anything we've used before. We had three qualified athlete candidates by the next morning — all with verified audience overlap above 72%. We closed the deal in 48 hours.",
-    author: "Marcus Chen",
-    role: "Director of Brand Partnerships, Nike",
+    author: "Director of Brand Partnerships",
+    role: "Global Sportswear Brand",
     metrics: [
       { label: "Deal Value", value: "$85K", icon: DollarSign },
       { label: "ROI Achieved", value: "340%", icon: TrendingUp },
@@ -54,20 +54,20 @@ const caseStudies = [
     ],
     features: ["AI Talent Matching", "Data Room", "E-Signature"],
     outcome:
-      "Nike's Jordan Reeves campaign generated 4.2M impressions in the first week and became their highest-performing athlete partnership of Q1 2026.",
+      "The campaign generated 4.2M impressions in the first week and became the brand's highest-performing athlete partnership of Q1 2026.",
   },
   {
     initials: "S",
-    company: "Spotify",
+    company: "Major Streaming Platform",
     partner: "Creator Network",
     gradient: "linear-gradient(135deg, #1db954 0%, #d4b04e 100%)",
     badge: "Brand + Creators",
     badgeColor: "#d4b04e",
-    title: "Spotify's podcast creator campaign scaled to 50 partnerships",
+    title: "How a streaming platform's podcast creator campaign scaled to 50 partnerships",
     quote:
       "We needed to move fast and sign 50 creators across three podcast verticals in under 60 days. Dealstage's outreach sequences and automated contract workflows made it possible without growing our team.",
-    author: "Priya Sharma",
-    role: "Head of Creator Partnerships, Spotify",
+    author: "Head of Creator Partnerships",
+    role: "Major Streaming Platform",
     metrics: [
       { label: "Total Deal Value", value: "$625K", icon: DollarSign },
       { label: "Engagement Lift", value: "12x", icon: TrendingUp },
@@ -76,20 +76,20 @@ const caseStudies = [
     ],
     features: ["Outreach Sequences", "Bulk Contracts", "Pipeline Analytics"],
     outcome:
-      "The campaign drove 8.3M new podcast streams and a 12x engagement rate versus Spotify's previous creator campaigns, establishing a repeatable playbook.",
+      "The campaign drove 8.3M new podcast streams and a 12x engagement rate versus the platform's previous creator campaigns, establishing a repeatable playbook.",
   },
   {
     initials: "W",
-    company: "Wasserman",
+    company: "Leading Talent Agency",
     partner: "Agency Operations",
     gradient: "linear-gradient(135deg, #6366f1 0%, #d4b04e 100%)",
     badge: "Agency",
     badgeColor: "#9333ea",
-    title: "How Wasserman manages 200+ talent deals from one dashboard",
+    title: "How a leading agency manages 200+ talent deals from one dashboard",
     quote:
       "Before Dealstage, our agents were managing deals across six different tools and three shared spreadsheets. Now everything lives in one place — pipeline, data rooms, analytics, and client reporting. We close faster and look sharper doing it.",
-    author: "Diana Okafor",
-    role: "VP Technology & Operations, Wasserman",
+    author: "VP Technology & Operations",
+    role: "Leading Talent Agency",
     metrics: [
       { label: "Active Pipeline", value: "$4.2M", icon: DollarSign },
       { label: "Close Rate", value: "89%", icon: CheckCircle },
@@ -98,7 +98,7 @@ const caseStudies = [
     ],
     features: ["Agency Dashboard", "Data Rooms", "Team Collaboration"],
     outcome:
-      "Wasserman reduced administrative overhead by 60%, improved deal velocity by 3x, and expanded their managed talent roster by 40% without adding headcount.",
+      "The agency reduced administrative overhead by 60%, improved deal velocity by 3x, and expanded their managed talent roster by 40% without adding headcount.",
   },
 ];
 

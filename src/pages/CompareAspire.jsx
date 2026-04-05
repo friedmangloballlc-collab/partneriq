@@ -70,10 +70,10 @@ const COMPETITOR = "Aspire";
 
 const PRICING_ROWS = [
   { label: "Starting price",      dealstage: "Free tier available",        competitor: "$2,000 / month" },
-  { label: "Annual equivalent",   dealstage: "From $0 (paid from $588/yr)", competitor: "$24,000 / year minimum" },
+  { label: "Annual equivalent",   dealstage: "From $0 (paid from $948/yr)", competitor: "$24,000 / year minimum" },
   { label: "Free trial",          dealstage: "Yes — no credit card",       competitor: "Demo only, no self-serve" },
   { label: "Contract required",   dealstage: "No",                         competitor: "Monthly or annual contract" },
-  { label: "Manager role",        dealstage: "Dedicated plan from $149/mo", competitor: "Not available" },
+  { label: "Manager role",        dealstage: "Dedicated plan from $99/mo", competitor: "Not available" },
 ];
 
 const FEATURE_ROWS = [

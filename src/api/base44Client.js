@@ -276,6 +276,14 @@ const NON_AI_FUNCTIONS = new Set([
   'initializeSubscription', 'getUserSubscriptionStatus', 'getBillingHistory',
   'getInvoices', 'exportEntityData', 'importEntityData', 'send-welcome-email',
   'create-phyllo-token', 'manageWebhooks',
+  'getPaymentMethods', 'deletePaymentMethod', 'addPaymentMethod',
+  'checkFeatureAccess', 'connectEmailAccount', 'manageEscrow',
+  'populateBrands', 'populateContactsGMO', 'populateBrandIntel',
+  'populateEvents', 'populateContacts', 'adminVerificationStats',
+  'refreshEnrichments', 'sendTrialEmails', 'enrichCreator', 'enrichBrand',
+  'verifyDeal', 'verifyWebsite', 'scoreMatch', 'oauthConnect',
+  'gmoEnrichCompany', 'gmoFindContacts', 'upgradeSubscription',
+  'handleStripeWebhook', 'getUserSubscriptionStatus', 'setupStripeConnect',
 ]);
 
 // Edge Functions wrapper with AI metering

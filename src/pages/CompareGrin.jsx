@@ -74,10 +74,10 @@ const COMPETITOR_SLUG = "Grin";
 
 const PRICING_ROWS = [
   { label: "Starting price",      dealstage: "Free tier available",       competitor: "$25,000 / year" },
-  { label: "Monthly equivalent",  dealstage: "From $0 (paid from $49/mo)", competitor: "$2,083 / mo minimum" },
+  { label: "Monthly equivalent",  dealstage: "From $0 (paid from $99/mo)", competitor: "$2,083 / mo minimum" },
   { label: "Free trial",          dealstage: "Yes — no credit card",      competitor: "Demo only, no self-serve" },
   { label: "Contract required",   dealstage: "No",                        competitor: "Annual contract required" },
-  { label: "Manager role",        dealstage: "Dedicated plan from $149/mo",competitor: "Not available" },
+  { label: "Manager role",        dealstage: "Dedicated plan from $99/mo",competitor: "Not available" },
 ];
 
 const FEATURE_ROWS = [

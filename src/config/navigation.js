@@ -260,6 +260,7 @@ export const roleNavItems = {
     { name: "Talent Revenue", icon: DollarSign, page: "TalentRevenue" },
     // ── Discovery ──
     { name: "Marketplace", icon: Zap, page: "Marketplace", section: "Discovery" },
+    { name: "Browse Brands", icon: Building2, page: "Brands" },
     { name: "Match Engine", icon: Sparkles, page: "MatchEngine" },
     { name: "Contact Finder", icon: Users, page: "ContactFinder" },
     { name: "Demographic Targeting", icon: Users, page: "DemographicTargeting" },
