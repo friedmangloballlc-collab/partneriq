@@ -1004,9 +1004,14 @@ function ContactsTab({ brands }) {
   const [contactSearch, setContactSearch] = useState("");
 
   const { data: contactCount = 0 } = useQuery({
-    queryKey: ["admin-contacts-count"],
+    queryKey: ["admin-contacts-count", contactSearch],
     queryFn: async () => {
-      const { count } = await supabase.from("decision_makers").select("id", { count: "exact", head: true });
+      let query = supabase.from("decision_makers").select("id", { count: "exact", head: true });
+      if (contactSearch.trim()) {
+        const q = contactSearch.trim().replace(/^www\./i, '');
+        query = query.or(`full_name.ilike.%${q}%,brand_name.ilike.%${q}%,email.ilike.%${q}%,company_domain.ilike.%${q}%,person_company_name.ilike.%${q}%,person_first_name.ilike.%${q}%,person_last_name.ilike.%${q}%,person_business_email.ilike.%${q}%`);
+      }
+      const { count } = await query;
       return count || 0;
     },
   });
@@ -1022,7 +1027,7 @@ function ContactsTab({ brands }) {
         .range(from, from + contactPageSize - 1);
       if (contactSearch.trim()) {
         const q = contactSearch.trim().replace(/^www\./i, '');
-        query = query.or(`full_name.ilike.%${q}%,brand_name.ilike.%${q}%,email.ilike.%${q}%,company_domain.ilike.%${q}%,person_company_name.ilike.%${q}%`);
+        query = query.or(`full_name.ilike.%${q}%,brand_name.ilike.%${q}%,email.ilike.%${q}%,company_domain.ilike.%${q}%,person_company_name.ilike.%${q}%,person_first_name.ilike.%${q}%,person_last_name.ilike.%${q}%,person_business_email.ilike.%${q}%`);
       }
       const { data, error } = await query;
       if (error) throw error;
@@ -1230,9 +1235,9 @@ function ContactsTab({ brands }) {
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
-            placeholder="Search contacts…"
-            value={search}
-            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            placeholder="Search by name, brand, domain, email…"
+            value={contactSearch}
+            onChange={e => { setContactSearch(e.target.value); setContactPage(1); setPage(1); }}
             className="pl-9 h-9"
           />
         </div>
