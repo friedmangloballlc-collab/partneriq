@@ -1021,7 +1021,8 @@ function ContactsTab({ brands }) {
         .order("full_name", { ascending: true })
         .range(from, from + contactPageSize - 1);
       if (contactSearch.trim()) {
-        query = query.or(`full_name.ilike.%${contactSearch.trim()}%,brand_name.ilike.%${contactSearch.trim()}%,email.ilike.%${contactSearch.trim()}%`);
+        const q = contactSearch.trim().replace(/^www\./i, '');
+        query = query.or(`full_name.ilike.%${q}%,brand_name.ilike.%${q}%,email.ilike.%${q}%,company_domain.ilike.%${q}%,person_company_name.ilike.%${q}%`);
       }
       const { data, error } = await query;
       if (error) throw error;
@@ -1038,9 +1039,9 @@ function ContactsTab({ brands }) {
     if (filterTier !== "all") rows = rows.filter(r => String(r.role_tier) === filterTier);
     if (filterBrand !== "all") rows = rows.filter(r => r.brand_name === filterBrand);
     if (search.trim()) {
-      const q = search.toLowerCase();
+      const q = search.toLowerCase().replace(/^www\./i, '');
       rows = rows.filter(r =>
-        [r.full_name, r.role_title, r.brand_name, r.email, r.source]
+        [r.full_name, r.role_title, r.brand_name, r.email, r.company_domain, r.person_company_name, r.source]
           .some(v => String(v ?? "").toLowerCase().includes(q))
       );
     }
