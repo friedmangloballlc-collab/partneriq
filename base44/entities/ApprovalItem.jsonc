@@ -1,0 +1,128 @@
+{
+  "name": "ApprovalItem",
+  "type": "object",
+  "properties": {
+    "item_type": {
+      "type": "string",
+      "enum": [
+        "outreach_email",
+        "pitch_deck",
+        "partnership_proposal",
+        "contract"
+      ],
+      "description": "Type of item needing approval"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "ID of the referenced item"
+    },
+    "title": {
+      "type": "string",
+      "description": "Summary title for the approval item"
+    },
+    "description": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "description": "Full content for approval"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "p1_critical",
+        "p2_high",
+        "p3_standard",
+        "p4_low"
+      ],
+      "default": "p3_standard"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "revision_requested",
+        "scheduled",
+        "escalated",
+        "sent"
+      ],
+      "default": "pending"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Assigned reviewer email"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "Email of person who reviewed"
+    },
+    "review_notes": {
+      "type": "string"
+    },
+    "rejection_code": {
+      "type": "string",
+      "enum": [
+        "tone_mismatch",
+        "factual_error",
+        "timing_wrong",
+        "target_wrong",
+        "structure_issue",
+        "too_aggressive",
+        "missing_context",
+        "compliance",
+        "competitor_conflict",
+        "budget_mismatch"
+      ],
+      "description": "Standardized rejection reason code"
+    },
+    "rejection_feedback": {
+      "type": "string",
+      "description": "Detailed feedback for rejection"
+    },
+    "scheduled_send_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to send if scheduled"
+    },
+    "escalated_to": {
+      "type": "string",
+      "description": "Email of escalation target"
+    },
+    "sla_deadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "SLA deadline for review"
+    },
+    "deal_value": {
+      "type": "number",
+      "description": "Associated deal value in USD for priority calculation"
+    },
+    "auto_approve_if_match": {
+      "type": "boolean",
+      "default": false,
+      "description": "Auto-approve if meets AI match criteria threshold"
+    },
+    "match_score": {
+      "type": "number",
+      "description": "AI match score 0-100"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "talent_name": {
+      "type": "string"
+    },
+    "brand_id": {
+      "type": "string"
+    },
+    "talent_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "item_type",
+    "title"
+  ]
+}

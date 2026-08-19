@@ -1,0 +1,41 @@
+{
+  "name": "PlanningTimeline",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "Type of event"
+    },
+    "planning_lead_time": {
+      "type": "string",
+      "description": "Recommended planning lead time"
+    },
+    "key_milestones": {
+      "type": "string",
+      "description": "Key planning milestones"
+    },
+    "budget_lock_date": {
+      "type": "string",
+      "description": "When budget must be locked"
+    },
+    "creative_development": {
+      "type": "string",
+      "description": "Timeline for creative development"
+    },
+    "media_buying_window": {
+      "type": "string",
+      "description": "Optimal media buying window"
+    },
+    "execution_phase": {
+      "type": "string",
+      "description": "When to execute"
+    },
+    "post_event_analysis": {
+      "type": "string",
+      "description": "Post-event analysis timeline"
+    }
+  },
+  "required": [
+    "event_type"
+  ]
+}

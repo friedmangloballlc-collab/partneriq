@@ -1,0 +1,88 @@
+{
+  "name": "UserSubscription",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user with this subscription"
+    },
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "talent",
+        "brand",
+        "agency"
+      ],
+      "description": "User type"
+    },
+    "current_plan": {
+      "type": "string",
+      "description": "Current subscription plan tier"
+    },
+    "billing_cycle": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "annual"
+      ],
+      "default": "monthly",
+      "description": "Billing frequency"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "Stripe customer ID"
+    },
+    "stripe_subscription_id": {
+      "type": "string",
+      "description": "Stripe subscription ID"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "past_due",
+        "canceled",
+        "unpaid",
+        "trial"
+      ],
+      "default": "active",
+      "description": "Subscription status"
+    },
+    "current_period_start": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Current billing period start"
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Current billing period end"
+    },
+    "cancel_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When subscription will cancel if requested"
+    },
+    "trial_ends_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When free trial ends"
+    },
+    "monthly_spend": {
+      "type": "number",
+      "default": 0,
+      "description": "Current month's billing amount"
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether subscription auto-renews"
+    }
+  },
+  "required": [
+    "user_email",
+    "user_type",
+    "current_plan",
+    "stripe_customer_id"
+  ]
+}

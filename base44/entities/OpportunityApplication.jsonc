@@ -1,0 +1,64 @@
+{
+  "name": "OpportunityApplication",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string",
+      "description": "Associated marketplace opportunity ID"
+    },
+    "talent_id": {
+      "type": "string",
+      "description": "Associated talent ID"
+    },
+    "talent_email": {
+      "type": "string",
+      "description": "Talent email"
+    },
+    "talent_name": {
+      "type": "string",
+      "description": "Talent name"
+    },
+    "brand_id": {
+      "type": "string",
+      "description": "Brand ID for easier queries"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "reviewing",
+        "approved",
+        "rejected",
+        "withdrawn"
+      ],
+      "default": "submitted",
+      "description": "Application status"
+    },
+    "cover_letter": {
+      "type": "string",
+      "description": "Talent's pitch/cover letter"
+    },
+    "portfolio_links": {
+      "type": "string",
+      "description": "JSON array of relevant portfolio/social links"
+    },
+    "rate_proposed": {
+      "type": "number",
+      "description": "Talent's proposed rate (optional)"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Auto-generated proposal ID if approved"
+    },
+    "applied_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Application timestamp"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "talent_id",
+    "brand_id"
+  ]
+}

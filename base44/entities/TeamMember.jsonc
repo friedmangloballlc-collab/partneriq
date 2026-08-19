@@ -1,0 +1,43 @@
+{
+  "name": "TeamMember",
+  "type": "object",
+  "properties": {
+    "team_id": {
+      "type": "string",
+      "description": "Associated team ID"
+    },
+    "team_name": {
+      "type": "string"
+    },
+    "member_email": {
+      "type": "string",
+      "description": "Member's email address"
+    },
+    "member_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "default": "member",
+      "description": "Role within the team"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "invited",
+        "inactive"
+      ],
+      "default": "invited"
+    }
+  },
+  "required": [
+    "team_id",
+    "member_email"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "name": "OutreachEmail",
+  "type": "object",
+  "properties": {
+    "partnership_id": {
+      "type": "string"
+    },
+    "to_email": {
+      "type": "string"
+    },
+    "to_name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_approval",
+        "approved",
+        "rejected",
+        "scheduled",
+        "sent",
+        "delivered",
+        "opened",
+        "clicked",
+        "replied",
+        "bounced"
+      ],
+      "default": "draft"
+    },
+    "email_type": {
+      "type": "string",
+      "enum": [
+        "initial_outreach",
+        "follow_up",
+        "proposal",
+        "negotiation",
+        "contract",
+        "thank_you"
+      ],
+      "default": "initial_outreach"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Assigned team member email"
+    },
+    "scheduled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "opened_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "to_email",
+    "subject",
+    "body"
+  ]
+}

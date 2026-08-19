@@ -1,0 +1,48 @@
+{
+  "name": "PlatformMultiplier",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "youtube",
+        "tiktok",
+        "instagram",
+        "twitch",
+        "twitter",
+        "linkedin",
+        "snapchat",
+        "pinterest"
+      ],
+      "description": "Social media platform"
+    },
+    "base_cpm_min": {
+      "type": "number",
+      "description": "Minimum base CPM"
+    },
+    "base_cpm_max": {
+      "type": "number",
+      "description": "Maximum base CPM"
+    },
+    "rate_multiplier": {
+      "type": "number",
+      "description": "Multiplier for base rates on this platform"
+    },
+    "engagement_benchmark_min": {
+      "type": "number",
+      "description": "Minimum engagement rate benchmark %"
+    },
+    "engagement_benchmark_max": {
+      "type": "number",
+      "description": "Maximum engagement rate benchmark %"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Platform-specific notes"
+    }
+  },
+  "required": [
+    "platform",
+    "rate_multiplier"
+  ]
+}

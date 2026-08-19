@@ -1,0 +1,104 @@
+{
+  "name": "Brand",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Brand/company name"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Company website domain"
+    },
+    "industry": {
+      "type": "string",
+      "enum": [
+        "technology",
+        "fashion",
+        "beauty",
+        "food_beverage",
+        "automotive",
+        "finance",
+        "health_wellness",
+        "entertainment",
+        "sports",
+        "travel",
+        "education",
+        "retail",
+        "gaming",
+        "real_estate",
+        "telecom",
+        "other"
+      ],
+      "description": "Primary industry"
+    },
+    "company_size": {
+      "type": "string",
+      "enum": [
+        "startup",
+        "small",
+        "medium",
+        "large",
+        "enterprise"
+      ],
+      "description": "Company size classification"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "linkedin_url": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Primary contact person name"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Primary contact email"
+    },
+    "contact_title": {
+      "type": "string",
+      "description": "Contact job title"
+    },
+    "annual_budget": {
+      "type": "number",
+      "description": "Estimated annual partnership budget USD"
+    },
+    "preferred_niches": {
+      "type": "string",
+      "description": "Comma-separated preferred talent niches"
+    },
+    "preferred_platforms": {
+      "type": "string",
+      "description": "Comma-separated preferred social platforms"
+    },
+    "target_audience": {
+      "type": "string",
+      "description": "Target audience description"
+    },
+    "previous_partnerships": {
+      "type": "number",
+      "description": "Number of previous influencer partnerships"
+    },
+    "location": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "prospect",
+        "churned",
+        "inactive"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

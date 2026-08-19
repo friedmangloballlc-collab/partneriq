@@ -1,0 +1,45 @@
+{
+  "name": "Conference",
+  "type": "object",
+  "properties": {
+    "conference_name": {
+      "type": "string",
+      "description": "Conference name"
+    },
+    "industry_focus": {
+      "type": "string",
+      "description": "Industry focus area"
+    },
+    "typical_date": {
+      "type": "string",
+      "description": "Typical date/month"
+    },
+    "location": {
+      "type": "string",
+      "description": "Conference location"
+    },
+    "attendees": {
+      "type": "string",
+      "description": "Expected attendance"
+    },
+    "key_audience": {
+      "type": "string",
+      "description": "Key audience type"
+    },
+    "best_for_industries": {
+      "type": "string",
+      "description": "Industries that benefit most"
+    },
+    "sponsorship_range": {
+      "type": "string",
+      "description": "Booth/sponsorship cost range"
+    },
+    "why_attend": {
+      "type": "string",
+      "description": "Reasons to attend/sponsor"
+    }
+  },
+  "required": [
+    "conference_name"
+  ]
+}

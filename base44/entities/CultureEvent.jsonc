@@ -1,0 +1,93 @@
+{
+  "name": "CultureEvent",
+  "type": "object",
+  "properties": {
+    "event_name": {
+      "type": "string",
+      "description": "Name of the event"
+    },
+    "year": {
+      "type": "number",
+      "description": "Year of the event"
+    },
+    "month": {
+      "type": "string",
+      "description": "Month of the event"
+    },
+    "dates": {
+      "type": "string",
+      "description": "Event date(s)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Sports",
+        "Entertainment",
+        "Holiday/Civic",
+        "Conferences/Trade",
+        "Cultural",
+        "Awareness Month"
+      ],
+      "description": "Event category"
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "More specific category (e.g., NFL, Awards Show)"
+    },
+    "audience_reach": {
+      "type": "string",
+      "description": "Audience size/reach description"
+    },
+    "key_demographics": {
+      "type": "string",
+      "description": "Target demographics"
+    },
+    "best_industries": {
+      "type": "string",
+      "description": "Industries most suited for this event"
+    },
+    "location": {
+      "type": "string",
+      "description": "Event location"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2",
+        "3"
+      ],
+      "description": "Event importance tier"
+    },
+    "activation_opportunities": {
+      "type": "string",
+      "description": "Brand activation opportunities"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context and insights"
+    },
+    "planning_lead_time": {
+      "type": "string",
+      "description": "Recommended planning lead time"
+    },
+    "budget_guidance": {
+      "type": "string",
+      "description": "Budget tiers (GOOD/BETTER/BEST)"
+    },
+    "roi_benchmark": {
+      "type": "string",
+      "description": "Expected ROI metrics"
+    },
+    "competitor_status": {
+      "type": "string",
+      "description": "Competitor sponsorship status"
+    }
+  },
+  "required": [
+    "event_name",
+    "year",
+    "month",
+    "category"
+  ]
+}

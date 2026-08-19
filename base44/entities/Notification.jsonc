@@ -1,0 +1,107 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Notification title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed message content"
+    },
+    "trigger_event": {
+      "type": "string",
+      "enum": [
+        "award_win",
+        "viral_moment",
+        "competitor_deal_expiring",
+        "trajectory_inflection",
+        "rep_change",
+        "new_platform_launch",
+        "scandal_crisis",
+        "major_announcement"
+      ],
+      "description": "Type of trigger event"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "p0_crisis",
+        "p1_immediate",
+        "p2_same_day",
+        "p3_next_day",
+        "p4_weekly"
+      ],
+      "default": "p3_next_day",
+      "description": "Alert priority level"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "unread",
+        "read",
+        "acknowledged",
+        "archived"
+      ],
+      "default": "unread",
+      "description": "Notification status"
+    },
+    "reference_type": {
+      "type": "string",
+      "enum": [
+        "talent",
+        "brand",
+        "partnership",
+        "opportunity",
+        "system"
+      ],
+      "description": "What entity this notification relates to"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "ID of related entity"
+    },
+    "reference_name": {
+      "type": "string",
+      "description": "Display name of related entity"
+    },
+    "automated_actions": {
+      "type": "string",
+      "description": "JSON array of actions taken automatically"
+    },
+    "action_url": {
+      "type": "string",
+      "description": "URL to navigate to for more details"
+    },
+    "response_window": {
+      "type": "string",
+      "description": "Required response time window"
+    },
+    "detection_method": {
+      "type": "string",
+      "description": "How this event was detected"
+    },
+    "channels": {
+      "type": "string",
+      "description": "Comma-separated notification channels used"
+    },
+    "read_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON object with additional context"
+    }
+  },
+  "required": [
+    "title",
+    "trigger_event",
+    "priority"
+  ]
+}

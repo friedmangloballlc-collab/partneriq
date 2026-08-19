@@ -1,0 +1,38 @@
+{
+  "name": "ViewershipTier",
+  "type": "object",
+  "properties": {
+    "tier": {
+      "type": "string",
+      "description": "Viewership tier (e.g., TIER 1, TIER 2)"
+    },
+    "event": {
+      "type": "string",
+      "description": "Event name"
+    },
+    "us_viewership": {
+      "type": "string",
+      "description": "US viewership numbers"
+    },
+    "global_reach": {
+      "type": "string",
+      "description": "Global reach"
+    },
+    "key_demographic": {
+      "type": "string",
+      "description": "Key demographic audience"
+    },
+    "cpm_range": {
+      "type": "string",
+      "description": "CPM (Cost Per Mille) range"
+    },
+    "best_for": {
+      "type": "string",
+      "description": "Best use cases"
+    }
+  },
+  "required": [
+    "event",
+    "tier"
+  ]
+}

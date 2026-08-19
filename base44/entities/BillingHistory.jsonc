@@ -1,0 +1,88 @@
+{
+  "name": "BillingHistory",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "User email"
+    },
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "talent",
+        "brand",
+        "agency"
+      ],
+      "description": "User type"
+    },
+    "invoice_id": {
+      "type": "string",
+      "description": "Invoice ID"
+    },
+    "stripe_invoice_id": {
+      "type": "string",
+      "description": "Stripe invoice ID"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Invoice amount in USD"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd",
+      "description": "Currency code"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Plan name"
+    },
+    "billing_cycle": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "annual"
+      ],
+      "description": "Billing period"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Billing period start"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Billing period end"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "paid",
+        "pending",
+        "failed",
+        "refunded"
+      ],
+      "default": "pending",
+      "description": "Payment status"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When payment was completed"
+    },
+    "invoice_url": {
+      "type": "string",
+      "description": "Link to invoice PDF"
+    },
+    "proration_amount": {
+      "type": "number",
+      "description": "Prorated amount for upgrades/downgrades"
+    }
+  },
+  "required": [
+    "user_email",
+    "user_type",
+    "stripe_invoice_id",
+    "amount"
+  ]
+}

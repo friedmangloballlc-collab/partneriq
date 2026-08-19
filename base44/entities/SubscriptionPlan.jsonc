@@ -1,0 +1,80 @@
+{
+  "name": "SubscriptionPlan",
+  "type": "object",
+  "properties": {
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "talent",
+        "brand",
+        "agency"
+      ],
+      "description": "Which user type this plan is for"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "free",
+        "starter",
+        "rising",
+        "growth",
+        "pro",
+        "scale",
+        "elite",
+        "enterprise",
+        "agency_starter",
+        "agency_pro",
+        "agency_enterprise"
+      ],
+      "description": "Tier identifier"
+    },
+    "tier_name": {
+      "type": "string",
+      "description": "Display name (e.g., 'Starter', 'Pro')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short tier description"
+    },
+    "monthly_price": {
+      "type": "number",
+      "default": 0,
+      "description": "Monthly price in USD"
+    },
+    "annual_price": {
+      "type": "number",
+      "default": 0,
+      "description": "Annual price in USD"
+    },
+    "stripe_product_id": {
+      "type": "string",
+      "description": "Stripe product ID"
+    },
+    "stripe_monthly_price_id": {
+      "type": "string",
+      "description": "Stripe price ID for monthly billing"
+    },
+    "stripe_annual_price_id": {
+      "type": "string",
+      "description": "Stripe price ID for annual billing"
+    },
+    "features": {
+      "type": "string",
+      "description": "JSON array of feature strings"
+    },
+    "limits": {
+      "type": "string",
+      "description": "JSON object with usage limits (searches, seats, partnerships, etc.)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this plan is available for purchase"
+    }
+  },
+  "required": [
+    "user_type",
+    "tier",
+    "tier_name"
+  ]
+}

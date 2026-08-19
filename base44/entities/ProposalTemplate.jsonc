@@ -1,0 +1,57 @@
+{
+  "name": "ProposalTemplate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Template name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this template is for"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "sponsorship",
+        "affiliate",
+        "ambassador",
+        "content_creation",
+        "partnership",
+        "event",
+        "other"
+      ],
+      "description": "Template category"
+    },
+    "template_content": {
+      "type": "string",
+      "description": "Rich text template with {{placeholder}} variables"
+    },
+    "sections": {
+      "type": "string",
+      "description": "JSON array of included sections (campaign_overview, deliverables, timeline, budget, terms, etc.)"
+    },
+    "placeholder_fields": {
+      "type": "string",
+      "description": "JSON array of placeholder field names used in this template"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Creator email (brand)"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": false,
+      "description": "Available for all brands to use"
+    },
+    "is_system": {
+      "type": "boolean",
+      "default": false,
+      "description": "System default templates"
+    }
+  },
+  "required": [
+    "name",
+    "category"
+  ]
+}

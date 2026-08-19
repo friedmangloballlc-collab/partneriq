@@ -1,0 +1,37 @@
+{
+  "name": "DemographicSegment",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Demographic segment name"
+    },
+    "population_size": {
+      "type": "string",
+      "description": "Population size and statistics"
+    },
+    "buying_power": {
+      "type": "string",
+      "description": "Buying power and economic impact"
+    },
+    "top_events": {
+      "type": "string",
+      "description": "Top events and occasions"
+    },
+    "key_cultural_moments": {
+      "type": "string",
+      "description": "Key cultural moments and awareness months"
+    },
+    "media_preferences": {
+      "type": "string",
+      "description": "Preferred media channels and platforms"
+    },
+    "brand_activation_tips": {
+      "type": "string",
+      "description": "Brand activation strategies and tips"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

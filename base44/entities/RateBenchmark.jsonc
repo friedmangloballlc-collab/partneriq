@@ -1,0 +1,55 @@
+{
+  "name": "RateBenchmark",
+  "type": "object",
+  "properties": {
+    "tier": {
+      "type": "string",
+      "enum": [
+        "nano",
+        "micro",
+        "mid",
+        "macro",
+        "mega",
+        "celebrity"
+      ],
+      "description": "Creator tier based on follower count"
+    },
+    "followers_min": {
+      "type": "number",
+      "description": "Minimum followers for this tier"
+    },
+    "followers_max": {
+      "type": "number",
+      "description": "Maximum followers for this tier"
+    },
+    "sponsored_post_min": {
+      "type": "number",
+      "description": "Minimum rate for sponsored post"
+    },
+    "sponsored_post_max": {
+      "type": "number",
+      "description": "Maximum rate for sponsored post"
+    },
+    "brand_deal_min": {
+      "type": "number",
+      "description": "Minimum rate for brand deal"
+    },
+    "brand_deal_max": {
+      "type": "number",
+      "description": "Maximum rate for brand deal"
+    },
+    "ambassador_annual_min": {
+      "type": "number",
+      "description": "Minimum rate for annual ambassador deal"
+    },
+    "ambassador_annual_max": {
+      "type": "number",
+      "description": "Maximum rate for annual ambassador deal"
+    }
+  },
+  "required": [
+    "tier",
+    "followers_min",
+    "followers_max"
+  ]
+}

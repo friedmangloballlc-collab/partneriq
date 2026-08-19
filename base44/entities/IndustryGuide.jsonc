@@ -1,0 +1,61 @@
+{
+  "name": "IndustryGuide",
+  "type": "object",
+  "properties": {
+    "industry": {
+      "type": "string",
+      "description": "Industry name"
+    },
+    "sector": {
+      "type": "string",
+      "description": "Industry sector"
+    },
+    "priority_tier_1_events": {
+      "type": "string",
+      "description": "Must-attend Tier 1 events"
+    },
+    "tier_2_events": {
+      "type": "string",
+      "description": "High-value Tier 2 events"
+    },
+    "heritage_awareness_months": {
+      "type": "string",
+      "description": "Relevant awareness months"
+    },
+    "key_conferences": {
+      "type": "string",
+      "description": "Key conferences and trade shows"
+    },
+    "best_demographics": {
+      "type": "string",
+      "description": "Target demographics"
+    },
+    "budget_allocation": {
+      "type": "string",
+      "description": "Recommended budget allocation percentage"
+    },
+    "activation_strategies": {
+      "type": "string",
+      "description": "Top activation strategies"
+    },
+    "key_competitors": {
+      "type": "string",
+      "description": "Key competitors and competitive landscape overview"
+    },
+    "market_trends": {
+      "type": "string",
+      "description": "Current market trends and future outlook"
+    },
+    "recommended_marketing_channels": {
+      "type": "string",
+      "description": "Recommended marketing channels (social, traditional, digital, etc.)"
+    },
+    "budget_benchmarks": {
+      "type": "string",
+      "description": "Budget benchmarks and spending recommendations by channel"
+    }
+  },
+  "required": [
+    "industry"
+  ]
+}

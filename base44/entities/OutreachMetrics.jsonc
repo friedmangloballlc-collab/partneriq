@@ -1,0 +1,114 @@
+{
+  "name": "OutreachMetrics",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string",
+      "description": "Associated campaign or sequence ID"
+    },
+    "outreach_type": {
+      "type": "string",
+      "enum": [
+        "cold_brand_pitch",
+        "agency_application",
+        "opportunity_alert",
+        "follow_up_1",
+        "follow_up_2",
+        "follow_up_3_final",
+        "negotiation_response",
+        "deal_confirmation"
+      ],
+      "description": "Type of outreach"
+    },
+    "total_sent": {
+      "type": "number",
+      "default": 0,
+      "description": "Total emails sent"
+    },
+    "delivered": {
+      "type": "number",
+      "default": 0,
+      "description": "Successfully delivered"
+    },
+    "opened": {
+      "type": "number",
+      "default": 0,
+      "description": "Emails opened"
+    },
+    "replied": {
+      "type": "number",
+      "default": 0,
+      "description": "Emails replied to"
+    },
+    "bounced": {
+      "type": "number",
+      "default": 0,
+      "description": "Bounced emails"
+    },
+    "open_rate": {
+      "type": "number",
+      "description": "Percentage of emails opened"
+    },
+    "reply_rate": {
+      "type": "number",
+      "description": "Percentage of emails replied to"
+    },
+    "delivery_rate": {
+      "type": "number",
+      "description": "Percentage of emails delivered"
+    },
+    "conversion_rate": {
+      "type": "number",
+      "description": "Percentage converting to meetings/deals"
+    },
+    "avg_read_time": {
+      "type": "number",
+      "description": "Average time spent reading email in seconds"
+    },
+    "personalization_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "description": "Level of personalization used"
+    },
+    "ab_test_element": {
+      "type": "string",
+      "enum": [
+        "subject_line",
+        "opening_hook",
+        "value_proposition",
+        "cta",
+        "send_time",
+        "personalization_depth"
+      ],
+      "description": "Which element is being A/B tested"
+    },
+    "ab_variant": {
+      "type": "string",
+      "description": "Which variant of the A/B test"
+    },
+    "sample_size": {
+      "type": "number",
+      "description": "Sample size for A/B test"
+    },
+    "winning_variant": {
+      "type": "string",
+      "description": "Which variant won the A/B test"
+    },
+    "avg_send_time": {
+      "type": "string",
+      "description": "Optimal send time window"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Campaign notes and observations"
+    }
+  },
+  "required": [
+    "outreach_type"
+  ]
+}

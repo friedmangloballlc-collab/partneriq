@@ -1,0 +1,54 @@
+{
+  "name": "Activity",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "partnership_created",
+        "partnership_updated",
+        "outreach_sent",
+        "outreach_opened",
+        "outreach_replied",
+        "approval_approved",
+        "approval_rejected",
+        "talent_added",
+        "brand_added",
+        "match_generated",
+        "deal_closed",
+        "note_added"
+      ],
+      "description": "Type of activity"
+    },
+    "description": {
+      "type": "string"
+    },
+    "actor_email": {
+      "type": "string"
+    },
+    "actor_name": {
+      "type": "string"
+    },
+    "resource_type": {
+      "type": "string",
+      "enum": [
+        "partnership",
+        "talent",
+        "brand",
+        "outreach",
+        "approval"
+      ]
+    },
+    "resource_id": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON string with additional context"
+    }
+  },
+  "required": [
+    "action",
+    "description"
+  ]
+}

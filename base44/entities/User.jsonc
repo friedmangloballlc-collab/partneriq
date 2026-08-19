@@ -1,0 +1,40 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "brand",
+        "talent",
+        "agency"
+      ],
+      "default": "brand",
+      "description": "User type in the platform"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company or agency name"
+    },
+    "job_title": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "onboarded": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "company_name",
+    "job_title",
+    "phone",
+    "avatar_url"
+  ]
+}

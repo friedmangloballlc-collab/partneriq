@@ -1,0 +1,20 @@
+{
+  "name": "Team",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Team name"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string",
+      "description": "Email of the team owner"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

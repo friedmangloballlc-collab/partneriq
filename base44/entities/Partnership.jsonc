@@ -1,0 +1,94 @@
+{
+  "name": "Partnership",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Partnership deal title"
+    },
+    "brand_id": {
+      "type": "string",
+      "description": "Associated brand record ID"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "talent_id": {
+      "type": "string",
+      "description": "Associated talent record ID"
+    },
+    "talent_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "discovered",
+        "researching",
+        "outreach_pending",
+        "outreach_sent",
+        "responded",
+        "negotiating",
+        "contracted",
+        "active",
+        "completed",
+        "churned"
+      ],
+      "default": "discovered",
+      "description": "Pipeline status"
+    },
+    "partnership_type": {
+      "type": "string",
+      "enum": [
+        "sponsorship",
+        "affiliate",
+        "ambassador",
+        "content_creation",
+        "event",
+        "product_seeding",
+        "licensing"
+      ],
+      "description": "Type of partnership deal"
+    },
+    "match_score": {
+      "type": "number",
+      "description": "AI match score 0-100"
+    },
+    "match_reasoning": {
+      "type": "string",
+      "description": "AI explanation of the match"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "p0",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "default": "p2"
+    },
+    "deal_value": {
+      "type": "number",
+      "description": "Estimated or actual deal value USD"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Assigned user email"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

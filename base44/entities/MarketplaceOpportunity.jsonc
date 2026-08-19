@@ -1,0 +1,111 @@
+{
+  "name": "MarketplaceOpportunity",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Opportunity title/campaign name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed campaign description"
+    },
+    "brand_id": {
+      "type": "string",
+      "description": "Associated brand ID"
+    },
+    "brand_name": {
+      "type": "string",
+      "description": "Brand name for display"
+    },
+    "campaign_details": {
+      "type": "string",
+      "description": "JSON object with campaign specifics"
+    },
+    "budget_min": {
+      "type": "number",
+      "description": "Minimum budget in USD"
+    },
+    "budget_max": {
+      "type": "number",
+      "description": "Maximum budget in USD"
+    },
+    "deliverables": {
+      "type": "string",
+      "description": "JSON array of deliverables (posts, videos, appearances, etc.)"
+    },
+    "required_niches": {
+      "type": "string",
+      "description": "Comma-separated required niches"
+    },
+    "required_platforms": {
+      "type": "string",
+      "description": "Comma-separated required social platforms"
+    },
+    "target_audience_size_min": {
+      "type": "number",
+      "description": "Minimum required followers"
+    },
+    "target_audience_size_max": {
+      "type": "number",
+      "description": "Maximum required followers (optional)"
+    },
+    "contract_type": {
+      "type": "string",
+      "enum": [
+        "sponsorship",
+        "affiliate",
+        "ambassador",
+        "content_creation",
+        "partnership",
+        "event",
+        "other"
+      ],
+      "description": "Type of collaboration"
+    },
+    "timeline_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign start date"
+    },
+    "timeline_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign end date"
+    },
+    "attachment_urls": {
+      "type": "string",
+      "description": "JSON array of file URLs (media kits, guidelines)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "closed",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Opportunity status"
+    },
+    "applications_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of applications received"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a featured/premium listing"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Brand email that created this"
+    }
+  },
+  "required": [
+    "title",
+    "brand_id",
+    "contract_type"
+  ]
+}

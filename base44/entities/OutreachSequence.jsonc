@@ -1,0 +1,87 @@
+{
+  "name": "OutreachSequence",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "partnership_id": {
+      "type": "string"
+    },
+    "target_email": {
+      "type": "string"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "target_company": {
+      "type": "string"
+    },
+    "target_role": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "in_app"
+      ],
+      "default": "email"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "draft"
+    },
+    "steps": {
+      "type": "string",
+      "description": "JSON array of sequence steps with subject, body, delay_days, email_type, scheduled_time"
+    },
+    "current_step": {
+      "type": "number",
+      "default": 0
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "total_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "total_opened": {
+      "type": "number",
+      "default": 0
+    },
+    "total_replied": {
+      "type": "number",
+      "default": 0
+    },
+    "total_clicked": {
+      "type": "number",
+      "default": 0
+    },
+    "open_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "reply_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "last_sent_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

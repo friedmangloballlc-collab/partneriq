@@ -1,0 +1,176 @@
+{
+  "name": "Talent",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name of the talent/creator"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "primary_platform": {
+      "type": "string",
+      "enum": [
+        "instagram",
+        "tiktok",
+        "youtube",
+        "twitter",
+        "twitch",
+        "linkedin"
+      ],
+      "description": "Main social media platform"
+    },
+    "niche": {
+      "type": "string",
+      "enum": [
+        "tech",
+        "lifestyle",
+        "fitness",
+        "beauty",
+        "gaming",
+        "food",
+        "travel",
+        "fashion",
+        "finance",
+        "education",
+        "entertainment",
+        "sports",
+        "music",
+        "health",
+        "business",
+        "other"
+      ],
+      "description": "Content niche/category"
+    },
+    "total_followers": {
+      "type": "number",
+      "description": "Total follower count across platforms"
+    },
+    "engagement_rate": {
+      "type": "number",
+      "description": "Average engagement rate percentage"
+    },
+    "audience_quality_score": {
+      "type": "number",
+      "description": "Audience quality score 0-100"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "nano",
+        "micro",
+        "mid",
+        "macro",
+        "mega",
+        "celebrity"
+      ],
+      "description": "Influencer tier based on followers"
+    },
+    "location": {
+      "type": "string",
+      "description": "Geographic location"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Short biography"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Profile image URL"
+    },
+    "instagram_url": {
+      "type": "string"
+    },
+    "tiktok_url": {
+      "type": "string"
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "twitter_url": {
+      "type": "string"
+    },
+    "avg_likes": {
+      "type": "number"
+    },
+    "avg_comments": {
+      "type": "number"
+    },
+    "avg_views": {
+      "type": "number"
+    },
+    "rate_per_post": {
+      "type": "number",
+      "description": "Standard rate per sponsored post in USD"
+    },
+    "brand_safety_score": {
+      "type": "number",
+      "description": "Brand safety score 0-100"
+    },
+    "trajectory": {
+      "type": "string",
+      "enum": [
+        "rising_star",
+        "steady_growth",
+        "plateau",
+        "declining",
+        "breakout"
+      ],
+      "description": "Growth trajectory classification"
+    },
+    "discovery_alpha_score": {
+      "type": "number",
+      "description": "Undervaluation score - higher means more upside"
+    },
+    "languages": {
+      "type": "string",
+      "description": "Comma-separated languages"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags"
+    },
+    "agency_id": {
+      "type": "string",
+      "description": "Associated agency record ID"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "under_review"
+      ],
+      "default": "active"
+    },
+    "expertise_areas": {
+      "type": "string",
+      "description": "Comma-separated areas of expertise (e.g., product reviews, tutorials, storytelling)"
+    },
+    "preferred_collaboration_types": {
+      "type": "string",
+      "description": "JSON array of preferred collaboration types (sponsorship, affiliate, ambassador, content_creation, partnership, event)"
+    },
+    "availability_status": {
+      "type": "string",
+      "enum": [
+        "actively_looking",
+        "open_for_offers",
+        "limited_availability",
+        "not_available"
+      ],
+      "default": "open_for_offers",
+      "description": "Current availability status for collaborations"
+    },
+    "portfolio": {
+      "type": "string",
+      "description": "JSON array of past collaboration portfolio items with metrics"
+    }
+  },
+  "required": [
+    "name",
+    "primary_platform"
+  ]
+}

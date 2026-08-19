@@ -1,0 +1,22 @@
+{
+  "name": "CategoryPremium",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "Deal category"
+    },
+    "premium_multiplier": {
+      "type": "number",
+      "description": "Premium multiplier applied to base rates"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Reason for the premium"
+    }
+  },
+  "required": [
+    "category",
+    "premium_multiplier"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "DealNote",
+  "type": "object",
+  "properties": {
+    "partnership_id": {
+      "type": "string",
+      "description": "Associated partnership ID"
+    },
+    "content": {
+      "type": "string",
+      "description": "Note content"
+    },
+    "author_email": {
+      "type": "string"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "note",
+        "update",
+        "decision",
+        "blocker"
+      ],
+      "default": "note"
+    }
+  },
+  "required": [
+    "partnership_id",
+    "content"
+  ]
+}

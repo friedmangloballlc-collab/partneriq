@@ -1,0 +1,61 @@
+{
+  "name": "Task",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "partnership_id": {
+      "type": "string",
+      "description": "Linked partnership ID (optional)"
+    },
+    "outreach_email_id": {
+      "type": "string",
+      "description": "Linked outreach email ID (optional)"
+    },
+    "assigned_to_email": {
+      "type": "string",
+      "description": "Assignee email"
+    },
+    "assigned_to_name": {
+      "type": "string"
+    },
+    "assigned_by_email": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "todo",
+        "in_progress",
+        "done",
+        "blocked"
+      ],
+      "default": "todo"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "context_label": {
+      "type": "string",
+      "description": "Deal or outreach label for display"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

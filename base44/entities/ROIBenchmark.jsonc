@@ -1,0 +1,38 @@
+{
+  "name": "ROIBenchmark",
+  "type": "object",
+  "properties": {
+    "deal_type": {
+      "type": "string",
+      "enum": [
+        "sponsored_post",
+        "brand_ambassador",
+        "endorsement_deal",
+        "product_collaboration",
+        "equity_partnership",
+        "licensing_deal"
+      ],
+      "description": "Type of deal"
+    },
+    "median_roi": {
+      "type": "number",
+      "description": "Median ROI multiplier"
+    },
+    "top_quartile_roi": {
+      "type": "number",
+      "description": "Top quartile ROI"
+    },
+    "bottom_quartile_roi": {
+      "type": "number",
+      "description": "Bottom quartile ROI"
+    },
+    "measurement_period": {
+      "type": "string",
+      "description": "Time period over which ROI is measured"
+    }
+  },
+  "required": [
+    "deal_type",
+    "median_roi"
+  ]
+}

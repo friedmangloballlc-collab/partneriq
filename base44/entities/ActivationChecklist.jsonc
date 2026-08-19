@@ -1,0 +1,40 @@
+{
+  "name": "ActivationChecklist",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "Type of event"
+    },
+    "timeline": {
+      "type": "string",
+      "description": "Timeline milestone"
+    },
+    "task": {
+      "type": "string",
+      "description": "Task to complete"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Owner/responsible party"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "Task priority"
+    }
+  },
+  "required": [
+    "event_type",
+    "task"
+  ]
+}

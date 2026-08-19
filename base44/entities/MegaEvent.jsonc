@@ -1,0 +1,45 @@
+{
+  "name": "MegaEvent",
+  "type": "object",
+  "properties": {
+    "event_name": {
+      "type": "string",
+      "description": "Name of the mega event"
+    },
+    "year": {
+      "type": "number",
+      "description": "Year of the event"
+    },
+    "global_reach": {
+      "type": "string",
+      "description": "Global reach and viewership"
+    },
+    "us_viewership": {
+      "type": "string",
+      "description": "US viewership projections"
+    },
+    "format_details": {
+      "type": "string",
+      "description": "Event format and details"
+    },
+    "key_facts": {
+      "type": "string",
+      "description": "Key facts and highlights"
+    },
+    "dates": {
+      "type": "string",
+      "description": "Event dates"
+    },
+    "planning_urgency": {
+      "type": "string",
+      "description": "Planning urgency and action required"
+    },
+    "competitive_landscape": {
+      "type": "string",
+      "description": "Current competitors and sponsors"
+    }
+  },
+  "required": [
+    "event_name"
+  ]
+}

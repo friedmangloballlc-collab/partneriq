@@ -1,0 +1,103 @@
+{
+  "name": "PartnershipProposal",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Proposal title"
+    },
+    "opportunity_id": {
+      "type": "string",
+      "description": "Associated marketplace opportunity ID (if from marketplace)"
+    },
+    "application_id": {
+      "type": "string",
+      "description": "Associated application ID (if auto-generated from application)"
+    },
+    "brand_id": {
+      "type": "string",
+      "description": "Brand ID"
+    },
+    "brand_name": {
+      "type": "string",
+      "description": "Brand name"
+    },
+    "talent_id": {
+      "type": "string",
+      "description": "Talent ID"
+    },
+    "talent_name": {
+      "type": "string",
+      "description": "Talent name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "accepted",
+        "declined",
+        "countered",
+        "expired"
+      ],
+      "default": "draft",
+      "description": "Proposal status"
+    },
+    "campaign_details": {
+      "type": "string",
+      "description": "JSON object with campaign specifics"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Agreed budget amount"
+    },
+    "deliverables": {
+      "type": "string",
+      "description": "JSON array of deliverables"
+    },
+    "expectations": {
+      "type": "string",
+      "description": "Campaign expectations and requirements"
+    },
+    "proposal_template_id": {
+      "type": "string",
+      "description": "Template used to generate this proposal"
+    },
+    "attachment_urls": {
+      "type": "string",
+      "description": "JSON array of attached file URLs"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When proposal was created"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When proposal was sent"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Proposal expiration date"
+    },
+    "counter_proposal_from": {
+      "type": "string",
+      "enum": [
+        "brand",
+        "talent"
+      ],
+      "description": "Who made the counter-proposal"
+    },
+    "counter_details": {
+      "type": "string",
+      "description": "JSON object with counter-proposal changes"
+    }
+  },
+  "required": [
+    "title",
+    "brand_id",
+    "talent_id"
+  ]
+}
